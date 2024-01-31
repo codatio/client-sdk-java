@@ -1,0 +1,22 @@
+configVersion: 1.0.0
+management:
+  docChecksum: '00000000000000000000000000000000'
+  docVersion: 2.1.0
+  speakeasyVersion: 1.53.0
+  generationVersion: 2.58.0
+generation:
+  sdkClassName: CodatSyncPayables
+  telemetryEnabled: true
+java:
+  version: 0.0.0
+  author: Codat
+  description: Streamline your customers' accounts payable workflow.
+  maxMethodParams: 0
+  groupID: io.codat
+  artifactID: codat-sync-for-payables
+  ossrhURL: https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/
+  githubURL: github.com/codatio/client-sdk-java
+  companyName: Codat
+  companyURL: https://www.codat.io/
+  companyEmail: support@codat.io
+  templateVersion: v2
