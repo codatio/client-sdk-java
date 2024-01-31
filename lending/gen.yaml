@@ -16,7 +16,7 @@ java:
   groupID: io.codat
   artifactID: codat-lending
   ossrhURL: https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/
-  githubURL: github.com/codatio/client-sdk-java
+  githubURL: github.com/codatio/client-sdk-java/lending
   companyName: Codat
   companyURL: https://www.codat.io/
   companyEmail: support@codat.io
