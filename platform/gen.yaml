@@ -14,9 +14,9 @@ java:
     and more.
   maxMethodParams: 0
   groupID: io.codat
-  artifactID: codat-platform
+  artifactID: platform
   ossrhURL: https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/
-  githubURL: github.com/codatio/client-sdk-java
+  githubURL: github.com/codatio/client-sdk-java/platform
   companyName: Codat
   companyURL: https://www.codat.io/
   companyEmail: support@codat.io

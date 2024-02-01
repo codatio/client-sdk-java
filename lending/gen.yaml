@@ -14,7 +14,7 @@ java:
     and data integrity features.
   maxMethodParams: 0
   groupID: io.codat
-  artifactID: codat-lending
+  artifactID: lending
   ossrhURL: https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/
   githubURL: github.com/codatio/client-sdk-java/lending
   companyName: Codat
