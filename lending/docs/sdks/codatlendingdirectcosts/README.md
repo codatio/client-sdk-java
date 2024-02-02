@@ -1,0 +1,382 @@
+# CodatLendingDirectCosts
+(*transactions().directCosts()*)
+
+### Available Operations
+
+* [downloadAccountingDirectCostAttachment](#downloadaccountingdirectcostattachment) - Download direct cost attachment
+* [getAccountingDirectCost](#getaccountingdirectcost) - Get direct cost
+* [getAccountingDirectCostAttachment](#getaccountingdirectcostattachment) - Get direct cost attachment
+* [listAccountingDirectCosts](#listaccountingdirectcosts) - List direct costs
+* [listAccountingDirectCostAttachments](#listaccountingdirectcostattachments) - List direct cost attachments
+
+## downloadAccountingDirectCostAttachment
+
+The *Download direct cost attachment* endpoint downloads a specific attachment for a given `directCostId` and `attachmentId`.
+
+[Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are purchases of items that are paid off at the point of the purchase.
+
+Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=directCosts) for integrations that support downloading a direct cost attachment.
+
+
+### Example Usage
+
+```java
+package hello.world;
+
+import io.codat.lending.CodatLending;
+import io.codat.lending.models.operations.*;
+import io.codat.lending.models.operations.DownloadAccountingDirectCostAttachmentRequest;
+import io.codat.lending.models.operations.DownloadAccountingDirectCostAttachmentResponse;
+import io.codat.lending.models.shared.*;
+import io.codat.lending.models.shared.Security;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import static java.util.Map.entry;
+
+public class Application {
+
+    public static void main(String[] args) {
+        try {
+            CodatLending sdk = CodatLending.builder()
+                .security(Security.builder()
+                    .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+                    .build())
+                .build();
+
+            DownloadAccountingDirectCostAttachmentRequest req = DownloadAccountingDirectCostAttachmentRequest.builder()
+                .attachmentId("8a210b68-6988-11ed-a1eb-0242ac120002")
+                .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
+                .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
+                .directCostId("string")
+                .build();
+
+            DownloadAccountingDirectCostAttachmentResponse res = sdk.transactions().directCosts().downloadAccountingDirectCostAttachment()
+                .request(req)
+                .call();
+
+            if (res.data().isPresent()) {
+                // handle response
+            }
+
+        } catch (io.codat.lending.models.errors.SDKError e) {
+            // handle exception
+        } catch (Exception e) {
+            // handle exception
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                    | Type                                                                                                                                                         | Required                                                                                                                                                     | Description                                                                                                                                                  |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                    | [io.codat.lending.models.operations.DownloadAccountingDirectCostAttachmentRequest](../../models/operations/DownloadAccountingDirectCostAttachmentRequest.md) | :heavy_check_mark:                                                                                                                                           | The request object to use for the request.                                                                                                                   |
+
+
+### Response
+
+**[Optional<? extends io.codat.lending.models.operations.DownloadAccountingDirectCostAttachmentResponse>](../../models/operations/DownloadAccountingDirectCostAttachmentResponse.md)**
+### Errors
+
+| Error Object          | Status Code           | Content Type          |
+| --------------------- | --------------------- | --------------------- |
+| models/errorsSDKError | 4xx-5xx               | */*                   |
+
+## getAccountingDirectCost
+
+The *Get direct cost* endpoint returns a single direct cost for a given directCostId.
+
+[Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are purchases of items that are paid off at the point of the purchase.
+
+Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=directCosts) for integrations that support getting a specific direct cost.
+
+Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
+
+
+### Example Usage
+
+```java
+package hello.world;
+
+import io.codat.lending.CodatLending;
+import io.codat.lending.models.operations.*;
+import io.codat.lending.models.operations.GetAccountingDirectCostRequest;
+import io.codat.lending.models.operations.GetAccountingDirectCostResponse;
+import io.codat.lending.models.shared.*;
+import io.codat.lending.models.shared.Security;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import static java.util.Map.entry;
+
+public class Application {
+
+    public static void main(String[] args) {
+        try {
+            CodatLending sdk = CodatLending.builder()
+                .security(Security.builder()
+                    .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+                    .build())
+                .build();
+
+            GetAccountingDirectCostRequest req = GetAccountingDirectCostRequest.builder()
+                .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
+                .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
+                .directCostId("string")
+                .build();
+
+            GetAccountingDirectCostResponse res = sdk.transactions().directCosts().getAccountingDirectCost()
+                .request(req)
+                .call();
+
+            if (res.accountingDirectCost().isPresent()) {
+                // handle response
+            }
+
+        } catch (io.codat.lending.models.errors.SDKError e) {
+            // handle exception
+        } catch (Exception e) {
+            // handle exception
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                      | Type                                                                                                                           | Required                                                                                                                       | Description                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                      | [io.codat.lending.models.operations.GetAccountingDirectCostRequest](../../models/operations/GetAccountingDirectCostRequest.md) | :heavy_check_mark:                                                                                                             | The request object to use for the request.                                                                                     |
+
+
+### Response
+
+**[Optional<? extends io.codat.lending.models.operations.GetAccountingDirectCostResponse>](../../models/operations/GetAccountingDirectCostResponse.md)**
+### Errors
+
+| Error Object          | Status Code           | Content Type          |
+| --------------------- | --------------------- | --------------------- |
+| models/errorsSDKError | 4xx-5xx               | */*                   |
+
+## getAccountingDirectCostAttachment
+
+The *Get direct cost attachment* endpoint returns a specific attachment for a given `directCostId` and `attachmentId`.
+
+[Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are purchases of items that are paid off at the point of the purchase.
+
+Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=directCosts) for integrations that support getting a direct cost attachment.
+
+
+### Example Usage
+
+```java
+package hello.world;
+
+import io.codat.lending.CodatLending;
+import io.codat.lending.models.operations.*;
+import io.codat.lending.models.operations.GetAccountingDirectCostAttachmentRequest;
+import io.codat.lending.models.operations.GetAccountingDirectCostAttachmentResponse;
+import io.codat.lending.models.shared.*;
+import io.codat.lending.models.shared.Security;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import static java.util.Map.entry;
+
+public class Application {
+
+    public static void main(String[] args) {
+        try {
+            CodatLending sdk = CodatLending.builder()
+                .security(Security.builder()
+                    .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+                    .build())
+                .build();
+
+            GetAccountingDirectCostAttachmentRequest req = GetAccountingDirectCostAttachmentRequest.builder()
+                .attachmentId("8a210b68-6988-11ed-a1eb-0242ac120002")
+                .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
+                .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
+                .directCostId("string")
+                .build();
+
+            GetAccountingDirectCostAttachmentResponse res = sdk.transactions().directCosts().getAccountingDirectCostAttachment()
+                .request(req)
+                .call();
+
+            if (res.accountingAttachment().isPresent()) {
+                // handle response
+            }
+
+        } catch (io.codat.lending.models.errors.SDKError e) {
+            // handle exception
+        } catch (Exception e) {
+            // handle exception
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                          | Type                                                                                                                                               | Required                                                                                                                                           | Description                                                                                                                                        |
+| -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `request`                                                                                                                                          | [io.codat.lending.models.operations.GetAccountingDirectCostAttachmentRequest](../../models/operations/GetAccountingDirectCostAttachmentRequest.md) | :heavy_check_mark:                                                                                                                                 | The request object to use for the request.                                                                                                         |
+
+
+### Response
+
+**[Optional<? extends io.codat.lending.models.operations.GetAccountingDirectCostAttachmentResponse>](../../models/operations/GetAccountingDirectCostAttachmentResponse.md)**
+### Errors
+
+| Error Object          | Status Code           | Content Type          |
+| --------------------- | --------------------- | --------------------- |
+| models/errorsSDKError | 4xx-5xx               | */*                   |
+
+## listAccountingDirectCosts
+
+The *List direct costs* endpoint returns a list of [direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) for a given company's connection.
+
+[Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are purchases of items that are paid off at the point of the purchase.
+
+Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
+    
+
+### Example Usage
+
+```java
+package hello.world;
+
+import io.codat.lending.CodatLending;
+import io.codat.lending.models.operations.*;
+import io.codat.lending.models.operations.ListAccountingDirectCostsRequest;
+import io.codat.lending.models.operations.ListAccountingDirectCostsResponse;
+import io.codat.lending.models.shared.*;
+import io.codat.lending.models.shared.Security;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import static java.util.Map.entry;
+
+public class Application {
+
+    public static void main(String[] args) {
+        try {
+            CodatLending sdk = CodatLending.builder()
+                .security(Security.builder()
+                    .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+                    .build())
+                .build();
+
+            ListAccountingDirectCostsRequest req = ListAccountingDirectCostsRequest.builder()
+                .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
+                .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
+                .orderBy("-modifiedDate")
+                .page(1)
+                .pageSize(100)
+                .query("string")
+                .build();
+
+            ListAccountingDirectCostsResponse res = sdk.transactions().directCosts().listAccountingDirectCosts()
+                .request(req)
+                .call();
+
+            if (res.accountingDirectCosts().isPresent()) {
+                // handle response
+            }
+
+        } catch (io.codat.lending.models.errors.SDKError e) {
+            // handle exception
+        } catch (Exception e) {
+            // handle exception
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                          | Type                                                                                                                               | Required                                                                                                                           | Description                                                                                                                        |
+| ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `request`                                                                                                                          | [io.codat.lending.models.operations.ListAccountingDirectCostsRequest](../../models/operations/ListAccountingDirectCostsRequest.md) | :heavy_check_mark:                                                                                                                 | The request object to use for the request.                                                                                         |
+
+
+### Response
+
+**[Optional<? extends io.codat.lending.models.operations.ListAccountingDirectCostsResponse>](../../models/operations/ListAccountingDirectCostsResponse.md)**
+### Errors
+
+| Error Object          | Status Code           | Content Type          |
+| --------------------- | --------------------- | --------------------- |
+| models/errorsSDKError | 4xx-5xx               | */*                   |
+
+## listAccountingDirectCostAttachments
+
+The *List direct cost attachments* endpoint returns a list of attachments available to download for given `directCostId`.
+
+[Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are purchases of items that are paid off at the point of the purchase.
+
+Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=directCosts) for integrations that support listing direct cost attachments.
+
+
+### Example Usage
+
+```java
+package hello.world;
+
+import io.codat.lending.CodatLending;
+import io.codat.lending.models.operations.*;
+import io.codat.lending.models.operations.ListAccountingDirectCostAttachmentsRequest;
+import io.codat.lending.models.operations.ListAccountingDirectCostAttachmentsResponse;
+import io.codat.lending.models.shared.*;
+import io.codat.lending.models.shared.Security;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import static java.util.Map.entry;
+
+public class Application {
+
+    public static void main(String[] args) {
+        try {
+            CodatLending sdk = CodatLending.builder()
+                .security(Security.builder()
+                    .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+                    .build())
+                .build();
+
+            ListAccountingDirectCostAttachmentsRequest req = ListAccountingDirectCostAttachmentsRequest.builder()
+                .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
+                .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
+                .directCostId("string")
+                .build();
+
+            ListAccountingDirectCostAttachmentsResponse res = sdk.transactions().directCosts().listAccountingDirectCostAttachments()
+                .request(req)
+                .call();
+
+            if (res.attachments().isPresent()) {
+                // handle response
+            }
+
+        } catch (io.codat.lending.models.errors.SDKError e) {
+            // handle exception
+        } catch (Exception e) {
+            // handle exception
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                              | Type                                                                                                                                                   | Required                                                                                                                                               | Description                                                                                                                                            |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                              | [io.codat.lending.models.operations.ListAccountingDirectCostAttachmentsRequest](../../models/operations/ListAccountingDirectCostAttachmentsRequest.md) | :heavy_check_mark:                                                                                                                                     | The request object to use for the request.                                                                                                             |
+
+
+### Response
+
+**[Optional<? extends io.codat.lending.models.operations.ListAccountingDirectCostAttachmentsResponse>](../../models/operations/ListAccountingDirectCostAttachmentsResponse.md)**
+### Errors
+
+| Error Object          | Status Code           | Content Type          |
+| --------------------- | --------------------- | --------------------- |
+| models/errorsSDKError | 4xx-5xx               | */*                   |
