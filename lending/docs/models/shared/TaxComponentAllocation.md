@@ -1,0 +1,9 @@
+# TaxComponentAllocation
+
+
+## Fields
+
+| Field                                                                                                        | Type                                                                                                         | Required                                                                                                     | Description                                                                                                  |
+| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| `rate`                                                                                                       | *JsonNullable<? extends Double>*                                                                             | :heavy_minus_sign:                                                                                           | Tax amount on order line sale as available from source commerce platform.                                    |
+| `taxComponentRef`                                                                                            | [Optional<? extends io.codat.lending.models.shared.TaxComponentRef>](../../models/shared/TaxComponentRef.md) | :heavy_minus_sign:                                                                                           | Taxes rates reference object depending on the rates being available on source commerce package.              |

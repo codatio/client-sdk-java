@@ -1,0 +1,9 @@
+# PushValidationInfo
+
+
+## Fields
+
+| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `information`                                                                                          | List<[io.codat.lending.models.shared.PushFieldValidation](../../models/shared/PushFieldValidation.md)> | :heavy_minus_sign:                                                                                     | N/A                                                                                                    |
+| `warnings`                                                                                             | List<[io.codat.lending.models.shared.PushFieldValidation](../../models/shared/PushFieldValidation.md)> | :heavy_minus_sign:                                                                                     | N/A                                                                                                    |
