@@ -13,9 +13,9 @@ java:
   description: Streamline your customers' accounts payable workflow.
   maxMethodParams: 0
   groupID: io.codat
-  artifactID: codat-sync-for-payables
+  artifactID: sync-for-payables
   ossrhURL: https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/
-  githubURL: github.com/codatio/client-sdk-java
+  githubURL: github.com/codatio/client-sdk-java/sync-for-payables
   companyName: Codat
   companyURL: https://www.codat.io/
   companyEmail: support@codat.io

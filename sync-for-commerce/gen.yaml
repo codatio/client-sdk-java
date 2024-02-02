@@ -14,9 +14,9 @@ java:
     into your merchants' accounting platform.
   maxMethodParams: 0
   groupID: io.codat
-  artifactID: codat-sync-for-commerce
+  artifactID: sync-for-commerce
   ossrhURL: https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/
-  githubURL: github.com/codatio/client-sdk-java
+  githubURL: github.com/codatio/client-sdk-java/sync-for-commerce
   companyName: Codat
   companyURL: https://www.codat.io/
   companyEmail: support@codat.io
