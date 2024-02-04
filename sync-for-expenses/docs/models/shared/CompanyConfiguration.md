@@ -1,0 +1,10 @@
+# CompanyConfiguration
+
+
+## Fields
+
+| Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `bankAccount`                                                                                      | [io.codat.sync_for_expenses.models.shared.BankAccount](../../models/shared/BankAccount.md)         | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `customer`                                                                                         | [io.codat.sync_for_expenses.models.shared.CustomerDetails](../../models/shared/CustomerDetails.md) | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `supplier`                                                                                         | [io.codat.sync_for_expenses.models.shared.SupplierDetails](../../models/shared/SupplierDetails.md) | :heavy_check_mark:                                                                                 | N/A                                                                                                |
