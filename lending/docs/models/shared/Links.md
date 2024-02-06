@@ -1,0 +1,11 @@
+# Links
+
+
+## Fields
+
+| Field                                                                                      | Type                                                                                       | Required                                                                                   | Description                                                                                |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| `current`                                                                                  | [io.codat.lending.models.shared.HalRef](../../models/shared/HalRef.md)                     | :heavy_check_mark:                                                                         | N/A                                                                                        |
+| `next`                                                                                     | [Optional<? extends io.codat.lending.models.shared.HalRef>](../../models/shared/HalRef.md) | :heavy_minus_sign:                                                                         | N/A                                                                                        |
+| `previous`                                                                                 | [Optional<? extends io.codat.lending.models.shared.HalRef>](../../models/shared/HalRef.md) | :heavy_minus_sign:                                                                         | N/A                                                                                        |
+| `self`                                                                                     | [io.codat.lending.models.shared.HalRef](../../models/shared/HalRef.md)                     | :heavy_check_mark:                                                                         | N/A                                                                                        |
