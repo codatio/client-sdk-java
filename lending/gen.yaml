@@ -9,7 +9,7 @@ generation:
     requestResponseComponentNamesFeb2024: false
   telemetryEnabled: true
 java:
-  version: 0.1.0
+  version: 1.0.0
   artifactID: lending
   author: Codat
   companyEmail: support@codat.io
