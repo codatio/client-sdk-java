@@ -4,9 +4,9 @@ management:
   docChecksum: 75b71118dcdab4fd9f73f141612eaae4
   docVersion: 3.0.0
   speakeasyVersion: internal
-  generationVersion: 2.250.19
-  releaseVersion: 0.1.1
-  configChecksum: 3d57fce0f376a079861290114049e3ff
+  generationVersion: 2.250.21
+  releaseVersion: 0.1.2
+  configChecksum: 08c6ca1d27be321091efb21a6d9f5886
   repoURL: https://github.com/codatio/client-sdk-java.git
   repoSubDirectory: platform
   published: true
