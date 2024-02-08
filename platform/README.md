@@ -10,7 +10,7 @@ Manage the building blocks of Codat, including companies, connections, and more.
 ### Gradle
 
 ```groovy
-implementation 'io.codat.platform:openapi:0.1.1'
+implementation 'io.codat.platform:openapi:0.1.2'
 ```
 <!-- End SDK Installation [installation] -->
 
