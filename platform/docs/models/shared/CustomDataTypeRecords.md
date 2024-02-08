@@ -1,0 +1,13 @@
+# CustomDataTypeRecords
+
+Resulting records pulled from the source platform for a specific custom data type.
+
+
+## Fields
+
+| Field                                                                                                     | Type                                                                                                      | Required                                                                                                  | Description                                                                                               |
+| --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `pageNumber`                                                                                              | *Optional<? extends Long>*                                                                                | :heavy_minus_sign:                                                                                        | Current page number.                                                                                      |
+| `pageSize`                                                                                                | *Optional<? extends Long>*                                                                                | :heavy_minus_sign:                                                                                        | Number of items to return in results array.                                                               |
+| `results`                                                                                                 | List<[io.codat.platform.models.shared.CustomDataTypeRecord](../../models/shared/CustomDataTypeRecord.md)> | :heavy_minus_sign:                                                                                        | N/A                                                                                                       |
+| `totalResults`                                                                                            | *Optional<? extends Long>*                                                                                | :heavy_minus_sign:                                                                                        | Total number of items.                                                                                    |

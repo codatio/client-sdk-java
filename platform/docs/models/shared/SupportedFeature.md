@@ -1,0 +1,9 @@
+# SupportedFeature
+
+
+## Fields
+
+| Field                                                                               | Type                                                                                | Required                                                                            | Description                                                                         | Example                                                                             |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `featureState`                                                                      | [io.codat.platform.models.shared.FeatureState](../../models/shared/FeatureState.md) | :heavy_check_mark:                                                                  | The current release state of the feature.                                           | Release                                                                             |
+| `featureType`                                                                       | [io.codat.platform.models.shared.FeatureType](../../models/shared/FeatureType.md)   | :heavy_check_mark:                                                                  | The type of feature.                                                                | Get                                                                                 |

@@ -1,0 +1,10 @@
+# CustomDataTypeRecord
+
+
+## Fields
+
+| Field                                                                                                   | Type                                                                                                    | Required                                                                                                | Description                                                                                             |
+| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `content`                                                                                               | Map<String, [io.codat.platform.models.shared.Content](../../models/shared/Content.md)>                  | :heavy_minus_sign:                                                                                      | Values from the source system for the properties defined in the custom data type configuration.         |
+| `id`                                                                                                    | *Optional<? extends String>*                                                                            | :heavy_minus_sign:                                                                                      | Unique identifier of the record.                                                                        |
+| `modifiedDate`                                                                                          | [Optional<? extends io.codat.platform.models.shared.ModifiedDate>](../../models/shared/ModifiedDate.md) | :heavy_minus_sign:                                                                                      | N/A                                                                                                     |
