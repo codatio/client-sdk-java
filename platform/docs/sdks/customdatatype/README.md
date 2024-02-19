@@ -40,6 +40,7 @@ import io.codat.platform.models.shared.CustomDataTypeConfiguration;
 import io.codat.platform.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -56,13 +57,13 @@ public class Application {
                 .customDataIdentifier("DynamicsPurchaseOrders")
                 .platformKey("gbol")
                 .customDataTypeConfiguration(CustomDataTypeConfiguration.builder()
-                    .dataSource("string")
+                    .dataSource("<value>")
                     .keyBy(java.util.List.of(
-                        "string"))
+                        "<value>"))
                     .requiredData(java.util.Map.ofEntries(
-                        entry("key", "string")))
+                        entry("key", "<value>")))
                     .sourceModifiedDate(java.util.List.of(
-                        "string"))
+                        "<value>"))
                     .build())
                 .build();
 
@@ -73,7 +74,6 @@ public class Application {
             if (res.customDataTypeConfiguration().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -118,6 +118,7 @@ import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -142,7 +143,6 @@ public class Application {
             if (res.customDataTypeRecords().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -187,6 +187,7 @@ import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -214,7 +215,6 @@ public class Application {
             if (res.customDataTypeRecords().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -257,6 +257,7 @@ import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -282,7 +283,6 @@ public class Application {
             if (res.pullOperation().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {

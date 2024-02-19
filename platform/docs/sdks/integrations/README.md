@@ -28,6 +28,7 @@ import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -51,7 +52,6 @@ public class Application {
             if (res.integration().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -94,6 +94,7 @@ import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -117,7 +118,6 @@ public class Application {
             if (res.branding().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -160,6 +160,7 @@ import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -176,7 +177,7 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("string")
+                .query("<value>")
                 .build();
 
             ListIntegrationsResponse res = sdk.integrations().list()
@@ -186,7 +187,6 @@ public class Application {
             if (res.integrations().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
