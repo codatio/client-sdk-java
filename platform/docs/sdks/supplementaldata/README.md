@@ -35,6 +35,7 @@ import io.codat.platform.models.shared.SupplementalDataConfiguration;
 import io.codat.platform.models.shared.SupplementalDataSourceConfiguration;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -53,10 +54,6 @@ public class Application {
                 .supplementalDataConfiguration(SupplementalDataConfiguration.builder()
                     .supplementalDataConfig(java.util.Map.ofEntries(
                         entry("key", SupplementalDataSourceConfiguration.builder()
-                            .pullData(java.util.Map.ofEntries(
-                                entry("key", "string")))
-                            .pushData(java.util.Map.ofEntries(
-                                entry("key", "string")))
                             .build())))
                     .build())
                 .build();
@@ -66,7 +63,6 @@ public class Application {
                 .call();
 
             // handle response
-
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -112,6 +108,7 @@ import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -136,7 +133,6 @@ public class Application {
             if (res.supplementalDataConfiguration().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {

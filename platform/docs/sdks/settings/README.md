@@ -42,6 +42,7 @@ import io.codat.platform.models.shared.CreateApiKey;
 import io.codat.platform.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -65,7 +66,6 @@ public class Application {
             if (res.apiKeyDetails().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -117,6 +117,7 @@ import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -140,7 +141,6 @@ public class Application {
             if (res.errorMessage().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -182,6 +182,7 @@ import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -200,7 +201,6 @@ public class Application {
             if (res.profile().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -236,6 +236,7 @@ import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -254,7 +255,6 @@ public class Application {
             if (res.syncSettings().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -294,6 +294,7 @@ import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -312,7 +313,6 @@ public class Application {
             if (res.apiKeys().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -349,6 +349,7 @@ import io.codat.platform.models.shared.Profile;
 import io.codat.platform.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -380,7 +381,6 @@ public class Application {
             if (res.profile().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -425,6 +425,7 @@ import io.codat.platform.models.shared.Security;
 import io.codat.platform.models.shared.SyncSetting;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -457,7 +458,6 @@ public class Application {
                 .call();
 
             // handle response
-
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {

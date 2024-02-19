@@ -9,7 +9,7 @@ generation:
     requestResponseComponentNamesFeb2024: false
   telemetryEnabled: true
 java:
-  version: 0.1.2
+  version: 0.2.0
   artifactID: platform
   author: Codat
   companyEmail: support@codat.io
