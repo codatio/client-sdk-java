@@ -11,6 +11,7 @@ jobs:
     with:
       create_release: true
       publish_java: true
+      use_sonatype_central: true
     secrets:
       github_access_token: ${{ secrets.GITHUB_TOKEN }}
       speakeasy_api_key: ${{ secrets.SPEAKEASY_API_KEY }}
