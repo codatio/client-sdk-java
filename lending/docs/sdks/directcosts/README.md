@@ -48,6 +48,7 @@ import io.codat.lending.models.shared.TrackingRecordRef;
 import io.codat.lending.models.shared.TrackingRecordRefDataType;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -69,68 +70,48 @@ public class Application {
                     .issueDate("2022-10-23T00:00:00Z")
                     .lineItems(java.util.List.of(
                             DirectCostLineItem.builder()
-                                .quantity(2884.08d)
-                                .unitAmount(1343.65d)
-                                .accountRef(AccountRef.builder()
-                                    .build())
-                                .itemRef(PropertieItemRef.builder()
-                                    .id("string")
-                                    .build())
-                                .taxRateRef(TaxRateRef.builder()
-                                    .build())
-                                .tracking(Tracking.builder()
-                                    .recordRefs(java.util.List.of(
-                                            TrackingRecordRef.builder()
-                                                .dataType(TrackingRecordRefDataType.TRACKING_CATEGORIES)
-                                                .build()))
-                                    .invoiceTo(RecordRef.builder()
-                                        .dataType("transfer")
-                                        .build())
-                                    .build())
-                                .trackingCategoryRefs(java.util.List.of(
-                                    TrackingCategoryRef.builder()
-                                        .id("string")
-                                        .build()))
+                                .quantity(4174.58d)
+                                .unitAmount(2884.08d)
                                 .build()))
                     .paymentAllocations(java.util.List.of(
                             AccountingPaymentAllocation.builder()
                                 .allocation(Allocation.builder()
                                         .allocatedOnDate("2022-10-23T00:00:00Z")
-                                        .currency("EUR")
-                                        .currencyRate(8915.1d)
-                                        .totalAmount(0.86d)
+                                        .currency("USD")
+                                        .currencyRate(9510.62d)
+                                        .totalAmount(8915.1d)
                                         .build())
                                 .payment(PaymentAllocationPayment.builder()
                                         .accountRef(AccountRef.builder()
-                                            .id("<ID>")
-                                            .name("string")
+                                            .id("<id>")
+                                            .name("<value>")
                                             .build())
-                                        .currency("USD")
-                                        .currencyRate(1697.27d)
-                                        .id("<ID>")
-                                        .note("string")
+                                        .currency("GBP")
+                                        .currencyRate(4552.22d)
+                                        .id("<id>")
+                                        .note("<value>")
                                         .paidOnDate("2022-10-23T00:00:00Z")
-                                        .reference("string")
-                                        .totalAmount(899.64d)
+                                        .reference("<value>")
+                                        .totalAmount(3015.1d)
                                         .build())
                                 .build()))
-                    .subTotal(7150.4d)
-                    .taxAmount(7926.2d)
-                    .totalAmount(8559.52d)
+                    .subTotal(899.64d)
+                    .taxAmount(7150.4d)
+                    .totalAmount(7926.2d)
                     .contactRef(ContactReference.builder()
-                        .id("string")
+                        .id("<value>")
                         .dataType(DirectCostPrototypeDataType.SUPPLIERS)
                         .build())
-                    .currencyRate(5519.29d)
-                    .note("string")
-                    .reference("string")
+                    .currencyRate(8165.88d)
+                    .note("<value>")
+                    .reference("<value>")
                     .supplementalData(SupplementalData.builder()
                         .content(java.util.Map.ofEntries(
                             entry("key", java.util.Map.ofEntries(
-                                entry("key", "string")))))
+                                entry("key", "<value>")))))
                         .build())
                     .build())
-                .timeoutInMinutes(586220)
+                .timeoutInMinutes(551929)
                 .build();
 
             CreateDirectCostResponse res = sdk.loanWriteback().directCosts().create()
@@ -140,7 +121,6 @@ public class Application {
             if (res.accountingCreateDirectCostResponse().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -192,6 +172,7 @@ import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -216,7 +197,6 @@ public class Application {
             if (res.pushOption().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {

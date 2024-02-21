@@ -28,6 +28,7 @@ import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -52,7 +53,6 @@ public class Application {
             if (res.data().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -95,6 +95,7 @@ import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -118,7 +119,6 @@ public class Application {
             if (res.files().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -169,6 +169,7 @@ import io.codat.lending.models.shared.FileUpload;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -187,7 +188,7 @@ public class Application {
                 .fileUpload(FileUpload.builder()
                     .file(CodatFile.builder()
                             .content("0x87cbca97eC".getBytes())
-                            .fileName("string")
+                            .fileName("<value>")
                             .build())
                     .build())
                 .build();
@@ -197,7 +198,6 @@ public class Application {
                 .call();
 
             // handle response
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {

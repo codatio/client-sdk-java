@@ -10,7 +10,7 @@ Lending helps you make smarter credit decisions on small businesses by enabling 
 ### Gradle
 
 ```groovy
-implementation 'io.codat.lending:openapi:0.1.0'
+implementation 'io.codat.lending:openapi:1.0.0'
 ```
 <!-- End SDK Installation [installation] -->
 
@@ -32,6 +32,7 @@ import io.codat.lending.models.shared.Items;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -60,7 +61,6 @@ public class Application {
             if (res.company().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -89,6 +89,13 @@ public class Application {
 * [get](docs/sdks/connections/README.md#get) - Get connection
 * [list](docs/sdks/connections/README.md#list) - List connections
 * [unlink](docs/sdks/connections/README.md#unlink) - Unlink connection
+
+### [bankStatements()](docs/sdks/bankstatements/README.md)
+
+* [endUploadSession](docs/sdks/bankstatements/README.md#enduploadsession) - End upload session
+* [getUploadConfiguration](docs/sdks/bankstatements/README.md#getuploadconfiguration) - Get upload configuration
+* [setUploadConfiguration](docs/sdks/bankstatements/README.md#setuploadconfiguration) - Set upload configuration
+* [startUploadSession](docs/sdks/bankstatements/README.md#startuploadsession) - Start upload session
 
 
 ### [transactions().accountTransactions()](docs/sdks/accounttransactions/README.md)
@@ -409,6 +416,7 @@ import io.codat.lending.models.shared.Items;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -437,7 +445,6 @@ public class Application {
             if (res.company().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -473,6 +480,7 @@ import io.codat.lending.models.shared.Items;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -502,7 +510,6 @@ public class Application {
             if (res.company().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -528,6 +535,7 @@ import io.codat.lending.models.shared.Items;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -557,7 +565,6 @@ public class Application {
             if (res.company().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -592,6 +599,7 @@ import io.codat.lending.models.shared.Items;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -620,7 +628,6 @@ public class Application {
             if (res.company().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {

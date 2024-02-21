@@ -31,6 +31,7 @@ import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -47,7 +48,7 @@ public class Application {
                 .attachmentId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .directCostId("string")
+                .directCostId("<value>")
                 .build();
 
             DownloadAccountingDirectCostAttachmentResponse res = sdk.transactions().directCosts().downloadAttachment()
@@ -57,7 +58,6 @@ public class Application {
             if (res.data().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -107,6 +107,7 @@ import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -122,7 +123,7 @@ public class Application {
             GetAccountingDirectCostRequest req = GetAccountingDirectCostRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .directCostId("string")
+                .directCostId("<value>")
                 .build();
 
             GetAccountingDirectCostResponse res = sdk.transactions().directCosts().get()
@@ -132,7 +133,6 @@ public class Application {
             if (res.accountingDirectCost().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -180,6 +180,7 @@ import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -196,7 +197,7 @@ public class Application {
                 .attachmentId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .directCostId("string")
+                .directCostId("<value>")
                 .build();
 
             GetAccountingDirectCostAttachmentResponse res = sdk.transactions().directCosts().getAttachment()
@@ -206,7 +207,6 @@ public class Application {
             if (res.accountingAttachment().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -254,6 +254,7 @@ import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -272,7 +273,7 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("string")
+                .query("<value>")
                 .build();
 
             ListAccountingDirectCostsResponse res = sdk.transactions().directCosts().list()
@@ -282,7 +283,6 @@ public class Application {
             if (res.accountingDirectCosts().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -330,6 +330,7 @@ import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -345,7 +346,7 @@ public class Application {
             ListAccountingDirectCostAttachmentsRequest req = ListAccountingDirectCostAttachmentsRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .directCostId("string")
+                .directCostId("<value>")
                 .build();
 
             ListAccountingDirectCostAttachmentsResponse res = sdk.transactions().directCosts().listAttachments()
@@ -355,7 +356,6 @@ public class Application {
             if (res.attachments().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {

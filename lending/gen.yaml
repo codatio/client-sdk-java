@@ -15,8 +15,8 @@ java:
   companyEmail: support@codat.io
   companyName: Codat
   companyURL: https://www.codat.io/
-  description: Make credit decisions backed by enhanced financials, metrics, reports,
-    and data integrity features.
+  description: Make credit decisions backed by enhanced financials, metrics, reports, and data integrity features.
+  flattenGlobalSecurity: false
   githubURL: github.com/codatio/client-sdk-java/lending
   groupID: io.codat
   imports:

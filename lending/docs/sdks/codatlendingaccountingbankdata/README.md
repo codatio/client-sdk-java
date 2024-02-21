@@ -33,6 +33,7 @@ import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -46,13 +47,13 @@ public class Application {
                 .build();
 
             ListAccountingBankAccountTransactionsRequest req = ListAccountingBankAccountTransactionsRequest.builder()
-                .accountId("string")
+                .accountId("<value>")
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("string")
+                .query("<value>")
                 .build();
 
             ListAccountingBankAccountTransactionsResponse res = sdk.accountingBankData().listTransactions()
@@ -62,7 +63,6 @@ public class Application {
             if (res.accountingBankTransactions().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {

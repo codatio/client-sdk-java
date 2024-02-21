@@ -41,6 +41,7 @@ import io.codat.lending.models.shared.TrackingCategoryRef;
 import io.codat.lending.models.shared.TransferAccount;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -58,7 +59,7 @@ public class Application {
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .accountingTransfer(AccountingTransfer.builder()
                     .contactRef(ContactRef.builder()
-                        .id("string")
+                        .id("<value>")
                         .dataType(ContactRefDataType.CUSTOMERS)
                         .build())
                     .date("2022-10-23T00:00:00Z")
@@ -69,13 +70,13 @@ public class Application {
                     .description("Synchronised full-range emulation")
                     .from(TransferAccount.builder()
                         .accountRef(AccountRef.builder()
-                            .id("<ID>")
-                            .name("string")
+                            .id("<id>")
+                            .name("<value>")
                             .build())
                         .amount(1343.65d)
                         .currency("EUR")
                         .build())
-                    .id("<ID>")
+                    .id("<id>")
                     .metadata(Metadata.builder()
                         .isDeleted(false)
                         .build())
@@ -84,19 +85,19 @@ public class Application {
                     .supplementalData(SupplementalData.builder()
                         .content(java.util.Map.ofEntries(
                             entry("key", java.util.Map.ofEntries(
-                                entry("key", "string")))))
+                                entry("key", "<value>")))))
                         .build())
                     .to(TransferAccount.builder()
                         .accountRef(AccountRef.builder()
-                            .id("<ID>")
-                            .name("string")
+                            .id("<id>")
+                            .name("<value>")
                             .build())
                         .amount(7964.74d)
                         .currency("USD")
                         .build())
                     .trackingCategoryRefs(java.util.List.of(
                         TrackingCategoryRef.builder()
-                            .id("string")
+                            .id("<value>")
                             .build()))
                     .build())
                 .allowSyncOnPushComplete(false)
@@ -110,7 +111,6 @@ public class Application {
             if (res.accountingCreateTransferResponse().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -162,6 +162,7 @@ import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -186,7 +187,6 @@ public class Application {
             if (res.pushOption().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {

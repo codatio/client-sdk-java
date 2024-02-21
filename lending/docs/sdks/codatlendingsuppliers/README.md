@@ -38,6 +38,7 @@ import io.codat.lending.models.shared.SupplementalData;
 import io.codat.lending.models.shared.SupplierStatus;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -59,24 +60,24 @@ public class Application {
                         AccountingAddress.builder()
                             .type(AccountingAddressType.BILLING)
                             .build()))
-                    .contactName("string")
-                    .defaultCurrency("string")
+                    .contactName("<value>")
+                    .defaultCurrency("<value>")
                     .emailAddress("Haylie78@hotmail.com")
-                    .id("<ID>")
+                    .id("<id>")
                     .metadata(Metadata.builder()
                         .isDeleted(false)
                         .build())
                     .modifiedDate("2022-10-23T00:00:00Z")
                     .phone("01224 658 999")
-                    .registrationNumber("string")
+                    .registrationNumber("<value>")
                     .sourceModifiedDate("2022-10-23T00:00:00Z")
                     .supplementalData(SupplementalData.builder()
                         .content(java.util.Map.ofEntries(
                             entry("key", java.util.Map.ofEntries(
-                                entry("key", "string")))))
+                                entry("key", "<value>")))))
                         .build())
-                    .supplierName("string")
-                    .taxNumber("string")
+                    .supplierName("<value>")
+                    .taxNumber("<value>")
                     .build())
                 .allowSyncOnPushComplete(false)
                 .timeoutInMinutes(376844)
@@ -89,7 +90,6 @@ public class Application {
             if (res.accountingCreateSupplierResponse().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -141,6 +141,7 @@ import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -165,7 +166,6 @@ public class Application {
             if (res.pushOption().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {

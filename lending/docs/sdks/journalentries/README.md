@@ -30,6 +30,7 @@ import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -44,7 +45,7 @@ public class Application {
 
             GetAccountingJournalEntryRequest req = GetAccountingJournalEntryRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
-                .journalEntryId("string")
+                .journalEntryId("<value>")
                 .build();
 
             GetAccountingJournalEntryResponse res = sdk.transactions().journalEntries().get()
@@ -54,7 +55,6 @@ public class Application {
             if (res.accountingJournalEntry().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -102,6 +102,7 @@ import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -119,7 +120,7 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("string")
+                .query("<value>")
                 .build();
 
             ListAccountingJournalEntriesResponse res = sdk.transactions().journalEntries().list()
@@ -129,7 +130,6 @@ public class Application {
             if (res.accountingJournalEntries().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {

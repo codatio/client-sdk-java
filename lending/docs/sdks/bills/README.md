@@ -31,6 +31,7 @@ import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -45,7 +46,7 @@ public class Application {
 
             DownloadAccountingBillAttachmentRequest req = DownloadAccountingBillAttachmentRequest.builder()
                 .attachmentId("8a210b68-6988-11ed-a1eb-0242ac120002")
-                .billId("string")
+                .billId("<value>")
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .build();
@@ -57,7 +58,6 @@ public class Application {
             if (res.data().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -107,6 +107,7 @@ import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -120,7 +121,7 @@ public class Application {
                 .build();
 
             GetAccountingBillRequest req = GetAccountingBillRequest.builder()
-                .billId("string")
+                .billId("<value>")
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .build();
 
@@ -131,7 +132,6 @@ public class Application {
             if (res.accountingBill().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -179,6 +179,7 @@ import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -193,7 +194,7 @@ public class Application {
 
             GetAccountingBillAttachmentRequest req = GetAccountingBillAttachmentRequest.builder()
                 .attachmentId("8a210b68-6988-11ed-a1eb-0242ac120002")
-                .billId("string")
+                .billId("<value>")
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .build();
@@ -205,7 +206,6 @@ public class Application {
             if (res.accountingAttachment().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -253,6 +253,7 @@ import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -270,7 +271,7 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("string")
+                .query("<value>")
                 .build();
 
             ListAccountingBillsResponse res = sdk.accountsPayable().bills().list()
@@ -280,7 +281,6 @@ public class Application {
             if (res.accountingBills().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -328,6 +328,7 @@ import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -341,7 +342,7 @@ public class Application {
                 .build();
 
             ListAccountingBillAttachmentsRequest req = ListAccountingBillAttachmentsRequest.builder()
-                .billId("string")
+                .billId("<value>")
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .build();
@@ -353,7 +354,6 @@ public class Application {
             if (res.attachments().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {

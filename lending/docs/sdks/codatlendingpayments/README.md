@@ -41,6 +41,7 @@ import io.codat.lending.models.shared.Security;
 import io.codat.lending.models.shared.SupplementalData;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -59,45 +60,41 @@ public class Application {
                 .accountingPayment(AccountingPayment.builder()
                     .date("2022-10-23T00:00:00Z")
                     .accountRef(AccountRef.builder()
-                        .id("<ID>")
-                        .name("string")
+                        .id("<id>")
+                        .name("<value>")
                         .build())
                     .currency("USD")
                     .currencyRate(6384.24d)
                     .customerRef(AccountingCustomerRef.builder()
-                        .id("string")
+                        .id("<value>")
                         .companyName("Johnson, Green and Collier")
                         .build())
-                    .id("<ID>")
+                    .id("<id>")
                     .lines(java.util.List.of(
                         PaymentLine.builder()
-                            .amount(3768.44d)
+                            .amount(9967.06d)
                             .allocatedOnDate("2022-10-23T00:00:00Z")
-                            .links(java.util.List.of(
-                                PaymentLineLink.builder()
-                                    .type(PaymentLinkType.PAYMENT_ON_ACCOUNT)
-                                    .build()))
                             .build()))
                     .metadata(Metadata.builder()
                         .isDeleted(false)
                         .build())
                     .modifiedDate("2022-10-23T00:00:00Z")
-                    .note("string")
+                    .note("<value>")
                     .paymentMethodRef(PaymentMethodRef.builder()
-                        .id("string")
-                        .name("string")
+                        .id("<value>")
+                        .name("<value>")
                         .build())
-                    .reference("string")
+                    .reference("<value>")
                     .sourceModifiedDate("2022-10-23T00:00:00Z")
                     .supplementalData(SupplementalData.builder()
                         .content(java.util.Map.ofEntries(
                             entry("key", java.util.Map.ofEntries(
-                                entry("key", "string")))))
+                                entry("key", "<value>")))))
                         .build())
-                    .totalAmount(0.86d)
+                    .totalAmount(9510.62d)
                     .build())
                 .allowSyncOnPushComplete(false)
-                .timeoutInMinutes(455222)
+                .timeoutInMinutes(891510)
                 .build();
 
             CreatePaymentResponse res = sdk.loanWriteback().payments().create()
@@ -107,7 +104,6 @@ public class Application {
             if (res.accountingCreatePaymentResponse().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -159,6 +155,7 @@ import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -183,7 +180,6 @@ public class Application {
             if (res.pushOption().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
