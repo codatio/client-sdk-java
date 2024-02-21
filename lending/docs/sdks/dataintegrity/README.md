@@ -31,6 +31,7 @@ import io.codat.lending.models.shared.DataIntegrityDataType;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -49,7 +50,7 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("string")
+                .query("<value>")
                 .build();
 
             ListDataIntegrityDetailsResponse res = sdk.dataIntegrity().details()
@@ -59,7 +60,6 @@ public class Application {
             if (res.dataIntegrityDetails().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -110,6 +110,7 @@ import io.codat.lending.models.shared.DataIntegrityDataType;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -134,7 +135,6 @@ public class Application {
             if (res.dataIntegrityStatuses().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -182,6 +182,7 @@ import io.codat.lending.models.shared.DataIntegrityDataType;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -197,7 +198,7 @@ public class Application {
             GetDataIntegritySummariesRequest req = GetDataIntegritySummariesRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .dataType(DataIntegrityDataType.BANKING_ACCOUNTS)
-                .query("string")
+                .query("<value>")
                 .build();
 
             GetDataIntegritySummariesResponse res = sdk.dataIntegrity().summaries()
@@ -207,7 +208,6 @@ public class Application {
             if (res.dataIntegritySummaries().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {

@@ -30,6 +30,7 @@ import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -43,7 +44,7 @@ public class Application {
                 .build();
 
             GetAccountingAccountRequest req = GetAccountingAccountRequest.builder()
-                .accountId("string")
+                .accountId("<value>")
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .build();
 
@@ -54,7 +55,6 @@ public class Application {
             if (res.accountingAccount().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -101,6 +101,7 @@ import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -118,7 +119,7 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("string")
+                .query("<value>")
                 .build();
 
             ListAccountingAccountsResponse res = sdk.financialStatements().accounts().list()
@@ -128,7 +129,6 @@ public class Application {
             if (res.accountingAccounts().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {

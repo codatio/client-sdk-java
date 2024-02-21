@@ -35,6 +35,7 @@ import io.codat.lending.models.shared.Security;
 import io.codat.lending.models.shared.SupplementalData;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -51,27 +52,27 @@ public class Application {
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .accountingBankAccount(AccountingBankAccount.builder()
-                    .accountName("string")
-                    .accountNumber("string")
+                    .accountName("<value>")
+                    .accountNumber("<value>")
                     .accountType(AccountingBankAccountType.CREDIT)
                     .availableBalance(4893.82d)
                     .balance(6384.24d)
                     .currency("EUR")
                     .iBan("IE8210U901078857930905")
-                    .id("<ID>")
-                    .institution("string")
+                    .id("<id>")
+                    .institution("<value>")
                     .metadata(Metadata.builder()
                         .isDeleted(false)
                         .build())
                     .modifiedDate("2022-10-23T00:00:00Z")
-                    .nominalCode("string")
+                    .nominalCode("<value>")
                     .overdraftLimit(2075.65d)
-                    .sortCode("string")
+                    .sortCode("<value>")
                     .sourceModifiedDate("2022-10-23T00:00:00Z")
                     .supplementalData(SupplementalData.builder()
                         .content(java.util.Map.ofEntries(
                             entry("key", java.util.Map.ofEntries(
-                                entry("key", "string")))))
+                                entry("key", "<value>")))))
                         .build())
                     .build())
                 .allowSyncOnPushComplete(false)
@@ -85,7 +86,6 @@ public class Application {
             if (res.accountingCreateBankAccountResponse().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -137,6 +137,7 @@ import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -161,7 +162,6 @@ public class Application {
             if (res.pushOption().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {

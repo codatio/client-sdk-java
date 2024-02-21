@@ -37,6 +37,7 @@ import io.codat.lending.models.shared.SupplementalData;
 import io.codat.lending.models.shared.ValidDataTypeLinks;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -65,13 +66,11 @@ public class Application {
                     .supplementalData(SupplementalData.builder()
                         .content(java.util.Map.ofEntries(
                             entry("key", java.util.Map.ofEntries(
-                                entry("key", "string")))))
+                                entry("key", "<value>")))))
                         .build())
                     .type(AccountType.ASSET)
                     .validDatatypeLinks(java.util.List.of(
                         ValidDataTypeLinks.builder()
-                            .links(java.util.List.of(
-                                "string"))
                             .build()))
                     .build())
                 .allowSyncOnPushComplete(false)
@@ -85,7 +84,6 @@ public class Application {
             if (res.accountingCreateAccountResponse().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -137,6 +135,7 @@ import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -161,7 +160,6 @@ public class Application {
             if (res.pushOption().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {

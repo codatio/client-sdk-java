@@ -30,6 +30,7 @@ import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -45,7 +46,7 @@ public class Application {
             GetBankingTransactionCategoryRequest req = GetBankingTransactionCategoryRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .transactionCategoryId("string")
+                .transactionCategoryId("<value>")
                 .build();
 
             GetBankingTransactionCategoryResponse res = sdk.banking().transactionCategories().get()
@@ -55,7 +56,6 @@ public class Application {
             if (res.bankingTransactionCategory().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -103,6 +103,7 @@ import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import static java.util.Map.entry;
 
 public class Application {
@@ -121,7 +122,7 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("string")
+                .query("<value>")
                 .build();
 
             ListBankingTransactionCategoriesResponse res = sdk.banking().transactionCategories().list()
@@ -131,7 +132,6 @@ public class Application {
             if (res.bankingTransactionCategories().isPresent()) {
                 // handle response
             }
-
         } catch (io.codat.lending.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
