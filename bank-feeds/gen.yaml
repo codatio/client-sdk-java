@@ -15,7 +15,6 @@ java:
   maxMethodParams: 0
   groupID: io.codat
   artifactID: bank-feeds
-  ossrhURL: https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/
   githubURL: github.com/codatio/client-sdk-java/bank-feeds
   companyName: Codat
   companyURL: https://www.codat.io/
