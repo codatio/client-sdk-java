@@ -15,7 +15,8 @@ java:
   companyEmail: support@codat.io
   companyName: Codat
   companyURL: https://www.codat.io/
-  description: Manage the building blocks of Codat, including companies, connections, and more.
+  description: Manage the building blocks of Codat, including companies, connections,
+    and more.
   flattenGlobalSecurity: false
   githubURL: github.com/codatio/client-sdk-java/platform
   groupID: io.codat
