@@ -1,0 +1,11 @@
+# BrandingButton
+
+Button branding references.
+
+
+## Fields
+
+| Field                                                                                                                  | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            |
+| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `default_`                                                                                                             | [Optional<? extends io.codat.sync.commerce.models.components.BrandingImage>](../../models/components/BrandingImage.md) | :heavy_minus_sign:                                                                                                     | N/A                                                                                                                    |
+| `hover`                                                                                                                | [Optional<? extends io.codat.sync.commerce.models.components.BrandingImage>](../../models/components/BrandingImage.md) | :heavy_minus_sign:                                                                                                     | N/A                                                                                                                    |

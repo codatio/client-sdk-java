@@ -1,0 +1,9 @@
+# UpdateConfigTextSyncFlowRequest
+
+
+## Fields
+
+| Field                                                                                                         | Type                                                                                                          | Required                                                                                                      | Description                                                                                                   |
+| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `requestBody`                                                                                                 | Map<String, [io.codat.sync.commerce.models.components.Localization](../../models/components/Localization.md)> | :heavy_minus_sign:                                                                                            | N/A                                                                                                           |
+| `locale`                                                                                                      | [io.codat.sync.commerce.models.components.Locale](../../models/components/Locale.md)                          | :heavy_check_mark:                                                                                            | Localization identifier for English (US) or French.                                                           |
