@@ -1,0 +1,10 @@
+# CompanyConfiguration
+
+
+## Fields
+
+| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `bankAccount`                                                                                          | [io.codat.sync.expenses.models.components.BankAccount](../../models/components/BankAccount.md)         | :heavy_check_mark:                                                                                     | N/A                                                                                                    |
+| `customer`                                                                                             | [io.codat.sync.expenses.models.components.CustomerDetails](../../models/components/CustomerDetails.md) | :heavy_check_mark:                                                                                     | N/A                                                                                                    |
+| `supplier`                                                                                             | [io.codat.sync.expenses.models.components.SupplierDetails](../../models/components/SupplierDetails.md) | :heavy_check_mark:                                                                                     | N/A                                                                                                    |
