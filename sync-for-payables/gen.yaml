@@ -13,7 +13,7 @@ java:
   description: Streamline your customers' accounts payable workflow.
   maxMethodParams: 0
   groupID: io.codat
-  artifactID: sync-for-payables
+  artifactID: sync/payables
   githubURL: github.com/codatio/client-sdk-java/sync-for-payables
   companyName: Codat
   companyURL: https://www.codat.io/
