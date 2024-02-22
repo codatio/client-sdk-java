@@ -13,8 +13,8 @@ java:
   description: Push payroll to accounting platforms.
   maxMethodParams: 0
   groupID: io.codat
-  artifactID: sync-for-payroll
-  githubURL: github.com/codatio/client-sdk-java/sync-for-payroll
+  artifactID: sync.payroll
+  githubURL: github.com/codatio/client-sdk-java/sync.payroll
   companyName: Codat
   companyURL: https://www.codat.io/
   companyEmail: support@codat.io

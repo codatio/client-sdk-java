@@ -1,0 +1,22 @@
+name: Release Banking library
+'on':
+  push:
+    paths:
+    - previous-versions/banking/RELEASES.md
+    branches:
+    - main
+jobs:
+  publish:
+    uses: speakeasy-api/sdk-generation-action/.github/workflows/sdk-publish.yaml@v14
+    with:
+      create_release: true
+      publish_java: true
+      use_sonatype_central: true
+    secrets:
+      github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      speakeasy_api_key: ${{ secrets.SPEAKEASY_API_KEY }}
+      slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+      ossrh_username: ${{ secrets.OSSRH_USERNAME }}
+      ossrh_password: ${{ secrets.OSSRH_PASSWORD }}
+      java_gpg_secret_key: ${{ secrets.JAVA_GPG_SECRET_KEY }}
+      java_gpg_passphrase: ${{ secrets.JAVA_GPG_PASSPHRASE  }}

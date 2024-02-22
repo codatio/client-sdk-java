@@ -5,17 +5,16 @@ management:
   speakeasyVersion: 1.53.0
   generationVersion: 2.58.0
 generation:
-  sdkClassName: CodatSyncCommerce
+  sdkClassName: CodatAccounting
   telemetryEnabled: true
 java:
   version: 0.0.0
   author: Codat
-  description: Push merchants' data from your ecommerce or point-of-sale (POS) platform
-    into your merchants' accounting platform.
+  description: Access standardized accounting data from our accounting integrations.
   maxMethodParams: 0
   groupID: io.codat
-  artifactID: sync.commerce
-  githubURL: github.com/codatio/client-sdk-java/sync.commerce
+  artifactID: accounting
+  githubURL: github.com/codatio/client-sdk-java/previous-versions/accounting
   companyName: Codat
   companyURL: https://www.codat.io/
   companyEmail: support@codat.io
