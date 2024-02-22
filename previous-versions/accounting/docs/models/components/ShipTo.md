@@ -1,0 +1,11 @@
+# ShipTo
+
+Delivery details for any goods that have been ordered.
+
+
+## Fields
+
+| Field                                                                                                               | Type                                                                                                                | Required                                                                                                            | Description                                                                                                         |
+| ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `address`                                                                                                           | [Optional<? extends io.codat.accounting.models.components.Items>](../../models/components/Items.md)                 | :heavy_minus_sign:                                                                                                  | N/A                                                                                                                 |
+| `contact`                                                                                                           | [Optional<? extends io.codat.accounting.models.components.ShipToContact>](../../models/components/ShipToContact.md) | :heavy_minus_sign:                                                                                                  | Details of the named contact at the delivery address.                                                               |
