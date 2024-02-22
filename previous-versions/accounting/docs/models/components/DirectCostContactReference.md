@@ -1,0 +1,11 @@
+# DirectCostContactReference
+
+A customer or supplier associated with the direct cost.
+
+
+## Fields
+
+| Field                                                                                                                             | Type                                                                                                                              | Required                                                                                                                          | Description                                                                                                                       |
+| --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `dataType`                                                                                                                        | [JsonNullable<? extends io.codat.accounting.models.components.DirectCostDataType>](../../models/components/DirectCostDataType.md) | :heavy_minus_sign:                                                                                                                | Allowed name of the 'dataType'.                                                                                                   |
+| `id`                                                                                                                              | *String*                                                                                                                          | :heavy_check_mark:                                                                                                                | Unique identifier for a customer or supplier.                                                                                     |

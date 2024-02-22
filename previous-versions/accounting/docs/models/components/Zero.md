@@ -1,0 +1,12 @@
+# Zero
+
+Reference to the purchase order line this line was generated from.
+
+
+## Fields
+
+| Field                                                                                                             | Type                                                                                                              | Required                                                                                                          | Description                                                                                                       |
+| ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `dataType`                                                                                                        | [Optional<? extends io.codat.accounting.models.components.ZeroDataType>](../../models/components/ZeroDataType.md) | :heavy_minus_sign:                                                                                                | Allowed name of the 'dataType'.                                                                                   |
+| `id`                                                                                                              | *Optional<? extends String>*                                                                                      | :heavy_minus_sign:                                                                                                | 'id' of the underlying record.                                                                                    |
+| `lineNumber`                                                                                                      | *Optional<? extends String>*                                                                                      | :heavy_minus_sign:                                                                                                | Line number of the underlying record.                                                                             |
