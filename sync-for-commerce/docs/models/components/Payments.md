@@ -1,0 +1,9 @@
+# Payments
+
+
+## Fields
+
+| Field                                                                                                           | Type                                                                                                            | Required                                                                                                        | Description                                                                                                     |
+| --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `accounts`                                                                                                      | Map<String, [io.codat.sync.commerce.models.components.ConfigAccount](../../models/components/ConfigAccount.md)> | :heavy_minus_sign:                                                                                              | N/A                                                                                                             |
+| `syncPayments`                                                                                                  | *Optional<? extends Boolean>*                                                                                   | :heavy_minus_sign:                                                                                              | Boolean indicator for syncing sales.                                                                            |
