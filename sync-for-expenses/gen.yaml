@@ -13,8 +13,8 @@ java:
   description: Push expenses to accounting platforms.
   maxMethodParams: 0
   groupID: io.codat
-  artifactID: sync-for-expenses
-  githubURL: github.com/codatio/client-sdk-java/sync-for-expenses
+  artifactID: sync.expenses
+  githubURL: github.com/codatio/client-sdk-java/sync.expenses
   companyName: Codat
   companyURL: https://www.codat.io/
   companyEmail: support@codat.io

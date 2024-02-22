@@ -17,7 +17,7 @@ java:
   companyURL: https://www.codat.io/
   description: Streamline your customers' accounts payable workflow.
   flattenGlobalSecurity: true
-  githubURL: github.com/codatio/client-sdk-java/sync-for-payables
+  githubURL: github.com/codatio/client-sdk-java/sync.payables
   groupID: io.codat
   imports:
     option: openapi
