@@ -1,21 +1,34 @@
-configVersion: 1.0.0
-management:
-  docChecksum: '00000000000000000000000000000000'
-  docVersion: 2.1.0
-  speakeasyVersion: 1.53.0
-  generationVersion: 2.58.0
+configVersion: 2.0.0
 generation:
   sdkClassName: CodatBanking
+  usageSnippets:
+    optionalPropertyRendering: withExample
+  fixes:
+    nameResolutionDec2023: false
+    parameterOrderingFeb2024: false
+    requestResponseComponentNamesFeb2024: false
   telemetryEnabled: true
 java:
-  version: 0.0.0
-  author: Codat
-  description: Access standardized banking data from our banking integrations.
-  maxMethodParams: 0
-  groupID: io.codat
+  version: 0.1.0
   artifactID: banking
-  githubURL: github.com/codatio/client-sdk-java/previous-versions/banking
+  author: Codat
+  companyEmail: support@codat.io
   companyName: Codat
   companyURL: https://www.codat.io/
-  companyEmail: support@codat.io
+  description: Access standardized banking data from our banking integrations.
+  flattenGlobalSecurity: true
+  githubURL: github.com/codatio/client-sdk-java/previous-versions/banking
+  groupID: io.codat
+  imports:
+    option: openapi
+    paths:
+      callbacks: models/callbacks
+      errors: models/errors
+      operations: models/operations
+      shared: models/components
+      webhooks: models/webhooks
+  inputModelSuffix: input
+  maxMethodParams: 0
+  outputModelSuffix: output
+  projectName: openapi
   templateVersion: v2
