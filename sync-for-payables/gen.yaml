@@ -10,7 +10,7 @@ generation:
   telemetryEnabled: true
 java:
   version: 0.1.0
-  artifactID: sync.payables
+  artifactID: sync-for-payables
   author: Codat
   companyEmail: support@codat.io
   companyName: Codat
