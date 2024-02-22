@@ -1,0 +1,9 @@
+# PushValidationInfo
+
+
+## Fields
+
+| Field                                                                                                               | Type                                                                                                                | Required                                                                                                            | Description                                                                                                         |
+| ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `information`                                                                                                       | List<[io.codat.sync.payroll.models.components.PushFieldValidation](../../models/components/PushFieldValidation.md)> | :heavy_minus_sign:                                                                                                  | N/A                                                                                                                 |
+| `warnings`                                                                                                          | List<[io.codat.sync.payroll.models.components.PushFieldValidation](../../models/components/PushFieldValidation.md)> | :heavy_minus_sign:                                                                                                  | N/A                                                                                                                 |

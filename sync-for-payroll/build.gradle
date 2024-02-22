@@ -1,0 +1,144 @@
+
+plugins {
+    // Apply the java-library plugin for API and implementation separation.
+    id 'java-library'
+    id 'maven-publish'
+    id 'signing'
+    id 'cl.franciscosolis.sonatype-central-upload' version '1.0.0'
+}
+
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+
+repositories {
+    // Use Maven Central for resolving dependencies.
+    mavenCentral()
+}
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+    withSourcesJar()
+    withJavadocJar()
+}
+
+model {
+    tasks.generatePomFileForMavenPublication {
+        destination = file("$buildDir/pom.xml")
+    }
+}
+
+jar {
+    dependsOn(":generatePomFileForMavenPublication")
+    archiveBaseName = "sync.payroll"
+
+    into("META-INF/maven/io.codat/sync.payroll") {
+        from("$buildDir/pom.xml")
+    }
+}
+
+javadoc {
+    options.encoding = "UTF-8"
+
+    if(JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
+    options.addStringOption('Xdoclint:none', '-quiet')
+}
+
+
+tasks.withType(Javadoc) {
+  failOnError false
+  options.addStringOption('Xdoclint:none', '-quiet')
+}
+group = "io.codat"
+version = "0.1.0"
+
+sourcesJar {
+    archiveBaseName = "sync.payroll"
+}
+
+javadocJar {
+    archiveBaseName = "sync.payroll"
+}
+
+sonatypeCentralUpload {
+    // This is your Sonatype generated username
+    username = System.getenv("SONATYPE_USERNAME")
+    // This is your sonatype generated password
+    password = System.getenv("SONATYPE_PASSWORD")
+
+    // This is a list of files to upload. Ideally you would point to your jar file, source and javadoc jar (required by central)
+    archives = files(
+      "$buildDir/libs/sync.payroll-${version}.jar",
+      "$buildDir/libs/sync.payroll-${version}-sources.jar",
+      "$buildDir/libs/sync.payroll-${version}-javadoc.jar"
+    )
+
+    // This is the pom file to upload. This is required by central
+    pom = file("$buildDir/pom.xml")
+
+    // This is your PGP private key. This is required to sign your files
+    signingKey = System.getenv("SONATYPE_SIGNING_KEY")
+    // This is your PGP private key passphrase to decrypt your private key
+    signingKeyPassphrase = System.getenv("SIGNING_KEY_PASSPHRASE")
+}
+publishing {
+
+    publications {
+        maven(MavenPublication) {
+            groupId = 'io.codat'
+            artifactId = 'sync.payroll'
+            version = '0.1.0'
+
+            from components.java
+
+            pom {
+                name = 'Codat Java SDK'
+                description = 'SDK enabling Java developers to easily integrate with the Codat API.'
+                url = 'https://github.com/codatio/client-sdk-java/sync.payroll'
+                scm {
+                    url = 'github.com/codatio/client-sdk-java/sync.payroll'
+                    connection = 'scm:git:ssh://git@github.com/codatio/client-sdk-java/sync.payroll.git'
+                }
+                licenses {
+                    license {
+                        name = 'The MIT License (MIT)'
+                        url = 'https://mit-license.org/'
+                    }
+                }
+                developers {
+                    developer {
+                        name = 'Codat'
+                        organization = 'Codat'
+                        email = 'support@codat.io'
+                    }
+                }
+                organization {
+                    name = 'Codat'
+                    url = 'https://www.codat.io/'
+                }
+            }
+        }
+    }
+}
+
+if (!project.hasProperty('skip.signing')) {
+    signing {
+        def signingKey = findProperty("signingKey")
+        def signingPassphrase = findProperty("signingPassphrase")
+        useInMemoryPgpKeys(signingKey, signingPassphrase)
+        sign publishing.publications.maven
+    }
+}
+
+dependencies {
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.1'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.16.1'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.16.1'
+    implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.14'
+    implementation 'org.apache.httpcomponents:httpmime:4.5.14'
+    implementation 'com.jayway.jsonpath:json-path:2.9.0'
+    implementation 'commons-io:commons-io:2.15.1'
+}
+
