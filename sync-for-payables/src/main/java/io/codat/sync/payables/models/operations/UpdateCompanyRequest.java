@@ -4,10 +4,14 @@
 
 package io.codat.sync.payables.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.payables.utils.SpeakeasyMetadata;
 import io.codat.sync.payables.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
@@ -51,7 +55,7 @@ public class UpdateCompanyRequest {
         this.companyRequestBody = Optional.ofNullable(companyRequestBody);
         return this;
     }
-    
+
     public UpdateCompanyRequest withCompanyRequestBody(Optional<? extends io.codat.sync.payables.models.components.CompanyRequestBody> companyRequestBody) {
         Utils.checkNotNull(companyRequestBody, "companyRequestBody");
         this.companyRequestBody = companyRequestBody;
@@ -110,7 +114,7 @@ public class UpdateCompanyRequest {
             this.companyRequestBody = Optional.ofNullable(companyRequestBody);
             return this;
         }
-        
+
         public Builder companyRequestBody(Optional<? extends io.codat.sync.payables.models.components.CompanyRequestBody> companyRequestBody) {
             Utils.checkNotNull(companyRequestBody, "companyRequestBody");
             this.companyRequestBody = companyRequestBody;

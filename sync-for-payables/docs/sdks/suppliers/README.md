@@ -30,6 +30,8 @@ import io.codat.sync.payables.models.components.Security;
 import io.codat.sync.payables.models.operations.*;
 import io.codat.sync.payables.models.operations.ListSuppliersRequest;
 import io.codat.sync.payables.models.operations.ListSuppliersResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;

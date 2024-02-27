@@ -4,12 +4,16 @@
 
 package io.codat.sync.payables.models.components;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.payables.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -21,7 +25,7 @@ public class Bills {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("amountDue")
-    private JsonNullable<? extends Double> amountDue;
+    private JsonNullable<? extends BigDecimal> amountDue;
 
     /**
      * The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
@@ -88,10 +92,10 @@ public class Bills {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("totalAmount")
-    private Optional<? extends Double> totalAmount;
+    private Optional<? extends BigDecimal> totalAmount;
 
     public Bills(
-            @JsonProperty("amountDue") JsonNullable<? extends Double> amountDue,
+            @JsonProperty("amountDue") JsonNullable<? extends BigDecimal> amountDue,
             @JsonProperty("currency") Optional<? extends String> currency,
             @JsonProperty("dueDate") Optional<? extends String> dueDate,
             @JsonProperty("id") Optional<? extends String> id,
@@ -101,7 +105,7 @@ public class Bills {
             @JsonProperty("sourceModifiedDate") JsonNullable<? extends One> sourceModifiedDate,
             @JsonProperty("status") Optional<? extends BillStatus> status,
             @JsonProperty("supplierRef") Optional<? extends SupplierRef> supplierRef,
-            @JsonProperty("totalAmount") Optional<? extends Double> totalAmount) {
+            @JsonProperty("totalAmount") Optional<? extends BigDecimal> totalAmount) {
         Utils.checkNotNull(amountDue, "amountDue");
         Utils.checkNotNull(currency, "currency");
         Utils.checkNotNull(dueDate, "dueDate");
@@ -129,7 +133,7 @@ public class Bills {
     /**
      * Amount outstanding on the bill.
      */
-    public JsonNullable<? extends Double> amountDue() {
+    public JsonNullable<? extends BigDecimal> amountDue() {
         return amountDue;
     }
 
@@ -196,7 +200,7 @@ public class Bills {
     /**
      * Amount of the bill, including tax.
      */
-    public Optional<? extends Double> totalAmount() {
+    public Optional<? extends BigDecimal> totalAmount() {
         return totalAmount;
     }
     
@@ -207,16 +211,24 @@ public class Bills {
     /**
      * Amount outstanding on the bill.
      */
-    public Bills withAmountDue(double amountDue) {
+    public Bills withAmountDue(BigDecimal amountDue) {
         Utils.checkNotNull(amountDue, "amountDue");
         this.amountDue = JsonNullable.of(amountDue);
+        return this;
+    }
+
+        /**
+         * Amount outstanding on the bill.
+         */
+    public Bills withAmountDue(double amountDue) {
+        this.amountDue = JsonNullable.of(BigDecimal.valueOf(amountDue));
         return this;
     }
 
     /**
      * Amount outstanding on the bill.
      */
-    public Bills withAmountDue(JsonNullable<? extends Double> amountDue) {
+    public Bills withAmountDue(JsonNullable<? extends BigDecimal> amountDue) {
         Utils.checkNotNull(amountDue, "amountDue");
         this.amountDue = amountDue;
         return this;
@@ -236,7 +248,7 @@ public class Bills {
         this.currency = Optional.ofNullable(currency);
         return this;
     }
-    
+
     /**
      * The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
      * 
@@ -257,7 +269,7 @@ public class Bills {
         this.dueDate = Optional.ofNullable(dueDate);
         return this;
     }
-    
+
     public Bills withDueDate(Optional<? extends String> dueDate) {
         Utils.checkNotNull(dueDate, "dueDate");
         this.dueDate = dueDate;
@@ -272,7 +284,7 @@ public class Bills {
         this.id = Optional.ofNullable(id);
         return this;
     }
-    
+
     /**
      * Identifier for the bill, unique for the company in the accounting platform.
      */
@@ -287,7 +299,7 @@ public class Bills {
         this.issueDate = Optional.ofNullable(issueDate);
         return this;
     }
-    
+
     public Bills withIssueDate(Optional<? extends String> issueDate) {
         Utils.checkNotNull(issueDate, "issueDate");
         this.issueDate = issueDate;
@@ -350,7 +362,7 @@ public class Bills {
         this.status = Optional.ofNullable(status);
         return this;
     }
-    
+
     /**
      * Current state of the bill. If creating a bill the status must be `Open`.
      */
@@ -368,7 +380,7 @@ public class Bills {
         this.supplierRef = Optional.ofNullable(supplierRef);
         return this;
     }
-    
+
     /**
      * Reference to the supplier the record relates to.
      */
@@ -381,16 +393,24 @@ public class Bills {
     /**
      * Amount of the bill, including tax.
      */
-    public Bills withTotalAmount(double totalAmount) {
+    public Bills withTotalAmount(BigDecimal totalAmount) {
         Utils.checkNotNull(totalAmount, "totalAmount");
         this.totalAmount = Optional.ofNullable(totalAmount);
         return this;
     }
-    
+
+        /**
+         * Amount of the bill, including tax.
+         */
+    public Bills withTotalAmount(double totalAmount) {
+        this.totalAmount = Optional.of(BigDecimal.valueOf(totalAmount));
+        return this;
+    }
+
     /**
      * Amount of the bill, including tax.
      */
-    public Bills withTotalAmount(Optional<? extends Double> totalAmount) {
+    public Bills withTotalAmount(Optional<? extends BigDecimal> totalAmount) {
         Utils.checkNotNull(totalAmount, "totalAmount");
         this.totalAmount = totalAmount;
         return this;
@@ -453,7 +473,7 @@ public class Bills {
     
     public final static class Builder {
  
-        private JsonNullable<? extends Double> amountDue = JsonNullable.undefined();
+        private JsonNullable<? extends BigDecimal> amountDue = JsonNullable.undefined();
  
         private Optional<? extends String> currency = Optional.empty();
  
@@ -473,7 +493,7 @@ public class Bills {
  
         private Optional<? extends SupplierRef> supplierRef = Optional.empty();
  
-        private Optional<? extends Double> totalAmount = Optional.empty();  
+        private Optional<? extends BigDecimal> totalAmount = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -482,7 +502,7 @@ public class Bills {
         /**
          * Amount outstanding on the bill.
          */
-        public Builder amountDue(double amountDue) {
+        public Builder amountDue(BigDecimal amountDue) {
             Utils.checkNotNull(amountDue, "amountDue");
             this.amountDue = JsonNullable.of(amountDue);
             return this;
@@ -491,7 +511,15 @@ public class Bills {
         /**
          * Amount outstanding on the bill.
          */
-        public Builder amountDue(JsonNullable<? extends Double> amountDue) {
+        public Builder amountDue(double amountDue) {
+            this.amountDue = JsonNullable.of(BigDecimal.valueOf(amountDue));
+            return this;
+        }
+
+        /**
+         * Amount outstanding on the bill.
+         */
+        public Builder amountDue(JsonNullable<? extends BigDecimal> amountDue) {
             Utils.checkNotNull(amountDue, "amountDue");
             this.amountDue = amountDue;
             return this;
@@ -511,7 +539,7 @@ public class Bills {
             this.currency = Optional.ofNullable(currency);
             return this;
         }
-        
+
         /**
          * The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
          * 
@@ -532,7 +560,7 @@ public class Bills {
             this.dueDate = Optional.ofNullable(dueDate);
             return this;
         }
-        
+
         public Builder dueDate(Optional<? extends String> dueDate) {
             Utils.checkNotNull(dueDate, "dueDate");
             this.dueDate = dueDate;
@@ -547,7 +575,7 @@ public class Bills {
             this.id = Optional.ofNullable(id);
             return this;
         }
-        
+
         /**
          * Identifier for the bill, unique for the company in the accounting platform.
          */
@@ -562,7 +590,7 @@ public class Bills {
             this.issueDate = Optional.ofNullable(issueDate);
             return this;
         }
-        
+
         public Builder issueDate(Optional<? extends String> issueDate) {
             Utils.checkNotNull(issueDate, "issueDate");
             this.issueDate = issueDate;
@@ -625,7 +653,7 @@ public class Bills {
             this.status = Optional.ofNullable(status);
             return this;
         }
-        
+
         /**
          * Current state of the bill. If creating a bill the status must be `Open`.
          */
@@ -643,7 +671,7 @@ public class Bills {
             this.supplierRef = Optional.ofNullable(supplierRef);
             return this;
         }
-        
+
         /**
          * Reference to the supplier the record relates to.
          */
@@ -656,16 +684,24 @@ public class Bills {
         /**
          * Amount of the bill, including tax.
          */
-        public Builder totalAmount(double totalAmount) {
+        public Builder totalAmount(BigDecimal totalAmount) {
             Utils.checkNotNull(totalAmount, "totalAmount");
             this.totalAmount = Optional.ofNullable(totalAmount);
             return this;
         }
-        
+
         /**
          * Amount of the bill, including tax.
          */
-        public Builder totalAmount(Optional<? extends Double> totalAmount) {
+        public Builder totalAmount(double totalAmount) {
+            this.totalAmount = Optional.of(BigDecimal.valueOf(totalAmount));
+            return this;
+        }
+
+        /**
+         * Amount of the bill, including tax.
+         */
+        public Builder totalAmount(Optional<? extends BigDecimal> totalAmount) {
             Utils.checkNotNull(totalAmount, "totalAmount");
             this.totalAmount = totalAmount;
             return this;

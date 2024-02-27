@@ -33,6 +33,8 @@ import io.codat.sync.payables.models.components.SupplierRef;
 import io.codat.sync.payables.models.operations.*;
 import io.codat.sync.payables.models.operations.CreateBillRequest;
 import io.codat.sync.payables.models.operations.CreateBillResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -59,21 +61,21 @@ public class Application {
                             .id("<value>")
                             .supplierName("<value>")
                             .build())
-                    .amountDue(8592.13d)
-                    .currencyRate(4174.58d)
+                    .amountDue(new BigDecimal("8592.13"))
+                    .currencyRate(new BigDecimal("4174.58"))
                     .lineItems(java.util.List.of(
                         BillLineItem.builder()
                             .accountRef(BillAccountRef.builder()
                                     .id("<id>")
                                     .build())
-                            .quantity(7865.46d)
+                            .quantity(new BigDecimal("7865.46"))
                             .taxRateRef(BillTaxRateRef.builder()
                                     .id("<id>")
                                     .build())
-                            .unitAmount(690.25d)
+                            .unitAmount(new BigDecimal("690.25"))
                             .build()))
                     .reference("<value>")
-                    .totalAmount(9967.06d)
+                    .totalAmount(new BigDecimal("9967.06"))
                     .build())
                 .build();
 
@@ -128,6 +130,8 @@ import io.codat.sync.payables.models.components.Security;
 import io.codat.sync.payables.models.operations.*;
 import io.codat.sync.payables.models.operations.ListBillsRequest;
 import io.codat.sync.payables.models.operations.ListBillsResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;

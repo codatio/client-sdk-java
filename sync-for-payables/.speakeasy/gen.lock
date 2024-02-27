@@ -1,22 +1,22 @@
 lockVersion: 2.0.0
 id: 18757ebf-96ad-433f-80e1-10950345f2fe
 management:
-  docChecksum: f5a2a8af4fba11471fd391ceacc95478
+  docChecksum: b553e5e2409c7b0443381f8b3edeb5cc
   docVersion: 3.0.0
   speakeasyVersion: internal
-  generationVersion: 2.268.0
-  releaseVersion: 0.1.0
-  configChecksum: 3bc977c42d1383e274ed27755d6c00a1
+  generationVersion: 2.272.7
+  releaseVersion: 0.2.0
+  configChecksum: cc05dea5a86c5c805d9420853e3aa80f
   repoURL: https://github.com/codatio/client-sdk-java.git
   repoSubDirectory: sync-for-payables
   published: true
 features:
   java:
     constsAndDefaults: 0.1.0
-    core: 3.12.4
+    core: 3.13.2
     deprecations: 2.81.1
     examples: 2.81.3
-    globalSecurity: 2.82.2
+    globalSecurity: 2.82.4
     globalServerURLs: 2.82.1
     ignores: 2.81.1
     nameOverrides: 2.81.2
@@ -26,6 +26,7 @@ generatedFiles:
   - src/main/java/io/codat/sync/payables/SDKConfiguration.java
   - src/main/java/io/codat/sync/payables/Companies.java
   - src/main/java/io/codat/sync/payables/Connections.java
+  - src/main/java/io/codat/sync/payables/BankAccounts.java
   - src/main/java/io/codat/sync/payables/Bills.java
   - src/main/java/io/codat/sync/payables/BillPayments.java
   - src/main/java/io/codat/sync/payables/Suppliers.java
@@ -39,6 +40,7 @@ generatedFiles:
   - src/main/java/io/codat/sync/payables/models/operations/GetConnectionRequestBuilder.java
   - src/main/java/io/codat/sync/payables/models/operations/ListConnectionsRequestBuilder.java
   - src/main/java/io/codat/sync/payables/models/operations/UnlinkConnectionRequestBuilder.java
+  - src/main/java/io/codat/sync/payables/models/operations/CreateBankAccountRequestBuilder.java
   - src/main/java/io/codat/sync/payables/models/operations/CreateBillRequestBuilder.java
   - src/main/java/io/codat/sync/payables/models/operations/ListBillsRequestBuilder.java
   - src/main/java/io/codat/sync/payables/models/operations/CreateBillPaymentRequestBuilder.java
@@ -53,6 +55,8 @@ generatedFiles:
   - gradlew.bat
   - settings.gradle
   - src/main/java/io/codat/sync/payables/utils/BackoffStrategy.java
+  - src/main/java/io/codat/sync/payables/utils/BigDecimalString.java
+  - src/main/java/io/codat/sync/payables/utils/BigIntegerString.java
   - src/main/java/io/codat/sync/payables/utils/FormMetadata.java
   - src/main/java/io/codat/sync/payables/utils/HTTPClient.java
   - src/main/java/io/codat/sync/payables/utils/HTTPRequest.java
@@ -76,6 +80,7 @@ generatedFiles:
   - src/main/java/io/codat/sync/payables/utils/SpeakeasyHTTPClient.java
   - src/main/java/io/codat/sync/payables/utils/SpeakeasyHTTPSecurityClient.java
   - src/main/java/io/codat/sync/payables/utils/SpeakeasyMetadata.java
+  - src/main/java/io/codat/sync/payables/utils/TypedObject.java
   - src/main/java/io/codat/sync/payables/utils/Types.java
   - src/main/java/io/codat/sync/payables/utils/Utils.java
   - src/main/java/io/codat/sync/payables/models/errors/SDKError.java
@@ -100,6 +105,8 @@ generatedFiles:
   - src/main/java/io/codat/sync/payables/models/operations/UnlinkConnectionUpdateConnection.java
   - src/main/java/io/codat/sync/payables/models/operations/UnlinkConnectionRequest.java
   - src/main/java/io/codat/sync/payables/models/operations/UnlinkConnectionResponse.java
+  - src/main/java/io/codat/sync/payables/models/operations/CreateBankAccountRequest.java
+  - src/main/java/io/codat/sync/payables/models/operations/CreateBankAccountResponse.java
   - src/main/java/io/codat/sync/payables/models/operations/CreateBillRequest.java
   - src/main/java/io/codat/sync/payables/models/operations/CreateBillResponse.java
   - src/main/java/io/codat/sync/payables/models/operations/ListBillsRequest.java
@@ -124,6 +131,10 @@ generatedFiles:
   - src/main/java/io/codat/sync/payables/models/components/Links.java
   - src/main/java/io/codat/sync/payables/models/components/HalRef.java
   - src/main/java/io/codat/sync/payables/models/components/Connections.java
+  - src/main/java/io/codat/sync/payables/models/components/BankAccount.java
+  - src/main/java/io/codat/sync/payables/models/components/BankAccountStatus.java
+  - src/main/java/io/codat/sync/payables/models/components/AccountType.java
+  - src/main/java/io/codat/sync/payables/models/components/BankAccountPrototype.java
   - src/main/java/io/codat/sync/payables/models/components/Bill.java
   - src/main/java/io/codat/sync/payables/models/components/SupplierRef.java
   - src/main/java/io/codat/sync/payables/models/components/BillStatus.java
@@ -167,6 +178,8 @@ generatedFiles:
   - docs/models/operations/UnlinkConnectionUpdateConnection.md
   - docs/models/operations/UnlinkConnectionRequest.md
   - docs/models/operations/UnlinkConnectionResponse.md
+  - docs/models/operations/CreateBankAccountRequest.md
+  - docs/models/operations/CreateBankAccountResponse.md
   - docs/models/operations/CreateBillRequest.md
   - docs/models/operations/CreateBillResponse.md
   - docs/models/operations/ListBillsRequest.md
@@ -191,6 +204,10 @@ generatedFiles:
   - docs/models/components/Links.md
   - docs/models/components/HalRef.md
   - docs/models/components/Connections.md
+  - docs/models/components/BankAccount.md
+  - docs/models/components/BankAccountStatus.md
+  - docs/models/components/AccountType.md
+  - docs/models/components/BankAccountPrototype.md
   - docs/models/components/Bill.md
   - docs/models/components/SupplierRef.md
   - docs/models/components/BillStatus.md
@@ -216,6 +233,7 @@ generatedFiles:
   - docs/sdks/codatsyncpayables/README.md
   - docs/sdks/companies/README.md
   - docs/sdks/connections/README.md
+  - docs/sdks/bankaccounts/README.md
   - docs/sdks/bills/README.md
   - docs/sdks/billpayments/README.md
   - docs/sdks/suppliers/README.md

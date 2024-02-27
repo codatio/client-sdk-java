@@ -28,6 +28,8 @@ import io.codat.sync.payables.models.components.Security;
 import io.codat.sync.payables.models.operations.*;
 import io.codat.sync.payables.models.operations.CreateBillPaymentRequest;
 import io.codat.sync.payables.models.operations.CreateBillPaymentResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -50,9 +52,9 @@ public class Application {
                     .accountRef(BillAccountRef.builder()
                             .id("<id>")
                             .build())
-                    .amount(1329.54d)
+                    .amount(new BigDecimal("1329.54"))
                     .date("2022-10-23T00:00:00Z")
-                    .currencyRate(6384.24d)
+                    .currencyRate(new BigDecimal("6384.24"))
                     .reference("Bill Payment against bill c13e37b6-dfaa-4894-b3be-9fe97bda9f44")
                     .build())
                 .build();

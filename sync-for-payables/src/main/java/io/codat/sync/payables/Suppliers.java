@@ -14,6 +14,8 @@ import io.codat.sync.payables.utils.JSON;
 import io.codat.sync.payables.utils.Options;
 import io.codat.sync.payables.utils.Utils;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;

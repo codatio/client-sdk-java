@@ -4,10 +4,14 @@
 
 package io.codat.sync.payables.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.payables.utils.SpeakeasyMetadata;
 import io.codat.sync.payables.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
@@ -86,7 +90,7 @@ public class CreateBillRequest {
         this.idempotencyKey = Optional.ofNullable(idempotencyKey);
         return this;
     }
-    
+
     /**
      * A unique identifier to ensure idempotent behaviour for subsequent requests.
      */
@@ -101,7 +105,7 @@ public class CreateBillRequest {
         this.billPrototype = Optional.ofNullable(billPrototype);
         return this;
     }
-    
+
     public CreateBillRequest withBillPrototype(Optional<? extends io.codat.sync.payables.models.components.BillPrototype> billPrototype) {
         Utils.checkNotNull(billPrototype, "billPrototype");
         this.billPrototype = billPrototype;
@@ -182,7 +186,7 @@ public class CreateBillRequest {
             this.idempotencyKey = Optional.ofNullable(idempotencyKey);
             return this;
         }
-        
+
         /**
          * A unique identifier to ensure idempotent behaviour for subsequent requests.
          */
@@ -197,7 +201,7 @@ public class CreateBillRequest {
             this.billPrototype = Optional.ofNullable(billPrototype);
             return this;
         }
-        
+
         public Builder billPrototype(Optional<? extends io.codat.sync.payables.models.components.BillPrototype> billPrototype) {
             Utils.checkNotNull(billPrototype, "billPrototype");
             this.billPrototype = billPrototype;

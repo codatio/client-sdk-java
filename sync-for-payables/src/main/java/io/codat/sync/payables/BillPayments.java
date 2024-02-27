@@ -15,6 +15,8 @@ import io.codat.sync.payables.utils.Options;
 import io.codat.sync.payables.utils.SerializedBody;
 import io.codat.sync.payables.utils.Utils;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -63,15 +65,16 @@ public class BillPayments implements
         String url = io.codat.sync.payables.utils.Utils.generateURL(
                 io.codat.sync.payables.models.operations.CreateBillPaymentRequest.class,
                 baseUrl,
-                "/companies/{companyId}/connections/{connectionId}/payables/bills/{billId}/payments",
+                "/companies/{companyId}/connections/{connectionId}/payables/bills/{billId}/payment",
                 request, null);
 
         HTTPRequest req = new HTTPRequest();
         req.setMethod("POST");
         req.setURL(url);
-
+        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
+            new TypeReference<io.codat.sync.payables.models.operations.CreateBillPaymentRequest>() {});
         SerializedBody serializedRequestBody = io.codat.sync.payables.utils.Utils.serializeRequestBody(
-                request, "billPaymentPrototype", "json", false);
+                _convertedRequest, "billPaymentPrototype", "json", false);
         req.setBody(serializedRequestBody);
 
         req.addHeader("Accept", "application/json");

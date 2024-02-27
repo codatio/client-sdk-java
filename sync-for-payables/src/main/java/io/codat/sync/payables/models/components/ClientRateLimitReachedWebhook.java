@@ -4,12 +4,16 @@
 
 package io.codat.sync.payables.models.components;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.payables.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 /**
@@ -146,7 +150,7 @@ public class ClientRateLimitReachedWebhook {
         this.alertId = Optional.ofNullable(alertId);
         return this;
     }
-    
+
     /**
      * Unique identifier of the webhook event.
      */
@@ -164,7 +168,7 @@ public class ClientRateLimitReachedWebhook {
         this.clientId = Optional.ofNullable(clientId);
         return this;
     }
-    
+
     /**
      * Unique identifier for your client in Codat.
      */
@@ -182,7 +186,7 @@ public class ClientRateLimitReachedWebhook {
         this.clientName = Optional.ofNullable(clientName);
         return this;
     }
-    
+
     /**
      * Name of your client in Codat.
      */
@@ -197,7 +201,7 @@ public class ClientRateLimitReachedWebhook {
         this.data = Optional.ofNullable(data);
         return this;
     }
-    
+
     public ClientRateLimitReachedWebhook withData(Optional<? extends ClientRateLimitReachedWebhookData> data) {
         Utils.checkNotNull(data, "data");
         this.data = data;
@@ -212,7 +216,7 @@ public class ClientRateLimitReachedWebhook {
         this.message = Optional.ofNullable(message);
         return this;
     }
-    
+
     /**
      * A human readable message about the webhook.
      */
@@ -230,7 +234,7 @@ public class ClientRateLimitReachedWebhook {
         this.ruleId = Optional.ofNullable(ruleId);
         return this;
     }
-    
+
     /**
      * Unique identifier for the rule.
      */
@@ -248,7 +252,7 @@ public class ClientRateLimitReachedWebhook {
         this.ruleType = Optional.ofNullable(ruleType);
         return this;
     }
-    
+
     /**
      * The type of rule.
      */
@@ -329,7 +333,7 @@ public class ClientRateLimitReachedWebhook {
             this.alertId = Optional.ofNullable(alertId);
             return this;
         }
-        
+
         /**
          * Unique identifier of the webhook event.
          */
@@ -347,7 +351,7 @@ public class ClientRateLimitReachedWebhook {
             this.clientId = Optional.ofNullable(clientId);
             return this;
         }
-        
+
         /**
          * Unique identifier for your client in Codat.
          */
@@ -365,7 +369,7 @@ public class ClientRateLimitReachedWebhook {
             this.clientName = Optional.ofNullable(clientName);
             return this;
         }
-        
+
         /**
          * Name of your client in Codat.
          */
@@ -380,7 +384,7 @@ public class ClientRateLimitReachedWebhook {
             this.data = Optional.ofNullable(data);
             return this;
         }
-        
+
         public Builder data(Optional<? extends ClientRateLimitReachedWebhookData> data) {
             Utils.checkNotNull(data, "data");
             this.data = data;
@@ -395,7 +399,7 @@ public class ClientRateLimitReachedWebhook {
             this.message = Optional.ofNullable(message);
             return this;
         }
-        
+
         /**
          * A human readable message about the webhook.
          */
@@ -413,7 +417,7 @@ public class ClientRateLimitReachedWebhook {
             this.ruleId = Optional.ofNullable(ruleId);
             return this;
         }
-        
+
         /**
          * Unique identifier for the rule.
          */
@@ -431,7 +435,7 @@ public class ClientRateLimitReachedWebhook {
             this.ruleType = Optional.ofNullable(ruleType);
             return this;
         }
-        
+
         /**
          * The type of rule.
          */

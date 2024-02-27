@@ -4,9 +4,13 @@
 
 package io.codat.sync.payables.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.payables.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.http.HttpResponse;
 import java.util.Optional;
 
@@ -112,7 +116,7 @@ public class ListBillsResponse {
         this.errorMessage = Optional.ofNullable(errorMessage);
         return this;
     }
-    
+
     /**
      * Your `query` parameter was not correctly formed
      */
@@ -148,7 +152,7 @@ public class ListBillsResponse {
         this.bills = Optional.ofNullable(bills);
         return this;
     }
-    
+
     /**
      * Success
      */
@@ -228,7 +232,7 @@ public class ListBillsResponse {
             this.errorMessage = Optional.ofNullable(errorMessage);
             return this;
         }
-        
+
         /**
          * Your `query` parameter was not correctly formed
          */
@@ -264,7 +268,7 @@ public class ListBillsResponse {
             this.bills = Optional.ofNullable(bills);
             return this;
         }
-        
+
         /**
          * Success
          */

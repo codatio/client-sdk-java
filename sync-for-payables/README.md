@@ -10,7 +10,7 @@ Streamline your customers' accounts payable workflow.
 ### Gradle
 
 ```groovy
-implementation 'io.codat.sync.payables:openapi:0.1.0'
+implementation 'io.codat.sync.payables:openapi:0.2.0'
 ```
 <!-- End SDK Installation [installation] -->
 
@@ -30,6 +30,8 @@ import io.codat.sync.payables.models.components.Items;
 import io.codat.sync.payables.models.components.Security;
 import io.codat.sync.payables.models.operations.*;
 import io.codat.sync.payables.models.operations.CreateCompanyResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -88,6 +90,10 @@ public class Application {
 * [list](docs/sdks/connections/README.md#list) - List connections
 * [unlink](docs/sdks/connections/README.md#unlink) - Unlink connection
 
+### [bankAccounts()](docs/sdks/bankaccounts/README.md)
+
+* [create](docs/sdks/bankaccounts/README.md#create) - Create bank account
+
 ### [bills()](docs/sdks/bills/README.md)
 
 * [create](docs/sdks/bills/README.md#create) - Create bill
@@ -120,6 +126,8 @@ import io.codat.sync.payables.models.operations.*;
 import io.codat.sync.payables.models.operations.CreateCompanyResponse;
 import io.codat.sync.payables.utils.BackoffStrategy;
 import io.codat.sync.payables.utils.RetryConfig;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -182,6 +190,8 @@ import io.codat.sync.payables.models.operations.*;
 import io.codat.sync.payables.models.operations.CreateCompanyResponse;
 import io.codat.sync.payables.utils.BackoffStrategy;
 import io.codat.sync.payables.utils.RetryConfig;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -253,6 +263,8 @@ import io.codat.sync.payables.models.components.Items;
 import io.codat.sync.payables.models.components.Security;
 import io.codat.sync.payables.models.operations.*;
 import io.codat.sync.payables.models.operations.CreateCompanyResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -315,6 +327,8 @@ import io.codat.sync.payables.models.components.Items;
 import io.codat.sync.payables.models.components.Security;
 import io.codat.sync.payables.models.operations.*;
 import io.codat.sync.payables.models.operations.CreateCompanyResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -368,6 +382,8 @@ import io.codat.sync.payables.models.components.Items;
 import io.codat.sync.payables.models.components.Security;
 import io.codat.sync.payables.models.operations.*;
 import io.codat.sync.payables.models.operations.CreateCompanyResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -430,6 +446,8 @@ import io.codat.sync.payables.models.components.Items;
 import io.codat.sync.payables.models.components.Security;
 import io.codat.sync.payables.models.operations.*;
 import io.codat.sync.payables.models.operations.CreateCompanyResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;

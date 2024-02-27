@@ -4,12 +4,16 @@
 
 package io.codat.sync.payables.models.components;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.payables.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -28,7 +32,7 @@ public class BillPayment {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("amount")
-    private Optional<? extends Double> amount;
+    private Optional<? extends BigDecimal> amount;
 
     /**
      * Rate to convert the total amount of the payment into the base currency for the company at the time of the payment.
@@ -66,7 +70,7 @@ public class BillPayment {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("currencyRate")
-    private JsonNullable<? extends Double> currencyRate;
+    private JsonNullable<? extends BigDecimal> currencyRate;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("date")
@@ -88,8 +92,8 @@ public class BillPayment {
 
     public BillPayment(
             @JsonProperty("accountRef") Optional<? extends BillAccountRef> accountRef,
-            @JsonProperty("amount") Optional<? extends Double> amount,
-            @JsonProperty("currencyRate") JsonNullable<? extends Double> currencyRate,
+            @JsonProperty("amount") Optional<? extends BigDecimal> amount,
+            @JsonProperty("currencyRate") JsonNullable<? extends BigDecimal> currencyRate,
             @JsonProperty("date") Optional<? extends String> date,
             @JsonProperty("id") Optional<? extends String> id,
             @JsonProperty("reference") JsonNullable<? extends String> reference) {
@@ -117,7 +121,7 @@ public class BillPayment {
     /**
      * Amount of the payment in the payment currency. This value never changes and represents the amount of money that is paid into the supplier's account.
      */
-    public Optional<? extends Double> amount() {
+    public Optional<? extends BigDecimal> amount() {
         return amount;
     }
 
@@ -155,7 +159,7 @@ public class BillPayment {
      * |-------------------|-------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
      * | QuickBooks Online | Transaction currency differs from base currency | If currency rate value is left `null`, a rate of 1 will be used by QBO by default. To override this, include the required currency rate in the expense transaction.  |
      */
-    public JsonNullable<? extends Double> currencyRate() {
+    public JsonNullable<? extends BigDecimal> currencyRate() {
         return currencyRate;
     }
 
@@ -189,7 +193,7 @@ public class BillPayment {
         this.accountRef = Optional.ofNullable(accountRef);
         return this;
     }
-    
+
     /**
      * Reference to the account to which the line item is linked.
      */
@@ -202,16 +206,24 @@ public class BillPayment {
     /**
      * Amount of the payment in the payment currency. This value never changes and represents the amount of money that is paid into the supplier's account.
      */
-    public BillPayment withAmount(double amount) {
+    public BillPayment withAmount(BigDecimal amount) {
         Utils.checkNotNull(amount, "amount");
         this.amount = Optional.ofNullable(amount);
         return this;
     }
-    
+
+        /**
+         * Amount of the payment in the payment currency. This value never changes and represents the amount of money that is paid into the supplier's account.
+         */
+    public BillPayment withAmount(double amount) {
+        this.amount = Optional.of(BigDecimal.valueOf(amount));
+        return this;
+    }
+
     /**
      * Amount of the payment in the payment currency. This value never changes and represents the amount of money that is paid into the supplier's account.
      */
-    public BillPayment withAmount(Optional<? extends Double> amount) {
+    public BillPayment withAmount(Optional<? extends BigDecimal> amount) {
         Utils.checkNotNull(amount, "amount");
         this.amount = amount;
         return this;
@@ -251,9 +263,48 @@ public class BillPayment {
      * |-------------------|-------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
      * | QuickBooks Online | Transaction currency differs from base currency | If currency rate value is left `null`, a rate of 1 will be used by QBO by default. To override this, include the required currency rate in the expense transaction.  |
      */
-    public BillPayment withCurrencyRate(double currencyRate) {
+    public BillPayment withCurrencyRate(BigDecimal currencyRate) {
         Utils.checkNotNull(currencyRate, "currencyRate");
         this.currencyRate = JsonNullable.of(currencyRate);
+        return this;
+    }
+
+        /**
+         * Rate to convert the total amount of the payment into the base currency for the company at the time of the payment.
+         * 
+         * Currency rates in Codat are implemented as the multiple of foreign currency units to each base currency unit.  
+         * 
+         * It is not possible to perform the currency conversion with two or more non-base currencies participating in the transaction. For example, if a company's base currency is USD, and it has a bill issued in EUR, then the bill payment must happen in USD or EUR.
+         * 
+         * Where the currency rate is provided by the underlying accounting platform, it will be available from Codat with the same precision (up to a maximum of 9 decimal places). 
+         * 
+         * For accounting platforms which do not provide an explicit currency rate, it is calculated as `baseCurrency / foreignCurrency` and will be returned to 9 decimal places.
+         * 
+         * ## Examples with base currency of GBP
+         * 
+         * | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (GBP) |
+         * | :--------------- | :------------- | :------------ | :------------------------- |
+         * | **USD**          | $20            | 0.781         | £15.62                     |
+         * | **EUR**          | €20            | 0.885         | £17.70                     |
+         * | **RUB**          | ₽20            | 0.011         | £0.22                      |
+         * 
+         * ## Examples with base currency of USD
+         * 
+         * | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (USD) |
+         * | :--------------- | :------------- | :------------ | :------------------------- |
+         * | **GBP**          | £20            | 1.277         | $25.54                     |
+         * | **EUR**          | €20            | 1.134         | $22.68                     |
+         * | **RUB**          | ₽20            | 0.015         | $0.30                      |
+         * 
+         * 
+         * ### Integration-specific details
+         * 
+         * | Integration       | Scenario                                        | System behavior                                                                                                                                                      |
+         * |-------------------|-------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+         * | QuickBooks Online | Transaction currency differs from base currency | If currency rate value is left `null`, a rate of 1 will be used by QBO by default. To override this, include the required currency rate in the expense transaction.  |
+         */
+    public BillPayment withCurrencyRate(double currencyRate) {
+        this.currencyRate = JsonNullable.of(BigDecimal.valueOf(currencyRate));
         return this;
     }
 
@@ -291,7 +342,7 @@ public class BillPayment {
      * |-------------------|-------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
      * | QuickBooks Online | Transaction currency differs from base currency | If currency rate value is left `null`, a rate of 1 will be used by QBO by default. To override this, include the required currency rate in the expense transaction.  |
      */
-    public BillPayment withCurrencyRate(JsonNullable<? extends Double> currencyRate) {
+    public BillPayment withCurrencyRate(JsonNullable<? extends BigDecimal> currencyRate) {
         Utils.checkNotNull(currencyRate, "currencyRate");
         this.currencyRate = currencyRate;
         return this;
@@ -302,7 +353,7 @@ public class BillPayment {
         this.date = Optional.ofNullable(date);
         return this;
     }
-    
+
     public BillPayment withDate(Optional<? extends String> date) {
         Utils.checkNotNull(date, "date");
         this.date = date;
@@ -317,7 +368,7 @@ public class BillPayment {
         this.id = Optional.ofNullable(id);
         return this;
     }
-    
+
     /**
      * Identifier for the bill payment, unique for the company in the accounting platform.
      */
@@ -389,9 +440,9 @@ public class BillPayment {
  
         private Optional<? extends BillAccountRef> accountRef = Optional.empty();
  
-        private Optional<? extends Double> amount = Optional.empty();
+        private Optional<? extends BigDecimal> amount = Optional.empty();
  
-        private JsonNullable<? extends Double> currencyRate = JsonNullable.undefined();
+        private JsonNullable<? extends BigDecimal> currencyRate = JsonNullable.undefined();
  
         private Optional<? extends String> date = Optional.empty();
  
@@ -411,7 +462,7 @@ public class BillPayment {
             this.accountRef = Optional.ofNullable(accountRef);
             return this;
         }
-        
+
         /**
          * Reference to the account to which the line item is linked.
          */
@@ -424,16 +475,24 @@ public class BillPayment {
         /**
          * Amount of the payment in the payment currency. This value never changes and represents the amount of money that is paid into the supplier's account.
          */
-        public Builder amount(double amount) {
+        public Builder amount(BigDecimal amount) {
             Utils.checkNotNull(amount, "amount");
             this.amount = Optional.ofNullable(amount);
             return this;
         }
-        
+
         /**
          * Amount of the payment in the payment currency. This value never changes and represents the amount of money that is paid into the supplier's account.
          */
-        public Builder amount(Optional<? extends Double> amount) {
+        public Builder amount(double amount) {
+            this.amount = Optional.of(BigDecimal.valueOf(amount));
+            return this;
+        }
+
+        /**
+         * Amount of the payment in the payment currency. This value never changes and represents the amount of money that is paid into the supplier's account.
+         */
+        public Builder amount(Optional<? extends BigDecimal> amount) {
             Utils.checkNotNull(amount, "amount");
             this.amount = amount;
             return this;
@@ -473,7 +532,7 @@ public class BillPayment {
          * |-------------------|-------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
          * | QuickBooks Online | Transaction currency differs from base currency | If currency rate value is left `null`, a rate of 1 will be used by QBO by default. To override this, include the required currency rate in the expense transaction.  |
          */
-        public Builder currencyRate(double currencyRate) {
+        public Builder currencyRate(BigDecimal currencyRate) {
             Utils.checkNotNull(currencyRate, "currencyRate");
             this.currencyRate = JsonNullable.of(currencyRate);
             return this;
@@ -513,7 +572,46 @@ public class BillPayment {
          * |-------------------|-------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
          * | QuickBooks Online | Transaction currency differs from base currency | If currency rate value is left `null`, a rate of 1 will be used by QBO by default. To override this, include the required currency rate in the expense transaction.  |
          */
-        public Builder currencyRate(JsonNullable<? extends Double> currencyRate) {
+        public Builder currencyRate(double currencyRate) {
+            this.currencyRate = JsonNullable.of(BigDecimal.valueOf(currencyRate));
+            return this;
+        }
+
+        /**
+         * Rate to convert the total amount of the payment into the base currency for the company at the time of the payment.
+         * 
+         * Currency rates in Codat are implemented as the multiple of foreign currency units to each base currency unit.  
+         * 
+         * It is not possible to perform the currency conversion with two or more non-base currencies participating in the transaction. For example, if a company's base currency is USD, and it has a bill issued in EUR, then the bill payment must happen in USD or EUR.
+         * 
+         * Where the currency rate is provided by the underlying accounting platform, it will be available from Codat with the same precision (up to a maximum of 9 decimal places). 
+         * 
+         * For accounting platforms which do not provide an explicit currency rate, it is calculated as `baseCurrency / foreignCurrency` and will be returned to 9 decimal places.
+         * 
+         * ## Examples with base currency of GBP
+         * 
+         * | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (GBP) |
+         * | :--------------- | :------------- | :------------ | :------------------------- |
+         * | **USD**          | $20            | 0.781         | £15.62                     |
+         * | **EUR**          | €20            | 0.885         | £17.70                     |
+         * | **RUB**          | ₽20            | 0.011         | £0.22                      |
+         * 
+         * ## Examples with base currency of USD
+         * 
+         * | Foreign Currency | Foreign Amount | Currency Rate | Base Currency Amount (USD) |
+         * | :--------------- | :------------- | :------------ | :------------------------- |
+         * | **GBP**          | £20            | 1.277         | $25.54                     |
+         * | **EUR**          | €20            | 1.134         | $22.68                     |
+         * | **RUB**          | ₽20            | 0.015         | $0.30                      |
+         * 
+         * 
+         * ### Integration-specific details
+         * 
+         * | Integration       | Scenario                                        | System behavior                                                                                                                                                      |
+         * |-------------------|-------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+         * | QuickBooks Online | Transaction currency differs from base currency | If currency rate value is left `null`, a rate of 1 will be used by QBO by default. To override this, include the required currency rate in the expense transaction.  |
+         */
+        public Builder currencyRate(JsonNullable<? extends BigDecimal> currencyRate) {
             Utils.checkNotNull(currencyRate, "currencyRate");
             this.currencyRate = currencyRate;
             return this;
@@ -524,7 +622,7 @@ public class BillPayment {
             this.date = Optional.ofNullable(date);
             return this;
         }
-        
+
         public Builder date(Optional<? extends String> date) {
             Utils.checkNotNull(date, "date");
             this.date = date;
@@ -539,7 +637,7 @@ public class BillPayment {
             this.id = Optional.ofNullable(id);
             return this;
         }
-        
+
         /**
          * Identifier for the bill payment, unique for the company in the accounting platform.
          */

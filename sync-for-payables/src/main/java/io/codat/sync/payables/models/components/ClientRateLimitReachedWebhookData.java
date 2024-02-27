@@ -4,12 +4,16 @@
 
 package io.codat.sync.payables.models.components;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.payables.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
@@ -100,7 +104,7 @@ public class ClientRateLimitReachedWebhookData {
         this.dailyQuota = Optional.ofNullable(dailyQuota);
         return this;
     }
-    
+
     /**
      * The number of available requests per day.
      */
@@ -136,7 +140,7 @@ public class ClientRateLimitReachedWebhookData {
         this.expiresUtc = Optional.ofNullable(expiresUtc);
         return this;
     }
-    
+
     /**
      * In Codat's data model, dates and times are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date and time fields are formatted as strings; for example:
      * 
@@ -210,7 +214,7 @@ public class ClientRateLimitReachedWebhookData {
             this.dailyQuota = Optional.ofNullable(dailyQuota);
             return this;
         }
-        
+
         /**
          * The number of available requests per day.
          */
@@ -246,7 +250,7 @@ public class ClientRateLimitReachedWebhookData {
             this.expiresUtc = Optional.ofNullable(expiresUtc);
             return this;
         }
-        
+
         /**
          * In Codat's data model, dates and times are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date and time fields are formatted as strings; for example:
          * 

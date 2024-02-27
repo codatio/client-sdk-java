@@ -5,6 +5,8 @@
 package io.codat.sync.payables.models.operations;
 
 import io.codat.sync.payables.utils.Options;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -79,6 +81,13 @@ public class SDKMethodInterfaces {
     public interface MethodCallUnlinkConnection {
         io.codat.sync.payables.models.operations.UnlinkConnectionResponse unlink(
             io.codat.sync.payables.models.operations.UnlinkConnectionRequest request,
+            Optional<Options> options) throws Exception;
+    }
+
+
+    public interface MethodCallCreateBankAccount {
+        io.codat.sync.payables.models.operations.CreateBankAccountResponse create(
+            io.codat.sync.payables.models.operations.CreateBankAccountRequest request,
             Optional<Options> options) throws Exception;
     }
 

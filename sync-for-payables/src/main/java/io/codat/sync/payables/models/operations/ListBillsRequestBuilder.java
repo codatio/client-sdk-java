@@ -9,6 +9,8 @@ import io.codat.sync.payables.utils.LazySingletonValue;
 import io.codat.sync.payables.utils.Options.Builder;
 import io.codat.sync.payables.utils.Options;
 import io.codat.sync.payables.utils.Utils;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
@@ -31,7 +33,7 @@ public class ListBillsRequestBuilder {
         this.request = request;
         return this;
     }
-
+                
     public ListBillsRequestBuilder retryConfig(io.codat.sync.payables.utils.RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);

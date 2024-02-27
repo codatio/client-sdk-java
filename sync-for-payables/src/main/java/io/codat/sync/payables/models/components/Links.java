@@ -4,12 +4,16 @@
 
 package io.codat.sync.payables.models.components;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.payables.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
@@ -75,7 +79,7 @@ public class Links {
         this.next = Optional.ofNullable(next);
         return this;
     }
-    
+
     public Links withNext(Optional<? extends HalRef> next) {
         Utils.checkNotNull(next, "next");
         this.next = next;
@@ -87,7 +91,7 @@ public class Links {
         this.previous = Optional.ofNullable(previous);
         return this;
     }
-    
+
     public Links withPrevious(Optional<? extends HalRef> previous) {
         Utils.checkNotNull(previous, "previous");
         this.previous = previous;
@@ -159,7 +163,7 @@ public class Links {
             this.next = Optional.ofNullable(next);
             return this;
         }
-        
+
         public Builder next(Optional<? extends HalRef> next) {
             Utils.checkNotNull(next, "next");
             this.next = next;
@@ -171,7 +175,7 @@ public class Links {
             this.previous = Optional.ofNullable(previous);
             return this;
         }
-        
+
         public Builder previous(Optional<? extends HalRef> previous) {
             Utils.checkNotNull(previous, "previous");
             this.previous = previous;
