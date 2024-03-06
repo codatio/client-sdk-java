@@ -11,11 +11,17 @@ import io.codat.platform.models.operations.SDKMethodInterfaces.*;
 import io.codat.platform.utils.HTTPClient;
 import io.codat.platform.utils.HTTPRequest;
 import io.codat.platform.utils.JSON;
+import io.codat.platform.utils.Options;
 import io.codat.platform.utils.SerializedBody;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import org.apache.http.NameValuePair;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -28,12 +34,13 @@ public class CustomDataType implements
             MethodCallGetCustomDataTypeConfiguration,
             MethodCallListCustomDataTypeRecords,
             MethodCallRefreshCustomDataType {
-    
+
     private final SDKConfiguration sdkConfiguration;
 
     CustomDataType(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     public io.codat.platform.models.operations.ConfigureCustomDataTypeRequestBuilder configure() {
         return new io.codat.platform.models.operations.ConfigureCustomDataTypeRequestBuilder(this);
     }
@@ -51,38 +58,76 @@ public class CustomDataType implements
      * - You can only indicate a single data source for each customer data type. 
      * 
      * - Make your custom configuration as similar as possible to our standard data types so you can interact with them in exactly the same way.
-     * @param request the request object containing all of the parameters for the API call
-     * @return the response from the API call
-     * @throws Exception if the API call fails
+     * @param request The request object containing all of the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call.
+     * @throws Exception if the API call fails.
      */
     public io.codat.platform.models.operations.ConfigureCustomDataTypeResponse configure(
-            io.codat.platform.models.operations.ConfigureCustomDataTypeRequest request) throws Exception {
+            io.codat.platform.models.operations.ConfigureCustomDataTypeRequest request,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
+
+
         String baseUrl = this.sdkConfiguration.serverUrl;
+
         String url = io.codat.platform.utils.Utils.generateURL(
-                io.codat.platform.models.operations.ConfigureCustomDataTypeRequest.class, 
-                baseUrl, 
-                "/integrations/{platformKey}/dataTypes/custom/{customDataIdentifier}", 
+                io.codat.platform.models.operations.ConfigureCustomDataTypeRequest.class,
+                baseUrl,
+                "/integrations/{platformKey}/dataTypes/custom/{customDataIdentifier}",
                 request, null);
-        
+
         HTTPRequest req = new HTTPRequest();
         req.setMethod("PUT");
         req.setURL(url);
+        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
+            new TypeReference<io.codat.platform.models.operations.ConfigureCustomDataTypeRequest>() {});
         SerializedBody serializedRequestBody = io.codat.platform.utils.Utils.serializeRequestBody(
-                request, "customDataTypeConfiguration", "json", false);
+                _convertedRequest, "customDataTypeConfiguration", "json", false);
         req.setBody(serializedRequestBody);
 
         req.addHeader("Accept", "application/json");
         req.addHeader("user-agent", this.sdkConfiguration.userAgent);
-        
+
         HTTPClient client = io.codat.platform.utils.Utils.configureSecurityClient(
                 this.sdkConfiguration.defaultClient, this.sdkConfiguration.securitySource.getSecurity());
-        
-        HttpResponse<InputStream> httpRes = client.send(req);
+
+        io.codat.platform.utils.RetryConfig retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            retryConfig = io.codat.platform.utils.RetryConfig.builder()
+                .backoff(io.codat.platform.utils.BackoffStrategy.builder()
+                            .initialInterval(500L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .maxInterval(60000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
+        }
+
+        List<String> statusCodes = new java.util.ArrayList<String>();
+        statusCodes.add("408");
+        statusCodes.add("429");
+        statusCodes.add("5XX");
+        io.codat.platform.utils.Retries retries = io.codat.platform.utils.Retries.builder()
+            .action(() -> client.send(req))
+            .retryConfig(retryConfig)
+            .statusCodes(statusCodes)
+            .build();
+
+        HttpResponse<InputStream> httpRes = retries.run();
 
         String contentType = httpRes
-                .headers()
-                .firstValue("Content-Type")
-                .orElse("application/octet-stream");
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
         io.codat.platform.models.operations.ConfigureCustomDataTypeResponse.Builder resBuilder = 
             io.codat.platform.models.operations.ConfigureCustomDataTypeResponse
                 .builder()
@@ -93,7 +138,7 @@ public class CustomDataType implements
         io.codat.platform.models.operations.ConfigureCustomDataTypeResponse res = resBuilder.build();
 
         res.withRawResponse(httpRes);
-        
+
         if (httpRes.statusCode() == 200) {
             if (io.codat.platform.utils.Utils.matchContentType(contentType, "application/json")) {
                 ObjectMapper mapper = JSON.getMapper();
@@ -119,6 +164,7 @@ public class CustomDataType implements
         return res;
     }
 
+
     public io.codat.platform.models.operations.GetCustomDataTypeConfigurationRequestBuilder getConfiguration() {
         return new io.codat.platform.models.operations.GetCustomDataTypeConfigurationRequestBuilder(this);
     }
@@ -128,35 +174,71 @@ public class CustomDataType implements
      * The *Get custom data configuration* endpoint returns existing configuration details for the specified custom data type and integration pair you previously configured.
      * 
      * A [custom data type](https://docs.codat.io/using-the-api/custom-data) is an additional data type you can create that is not included in Codat's standardized data model.
-     * @param request the request object containing all of the parameters for the API call
-     * @return the response from the API call
-     * @throws Exception if the API call fails
+     * @param request The request object containing all of the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call.
+     * @throws Exception if the API call fails.
      */
     public io.codat.platform.models.operations.GetCustomDataTypeConfigurationResponse getConfiguration(
-            io.codat.platform.models.operations.GetCustomDataTypeConfigurationRequest request) throws Exception {
+            io.codat.platform.models.operations.GetCustomDataTypeConfigurationRequest request,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
+
+
         String baseUrl = this.sdkConfiguration.serverUrl;
+
         String url = io.codat.platform.utils.Utils.generateURL(
-                io.codat.platform.models.operations.GetCustomDataTypeConfigurationRequest.class, 
-                baseUrl, 
-                "/integrations/{platformKey}/dataTypes/custom/{customDataIdentifier}", 
+                io.codat.platform.models.operations.GetCustomDataTypeConfigurationRequest.class,
+                baseUrl,
+                "/integrations/{platformKey}/dataTypes/custom/{customDataIdentifier}",
                 request, null);
-        
+
         HTTPRequest req = new HTTPRequest();
         req.setMethod("GET");
         req.setURL(url);
 
         req.addHeader("Accept", "application/json");
         req.addHeader("user-agent", this.sdkConfiguration.userAgent);
-        
+
         HTTPClient client = io.codat.platform.utils.Utils.configureSecurityClient(
                 this.sdkConfiguration.defaultClient, this.sdkConfiguration.securitySource.getSecurity());
-        
-        HttpResponse<InputStream> httpRes = client.send(req);
+
+        io.codat.platform.utils.RetryConfig retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            retryConfig = io.codat.platform.utils.RetryConfig.builder()
+                .backoff(io.codat.platform.utils.BackoffStrategy.builder()
+                            .initialInterval(500L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .maxInterval(60000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
+        }
+
+        List<String> statusCodes = new java.util.ArrayList<String>();
+        statusCodes.add("408");
+        statusCodes.add("429");
+        statusCodes.add("5XX");
+        io.codat.platform.utils.Retries retries = io.codat.platform.utils.Retries.builder()
+            .action(() -> client.send(req))
+            .retryConfig(retryConfig)
+            .statusCodes(statusCodes)
+            .build();
+
+        HttpResponse<InputStream> httpRes = retries.run();
 
         String contentType = httpRes
-                .headers()
-                .firstValue("Content-Type")
-                .orElse("application/octet-stream");
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
         io.codat.platform.models.operations.GetCustomDataTypeConfigurationResponse.Builder resBuilder = 
             io.codat.platform.models.operations.GetCustomDataTypeConfigurationResponse
                 .builder()
@@ -167,7 +249,7 @@ public class CustomDataType implements
         io.codat.platform.models.operations.GetCustomDataTypeConfigurationResponse res = resBuilder.build();
 
         res.withRawResponse(httpRes);
-        
+
         if (httpRes.statusCode() == 200) {
             if (io.codat.platform.utils.Utils.matchContentType(contentType, "application/json")) {
                 ObjectMapper mapper = JSON.getMapper();
@@ -193,6 +275,7 @@ public class CustomDataType implements
         return res;
     }
 
+
     public io.codat.platform.models.operations.ListCustomDataTypeRecordsRequestBuilder list() {
         return new io.codat.platform.models.operations.ListCustomDataTypeRecordsRequestBuilder(this);
     }
@@ -202,25 +285,35 @@ public class CustomDataType implements
      * The *List custom data type records* endpoint returns a paginated list of records pulled for the specified custom data type you previously configured.
      * 
      * A [custom data type](https://docs.codat.io/using-the-api/custom-data) is an additional data type you can create that is not included in Codat's standardized data model.s endpoint returns a paginated list of records whose schema is defined [Configure custom data type](https://docs.codat.io/platform-api#/operations/configure-custom-data-type)
-     * @param request the request object containing all of the parameters for the API call
-     * @return the response from the API call
-     * @throws Exception if the API call fails
+     * @param request The request object containing all of the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call.
+     * @throws Exception if the API call fails.
      */
     public io.codat.platform.models.operations.ListCustomDataTypeRecordsResponse list(
-            io.codat.platform.models.operations.ListCustomDataTypeRecordsRequest request) throws Exception {
+            io.codat.platform.models.operations.ListCustomDataTypeRecordsRequest request,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
+
+
         String baseUrl = this.sdkConfiguration.serverUrl;
+
         String url = io.codat.platform.utils.Utils.generateURL(
-                io.codat.platform.models.operations.ListCustomDataTypeRecordsRequest.class, 
-                baseUrl, 
-                "/companies/{companyId}/connections/{connectionId}/data/custom/{customDataIdentifier}", 
+                io.codat.platform.models.operations.ListCustomDataTypeRecordsRequest.class,
+                baseUrl,
+                "/companies/{companyId}/connections/{connectionId}/data/custom/{customDataIdentifier}",
                 request, null);
-        
+
         HTTPRequest req = new HTTPRequest();
         req.setMethod("GET");
         req.setURL(url);
 
         req.addHeader("Accept", "application/json");
         req.addHeader("user-agent", this.sdkConfiguration.userAgent);
+
         java.util.List<NameValuePair> queryParams = io.codat.platform.utils.Utils.getQueryParams(
                 io.codat.platform.models.operations.ListCustomDataTypeRecordsRequest.class, request, null);
         if (queryParams != null) {
@@ -228,16 +321,43 @@ public class CustomDataType implements
                 req.addQueryParam(queryParam);
             }
         }
-        
+
         HTTPClient client = io.codat.platform.utils.Utils.configureSecurityClient(
                 this.sdkConfiguration.defaultClient, this.sdkConfiguration.securitySource.getSecurity());
-        
-        HttpResponse<InputStream> httpRes = client.send(req);
+
+        io.codat.platform.utils.RetryConfig retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            retryConfig = io.codat.platform.utils.RetryConfig.builder()
+                .backoff(io.codat.platform.utils.BackoffStrategy.builder()
+                            .initialInterval(500L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .maxInterval(60000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
+        }
+
+        List<String> statusCodes = new java.util.ArrayList<String>();
+        statusCodes.add("408");
+        statusCodes.add("429");
+        statusCodes.add("5XX");
+        io.codat.platform.utils.Retries retries = io.codat.platform.utils.Retries.builder()
+            .action(() -> client.send(req))
+            .retryConfig(retryConfig)
+            .statusCodes(statusCodes)
+            .build();
+
+        HttpResponse<InputStream> httpRes = retries.run();
 
         String contentType = httpRes
-                .headers()
-                .firstValue("Content-Type")
-                .orElse("application/octet-stream");
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
         io.codat.platform.models.operations.ListCustomDataTypeRecordsResponse.Builder resBuilder = 
             io.codat.platform.models.operations.ListCustomDataTypeRecordsResponse
                 .builder()
@@ -248,7 +368,7 @@ public class CustomDataType implements
         io.codat.platform.models.operations.ListCustomDataTypeRecordsResponse res = resBuilder.build();
 
         res.withRawResponse(httpRes);
-        
+
         if (httpRes.statusCode() == 200) {
             if (io.codat.platform.utils.Utils.matchContentType(contentType, "application/json")) {
                 ObjectMapper mapper = JSON.getMapper();
@@ -274,6 +394,7 @@ public class CustomDataType implements
         return res;
     }
 
+
     public io.codat.platform.models.operations.RefreshCustomDataTypeRequestBuilder refresh() {
         return new io.codat.platform.models.operations.RefreshCustomDataTypeRequestBuilder(this);
     }
@@ -281,35 +402,71 @@ public class CustomDataType implements
     /**
      * Refresh custom data type
      * The *Refresh custom data type* endpoint refreshes the specified custom data type for a given company. This is an asynchronous operation that will sync updated data from the linked integration into Codat for you to view.
-     * @param request the request object containing all of the parameters for the API call
-     * @return the response from the API call
-     * @throws Exception if the API call fails
+     * @param request The request object containing all of the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call.
+     * @throws Exception if the API call fails.
      */
     public io.codat.platform.models.operations.RefreshCustomDataTypeResponse refresh(
-            io.codat.platform.models.operations.RefreshCustomDataTypeRequest request) throws Exception {
+            io.codat.platform.models.operations.RefreshCustomDataTypeRequest request,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
+
+
         String baseUrl = this.sdkConfiguration.serverUrl;
+
         String url = io.codat.platform.utils.Utils.generateURL(
-                io.codat.platform.models.operations.RefreshCustomDataTypeRequest.class, 
-                baseUrl, 
-                "/companies/{companyId}/connections/{connectionId}/data/queue/custom/{customDataIdentifier}", 
+                io.codat.platform.models.operations.RefreshCustomDataTypeRequest.class,
+                baseUrl,
+                "/companies/{companyId}/connections/{connectionId}/data/queue/custom/{customDataIdentifier}",
                 request, null);
-        
+
         HTTPRequest req = new HTTPRequest();
         req.setMethod("POST");
         req.setURL(url);
 
         req.addHeader("Accept", "application/json");
         req.addHeader("user-agent", this.sdkConfiguration.userAgent);
-        
+
         HTTPClient client = io.codat.platform.utils.Utils.configureSecurityClient(
                 this.sdkConfiguration.defaultClient, this.sdkConfiguration.securitySource.getSecurity());
-        
-        HttpResponse<InputStream> httpRes = client.send(req);
+
+        io.codat.platform.utils.RetryConfig retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            retryConfig = io.codat.platform.utils.RetryConfig.builder()
+                .backoff(io.codat.platform.utils.BackoffStrategy.builder()
+                            .initialInterval(500L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .maxInterval(60000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
+        }
+
+        List<String> statusCodes = new java.util.ArrayList<String>();
+        statusCodes.add("408");
+        statusCodes.add("429");
+        statusCodes.add("5XX");
+        io.codat.platform.utils.Retries retries = io.codat.platform.utils.Retries.builder()
+            .action(() -> client.send(req))
+            .retryConfig(retryConfig)
+            .statusCodes(statusCodes)
+            .build();
+
+        HttpResponse<InputStream> httpRes = retries.run();
 
         String contentType = httpRes
-                .headers()
-                .firstValue("Content-Type")
-                .orElse("application/octet-stream");
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
         io.codat.platform.models.operations.RefreshCustomDataTypeResponse.Builder resBuilder = 
             io.codat.platform.models.operations.RefreshCustomDataTypeResponse
                 .builder()
@@ -320,7 +477,7 @@ public class CustomDataType implements
         io.codat.platform.models.operations.RefreshCustomDataTypeResponse res = resBuilder.build();
 
         res.withRawResponse(httpRes);
-        
+
         if (httpRes.statusCode() == 200) {
             if (io.codat.platform.utils.Utils.matchContentType(contentType, "application/json")) {
                 ObjectMapper mapper = JSON.getMapper();

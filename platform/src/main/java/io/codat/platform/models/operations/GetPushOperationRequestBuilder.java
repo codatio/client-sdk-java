@@ -5,33 +5,53 @@
 package io.codat.platform.models.operations;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import io.codat.platform.utils.LazySingletonValue;
+import io.codat.platform.utils.Options.Builder;
+import io.codat.platform.utils.Options;
+import io.codat.platform.utils.Utils;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Arrays;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-import io.codat.platform.CodatPlatform;
-import io.codat.platform.utils.Utils;
-import io.codat.platform.utils.LazySingletonValue;
 
 public class GetPushOperationRequestBuilder {
 
     private GetPushOperationRequest request;
-
+    private Optional<io.codat.platform.utils.RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetPushOperation sdk;
-    
+
     public GetPushOperationRequestBuilder(SDKMethodInterfaces.MethodCallGetPushOperation sdk) {
         this.sdk = sdk;
     }
-             
+
     public GetPushOperationRequestBuilder request(GetPushOperationRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
+                
+    public GetPushOperationRequestBuilder retryConfig(io.codat.platform.utils.RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public GetPushOperationRequestBuilder retryConfig(Optional<io.codat.platform.utils.RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public GetPushOperationResponse call() throws Exception {
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.getOperation(
-            request);
+            request,
+            options);
     }
 }

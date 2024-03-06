@@ -4,12 +4,16 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
@@ -28,7 +32,7 @@ public class CompanyGroupAssignment {
     public Optional<? extends String> groupId() {
         return groupId;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -38,7 +42,7 @@ public class CompanyGroupAssignment {
         this.groupId = Optional.ofNullable(groupId);
         return this;
     }
-    
+
     public CompanyGroupAssignment withGroupId(Optional<? extends String> groupId) {
         Utils.checkNotNull(groupId, "groupId");
         this.groupId = groupId;
@@ -83,7 +87,7 @@ public class CompanyGroupAssignment {
             this.groupId = Optional.ofNullable(groupId);
             return this;
         }
-        
+
         public Builder groupId(Optional<? extends String> groupId) {
             Utils.checkNotNull(groupId, "groupId");
             this.groupId = groupId;

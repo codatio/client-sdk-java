@@ -4,12 +4,15 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.LazySingletonValue;
 import io.codat.platform.utils.SpeakeasyMetadata;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
@@ -97,7 +100,7 @@ public class ListCustomDataTypeRecordsRequest {
     public Optional<? extends Integer> pageSize() {
         return pageSize;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -137,7 +140,7 @@ public class ListCustomDataTypeRecordsRequest {
         this.page = Optional.ofNullable(page);
         return this;
     }
-    
+
     /**
      * Page number. [Read more](https://docs.codat.io/using-the-api/paging).
      */
@@ -155,7 +158,7 @@ public class ListCustomDataTypeRecordsRequest {
         this.pageSize = Optional.ofNullable(pageSize);
         return this;
     }
-    
+
     /**
      * Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).
      */
@@ -253,7 +256,7 @@ public class ListCustomDataTypeRecordsRequest {
             this.page = Optional.ofNullable(page);
             return this;
         }
-        
+
         /**
          * Page number. [Read more](https://docs.codat.io/using-the-api/paging).
          */
@@ -271,7 +274,7 @@ public class ListCustomDataTypeRecordsRequest {
             this.pageSize = Optional.ofNullable(pageSize);
             return this;
         }
-        
+
         /**
          * Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).
          */

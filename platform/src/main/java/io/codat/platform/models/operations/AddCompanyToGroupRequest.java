@@ -4,10 +4,14 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.SpeakeasyMetadata;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
@@ -41,7 +45,7 @@ public class AddCompanyToGroupRequest {
     public String companyId() {
         return companyId;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -51,7 +55,7 @@ public class AddCompanyToGroupRequest {
         this.companyGroupAssignment = Optional.ofNullable(companyGroupAssignment);
         return this;
     }
-    
+
     public AddCompanyToGroupRequest withCompanyGroupAssignment(Optional<? extends io.codat.platform.models.shared.CompanyGroupAssignment> companyGroupAssignment) {
         Utils.checkNotNull(companyGroupAssignment, "companyGroupAssignment");
         this.companyGroupAssignment = companyGroupAssignment;
@@ -110,7 +114,7 @@ public class AddCompanyToGroupRequest {
             this.companyGroupAssignment = Optional.ofNullable(companyGroupAssignment);
             return this;
         }
-        
+
         public Builder companyGroupAssignment(Optional<? extends io.codat.platform.models.shared.CompanyGroupAssignment> companyGroupAssignment) {
             Utils.checkNotNull(companyGroupAssignment, "companyGroupAssignment");
             this.companyGroupAssignment = companyGroupAssignment;

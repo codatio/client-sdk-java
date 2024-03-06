@@ -4,9 +4,13 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.http.HttpResponse;
 import java.util.Optional;
 
@@ -90,7 +94,7 @@ public class AddCompanyToGroupResponse {
     public HttpResponse<InputStream> rawResponse() {
         return rawResponse;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -103,7 +107,7 @@ public class AddCompanyToGroupResponse {
         this.company = Optional.ofNullable(company);
         return this;
     }
-    
+
     /**
      * Success
      */
@@ -130,7 +134,7 @@ public class AddCompanyToGroupResponse {
         this.errorMessage = Optional.ofNullable(errorMessage);
         return this;
     }
-    
+
     /**
      * Your API request was not properly authorized.
      */
@@ -219,7 +223,7 @@ public class AddCompanyToGroupResponse {
             this.company = Optional.ofNullable(company);
             return this;
         }
-        
+
         /**
          * Success
          */
@@ -246,7 +250,7 @@ public class AddCompanyToGroupResponse {
             this.errorMessage = Optional.ofNullable(errorMessage);
             return this;
         }
-        
+
         /**
          * Your API request was not properly authorized.
          */

@@ -33,6 +33,8 @@ import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
 import io.codat.platform.models.shared.SupplementalDataConfiguration;
 import io.codat.platform.models.shared.SupplementalDataSourceConfiguration;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -44,7 +46,7 @@ public class Application {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
-                    .authHeader("<YOUR_API_KEY_HERE>")
+                    .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
                 .build();
 
@@ -106,6 +108,8 @@ import io.codat.platform.models.operations.GetSupplementalDataConfigurationRespo
 import io.codat.platform.models.operations.PathParamDataType;
 import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -117,7 +121,7 @@ public class Application {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
-                    .authHeader("<YOUR_API_KEY_HERE>")
+                    .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
                 .build();
 

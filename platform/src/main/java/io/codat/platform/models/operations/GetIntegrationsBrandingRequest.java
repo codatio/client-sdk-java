@@ -4,16 +4,20 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.SpeakeasyMetadata;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 
 
 public class GetIntegrationsBrandingRequest {
 
     /**
-     * A unique 4-letter key to represent a platform in each integration. View [accounting](https://docs.codat.io/integrations/accounting/overview#platform-keys), [banking](https://docs.codat.io/integrations/banking/overview#platform-keys), and [commerce](https://docs.codat.io/integrations/commerce/overview#platform-keys) platform keys.
+     * A unique 4-letter key to represent a platform in each integration.
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=platformKey")
     private String platformKey;
@@ -25,18 +29,18 @@ public class GetIntegrationsBrandingRequest {
     }
 
     /**
-     * A unique 4-letter key to represent a platform in each integration. View [accounting](https://docs.codat.io/integrations/accounting/overview#platform-keys), [banking](https://docs.codat.io/integrations/banking/overview#platform-keys), and [commerce](https://docs.codat.io/integrations/commerce/overview#platform-keys) platform keys.
+     * A unique 4-letter key to represent a platform in each integration.
      */
     public String platformKey() {
         return platformKey;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
 
     /**
-     * A unique 4-letter key to represent a platform in each integration. View [accounting](https://docs.codat.io/integrations/accounting/overview#platform-keys), [banking](https://docs.codat.io/integrations/banking/overview#platform-keys), and [commerce](https://docs.codat.io/integrations/commerce/overview#platform-keys) platform keys.
+     * A unique 4-letter key to represent a platform in each integration.
      */
     public GetIntegrationsBrandingRequest withPlatformKey(String platformKey) {
         Utils.checkNotNull(platformKey, "platformKey");
@@ -78,7 +82,7 @@ public class GetIntegrationsBrandingRequest {
         }
 
         /**
-         * A unique 4-letter key to represent a platform in each integration. View [accounting](https://docs.codat.io/integrations/accounting/overview#platform-keys), [banking](https://docs.codat.io/integrations/banking/overview#platform-keys), and [commerce](https://docs.codat.io/integrations/commerce/overview#platform-keys) platform keys.
+         * A unique 4-letter key to represent a platform in each integration.
          */
         public Builder platformKey(String platformKey) {
             Utils.checkNotNull(platformKey, "platformKey");

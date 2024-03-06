@@ -4,12 +4,16 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
@@ -85,7 +89,7 @@ public class ConnectionStatusChangedWebhookData {
     public Optional<? extends String> platformKey() {
         return platformKey;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -98,7 +102,7 @@ public class ConnectionStatusChangedWebhookData {
         this.dataConnectionId = Optional.ofNullable(dataConnectionId);
         return this;
     }
-    
+
     /**
      * Unique identifier for a company's data connection.
      */
@@ -116,7 +120,7 @@ public class ConnectionStatusChangedWebhookData {
         this.newStatus = Optional.ofNullable(newStatus);
         return this;
     }
-    
+
     /**
      * The current authorization status of the data connection.
      */
@@ -134,7 +138,7 @@ public class ConnectionStatusChangedWebhookData {
         this.oldStatus = Optional.ofNullable(oldStatus);
         return this;
     }
-    
+
     /**
      * The current authorization status of the data connection.
      */
@@ -152,7 +156,7 @@ public class ConnectionStatusChangedWebhookData {
         this.platformKey = Optional.ofNullable(platformKey);
         return this;
     }
-    
+
     /**
      * A unique 4-letter key to represent a platform in each integration. View [accounting](https://docs.codat.io/integrations/accounting/overview#platform-keys), [banking](https://docs.codat.io/integrations/banking/overview#platform-keys), and [commerce](https://docs.codat.io/integrations/commerce/overview#platform-keys) platform keys.
      */
@@ -218,7 +222,7 @@ public class ConnectionStatusChangedWebhookData {
             this.dataConnectionId = Optional.ofNullable(dataConnectionId);
             return this;
         }
-        
+
         /**
          * Unique identifier for a company's data connection.
          */
@@ -236,7 +240,7 @@ public class ConnectionStatusChangedWebhookData {
             this.newStatus = Optional.ofNullable(newStatus);
             return this;
         }
-        
+
         /**
          * The current authorization status of the data connection.
          */
@@ -254,7 +258,7 @@ public class ConnectionStatusChangedWebhookData {
             this.oldStatus = Optional.ofNullable(oldStatus);
             return this;
         }
-        
+
         /**
          * The current authorization status of the data connection.
          */
@@ -272,7 +276,7 @@ public class ConnectionStatusChangedWebhookData {
             this.platformKey = Optional.ofNullable(platformKey);
             return this;
         }
-        
+
         /**
          * A unique 4-letter key to represent a platform in each integration. View [accounting](https://docs.codat.io/integrations/accounting/overview#platform-keys), [banking](https://docs.codat.io/integrations/banking/overview#platform-keys), and [commerce](https://docs.codat.io/integrations/commerce/overview#platform-keys) platform keys.
          */

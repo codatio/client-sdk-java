@@ -4,10 +4,14 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.SpeakeasyMetadata;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
@@ -63,7 +67,7 @@ public class RefreshDataTypeRequest {
     public io.codat.platform.models.shared.SchemaDataType dataType() {
         return dataType;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -85,7 +89,7 @@ public class RefreshDataTypeRequest {
         this.connectionId = Optional.ofNullable(connectionId);
         return this;
     }
-    
+
     /**
      * Optionally, provide a data connection id to only queue pull operations on that connection.
      */
@@ -164,7 +168,7 @@ public class RefreshDataTypeRequest {
             this.connectionId = Optional.ofNullable(connectionId);
             return this;
         }
-        
+
         /**
          * Optionally, provide a data connection id to only queue pull operations on that connection.
          */

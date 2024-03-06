@@ -11,11 +11,17 @@ import io.codat.platform.models.operations.SDKMethodInterfaces.*;
 import io.codat.platform.utils.HTTPClient;
 import io.codat.platform.utils.HTTPRequest;
 import io.codat.platform.utils.JSON;
+import io.codat.platform.utils.Options;
 import io.codat.platform.utils.SerializedBody;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -25,12 +31,13 @@ import org.openapitools.jackson.nullable.JsonNullable;
 public class SupplementalData implements
             MethodCallConfigureSupplementalData,
             MethodCallGetSupplementalDataConfiguration {
-    
+
     private final SDKConfiguration sdkConfiguration;
 
     SupplementalData(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     public io.codat.platform.models.operations.ConfigureSupplementalDataRequestBuilder configure() {
         return new io.codat.platform.models.operations.ConfigureSupplementalDataRequestBuilder(this);
     }
@@ -43,38 +50,76 @@ public class SupplementalData implements
      * 
      * **Integration-specific behaviour**
      * See the *examples* for integration-specific frequently requested properties.
-     * @param request the request object containing all of the parameters for the API call
-     * @return the response from the API call
-     * @throws Exception if the API call fails
+     * @param request The request object containing all of the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call.
+     * @throws Exception if the API call fails.
      */
     public io.codat.platform.models.operations.ConfigureSupplementalDataResponse configure(
-            io.codat.platform.models.operations.ConfigureSupplementalDataRequest request) throws Exception {
+            io.codat.platform.models.operations.ConfigureSupplementalDataRequest request,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
+
+
         String baseUrl = this.sdkConfiguration.serverUrl;
+
         String url = io.codat.platform.utils.Utils.generateURL(
-                io.codat.platform.models.operations.ConfigureSupplementalDataRequest.class, 
-                baseUrl, 
-                "/integrations/{platformKey}/dataTypes/{dataType}/supplementalDataConfig", 
+                io.codat.platform.models.operations.ConfigureSupplementalDataRequest.class,
+                baseUrl,
+                "/integrations/{platformKey}/dataTypes/{dataType}/supplementalDataConfig",
                 request, null);
-        
+
         HTTPRequest req = new HTTPRequest();
         req.setMethod("PUT");
         req.setURL(url);
+        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
+            new TypeReference<io.codat.platform.models.operations.ConfigureSupplementalDataRequest>() {});
         SerializedBody serializedRequestBody = io.codat.platform.utils.Utils.serializeRequestBody(
-                request, "supplementalDataConfiguration", "json", false);
+                _convertedRequest, "supplementalDataConfiguration", "json", false);
         req.setBody(serializedRequestBody);
 
         req.addHeader("Accept", "application/json");
         req.addHeader("user-agent", this.sdkConfiguration.userAgent);
-        
+
         HTTPClient client = io.codat.platform.utils.Utils.configureSecurityClient(
                 this.sdkConfiguration.defaultClient, this.sdkConfiguration.securitySource.getSecurity());
-        
-        HttpResponse<InputStream> httpRes = client.send(req);
+
+        io.codat.platform.utils.RetryConfig retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            retryConfig = io.codat.platform.utils.RetryConfig.builder()
+                .backoff(io.codat.platform.utils.BackoffStrategy.builder()
+                            .initialInterval(500L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .maxInterval(60000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
+        }
+
+        List<String> statusCodes = new java.util.ArrayList<String>();
+        statusCodes.add("408");
+        statusCodes.add("429");
+        statusCodes.add("5XX");
+        io.codat.platform.utils.Retries retries = io.codat.platform.utils.Retries.builder()
+            .action(() -> client.send(req))
+            .retryConfig(retryConfig)
+            .statusCodes(statusCodes)
+            .build();
+
+        HttpResponse<InputStream> httpRes = retries.run();
 
         String contentType = httpRes
-                .headers()
-                .firstValue("Content-Type")
-                .orElse("application/octet-stream");
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
         io.codat.platform.models.operations.ConfigureSupplementalDataResponse.Builder resBuilder = 
             io.codat.platform.models.operations.ConfigureSupplementalDataResponse
                 .builder()
@@ -85,7 +130,7 @@ public class SupplementalData implements
         io.codat.platform.models.operations.ConfigureSupplementalDataResponse res = resBuilder.build();
 
         res.withRawResponse(httpRes);
-        
+
         if (httpRes.statusCode() == 200) {
         } else if (httpRes.statusCode() == 401 || httpRes.statusCode() == 402 || httpRes.statusCode() == 403 || httpRes.statusCode() == 404 || httpRes.statusCode() == 429 || httpRes.statusCode() == 500 || httpRes.statusCode() == 503) {
             if (io.codat.platform.utils.Utils.matchContentType(contentType, "application/json")) {
@@ -102,6 +147,7 @@ public class SupplementalData implements
         return res;
     }
 
+
     public io.codat.platform.models.operations.GetSupplementalDataConfigurationRequestBuilder getConfiguration() {
         return new io.codat.platform.models.operations.GetSupplementalDataConfigurationRequestBuilder(this);
     }
@@ -111,35 +157,71 @@ public class SupplementalData implements
      * The *Get configuration* endpoint returns supplemental data configuration previously created for each integration and data type combination.
      * 
      * [Supplemental data](https://docs.codat.io/using-the-api/additional-data) is additional data you can include in Codat's standard data types.
-     * @param request the request object containing all of the parameters for the API call
-     * @return the response from the API call
-     * @throws Exception if the API call fails
+     * @param request The request object containing all of the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call.
+     * @throws Exception if the API call fails.
      */
     public io.codat.platform.models.operations.GetSupplementalDataConfigurationResponse getConfiguration(
-            io.codat.platform.models.operations.GetSupplementalDataConfigurationRequest request) throws Exception {
+            io.codat.platform.models.operations.GetSupplementalDataConfigurationRequest request,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
+
+
         String baseUrl = this.sdkConfiguration.serverUrl;
+
         String url = io.codat.platform.utils.Utils.generateURL(
-                io.codat.platform.models.operations.GetSupplementalDataConfigurationRequest.class, 
-                baseUrl, 
-                "/integrations/{platformKey}/dataTypes/{dataType}/supplementalDataConfig", 
+                io.codat.platform.models.operations.GetSupplementalDataConfigurationRequest.class,
+                baseUrl,
+                "/integrations/{platformKey}/dataTypes/{dataType}/supplementalDataConfig",
                 request, null);
-        
+
         HTTPRequest req = new HTTPRequest();
         req.setMethod("GET");
         req.setURL(url);
 
         req.addHeader("Accept", "application/json");
         req.addHeader("user-agent", this.sdkConfiguration.userAgent);
-        
+
         HTTPClient client = io.codat.platform.utils.Utils.configureSecurityClient(
                 this.sdkConfiguration.defaultClient, this.sdkConfiguration.securitySource.getSecurity());
-        
-        HttpResponse<InputStream> httpRes = client.send(req);
+
+        io.codat.platform.utils.RetryConfig retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            retryConfig = io.codat.platform.utils.RetryConfig.builder()
+                .backoff(io.codat.platform.utils.BackoffStrategy.builder()
+                            .initialInterval(500L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .maxInterval(60000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
+        }
+
+        List<String> statusCodes = new java.util.ArrayList<String>();
+        statusCodes.add("408");
+        statusCodes.add("429");
+        statusCodes.add("5XX");
+        io.codat.platform.utils.Retries retries = io.codat.platform.utils.Retries.builder()
+            .action(() -> client.send(req))
+            .retryConfig(retryConfig)
+            .statusCodes(statusCodes)
+            .build();
+
+        HttpResponse<InputStream> httpRes = retries.run();
 
         String contentType = httpRes
-                .headers()
-                .firstValue("Content-Type")
-                .orElse("application/octet-stream");
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
         io.codat.platform.models.operations.GetSupplementalDataConfigurationResponse.Builder resBuilder = 
             io.codat.platform.models.operations.GetSupplementalDataConfigurationResponse
                 .builder()
@@ -150,7 +232,7 @@ public class SupplementalData implements
         io.codat.platform.models.operations.GetSupplementalDataConfigurationResponse res = resBuilder.build();
 
         res.withRawResponse(httpRes);
-        
+
         if (httpRes.statusCode() == 200) {
             if (io.codat.platform.utils.Utils.matchContentType(contentType, "application/json")) {
                 ObjectMapper mapper = JSON.getMapper();

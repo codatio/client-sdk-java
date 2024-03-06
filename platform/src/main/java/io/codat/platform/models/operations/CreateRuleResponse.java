@@ -4,9 +4,13 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.http.HttpResponse;
 import java.util.Optional;
 
@@ -90,7 +94,7 @@ public class CreateRuleResponse {
     public Optional<? extends io.codat.platform.models.shared.Webhook> webhook() {
         return webhook;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -112,7 +116,7 @@ public class CreateRuleResponse {
         this.errorMessage = Optional.ofNullable(errorMessage);
         return this;
     }
-    
+
     /**
      * Your API request was not properly authorized.
      */
@@ -148,7 +152,7 @@ public class CreateRuleResponse {
         this.webhook = Optional.ofNullable(webhook);
         return this;
     }
-    
+
     /**
      * OK
      */
@@ -228,7 +232,7 @@ public class CreateRuleResponse {
             this.errorMessage = Optional.ofNullable(errorMessage);
             return this;
         }
-        
+
         /**
          * Your API request was not properly authorized.
          */
@@ -264,7 +268,7 @@ public class CreateRuleResponse {
             this.webhook = Optional.ofNullable(webhook);
             return this;
         }
-        
+
         /**
          * OK
          */

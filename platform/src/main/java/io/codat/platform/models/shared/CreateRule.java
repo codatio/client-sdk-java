@@ -4,16 +4,20 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 /**
- * CreateRule - Create an event notification to a URL or list of email addresses based on the given type or condition.
+ * CreateRule - Create a message that notifies a URL of an event based on its given type or condition.
  */
 
 public class CreateRule {
@@ -63,7 +67,7 @@ public class CreateRule {
     public String type() {
         return type;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -76,7 +80,7 @@ public class CreateRule {
         this.companyId = Optional.ofNullable(companyId);
         return this;
     }
-    
+
     /**
      * Unique identifier for your SMB in Codat.
      */
@@ -152,7 +156,7 @@ public class CreateRule {
             this.companyId = Optional.ofNullable(companyId);
             return this;
         }
-        
+
         /**
          * Unique identifier for your SMB in Codat.
          */

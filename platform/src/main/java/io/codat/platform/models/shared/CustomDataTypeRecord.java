@@ -4,12 +4,16 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
@@ -62,7 +66,7 @@ public class CustomDataTypeRecord {
     public Optional<? extends ModifiedDate> modifiedDate() {
         return modifiedDate;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -75,7 +79,7 @@ public class CustomDataTypeRecord {
         this.content = Optional.ofNullable(content);
         return this;
     }
-    
+
     /**
      * Values from the source system for the properties defined in the custom data type configuration.
      */
@@ -93,7 +97,7 @@ public class CustomDataTypeRecord {
         this.id = Optional.ofNullable(id);
         return this;
     }
-    
+
     /**
      * Unique identifier of the record.
      */
@@ -108,7 +112,7 @@ public class CustomDataTypeRecord {
         this.modifiedDate = Optional.ofNullable(modifiedDate);
         return this;
     }
-    
+
     public CustomDataTypeRecord withModifiedDate(Optional<? extends ModifiedDate> modifiedDate) {
         Utils.checkNotNull(modifiedDate, "modifiedDate");
         this.modifiedDate = modifiedDate;
@@ -166,7 +170,7 @@ public class CustomDataTypeRecord {
             this.content = Optional.ofNullable(content);
             return this;
         }
-        
+
         /**
          * Values from the source system for the properties defined in the custom data type configuration.
          */
@@ -184,7 +188,7 @@ public class CustomDataTypeRecord {
             this.id = Optional.ofNullable(id);
             return this;
         }
-        
+
         /**
          * Unique identifier of the record.
          */
@@ -199,7 +203,7 @@ public class CustomDataTypeRecord {
             this.modifiedDate = Optional.ofNullable(modifiedDate);
             return this;
         }
-        
+
         public Builder modifiedDate(Optional<? extends ModifiedDate> modifiedDate) {
             Utils.checkNotNull(modifiedDate, "modifiedDate");
             this.modifiedDate = modifiedDate;

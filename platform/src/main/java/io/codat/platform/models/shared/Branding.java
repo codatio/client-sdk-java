@@ -4,12 +4,16 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
@@ -68,7 +72,7 @@ public class Branding {
     public Optional<? extends String> sourceId() {
         return sourceId;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -81,7 +85,7 @@ public class Branding {
         this.button = Optional.ofNullable(button);
         return this;
     }
-    
+
     /**
      * Button branding references.
      */
@@ -99,7 +103,7 @@ public class Branding {
         this.logo = Optional.ofNullable(logo);
         return this;
     }
-    
+
     /**
      * Logo branding references.
      */
@@ -117,7 +121,7 @@ public class Branding {
         this.sourceId = Optional.ofNullable(sourceId);
         return this;
     }
-    
+
     /**
      * A source-specific ID used to distinguish between different sources originating from the same data connection. In general, a data connection is a single data source. However, for TrueLayer, `sourceId` is associated with a specific bank and has a many-to-one relationship with the `integrationId`.
      */
@@ -178,7 +182,7 @@ public class Branding {
             this.button = Optional.ofNullable(button);
             return this;
         }
-        
+
         /**
          * Button branding references.
          */
@@ -196,7 +200,7 @@ public class Branding {
             this.logo = Optional.ofNullable(logo);
             return this;
         }
-        
+
         /**
          * Logo branding references.
          */
@@ -214,7 +218,7 @@ public class Branding {
             this.sourceId = Optional.ofNullable(sourceId);
             return this;
         }
-        
+
         /**
          * A source-specific ID used to distinguish between different sources originating from the same data connection. In general, a data connection is a single data source. However, for TrueLayer, `sourceId` is associated with a specific bank and has a many-to-one relationship with the `integrationId`.
          */

@@ -4,12 +4,16 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 /**
@@ -42,7 +46,7 @@ public class BrandingButton {
     public Optional<? extends BrandingImage> hover() {
         return hover;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -52,7 +56,7 @@ public class BrandingButton {
         this.default_ = Optional.ofNullable(default_);
         return this;
     }
-    
+
     public BrandingButton withDefault(Optional<? extends BrandingImage> default_) {
         Utils.checkNotNull(default_, "default_");
         this.default_ = default_;
@@ -64,7 +68,7 @@ public class BrandingButton {
         this.hover = Optional.ofNullable(hover);
         return this;
     }
-    
+
     public BrandingButton withHover(Optional<? extends BrandingImage> hover) {
         Utils.checkNotNull(hover, "hover");
         this.hover = hover;
@@ -114,7 +118,7 @@ public class BrandingButton {
             this.default_ = Optional.ofNullable(default_);
             return this;
         }
-        
+
         public Builder default_(Optional<? extends BrandingImage> default_) {
             Utils.checkNotNull(default_, "default_");
             this.default_ = default_;
@@ -126,7 +130,7 @@ public class BrandingButton {
             this.hover = Optional.ofNullable(hover);
             return this;
         }
-        
+
         public Builder hover(Optional<? extends BrandingImage> hover) {
             Utils.checkNotNull(hover, "hover");
             this.hover = hover;

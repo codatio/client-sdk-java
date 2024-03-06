@@ -49,3 +49,13 @@ Based on:
 - [java v0.2.1] platform
 ### Releases
 - [Maven Central v0.2.1] https://central.sonatype.com/artifact/io.codat/platform/0.2.1 - platform
+
+## 2024-03-06 11:08:43
+### Changes
+Based on:
+- OpenAPI Doc 3.0.0 https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Platform.yaml
+- Speakeasy CLI 1.201.1 (2.277.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [java v0.3.0] platform
+### Releases
+- [Maven Central v0.3.0] https://central.sonatype.com/artifact/io.codat/platform/0.3.0 - platform

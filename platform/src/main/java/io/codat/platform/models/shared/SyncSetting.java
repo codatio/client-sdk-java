@@ -4,12 +4,16 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 /**
@@ -19,7 +23,7 @@ import java.util.Optional;
 public class SyncSetting {
 
     /**
-     * Available Data types
+     * Available data types
      */
     @JsonProperty("dataType")
     private DataType dataType;
@@ -116,7 +120,7 @@ public class SyncSetting {
     }
 
     /**
-     * Available Data types
+     * Available data types
      */
     public DataType dataType() {
         return dataType;
@@ -188,13 +192,13 @@ public class SyncSetting {
     public long syncSchedule() {
         return syncSchedule;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
 
     /**
-     * Available Data types
+     * Available data types
      */
     public SyncSetting withDataType(DataType dataType) {
         Utils.checkNotNull(dataType, "dataType");
@@ -219,7 +223,7 @@ public class SyncSetting {
         this.isLocked = Optional.ofNullable(isLocked);
         return this;
     }
-    
+
     /**
      * `True` if the [sync setting](https://docs.codat.io/knowledge-base/advanced-sync-settings) is locked.
      */
@@ -237,7 +241,7 @@ public class SyncSetting {
         this.monthsToSync = Optional.ofNullable(monthsToSync);
         return this;
     }
-    
+
     /**
      * Months of data to fetch, for report data types (`balanceSheet` &amp; `profitAndLoss`) only.
      */
@@ -273,7 +277,7 @@ public class SyncSetting {
         this.syncFromUtc = Optional.ofNullable(syncFromUtc);
         return this;
     }
-    
+
     /**
      * In Codat's data model, dates and times are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date and time fields are formatted as strings; for example:
      * 
@@ -309,7 +313,7 @@ public class SyncSetting {
         this.syncFromWindow = Optional.ofNullable(syncFromWindow);
         return this;
     }
-    
+
     /**
      * Number of months of data to be fetched. Set this *or* `syncFromUTC`.
      */
@@ -406,7 +410,7 @@ public class SyncSetting {
         }
 
         /**
-         * Available Data types
+         * Available data types
          */
         public Builder dataType(DataType dataType) {
             Utils.checkNotNull(dataType, "dataType");
@@ -431,7 +435,7 @@ public class SyncSetting {
             this.isLocked = Optional.ofNullable(isLocked);
             return this;
         }
-        
+
         /**
          * `True` if the [sync setting](https://docs.codat.io/knowledge-base/advanced-sync-settings) is locked.
          */
@@ -449,7 +453,7 @@ public class SyncSetting {
             this.monthsToSync = Optional.ofNullable(monthsToSync);
             return this;
         }
-        
+
         /**
          * Months of data to fetch, for report data types (`balanceSheet` &amp; `profitAndLoss`) only.
          */
@@ -485,7 +489,7 @@ public class SyncSetting {
             this.syncFromUtc = Optional.ofNullable(syncFromUtc);
             return this;
         }
-        
+
         /**
          * In Codat's data model, dates and times are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date and time fields are formatted as strings; for example:
          * 
@@ -521,7 +525,7 @@ public class SyncSetting {
             this.syncFromWindow = Optional.ofNullable(syncFromWindow);
             return this;
         }
-        
+
         /**
          * Number of months of data to be fetched. Set this *or* `syncFromUTC`.
          */
