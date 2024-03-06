@@ -4,12 +4,16 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
@@ -102,7 +106,7 @@ public class PushOptionChoice {
     public Optional<? extends String> value() {
         return value;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -115,7 +119,7 @@ public class PushOptionChoice {
         this.description = Optional.ofNullable(description);
         return this;
     }
-    
+
     /**
      * A description of the property.
      */
@@ -133,7 +137,7 @@ public class PushOptionChoice {
         this.displayName = Optional.ofNullable(displayName);
         return this;
     }
-    
+
     /**
      * The property's display name.
      */
@@ -151,7 +155,7 @@ public class PushOptionChoice {
         this.required = Optional.ofNullable(required);
         return this;
     }
-    
+
     /**
      * The property is required if `True`.
      */
@@ -169,7 +173,7 @@ public class PushOptionChoice {
         this.type = Optional.ofNullable(type);
         return this;
     }
-    
+
     /**
      * The option type.
      */
@@ -187,7 +191,7 @@ public class PushOptionChoice {
         this.value = Optional.ofNullable(value);
         return this;
     }
-    
+
     /**
      * Allowed value for field.
      */
@@ -258,7 +262,7 @@ public class PushOptionChoice {
             this.description = Optional.ofNullable(description);
             return this;
         }
-        
+
         /**
          * A description of the property.
          */
@@ -276,7 +280,7 @@ public class PushOptionChoice {
             this.displayName = Optional.ofNullable(displayName);
             return this;
         }
-        
+
         /**
          * The property's display name.
          */
@@ -294,7 +298,7 @@ public class PushOptionChoice {
             this.required = Optional.ofNullable(required);
             return this;
         }
-        
+
         /**
          * The property is required if `True`.
          */
@@ -312,7 +316,7 @@ public class PushOptionChoice {
             this.type = Optional.ofNullable(type);
             return this;
         }
-        
+
         /**
          * The option type.
          */
@@ -330,7 +334,7 @@ public class PushOptionChoice {
             this.value = Optional.ofNullable(value);
             return this;
         }
-        
+
         /**
          * Allowed value for field.
          */

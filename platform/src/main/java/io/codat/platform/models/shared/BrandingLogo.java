@@ -4,12 +4,16 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 /**
@@ -42,7 +46,7 @@ public class BrandingLogo {
     public Optional<? extends BrandingImage> square() {
         return square;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -52,7 +56,7 @@ public class BrandingLogo {
         this.full = Optional.ofNullable(full);
         return this;
     }
-    
+
     public BrandingLogo withFull(Optional<? extends BrandingImage> full) {
         Utils.checkNotNull(full, "full");
         this.full = full;
@@ -64,7 +68,7 @@ public class BrandingLogo {
         this.square = Optional.ofNullable(square);
         return this;
     }
-    
+
     public BrandingLogo withSquare(Optional<? extends BrandingImage> square) {
         Utils.checkNotNull(square, "square");
         this.square = square;
@@ -114,7 +118,7 @@ public class BrandingLogo {
             this.full = Optional.ofNullable(full);
             return this;
         }
-        
+
         public Builder full(Optional<? extends BrandingImage> full) {
             Utils.checkNotNull(full, "full");
             this.full = full;
@@ -126,7 +130,7 @@ public class BrandingLogo {
             this.square = Optional.ofNullable(square);
             return this;
         }
-        
+
         public Builder square(Optional<? extends BrandingImage> square) {
             Utils.checkNotNull(square, "square");
             this.square = square;

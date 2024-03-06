@@ -10,7 +10,7 @@ Manage the building blocks of Codat, including companies, connections, and more.
 ### Gradle
 
 ```groovy
-implementation 'io.codat.platform:openapi:0.2.1'
+implementation 'io.codat.platform:openapi:0.3.0'
 ```
 <!-- End SDK Installation [installation] -->
 
@@ -29,6 +29,8 @@ import io.codat.platform.models.operations.CreateApiKeyResponse;
 import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.CreateApiKey;
 import io.codat.platform.models.shared.Security;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -40,7 +42,7 @@ public class Application {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
-                    .authHeader("<YOUR_API_KEY_HERE>")
+                    .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
                 .build();
 
@@ -136,9 +138,12 @@ public class Application {
 
 ### [webhooks()](docs/sdks/webhooks/README.md)
 
-* [create](docs/sdks/webhooks/README.md#create) - Create webhook
-* [get](docs/sdks/webhooks/README.md#get) - Get webhook
-* [list](docs/sdks/webhooks/README.md#list) - List webhooks
+* [~~create~~](docs/sdks/webhooks/README.md#create) - Create webhook :warning: **Deprecated**
+* [createConsumer](docs/sdks/webhooks/README.md#createconsumer) - Create webhook consumer
+* [deleteConsumer](docs/sdks/webhooks/README.md#deleteconsumer) - Delete webhook consumer
+* [~~get~~](docs/sdks/webhooks/README.md#get) - Get webhook :warning: **Deprecated**
+* [~~list~~](docs/sdks/webhooks/README.md#list) - List webhooks :warning: **Deprecated**
+* [listConsumers](docs/sdks/webhooks/README.md#listconsumers) - List webhook consumers
 <!-- End Available Resources and Operations [operations] -->
 
 <!-- Start Error Handling [errors] -->
@@ -161,6 +166,8 @@ import io.codat.platform.models.operations.CreateApiKeyResponse;
 import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.CreateApiKey;
 import io.codat.platform.models.shared.Security;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -172,7 +179,7 @@ public class Application {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
-                    .authHeader("<YOUR_API_KEY_HERE>")
+                    .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
                 .build();
 
@@ -219,6 +226,8 @@ import io.codat.platform.models.operations.CreateApiKeyResponse;
 import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.CreateApiKey;
 import io.codat.platform.models.shared.Security;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -231,7 +240,7 @@ public class Application {
             CodatPlatform sdk = CodatPlatform.builder()
                 .serverIndex(0)
                 .security(Security.builder()
-                    .authHeader("<YOUR_API_KEY_HERE>")
+                    .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
                 .build();
 
@@ -268,6 +277,8 @@ import io.codat.platform.models.operations.CreateApiKeyResponse;
 import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.CreateApiKey;
 import io.codat.platform.models.shared.Security;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -280,7 +291,7 @@ public class Application {
             CodatPlatform sdk = CodatPlatform.builder()
                 .serverURL("https://api.codat.io")
                 .security(Security.builder()
-                    .authHeader("<YOUR_API_KEY_HERE>")
+                    .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
                 .build();
 
@@ -326,6 +337,8 @@ import io.codat.platform.models.operations.CreateApiKeyResponse;
 import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.CreateApiKey;
 import io.codat.platform.models.shared.Security;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -337,7 +350,7 @@ public class Application {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
-                    .authHeader("<YOUR_API_KEY_HERE>")
+                    .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
                 .build();
 
@@ -361,6 +374,132 @@ public class Application {
 }
 ```
 <!-- End Authentication [security] -->
+
+<!-- Start Retries [retries] -->
+## Retries
+
+Some of the endpoints in this SDK support retries. If you use the SDK without any configuration, it will fall back to the default retry strategy provided by the API. However, the default retry strategy can be overridden on a per-operation basis, or across the entire SDK.
+
+To change the default retry strategy for a single API call, you can provide a `RetryConfig` object through the `retryConfig` builder method:
+```java
+package hello.world;
+
+import io.codat.platform.CodatPlatform;
+import io.codat.platform.models.operations.*;
+import io.codat.platform.models.operations.CreateApiKeyResponse;
+import io.codat.platform.models.shared.*;
+import io.codat.platform.models.shared.CreateApiKey;
+import io.codat.platform.models.shared.Security;
+import io.codat.platform.utils.BackoffStrategy;
+import io.codat.platform.utils.RetryConfig;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.util.Optional;
+import java.util.concurrent.TimeUnit;
+import static java.util.Map.entry;
+
+public class Application {
+
+    public static void main(String[] args) {
+        try {
+            CodatPlatform sdk = CodatPlatform.builder()
+                .security(Security.builder()
+                    .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+                    .build())
+                .build();
+
+            CreateApiKey req = CreateApiKey.builder()
+                .name("azure-invoice-finance-processor")
+                .build();
+
+            CreateApiKeyResponse res = sdk.settings().createApiKey()
+                .request(req)
+                .retryConfig(RetryConfig.builder()
+                                .backoff(BackoffStrategy.builder()
+                                            .initialInterval(1L, TimeUnit.MILLISECONDS)
+                                            .maxInterval(50L, TimeUnit.MILLISECONDS)
+                                            .maxElapsedTime(1000L, TimeUnit.MILLISECONDS)
+                                            .baseFactor(1.1)
+                                            .jitterFactor(0.15)
+                                            .retryConnectError(false)
+                                            .build())
+                                .build())
+                .call();
+
+            if (res.apiKeyDetails().isPresent()) {
+                // handle response
+            }
+        } catch (io.codat.platform.models.errors.SDKError e) {
+            // handle exception
+        } catch (Exception e) {
+            // handle exception
+        }
+    }
+}
+```
+
+If you'd like to override the default retry strategy for all operations that support retries, you can provide a configuration at SDK initialization:
+```java
+package hello.world;
+
+import io.codat.platform.CodatPlatform;
+import io.codat.platform.models.operations.*;
+import io.codat.platform.models.operations.CreateApiKeyResponse;
+import io.codat.platform.models.shared.*;
+import io.codat.platform.models.shared.CreateApiKey;
+import io.codat.platform.models.shared.Security;
+import io.codat.platform.utils.BackoffStrategy;
+import io.codat.platform.utils.RetryConfig;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.util.Optional;
+import java.util.concurrent.TimeUnit;
+import static java.util.Map.entry;
+
+public class Application {
+
+    public static void main(String[] args) {
+        try {
+            CodatPlatform sdk = CodatPlatform.builder()
+                .retryConfig(RetryConfig.builder()
+                                .backoff(BackoffStrategy.builder()
+                                            .initialInterval(1L, TimeUnit.MILLISECONDS)
+                                            .maxInterval(50L, TimeUnit.MILLISECONDS)
+                                            .maxElapsedTime(1000L, TimeUnit.MILLISECONDS)
+                                            .baseFactor(1.1)
+                                            .jitterFactor(0.15)
+                                            .retryConnectError(false)
+                                            .build())
+                                .build())
+                .security(Security.builder()
+                    .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+                    .build())
+                .build();
+
+            CreateApiKey req = CreateApiKey.builder()
+                .name("azure-invoice-finance-processor")
+                .build();
+
+            CreateApiKeyResponse res = sdk.settings().createApiKey()
+                .request(req)
+                .call();
+
+            if (res.apiKeyDetails().isPresent()) {
+                // handle response
+            }
+        } catch (io.codat.platform.models.errors.SDKError e) {
+            // handle exception
+        } catch (Exception e) {
+            // handle exception
+        }
+    }
+}
+```
+<!-- End Retries [retries] -->
 
 <!-- Placeholder for Future Speakeasy SDK Sections -->
 

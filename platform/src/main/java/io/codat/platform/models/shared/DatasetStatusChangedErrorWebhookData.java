@@ -4,19 +4,23 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
 public class DatasetStatusChangedErrorWebhookData {
 
     /**
-     * Available Data types
+     * Available data types
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("dataType")
@@ -49,7 +53,7 @@ public class DatasetStatusChangedErrorWebhookData {
     }
 
     /**
-     * Available Data types
+     * Available data types
      */
     public Optional<? extends DataType> dataType() {
         return dataType;
@@ -68,22 +72,22 @@ public class DatasetStatusChangedErrorWebhookData {
     public Optional<? extends String> datasetStatus() {
         return datasetStatus;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
 
     /**
-     * Available Data types
+     * Available data types
      */
     public DatasetStatusChangedErrorWebhookData withDataType(DataType dataType) {
         Utils.checkNotNull(dataType, "dataType");
         this.dataType = Optional.ofNullable(dataType);
         return this;
     }
-    
+
     /**
-     * Available Data types
+     * Available data types
      */
     public DatasetStatusChangedErrorWebhookData withDataType(Optional<? extends DataType> dataType) {
         Utils.checkNotNull(dataType, "dataType");
@@ -99,7 +103,7 @@ public class DatasetStatusChangedErrorWebhookData {
         this.datasetId = Optional.ofNullable(datasetId);
         return this;
     }
-    
+
     /**
      * Unique identifier for the dataset that completed its sync.
      */
@@ -117,7 +121,7 @@ public class DatasetStatusChangedErrorWebhookData {
         this.datasetStatus = Optional.ofNullable(datasetStatus);
         return this;
     }
-    
+
     /**
      * The current status of the dataset's sync.
      */
@@ -171,16 +175,16 @@ public class DatasetStatusChangedErrorWebhookData {
         }
 
         /**
-         * Available Data types
+         * Available data types
          */
         public Builder dataType(DataType dataType) {
             Utils.checkNotNull(dataType, "dataType");
             this.dataType = Optional.ofNullable(dataType);
             return this;
         }
-        
+
         /**
-         * Available Data types
+         * Available data types
          */
         public Builder dataType(Optional<? extends DataType> dataType) {
             Utils.checkNotNull(dataType, "dataType");
@@ -196,7 +200,7 @@ public class DatasetStatusChangedErrorWebhookData {
             this.datasetId = Optional.ofNullable(datasetId);
             return this;
         }
-        
+
         /**
          * Unique identifier for the dataset that completed its sync.
          */
@@ -214,7 +218,7 @@ public class DatasetStatusChangedErrorWebhookData {
             this.datasetStatus = Optional.ofNullable(datasetStatus);
             return this;
         }
-        
+
         /**
          * The current status of the dataset's sync.
          */

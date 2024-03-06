@@ -32,6 +32,8 @@ import io.codat.platform.models.operations.CreateConnectionRequestBody;
 import io.codat.platform.models.operations.CreateConnectionResponse;
 import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -43,7 +45,7 @@ public class Application {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
-                    .authHeader("<YOUR_API_KEY_HERE>")
+                    .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
                 .build();
 
@@ -102,6 +104,8 @@ import io.codat.platform.models.operations.DeleteConnectionRequest;
 import io.codat.platform.models.operations.DeleteConnectionResponse;
 import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -113,7 +117,7 @@ public class Application {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
-                    .authHeader("<YOUR_API_KEY_HERE>")
+                    .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
                 .build();
 
@@ -167,6 +171,8 @@ import io.codat.platform.models.operations.GetConnectionRequest;
 import io.codat.platform.models.operations.GetConnectionResponse;
 import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -178,7 +184,7 @@ public class Application {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
-                    .authHeader("<YOUR_API_KEY_HERE>")
+                    .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
                 .build();
 
@@ -234,6 +240,8 @@ import io.codat.platform.models.operations.ListConnectionsRequest;
 import io.codat.platform.models.operations.ListConnectionsResponse;
 import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -245,7 +253,7 @@ public class Application {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
-                    .authHeader("<YOUR_API_KEY_HERE>")
+                    .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
                 .build();
 
@@ -306,6 +314,8 @@ import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.DataConnectionStatus;
 import io.codat.platform.models.shared.Security;
 import io.codat.platform.models.shared.UpdateConnectionStatus;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -317,7 +327,7 @@ public class Application {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
-                    .authHeader("<YOUR_API_KEY_HERE>")
+                    .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
                 .build();
 
@@ -376,6 +386,8 @@ import io.codat.platform.models.operations.UpdateConnectionAuthorizationRequest;
 import io.codat.platform.models.operations.UpdateConnectionAuthorizationResponse;
 import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -387,7 +399,7 @@ public class Application {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
-                    .authHeader("<YOUR_API_KEY_HERE>")
+                    .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
                 .build();
 

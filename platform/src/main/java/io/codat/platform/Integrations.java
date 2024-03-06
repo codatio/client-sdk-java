@@ -11,10 +11,16 @@ import io.codat.platform.models.operations.SDKMethodInterfaces.*;
 import io.codat.platform.utils.HTTPClient;
 import io.codat.platform.utils.HTTPRequest;
 import io.codat.platform.utils.JSON;
+import io.codat.platform.utils.Options;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import org.apache.http.NameValuePair;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -26,12 +32,13 @@ public class Integrations implements
             MethodCallGetIntegration,
             MethodCallGetIntegrationsBranding,
             MethodCallListIntegrations {
-    
+
     private final SDKConfiguration sdkConfiguration;
 
     Integrations(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     public io.codat.platform.models.operations.GetIntegrationRequestBuilder get() {
         return new io.codat.platform.models.operations.GetIntegrationRequestBuilder(this);
     }
@@ -39,35 +46,71 @@ public class Integrations implements
     /**
      * Get integration
      * Get single integration, by platformKey
-     * @param request the request object containing all of the parameters for the API call
-     * @return the response from the API call
-     * @throws Exception if the API call fails
+     * @param request The request object containing all of the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call.
+     * @throws Exception if the API call fails.
      */
     public io.codat.platform.models.operations.GetIntegrationResponse get(
-            io.codat.platform.models.operations.GetIntegrationRequest request) throws Exception {
+            io.codat.platform.models.operations.GetIntegrationRequest request,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
+
+
         String baseUrl = this.sdkConfiguration.serverUrl;
+
         String url = io.codat.platform.utils.Utils.generateURL(
-                io.codat.platform.models.operations.GetIntegrationRequest.class, 
-                baseUrl, 
-                "/integrations/{platformKey}", 
+                io.codat.platform.models.operations.GetIntegrationRequest.class,
+                baseUrl,
+                "/integrations/{platformKey}",
                 request, null);
-        
+
         HTTPRequest req = new HTTPRequest();
         req.setMethod("GET");
         req.setURL(url);
 
         req.addHeader("Accept", "application/json");
         req.addHeader("user-agent", this.sdkConfiguration.userAgent);
-        
+
         HTTPClient client = io.codat.platform.utils.Utils.configureSecurityClient(
                 this.sdkConfiguration.defaultClient, this.sdkConfiguration.securitySource.getSecurity());
-        
-        HttpResponse<InputStream> httpRes = client.send(req);
+
+        io.codat.platform.utils.RetryConfig retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            retryConfig = io.codat.platform.utils.RetryConfig.builder()
+                .backoff(io.codat.platform.utils.BackoffStrategy.builder()
+                            .initialInterval(500L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .maxInterval(60000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
+        }
+
+        List<String> statusCodes = new java.util.ArrayList<String>();
+        statusCodes.add("408");
+        statusCodes.add("429");
+        statusCodes.add("5XX");
+        io.codat.platform.utils.Retries retries = io.codat.platform.utils.Retries.builder()
+            .action(() -> client.send(req))
+            .retryConfig(retryConfig)
+            .statusCodes(statusCodes)
+            .build();
+
+        HttpResponse<InputStream> httpRes = retries.run();
 
         String contentType = httpRes
-                .headers()
-                .firstValue("Content-Type")
-                .orElse("application/octet-stream");
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
         io.codat.platform.models.operations.GetIntegrationResponse.Builder resBuilder = 
             io.codat.platform.models.operations.GetIntegrationResponse
                 .builder()
@@ -78,7 +121,7 @@ public class Integrations implements
         io.codat.platform.models.operations.GetIntegrationResponse res = resBuilder.build();
 
         res.withRawResponse(httpRes);
-        
+
         if (httpRes.statusCode() == 200) {
             if (io.codat.platform.utils.Utils.matchContentType(contentType, "application/json")) {
                 ObjectMapper mapper = JSON.getMapper();
@@ -104,6 +147,7 @@ public class Integrations implements
         return res;
     }
 
+
     public io.codat.platform.models.operations.GetIntegrationsBrandingRequestBuilder getBranding() {
         return new io.codat.platform.models.operations.GetIntegrationsBrandingRequestBuilder(this);
     }
@@ -111,35 +155,71 @@ public class Integrations implements
     /**
      * Get branding
      * Get branding for platform.
-     * @param request the request object containing all of the parameters for the API call
-     * @return the response from the API call
-     * @throws Exception if the API call fails
+     * @param request The request object containing all of the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call.
+     * @throws Exception if the API call fails.
      */
     public io.codat.platform.models.operations.GetIntegrationsBrandingResponse getBranding(
-            io.codat.platform.models.operations.GetIntegrationsBrandingRequest request) throws Exception {
+            io.codat.platform.models.operations.GetIntegrationsBrandingRequest request,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
+
+
         String baseUrl = this.sdkConfiguration.serverUrl;
+
         String url = io.codat.platform.utils.Utils.generateURL(
-                io.codat.platform.models.operations.GetIntegrationsBrandingRequest.class, 
-                baseUrl, 
-                "/integrations/{platformKey}/branding", 
+                io.codat.platform.models.operations.GetIntegrationsBrandingRequest.class,
+                baseUrl,
+                "/integrations/{platformKey}/branding",
                 request, null);
-        
+
         HTTPRequest req = new HTTPRequest();
         req.setMethod("GET");
         req.setURL(url);
 
         req.addHeader("Accept", "application/json");
         req.addHeader("user-agent", this.sdkConfiguration.userAgent);
-        
+
         HTTPClient client = io.codat.platform.utils.Utils.configureSecurityClient(
                 this.sdkConfiguration.defaultClient, this.sdkConfiguration.securitySource.getSecurity());
-        
-        HttpResponse<InputStream> httpRes = client.send(req);
+
+        io.codat.platform.utils.RetryConfig retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            retryConfig = io.codat.platform.utils.RetryConfig.builder()
+                .backoff(io.codat.platform.utils.BackoffStrategy.builder()
+                            .initialInterval(500L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .maxInterval(60000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
+        }
+
+        List<String> statusCodes = new java.util.ArrayList<String>();
+        statusCodes.add("408");
+        statusCodes.add("429");
+        statusCodes.add("5XX");
+        io.codat.platform.utils.Retries retries = io.codat.platform.utils.Retries.builder()
+            .action(() -> client.send(req))
+            .retryConfig(retryConfig)
+            .statusCodes(statusCodes)
+            .build();
+
+        HttpResponse<InputStream> httpRes = retries.run();
 
         String contentType = httpRes
-                .headers()
-                .firstValue("Content-Type")
-                .orElse("application/octet-stream");
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
         io.codat.platform.models.operations.GetIntegrationsBrandingResponse.Builder resBuilder = 
             io.codat.platform.models.operations.GetIntegrationsBrandingResponse
                 .builder()
@@ -150,7 +230,7 @@ public class Integrations implements
         io.codat.platform.models.operations.GetIntegrationsBrandingResponse res = resBuilder.build();
 
         res.withRawResponse(httpRes);
-        
+
         if (httpRes.statusCode() == 200) {
             if (io.codat.platform.utils.Utils.matchContentType(contentType, "application/json")) {
                 ObjectMapper mapper = JSON.getMapper();
@@ -176,6 +256,7 @@ public class Integrations implements
         return res;
     }
 
+
     public io.codat.platform.models.operations.ListIntegrationsRequestBuilder list() {
         return new io.codat.platform.models.operations.ListIntegrationsRequestBuilder(this);
     }
@@ -183,23 +264,33 @@ public class Integrations implements
     /**
      * List integrations
      * List your available integrations
-     * @param request the request object containing all of the parameters for the API call
-     * @return the response from the API call
-     * @throws Exception if the API call fails
+     * @param request The request object containing all of the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call.
+     * @throws Exception if the API call fails.
      */
     public io.codat.platform.models.operations.ListIntegrationsResponse list(
-            io.codat.platform.models.operations.ListIntegrationsRequest request) throws Exception {
+            io.codat.platform.models.operations.ListIntegrationsRequest request,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
+
+
         String baseUrl = this.sdkConfiguration.serverUrl;
+
         String url = io.codat.platform.utils.Utils.generateURL(
                 baseUrl,
                 "/integrations");
-        
+
         HTTPRequest req = new HTTPRequest();
         req.setMethod("GET");
         req.setURL(url);
 
         req.addHeader("Accept", "application/json");
         req.addHeader("user-agent", this.sdkConfiguration.userAgent);
+
         java.util.List<NameValuePair> queryParams = io.codat.platform.utils.Utils.getQueryParams(
                 io.codat.platform.models.operations.ListIntegrationsRequest.class, request, null);
         if (queryParams != null) {
@@ -207,16 +298,43 @@ public class Integrations implements
                 req.addQueryParam(queryParam);
             }
         }
-        
+
         HTTPClient client = io.codat.platform.utils.Utils.configureSecurityClient(
                 this.sdkConfiguration.defaultClient, this.sdkConfiguration.securitySource.getSecurity());
-        
-        HttpResponse<InputStream> httpRes = client.send(req);
+
+        io.codat.platform.utils.RetryConfig retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            retryConfig = io.codat.platform.utils.RetryConfig.builder()
+                .backoff(io.codat.platform.utils.BackoffStrategy.builder()
+                            .initialInterval(500L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .maxInterval(60000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
+        }
+
+        List<String> statusCodes = new java.util.ArrayList<String>();
+        statusCodes.add("408");
+        statusCodes.add("429");
+        statusCodes.add("5XX");
+        io.codat.platform.utils.Retries retries = io.codat.platform.utils.Retries.builder()
+            .action(() -> client.send(req))
+            .retryConfig(retryConfig)
+            .statusCodes(statusCodes)
+            .build();
+
+        HttpResponse<InputStream> httpRes = retries.run();
 
         String contentType = httpRes
-                .headers()
-                .firstValue("Content-Type")
-                .orElse("application/octet-stream");
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
         io.codat.platform.models.operations.ListIntegrationsResponse.Builder resBuilder = 
             io.codat.platform.models.operations.ListIntegrationsResponse
                 .builder()
@@ -227,7 +345,7 @@ public class Integrations implements
         io.codat.platform.models.operations.ListIntegrationsResponse res = resBuilder.build();
 
         res.withRawResponse(httpRes);
-        
+
         if (httpRes.statusCode() == 200) {
             if (io.codat.platform.utils.Utils.matchContentType(contentType, "application/json")) {
                 ObjectMapper mapper = JSON.getMapper();

@@ -4,12 +4,16 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 /**
@@ -197,7 +201,7 @@ public class Integration {
     public Optional<? extends SourceType> sourceType() {
         return sourceType;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -210,7 +214,7 @@ public class Integration {
         this.dataProvidedBy = Optional.ofNullable(dataProvidedBy);
         return this;
     }
-    
+
     /**
      * The name of the data provider.
      */
@@ -225,7 +229,7 @@ public class Integration {
         this.datatypeFeatures = Optional.ofNullable(datatypeFeatures);
         return this;
     }
-    
+
     public Integration withDatatypeFeatures(Optional<? extends java.util.List<DataTypeFeature>> datatypeFeatures) {
         Utils.checkNotNull(datatypeFeatures, "datatypeFeatures");
         this.datatypeFeatures = datatypeFeatures;
@@ -249,7 +253,7 @@ public class Integration {
         this.integrationId = Optional.ofNullable(integrationId);
         return this;
     }
-    
+
     /**
      * A Codat ID representing the integration.
      */
@@ -267,7 +271,7 @@ public class Integration {
         this.isBeta = Optional.ofNullable(isBeta);
         return this;
     }
-    
+
     /**
      * `True` if the integration is currently in beta release.
      */
@@ -285,7 +289,7 @@ public class Integration {
         this.isOfflineConnector = Optional.ofNullable(isOfflineConnector);
         return this;
     }
-    
+
     /**
      * `True` if the integration is to an application installed and run locally on an SMBs computer.
      */
@@ -330,7 +334,7 @@ public class Integration {
         this.sourceId = Optional.ofNullable(sourceId);
         return this;
     }
-    
+
     /**
      * A source-specific ID used to distinguish between different sources originating from the same data connection. In general, a data connection is a single data source. However, for TrueLayer, `sourceId` is associated with a specific bank and has a many-to-one relationship with the `integrationId`.
      */
@@ -348,7 +352,7 @@ public class Integration {
         this.sourceType = Optional.ofNullable(sourceType);
         return this;
     }
-    
+
     /**
      * The type of platform of the connection.
      */
@@ -449,7 +453,7 @@ public class Integration {
             this.dataProvidedBy = Optional.ofNullable(dataProvidedBy);
             return this;
         }
-        
+
         /**
          * The name of the data provider.
          */
@@ -464,7 +468,7 @@ public class Integration {
             this.datatypeFeatures = Optional.ofNullable(datatypeFeatures);
             return this;
         }
-        
+
         public Builder datatypeFeatures(Optional<? extends java.util.List<DataTypeFeature>> datatypeFeatures) {
             Utils.checkNotNull(datatypeFeatures, "datatypeFeatures");
             this.datatypeFeatures = datatypeFeatures;
@@ -488,7 +492,7 @@ public class Integration {
             this.integrationId = Optional.ofNullable(integrationId);
             return this;
         }
-        
+
         /**
          * A Codat ID representing the integration.
          */
@@ -506,7 +510,7 @@ public class Integration {
             this.isBeta = Optional.ofNullable(isBeta);
             return this;
         }
-        
+
         /**
          * `True` if the integration is currently in beta release.
          */
@@ -524,7 +528,7 @@ public class Integration {
             this.isOfflineConnector = Optional.ofNullable(isOfflineConnector);
             return this;
         }
-        
+
         /**
          * `True` if the integration is to an application installed and run locally on an SMBs computer.
          */
@@ -569,7 +573,7 @@ public class Integration {
             this.sourceId = Optional.ofNullable(sourceId);
             return this;
         }
-        
+
         /**
          * A source-specific ID used to distinguish between different sources originating from the same data connection. In general, a data connection is a single data source. However, for TrueLayer, `sourceId` is associated with a specific bank and has a many-to-one relationship with the `integrationId`.
          */
@@ -587,7 +591,7 @@ public class Integration {
             this.sourceType = Optional.ofNullable(sourceType);
             return this;
         }
-        
+
         /**
          * The type of platform of the connection.
          */

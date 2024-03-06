@@ -11,11 +11,17 @@ import io.codat.platform.models.operations.SDKMethodInterfaces.*;
 import io.codat.platform.utils.HTTPClient;
 import io.codat.platform.utils.HTTPRequest;
 import io.codat.platform.utils.JSON;
+import io.codat.platform.utils.Options;
 import io.codat.platform.utils.SerializedBody;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -30,12 +36,13 @@ public class Settings implements
             MethodCallListApiKeys,
             MethodCallUpdateProfile,
             MethodCallUpdateProfileSyncSettings {
-    
+
     private final SDKConfiguration sdkConfiguration;
 
     Settings(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
     public io.codat.platform.models.operations.CreateApiKeyRequestBuilder createApiKey() {
         return new io.codat.platform.models.operations.CreateApiKeyRequestBuilder(this);
     }
@@ -53,36 +60,74 @@ public class Settings implements
      * * Your first API key is created for you. Access this key via [Codat's Portal](https://app.codat.io/developers/api-keys).
      * * If you require multiple API keys, perform multiple calls to the *Create API keys* endpoint. 
      * * The number of API keys is limited to 10. If you have reached the maximum amount of keys, use the *Delete API key* endpoint to delete an unused key first.
-     * @param request the request object containing all of the parameters for the API call
-     * @return the response from the API call
-     * @throws Exception if the API call fails
+     * @param request The request object containing all of the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call.
+     * @throws Exception if the API call fails.
      */
     public io.codat.platform.models.operations.CreateApiKeyResponse createApiKey(
-            Optional<? extends io.codat.platform.models.shared.CreateApiKey> request) throws Exception {
+            Optional<? extends io.codat.platform.models.shared.CreateApiKey> request,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
+
+
         String baseUrl = this.sdkConfiguration.serverUrl;
+
         String url = io.codat.platform.utils.Utils.generateURL(
                 baseUrl,
                 "/apiKeys");
-        
+
         HTTPRequest req = new HTTPRequest();
         req.setMethod("POST");
         req.setURL(url);
+        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
+            new TypeReference<Optional<? extends io.codat.platform.models.shared.CreateApiKey>>() {});
         SerializedBody serializedRequestBody = io.codat.platform.utils.Utils.serializeRequestBody(
-                request, "request", "json", false);
+                _convertedRequest, "request", "json", false);
         req.setBody(serializedRequestBody);
 
         req.addHeader("Accept", "application/json");
         req.addHeader("user-agent", this.sdkConfiguration.userAgent);
-        
+
         HTTPClient client = io.codat.platform.utils.Utils.configureSecurityClient(
                 this.sdkConfiguration.defaultClient, this.sdkConfiguration.securitySource.getSecurity());
-        
-        HttpResponse<InputStream> httpRes = client.send(req);
+
+        io.codat.platform.utils.RetryConfig retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            retryConfig = io.codat.platform.utils.RetryConfig.builder()
+                .backoff(io.codat.platform.utils.BackoffStrategy.builder()
+                            .initialInterval(500L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .maxInterval(60000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
+        }
+
+        List<String> statusCodes = new java.util.ArrayList<String>();
+        statusCodes.add("408");
+        statusCodes.add("429");
+        statusCodes.add("5XX");
+        io.codat.platform.utils.Retries retries = io.codat.platform.utils.Retries.builder()
+            .action(() -> client.send(req))
+            .retryConfig(retryConfig)
+            .statusCodes(statusCodes)
+            .build();
+
+        HttpResponse<InputStream> httpRes = retries.run();
 
         String contentType = httpRes
-                .headers()
-                .firstValue("Content-Type")
-                .orElse("application/octet-stream");
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
         io.codat.platform.models.operations.CreateApiKeyResponse.Builder resBuilder = 
             io.codat.platform.models.operations.CreateApiKeyResponse
                 .builder()
@@ -93,7 +138,7 @@ public class Settings implements
         io.codat.platform.models.operations.CreateApiKeyResponse res = resBuilder.build();
 
         res.withRawResponse(httpRes);
-        
+
         if (httpRes.statusCode() == 201) {
             if (io.codat.platform.utils.Utils.matchContentType(contentType, "application/json")) {
                 ObjectMapper mapper = JSON.getMapper();
@@ -119,6 +164,7 @@ public class Settings implements
         return res;
     }
 
+
     public io.codat.platform.models.operations.DeleteApiKeyRequestBuilder deleteApiKey() {
         return new io.codat.platform.models.operations.DeleteApiKeyRequestBuilder(this);
     }
@@ -135,35 +181,71 @@ public class Settings implements
      * 
      * * It is possible to delete the last remaining API key. If this happens, a new key can be created via the [API key management page](https://app.codat.io/developers/api-keys) of the Portal.
      * * It is possible to delete the API key used to authenticate the *Delete API key* request.
-     * @param request the request object containing all of the parameters for the API call
-     * @return the response from the API call
-     * @throws Exception if the API call fails
+     * @param request The request object containing all of the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call.
+     * @throws Exception if the API call fails.
      */
     public io.codat.platform.models.operations.DeleteApiKeyResponse deleteApiKey(
-            io.codat.platform.models.operations.DeleteApiKeyRequest request) throws Exception {
+            io.codat.platform.models.operations.DeleteApiKeyRequest request,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
+
+
         String baseUrl = this.sdkConfiguration.serverUrl;
+
         String url = io.codat.platform.utils.Utils.generateURL(
-                io.codat.platform.models.operations.DeleteApiKeyRequest.class, 
-                baseUrl, 
-                "/apiKeys/{apiKeyId}", 
+                io.codat.platform.models.operations.DeleteApiKeyRequest.class,
+                baseUrl,
+                "/apiKeys/{apiKeyId}",
                 request, null);
-        
+
         HTTPRequest req = new HTTPRequest();
         req.setMethod("DELETE");
         req.setURL(url);
 
         req.addHeader("Accept", "application/json");
         req.addHeader("user-agent", this.sdkConfiguration.userAgent);
-        
+
         HTTPClient client = io.codat.platform.utils.Utils.configureSecurityClient(
                 this.sdkConfiguration.defaultClient, this.sdkConfiguration.securitySource.getSecurity());
-        
-        HttpResponse<InputStream> httpRes = client.send(req);
+
+        io.codat.platform.utils.RetryConfig retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            retryConfig = io.codat.platform.utils.RetryConfig.builder()
+                .backoff(io.codat.platform.utils.BackoffStrategy.builder()
+                            .initialInterval(500L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .maxInterval(60000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
+        }
+
+        List<String> statusCodes = new java.util.ArrayList<String>();
+        statusCodes.add("408");
+        statusCodes.add("429");
+        statusCodes.add("5XX");
+        io.codat.platform.utils.Retries retries = io.codat.platform.utils.Retries.builder()
+            .action(() -> client.send(req))
+            .retryConfig(retryConfig)
+            .statusCodes(statusCodes)
+            .build();
+
+        HttpResponse<InputStream> httpRes = retries.run();
 
         String contentType = httpRes
-                .headers()
-                .firstValue("Content-Type")
-                .orElse("application/octet-stream");
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
         io.codat.platform.models.operations.DeleteApiKeyResponse.Builder resBuilder = 
             io.codat.platform.models.operations.DeleteApiKeyResponse
                 .builder()
@@ -174,7 +256,7 @@ public class Settings implements
         io.codat.platform.models.operations.DeleteApiKeyResponse res = resBuilder.build();
 
         res.withRawResponse(httpRes);
-        
+
         if (httpRes.statusCode() == 204 || httpRes.statusCode() == 401 || httpRes.statusCode() == 402 || httpRes.statusCode() == 403 || httpRes.statusCode() == 404 || httpRes.statusCode() == 429 || httpRes.statusCode() == 500 || httpRes.statusCode() == 503) {
             if (io.codat.platform.utils.Utils.matchContentType(contentType, "application/json")) {
                 ObjectMapper mapper = JSON.getMapper();
@@ -190,6 +272,7 @@ public class Settings implements
         return res;
     }
 
+
     public io.codat.platform.models.operations.GetProfileRequestBuilder getProfile() {
         return new io.codat.platform.models.operations.GetProfileRequestBuilder(this);
     }
@@ -197,31 +280,67 @@ public class Settings implements
     /**
      * Get profile
      * Fetch your Codat profile.
-     * @return the response from the API call
-     * @throws Exception if the API call fails
+     * @param options additional options
+     * @return The response from the API call.
+     * @throws Exception if the API call fails.
      */
-    public io.codat.platform.models.operations.GetProfileResponse getProfileDirect() throws Exception {
+    public io.codat.platform.models.operations.GetProfileResponse getProfile(
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
+
+
         String baseUrl = this.sdkConfiguration.serverUrl;
+
         String url = io.codat.platform.utils.Utils.generateURL(
                 baseUrl,
                 "/profile");
-        
+
         HTTPRequest req = new HTTPRequest();
         req.setMethod("GET");
         req.setURL(url);
 
         req.addHeader("Accept", "application/json");
         req.addHeader("user-agent", this.sdkConfiguration.userAgent);
-        
+
         HTTPClient client = io.codat.platform.utils.Utils.configureSecurityClient(
                 this.sdkConfiguration.defaultClient, this.sdkConfiguration.securitySource.getSecurity());
-        
-        HttpResponse<InputStream> httpRes = client.send(req);
+
+        io.codat.platform.utils.RetryConfig retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            retryConfig = io.codat.platform.utils.RetryConfig.builder()
+                .backoff(io.codat.platform.utils.BackoffStrategy.builder()
+                            .initialInterval(500L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .maxInterval(60000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
+        }
+
+        List<String> statusCodes = new java.util.ArrayList<String>();
+        statusCodes.add("408");
+        statusCodes.add("429");
+        statusCodes.add("5XX");
+        io.codat.platform.utils.Retries retries = io.codat.platform.utils.Retries.builder()
+            .action(() -> client.send(req))
+            .retryConfig(retryConfig)
+            .statusCodes(statusCodes)
+            .build();
+
+        HttpResponse<InputStream> httpRes = retries.run();
 
         String contentType = httpRes
-                .headers()
-                .firstValue("Content-Type")
-                .orElse("application/octet-stream");
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
         io.codat.platform.models.operations.GetProfileResponse.Builder resBuilder = 
             io.codat.platform.models.operations.GetProfileResponse
                 .builder()
@@ -232,7 +351,7 @@ public class Settings implements
         io.codat.platform.models.operations.GetProfileResponse res = resBuilder.build();
 
         res.withRawResponse(httpRes);
-        
+
         if (httpRes.statusCode() == 200) {
             if (io.codat.platform.utils.Utils.matchContentType(contentType, "application/json")) {
                 ObjectMapper mapper = JSON.getMapper();
@@ -258,6 +377,7 @@ public class Settings implements
         return res;
     }
 
+
     public io.codat.platform.models.operations.GetProfileSyncSettingsRequestBuilder getSyncSettings() {
         return new io.codat.platform.models.operations.GetProfileSyncSettingsRequestBuilder(this);
     }
@@ -265,31 +385,67 @@ public class Settings implements
     /**
      * Get sync settings
      * Retrieve the [sync settings](https://docs.codat.io/knowledge-base/advanced-sync-settings) for your client. This includes how often data types should be queued to be updated, and how much history should be fetched.
-     * @return the response from the API call
-     * @throws Exception if the API call fails
+     * @param options additional options
+     * @return The response from the API call.
+     * @throws Exception if the API call fails.
      */
-    public io.codat.platform.models.operations.GetProfileSyncSettingsResponse getSyncSettingsDirect() throws Exception {
+    public io.codat.platform.models.operations.GetProfileSyncSettingsResponse getSyncSettings(
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
+
+
         String baseUrl = this.sdkConfiguration.serverUrl;
+
         String url = io.codat.platform.utils.Utils.generateURL(
                 baseUrl,
                 "/profile/syncSettings");
-        
+
         HTTPRequest req = new HTTPRequest();
         req.setMethod("GET");
         req.setURL(url);
 
         req.addHeader("Accept", "application/json");
         req.addHeader("user-agent", this.sdkConfiguration.userAgent);
-        
+
         HTTPClient client = io.codat.platform.utils.Utils.configureSecurityClient(
                 this.sdkConfiguration.defaultClient, this.sdkConfiguration.securitySource.getSecurity());
-        
-        HttpResponse<InputStream> httpRes = client.send(req);
+
+        io.codat.platform.utils.RetryConfig retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            retryConfig = io.codat.platform.utils.RetryConfig.builder()
+                .backoff(io.codat.platform.utils.BackoffStrategy.builder()
+                            .initialInterval(500L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .maxInterval(60000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
+        }
+
+        List<String> statusCodes = new java.util.ArrayList<String>();
+        statusCodes.add("408");
+        statusCodes.add("429");
+        statusCodes.add("5XX");
+        io.codat.platform.utils.Retries retries = io.codat.platform.utils.Retries.builder()
+            .action(() -> client.send(req))
+            .retryConfig(retryConfig)
+            .statusCodes(statusCodes)
+            .build();
+
+        HttpResponse<InputStream> httpRes = retries.run();
 
         String contentType = httpRes
-                .headers()
-                .firstValue("Content-Type")
-                .orElse("application/octet-stream");
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
         io.codat.platform.models.operations.GetProfileSyncSettingsResponse.Builder resBuilder = 
             io.codat.platform.models.operations.GetProfileSyncSettingsResponse
                 .builder()
@@ -300,7 +456,7 @@ public class Settings implements
         io.codat.platform.models.operations.GetProfileSyncSettingsResponse res = resBuilder.build();
 
         res.withRawResponse(httpRes);
-        
+
         if (httpRes.statusCode() == 200) {
             if (io.codat.platform.utils.Utils.matchContentType(contentType, "application/json")) {
                 ObjectMapper mapper = JSON.getMapper();
@@ -326,6 +482,7 @@ public class Settings implements
         return res;
     }
 
+
     public io.codat.platform.models.operations.ListApiKeysRequestBuilder listApiKeys() {
         return new io.codat.platform.models.operations.ListApiKeysRequestBuilder(this);
     }
@@ -337,31 +494,67 @@ public class Settings implements
      * [API keys](https://docs.codat.io/platform-api#/schemas/apiKeys) are tokens used to control access to the API. Include this token in the `Authorization` header parameter when making API calls, following the word "Basic" and a space with your API key.
      * 
      * You can [read more](https://docs.codat.io/using-the-api/authentication) about authentication at Codat and managing API keys via the Portal UI or API.
-     * @return the response from the API call
-     * @throws Exception if the API call fails
+     * @param options additional options
+     * @return The response from the API call.
+     * @throws Exception if the API call fails.
      */
-    public io.codat.platform.models.operations.ListApiKeysResponse listApiKeysDirect() throws Exception {
+    public io.codat.platform.models.operations.ListApiKeysResponse listApiKeys(
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
+
+
         String baseUrl = this.sdkConfiguration.serverUrl;
+
         String url = io.codat.platform.utils.Utils.generateURL(
                 baseUrl,
                 "/apiKeys");
-        
+
         HTTPRequest req = new HTTPRequest();
         req.setMethod("GET");
         req.setURL(url);
 
         req.addHeader("Accept", "application/json");
         req.addHeader("user-agent", this.sdkConfiguration.userAgent);
-        
+
         HTTPClient client = io.codat.platform.utils.Utils.configureSecurityClient(
                 this.sdkConfiguration.defaultClient, this.sdkConfiguration.securitySource.getSecurity());
-        
-        HttpResponse<InputStream> httpRes = client.send(req);
+
+        io.codat.platform.utils.RetryConfig retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            retryConfig = io.codat.platform.utils.RetryConfig.builder()
+                .backoff(io.codat.platform.utils.BackoffStrategy.builder()
+                            .initialInterval(500L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .maxInterval(60000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
+        }
+
+        List<String> statusCodes = new java.util.ArrayList<String>();
+        statusCodes.add("408");
+        statusCodes.add("429");
+        statusCodes.add("5XX");
+        io.codat.platform.utils.Retries retries = io.codat.platform.utils.Retries.builder()
+            .action(() -> client.send(req))
+            .retryConfig(retryConfig)
+            .statusCodes(statusCodes)
+            .build();
+
+        HttpResponse<InputStream> httpRes = retries.run();
 
         String contentType = httpRes
-                .headers()
-                .firstValue("Content-Type")
-                .orElse("application/octet-stream");
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
         io.codat.platform.models.operations.ListApiKeysResponse.Builder resBuilder = 
             io.codat.platform.models.operations.ListApiKeysResponse
                 .builder()
@@ -372,7 +565,7 @@ public class Settings implements
         io.codat.platform.models.operations.ListApiKeysResponse res = resBuilder.build();
 
         res.withRawResponse(httpRes);
-        
+
         if (httpRes.statusCode() == 200) {
             if (io.codat.platform.utils.Utils.matchContentType(contentType, "application/json")) {
                 ObjectMapper mapper = JSON.getMapper();
@@ -398,6 +591,7 @@ public class Settings implements
         return res;
     }
 
+
     public io.codat.platform.models.operations.UpdateProfileRequestBuilder updateProfile() {
         return new io.codat.platform.models.operations.UpdateProfileRequestBuilder(this);
     }
@@ -405,36 +599,74 @@ public class Settings implements
     /**
      * Update profile
      * Update your Codat profile
-     * @param request the request object containing all of the parameters for the API call
-     * @return the response from the API call
-     * @throws Exception if the API call fails
+     * @param request The request object containing all of the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call.
+     * @throws Exception if the API call fails.
      */
     public io.codat.platform.models.operations.UpdateProfileResponse updateProfile(
-            Optional<? extends io.codat.platform.models.shared.Profile> request) throws Exception {
+            Optional<? extends io.codat.platform.models.shared.Profile> request,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
+
+
         String baseUrl = this.sdkConfiguration.serverUrl;
+
         String url = io.codat.platform.utils.Utils.generateURL(
                 baseUrl,
                 "/profile");
-        
+
         HTTPRequest req = new HTTPRequest();
         req.setMethod("PUT");
         req.setURL(url);
+        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
+            new TypeReference<Optional<? extends io.codat.platform.models.shared.Profile>>() {});
         SerializedBody serializedRequestBody = io.codat.platform.utils.Utils.serializeRequestBody(
-                request, "request", "json", false);
+                _convertedRequest, "request", "json", false);
         req.setBody(serializedRequestBody);
 
         req.addHeader("Accept", "application/json");
         req.addHeader("user-agent", this.sdkConfiguration.userAgent);
-        
+
         HTTPClient client = io.codat.platform.utils.Utils.configureSecurityClient(
                 this.sdkConfiguration.defaultClient, this.sdkConfiguration.securitySource.getSecurity());
-        
-        HttpResponse<InputStream> httpRes = client.send(req);
+
+        io.codat.platform.utils.RetryConfig retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            retryConfig = io.codat.platform.utils.RetryConfig.builder()
+                .backoff(io.codat.platform.utils.BackoffStrategy.builder()
+                            .initialInterval(500L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .maxInterval(60000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
+        }
+
+        List<String> statusCodes = new java.util.ArrayList<String>();
+        statusCodes.add("408");
+        statusCodes.add("429");
+        statusCodes.add("5XX");
+        io.codat.platform.utils.Retries retries = io.codat.platform.utils.Retries.builder()
+            .action(() -> client.send(req))
+            .retryConfig(retryConfig)
+            .statusCodes(statusCodes)
+            .build();
+
+        HttpResponse<InputStream> httpRes = retries.run();
 
         String contentType = httpRes
-                .headers()
-                .firstValue("Content-Type")
-                .orElse("application/octet-stream");
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
         io.codat.platform.models.operations.UpdateProfileResponse.Builder resBuilder = 
             io.codat.platform.models.operations.UpdateProfileResponse
                 .builder()
@@ -445,7 +677,7 @@ public class Settings implements
         io.codat.platform.models.operations.UpdateProfileResponse res = resBuilder.build();
 
         res.withRawResponse(httpRes);
-        
+
         if (httpRes.statusCode() == 200) {
             if (io.codat.platform.utils.Utils.matchContentType(contentType, "application/json")) {
                 ObjectMapper mapper = JSON.getMapper();
@@ -471,6 +703,7 @@ public class Settings implements
         return res;
     }
 
+
     public io.codat.platform.models.operations.UpdateProfileSyncSettingsRequestBuilder updateSyncSettings() {
         return new io.codat.platform.models.operations.UpdateProfileSyncSettingsRequestBuilder(this);
     }
@@ -478,36 +711,74 @@ public class Settings implements
     /**
      * Update all sync settings
      * Update sync settings for all data types.
-     * @param request the request object containing all of the parameters for the API call
-     * @return the response from the API call
-     * @throws Exception if the API call fails
+     * @param request The request object containing all of the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call.
+     * @throws Exception if the API call fails.
      */
     public io.codat.platform.models.operations.UpdateProfileSyncSettingsResponse updateSyncSettings(
-            Optional<? extends io.codat.platform.models.operations.UpdateProfileSyncSettingsRequestBody> request) throws Exception {
+            Optional<? extends io.codat.platform.models.operations.UpdateProfileSyncSettingsRequestBody> request,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
+
+
         String baseUrl = this.sdkConfiguration.serverUrl;
+
         String url = io.codat.platform.utils.Utils.generateURL(
                 baseUrl,
                 "/profile/syncSettings");
-        
+
         HTTPRequest req = new HTTPRequest();
         req.setMethod("POST");
         req.setURL(url);
+        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
+            new TypeReference<Optional<? extends io.codat.platform.models.operations.UpdateProfileSyncSettingsRequestBody>>() {});
         SerializedBody serializedRequestBody = io.codat.platform.utils.Utils.serializeRequestBody(
-                request, "request", "json", false);
+                _convertedRequest, "request", "json", false);
         req.setBody(serializedRequestBody);
 
         req.addHeader("Accept", "application/json");
         req.addHeader("user-agent", this.sdkConfiguration.userAgent);
-        
+
         HTTPClient client = io.codat.platform.utils.Utils.configureSecurityClient(
                 this.sdkConfiguration.defaultClient, this.sdkConfiguration.securitySource.getSecurity());
-        
-        HttpResponse<InputStream> httpRes = client.send(req);
+
+        io.codat.platform.utils.RetryConfig retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            retryConfig = io.codat.platform.utils.RetryConfig.builder()
+                .backoff(io.codat.platform.utils.BackoffStrategy.builder()
+                            .initialInterval(500L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .maxInterval(60000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
+        }
+
+        List<String> statusCodes = new java.util.ArrayList<String>();
+        statusCodes.add("408");
+        statusCodes.add("429");
+        statusCodes.add("5XX");
+        io.codat.platform.utils.Retries retries = io.codat.platform.utils.Retries.builder()
+            .action(() -> client.send(req))
+            .retryConfig(retryConfig)
+            .statusCodes(statusCodes)
+            .build();
+
+        HttpResponse<InputStream> httpRes = retries.run();
 
         String contentType = httpRes
-                .headers()
-                .firstValue("Content-Type")
-                .orElse("application/octet-stream");
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
         io.codat.platform.models.operations.UpdateProfileSyncSettingsResponse.Builder resBuilder = 
             io.codat.platform.models.operations.UpdateProfileSyncSettingsResponse
                 .builder()
@@ -518,7 +789,7 @@ public class Settings implements
         io.codat.platform.models.operations.UpdateProfileSyncSettingsResponse res = resBuilder.build();
 
         res.withRawResponse(httpRes);
-        
+
         if (httpRes.statusCode() == 204) {
         } else if (httpRes.statusCode() == 401 || httpRes.statusCode() == 402 || httpRes.statusCode() == 403 || httpRes.statusCode() == 429 || httpRes.statusCode() == 500 || httpRes.statusCode() == 503) {
             if (io.codat.platform.utils.Utils.matchContentType(contentType, "application/json")) {

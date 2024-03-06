@@ -4,12 +4,16 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -89,7 +93,7 @@ public class CustomDataTypeConfiguration {
     public JsonNullable<? extends java.util.List<String>> sourceModifiedDate() {
         return sourceModifiedDate;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -102,7 +106,7 @@ public class CustomDataTypeConfiguration {
         this.dataSource = Optional.ofNullable(dataSource);
         return this;
     }
-    
+
     /**
      * Underlying endpoint of the source platform that will serve as a data source for the custom data type. This value is not validated by Codat.
      */
@@ -120,7 +124,7 @@ public class CustomDataTypeConfiguration {
         this.keyBy = Optional.ofNullable(keyBy);
         return this;
     }
-    
+
     /**
      * An array of properties from the source system that can be used to uniquely identify the records returned for the custom data type. This value is not validated by Codat.
      */
@@ -138,7 +142,7 @@ public class CustomDataTypeConfiguration {
         this.requiredData = Optional.ofNullable(requiredData);
         return this;
     }
-    
+
     /**
      * Properties required to be fetched from the underlying platform for the custom data type that is being configured. This value is not validated by Codat.
      */
@@ -222,7 +226,7 @@ public class CustomDataTypeConfiguration {
             this.dataSource = Optional.ofNullable(dataSource);
             return this;
         }
-        
+
         /**
          * Underlying endpoint of the source platform that will serve as a data source for the custom data type. This value is not validated by Codat.
          */
@@ -240,7 +244,7 @@ public class CustomDataTypeConfiguration {
             this.keyBy = Optional.ofNullable(keyBy);
             return this;
         }
-        
+
         /**
          * An array of properties from the source system that can be used to uniquely identify the records returned for the custom data type. This value is not validated by Codat.
          */
@@ -258,7 +262,7 @@ public class CustomDataTypeConfiguration {
             this.requiredData = Optional.ofNullable(requiredData);
             return this;
         }
-        
+
         /**
          * Properties required to be fetched from the underlying platform for the custom data type that is being configured. This value is not validated by Codat.
          */

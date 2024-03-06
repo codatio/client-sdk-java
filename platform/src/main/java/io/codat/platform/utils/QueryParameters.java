@@ -5,6 +5,7 @@
 package io.codat.platform.utils;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,10 @@ import java.util.stream.Collectors;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import io.codat.platform.utils.Utils.JsonShape;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class QueryParameters {
@@ -25,7 +29,12 @@ public class QueryParameters {
 
         for (Field field : fields) {
             field.setAccessible(true);
+            if (Modifier.isStatic(field.getModifiers())) {
+                continue;
+            }
+            
             Object value = queryParams != null ? field.get(queryParams) : null;
+            value = Utils.resolveStringShape(type, field.getName(), value); 
             value = Utils.resolveOptionals(value);
             
             value = Utils.populateGlobal(value, field.getName(), "queryParam", globals);
@@ -126,6 +135,10 @@ public class QueryParameters {
                 break;
             }
             case OBJECT: {
+                if (!Utils.allowIntrospection(value.getClass())) {
+                    params.add(new BasicNameValuePair(queryParamsMetadata.name, Utils.valToString(value)));
+                    break;
+                }
                 Field[] fields = value.getClass().getDeclaredFields();
 
                 List<String> items = new ArrayList<>();
@@ -163,8 +176,9 @@ public class QueryParameters {
         return params;
     }
 
-    private static List<NameValuePair> parseDeepObjectParams(QueryParamsMetadata queryParamsMetadata, Object value)
-            throws Exception {
+    private static List<NameValuePair> parseDeepObjectParams(QueryParamsMetadata queryParamsMetadata, Object value) 
+        throws Exception {
+        
         List<NameValuePair> params = new ArrayList<>();
 
         switch (Types.getType(value.getClass())) {
@@ -189,6 +203,9 @@ public class QueryParameters {
                 return params;
             }
             case OBJECT: {
+                if (!Utils.allowIntrospection(value.getClass())) {
+                    throw new RuntimeException("DeepObject style only supports Map and Object types, not " + value.getClass());
+                }
                 Field[] fields = value.getClass().getDeclaredFields();
 
                 for (Field field : fields) {
@@ -220,7 +237,7 @@ public class QueryParameters {
                 return params;
             }
             default:
-                throw new Exception("DeepObject style only supports Map and Object types");
+                throw new RuntimeException("DeepObject style only supports Map and Object types");
         }
     }
 }

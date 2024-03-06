@@ -4,12 +4,16 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 /**
@@ -82,7 +86,7 @@ public class CustomDataTypeRecords {
     public Optional<? extends Long> totalResults() {
         return totalResults;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -95,7 +99,7 @@ public class CustomDataTypeRecords {
         this.pageNumber = Optional.ofNullable(pageNumber);
         return this;
     }
-    
+
     /**
      * Current page number.
      */
@@ -113,7 +117,7 @@ public class CustomDataTypeRecords {
         this.pageSize = Optional.ofNullable(pageSize);
         return this;
     }
-    
+
     /**
      * Number of items to return in results array.
      */
@@ -128,7 +132,7 @@ public class CustomDataTypeRecords {
         this.results = Optional.ofNullable(results);
         return this;
     }
-    
+
     public CustomDataTypeRecords withResults(Optional<? extends java.util.List<CustomDataTypeRecord>> results) {
         Utils.checkNotNull(results, "results");
         this.results = results;
@@ -143,7 +147,7 @@ public class CustomDataTypeRecords {
         this.totalResults = Optional.ofNullable(totalResults);
         return this;
     }
-    
+
     /**
      * Total number of items.
      */
@@ -209,7 +213,7 @@ public class CustomDataTypeRecords {
             this.pageNumber = Optional.ofNullable(pageNumber);
             return this;
         }
-        
+
         /**
          * Current page number.
          */
@@ -227,7 +231,7 @@ public class CustomDataTypeRecords {
             this.pageSize = Optional.ofNullable(pageSize);
             return this;
         }
-        
+
         /**
          * Number of items to return in results array.
          */
@@ -242,7 +246,7 @@ public class CustomDataTypeRecords {
             this.results = Optional.ofNullable(results);
             return this;
         }
-        
+
         public Builder results(Optional<? extends java.util.List<CustomDataTypeRecord>> results) {
             Utils.checkNotNull(results, "results");
             this.results = results;
@@ -257,7 +261,7 @@ public class CustomDataTypeRecords {
             this.totalResults = Optional.ofNullable(totalResults);
             return this;
         }
-        
+
         /**
          * Total number of items.
          */

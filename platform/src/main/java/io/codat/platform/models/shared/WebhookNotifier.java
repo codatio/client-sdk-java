@@ -4,12 +4,16 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
@@ -20,7 +24,7 @@ public class WebhookNotifier {
     private Optional<? extends java.util.List<String>> emails;
 
     /**
-     * The URI the webhook service will POST events.
+     * The URI the webhook service will use to post events.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("webhook")
@@ -40,12 +44,12 @@ public class WebhookNotifier {
     }
 
     /**
-     * The URI the webhook service will POST events.
+     * The URI the webhook service will use to post events.
      */
     public Optional<? extends String> webhook() {
         return webhook;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -55,7 +59,7 @@ public class WebhookNotifier {
         this.emails = Optional.ofNullable(emails);
         return this;
     }
-    
+
     public WebhookNotifier withEmails(Optional<? extends java.util.List<String>> emails) {
         Utils.checkNotNull(emails, "emails");
         this.emails = emails;
@@ -63,16 +67,16 @@ public class WebhookNotifier {
     }
 
     /**
-     * The URI the webhook service will POST events.
+     * The URI the webhook service will use to post events.
      */
     public WebhookNotifier withWebhook(String webhook) {
         Utils.checkNotNull(webhook, "webhook");
         this.webhook = Optional.ofNullable(webhook);
         return this;
     }
-    
+
     /**
-     * The URI the webhook service will POST events.
+     * The URI the webhook service will use to post events.
      */
     public WebhookNotifier withWebhook(Optional<? extends String> webhook) {
         Utils.checkNotNull(webhook, "webhook");
@@ -123,7 +127,7 @@ public class WebhookNotifier {
             this.emails = Optional.ofNullable(emails);
             return this;
         }
-        
+
         public Builder emails(Optional<? extends java.util.List<String>> emails) {
             Utils.checkNotNull(emails, "emails");
             this.emails = emails;
@@ -131,16 +135,16 @@ public class WebhookNotifier {
         }
 
         /**
-         * The URI the webhook service will POST events.
+         * The URI the webhook service will use to post events.
          */
         public Builder webhook(String webhook) {
             Utils.checkNotNull(webhook, "webhook");
             this.webhook = Optional.ofNullable(webhook);
             return this;
         }
-        
+
         /**
-         * The URI the webhook service will POST events.
+         * The URI the webhook service will use to post events.
          */
         public Builder webhook(Optional<? extends String> webhook) {
             Utils.checkNotNull(webhook, "webhook");

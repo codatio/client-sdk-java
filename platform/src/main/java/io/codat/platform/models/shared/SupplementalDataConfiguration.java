@@ -4,12 +4,16 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
@@ -28,7 +32,7 @@ public class SupplementalDataConfiguration {
     public Optional<? extends java.util.Map<String, SupplementalDataSourceConfiguration>> supplementalDataConfig() {
         return supplementalDataConfig;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -38,7 +42,7 @@ public class SupplementalDataConfiguration {
         this.supplementalDataConfig = Optional.ofNullable(supplementalDataConfig);
         return this;
     }
-    
+
     public SupplementalDataConfiguration withSupplementalDataConfig(Optional<? extends java.util.Map<String, SupplementalDataSourceConfiguration>> supplementalDataConfig) {
         Utils.checkNotNull(supplementalDataConfig, "supplementalDataConfig");
         this.supplementalDataConfig = supplementalDataConfig;
@@ -83,7 +87,7 @@ public class SupplementalDataConfiguration {
             this.supplementalDataConfig = Optional.ofNullable(supplementalDataConfig);
             return this;
         }
-        
+
         public Builder supplementalDataConfig(Optional<? extends java.util.Map<String, SupplementalDataSourceConfiguration>> supplementalDataConfig) {
             Utils.checkNotNull(supplementalDataConfig, "supplementalDataConfig");
             this.supplementalDataConfig = supplementalDataConfig;

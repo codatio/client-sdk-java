@@ -38,6 +38,8 @@ import io.codat.platform.models.operations.ConfigureCustomDataTypeResponse;
 import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.CustomDataTypeConfiguration;
 import io.codat.platform.models.shared.Security;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -49,7 +51,7 @@ public class Application {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
-                    .authHeader("<YOUR_API_KEY_HERE>")
+                    .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
                 .build();
 
@@ -116,6 +118,8 @@ import io.codat.platform.models.operations.GetCustomDataTypeConfigurationRequest
 import io.codat.platform.models.operations.GetCustomDataTypeConfigurationResponse;
 import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -127,7 +131,7 @@ public class Application {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
-                    .authHeader("<YOUR_API_KEY_HERE>")
+                    .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
                 .build();
 
@@ -185,6 +189,8 @@ import io.codat.platform.models.operations.ListCustomDataTypeRecordsRequest;
 import io.codat.platform.models.operations.ListCustomDataTypeRecordsResponse;
 import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -196,7 +202,7 @@ public class Application {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
-                    .authHeader("<YOUR_API_KEY_HERE>")
+                    .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
                 .build();
 
@@ -255,6 +261,8 @@ import io.codat.platform.models.operations.RefreshCustomDataTypeRequest;
 import io.codat.platform.models.operations.RefreshCustomDataTypeResponse;
 import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -266,7 +274,7 @@ public class Application {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
-                    .authHeader("<YOUR_API_KEY_HERE>")
+                    .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
                 .build();
 

@@ -4,12 +4,16 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 /**
@@ -54,7 +58,7 @@ public class ImageReference {
     public Optional<? extends String> src() {
         return src;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -67,7 +71,7 @@ public class ImageReference {
         this.alt = Optional.ofNullable(alt);
         return this;
     }
-    
+
     /**
      * Alternative text when image is not available.
      */
@@ -85,7 +89,7 @@ public class ImageReference {
         this.src = Optional.ofNullable(src);
         return this;
     }
-    
+
     /**
      * Source URL for image.
      */
@@ -141,7 +145,7 @@ public class ImageReference {
             this.alt = Optional.ofNullable(alt);
             return this;
         }
-        
+
         /**
          * Alternative text when image is not available.
          */
@@ -159,7 +163,7 @@ public class ImageReference {
             this.src = Optional.ofNullable(src);
             return this;
         }
-        
+
         /**
          * Source URL for image.
          */

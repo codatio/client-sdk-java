@@ -4,12 +4,16 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 /**
@@ -58,7 +62,7 @@ public class DataSyncCompletedWebhook {
     private Optional<? extends String> dataConnectionId;
 
     /**
-     * A human readable message about the webhook.
+     * A human-readable message about the webhook.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("Message")
@@ -148,7 +152,7 @@ public class DataSyncCompletedWebhook {
     }
 
     /**
-     * A human readable message about the webhook.
+     * A human-readable message about the webhook.
      */
     public Optional<? extends String> message() {
         return message;
@@ -167,7 +171,7 @@ public class DataSyncCompletedWebhook {
     public Optional<? extends String> ruleType() {
         return ruleType;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -180,7 +184,7 @@ public class DataSyncCompletedWebhook {
         this.alertId = Optional.ofNullable(alertId);
         return this;
     }
-    
+
     /**
      * Unique identifier of the webhook event.
      */
@@ -198,7 +202,7 @@ public class DataSyncCompletedWebhook {
         this.clientId = Optional.ofNullable(clientId);
         return this;
     }
-    
+
     /**
      * Unique identifier for your client in Codat.
      */
@@ -216,7 +220,7 @@ public class DataSyncCompletedWebhook {
         this.clientName = Optional.ofNullable(clientName);
         return this;
     }
-    
+
     /**
      * Name of your client in Codat.
      */
@@ -234,7 +238,7 @@ public class DataSyncCompletedWebhook {
         this.companyId = Optional.ofNullable(companyId);
         return this;
     }
-    
+
     /**
      * Unique identifier for your SMB in Codat.
      */
@@ -249,7 +253,7 @@ public class DataSyncCompletedWebhook {
         this.data = Optional.ofNullable(data);
         return this;
     }
-    
+
     public DataSyncCompletedWebhook withData(Optional<? extends DataSyncCompletedWebhookData> data) {
         Utils.checkNotNull(data, "data");
         this.data = data;
@@ -264,7 +268,7 @@ public class DataSyncCompletedWebhook {
         this.dataConnectionId = Optional.ofNullable(dataConnectionId);
         return this;
     }
-    
+
     /**
      * Unique identifier for a company's data connection.
      */
@@ -275,16 +279,16 @@ public class DataSyncCompletedWebhook {
     }
 
     /**
-     * A human readable message about the webhook.
+     * A human-readable message about the webhook.
      */
     public DataSyncCompletedWebhook withMessage(String message) {
         Utils.checkNotNull(message, "message");
         this.message = Optional.ofNullable(message);
         return this;
     }
-    
+
     /**
-     * A human readable message about the webhook.
+     * A human-readable message about the webhook.
      */
     public DataSyncCompletedWebhook withMessage(Optional<? extends String> message) {
         Utils.checkNotNull(message, "message");
@@ -300,7 +304,7 @@ public class DataSyncCompletedWebhook {
         this.ruleId = Optional.ofNullable(ruleId);
         return this;
     }
-    
+
     /**
      * Unique identifier for the rule.
      */
@@ -318,7 +322,7 @@ public class DataSyncCompletedWebhook {
         this.ruleType = Optional.ofNullable(ruleType);
         return this;
     }
-    
+
     /**
      * The type of rule.
      */
@@ -409,7 +413,7 @@ public class DataSyncCompletedWebhook {
             this.alertId = Optional.ofNullable(alertId);
             return this;
         }
-        
+
         /**
          * Unique identifier of the webhook event.
          */
@@ -427,7 +431,7 @@ public class DataSyncCompletedWebhook {
             this.clientId = Optional.ofNullable(clientId);
             return this;
         }
-        
+
         /**
          * Unique identifier for your client in Codat.
          */
@@ -445,7 +449,7 @@ public class DataSyncCompletedWebhook {
             this.clientName = Optional.ofNullable(clientName);
             return this;
         }
-        
+
         /**
          * Name of your client in Codat.
          */
@@ -463,7 +467,7 @@ public class DataSyncCompletedWebhook {
             this.companyId = Optional.ofNullable(companyId);
             return this;
         }
-        
+
         /**
          * Unique identifier for your SMB in Codat.
          */
@@ -478,7 +482,7 @@ public class DataSyncCompletedWebhook {
             this.data = Optional.ofNullable(data);
             return this;
         }
-        
+
         public Builder data(Optional<? extends DataSyncCompletedWebhookData> data) {
             Utils.checkNotNull(data, "data");
             this.data = data;
@@ -493,7 +497,7 @@ public class DataSyncCompletedWebhook {
             this.dataConnectionId = Optional.ofNullable(dataConnectionId);
             return this;
         }
-        
+
         /**
          * Unique identifier for a company's data connection.
          */
@@ -504,16 +508,16 @@ public class DataSyncCompletedWebhook {
         }
 
         /**
-         * A human readable message about the webhook.
+         * A human-readable message about the webhook.
          */
         public Builder message(String message) {
             Utils.checkNotNull(message, "message");
             this.message = Optional.ofNullable(message);
             return this;
         }
-        
+
         /**
-         * A human readable message about the webhook.
+         * A human-readable message about the webhook.
          */
         public Builder message(Optional<? extends String> message) {
             Utils.checkNotNull(message, "message");
@@ -529,7 +533,7 @@ public class DataSyncCompletedWebhook {
             this.ruleId = Optional.ofNullable(ruleId);
             return this;
         }
-        
+
         /**
          * Unique identifier for the rule.
          */
@@ -547,7 +551,7 @@ public class DataSyncCompletedWebhook {
             this.ruleType = Optional.ofNullable(ruleType);
             return this;
         }
-        
+
         /**
          * The type of rule.
          */

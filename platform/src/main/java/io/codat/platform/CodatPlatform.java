@@ -4,11 +4,15 @@
 
 package io.codat.platform;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.models.operations.SDKMethodInterfaces.*;
 import io.codat.platform.utils.HTTPClient;
+import io.codat.platform.utils.RetryConfig;
 import io.codat.platform.utils.SpeakeasyHTTPClient;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -153,7 +157,7 @@ public class CodatPlatform {
      */
     public Webhooks webhooks() {
         return webhooks;
-    }  
+    }
 
     private final SDKConfiguration sdkConfiguration;
 
@@ -161,7 +165,7 @@ public class CodatPlatform {
      * The Builder class allows the configuration of a new instance of the SDK.
      */
     public static class Builder {
-  
+
         private final SDKConfiguration sdkConfiguration = new SDKConfiguration();
 
         private Builder() {
@@ -169,6 +173,7 @@ public class CodatPlatform {
 
         /**
          * Allows the default HTTP client to be overridden with a custom implementation.
+         *
          * @param client The HTTP client to use for all requests.
          * @return The builder instance.
          */
@@ -179,6 +184,7 @@ public class CodatPlatform {
         
         /**
          * Configures the SDK to use the provided security details.
+         *
          * @param security The security details to use for all requests.
          * @return The builder instance.
          */
@@ -187,13 +193,19 @@ public class CodatPlatform {
             return this;
         }
 
+        /**
+         * Configures the SDK to use a custom security source.
+         * @param securitySource The security source to use for all requests.
+         * @return The builder instance.
+         */
         public Builder securitySource(SecuritySource securitySource) {
             this.sdkConfiguration.securitySource = securitySource;
             return this;
         }
         
         /**
-         * Allows the overriding of the default server URL.
+         * Overrides the default server URL.
+         *
          * @param serverUrl The server URL to use for all requests.
          * @return The builder instance.
          */
@@ -201,9 +213,10 @@ public class CodatPlatform {
             this.sdkConfiguration.serverUrl = serverUrl;
             return this;
         }
-        
+
         /**
-         * Allows the overriding of the default server URL  with a templated URL populated with the provided parameters.
+         * Overrides the default server URL  with a templated URL populated with the provided parameters.
+         *
          * @param serverUrl The server URL to use for all requests.
          * @param params The parameters to use when templating the URL.
          * @return The builder instance.
@@ -214,7 +227,8 @@ public class CodatPlatform {
         }
         
         /**
-         * Allows the overriding of the default server by index
+         * Overrides the default server by index.
+         *
          * @param serverIdx The server to use for all requests.
          * @return The builder instance.
          */
@@ -224,6 +238,16 @@ public class CodatPlatform {
             return this;
         }
         
+        /**
+         * Overrides the default configuration for retries
+         *
+         * @param retryConfig The retry configuration to use for all requests.
+         * @return The builder instance.
+         */
+        public Builder retryConfig(RetryConfig retryConfig) {
+            this.sdkConfiguration.retryConfig = Optional.of(retryConfig);
+            return this;
+        }
         /**
          * Builds a new instance of the SDK.
          * @return The SDK instance.
@@ -267,6 +291,9 @@ public class CodatPlatform {
         this.supplementalData = new SupplementalData(sdkConfiguration);
         this.webhooks = new Webhooks(sdkConfiguration);
     }
+
+
+
 
 
 

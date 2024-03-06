@@ -4,10 +4,14 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.SpeakeasyMetadata;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
@@ -57,7 +61,7 @@ public class UpdateConnectionAuthorizationRequest {
     public String connectionId() {
         return connectionId;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -67,7 +71,7 @@ public class UpdateConnectionAuthorizationRequest {
         this.requestBody = Optional.ofNullable(requestBody);
         return this;
     }
-    
+
     public UpdateConnectionAuthorizationRequest withRequestBody(Optional<? extends java.util.Map<String, String>> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
@@ -140,7 +144,7 @@ public class UpdateConnectionAuthorizationRequest {
             this.requestBody = Optional.ofNullable(requestBody);
             return this;
         }
-        
+
         public Builder requestBody(Optional<? extends java.util.Map<String, String>> requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
             this.requestBody = requestBody;

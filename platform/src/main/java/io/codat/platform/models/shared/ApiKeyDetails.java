@@ -4,12 +4,16 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -125,7 +129,7 @@ public class ApiKeyDetails {
     public JsonNullable<? extends String> name() {
         return name;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -138,7 +142,7 @@ public class ApiKeyDetails {
         this.apiKey = Optional.ofNullable(apiKey);
         return this;
     }
-    
+
     /**
      * The API key value used to make authenticated http requests.
      */
@@ -174,7 +178,7 @@ public class ApiKeyDetails {
         this.createdDate = Optional.ofNullable(createdDate);
         return this;
     }
-    
+
     /**
      * In Codat's data model, dates and times are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date and time fields are formatted as strings; for example:
      * 
@@ -210,7 +214,7 @@ public class ApiKeyDetails {
         this.id = Optional.ofNullable(id);
         return this;
     }
-    
+
     /**
      * Unique identifier for the API key.
      */
@@ -294,7 +298,7 @@ public class ApiKeyDetails {
             this.apiKey = Optional.ofNullable(apiKey);
             return this;
         }
-        
+
         /**
          * The API key value used to make authenticated http requests.
          */
@@ -330,7 +334,7 @@ public class ApiKeyDetails {
             this.createdDate = Optional.ofNullable(createdDate);
             return this;
         }
-        
+
         /**
          * In Codat's data model, dates and times are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date and time fields are formatted as strings; for example:
          * 
@@ -366,7 +370,7 @@ public class ApiKeyDetails {
             this.id = Optional.ofNullable(id);
             return this;
         }
-        
+
         /**
          * Unique identifier for the API key.
          */

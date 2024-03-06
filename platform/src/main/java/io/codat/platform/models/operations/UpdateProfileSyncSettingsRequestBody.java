@@ -4,6 +4,7 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,6 +13,8 @@ import io.codat.platform.utils.LazySingletonValue;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 /**
@@ -66,7 +69,7 @@ public class UpdateProfileSyncSettingsRequestBody {
     public java.util.List<io.codat.platform.models.shared.SyncSetting> settings() {
         return settings;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -88,7 +91,7 @@ public class UpdateProfileSyncSettingsRequestBody {
         this.overridesDefaults = Optional.ofNullable(overridesDefaults);
         return this;
     }
-    
+
     /**
      * Set to `True` if you want to override default [sync settings](https://docs.codat.io/knowledge-base/advanced-sync-settings).
      */
@@ -164,7 +167,7 @@ public class UpdateProfileSyncSettingsRequestBody {
             this.overridesDefaults = Optional.ofNullable(overridesDefaults);
             return this;
         }
-        
+
         /**
          * Set to `True` if you want to override default [sync settings](https://docs.codat.io/knowledge-base/advanced-sync-settings).
          */

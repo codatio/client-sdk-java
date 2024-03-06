@@ -1,0 +1,10 @@
+# WebhookConsumerPrototype
+
+
+## Fields
+
+| Field                                                                                          | Type                                                                                           | Required                                                                                       | Description                                                                                    |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `disabled`                                                                                     | *JsonNullable<? extends Boolean>*                                                              | :heavy_minus_sign:                                                                             | Flag that enables or disables the endpoint from receiving events. Disabled when set to `true`. |
+| `eventTypes`                                                                                   | List<*String*>                                                                                 | :heavy_minus_sign:                                                                             | An array of event types the webhook consumer subscribes to.                                    |
+| `url`                                                                                          | *Optional<? extends String>*                                                                   | :heavy_minus_sign:                                                                             | The URL that will consume webhook events dispatched by Codat.                                  |

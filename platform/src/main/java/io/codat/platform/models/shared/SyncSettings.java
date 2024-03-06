@@ -4,12 +4,16 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
@@ -62,7 +66,7 @@ public class SyncSettings {
     public Optional<? extends java.util.List<SyncSetting>> settings() {
         return settings;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -75,7 +79,7 @@ public class SyncSettings {
         this.clientId = Optional.ofNullable(clientId);
         return this;
     }
-    
+
     /**
      * Unique identifier for your client in Codat.
      */
@@ -93,7 +97,7 @@ public class SyncSettings {
         this.overridesDefaults = Optional.ofNullable(overridesDefaults);
         return this;
     }
-    
+
     /**
      * Set to `True` if you want to override the default [sync settings](https://docs.codat.io/knowledge-base/advanced-sync-settings).
      */
@@ -108,7 +112,7 @@ public class SyncSettings {
         this.settings = Optional.ofNullable(settings);
         return this;
     }
-    
+
     public SyncSettings withSettings(Optional<? extends java.util.List<SyncSetting>> settings) {
         Utils.checkNotNull(settings, "settings");
         this.settings = settings;
@@ -166,7 +170,7 @@ public class SyncSettings {
             this.clientId = Optional.ofNullable(clientId);
             return this;
         }
-        
+
         /**
          * Unique identifier for your client in Codat.
          */
@@ -184,7 +188,7 @@ public class SyncSettings {
             this.overridesDefaults = Optional.ofNullable(overridesDefaults);
             return this;
         }
-        
+
         /**
          * Set to `True` if you want to override the default [sync settings](https://docs.codat.io/knowledge-base/advanced-sync-settings).
          */
@@ -199,7 +203,7 @@ public class SyncSettings {
             this.settings = Optional.ofNullable(settings);
             return this;
         }
-        
+
         public Builder settings(Optional<? extends java.util.List<SyncSetting>> settings) {
             Utils.checkNotNull(settings, "settings");
             this.settings = settings;

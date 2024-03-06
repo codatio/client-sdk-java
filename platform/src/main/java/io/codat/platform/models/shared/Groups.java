@@ -4,12 +4,16 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
@@ -28,7 +32,7 @@ public class Groups {
     public Optional<? extends java.util.List<Group>> results() {
         return results;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -38,7 +42,7 @@ public class Groups {
         this.results = Optional.ofNullable(results);
         return this;
     }
-    
+
     public Groups withResults(Optional<? extends java.util.List<Group>> results) {
         Utils.checkNotNull(results, "results");
         this.results = results;
@@ -83,7 +87,7 @@ public class Groups {
             this.results = Optional.ofNullable(results);
             return this;
         }
-        
+
         public Builder results(Optional<? extends java.util.List<Group>> results) {
             Utils.checkNotNull(results, "results");
             this.results = results;

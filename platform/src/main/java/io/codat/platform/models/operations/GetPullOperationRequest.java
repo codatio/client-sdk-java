@@ -4,10 +4,14 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.SpeakeasyMetadata;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 
 
 public class GetPullOperationRequest {
@@ -46,7 +50,7 @@ public class GetPullOperationRequest {
     public String datasetId() {
         return datasetId;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }

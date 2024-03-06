@@ -4,12 +4,16 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 /**
@@ -162,7 +166,7 @@ public class Profile {
     public Optional<? extends java.util.List<String>> whiteListUrls() {
         return whiteListUrls;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -175,7 +179,7 @@ public class Profile {
         this.alertAuthHeader = Optional.ofNullable(alertAuthHeader);
         return this;
     }
-    
+
     /**
      * Alert or webhooks authorization header.
      */
@@ -195,7 +199,7 @@ public class Profile {
         this.apiKey = Optional.ofNullable(apiKey);
         return this;
     }
-    
+
     /**
      * The API key for this Codat instance.
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -217,7 +221,7 @@ public class Profile {
         this.confirmCompanyName = Optional.ofNullable(confirmCompanyName);
         return this;
     }
-    
+
     /**
      * `True` if the company name has been confirmed.
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -237,7 +241,7 @@ public class Profile {
         this.iconUrl = Optional.ofNullable(iconUrl);
         return this;
     }
-    
+
     /**
      * Static url to your organization's icon.
      */
@@ -255,7 +259,7 @@ public class Profile {
         this.logoUrl = Optional.ofNullable(logoUrl);
         return this;
     }
-    
+
     /**
      * Static url to your organization's logo.
      */
@@ -291,7 +295,7 @@ public class Profile {
         this.whiteListUrls = Optional.ofNullable(whiteListUrls);
         return this;
     }
-    
+
     /**
      * A list of urls that are allowed to communicate with Codat. If empty any url is allowed to communicate with Codat.
      */
@@ -379,7 +383,7 @@ public class Profile {
             this.alertAuthHeader = Optional.ofNullable(alertAuthHeader);
             return this;
         }
-        
+
         /**
          * Alert or webhooks authorization header.
          */
@@ -399,7 +403,7 @@ public class Profile {
             this.apiKey = Optional.ofNullable(apiKey);
             return this;
         }
-        
+
         /**
          * The API key for this Codat instance.
          * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -421,7 +425,7 @@ public class Profile {
             this.confirmCompanyName = Optional.ofNullable(confirmCompanyName);
             return this;
         }
-        
+
         /**
          * `True` if the company name has been confirmed.
          * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -441,7 +445,7 @@ public class Profile {
             this.iconUrl = Optional.ofNullable(iconUrl);
             return this;
         }
-        
+
         /**
          * Static url to your organization's icon.
          */
@@ -459,7 +463,7 @@ public class Profile {
             this.logoUrl = Optional.ofNullable(logoUrl);
             return this;
         }
-        
+
         /**
          * Static url to your organization's logo.
          */
@@ -495,7 +499,7 @@ public class Profile {
             this.whiteListUrls = Optional.ofNullable(whiteListUrls);
             return this;
         }
-        
+
         /**
          * A list of urls that are allowed to communicate with Codat. If empty any url is allowed to communicate with Codat.
          */

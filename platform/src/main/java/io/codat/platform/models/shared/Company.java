@@ -4,12 +4,16 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 /**
@@ -261,7 +265,7 @@ public class Company {
     public String redirect() {
         return redirect;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -292,7 +296,7 @@ public class Company {
         this.created = Optional.ofNullable(created);
         return this;
     }
-    
+
     /**
      * In Codat's data model, dates and times are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date and time fields are formatted as strings; for example:
      * 
@@ -328,7 +332,7 @@ public class Company {
         this.createdByUserName = Optional.ofNullable(createdByUserName);
         return this;
     }
-    
+
     /**
      * Name of user that created the company in Codat.
      */
@@ -343,7 +347,7 @@ public class Company {
         this.dataConnections = Optional.ofNullable(dataConnections);
         return this;
     }
-    
+
     public Company withDataConnections(Optional<? extends java.util.List<Connection>> dataConnections) {
         Utils.checkNotNull(dataConnections, "dataConnections");
         this.dataConnections = dataConnections;
@@ -358,7 +362,7 @@ public class Company {
         this.description = Optional.ofNullable(description);
         return this;
     }
-    
+
     /**
      * Additional information about the company. This can be used to store foreign IDs, references, etc.
      */
@@ -376,7 +380,7 @@ public class Company {
         this.groups = Optional.ofNullable(groups);
         return this;
     }
-    
+
     /**
      * An array of groups the company has been assigned to.
      */
@@ -421,7 +425,7 @@ public class Company {
         this.lastSync = Optional.ofNullable(lastSync);
         return this;
     }
-    
+
     /**
      * In Codat's data model, dates and times are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date and time fields are formatted as strings; for example:
      * 
@@ -468,7 +472,7 @@ public class Company {
         this.platform = Optional.ofNullable(platform);
         return this;
     }
-    
+
     /**
      * `platformKeys` name used when creating the company.
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -594,7 +598,7 @@ public class Company {
             this.created = Optional.ofNullable(created);
             return this;
         }
-        
+
         /**
          * In Codat's data model, dates and times are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date and time fields are formatted as strings; for example:
          * 
@@ -630,7 +634,7 @@ public class Company {
             this.createdByUserName = Optional.ofNullable(createdByUserName);
             return this;
         }
-        
+
         /**
          * Name of user that created the company in Codat.
          */
@@ -645,7 +649,7 @@ public class Company {
             this.dataConnections = Optional.ofNullable(dataConnections);
             return this;
         }
-        
+
         public Builder dataConnections(Optional<? extends java.util.List<Connection>> dataConnections) {
             Utils.checkNotNull(dataConnections, "dataConnections");
             this.dataConnections = dataConnections;
@@ -660,7 +664,7 @@ public class Company {
             this.description = Optional.ofNullable(description);
             return this;
         }
-        
+
         /**
          * Additional information about the company. This can be used to store foreign IDs, references, etc.
          */
@@ -678,7 +682,7 @@ public class Company {
             this.groups = Optional.ofNullable(groups);
             return this;
         }
-        
+
         /**
          * An array of groups the company has been assigned to.
          */
@@ -723,7 +727,7 @@ public class Company {
             this.lastSync = Optional.ofNullable(lastSync);
             return this;
         }
-        
+
         /**
          * In Codat's data model, dates and times are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date and time fields are formatted as strings; for example:
          * 
@@ -770,7 +774,7 @@ public class Company {
             this.platform = Optional.ofNullable(platform);
             return this;
         }
-        
+
         /**
          * `platformKeys` name used when creating the company.
          * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.

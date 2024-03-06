@@ -4,19 +4,23 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
 public class DataSyncCompletedWebhookData {
 
     /**
-     * Available Data types
+     * Available data types
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("dataType")
@@ -39,7 +43,7 @@ public class DataSyncCompletedWebhookData {
     }
 
     /**
-     * Available Data types
+     * Available data types
      */
     public Optional<? extends DataType> dataType() {
         return dataType;
@@ -51,22 +55,22 @@ public class DataSyncCompletedWebhookData {
     public Optional<? extends String> datasetId() {
         return datasetId;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
 
     /**
-     * Available Data types
+     * Available data types
      */
     public DataSyncCompletedWebhookData withDataType(DataType dataType) {
         Utils.checkNotNull(dataType, "dataType");
         this.dataType = Optional.ofNullable(dataType);
         return this;
     }
-    
+
     /**
-     * Available Data types
+     * Available data types
      */
     public DataSyncCompletedWebhookData withDataType(Optional<? extends DataType> dataType) {
         Utils.checkNotNull(dataType, "dataType");
@@ -82,7 +86,7 @@ public class DataSyncCompletedWebhookData {
         this.datasetId = Optional.ofNullable(datasetId);
         return this;
     }
-    
+
     /**
      * Unique identifier for the dataset that completed its sync.
      */
@@ -131,16 +135,16 @@ public class DataSyncCompletedWebhookData {
         }
 
         /**
-         * Available Data types
+         * Available data types
          */
         public Builder dataType(DataType dataType) {
             Utils.checkNotNull(dataType, "dataType");
             this.dataType = Optional.ofNullable(dataType);
             return this;
         }
-        
+
         /**
-         * Available Data types
+         * Available data types
          */
         public Builder dataType(Optional<? extends DataType> dataType) {
             Utils.checkNotNull(dataType, "dataType");
@@ -156,7 +160,7 @@ public class DataSyncCompletedWebhookData {
             this.datasetId = Optional.ofNullable(datasetId);
             return this;
         }
-        
+
         /**
          * Unique identifier for the dataset that completed its sync.
          */

@@ -4,12 +4,16 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 /**
@@ -71,7 +75,7 @@ public class SupplementalDataSourceConfiguration {
     public Optional<? extends java.util.Map<String, String>> pushData() {
         return pushData;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -84,7 +88,7 @@ public class SupplementalDataSourceConfiguration {
         this.dataSource = Optional.ofNullable(dataSource);
         return this;
     }
-    
+
     /**
      * The underlying endpoint of the source system which the configuration is targeting. 
      */
@@ -102,7 +106,7 @@ public class SupplementalDataSourceConfiguration {
         this.pullData = Optional.ofNullable(pullData);
         return this;
     }
-    
+
     /**
      * The additional properties that are required when pulling records.
      */
@@ -120,7 +124,7 @@ public class SupplementalDataSourceConfiguration {
         this.pushData = Optional.ofNullable(pushData);
         return this;
     }
-    
+
     /**
      * The additional properties that are required to create and/or update records.
      */
@@ -181,7 +185,7 @@ public class SupplementalDataSourceConfiguration {
             this.dataSource = Optional.ofNullable(dataSource);
             return this;
         }
-        
+
         /**
          * The underlying endpoint of the source system which the configuration is targeting. 
          */
@@ -199,7 +203,7 @@ public class SupplementalDataSourceConfiguration {
             this.pullData = Optional.ofNullable(pullData);
             return this;
         }
-        
+
         /**
          * The additional properties that are required when pulling records.
          */
@@ -217,7 +221,7 @@ public class SupplementalDataSourceConfiguration {
             this.pushData = Optional.ofNullable(pushData);
             return this;
         }
-        
+
         /**
          * The additional properties that are required to create and/or update records.
          */
