@@ -15,7 +15,8 @@ java:
   companyEmail: support@codat.io
   companyName: Codat
   companyURL: https://www.codat.io/
-  description: Push merchants' data from your ecommerce or point-of-sale (POS) platform into your merchants' accounting platform.
+  description: Push merchants' data from your ecommerce or point-of-sale (POS) platform
+    into your merchants' accounting platform.
   flattenGlobalSecurity: true
   githubURL: github.com/codatio/client-sdk-java/sync.commerce
   groupID: io.codat
