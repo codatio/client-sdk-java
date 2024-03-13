@@ -4,33 +4,60 @@
 
 package io.codat.sync.payables.models.components;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.payables.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
 public class Suppliers {
 
     @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("pagination")
+    private Optional<? extends Pagination> pagination;
+
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("results")
     private Optional<? extends java.util.List<Supplier>> results;
 
     public Suppliers(
+            @JsonProperty("pagination") Optional<? extends Pagination> pagination,
             @JsonProperty("results") Optional<? extends java.util.List<Supplier>> results) {
+        Utils.checkNotNull(pagination, "pagination");
         Utils.checkNotNull(results, "results");
+        this.pagination = pagination;
         this.results = results;
+    }
+
+    public Optional<? extends Pagination> pagination() {
+        return pagination;
     }
 
     public Optional<? extends java.util.List<Supplier>> results() {
         return results;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
+    }
+
+    public Suppliers withPagination(Pagination pagination) {
+        Utils.checkNotNull(pagination, "pagination");
+        this.pagination = Optional.ofNullable(pagination);
+        return this;
+    }
+
+    public Suppliers withPagination(Optional<? extends Pagination> pagination) {
+        Utils.checkNotNull(pagination, "pagination");
+        this.pagination = pagination;
+        return this;
     }
 
     public Suppliers withResults(java.util.List<Supplier> results) {
@@ -38,7 +65,7 @@ public class Suppliers {
         this.results = Optional.ofNullable(results);
         return this;
     }
-    
+
     public Suppliers withResults(Optional<? extends java.util.List<Supplier>> results) {
         Utils.checkNotNull(results, "results");
         this.results = results;
@@ -55,22 +82,27 @@ public class Suppliers {
         }
         Suppliers other = (Suppliers) o;
         return 
+            java.util.Objects.deepEquals(this.pagination, other.pagination) &&
             java.util.Objects.deepEquals(this.results, other.results);
     }
     
     @Override
     public int hashCode() {
         return java.util.Objects.hash(
+            pagination,
             results);
     }
     
     @Override
     public String toString() {
         return Utils.toString(Suppliers.class,
+                "pagination", pagination,
                 "results", results);
     }
     
     public final static class Builder {
+ 
+        private Optional<? extends Pagination> pagination = Optional.empty();
  
         private Optional<? extends java.util.List<Supplier>> results = Optional.empty();  
         
@@ -78,12 +110,24 @@ public class Suppliers {
           // force use of static builder() method
         }
 
+        public Builder pagination(Pagination pagination) {
+            Utils.checkNotNull(pagination, "pagination");
+            this.pagination = Optional.ofNullable(pagination);
+            return this;
+        }
+
+        public Builder pagination(Optional<? extends Pagination> pagination) {
+            Utils.checkNotNull(pagination, "pagination");
+            this.pagination = pagination;
+            return this;
+        }
+
         public Builder results(java.util.List<Supplier> results) {
             Utils.checkNotNull(results, "results");
             this.results = Optional.ofNullable(results);
             return this;
         }
-        
+
         public Builder results(Optional<? extends java.util.List<Supplier>> results) {
             Utils.checkNotNull(results, "results");
             this.results = results;
@@ -92,6 +136,7 @@ public class Suppliers {
         
         public Suppliers build() {
             return new Suppliers(
+                pagination,
                 results);
         }
     }

@@ -7,6 +7,7 @@ package io.codat.sync.payables.utils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
@@ -74,7 +75,7 @@ public class RequestBody {
 
         RequestMetadata requestMetadata = RequestMetadata.parse(reqField);
         if (requestMetadata == null) {
-            throw new Error("Missing request metadata on request field");
+            throw new RuntimeException("Missing request metadata on request field");
         }
 
         return serializeContentType(requestField, requestMetadata.mediaType, requestValue);
@@ -112,7 +113,7 @@ public class RequestBody {
                 body.contentType = contentType;
                 body.body = BodyPublishers.ofByteArray((byte[]) value);
             } else {
-                throw new Error("Unsupported content type " + contentType + " for field " + fieldName);
+                throw new RuntimeException("Unsupported content type " + contentType + " for field " + fieldName);
             }
         }
 
@@ -130,6 +131,9 @@ public class RequestBody {
 
         for (Field field : fields) {
             field.setAccessible(true);
+            if (Modifier.isStatic(field.getModifiers())) {
+                continue;
+            }
             Object val = Utils.resolveOptionals(field.get(value));
             
             if (val == null) {
@@ -138,7 +142,7 @@ public class RequestBody {
 
             MultipartFormMetadata metadata = MultipartFormMetadata.parse(field);
             if (metadata == null) {
-                throw new Error("Missing multipart form metadata on field " + field.getName());
+                throw new RuntimeException("Missing multipart form metadata on field " + field.getName());
             }
 
             if (metadata.file) {
@@ -174,7 +178,7 @@ public class RequestBody {
     private static void serializeMultipartFile(MultipartEntityBuilder builder, Object file)
             throws IllegalArgumentException, IllegalAccessException {
         if (Types.getType(file.getClass()) != Types.OBJECT) {
-            throw new Error("Invalid type for multipart file");
+            throw new RuntimeException("Invalid type for multipart file");
         }
 
         String fieldName = "";
@@ -205,7 +209,7 @@ public class RequestBody {
         }
 
         if (fieldName.isBlank() || fileName.isBlank() || content == null) {
-            throw new Error("Invalid multipart file");
+            throw new RuntimeException("Invalid multipart file");
         }
 
         builder.addBinaryBody(fieldName, content, ContentType.APPLICATION_OCTET_STREAM, fileName);
@@ -226,6 +230,9 @@ public class RequestBody {
                 }
                 break;
             case OBJECT:
+                if (!Utils.allowIntrospection(value.getClass())) {
+                    throw new RuntimeException("Invalid type for form data");
+                }
                 Field[] fields = value.getClass().getDeclaredFields();
 
                 for (Field field : fields) {
@@ -248,9 +255,7 @@ public class RequestBody {
                     } else {
                         switch (Types.getType(val.getClass())) {
                             case OBJECT: {
-                                if (val.getClass() == LocalDate.class) {
-                                    params.add(new BasicNameValuePair(metadata.name, String.valueOf(val)));
-                                } else if (val.getClass() == OffsetDateTime.class) {
+                                if (!Utils.allowIntrospection(val.getClass())) {
                                     params.add(new BasicNameValuePair(metadata.name, String.valueOf(val)));
                                 } else {
 
@@ -332,7 +337,7 @@ public class RequestBody {
                 }
                 break;
             default:
-                throw new Error("Invalid type for form data");
+                throw new RuntimeException("Invalid type for form data");
         }
 
         UrlEncodedFormEntity entity = new UrlEncodedFormEntity(params);

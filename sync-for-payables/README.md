@@ -10,7 +10,7 @@ Streamline your customers' accounts payable workflow.
 ### Gradle
 
 ```groovy
-implementation 'io.codat.sync.payables:openapi:0.1.0'
+implementation 'io.codat.sync.payables:openapi:0.2.0'
 ```
 <!-- End SDK Installation [installation] -->
 
@@ -30,6 +30,8 @@ import io.codat.sync.payables.models.components.Items;
 import io.codat.sync.payables.models.components.Security;
 import io.codat.sync.payables.models.operations.*;
 import io.codat.sync.payables.models.operations.CreateCompanyResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -80,6 +82,10 @@ public class Application {
 * [list](docs/sdks/companies/README.md#list) - List companies
 * [update](docs/sdks/companies/README.md#update) - Update company
 
+### [companyInformation()](docs/sdks/companyinformation/README.md)
+
+* [get](docs/sdks/companyinformation/README.md#get) - Get company information
+
 ### [connections()](docs/sdks/connections/README.md)
 
 * [create](docs/sdks/connections/README.md#create) - Create connection
@@ -91,11 +97,20 @@ public class Application {
 ### [bills()](docs/sdks/bills/README.md)
 
 * [create](docs/sdks/bills/README.md#create) - Create bill
+* [downloadAttachment](docs/sdks/bills/README.md#downloadattachment) - Download bill attachment
+* [getBillOptions](docs/sdks/bills/README.md#getbilloptions) - Get bill mapping options
 * [list](docs/sdks/bills/README.md#list) - List bills
+* [listAttachments](docs/sdks/bills/README.md#listattachments) - List bill attachments
+* [uploadAttachment](docs/sdks/bills/README.md#uploadattachment) - Upload bill attachment
+
+### [bankAccounts()](docs/sdks/bankaccounts/README.md)
+
+* [create](docs/sdks/bankaccounts/README.md#create) - Create bank account
 
 ### [billPayments()](docs/sdks/billpayments/README.md)
 
 * [create](docs/sdks/billpayments/README.md#create) - Create bill payment
+* [getPaymentOptions](docs/sdks/billpayments/README.md#getpaymentoptions) - Get payment mapping options
 
 ### [suppliers()](docs/sdks/suppliers/README.md)
 
@@ -120,6 +135,8 @@ import io.codat.sync.payables.models.operations.*;
 import io.codat.sync.payables.models.operations.CreateCompanyResponse;
 import io.codat.sync.payables.utils.BackoffStrategy;
 import io.codat.sync.payables.utils.RetryConfig;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -182,6 +199,8 @@ import io.codat.sync.payables.models.operations.*;
 import io.codat.sync.payables.models.operations.CreateCompanyResponse;
 import io.codat.sync.payables.utils.BackoffStrategy;
 import io.codat.sync.payables.utils.RetryConfig;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -237,9 +256,9 @@ public class Application {
 
 Handling errors in this SDK should largely match your expectations.  All operations return a response object or raise an error.  If Error objects are specified in your OpenAPI Spec, the SDK will throw the appropriate Exception type.
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |
 
 ### Example
 
@@ -253,6 +272,8 @@ import io.codat.sync.payables.models.components.Items;
 import io.codat.sync.payables.models.components.Security;
 import io.codat.sync.payables.models.operations.*;
 import io.codat.sync.payables.models.operations.CreateCompanyResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -315,6 +336,8 @@ import io.codat.sync.payables.models.components.Items;
 import io.codat.sync.payables.models.components.Security;
 import io.codat.sync.payables.models.operations.*;
 import io.codat.sync.payables.models.operations.CreateCompanyResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -368,6 +391,8 @@ import io.codat.sync.payables.models.components.Items;
 import io.codat.sync.payables.models.components.Security;
 import io.codat.sync.payables.models.operations.*;
 import io.codat.sync.payables.models.operations.CreateCompanyResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -430,6 +455,8 @@ import io.codat.sync.payables.models.components.Items;
 import io.codat.sync.payables.models.components.Security;
 import io.codat.sync.payables.models.operations.*;
 import io.codat.sync.payables.models.operations.CreateCompanyResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;

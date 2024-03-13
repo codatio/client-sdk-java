@@ -5,14 +5,18 @@
 package io.codat.sync.payables.models.operations;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import io.codat.sync.payables.models.errors.SDKError;
 import io.codat.sync.payables.utils.LazySingletonValue;
 import io.codat.sync.payables.utils.Options.Builder;
 import io.codat.sync.payables.utils.Options;
 import io.codat.sync.payables.utils.Utils;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.stream.Stream;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 
@@ -31,7 +35,7 @@ public class GetConnectionRequestBuilder {
         this.request = request;
         return this;
     }
-
+                
     public GetConnectionRequestBuilder retryConfig(io.codat.sync.payables.utils.RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);

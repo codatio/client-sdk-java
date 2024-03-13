@@ -4,12 +4,16 @@
 
 package io.codat.sync.payables.models.components;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.payables.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -33,14 +37,14 @@ public class BillLineItem {
      * Number of units of goods or services received.
      */
     @JsonProperty("quantity")
-    private double quantity;
+    private BigDecimal quantity;
 
     /**
      * Amount of tax applied to the line item.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("taxAmount")
-    private Optional<? extends Double> taxAmount;
+    private Optional<? extends BigDecimal> taxAmount;
 
     /**
      * Reference to the tax rate to which the line item is linked.
@@ -53,22 +57,22 @@ public class BillLineItem {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("totalAmount")
-    private JsonNullable<? extends Double> totalAmount;
+    private JsonNullable<? extends BigDecimal> totalAmount;
 
     /**
      * Unit price of the goods or service.
      */
     @JsonProperty("unitAmount")
-    private double unitAmount;
+    private BigDecimal unitAmount;
 
     public BillLineItem(
             @JsonProperty("accountRef") BillAccountRef accountRef,
             @JsonProperty("description") JsonNullable<? extends String> description,
-            @JsonProperty("quantity") double quantity,
-            @JsonProperty("taxAmount") Optional<? extends Double> taxAmount,
+            @JsonProperty("quantity") BigDecimal quantity,
+            @JsonProperty("taxAmount") Optional<? extends BigDecimal> taxAmount,
             @JsonProperty("taxRateRef") BillTaxRateRef taxRateRef,
-            @JsonProperty("totalAmount") JsonNullable<? extends Double> totalAmount,
-            @JsonProperty("unitAmount") double unitAmount) {
+            @JsonProperty("totalAmount") JsonNullable<? extends BigDecimal> totalAmount,
+            @JsonProperty("unitAmount") BigDecimal unitAmount) {
         Utils.checkNotNull(accountRef, "accountRef");
         Utils.checkNotNull(description, "description");
         Utils.checkNotNull(quantity, "quantity");
@@ -102,14 +106,14 @@ public class BillLineItem {
     /**
      * Number of units of goods or services received.
      */
-    public double quantity() {
+    public BigDecimal quantity() {
         return quantity;
     }
 
     /**
      * Amount of tax applied to the line item.
      */
-    public Optional<? extends Double> taxAmount() {
+    public Optional<? extends BigDecimal> taxAmount() {
         return taxAmount;
     }
 
@@ -123,17 +127,17 @@ public class BillLineItem {
     /**
      * Total amount of the line, including tax.
      */
-    public JsonNullable<? extends Double> totalAmount() {
+    public JsonNullable<? extends BigDecimal> totalAmount() {
         return totalAmount;
     }
 
     /**
      * Unit price of the goods or service.
      */
-    public double unitAmount() {
+    public BigDecimal unitAmount() {
         return unitAmount;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -165,10 +169,18 @@ public class BillLineItem {
         return this;
     }
 
+        /**
+         * Number of units of goods or services received.
+         */
+    public BillLineItem withQuantity(double quantity) {
+        this.quantity = BigDecimal.valueOf(quantity);
+        return this;
+    }
+
     /**
      * Number of units of goods or services received.
      */
-    public BillLineItem withQuantity(double quantity) {
+    public BillLineItem withQuantity(BigDecimal quantity) {
         Utils.checkNotNull(quantity, "quantity");
         this.quantity = quantity;
         return this;
@@ -177,16 +189,24 @@ public class BillLineItem {
     /**
      * Amount of tax applied to the line item.
      */
-    public BillLineItem withTaxAmount(double taxAmount) {
+    public BillLineItem withTaxAmount(BigDecimal taxAmount) {
         Utils.checkNotNull(taxAmount, "taxAmount");
         this.taxAmount = Optional.ofNullable(taxAmount);
         return this;
     }
-    
+
+        /**
+         * Amount of tax applied to the line item.
+         */
+    public BillLineItem withTaxAmount(double taxAmount) {
+        this.taxAmount = Optional.of(BigDecimal.valueOf(taxAmount));
+        return this;
+    }
+
     /**
      * Amount of tax applied to the line item.
      */
-    public BillLineItem withTaxAmount(Optional<? extends Double> taxAmount) {
+    public BillLineItem withTaxAmount(Optional<? extends BigDecimal> taxAmount) {
         Utils.checkNotNull(taxAmount, "taxAmount");
         this.taxAmount = taxAmount;
         return this;
@@ -204,25 +224,41 @@ public class BillLineItem {
     /**
      * Total amount of the line, including tax.
      */
-    public BillLineItem withTotalAmount(double totalAmount) {
+    public BillLineItem withTotalAmount(BigDecimal totalAmount) {
         Utils.checkNotNull(totalAmount, "totalAmount");
         this.totalAmount = JsonNullable.of(totalAmount);
+        return this;
+    }
+
+        /**
+         * Total amount of the line, including tax.
+         */
+    public BillLineItem withTotalAmount(double totalAmount) {
+        this.totalAmount = JsonNullable.of(BigDecimal.valueOf(totalAmount));
         return this;
     }
 
     /**
      * Total amount of the line, including tax.
      */
-    public BillLineItem withTotalAmount(JsonNullable<? extends Double> totalAmount) {
+    public BillLineItem withTotalAmount(JsonNullable<? extends BigDecimal> totalAmount) {
         Utils.checkNotNull(totalAmount, "totalAmount");
         this.totalAmount = totalAmount;
+        return this;
+    }
+
+        /**
+         * Unit price of the goods or service.
+         */
+    public BillLineItem withUnitAmount(double unitAmount) {
+        this.unitAmount = BigDecimal.valueOf(unitAmount);
         return this;
     }
 
     /**
      * Unit price of the goods or service.
      */
-    public BillLineItem withUnitAmount(double unitAmount) {
+    public BillLineItem withUnitAmount(BigDecimal unitAmount) {
         Utils.checkNotNull(unitAmount, "unitAmount");
         this.unitAmount = unitAmount;
         return this;
@@ -277,15 +313,15 @@ public class BillLineItem {
  
         private JsonNullable<? extends String> description = JsonNullable.undefined();
  
-        private Double quantity;
+        private BigDecimal quantity;
  
-        private Optional<? extends Double> taxAmount = Optional.empty();
+        private Optional<? extends BigDecimal> taxAmount = Optional.empty();
  
         private BillTaxRateRef taxRateRef;
  
-        private JsonNullable<? extends Double> totalAmount = JsonNullable.undefined();
+        private JsonNullable<? extends BigDecimal> totalAmount = JsonNullable.undefined();
  
-        private Double unitAmount;  
+        private BigDecimal unitAmount;  
         
         private Builder() {
           // force use of static builder() method
@@ -322,6 +358,14 @@ public class BillLineItem {
          * Number of units of goods or services received.
          */
         public Builder quantity(double quantity) {
+            this.quantity = BigDecimal.valueOf(quantity);
+            return this;
+        }
+
+        /**
+         * Number of units of goods or services received.
+         */
+        public Builder quantity(BigDecimal quantity) {
             Utils.checkNotNull(quantity, "quantity");
             this.quantity = quantity;
             return this;
@@ -330,16 +374,24 @@ public class BillLineItem {
         /**
          * Amount of tax applied to the line item.
          */
-        public Builder taxAmount(double taxAmount) {
+        public Builder taxAmount(BigDecimal taxAmount) {
             Utils.checkNotNull(taxAmount, "taxAmount");
             this.taxAmount = Optional.ofNullable(taxAmount);
             return this;
         }
-        
+
         /**
          * Amount of tax applied to the line item.
          */
-        public Builder taxAmount(Optional<? extends Double> taxAmount) {
+        public Builder taxAmount(double taxAmount) {
+            this.taxAmount = Optional.of(BigDecimal.valueOf(taxAmount));
+            return this;
+        }
+
+        /**
+         * Amount of tax applied to the line item.
+         */
+        public Builder taxAmount(Optional<? extends BigDecimal> taxAmount) {
             Utils.checkNotNull(taxAmount, "taxAmount");
             this.taxAmount = taxAmount;
             return this;
@@ -357,7 +409,7 @@ public class BillLineItem {
         /**
          * Total amount of the line, including tax.
          */
-        public Builder totalAmount(double totalAmount) {
+        public Builder totalAmount(BigDecimal totalAmount) {
             Utils.checkNotNull(totalAmount, "totalAmount");
             this.totalAmount = JsonNullable.of(totalAmount);
             return this;
@@ -366,7 +418,15 @@ public class BillLineItem {
         /**
          * Total amount of the line, including tax.
          */
-        public Builder totalAmount(JsonNullable<? extends Double> totalAmount) {
+        public Builder totalAmount(double totalAmount) {
+            this.totalAmount = JsonNullable.of(BigDecimal.valueOf(totalAmount));
+            return this;
+        }
+
+        /**
+         * Total amount of the line, including tax.
+         */
+        public Builder totalAmount(JsonNullable<? extends BigDecimal> totalAmount) {
             Utils.checkNotNull(totalAmount, "totalAmount");
             this.totalAmount = totalAmount;
             return this;
@@ -376,6 +436,14 @@ public class BillLineItem {
          * Unit price of the goods or service.
          */
         public Builder unitAmount(double unitAmount) {
+            this.unitAmount = BigDecimal.valueOf(unitAmount);
+            return this;
+        }
+
+        /**
+         * Unit price of the goods or service.
+         */
+        public Builder unitAmount(BigDecimal unitAmount) {
             Utils.checkNotNull(unitAmount, "unitAmount");
             this.unitAmount = unitAmount;
             return this;

@@ -4,12 +4,15 @@
 
 package io.codat.sync.payables;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.payables.models.operations.SDKMethodInterfaces.*;
 import io.codat.sync.payables.utils.HTTPClient;
 import io.codat.sync.payables.utils.RetryConfig;
 import io.codat.sync.payables.utils.SpeakeasyHTTPClient;
 import io.codat.sync.payables.utils.Utils;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -18,31 +21,10 @@ import org.openapitools.jackson.nullable.JsonNullable;
 /**
  * Sync for Payables: The API for Sync for Payables. 
  * 
- * Sync for Payables is an API and a set of supporting tools built to help integrate with your customers' accounting software, and keep their supplier information, invoices, and payments in sync.
+ * Sync for Payables is an API and a set of supporting tools built to help integrate with your customers' accounting software, and keep their supplier information, bills, and payments in sync, through a standardized API.
  * 
  * [Explore product](https://docs.codat.io/payables/overview) | [See OpenAPI spec](https://github.com/codatio/oas)
  * 
- * ---
- * 
- * ## Endpoints
- * 
- * | Endpoints            | Description                                                                                                |
- * |:---------------------|:-----------------------------------------------------------------------------------------------------------|
- * | Companies            | Create and manage your SMB users' companies.                                                               |
- * | Connections          | Create new and manage existing data connections for a company.                                             |
- * | Accounts             | Get, create, and update Accounts                                                           |
- * | Bills                | Get, create, and update Bills                                                                          |
- * | Bill credit notes    | Get, create, and update Bill credit notes                                                              |
- * | Bill payments        | Get, create, and update Bill payments                                                                  |
- * | Journals             | Get, create, and update Journals                                                                       |
- * | Journal entries      | Get, create, and update Journal entries                                                                |
- * | Payment methods      | Get, create, and update Payment methods                                                                |
- * | Suppliers            | Get, create, and update Suppliers                                                                      |
- * | Tax rates            | Get, create, and update Tax rates                                                                      |
- * | Tracking categories  | Get, create, and update Tracking categories                                                            |
- * | Push operations      | View historic push operations                                                         |
- * | Company info         | View company profile from the source platform.                                                             |
- * | Manage data          | Control how data is retrieved from an integration.                                                         |
  */
 public class CodatSyncPayables {
     /**
@@ -61,6 +43,11 @@ public class CodatSyncPayables {
     private final Companies companies;
 
     /**
+     * View company profile from the source platform.
+     */
+    private final CompanyInformation companyInformation;
+
+    /**
      * Manage your companies' data connections.
      */
     private final Connections connections;
@@ -69,6 +56,11 @@ public class CodatSyncPayables {
      * Bills
      */
     private final Bills bills;
+
+    /**
+     * Bank accounts
+     */
+    private final BankAccounts bankAccounts;
 
     /**
      * Bill payments
@@ -88,6 +80,13 @@ public class CodatSyncPayables {
     }
 
     /**
+     * View company profile from the source platform.
+     */
+    public CompanyInformation companyInformation() {
+        return companyInformation;
+    }
+
+    /**
      * Manage your companies' data connections.
      */
     public Connections connections() {
@@ -99,6 +98,13 @@ public class CodatSyncPayables {
      */
     public Bills bills() {
         return bills;
+    }
+
+    /**
+     * Bank accounts
+     */
+    public BankAccounts bankAccounts() {
+        return bankAccounts;
     }
 
     /**
@@ -238,11 +244,20 @@ public class CodatSyncPayables {
     private CodatSyncPayables(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
         this.companies = new Companies(sdkConfiguration);
+        this.companyInformation = new CompanyInformation(sdkConfiguration);
         this.connections = new Connections(sdkConfiguration);
         this.bills = new Bills(sdkConfiguration);
+        this.bankAccounts = new BankAccounts(sdkConfiguration);
         this.billPayments = new BillPayments(sdkConfiguration);
         this.suppliers = new Suppliers(sdkConfiguration);
     }
+
+
+
+
+
+
+
 
 
 

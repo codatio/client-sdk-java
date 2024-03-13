@@ -1,0 +1,11 @@
+# PaymentMappingOptions
+
+Gets the bill payments mapping options for a company's accounting software
+
+
+## Fields
+
+| Field                                                                                                                          | Type                                                                                                                           | Required                                                                                                                       | Description                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| `bankAccounts`                                                                                                                 | List<[io.codat.sync.payables.models.components.BankAccountMappingOption](../../models/components/BankAccountMappingOption.md)> | :heavy_minus_sign:                                                                                                             | N/A                                                                                                                            |
+| `pagination`                                                                                                                   | [Optional<? extends io.codat.sync.payables.models.components.Pagination>](../../models/components/Pagination.md)               | :heavy_minus_sign:                                                                                                             | N/A                                                                                                                            |
