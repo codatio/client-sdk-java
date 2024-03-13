@@ -4,12 +4,16 @@
 
 package io.codat.sync.payables.models.components;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.payables.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -49,7 +53,7 @@ public class ClientRateLimitResetWebhookData {
     private Optional<? extends String> expiresUtc;
 
     /**
-     * Total number of request remaining for your client.
+     * Total number of requests remaining for your client.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("QuotaRemaining")
@@ -110,7 +114,7 @@ public class ClientRateLimitResetWebhookData {
     }
 
     /**
-     * Total number of request remaining for your client.
+     * Total number of requests remaining for your client.
      */
     public JsonNullable<? extends Long> quotaRemaining() {
         return quotaRemaining;
@@ -122,7 +126,7 @@ public class ClientRateLimitResetWebhookData {
     public Optional<? extends String> resetReason() {
         return resetReason;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -135,7 +139,7 @@ public class ClientRateLimitResetWebhookData {
         this.dailyQuota = Optional.ofNullable(dailyQuota);
         return this;
     }
-    
+
     /**
      * The number of available requests per day.
      */
@@ -171,7 +175,7 @@ public class ClientRateLimitResetWebhookData {
         this.expiresUtc = Optional.ofNullable(expiresUtc);
         return this;
     }
-    
+
     /**
      * In Codat's data model, dates and times are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date and time fields are formatted as strings; for example:
      * 
@@ -200,7 +204,7 @@ public class ClientRateLimitResetWebhookData {
     }
 
     /**
-     * Total number of request remaining for your client.
+     * Total number of requests remaining for your client.
      */
     public ClientRateLimitResetWebhookData withQuotaRemaining(long quotaRemaining) {
         Utils.checkNotNull(quotaRemaining, "quotaRemaining");
@@ -209,7 +213,7 @@ public class ClientRateLimitResetWebhookData {
     }
 
     /**
-     * Total number of request remaining for your client.
+     * Total number of requests remaining for your client.
      */
     public ClientRateLimitResetWebhookData withQuotaRemaining(JsonNullable<? extends Long> quotaRemaining) {
         Utils.checkNotNull(quotaRemaining, "quotaRemaining");
@@ -225,7 +229,7 @@ public class ClientRateLimitResetWebhookData {
         this.resetReason = Optional.ofNullable(resetReason);
         return this;
     }
-    
+
     /**
      * The reason for your rate limit quota being reset.
      */
@@ -291,7 +295,7 @@ public class ClientRateLimitResetWebhookData {
             this.dailyQuota = Optional.ofNullable(dailyQuota);
             return this;
         }
-        
+
         /**
          * The number of available requests per day.
          */
@@ -327,7 +331,7 @@ public class ClientRateLimitResetWebhookData {
             this.expiresUtc = Optional.ofNullable(expiresUtc);
             return this;
         }
-        
+
         /**
          * In Codat's data model, dates and times are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date and time fields are formatted as strings; for example:
          * 
@@ -356,7 +360,7 @@ public class ClientRateLimitResetWebhookData {
         }
 
         /**
-         * Total number of request remaining for your client.
+         * Total number of requests remaining for your client.
          */
         public Builder quotaRemaining(long quotaRemaining) {
             Utils.checkNotNull(quotaRemaining, "quotaRemaining");
@@ -365,7 +369,7 @@ public class ClientRateLimitResetWebhookData {
         }
 
         /**
-         * Total number of request remaining for your client.
+         * Total number of requests remaining for your client.
          */
         public Builder quotaRemaining(JsonNullable<? extends Long> quotaRemaining) {
             Utils.checkNotNull(quotaRemaining, "quotaRemaining");
@@ -381,7 +385,7 @@ public class ClientRateLimitResetWebhookData {
             this.resetReason = Optional.ofNullable(resetReason);
             return this;
         }
-        
+
         /**
          * The reason for your rate limit quota being reset.
          */

@@ -4,12 +4,16 @@
 
 package io.codat.sync.payables.models.components;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.payables.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -137,7 +141,7 @@ public class ErrorMessage {
     public JsonNullable<? extends ErrorValidation> validation() {
         return validation;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -150,7 +154,7 @@ public class ErrorMessage {
         this.canBeRetried = Optional.ofNullable(canBeRetried);
         return this;
     }
-    
+
     /**
      * `True` if the error occurred transiently and can be retried.
      */
@@ -168,7 +172,7 @@ public class ErrorMessage {
         this.correlationId = Optional.ofNullable(correlationId);
         return this;
     }
-    
+
     /**
      * Unique identifier used to propagate to all downstream services and determine the source of the error.
      */
@@ -186,7 +190,7 @@ public class ErrorMessage {
         this.detailedErrorCode = Optional.ofNullable(detailedErrorCode);
         return this;
     }
-    
+
     /**
      * Machine readable error code used to automate processes based on the code returned.
      */
@@ -204,7 +208,7 @@ public class ErrorMessage {
         this.error = Optional.ofNullable(error);
         return this;
     }
-    
+
     /**
      * A brief description of the error.
      */
@@ -222,7 +226,7 @@ public class ErrorMessage {
         this.service = Optional.ofNullable(service);
         return this;
     }
-    
+
     /**
      * Codat's service the returned the error.
      */
@@ -240,7 +244,7 @@ public class ErrorMessage {
         this.statusCode = Optional.ofNullable(statusCode);
         return this;
     }
-    
+
     /**
      * The HTTP status code returned by the error.
      */
@@ -339,7 +343,7 @@ public class ErrorMessage {
             this.canBeRetried = Optional.ofNullable(canBeRetried);
             return this;
         }
-        
+
         /**
          * `True` if the error occurred transiently and can be retried.
          */
@@ -357,7 +361,7 @@ public class ErrorMessage {
             this.correlationId = Optional.ofNullable(correlationId);
             return this;
         }
-        
+
         /**
          * Unique identifier used to propagate to all downstream services and determine the source of the error.
          */
@@ -375,7 +379,7 @@ public class ErrorMessage {
             this.detailedErrorCode = Optional.ofNullable(detailedErrorCode);
             return this;
         }
-        
+
         /**
          * Machine readable error code used to automate processes based on the code returned.
          */
@@ -393,7 +397,7 @@ public class ErrorMessage {
             this.error = Optional.ofNullable(error);
             return this;
         }
-        
+
         /**
          * A brief description of the error.
          */
@@ -411,7 +415,7 @@ public class ErrorMessage {
             this.service = Optional.ofNullable(service);
             return this;
         }
-        
+
         /**
          * Codat's service the returned the error.
          */
@@ -429,7 +433,7 @@ public class ErrorMessage {
             this.statusCode = Optional.ofNullable(statusCode);
             return this;
         }
-        
+
         /**
          * The HTTP status code returned by the error.
          */

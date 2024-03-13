@@ -4,19 +4,21 @@
 
 package io.codat.sync.payables.models.components;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.payables.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
- * Supplier - ﻿&gt; View the coverage for suppliers in the &lt;a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=suppliers" target="_blank"&gt;Data coverage explorer&lt;/a&gt;.
- * 
- * ## Overview
+ * Supplier - ﻿## Overview
  * 
  * Suppliers are people or organizations that provide something, such as a product or service. Use **Suppliers** endpoints to retrieve supplier data for a company. 
  * 
@@ -41,6 +43,13 @@ public class Supplier {
     private JsonNullable<? extends String> contactName;
 
     /**
+     * Default currency the supplier's transactional data is recorded in.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("defaultCurrency")
+    private JsonNullable<? extends String> defaultCurrency;
+
+    /**
      * Email address that the supplier may be contacted on.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -63,7 +72,7 @@ public class Supplier {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("sourceModifiedDate")
-    private Optional<? extends String> sourceModifiedDate;
+    private JsonNullable<? extends One> sourceModifiedDate;
 
     /**
      * Status of the supplier.
@@ -81,14 +90,16 @@ public class Supplier {
     public Supplier(
             @JsonProperty("addresses") JsonNullable<? extends java.util.List<AccountingAddress>> addresses,
             @JsonProperty("contactName") JsonNullable<? extends String> contactName,
+            @JsonProperty("defaultCurrency") JsonNullable<? extends String> defaultCurrency,
             @JsonProperty("emailAddress") JsonNullable<? extends String> emailAddress,
             @JsonProperty("id") Optional<? extends String> id,
             @JsonProperty("phone") JsonNullable<? extends String> phone,
-            @JsonProperty("sourceModifiedDate") Optional<? extends String> sourceModifiedDate,
+            @JsonProperty("sourceModifiedDate") JsonNullable<? extends One> sourceModifiedDate,
             @JsonProperty("status") SupplierStatus status,
             @JsonProperty("supplierName") JsonNullable<? extends String> supplierName) {
         Utils.checkNotNull(addresses, "addresses");
         Utils.checkNotNull(contactName, "contactName");
+        Utils.checkNotNull(defaultCurrency, "defaultCurrency");
         Utils.checkNotNull(emailAddress, "emailAddress");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(phone, "phone");
@@ -97,6 +108,7 @@ public class Supplier {
         Utils.checkNotNull(supplierName, "supplierName");
         this.addresses = addresses;
         this.contactName = contactName;
+        this.defaultCurrency = defaultCurrency;
         this.emailAddress = emailAddress;
         this.id = id;
         this.phone = phone;
@@ -120,6 +132,13 @@ public class Supplier {
     }
 
     /**
+     * Default currency the supplier's transactional data is recorded in.
+     */
+    public JsonNullable<? extends String> defaultCurrency() {
+        return defaultCurrency;
+    }
+
+    /**
      * Email address that the supplier may be contacted on.
      */
     public JsonNullable<? extends String> emailAddress() {
@@ -140,7 +159,7 @@ public class Supplier {
         return phone;
     }
 
-    public Optional<? extends String> sourceModifiedDate() {
+    public JsonNullable<? extends One> sourceModifiedDate() {
         return sourceModifiedDate;
     }
 
@@ -157,7 +176,7 @@ public class Supplier {
     public JsonNullable<? extends String> supplierName() {
         return supplierName;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -199,6 +218,24 @@ public class Supplier {
     }
 
     /**
+     * Default currency the supplier's transactional data is recorded in.
+     */
+    public Supplier withDefaultCurrency(String defaultCurrency) {
+        Utils.checkNotNull(defaultCurrency, "defaultCurrency");
+        this.defaultCurrency = JsonNullable.of(defaultCurrency);
+        return this;
+    }
+
+    /**
+     * Default currency the supplier's transactional data is recorded in.
+     */
+    public Supplier withDefaultCurrency(JsonNullable<? extends String> defaultCurrency) {
+        Utils.checkNotNull(defaultCurrency, "defaultCurrency");
+        this.defaultCurrency = defaultCurrency;
+        return this;
+    }
+
+    /**
      * Email address that the supplier may be contacted on.
      */
     public Supplier withEmailAddress(String emailAddress) {
@@ -224,7 +261,7 @@ public class Supplier {
         this.id = Optional.ofNullable(id);
         return this;
     }
-    
+
     /**
      * Identifier for the supplier, unique to the company in the accounting platform.
      */
@@ -252,13 +289,13 @@ public class Supplier {
         return this;
     }
 
-    public Supplier withSourceModifiedDate(String sourceModifiedDate) {
+    public Supplier withSourceModifiedDate(One sourceModifiedDate) {
         Utils.checkNotNull(sourceModifiedDate, "sourceModifiedDate");
-        this.sourceModifiedDate = Optional.ofNullable(sourceModifiedDate);
+        this.sourceModifiedDate = JsonNullable.of(sourceModifiedDate);
         return this;
     }
-    
-    public Supplier withSourceModifiedDate(Optional<? extends String> sourceModifiedDate) {
+
+    public Supplier withSourceModifiedDate(JsonNullable<? extends One> sourceModifiedDate) {
         Utils.checkNotNull(sourceModifiedDate, "sourceModifiedDate");
         this.sourceModifiedDate = sourceModifiedDate;
         return this;
@@ -303,6 +340,7 @@ public class Supplier {
         return 
             java.util.Objects.deepEquals(this.addresses, other.addresses) &&
             java.util.Objects.deepEquals(this.contactName, other.contactName) &&
+            java.util.Objects.deepEquals(this.defaultCurrency, other.defaultCurrency) &&
             java.util.Objects.deepEquals(this.emailAddress, other.emailAddress) &&
             java.util.Objects.deepEquals(this.id, other.id) &&
             java.util.Objects.deepEquals(this.phone, other.phone) &&
@@ -316,6 +354,7 @@ public class Supplier {
         return java.util.Objects.hash(
             addresses,
             contactName,
+            defaultCurrency,
             emailAddress,
             id,
             phone,
@@ -329,6 +368,7 @@ public class Supplier {
         return Utils.toString(Supplier.class,
                 "addresses", addresses,
                 "contactName", contactName,
+                "defaultCurrency", defaultCurrency,
                 "emailAddress", emailAddress,
                 "id", id,
                 "phone", phone,
@@ -343,13 +383,15 @@ public class Supplier {
  
         private JsonNullable<? extends String> contactName = JsonNullable.undefined();
  
+        private JsonNullable<? extends String> defaultCurrency = JsonNullable.undefined();
+ 
         private JsonNullable<? extends String> emailAddress = JsonNullable.undefined();
  
         private Optional<? extends String> id = Optional.empty();
  
         private JsonNullable<? extends String> phone = JsonNullable.undefined();
  
-        private Optional<? extends String> sourceModifiedDate = Optional.empty();
+        private JsonNullable<? extends One> sourceModifiedDate = JsonNullable.undefined();
  
         private SupplierStatus status;
  
@@ -396,6 +438,24 @@ public class Supplier {
         }
 
         /**
+         * Default currency the supplier's transactional data is recorded in.
+         */
+        public Builder defaultCurrency(String defaultCurrency) {
+            Utils.checkNotNull(defaultCurrency, "defaultCurrency");
+            this.defaultCurrency = JsonNullable.of(defaultCurrency);
+            return this;
+        }
+
+        /**
+         * Default currency the supplier's transactional data is recorded in.
+         */
+        public Builder defaultCurrency(JsonNullable<? extends String> defaultCurrency) {
+            Utils.checkNotNull(defaultCurrency, "defaultCurrency");
+            this.defaultCurrency = defaultCurrency;
+            return this;
+        }
+
+        /**
          * Email address that the supplier may be contacted on.
          */
         public Builder emailAddress(String emailAddress) {
@@ -421,7 +481,7 @@ public class Supplier {
             this.id = Optional.ofNullable(id);
             return this;
         }
-        
+
         /**
          * Identifier for the supplier, unique to the company in the accounting platform.
          */
@@ -449,13 +509,13 @@ public class Supplier {
             return this;
         }
 
-        public Builder sourceModifiedDate(String sourceModifiedDate) {
+        public Builder sourceModifiedDate(One sourceModifiedDate) {
             Utils.checkNotNull(sourceModifiedDate, "sourceModifiedDate");
-            this.sourceModifiedDate = Optional.ofNullable(sourceModifiedDate);
+            this.sourceModifiedDate = JsonNullable.of(sourceModifiedDate);
             return this;
         }
-        
-        public Builder sourceModifiedDate(Optional<? extends String> sourceModifiedDate) {
+
+        public Builder sourceModifiedDate(JsonNullable<? extends One> sourceModifiedDate) {
             Utils.checkNotNull(sourceModifiedDate, "sourceModifiedDate");
             this.sourceModifiedDate = sourceModifiedDate;
             return this;
@@ -492,6 +552,7 @@ public class Supplier {
             return new Supplier(
                 addresses,
                 contactName,
+                defaultCurrency,
                 emailAddress,
                 id,
                 phone,

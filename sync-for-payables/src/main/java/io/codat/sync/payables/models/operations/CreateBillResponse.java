@@ -4,20 +4,23 @@
 
 package io.codat.sync.payables.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.payables.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.http.HttpResponse;
 import java.util.Optional;
-import org.openapitools.jackson.nullable.JsonNullable;
 
 
-public class CreateBillResponse {
+public class CreateBillResponse implements io.codat.sync.payables.utils.Response {
 
     /**
      * Success
      */
-    private JsonNullable<? extends io.codat.sync.payables.models.components.Bill> bill;
+    private Optional<? extends io.codat.sync.payables.models.components.Bill> bill;
 
     /**
      * HTTP response content type for this operation
@@ -40,7 +43,7 @@ public class CreateBillResponse {
     private HttpResponse<InputStream> rawResponse;
 
     public CreateBillResponse(
-            JsonNullable<? extends io.codat.sync.payables.models.components.Bill> bill,
+            Optional<? extends io.codat.sync.payables.models.components.Bill> bill,
             String contentType,
             Optional<? extends io.codat.sync.payables.models.components.ErrorMessage> errorMessage,
             int statusCode,
@@ -60,7 +63,7 @@ public class CreateBillResponse {
     /**
      * Success
      */
-    public JsonNullable<? extends io.codat.sync.payables.models.components.Bill> bill() {
+    public Optional<? extends io.codat.sync.payables.models.components.Bill> bill() {
         return bill;
     }
 
@@ -91,7 +94,7 @@ public class CreateBillResponse {
     public HttpResponse<InputStream> rawResponse() {
         return rawResponse;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -101,14 +104,14 @@ public class CreateBillResponse {
      */
     public CreateBillResponse withBill(io.codat.sync.payables.models.components.Bill bill) {
         Utils.checkNotNull(bill, "bill");
-        this.bill = JsonNullable.of(bill);
+        this.bill = Optional.ofNullable(bill);
         return this;
     }
 
     /**
      * Success
      */
-    public CreateBillResponse withBill(JsonNullable<? extends io.codat.sync.payables.models.components.Bill> bill) {
+    public CreateBillResponse withBill(Optional<? extends io.codat.sync.payables.models.components.Bill> bill) {
         Utils.checkNotNull(bill, "bill");
         this.bill = bill;
         return this;
@@ -131,7 +134,7 @@ public class CreateBillResponse {
         this.errorMessage = Optional.ofNullable(errorMessage);
         return this;
     }
-    
+
     /**
      * The request made is not valid.
      */
@@ -198,7 +201,7 @@ public class CreateBillResponse {
     
     public final static class Builder {
  
-        private JsonNullable<? extends io.codat.sync.payables.models.components.Bill> bill = JsonNullable.undefined();
+        private Optional<? extends io.codat.sync.payables.models.components.Bill> bill = Optional.empty();
  
         private String contentType;
  
@@ -217,14 +220,14 @@ public class CreateBillResponse {
          */
         public Builder bill(io.codat.sync.payables.models.components.Bill bill) {
             Utils.checkNotNull(bill, "bill");
-            this.bill = JsonNullable.of(bill);
+            this.bill = Optional.ofNullable(bill);
             return this;
         }
 
         /**
          * Success
          */
-        public Builder bill(JsonNullable<? extends io.codat.sync.payables.models.components.Bill> bill) {
+        public Builder bill(Optional<? extends io.codat.sync.payables.models.components.Bill> bill) {
             Utils.checkNotNull(bill, "bill");
             this.bill = bill;
             return this;
@@ -247,7 +250,7 @@ public class CreateBillResponse {
             this.errorMessage = Optional.ofNullable(errorMessage);
             return this;
         }
-        
+
         /**
          * The request made is not valid.
          */

@@ -5,6 +5,8 @@
 package io.codat.sync.payables.models.operations;
 
 import io.codat.sync.payables.utils.Options;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -44,6 +46,13 @@ public class SDKMethodInterfaces {
     public interface MethodCallUpdateCompany {
         io.codat.sync.payables.models.operations.UpdateCompanyResponse update(
             io.codat.sync.payables.models.operations.UpdateCompanyRequest request,
+            Optional<Options> options) throws Exception;
+    }
+
+
+    public interface MethodCallGetCompanyInformation {
+        io.codat.sync.payables.models.operations.GetCompanyInformationResponse get(
+            io.codat.sync.payables.models.operations.GetCompanyInformationRequest request,
             Optional<Options> options) throws Exception;
     }
 
@@ -90,6 +99,20 @@ public class SDKMethodInterfaces {
     }
 
 
+    public interface MethodCallDownloadBillAttachment {
+        io.codat.sync.payables.models.operations.DownloadBillAttachmentResponse downloadAttachment(
+            io.codat.sync.payables.models.operations.DownloadBillAttachmentRequest request,
+            Optional<Options> options) throws Exception;
+    }
+
+
+    public interface MethodCallGetMappingOptionsBills {
+        io.codat.sync.payables.models.operations.GetMappingOptionsBillsResponse getBillOptions(
+            io.codat.sync.payables.models.operations.GetMappingOptionsBillsRequest request,
+            Optional<Options> options) throws Exception;
+    }
+
+
     public interface MethodCallListBills {
         io.codat.sync.payables.models.operations.ListBillsResponse list(
             io.codat.sync.payables.models.operations.ListBillsRequest request,
@@ -97,9 +120,37 @@ public class SDKMethodInterfaces {
     }
 
 
+    public interface MethodCallListBillAttachments {
+        io.codat.sync.payables.models.operations.ListBillAttachmentsResponse listAttachments(
+            io.codat.sync.payables.models.operations.ListBillAttachmentsRequest request,
+            Optional<Options> options) throws Exception;
+    }
+
+
+    public interface MethodCallUploadBillAttachment {
+        io.codat.sync.payables.models.operations.UploadBillAttachmentResponse uploadAttachment(
+            io.codat.sync.payables.models.operations.UploadBillAttachmentRequest request,
+            Optional<Options> options) throws Exception;
+    }
+
+
+    public interface MethodCallCreateBankAccount {
+        io.codat.sync.payables.models.operations.CreateBankAccountResponse create(
+            io.codat.sync.payables.models.operations.CreateBankAccountRequest request,
+            Optional<Options> options) throws Exception;
+    }
+
+
     public interface MethodCallCreateBillPayment {
         io.codat.sync.payables.models.operations.CreateBillPaymentResponse create(
             io.codat.sync.payables.models.operations.CreateBillPaymentRequest request,
+            Optional<Options> options) throws Exception;
+    }
+
+
+    public interface MethodCallGetMappingOptionsPayments {
+        io.codat.sync.payables.models.operations.GetMappingOptionsPaymentsResponse getPaymentOptions(
+            io.codat.sync.payables.models.operations.GetMappingOptionsPaymentsRequest request,
             Optional<Options> options) throws Exception;
     }
 

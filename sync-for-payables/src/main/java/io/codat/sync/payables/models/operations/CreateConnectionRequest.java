@@ -4,10 +4,14 @@
 
 package io.codat.sync.payables.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.payables.utils.SpeakeasyMetadata;
 import io.codat.sync.payables.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
@@ -41,7 +45,7 @@ public class CreateConnectionRequest {
     public String companyId() {
         return companyId;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -51,7 +55,7 @@ public class CreateConnectionRequest {
         this.requestBody = Optional.ofNullable(requestBody);
         return this;
     }
-    
+
     public CreateConnectionRequest withRequestBody(Optional<? extends CreateConnectionRequestBody> requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
@@ -110,7 +114,7 @@ public class CreateConnectionRequest {
             this.requestBody = Optional.ofNullable(requestBody);
             return this;
         }
-        
+
         public Builder requestBody(Optional<? extends CreateConnectionRequestBody> requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
             this.requestBody = requestBody;

@@ -15,6 +15,8 @@ import io.codat.sync.payables.utils.Options;
 import io.codat.sync.payables.utils.SerializedBody;
 import io.codat.sync.payables.utils.Utils;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -29,7 +31,11 @@ import org.openapitools.jackson.nullable.JsonNullable;
  */
 public class Bills implements
             MethodCallCreateBill,
-            MethodCallListBills {
+            MethodCallDownloadBillAttachment,
+            MethodCallGetMappingOptionsBills,
+            MethodCallListBills,
+            MethodCallListBillAttachments,
+            MethodCallUploadBillAttachment {
 
     private final SDKConfiguration sdkConfiguration;
 
@@ -71,9 +77,10 @@ public class Bills implements
         HTTPRequest req = new HTTPRequest();
         req.setMethod("POST");
         req.setURL(url);
-
+        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
+            new TypeReference<io.codat.sync.payables.models.operations.CreateBillRequest>() {});
         SerializedBody serializedRequestBody = io.codat.sync.payables.utils.Utils.serializeRequestBody(
-                request, "billPrototype", "json", false);
+                _convertedRequest, "billPrototype", "json", false);
         req.setBody(serializedRequestBody);
 
         req.addHeader("Accept", "application/json");
@@ -141,11 +148,242 @@ public class Bills implements
                 io.codat.sync.payables.models.components.Bill out = mapper.readValue(
                     Utils.toUtf8AndClose(httpRes.body()),
                     new TypeReference<io.codat.sync.payables.models.components.Bill>() {});
-                res.withBill(org.openapitools.jackson.nullable.JsonNullable.of(out));
+                res.withBill(java.util.Optional.ofNullable(out));
             } else {
                 throw new SDKError(httpRes, httpRes.statusCode(), "Unknown content-type received: " + contentType, Utils.toByteArrayAndClose(httpRes.body()));
             }
         } else if (httpRes.statusCode() == 400 || httpRes.statusCode() == 401 || httpRes.statusCode() == 402 || httpRes.statusCode() == 403 || httpRes.statusCode() == 404 || httpRes.statusCode() == 409 || httpRes.statusCode() == 429 || httpRes.statusCode() == 500 || httpRes.statusCode() == 503) {
+            if (io.codat.sync.payables.utils.Utils.matchContentType(contentType, "application/json")) {
+                ObjectMapper mapper = JSON.getMapper();
+                io.codat.sync.payables.models.components.ErrorMessage out = mapper.readValue(
+                    Utils.toUtf8AndClose(httpRes.body()),
+                    new TypeReference<io.codat.sync.payables.models.components.ErrorMessage>() {});
+                res.withErrorMessage(java.util.Optional.ofNullable(out));
+            } else {
+                throw new SDKError(httpRes, httpRes.statusCode(), "Unknown content-type received: " + contentType, Utils.toByteArrayAndClose(httpRes.body()));
+            }
+        }
+
+        return res;
+    }
+
+
+    public io.codat.sync.payables.models.operations.DownloadBillAttachmentRequestBuilder downloadAttachment() {
+        return new io.codat.sync.payables.models.operations.DownloadBillAttachmentRequestBuilder(this);
+    }
+
+    /**
+     * Download bill attachment
+     * The *Download bill attachment* endpoint downloads a specific attachment for a given `billId` and `attachmentId`.
+     * 
+     * [Bills](https://docs.codat.io/sync-for-payables-api#/schemas/Bill) are invoices that represent the SMB's financial obligations to their supplier for a purchase of goods or services.
+     * 
+     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=bills) for integrations that support downloading a bill attachment.
+     * 
+     * @param request The request object containing all of the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call.
+     * @throws Exception if the API call fails.
+     */
+    public io.codat.sync.payables.models.operations.DownloadBillAttachmentResponse downloadAttachment(
+            io.codat.sync.payables.models.operations.DownloadBillAttachmentRequest request,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
+
+
+        String baseUrl = this.sdkConfiguration.serverUrl;
+
+        String url = io.codat.sync.payables.utils.Utils.generateURL(
+                io.codat.sync.payables.models.operations.DownloadBillAttachmentRequest.class,
+                baseUrl,
+                "/companies/{companyId}/connections/{connectionId}/payables/bills/{billId}/attachments/{attachmentId}/download",
+                request, null);
+
+        HTTPRequest req = new HTTPRequest();
+        req.setMethod("GET");
+        req.setURL(url);
+
+        req.addHeader("Accept", "application/json;q=1, application/octet-stream;q=0");
+        req.addHeader("user-agent", this.sdkConfiguration.userAgent);
+
+        HTTPClient client = io.codat.sync.payables.utils.Utils.configureSecurityClient(
+                this.sdkConfiguration.defaultClient, this.sdkConfiguration.securitySource.getSecurity());
+
+        io.codat.sync.payables.utils.RetryConfig retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            retryConfig = io.codat.sync.payables.utils.RetryConfig.builder()
+                .backoff(io.codat.sync.payables.utils.BackoffStrategy.builder()
+                            .initialInterval(500L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .maxInterval(60000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
+        }
+
+        List<String> statusCodes = new java.util.ArrayList<String>();
+        statusCodes.add("408");
+        statusCodes.add("429");
+        statusCodes.add("5XX");
+        io.codat.sync.payables.utils.Retries retries = io.codat.sync.payables.utils.Retries.builder()
+            .action(() -> client.send(req))
+            .retryConfig(retryConfig)
+            .statusCodes(statusCodes)
+            .build();
+
+        HttpResponse<InputStream> httpRes = retries.run();
+
+        String contentType = httpRes
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
+        io.codat.sync.payables.models.operations.DownloadBillAttachmentResponse.Builder resBuilder = 
+            io.codat.sync.payables.models.operations.DownloadBillAttachmentResponse
+                .builder()
+                .contentType(contentType)
+                .statusCode(httpRes.statusCode())
+                .rawResponse(httpRes);
+        if ((httpRes.statusCode() == 200) && io.codat.sync.payables.utils.Utils.matchContentType(contentType, "application/octet-stream")) {
+            resBuilder.data(httpRes.body());
+        }
+
+        io.codat.sync.payables.models.operations.DownloadBillAttachmentResponse res = resBuilder.build();
+
+        res.withRawResponse(httpRes);
+
+        if (httpRes.statusCode() == 200) {
+            if (io.codat.sync.payables.utils.Utils.matchContentType(contentType, "application/octet-stream")) {
+            } else {
+                throw new SDKError(httpRes, httpRes.statusCode(), "Unknown content-type received: " + contentType, Utils.toByteArrayAndClose(httpRes.body()));
+            }
+        } else if (httpRes.statusCode() == 401 || httpRes.statusCode() == 402 || httpRes.statusCode() == 403 || httpRes.statusCode() == 404 || httpRes.statusCode() == 429 || httpRes.statusCode() == 500 || httpRes.statusCode() == 503) {
+            if (io.codat.sync.payables.utils.Utils.matchContentType(contentType, "application/json")) {
+                ObjectMapper mapper = JSON.getMapper();
+                io.codat.sync.payables.models.components.ErrorMessage out = mapper.readValue(
+                    Utils.toUtf8AndClose(httpRes.body()),
+                    new TypeReference<io.codat.sync.payables.models.components.ErrorMessage>() {});
+                res.withErrorMessage(java.util.Optional.ofNullable(out));
+            } else {
+                throw new SDKError(httpRes, httpRes.statusCode(), "Unknown content-type received: " + contentType, Utils.toByteArrayAndClose(httpRes.body()));
+            }
+        }
+
+        return res;
+    }
+
+
+    public io.codat.sync.payables.models.operations.GetMappingOptionsBillsRequestBuilder getBillOptions() {
+        return new io.codat.sync.payables.models.operations.GetMappingOptionsBillsRequestBuilder(this);
+    }
+
+    /**
+     * Get bill mapping options
+     * ﻿Use the *Get mapping options - Bills* endpoint to return a list of available mapping options for a given company's connection ID.
+     * 
+     * Mapping options are a set of accounts and tax rates used to configure the SMB's payables integration.
+     * @param request The request object containing all of the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call.
+     * @throws Exception if the API call fails.
+     */
+    public io.codat.sync.payables.models.operations.GetMappingOptionsBillsResponse getBillOptions(
+            io.codat.sync.payables.models.operations.GetMappingOptionsBillsRequest request,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
+
+
+        String baseUrl = this.sdkConfiguration.serverUrl;
+
+        String url = io.codat.sync.payables.utils.Utils.generateURL(
+                io.codat.sync.payables.models.operations.GetMappingOptionsBillsRequest.class,
+                baseUrl,
+                "/companies/{companyId}/connections/{connectionId}/payables/mappingOptions/bills",
+                request, null);
+
+        HTTPRequest req = new HTTPRequest();
+        req.setMethod("GET");
+        req.setURL(url);
+
+        req.addHeader("Accept", "application/json");
+        req.addHeader("user-agent", this.sdkConfiguration.userAgent);
+
+        java.util.List<NameValuePair> queryParams = io.codat.sync.payables.utils.Utils.getQueryParams(
+                io.codat.sync.payables.models.operations.GetMappingOptionsBillsRequest.class, request, null);
+        if (queryParams != null) {
+            for (NameValuePair queryParam : queryParams) {
+                req.addQueryParam(queryParam);
+            }
+        }
+
+        HTTPClient client = io.codat.sync.payables.utils.Utils.configureSecurityClient(
+                this.sdkConfiguration.defaultClient, this.sdkConfiguration.securitySource.getSecurity());
+
+        io.codat.sync.payables.utils.RetryConfig retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            retryConfig = io.codat.sync.payables.utils.RetryConfig.builder()
+                .backoff(io.codat.sync.payables.utils.BackoffStrategy.builder()
+                            .initialInterval(500L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .maxInterval(60000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
+        }
+
+        List<String> statusCodes = new java.util.ArrayList<String>();
+        statusCodes.add("408");
+        statusCodes.add("429");
+        statusCodes.add("5XX");
+        io.codat.sync.payables.utils.Retries retries = io.codat.sync.payables.utils.Retries.builder()
+            .action(() -> client.send(req))
+            .retryConfig(retryConfig)
+            .statusCodes(statusCodes)
+            .build();
+
+        HttpResponse<InputStream> httpRes = retries.run();
+
+        String contentType = httpRes
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
+        io.codat.sync.payables.models.operations.GetMappingOptionsBillsResponse.Builder resBuilder = 
+            io.codat.sync.payables.models.operations.GetMappingOptionsBillsResponse
+                .builder()
+                .contentType(contentType)
+                .statusCode(httpRes.statusCode())
+                .rawResponse(httpRes);
+
+        io.codat.sync.payables.models.operations.GetMappingOptionsBillsResponse res = resBuilder.build();
+
+        res.withRawResponse(httpRes);
+
+        if (httpRes.statusCode() == 200) {
+            if (io.codat.sync.payables.utils.Utils.matchContentType(contentType, "application/json")) {
+                ObjectMapper mapper = JSON.getMapper();
+                io.codat.sync.payables.models.components.BillMappingOptions out = mapper.readValue(
+                    Utils.toUtf8AndClose(httpRes.body()),
+                    new TypeReference<io.codat.sync.payables.models.components.BillMappingOptions>() {});
+                res.withBillMappingOptions(java.util.Optional.ofNullable(out));
+            } else {
+                throw new SDKError(httpRes, httpRes.statusCode(), "Unknown content-type received: " + contentType, Utils.toByteArrayAndClose(httpRes.body()));
+            }
+        } else if (httpRes.statusCode() == 400 || httpRes.statusCode() == 401 || httpRes.statusCode() == 402 || httpRes.statusCode() == 403 || httpRes.statusCode() == 404 || httpRes.statusCode() == 429 || httpRes.statusCode() == 500 || httpRes.statusCode() == 503) {
             if (io.codat.sync.payables.utils.Utils.matchContentType(contentType, "application/json")) {
                 ObjectMapper mapper = JSON.getMapper();
                 io.codat.sync.payables.models.components.ErrorMessage out = mapper.readValue(
@@ -267,6 +505,224 @@ public class Bills implements
                 throw new SDKError(httpRes, httpRes.statusCode(), "Unknown content-type received: " + contentType, Utils.toByteArrayAndClose(httpRes.body()));
             }
         } else if (httpRes.statusCode() == 400 || httpRes.statusCode() == 401 || httpRes.statusCode() == 402 || httpRes.statusCode() == 403 || httpRes.statusCode() == 404 || httpRes.statusCode() == 409 || httpRes.statusCode() == 429 || httpRes.statusCode() == 500 || httpRes.statusCode() == 503) {
+            if (io.codat.sync.payables.utils.Utils.matchContentType(contentType, "application/json")) {
+                ObjectMapper mapper = JSON.getMapper();
+                io.codat.sync.payables.models.components.ErrorMessage out = mapper.readValue(
+                    Utils.toUtf8AndClose(httpRes.body()),
+                    new TypeReference<io.codat.sync.payables.models.components.ErrorMessage>() {});
+                res.withErrorMessage(java.util.Optional.ofNullable(out));
+            } else {
+                throw new SDKError(httpRes, httpRes.statusCode(), "Unknown content-type received: " + contentType, Utils.toByteArrayAndClose(httpRes.body()));
+            }
+        }
+
+        return res;
+    }
+
+
+    public io.codat.sync.payables.models.operations.ListBillAttachmentsRequestBuilder listAttachments() {
+        return new io.codat.sync.payables.models.operations.ListBillAttachmentsRequestBuilder(this);
+    }
+
+    /**
+     * List bill attachments
+     * The *List bill attachments* endpoint returns a list of attachments available to download for a given `billId`.
+     * 
+     * [Bills](https://docs.codat.io/sync-for-payables-api#/schemas/Bill) are invoices that represent the SMB's financial obligations to their supplier for a purchase of goods or services.
+     * @param request The request object containing all of the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call.
+     * @throws Exception if the API call fails.
+     */
+    public io.codat.sync.payables.models.operations.ListBillAttachmentsResponse listAttachments(
+            io.codat.sync.payables.models.operations.ListBillAttachmentsRequest request,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
+
+
+        String baseUrl = this.sdkConfiguration.serverUrl;
+
+        String url = io.codat.sync.payables.utils.Utils.generateURL(
+                io.codat.sync.payables.models.operations.ListBillAttachmentsRequest.class,
+                baseUrl,
+                "/companies/{companyId}/connections/{connectionId}/bills/{billId}/attachments",
+                request, null);
+
+        HTTPRequest req = new HTTPRequest();
+        req.setMethod("GET");
+        req.setURL(url);
+
+        req.addHeader("Accept", "application/json");
+        req.addHeader("user-agent", this.sdkConfiguration.userAgent);
+
+        HTTPClient client = io.codat.sync.payables.utils.Utils.configureSecurityClient(
+                this.sdkConfiguration.defaultClient, this.sdkConfiguration.securitySource.getSecurity());
+
+        io.codat.sync.payables.utils.RetryConfig retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            retryConfig = io.codat.sync.payables.utils.RetryConfig.builder()
+                .backoff(io.codat.sync.payables.utils.BackoffStrategy.builder()
+                            .initialInterval(500L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .maxInterval(60000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
+        }
+
+        List<String> statusCodes = new java.util.ArrayList<String>();
+        statusCodes.add("408");
+        statusCodes.add("429");
+        statusCodes.add("5XX");
+        io.codat.sync.payables.utils.Retries retries = io.codat.sync.payables.utils.Retries.builder()
+            .action(() -> client.send(req))
+            .retryConfig(retryConfig)
+            .statusCodes(statusCodes)
+            .build();
+
+        HttpResponse<InputStream> httpRes = retries.run();
+
+        String contentType = httpRes
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
+        io.codat.sync.payables.models.operations.ListBillAttachmentsResponse.Builder resBuilder = 
+            io.codat.sync.payables.models.operations.ListBillAttachmentsResponse
+                .builder()
+                .contentType(contentType)
+                .statusCode(httpRes.statusCode())
+                .rawResponse(httpRes);
+
+        io.codat.sync.payables.models.operations.ListBillAttachmentsResponse res = resBuilder.build();
+
+        res.withRawResponse(httpRes);
+
+        if (httpRes.statusCode() == 200) {
+            if (io.codat.sync.payables.utils.Utils.matchContentType(contentType, "application/json")) {
+                ObjectMapper mapper = JSON.getMapper();
+                io.codat.sync.payables.models.components.Attachment out = mapper.readValue(
+                    Utils.toUtf8AndClose(httpRes.body()),
+                    new TypeReference<io.codat.sync.payables.models.components.Attachment>() {});
+                res.withAttachment(org.openapitools.jackson.nullable.JsonNullable.of(out));
+            } else {
+                throw new SDKError(httpRes, httpRes.statusCode(), "Unknown content-type received: " + contentType, Utils.toByteArrayAndClose(httpRes.body()));
+            }
+        } else if (httpRes.statusCode() == 401 || httpRes.statusCode() == 402 || httpRes.statusCode() == 403 || httpRes.statusCode() == 404 || httpRes.statusCode() == 409 || httpRes.statusCode() == 429 || httpRes.statusCode() == 500 || httpRes.statusCode() == 503) {
+            if (io.codat.sync.payables.utils.Utils.matchContentType(contentType, "application/json")) {
+                ObjectMapper mapper = JSON.getMapper();
+                io.codat.sync.payables.models.components.ErrorMessage out = mapper.readValue(
+                    Utils.toUtf8AndClose(httpRes.body()),
+                    new TypeReference<io.codat.sync.payables.models.components.ErrorMessage>() {});
+                res.withErrorMessage(java.util.Optional.ofNullable(out));
+            } else {
+                throw new SDKError(httpRes, httpRes.statusCode(), "Unknown content-type received: " + contentType, Utils.toByteArrayAndClose(httpRes.body()));
+            }
+        }
+
+        return res;
+    }
+
+
+    public io.codat.sync.payables.models.operations.UploadBillAttachmentRequestBuilder uploadAttachment() {
+        return new io.codat.sync.payables.models.operations.UploadBillAttachmentRequestBuilder(this);
+    }
+
+    /**
+     * Upload bill attachment
+     * The *Upload bill attachment* endpoint uploads an attachment and assigns it against a specific `billId`.
+     * 
+     * [Bills](https://docs.codat.io/sync-for-payables-api#/schemas/Bill) are invoices that represent the SMB's financial obligations to their supplier for a purchase of goods or services.
+     * @param request The request object containing all of the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call.
+     * @throws Exception if the API call fails.
+     */
+    public io.codat.sync.payables.models.operations.UploadBillAttachmentResponse uploadAttachment(
+            io.codat.sync.payables.models.operations.UploadBillAttachmentRequest request,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
+
+
+        String baseUrl = this.sdkConfiguration.serverUrl;
+
+        String url = io.codat.sync.payables.utils.Utils.generateURL(
+                io.codat.sync.payables.models.operations.UploadBillAttachmentRequest.class,
+                baseUrl,
+                "/companies/{companyId}/connections/{connectionId}/payables/bills/{billId}/attachments",
+                request, null);
+
+        HTTPRequest req = new HTTPRequest();
+        req.setMethod("POST");
+        req.setURL(url);
+        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
+            new TypeReference<io.codat.sync.payables.models.operations.UploadBillAttachmentRequest>() {});
+        SerializedBody serializedRequestBody = io.codat.sync.payables.utils.Utils.serializeRequestBody(
+                _convertedRequest, "attachmentUpload", "multipart", false);
+        req.setBody(serializedRequestBody);
+
+        req.addHeader("Accept", "application/json");
+        req.addHeader("user-agent", this.sdkConfiguration.userAgent);
+
+        HTTPClient client = io.codat.sync.payables.utils.Utils.configureSecurityClient(
+                this.sdkConfiguration.defaultClient, this.sdkConfiguration.securitySource.getSecurity());
+
+        io.codat.sync.payables.utils.RetryConfig retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            retryConfig = io.codat.sync.payables.utils.RetryConfig.builder()
+                .backoff(io.codat.sync.payables.utils.BackoffStrategy.builder()
+                            .initialInterval(500L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .maxInterval(60000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
+        }
+
+        List<String> statusCodes = new java.util.ArrayList<String>();
+        statusCodes.add("408");
+        statusCodes.add("429");
+        statusCodes.add("5XX");
+        io.codat.sync.payables.utils.Retries retries = io.codat.sync.payables.utils.Retries.builder()
+            .action(() -> client.send(req))
+            .retryConfig(retryConfig)
+            .statusCodes(statusCodes)
+            .build();
+
+        HttpResponse<InputStream> httpRes = retries.run();
+
+        String contentType = httpRes
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
+        io.codat.sync.payables.models.operations.UploadBillAttachmentResponse.Builder resBuilder = 
+            io.codat.sync.payables.models.operations.UploadBillAttachmentResponse
+                .builder()
+                .contentType(contentType)
+                .statusCode(httpRes.statusCode())
+                .rawResponse(httpRes);
+
+        io.codat.sync.payables.models.operations.UploadBillAttachmentResponse res = resBuilder.build();
+
+        res.withRawResponse(httpRes);
+
+        if (httpRes.statusCode() == 200) {
+        } else if (httpRes.statusCode() == 400 || httpRes.statusCode() == 401 || httpRes.statusCode() == 402 || httpRes.statusCode() == 403 || httpRes.statusCode() == 404 || httpRes.statusCode() == 429 || httpRes.statusCode() == 500 || httpRes.statusCode() == 503) {
             if (io.codat.sync.payables.utils.Utils.matchContentType(contentType, "application/json")) {
                 ObjectMapper mapper = JSON.getMapper();
                 io.codat.sync.payables.models.components.ErrorMessage out = mapper.readValue(

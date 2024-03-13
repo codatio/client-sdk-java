@@ -31,6 +31,8 @@ import io.codat.sync.payables.models.operations.*;
 import io.codat.sync.payables.models.operations.CreateConnectionRequest;
 import io.codat.sync.payables.models.operations.CreateConnectionRequestBody;
 import io.codat.sync.payables.models.operations.CreateConnectionResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -79,9 +81,9 @@ public class Application {
 **[Optional<? extends io.codat.sync.payables.models.operations.CreateConnectionResponse>](../../models/operations/CreateConnectionResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |
 
 ## delete
 
@@ -99,6 +101,8 @@ import io.codat.sync.payables.models.components.Security;
 import io.codat.sync.payables.models.operations.*;
 import io.codat.sync.payables.models.operations.DeleteConnectionRequest;
 import io.codat.sync.payables.models.operations.DeleteConnectionResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -143,9 +147,9 @@ public class Application {
 **[Optional<? extends io.codat.sync.payables.models.operations.DeleteConnectionResponse>](../../models/operations/DeleteConnectionResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |
 
 ## get
 
@@ -162,6 +166,8 @@ import io.codat.sync.payables.models.components.Security;
 import io.codat.sync.payables.models.operations.*;
 import io.codat.sync.payables.models.operations.GetConnectionRequest;
 import io.codat.sync.payables.models.operations.GetConnectionResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -208,9 +214,9 @@ public class Application {
 **[Optional<? extends io.codat.sync.payables.models.operations.GetConnectionResponse>](../../models/operations/GetConnectionResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |
 
 ## list
 
@@ -227,6 +233,8 @@ import io.codat.sync.payables.models.components.Security;
 import io.codat.sync.payables.models.operations.*;
 import io.codat.sync.payables.models.operations.ListConnectionsRequest;
 import io.codat.sync.payables.models.operations.ListConnectionsResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -276,9 +284,9 @@ public class Application {
 **[Optional<? extends io.codat.sync.payables.models.operations.ListConnectionsResponse>](../../models/operations/ListConnectionsResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |
 
 ## unlink
 
@@ -297,6 +305,8 @@ import io.codat.sync.payables.models.operations.*;
 import io.codat.sync.payables.models.operations.UnlinkConnectionRequest;
 import io.codat.sync.payables.models.operations.UnlinkConnectionResponse;
 import io.codat.sync.payables.models.operations.UnlinkConnectionUpdateConnection;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -346,6 +356,6 @@ public class Application {
 **[Optional<? extends io.codat.sync.payables.models.operations.UnlinkConnectionResponse>](../../models/operations/UnlinkConnectionResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |

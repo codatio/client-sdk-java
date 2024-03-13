@@ -4,12 +4,16 @@
 
 package io.codat.sync.payables.models.components;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.payables.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 /**
@@ -37,7 +41,7 @@ public class BillTaxRateRef {
     public Optional<? extends String> id() {
         return id;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -50,7 +54,7 @@ public class BillTaxRateRef {
         this.id = Optional.ofNullable(id);
         return this;
     }
-    
+
     /**
      * Unique identifier for the tax rate in the accounting platform.
      */
@@ -101,7 +105,7 @@ public class BillTaxRateRef {
             this.id = Optional.ofNullable(id);
             return this;
         }
-        
+
         /**
          * Unique identifier for the tax rate in the accounting platform.
          */

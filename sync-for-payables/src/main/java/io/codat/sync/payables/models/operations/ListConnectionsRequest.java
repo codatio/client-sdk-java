@@ -4,12 +4,15 @@
 
 package io.codat.sync.payables.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.payables.utils.LazySingletonValue;
 import io.codat.sync.payables.utils.SpeakeasyMetadata;
 import io.codat.sync.payables.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
@@ -97,7 +100,7 @@ public class ListConnectionsRequest {
     public Optional<? extends String> query() {
         return query;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -119,7 +122,7 @@ public class ListConnectionsRequest {
         this.orderBy = Optional.ofNullable(orderBy);
         return this;
     }
-    
+
     /**
      * Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).
      */
@@ -137,7 +140,7 @@ public class ListConnectionsRequest {
         this.page = Optional.ofNullable(page);
         return this;
     }
-    
+
     /**
      * Page number. [Read more](https://docs.codat.io/using-the-api/paging).
      */
@@ -155,7 +158,7 @@ public class ListConnectionsRequest {
         this.pageSize = Optional.ofNullable(pageSize);
         return this;
     }
-    
+
     /**
      * Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).
      */
@@ -173,7 +176,7 @@ public class ListConnectionsRequest {
         this.query = Optional.ofNullable(query);
         return this;
     }
-    
+
     /**
      * Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).
      */
@@ -253,7 +256,7 @@ public class ListConnectionsRequest {
             this.orderBy = Optional.ofNullable(orderBy);
             return this;
         }
-        
+
         /**
          * Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).
          */
@@ -271,7 +274,7 @@ public class ListConnectionsRequest {
             this.page = Optional.ofNullable(page);
             return this;
         }
-        
+
         /**
          * Page number. [Read more](https://docs.codat.io/using-the-api/paging).
          */
@@ -289,7 +292,7 @@ public class ListConnectionsRequest {
             this.pageSize = Optional.ofNullable(pageSize);
             return this;
         }
-        
+
         /**
          * Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).
          */
@@ -307,7 +310,7 @@ public class ListConnectionsRequest {
             this.query = Optional.ofNullable(query);
             return this;
         }
-        
+
         /**
          * Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).
          */
