@@ -15,6 +15,8 @@ import io.codat.sync.expenses.utils.Options;
 import io.codat.sync.expenses.utils.SerializedBody;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -78,9 +80,10 @@ public class Accounts implements
         HTTPRequest req = new HTTPRequest();
         req.setMethod("POST");
         req.setURL(url);
-
+        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
+            new TypeReference<io.codat.sync.expenses.models.operations.CreateAccountRequest>() {});
         SerializedBody serializedRequestBody = io.codat.sync.expenses.utils.Utils.serializeRequestBody(
-                request, "accountPrototype", "json", false);
+                _convertedRequest, "accountPrototype", "json", false);
         req.setBody(serializedRequestBody);
 
         req.addHeader("Accept", "application/json");

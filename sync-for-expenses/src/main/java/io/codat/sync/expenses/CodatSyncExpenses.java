@@ -4,12 +4,15 @@
 
 package io.codat.sync.expenses;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.expenses.models.operations.SDKMethodInterfaces.*;
 import io.codat.sync.expenses.utils.HTTPClient;
 import io.codat.sync.expenses.utils.RetryConfig;
 import io.codat.sync.expenses.utils.SpeakeasyHTTPClient;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;

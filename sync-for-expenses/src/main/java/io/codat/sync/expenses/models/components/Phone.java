@@ -4,13 +4,17 @@
 
 package io.codat.sync.expenses.models.components;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
-import java.util.Optional;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class Phone {
@@ -18,9 +22,9 @@ public class Phone {
     /**
      * A phone number.
      */
-    @JsonInclude(Include.ALWAYS)
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("number")
-    private Optional<? extends String> number;
+    private JsonNullable<? extends String> number;
 
     /**
      * The type of phone number
@@ -29,7 +33,7 @@ public class Phone {
     private PhoneNumberType type;
 
     public Phone(
-            @JsonProperty("number") Optional<? extends String> number,
+            @JsonProperty("number") JsonNullable<? extends String> number,
             @JsonProperty("type") PhoneNumberType type) {
         Utils.checkNotNull(number, "number");
         Utils.checkNotNull(type, "type");
@@ -40,7 +44,7 @@ public class Phone {
     /**
      * A phone number.
      */
-    public Optional<? extends String> number() {
+    public JsonNullable<? extends String> number() {
         return number;
     }
 
@@ -50,7 +54,7 @@ public class Phone {
     public PhoneNumberType type() {
         return type;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -60,14 +64,14 @@ public class Phone {
      */
     public Phone withNumber(String number) {
         Utils.checkNotNull(number, "number");
-        this.number = Optional.ofNullable(number);
+        this.number = JsonNullable.of(number);
         return this;
     }
-    
+
     /**
      * A phone number.
      */
-    public Phone withNumber(Optional<? extends String> number) {
+    public Phone withNumber(JsonNullable<? extends String> number) {
         Utils.checkNotNull(number, "number");
         this.number = number;
         return this;
@@ -112,7 +116,7 @@ public class Phone {
     
     public final static class Builder {
  
-        private Optional<? extends String> number = Optional.empty();
+        private JsonNullable<? extends String> number = JsonNullable.undefined();
  
         private PhoneNumberType type;  
         
@@ -125,14 +129,14 @@ public class Phone {
          */
         public Builder number(String number) {
             Utils.checkNotNull(number, "number");
-            this.number = Optional.ofNullable(number);
+            this.number = JsonNullable.of(number);
             return this;
         }
-        
+
         /**
          * A phone number.
          */
-        public Builder number(Optional<? extends String> number) {
+        public Builder number(JsonNullable<? extends String> number) {
             Utils.checkNotNull(number, "number");
             this.number = number;
             return this;

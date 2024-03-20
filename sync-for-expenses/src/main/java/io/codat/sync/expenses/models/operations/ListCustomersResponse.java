@@ -4,14 +4,18 @@
 
 package io.codat.sync.expenses.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.http.HttpResponse;
 import java.util.Optional;
 
 
-public class ListCustomersResponse {
+public class ListCustomersResponse implements io.codat.sync.expenses.utils.Response {
 
     /**
      * HTTP response content type for this operation
@@ -90,7 +94,7 @@ public class ListCustomersResponse {
     public HttpResponse<InputStream> rawResponse() {
         return rawResponse;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -112,7 +116,7 @@ public class ListCustomersResponse {
         this.customers = Optional.ofNullable(customers);
         return this;
     }
-    
+
     /**
      * Success
      */
@@ -130,7 +134,7 @@ public class ListCustomersResponse {
         this.errorMessage = Optional.ofNullable(errorMessage);
         return this;
     }
-    
+
     /**
      * Your `query` parameter was not correctly formed
      */
@@ -228,7 +232,7 @@ public class ListCustomersResponse {
             this.customers = Optional.ofNullable(customers);
             return this;
         }
-        
+
         /**
          * Success
          */
@@ -246,7 +250,7 @@ public class ListCustomersResponse {
             this.errorMessage = Optional.ofNullable(errorMessage);
             return this;
         }
-        
+
         /**
          * Your `query` parameter was not correctly formed
          */

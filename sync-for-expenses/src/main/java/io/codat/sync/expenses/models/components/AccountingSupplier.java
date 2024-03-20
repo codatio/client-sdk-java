@@ -4,12 +4,16 @@
 
 package io.codat.sync.expenses.models.components;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -249,7 +253,7 @@ public class AccountingSupplier {
     public JsonNullable<? extends String> taxNumber() {
         return taxNumber;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -334,7 +338,7 @@ public class AccountingSupplier {
         this.id = Optional.ofNullable(id);
         return this;
     }
-    
+
     /**
      * Identifier for the supplier, unique to the company in the accounting platform.
      */
@@ -349,7 +353,7 @@ public class AccountingSupplier {
         this.metadata = Optional.ofNullable(metadata);
         return this;
     }
-    
+
     public AccountingSupplier withMetadata(Optional<? extends Metadata> metadata) {
         Utils.checkNotNull(metadata, "metadata");
         this.metadata = metadata;
@@ -361,7 +365,7 @@ public class AccountingSupplier {
         this.modifiedDate = Optional.ofNullable(modifiedDate);
         return this;
     }
-    
+
     public AccountingSupplier withModifiedDate(Optional<? extends String> modifiedDate) {
         Utils.checkNotNull(modifiedDate, "modifiedDate");
         this.modifiedDate = modifiedDate;
@@ -409,7 +413,7 @@ public class AccountingSupplier {
         this.sourceModifiedDate = Optional.ofNullable(sourceModifiedDate);
         return this;
     }
-    
+
     public AccountingSupplier withSourceModifiedDate(Optional<? extends String> sourceModifiedDate) {
         Utils.checkNotNull(sourceModifiedDate, "sourceModifiedDate");
         this.sourceModifiedDate = sourceModifiedDate;
@@ -435,7 +439,7 @@ public class AccountingSupplier {
         this.supplementalData = Optional.ofNullable(supplementalData);
         return this;
     }
-    
+
     /**
      * Supplemental data is additional data you can include in our standard data types. 
      * 
@@ -661,7 +665,7 @@ public class AccountingSupplier {
             this.id = Optional.ofNullable(id);
             return this;
         }
-        
+
         /**
          * Identifier for the supplier, unique to the company in the accounting platform.
          */
@@ -676,7 +680,7 @@ public class AccountingSupplier {
             this.metadata = Optional.ofNullable(metadata);
             return this;
         }
-        
+
         public Builder metadata(Optional<? extends Metadata> metadata) {
             Utils.checkNotNull(metadata, "metadata");
             this.metadata = metadata;
@@ -688,7 +692,7 @@ public class AccountingSupplier {
             this.modifiedDate = Optional.ofNullable(modifiedDate);
             return this;
         }
-        
+
         public Builder modifiedDate(Optional<? extends String> modifiedDate) {
             Utils.checkNotNull(modifiedDate, "modifiedDate");
             this.modifiedDate = modifiedDate;
@@ -736,7 +740,7 @@ public class AccountingSupplier {
             this.sourceModifiedDate = Optional.ofNullable(sourceModifiedDate);
             return this;
         }
-        
+
         public Builder sourceModifiedDate(Optional<? extends String> sourceModifiedDate) {
             Utils.checkNotNull(sourceModifiedDate, "sourceModifiedDate");
             this.sourceModifiedDate = sourceModifiedDate;
@@ -762,7 +766,7 @@ public class AccountingSupplier {
             this.supplementalData = Optional.ofNullable(supplementalData);
             return this;
         }
-        
+
         /**
          * Supplemental data is additional data you can include in our standard data types. 
          * 

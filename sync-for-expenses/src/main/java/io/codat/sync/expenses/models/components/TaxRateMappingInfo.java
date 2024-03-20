@@ -4,12 +4,16 @@
 
 package io.codat.sync.expenses.models.components;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -28,7 +32,7 @@ public class TaxRateMappingInfo {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("effectiveTaxRate")
-    private Optional<? extends Double> effectiveTaxRate;
+    private Optional<? extends BigDecimal> effectiveTaxRate;
 
     /**
      * Unique identifier of tax rate.
@@ -49,7 +53,7 @@ public class TaxRateMappingInfo {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("totalTaxRate")
-    private Optional<? extends Double> totalTaxRate;
+    private Optional<? extends BigDecimal> totalTaxRate;
 
     /**
      * Supported transaction types for the account.
@@ -60,10 +64,10 @@ public class TaxRateMappingInfo {
 
     public TaxRateMappingInfo(
             @JsonProperty("code") JsonNullable<? extends String> code,
-            @JsonProperty("effectiveTaxRate") Optional<? extends Double> effectiveTaxRate,
+            @JsonProperty("effectiveTaxRate") Optional<? extends BigDecimal> effectiveTaxRate,
             @JsonProperty("id") JsonNullable<? extends String> id,
             @JsonProperty("name") JsonNullable<? extends String> name,
-            @JsonProperty("totalTaxRate") Optional<? extends Double> totalTaxRate,
+            @JsonProperty("totalTaxRate") Optional<? extends BigDecimal> totalTaxRate,
             @JsonProperty("validTransactionTypes") JsonNullable<? extends java.util.List<TaxRateMappingInfoValidTransactionTypes>> validTransactionTypes) {
         Utils.checkNotNull(code, "code");
         Utils.checkNotNull(effectiveTaxRate, "effectiveTaxRate");
@@ -89,7 +93,7 @@ public class TaxRateMappingInfo {
     /**
      * Effective tax rate.
      */
-    public Optional<? extends Double> effectiveTaxRate() {
+    public Optional<? extends BigDecimal> effectiveTaxRate() {
         return effectiveTaxRate;
     }
 
@@ -110,7 +114,7 @@ public class TaxRateMappingInfo {
     /**
      * Total (not compounded) sum of the components of a tax rate.
      */
-    public Optional<? extends Double> totalTaxRate() {
+    public Optional<? extends BigDecimal> totalTaxRate() {
         return totalTaxRate;
     }
 
@@ -120,7 +124,7 @@ public class TaxRateMappingInfo {
     public JsonNullable<? extends java.util.List<TaxRateMappingInfoValidTransactionTypes>> validTransactionTypes() {
         return validTransactionTypes;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -146,16 +150,24 @@ public class TaxRateMappingInfo {
     /**
      * Effective tax rate.
      */
-    public TaxRateMappingInfo withEffectiveTaxRate(double effectiveTaxRate) {
+    public TaxRateMappingInfo withEffectiveTaxRate(BigDecimal effectiveTaxRate) {
         Utils.checkNotNull(effectiveTaxRate, "effectiveTaxRate");
         this.effectiveTaxRate = Optional.ofNullable(effectiveTaxRate);
         return this;
     }
-    
+
+        /**
+         * Effective tax rate.
+         */
+    public TaxRateMappingInfo withEffectiveTaxRate(double effectiveTaxRate) {
+        this.effectiveTaxRate = Optional.of(BigDecimal.valueOf(effectiveTaxRate));
+        return this;
+    }
+
     /**
      * Effective tax rate.
      */
-    public TaxRateMappingInfo withEffectiveTaxRate(Optional<? extends Double> effectiveTaxRate) {
+    public TaxRateMappingInfo withEffectiveTaxRate(Optional<? extends BigDecimal> effectiveTaxRate) {
         Utils.checkNotNull(effectiveTaxRate, "effectiveTaxRate");
         this.effectiveTaxRate = effectiveTaxRate;
         return this;
@@ -200,16 +212,24 @@ public class TaxRateMappingInfo {
     /**
      * Total (not compounded) sum of the components of a tax rate.
      */
-    public TaxRateMappingInfo withTotalTaxRate(double totalTaxRate) {
+    public TaxRateMappingInfo withTotalTaxRate(BigDecimal totalTaxRate) {
         Utils.checkNotNull(totalTaxRate, "totalTaxRate");
         this.totalTaxRate = Optional.ofNullable(totalTaxRate);
         return this;
     }
-    
+
+        /**
+         * Total (not compounded) sum of the components of a tax rate.
+         */
+    public TaxRateMappingInfo withTotalTaxRate(double totalTaxRate) {
+        this.totalTaxRate = Optional.of(BigDecimal.valueOf(totalTaxRate));
+        return this;
+    }
+
     /**
      * Total (not compounded) sum of the components of a tax rate.
      */
-    public TaxRateMappingInfo withTotalTaxRate(Optional<? extends Double> totalTaxRate) {
+    public TaxRateMappingInfo withTotalTaxRate(Optional<? extends BigDecimal> totalTaxRate) {
         Utils.checkNotNull(totalTaxRate, "totalTaxRate");
         this.totalTaxRate = totalTaxRate;
         return this;
@@ -277,13 +297,13 @@ public class TaxRateMappingInfo {
  
         private JsonNullable<? extends String> code = JsonNullable.undefined();
  
-        private Optional<? extends Double> effectiveTaxRate = Optional.empty();
+        private Optional<? extends BigDecimal> effectiveTaxRate = Optional.empty();
  
         private JsonNullable<? extends String> id = JsonNullable.undefined();
  
         private JsonNullable<? extends String> name = JsonNullable.undefined();
  
-        private Optional<? extends Double> totalTaxRate = Optional.empty();
+        private Optional<? extends BigDecimal> totalTaxRate = Optional.empty();
  
         private JsonNullable<? extends java.util.List<TaxRateMappingInfoValidTransactionTypes>> validTransactionTypes = JsonNullable.undefined();  
         
@@ -312,16 +332,24 @@ public class TaxRateMappingInfo {
         /**
          * Effective tax rate.
          */
-        public Builder effectiveTaxRate(double effectiveTaxRate) {
+        public Builder effectiveTaxRate(BigDecimal effectiveTaxRate) {
             Utils.checkNotNull(effectiveTaxRate, "effectiveTaxRate");
             this.effectiveTaxRate = Optional.ofNullable(effectiveTaxRate);
             return this;
         }
-        
+
         /**
          * Effective tax rate.
          */
-        public Builder effectiveTaxRate(Optional<? extends Double> effectiveTaxRate) {
+        public Builder effectiveTaxRate(double effectiveTaxRate) {
+            this.effectiveTaxRate = Optional.of(BigDecimal.valueOf(effectiveTaxRate));
+            return this;
+        }
+
+        /**
+         * Effective tax rate.
+         */
+        public Builder effectiveTaxRate(Optional<? extends BigDecimal> effectiveTaxRate) {
             Utils.checkNotNull(effectiveTaxRate, "effectiveTaxRate");
             this.effectiveTaxRate = effectiveTaxRate;
             return this;
@@ -366,16 +394,24 @@ public class TaxRateMappingInfo {
         /**
          * Total (not compounded) sum of the components of a tax rate.
          */
-        public Builder totalTaxRate(double totalTaxRate) {
+        public Builder totalTaxRate(BigDecimal totalTaxRate) {
             Utils.checkNotNull(totalTaxRate, "totalTaxRate");
             this.totalTaxRate = Optional.ofNullable(totalTaxRate);
             return this;
         }
-        
+
         /**
          * Total (not compounded) sum of the components of a tax rate.
          */
-        public Builder totalTaxRate(Optional<? extends Double> totalTaxRate) {
+        public Builder totalTaxRate(double totalTaxRate) {
+            this.totalTaxRate = Optional.of(BigDecimal.valueOf(totalTaxRate));
+            return this;
+        }
+
+        /**
+         * Total (not compounded) sum of the components of a tax rate.
+         */
+        public Builder totalTaxRate(Optional<? extends BigDecimal> totalTaxRate) {
             Utils.checkNotNull(totalTaxRate, "totalTaxRate");
             this.totalTaxRate = totalTaxRate;
             return this;

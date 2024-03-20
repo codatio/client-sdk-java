@@ -4,12 +4,16 @@
 
 package io.codat.sync.expenses.models.components;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -34,7 +38,7 @@ public class AccountPrototype {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("currentBalance")
-    private JsonNullable<? extends Double> currentBalance;
+    private JsonNullable<? extends BigDecimal> currentBalance;
 
     /**
      * Description for the account.
@@ -115,7 +119,7 @@ public class AccountPrototype {
 
     public AccountPrototype(
             @JsonProperty("currency") Optional<? extends String> currency,
-            @JsonProperty("currentBalance") JsonNullable<? extends Double> currentBalance,
+            @JsonProperty("currentBalance") JsonNullable<? extends BigDecimal> currentBalance,
             @JsonProperty("description") JsonNullable<? extends String> description,
             @JsonProperty("fullyQualifiedCategory") JsonNullable<? extends String> fullyQualifiedCategory,
             @JsonProperty("fullyQualifiedName") JsonNullable<? extends String> fullyQualifiedName,
@@ -168,7 +172,7 @@ public class AccountPrototype {
     /**
      * Current balance in the account.
      */
-    public JsonNullable<? extends Double> currentBalance() {
+    public JsonNullable<? extends BigDecimal> currentBalance() {
         return currentBalance;
     }
 
@@ -248,7 +252,7 @@ public class AccountPrototype {
     public JsonNullable<? extends java.util.List<ValidDataTypeLinks>> validDatatypeLinks() {
         return validDatatypeLinks;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -267,7 +271,7 @@ public class AccountPrototype {
         this.currency = Optional.ofNullable(currency);
         return this;
     }
-    
+
     /**
      * The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
      * 
@@ -286,16 +290,24 @@ public class AccountPrototype {
     /**
      * Current balance in the account.
      */
-    public AccountPrototype withCurrentBalance(double currentBalance) {
+    public AccountPrototype withCurrentBalance(BigDecimal currentBalance) {
         Utils.checkNotNull(currentBalance, "currentBalance");
         this.currentBalance = JsonNullable.of(currentBalance);
+        return this;
+    }
+
+        /**
+         * Current balance in the account.
+         */
+    public AccountPrototype withCurrentBalance(double currentBalance) {
+        this.currentBalance = JsonNullable.of(BigDecimal.valueOf(currentBalance));
         return this;
     }
 
     /**
      * Current balance in the account.
      */
-    public AccountPrototype withCurrentBalance(JsonNullable<? extends Double> currentBalance) {
+    public AccountPrototype withCurrentBalance(JsonNullable<? extends BigDecimal> currentBalance) {
         Utils.checkNotNull(currentBalance, "currentBalance");
         this.currentBalance = currentBalance;
         return this;
@@ -373,7 +385,7 @@ public class AccountPrototype {
         this.isBankAccount = Optional.ofNullable(isBankAccount);
         return this;
     }
-    
+
     /**
      * Confirms whether the account is a bank account or not.
      */
@@ -427,7 +439,7 @@ public class AccountPrototype {
         this.status = Optional.ofNullable(status);
         return this;
     }
-    
+
     /**
      * Status of the account
      */
@@ -447,7 +459,7 @@ public class AccountPrototype {
         this.supplementalData = Optional.ofNullable(supplementalData);
         return this;
     }
-    
+
     /**
      * Supplemental data is additional data you can include in our standard data types. 
      * 
@@ -467,7 +479,7 @@ public class AccountPrototype {
         this.type = Optional.ofNullable(type);
         return this;
     }
-    
+
     /**
      * Type of account
      */
@@ -557,7 +569,7 @@ public class AccountPrototype {
  
         private Optional<? extends String> currency = Optional.empty();
  
-        private JsonNullable<? extends Double> currentBalance = JsonNullable.undefined();
+        private JsonNullable<? extends BigDecimal> currentBalance = JsonNullable.undefined();
  
         private JsonNullable<? extends String> description = JsonNullable.undefined();
  
@@ -597,7 +609,7 @@ public class AccountPrototype {
             this.currency = Optional.ofNullable(currency);
             return this;
         }
-        
+
         /**
          * The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
          * 
@@ -616,7 +628,7 @@ public class AccountPrototype {
         /**
          * Current balance in the account.
          */
-        public Builder currentBalance(double currentBalance) {
+        public Builder currentBalance(BigDecimal currentBalance) {
             Utils.checkNotNull(currentBalance, "currentBalance");
             this.currentBalance = JsonNullable.of(currentBalance);
             return this;
@@ -625,7 +637,15 @@ public class AccountPrototype {
         /**
          * Current balance in the account.
          */
-        public Builder currentBalance(JsonNullable<? extends Double> currentBalance) {
+        public Builder currentBalance(double currentBalance) {
+            this.currentBalance = JsonNullable.of(BigDecimal.valueOf(currentBalance));
+            return this;
+        }
+
+        /**
+         * Current balance in the account.
+         */
+        public Builder currentBalance(JsonNullable<? extends BigDecimal> currentBalance) {
             Utils.checkNotNull(currentBalance, "currentBalance");
             this.currentBalance = currentBalance;
             return this;
@@ -703,7 +723,7 @@ public class AccountPrototype {
             this.isBankAccount = Optional.ofNullable(isBankAccount);
             return this;
         }
-        
+
         /**
          * Confirms whether the account is a bank account or not.
          */
@@ -757,7 +777,7 @@ public class AccountPrototype {
             this.status = Optional.ofNullable(status);
             return this;
         }
-        
+
         /**
          * Status of the account
          */
@@ -777,7 +797,7 @@ public class AccountPrototype {
             this.supplementalData = Optional.ofNullable(supplementalData);
             return this;
         }
-        
+
         /**
          * Supplemental data is additional data you can include in our standard data types. 
          * 
@@ -797,7 +817,7 @@ public class AccountPrototype {
             this.type = Optional.ofNullable(type);
             return this;
         }
-        
+
         /**
          * Type of account
          */

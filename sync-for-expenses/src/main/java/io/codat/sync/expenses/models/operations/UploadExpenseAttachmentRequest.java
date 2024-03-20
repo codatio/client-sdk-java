@@ -4,10 +4,14 @@
 
 package io.codat.sync.expenses.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.expenses.utils.SpeakeasyMetadata;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
@@ -73,7 +77,7 @@ public class UploadExpenseAttachmentRequest {
     public String transactionId() {
         return transactionId;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -83,7 +87,7 @@ public class UploadExpenseAttachmentRequest {
         this.attachmentUpload = Optional.ofNullable(attachmentUpload);
         return this;
     }
-    
+
     public UploadExpenseAttachmentRequest withAttachmentUpload(Optional<? extends io.codat.sync.expenses.models.components.AttachmentUpload> attachmentUpload) {
         Utils.checkNotNull(attachmentUpload, "attachmentUpload");
         this.attachmentUpload = attachmentUpload;
@@ -170,7 +174,7 @@ public class UploadExpenseAttachmentRequest {
             this.attachmentUpload = Optional.ofNullable(attachmentUpload);
             return this;
         }
-        
+
         public Builder attachmentUpload(Optional<? extends io.codat.sync.expenses.models.components.AttachmentUpload> attachmentUpload) {
             Utils.checkNotNull(attachmentUpload, "attachmentUpload");
             this.attachmentUpload = attachmentUpload;

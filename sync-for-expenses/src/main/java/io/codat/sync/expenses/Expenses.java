@@ -15,6 +15,8 @@ import io.codat.sync.expenses.utils.Options;
 import io.codat.sync.expenses.utils.SerializedBody;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -83,9 +85,10 @@ public class Expenses implements
         HTTPRequest req = new HTTPRequest();
         req.setMethod("POST");
         req.setURL(url);
-
+        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
+            new TypeReference<io.codat.sync.expenses.models.operations.CreateExpenseTransactionRequest>() {});
         SerializedBody serializedRequestBody = io.codat.sync.expenses.utils.Utils.serializeRequestBody(
-                request, "createExpenseRequest", "json", false);
+                _convertedRequest, "createExpenseRequest", "json", false);
         req.setBody(serializedRequestBody);
 
         req.addHeader("Accept", "application/json");
@@ -169,7 +172,7 @@ public class Expenses implements
     }
 
     /**
-     * Update expense-transactions
+     * Update expense transactions
      * The *Update expense* endpoint updates an existing [expense transaction](https://docs.codat.io/sync-for-expenses-api#/schemas/ExpenseTransaction) in the accounting platform for a given company's connection. 
      * 
      * [Expense transactions](https://docs.codat.io/sync-for-expenses-api#/schemas/ExpenseTransaction) represent transactions made with a company debit or credit card. 
@@ -203,9 +206,10 @@ public class Expenses implements
         HTTPRequest req = new HTTPRequest();
         req.setMethod("PUT");
         req.setURL(url);
-
+        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
+            new TypeReference<io.codat.sync.expenses.models.operations.UpdateExpenseTransactionRequest>() {});
         SerializedBody serializedRequestBody = io.codat.sync.expenses.utils.Utils.serializeRequestBody(
-                request, "updateExpenseRequest", "json", false);
+                _convertedRequest, "updateExpenseRequest", "json", false);
         req.setBody(serializedRequestBody);
 
         req.addHeader("Accept", "application/json");
@@ -329,9 +333,10 @@ public class Expenses implements
         HTTPRequest req = new HTTPRequest();
         req.setMethod("POST");
         req.setURL(url);
-
+        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
+            new TypeReference<io.codat.sync.expenses.models.operations.UploadExpenseAttachmentRequest>() {});
         SerializedBody serializedRequestBody = io.codat.sync.expenses.utils.Utils.serializeRequestBody(
-                request, "attachmentUpload", "multipart", false);
+                _convertedRequest, "attachmentUpload", "multipart", false);
         req.setBody(serializedRequestBody);
 
         req.addHeader("Accept", "application/json");

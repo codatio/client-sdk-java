@@ -4,12 +4,16 @@
 
 package io.codat.sync.expenses.models.components;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
@@ -51,7 +55,7 @@ public class SyncCompleteWebhookData {
     public Optional<? extends String> syncType() {
         return syncType;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -64,7 +68,7 @@ public class SyncCompleteWebhookData {
         this.syncId = Optional.ofNullable(syncId);
         return this;
     }
-    
+
     /**
      * Unique identifier for the failed sync.
      */
@@ -82,7 +86,7 @@ public class SyncCompleteWebhookData {
         this.syncType = Optional.ofNullable(syncType);
         return this;
     }
-    
+
     /**
      * The type of sync being performed.
      */
@@ -138,7 +142,7 @@ public class SyncCompleteWebhookData {
             this.syncId = Optional.ofNullable(syncId);
             return this;
         }
-        
+
         /**
          * Unique identifier for the failed sync.
          */
@@ -156,7 +160,7 @@ public class SyncCompleteWebhookData {
             this.syncType = Optional.ofNullable(syncType);
             return this;
         }
-        
+
         /**
          * The type of sync being performed.
          */

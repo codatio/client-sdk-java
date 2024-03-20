@@ -4,12 +4,16 @@
 
 package io.codat.sync.expenses.models.components;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 /**
@@ -51,7 +55,7 @@ public class SyncCompleteWebhook {
     private Optional<? extends SyncCompleteWebhookData> data;
 
     /**
-     * A human readable message about the webhook.
+     * A human-readable message about the webhook.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("Message")
@@ -59,9 +63,11 @@ public class SyncCompleteWebhook {
 
     /**
      * Unique identifier for the rule.
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("RuleId")
+    @Deprecated
     private Optional<? extends String> ruleId;
 
     /**
@@ -131,7 +137,7 @@ public class SyncCompleteWebhook {
     }
 
     /**
-     * A human readable message about the webhook.
+     * A human-readable message about the webhook.
      */
     public Optional<? extends String> message() {
         return message;
@@ -139,7 +145,9 @@ public class SyncCompleteWebhook {
 
     /**
      * Unique identifier for the rule.
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public Optional<? extends String> ruleId() {
         return ruleId;
     }
@@ -150,7 +158,7 @@ public class SyncCompleteWebhook {
     public Optional<? extends String> ruleType() {
         return ruleType;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -163,7 +171,7 @@ public class SyncCompleteWebhook {
         this.alertId = Optional.ofNullable(alertId);
         return this;
     }
-    
+
     /**
      * Unique identifier of the webhook event.
      */
@@ -181,7 +189,7 @@ public class SyncCompleteWebhook {
         this.clientId = Optional.ofNullable(clientId);
         return this;
     }
-    
+
     /**
      * Unique identifier for your client in Codat.
      */
@@ -199,7 +207,7 @@ public class SyncCompleteWebhook {
         this.clientName = Optional.ofNullable(clientName);
         return this;
     }
-    
+
     /**
      * Name of your client in Codat.
      */
@@ -217,7 +225,7 @@ public class SyncCompleteWebhook {
         this.companyId = Optional.ofNullable(companyId);
         return this;
     }
-    
+
     /**
      * Unique identifier for your SMB in Codat.
      */
@@ -232,7 +240,7 @@ public class SyncCompleteWebhook {
         this.data = Optional.ofNullable(data);
         return this;
     }
-    
+
     public SyncCompleteWebhook withData(Optional<? extends SyncCompleteWebhookData> data) {
         Utils.checkNotNull(data, "data");
         this.data = data;
@@ -240,16 +248,16 @@ public class SyncCompleteWebhook {
     }
 
     /**
-     * A human readable message about the webhook.
+     * A human-readable message about the webhook.
      */
     public SyncCompleteWebhook withMessage(String message) {
         Utils.checkNotNull(message, "message");
         this.message = Optional.ofNullable(message);
         return this;
     }
-    
+
     /**
-     * A human readable message about the webhook.
+     * A human-readable message about the webhook.
      */
     public SyncCompleteWebhook withMessage(Optional<? extends String> message) {
         Utils.checkNotNull(message, "message");
@@ -259,16 +267,20 @@ public class SyncCompleteWebhook {
 
     /**
      * Unique identifier for the rule.
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public SyncCompleteWebhook withRuleId(String ruleId) {
         Utils.checkNotNull(ruleId, "ruleId");
         this.ruleId = Optional.ofNullable(ruleId);
         return this;
     }
-    
+
     /**
      * Unique identifier for the rule.
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public SyncCompleteWebhook withRuleId(Optional<? extends String> ruleId) {
         Utils.checkNotNull(ruleId, "ruleId");
         this.ruleId = ruleId;
@@ -283,7 +295,7 @@ public class SyncCompleteWebhook {
         this.ruleType = Optional.ofNullable(ruleType);
         return this;
     }
-    
+
     /**
      * The type of rule.
      */
@@ -353,6 +365,7 @@ public class SyncCompleteWebhook {
  
         private Optional<? extends String> message = Optional.empty();
  
+        @Deprecated
         private Optional<? extends String> ruleId = Optional.empty();
  
         private Optional<? extends String> ruleType = Optional.empty();  
@@ -369,7 +382,7 @@ public class SyncCompleteWebhook {
             this.alertId = Optional.ofNullable(alertId);
             return this;
         }
-        
+
         /**
          * Unique identifier of the webhook event.
          */
@@ -387,7 +400,7 @@ public class SyncCompleteWebhook {
             this.clientId = Optional.ofNullable(clientId);
             return this;
         }
-        
+
         /**
          * Unique identifier for your client in Codat.
          */
@@ -405,7 +418,7 @@ public class SyncCompleteWebhook {
             this.clientName = Optional.ofNullable(clientName);
             return this;
         }
-        
+
         /**
          * Name of your client in Codat.
          */
@@ -423,7 +436,7 @@ public class SyncCompleteWebhook {
             this.companyId = Optional.ofNullable(companyId);
             return this;
         }
-        
+
         /**
          * Unique identifier for your SMB in Codat.
          */
@@ -438,7 +451,7 @@ public class SyncCompleteWebhook {
             this.data = Optional.ofNullable(data);
             return this;
         }
-        
+
         public Builder data(Optional<? extends SyncCompleteWebhookData> data) {
             Utils.checkNotNull(data, "data");
             this.data = data;
@@ -446,16 +459,16 @@ public class SyncCompleteWebhook {
         }
 
         /**
-         * A human readable message about the webhook.
+         * A human-readable message about the webhook.
          */
         public Builder message(String message) {
             Utils.checkNotNull(message, "message");
             this.message = Optional.ofNullable(message);
             return this;
         }
-        
+
         /**
-         * A human readable message about the webhook.
+         * A human-readable message about the webhook.
          */
         public Builder message(Optional<? extends String> message) {
             Utils.checkNotNull(message, "message");
@@ -465,16 +478,20 @@ public class SyncCompleteWebhook {
 
         /**
          * Unique identifier for the rule.
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
          */
+        @Deprecated
         public Builder ruleId(String ruleId) {
             Utils.checkNotNull(ruleId, "ruleId");
             this.ruleId = Optional.ofNullable(ruleId);
             return this;
         }
-        
+
         /**
          * Unique identifier for the rule.
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
          */
+        @Deprecated
         public Builder ruleId(Optional<? extends String> ruleId) {
             Utils.checkNotNull(ruleId, "ruleId");
             this.ruleId = ruleId;
@@ -489,7 +506,7 @@ public class SyncCompleteWebhook {
             this.ruleType = Optional.ofNullable(ruleType);
             return this;
         }
-        
+
         /**
          * The type of rule.
          */

@@ -4,14 +4,18 @@
 
 package io.codat.sync.expenses.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.http.HttpResponse;
 import java.util.Optional;
 
 
-public class UpdateExpenseTransactionResponse {
+public class UpdateExpenseTransactionResponse implements io.codat.sync.expenses.utils.Response {
 
     /**
      * HTTP response content type for this operation
@@ -90,7 +94,7 @@ public class UpdateExpenseTransactionResponse {
     public Optional<? extends io.codat.sync.expenses.models.components.UpdateExpenseResponse> updateExpenseResponse() {
         return updateExpenseResponse;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -112,7 +116,7 @@ public class UpdateExpenseTransactionResponse {
         this.errorMessage = Optional.ofNullable(errorMessage);
         return this;
     }
-    
+
     /**
      * The request made is not valid.
      */
@@ -148,7 +152,7 @@ public class UpdateExpenseTransactionResponse {
         this.updateExpenseResponse = Optional.ofNullable(updateExpenseResponse);
         return this;
     }
-    
+
     /**
      * Accepted
      */
@@ -228,7 +232,7 @@ public class UpdateExpenseTransactionResponse {
             this.errorMessage = Optional.ofNullable(errorMessage);
             return this;
         }
-        
+
         /**
          * The request made is not valid.
          */
@@ -264,7 +268,7 @@ public class UpdateExpenseTransactionResponse {
             this.updateExpenseResponse = Optional.ofNullable(updateExpenseResponse);
             return this;
         }
-        
+
         /**
          * Accepted
          */

@@ -4,12 +4,16 @@
 
 package io.codat.sync.expenses.models.components;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -116,7 +120,7 @@ public class PushOption {
     public Optional<? extends PushValidationInfo> validation() {
         return validation;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -129,7 +133,7 @@ public class PushOption {
         this.description = Optional.ofNullable(description);
         return this;
     }
-    
+
     /**
      * A description of the property.
      */
@@ -195,7 +199,7 @@ public class PushOption {
         this.validation = Optional.ofNullable(validation);
         return this;
     }
-    
+
     public PushOption withValidation(Optional<? extends PushValidationInfo> validation) {
         Utils.checkNotNull(validation, "validation");
         this.validation = validation;
@@ -273,7 +277,7 @@ public class PushOption {
             this.description = Optional.ofNullable(description);
             return this;
         }
-        
+
         /**
          * A description of the property.
          */
@@ -339,7 +343,7 @@ public class PushOption {
             this.validation = Optional.ofNullable(validation);
             return this;
         }
-        
+
         public Builder validation(Optional<? extends PushValidationInfo> validation) {
             Utils.checkNotNull(validation, "validation");
             this.validation = validation;

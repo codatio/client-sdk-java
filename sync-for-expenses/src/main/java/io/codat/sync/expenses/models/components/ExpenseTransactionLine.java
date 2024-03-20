@@ -4,12 +4,16 @@
 
 package io.codat.sync.expenses.models.components;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -30,13 +34,14 @@ public class ExpenseTransactionLine {
      * Amount of the line, exclusive of tax.
      */
     @JsonProperty("netAmount")
-    private double netAmount;
+    private BigDecimal netAmount;
 
     /**
      * Amount of tax for the line.
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("taxAmount")
-    private double taxAmount;
+    private Optional<? extends BigDecimal> taxAmount;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("taxRateRef")
@@ -49,8 +54,8 @@ public class ExpenseTransactionLine {
     public ExpenseTransactionLine(
             @JsonProperty("accountRef") RecordRef accountRef,
             @JsonProperty("invoiceTo") JsonNullable<? extends InvoiceTo> invoiceTo,
-            @JsonProperty("netAmount") double netAmount,
-            @JsonProperty("taxAmount") double taxAmount,
+            @JsonProperty("netAmount") BigDecimal netAmount,
+            @JsonProperty("taxAmount") Optional<? extends BigDecimal> taxAmount,
             @JsonProperty("taxRateRef") Optional<? extends RecordRef> taxRateRef,
             @JsonProperty("trackingRefs") JsonNullable<? extends java.util.List<TrackingRef>> trackingRefs) {
         Utils.checkNotNull(accountRef, "accountRef");
@@ -81,14 +86,14 @@ public class ExpenseTransactionLine {
     /**
      * Amount of the line, exclusive of tax.
      */
-    public double netAmount() {
+    public BigDecimal netAmount() {
         return netAmount;
     }
 
     /**
      * Amount of tax for the line.
      */
-    public double taxAmount() {
+    public Optional<? extends BigDecimal> taxAmount() {
         return taxAmount;
     }
 
@@ -99,7 +104,7 @@ public class ExpenseTransactionLine {
     public JsonNullable<? extends java.util.List<TrackingRef>> trackingRefs() {
         return trackingRefs;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -128,10 +133,18 @@ public class ExpenseTransactionLine {
         return this;
     }
 
+        /**
+         * Amount of the line, exclusive of tax.
+         */
+    public ExpenseTransactionLine withNetAmount(double netAmount) {
+        this.netAmount = BigDecimal.valueOf(netAmount);
+        return this;
+    }
+
     /**
      * Amount of the line, exclusive of tax.
      */
-    public ExpenseTransactionLine withNetAmount(double netAmount) {
+    public ExpenseTransactionLine withNetAmount(BigDecimal netAmount) {
         Utils.checkNotNull(netAmount, "netAmount");
         this.netAmount = netAmount;
         return this;
@@ -140,7 +153,24 @@ public class ExpenseTransactionLine {
     /**
      * Amount of tax for the line.
      */
+    public ExpenseTransactionLine withTaxAmount(BigDecimal taxAmount) {
+        Utils.checkNotNull(taxAmount, "taxAmount");
+        this.taxAmount = Optional.ofNullable(taxAmount);
+        return this;
+    }
+
+        /**
+         * Amount of tax for the line.
+         */
     public ExpenseTransactionLine withTaxAmount(double taxAmount) {
+        this.taxAmount = Optional.of(BigDecimal.valueOf(taxAmount));
+        return this;
+    }
+
+    /**
+     * Amount of tax for the line.
+     */
+    public ExpenseTransactionLine withTaxAmount(Optional<? extends BigDecimal> taxAmount) {
         Utils.checkNotNull(taxAmount, "taxAmount");
         this.taxAmount = taxAmount;
         return this;
@@ -151,7 +181,7 @@ public class ExpenseTransactionLine {
         this.taxRateRef = Optional.ofNullable(taxRateRef);
         return this;
     }
-    
+
     public ExpenseTransactionLine withTaxRateRef(Optional<? extends RecordRef> taxRateRef) {
         Utils.checkNotNull(taxRateRef, "taxRateRef");
         this.taxRateRef = taxRateRef;
@@ -216,9 +246,9 @@ public class ExpenseTransactionLine {
  
         private JsonNullable<? extends InvoiceTo> invoiceTo = JsonNullable.undefined();
  
-        private Double netAmount;
+        private BigDecimal netAmount;
  
-        private Double taxAmount;
+        private Optional<? extends BigDecimal> taxAmount = Optional.empty();
  
         private Optional<? extends RecordRef> taxRateRef = Optional.empty();
  
@@ -256,6 +286,14 @@ public class ExpenseTransactionLine {
          * Amount of the line, exclusive of tax.
          */
         public Builder netAmount(double netAmount) {
+            this.netAmount = BigDecimal.valueOf(netAmount);
+            return this;
+        }
+
+        /**
+         * Amount of the line, exclusive of tax.
+         */
+        public Builder netAmount(BigDecimal netAmount) {
             Utils.checkNotNull(netAmount, "netAmount");
             this.netAmount = netAmount;
             return this;
@@ -264,7 +302,24 @@ public class ExpenseTransactionLine {
         /**
          * Amount of tax for the line.
          */
+        public Builder taxAmount(BigDecimal taxAmount) {
+            Utils.checkNotNull(taxAmount, "taxAmount");
+            this.taxAmount = Optional.ofNullable(taxAmount);
+            return this;
+        }
+
+        /**
+         * Amount of tax for the line.
+         */
         public Builder taxAmount(double taxAmount) {
+            this.taxAmount = Optional.of(BigDecimal.valueOf(taxAmount));
+            return this;
+        }
+
+        /**
+         * Amount of tax for the line.
+         */
+        public Builder taxAmount(Optional<? extends BigDecimal> taxAmount) {
             Utils.checkNotNull(taxAmount, "taxAmount");
             this.taxAmount = taxAmount;
             return this;
@@ -275,7 +330,7 @@ public class ExpenseTransactionLine {
             this.taxRateRef = Optional.ofNullable(taxRateRef);
             return this;
         }
-        
+
         public Builder taxRateRef(Optional<? extends RecordRef> taxRateRef) {
             Utils.checkNotNull(taxRateRef, "taxRateRef");
             this.taxRateRef = taxRateRef;

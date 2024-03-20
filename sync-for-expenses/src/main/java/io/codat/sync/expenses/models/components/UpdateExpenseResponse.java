@@ -4,12 +4,16 @@
 
 package io.codat.sync.expenses.models.components;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
@@ -34,7 +38,7 @@ public class UpdateExpenseResponse {
     public Optional<? extends String> syncId() {
         return syncId;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -47,7 +51,7 @@ public class UpdateExpenseResponse {
         this.syncId = Optional.ofNullable(syncId);
         return this;
     }
-    
+
     /**
      * Unique identifier for the update expense sync.
      */
@@ -98,7 +102,7 @@ public class UpdateExpenseResponse {
             this.syncId = Optional.ofNullable(syncId);
             return this;
         }
-        
+
         /**
          * Unique identifier for the update expense sync.
          */

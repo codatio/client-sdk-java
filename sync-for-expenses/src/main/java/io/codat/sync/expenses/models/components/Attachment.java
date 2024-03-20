@@ -4,12 +4,16 @@
 
 package io.codat.sync.expenses.models.components;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
@@ -68,7 +72,7 @@ public class Attachment {
     public Optional<? extends String> transactionId() {
         return transactionId;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -81,7 +85,7 @@ public class Attachment {
         this.companyId = Optional.ofNullable(companyId);
         return this;
     }
-    
+
     /**
      * Unique ID of company in Codat
      */
@@ -99,7 +103,7 @@ public class Attachment {
         this.id = Optional.ofNullable(id);
         return this;
     }
-    
+
     /**
      * Unique identifier of attachment
      */
@@ -117,7 +121,7 @@ public class Attachment {
         this.transactionId = Optional.ofNullable(transactionId);
         return this;
     }
-    
+
     /**
      * Unique identifier of transaction
      */
@@ -178,7 +182,7 @@ public class Attachment {
             this.companyId = Optional.ofNullable(companyId);
             return this;
         }
-        
+
         /**
          * Unique ID of company in Codat
          */
@@ -196,7 +200,7 @@ public class Attachment {
             this.id = Optional.ofNullable(id);
             return this;
         }
-        
+
         /**
          * Unique identifier of attachment
          */
@@ -214,7 +218,7 @@ public class Attachment {
             this.transactionId = Optional.ofNullable(transactionId);
             return this;
         }
-        
+
         /**
          * Unique identifier of transaction
          */

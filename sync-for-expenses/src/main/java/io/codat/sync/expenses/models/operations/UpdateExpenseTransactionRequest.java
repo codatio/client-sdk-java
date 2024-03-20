@@ -4,10 +4,14 @@
 
 package io.codat.sync.expenses.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.expenses.utils.SpeakeasyMetadata;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
@@ -57,7 +61,7 @@ public class UpdateExpenseTransactionRequest {
     public String transactionId() {
         return transactionId;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -67,7 +71,7 @@ public class UpdateExpenseTransactionRequest {
         this.updateExpenseRequest = Optional.ofNullable(updateExpenseRequest);
         return this;
     }
-    
+
     public UpdateExpenseTransactionRequest withUpdateExpenseRequest(Optional<? extends io.codat.sync.expenses.models.components.UpdateExpenseRequest> updateExpenseRequest) {
         Utils.checkNotNull(updateExpenseRequest, "updateExpenseRequest");
         this.updateExpenseRequest = updateExpenseRequest;
@@ -140,7 +144,7 @@ public class UpdateExpenseTransactionRequest {
             this.updateExpenseRequest = Optional.ofNullable(updateExpenseRequest);
             return this;
         }
-        
+
         public Builder updateExpenseRequest(Optional<? extends io.codat.sync.expenses.models.components.UpdateExpenseRequest> updateExpenseRequest) {
             Utils.checkNotNull(updateExpenseRequest, "updateExpenseRequest");
             this.updateExpenseRequest = updateExpenseRequest;

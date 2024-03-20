@@ -4,12 +4,15 @@
 
 package io.codat.sync.expenses.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.expenses.utils.LazySingletonValue;
 import io.codat.sync.expenses.utils.SpeakeasyMetadata;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
@@ -91,7 +94,7 @@ public class CreateAccountRequest {
     public Optional<? extends Integer> timeoutInMinutes() {
         return timeoutInMinutes;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -101,7 +104,7 @@ public class CreateAccountRequest {
         this.accountPrototype = Optional.ofNullable(accountPrototype);
         return this;
     }
-    
+
     public CreateAccountRequest withAccountPrototype(Optional<? extends io.codat.sync.expenses.models.components.AccountPrototype> accountPrototype) {
         Utils.checkNotNull(accountPrototype, "accountPrototype");
         this.accountPrototype = accountPrototype;
@@ -116,7 +119,7 @@ public class CreateAccountRequest {
         this.allowSyncOnPushComplete = Optional.ofNullable(allowSyncOnPushComplete);
         return this;
     }
-    
+
     /**
      * Allow a sync upon push completion.
      */
@@ -152,7 +155,7 @@ public class CreateAccountRequest {
         this.timeoutInMinutes = Optional.ofNullable(timeoutInMinutes);
         return this;
     }
-    
+
     /**
      * Time limit for the push operation to complete before it is timed out.
      */
@@ -220,7 +223,7 @@ public class CreateAccountRequest {
             this.accountPrototype = Optional.ofNullable(accountPrototype);
             return this;
         }
-        
+
         public Builder accountPrototype(Optional<? extends io.codat.sync.expenses.models.components.AccountPrototype> accountPrototype) {
             Utils.checkNotNull(accountPrototype, "accountPrototype");
             this.accountPrototype = accountPrototype;
@@ -235,7 +238,7 @@ public class CreateAccountRequest {
             this.allowSyncOnPushComplete = Optional.ofNullable(allowSyncOnPushComplete);
             return this;
         }
-        
+
         /**
          * Allow a sync upon push completion.
          */
@@ -271,7 +274,7 @@ public class CreateAccountRequest {
             this.timeoutInMinutes = Optional.ofNullable(timeoutInMinutes);
             return this;
         }
-        
+
         /**
          * Time limit for the push operation to complete before it is timed out.
          */

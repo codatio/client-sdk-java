@@ -4,12 +4,16 @@
 
 package io.codat.sync.expenses.models.components;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -65,7 +69,7 @@ public class UpdateSupplierResponse {
     private String dataConnectionKey;
 
     /**
-     * Available Data types
+     * Available data types
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("dataType")
@@ -239,7 +243,7 @@ public class UpdateSupplierResponse {
     }
 
     /**
-     * Available Data types
+     * Available data types
      */
     public Optional<? extends DataType> dataType() {
         return dataType;
@@ -320,7 +324,7 @@ public class UpdateSupplierResponse {
     public Optional<? extends Validation> validation() {
         return validation;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -378,7 +382,7 @@ public class UpdateSupplierResponse {
         this.completedOnUtc = Optional.ofNullable(completedOnUtc);
         return this;
     }
-    
+
     /**
      * In Codat's data model, dates and times are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date and time fields are formatted as strings; for example:
      * 
@@ -428,16 +432,16 @@ public class UpdateSupplierResponse {
     }
 
     /**
-     * Available Data types
+     * Available data types
      */
     public UpdateSupplierResponse withDataType(DataType dataType) {
         Utils.checkNotNull(dataType, "dataType");
         this.dataType = Optional.ofNullable(dataType);
         return this;
     }
-    
+
     /**
-     * Available Data types
+     * Available data types
      */
     public UpdateSupplierResponse withDataType(Optional<? extends DataType> dataType) {
         Utils.checkNotNull(dataType, "dataType");
@@ -565,7 +569,7 @@ public class UpdateSupplierResponse {
         this.validation = Optional.ofNullable(validation);
         return this;
     }
-    
+
     /**
      * A human-readable object describing validation decisions Codat has made when pushing data into the platform. If a push has failed because of validation errors, they will be detailed here.
      */
@@ -727,7 +731,7 @@ public class UpdateSupplierResponse {
             this.completedOnUtc = Optional.ofNullable(completedOnUtc);
             return this;
         }
-        
+
         /**
          * In Codat's data model, dates and times are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date and time fields are formatted as strings; for example:
          * 
@@ -777,16 +781,16 @@ public class UpdateSupplierResponse {
         }
 
         /**
-         * Available Data types
+         * Available data types
          */
         public Builder dataType(DataType dataType) {
             Utils.checkNotNull(dataType, "dataType");
             this.dataType = Optional.ofNullable(dataType);
             return this;
         }
-        
+
         /**
-         * Available Data types
+         * Available data types
          */
         public Builder dataType(Optional<? extends DataType> dataType) {
             Utils.checkNotNull(dataType, "dataType");
@@ -914,7 +918,7 @@ public class UpdateSupplierResponse {
             this.validation = Optional.ofNullable(validation);
             return this;
         }
-        
+
         /**
          * A human-readable object describing validation decisions Codat has made when pushing data into the platform. If a push has failed because of validation errors, they will be detailed here.
          */

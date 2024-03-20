@@ -46,6 +46,8 @@ import io.codat.sync.expenses.models.components.SupplementalData;
 import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.CreateCustomerRequest;
 import io.codat.sync.expenses.models.operations.CreateCustomerResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -124,9 +126,9 @@ public class Application {
 **[Optional<? extends io.codat.sync.expenses.models.operations.CreateCustomerResponse>](../../models/operations/CreateCustomerResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |
 
 ## get
 
@@ -150,6 +152,8 @@ import io.codat.sync.expenses.models.components.Security;
 import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.GetCustomerRequest;
 import io.codat.sync.expenses.models.operations.GetCustomerResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -196,9 +200,9 @@ public class Application {
 **[Optional<? extends io.codat.sync.expenses.models.operations.GetCustomerResponse>](../../models/operations/GetCustomerResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |
 
 ## list
 
@@ -220,6 +224,8 @@ import io.codat.sync.expenses.models.components.Security;
 import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.ListCustomersRequest;
 import io.codat.sync.expenses.models.operations.ListCustomersResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -269,9 +275,9 @@ public class Application {
 **[Optional<? extends io.codat.sync.expenses.models.operations.ListCustomersResponse>](../../models/operations/ListCustomersResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |
 
 ## update
 
@@ -307,6 +313,8 @@ import io.codat.sync.expenses.models.components.SupplementalData;
 import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.UpdateCustomerRequest;
 import io.codat.sync.expenses.models.operations.UpdateCustomerResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -387,6 +395,6 @@ public class Application {
 **[Optional<? extends io.codat.sync.expenses.models.operations.UpdateCustomerResponse>](../../models/operations/UpdateCustomerResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |

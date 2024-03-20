@@ -14,6 +14,8 @@ import io.codat.sync.expenses.utils.JSON;
 import io.codat.sync.expenses.utils.Options;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -122,10 +124,10 @@ public class TransactionStatus implements
         if (httpRes.statusCode() == 200) {
             if (io.codat.sync.expenses.utils.Utils.matchContentType(contentType, "application/json")) {
                 ObjectMapper mapper = JSON.getMapper();
-                io.codat.sync.expenses.models.components.Transaction out = mapper.readValue(
+                java.util.List<io.codat.sync.expenses.models.components.Transaction> out = mapper.readValue(
                     Utils.toUtf8AndClose(httpRes.body()),
-                    new TypeReference<io.codat.sync.expenses.models.components.Transaction>() {});
-                res.withTransaction(java.util.Optional.ofNullable(out));
+                    new TypeReference<java.util.List<io.codat.sync.expenses.models.components.Transaction>>() {});
+                res.withTransactionResponse(java.util.Optional.ofNullable(out));
             } else {
                 throw new SDKError(httpRes, httpRes.statusCode(), "Unknown content-type received: " + contentType, Utils.toByteArrayAndClose(httpRes.body()));
             }
