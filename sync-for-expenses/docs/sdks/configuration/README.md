@@ -26,6 +26,8 @@ import io.codat.sync.expenses.models.components.Security;
 import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.GetCompanyConfigurationRequest;
 import io.codat.sync.expenses.models.operations.GetCompanyConfigurationResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -71,9 +73,9 @@ public class Application {
 **[Optional<? extends io.codat.sync.expenses.models.operations.GetCompanyConfigurationResponse>](../../models/operations/GetCompanyConfigurationResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |
 
 ## getMappingOptions
 
@@ -90,6 +92,8 @@ import io.codat.sync.expenses.models.components.Security;
 import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.GetMappingOptionsRequest;
 import io.codat.sync.expenses.models.operations.GetMappingOptionsResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -135,9 +139,9 @@ public class Application {
 **[Optional<? extends io.codat.sync.expenses.models.operations.GetMappingOptionsResponse>](../../models/operations/GetMappingOptionsResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |
 
 ## set
 
@@ -158,6 +162,8 @@ import io.codat.sync.expenses.models.components.SupplierDetails;
 import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.SetCompanyConfigurationRequest;
 import io.codat.sync.expenses.models.operations.SetCompanyConfigurationResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -214,6 +220,6 @@ public class Application {
 **[Optional<? extends io.codat.sync.expenses.models.operations.SetCompanyConfigurationResponse>](../../models/operations/SetCompanyConfigurationResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |

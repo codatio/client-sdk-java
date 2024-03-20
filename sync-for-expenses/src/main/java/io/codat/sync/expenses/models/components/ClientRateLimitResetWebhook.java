@@ -4,12 +4,16 @@
 
 package io.codat.sync.expenses.models.components;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 /**
@@ -44,7 +48,7 @@ public class ClientRateLimitResetWebhook {
     private Optional<? extends ClientRateLimitResetWebhookData> data;
 
     /**
-     * A human readable message about the webhook.
+     * A human-readable message about the webhook.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("Message")
@@ -52,9 +56,11 @@ public class ClientRateLimitResetWebhook {
 
     /**
      * Unique identifier for the rule.
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("RuleId")
+    @Deprecated
     private Optional<? extends String> ruleId;
 
     /**
@@ -114,7 +120,7 @@ public class ClientRateLimitResetWebhook {
     }
 
     /**
-     * A human readable message about the webhook.
+     * A human-readable message about the webhook.
      */
     public Optional<? extends String> message() {
         return message;
@@ -122,7 +128,9 @@ public class ClientRateLimitResetWebhook {
 
     /**
      * Unique identifier for the rule.
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public Optional<? extends String> ruleId() {
         return ruleId;
     }
@@ -133,7 +141,7 @@ public class ClientRateLimitResetWebhook {
     public Optional<? extends String> ruleType() {
         return ruleType;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -146,7 +154,7 @@ public class ClientRateLimitResetWebhook {
         this.alertId = Optional.ofNullable(alertId);
         return this;
     }
-    
+
     /**
      * Unique identifier of the webhook event.
      */
@@ -164,7 +172,7 @@ public class ClientRateLimitResetWebhook {
         this.clientId = Optional.ofNullable(clientId);
         return this;
     }
-    
+
     /**
      * Unique identifier for your client in Codat.
      */
@@ -182,7 +190,7 @@ public class ClientRateLimitResetWebhook {
         this.clientName = Optional.ofNullable(clientName);
         return this;
     }
-    
+
     /**
      * Name of your client in Codat.
      */
@@ -197,7 +205,7 @@ public class ClientRateLimitResetWebhook {
         this.data = Optional.ofNullable(data);
         return this;
     }
-    
+
     public ClientRateLimitResetWebhook withData(Optional<? extends ClientRateLimitResetWebhookData> data) {
         Utils.checkNotNull(data, "data");
         this.data = data;
@@ -205,16 +213,16 @@ public class ClientRateLimitResetWebhook {
     }
 
     /**
-     * A human readable message about the webhook.
+     * A human-readable message about the webhook.
      */
     public ClientRateLimitResetWebhook withMessage(String message) {
         Utils.checkNotNull(message, "message");
         this.message = Optional.ofNullable(message);
         return this;
     }
-    
+
     /**
-     * A human readable message about the webhook.
+     * A human-readable message about the webhook.
      */
     public ClientRateLimitResetWebhook withMessage(Optional<? extends String> message) {
         Utils.checkNotNull(message, "message");
@@ -224,16 +232,20 @@ public class ClientRateLimitResetWebhook {
 
     /**
      * Unique identifier for the rule.
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public ClientRateLimitResetWebhook withRuleId(String ruleId) {
         Utils.checkNotNull(ruleId, "ruleId");
         this.ruleId = Optional.ofNullable(ruleId);
         return this;
     }
-    
+
     /**
      * Unique identifier for the rule.
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public ClientRateLimitResetWebhook withRuleId(Optional<? extends String> ruleId) {
         Utils.checkNotNull(ruleId, "ruleId");
         this.ruleId = ruleId;
@@ -248,7 +260,7 @@ public class ClientRateLimitResetWebhook {
         this.ruleType = Optional.ofNullable(ruleType);
         return this;
     }
-    
+
     /**
      * The type of rule.
      */
@@ -313,6 +325,7 @@ public class ClientRateLimitResetWebhook {
  
         private Optional<? extends String> message = Optional.empty();
  
+        @Deprecated
         private Optional<? extends String> ruleId = Optional.empty();
  
         private Optional<? extends String> ruleType = Optional.empty();  
@@ -329,7 +342,7 @@ public class ClientRateLimitResetWebhook {
             this.alertId = Optional.ofNullable(alertId);
             return this;
         }
-        
+
         /**
          * Unique identifier of the webhook event.
          */
@@ -347,7 +360,7 @@ public class ClientRateLimitResetWebhook {
             this.clientId = Optional.ofNullable(clientId);
             return this;
         }
-        
+
         /**
          * Unique identifier for your client in Codat.
          */
@@ -365,7 +378,7 @@ public class ClientRateLimitResetWebhook {
             this.clientName = Optional.ofNullable(clientName);
             return this;
         }
-        
+
         /**
          * Name of your client in Codat.
          */
@@ -380,7 +393,7 @@ public class ClientRateLimitResetWebhook {
             this.data = Optional.ofNullable(data);
             return this;
         }
-        
+
         public Builder data(Optional<? extends ClientRateLimitResetWebhookData> data) {
             Utils.checkNotNull(data, "data");
             this.data = data;
@@ -388,16 +401,16 @@ public class ClientRateLimitResetWebhook {
         }
 
         /**
-         * A human readable message about the webhook.
+         * A human-readable message about the webhook.
          */
         public Builder message(String message) {
             Utils.checkNotNull(message, "message");
             this.message = Optional.ofNullable(message);
             return this;
         }
-        
+
         /**
-         * A human readable message about the webhook.
+         * A human-readable message about the webhook.
          */
         public Builder message(Optional<? extends String> message) {
             Utils.checkNotNull(message, "message");
@@ -407,16 +420,20 @@ public class ClientRateLimitResetWebhook {
 
         /**
          * Unique identifier for the rule.
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
          */
+        @Deprecated
         public Builder ruleId(String ruleId) {
             Utils.checkNotNull(ruleId, "ruleId");
             this.ruleId = Optional.ofNullable(ruleId);
             return this;
         }
-        
+
         /**
          * Unique identifier for the rule.
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
          */
+        @Deprecated
         public Builder ruleId(Optional<? extends String> ruleId) {
             Utils.checkNotNull(ruleId, "ruleId");
             this.ruleId = ruleId;
@@ -431,7 +448,7 @@ public class ClientRateLimitResetWebhook {
             this.ruleType = Optional.ofNullable(ruleType);
             return this;
         }
-        
+
         /**
          * The type of rule.
          */

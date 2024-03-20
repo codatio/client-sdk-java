@@ -15,6 +15,8 @@ import io.codat.sync.expenses.utils.Options;
 import io.codat.sync.expenses.utils.SerializedBody;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -80,9 +82,10 @@ public class Suppliers implements
         HTTPRequest req = new HTTPRequest();
         req.setMethod("POST");
         req.setURL(url);
-
+        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
+            new TypeReference<io.codat.sync.expenses.models.operations.CreateSupplierRequest>() {});
         SerializedBody serializedRequestBody = io.codat.sync.expenses.utils.Utils.serializeRequestBody(
-                request, "supplier", "json", true);
+                _convertedRequest, "supplier", "json", true);
         req.setBody(serializedRequestBody);
 
         req.addHeader("Accept", "application/json");
@@ -448,9 +451,10 @@ public class Suppliers implements
         HTTPRequest req = new HTTPRequest();
         req.setMethod("PUT");
         req.setURL(url);
-
+        Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
+            new TypeReference<io.codat.sync.expenses.models.operations.UpdateSupplierRequest>() {});
         SerializedBody serializedRequestBody = io.codat.sync.expenses.utils.Utils.serializeRequestBody(
-                request, "supplier", "json", true);
+                _convertedRequest, "supplier", "json", true);
         req.setBody(serializedRequestBody);
 
         req.addHeader("Accept", "application/json");

@@ -5,6 +5,8 @@
 package io.codat.sync.expenses.models.operations;
 
 import io.codat.sync.expenses.utils.Options;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;

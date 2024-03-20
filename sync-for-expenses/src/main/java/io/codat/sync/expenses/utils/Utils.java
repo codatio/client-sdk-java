@@ -7,18 +7,28 @@ package io.codat.sync.expenses.utils;
 import java.io.InputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.concurrent.Callable;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.NameValuePair;
@@ -27,12 +37,21 @@ import org.openapitools.jackson.nullable.JsonNullable;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 
 public final class Utils {
     
     private Utils() {
          // prevent instantiation
+    }
+
+    // this method exists because primitive comparisons with objects can 
+    // give compile errors. By calling this method we force autobox to object
+    // version of primitive     
+    public static boolean referenceEquals(Object a, Object b) {
+        return a == b;
     }
     
     public static String generateURL(String baseURL, String path)
@@ -123,6 +142,10 @@ public final class Utils {
                                         }).collect(Collectors.toList())));
                                 break;
                             case OBJECT:
+                                if (!allowIntrospection(value.getClass())) {
+                                    pathParams.put(pathParamsMetadata.name, Utils.valToString(value));
+                                    break;
+                                }
                                 List<String> values = new ArrayList<>();
 
                                 Field[] valueFields = value.getClass().getDeclaredFields();
@@ -190,13 +213,26 @@ public final class Utils {
 
         return false;
     }
+    
+    public static boolean allowIntrospection(Class<?> cls) {
+        return !cls.equals(BigInteger.class) 
+            && !cls.equals(BigDecimal.class)
+            && !cls.equals(BigIntegerString.class)
+            && !cls.equals(BigDecimalString.class)
+            && !cls.equals(LocalDate.class)
+            && !cls.equals(OffsetDateTime.class);
+    }
 
+    public enum JsonShape {
+        STRING, DEFAULT;
+    }
+ 
     public static SerializedBody serializeRequestBody(Object request, String requestField, String serializationMethod, boolean nullable)
             throws NoSuchFieldException,
             IllegalArgumentException, IllegalAccessException, UnsupportedOperationException, IOException {
         return RequestBody.serialize(request, requestField, serializationMethod, nullable);
     }
-
+    
     public static <T extends Object> List<NameValuePair> getQueryParams(Class<T> type, Optional<? extends T> params,
             Map<String, Map<String, Map<String, Object>>> globals) throws Exception {
         if (params.isEmpty()) {
@@ -267,6 +303,9 @@ public final class Utils {
 
             switch (Types.getType(value.getClass())) {
                 case OBJECT: {
+                    if (!allowIntrospection(value.getClass())) {
+                        break;
+                    } 
                     List<String> items = new ArrayList<>();
 
                     Field[] valueFields = value.getClass().getDeclaredFields();
@@ -498,5 +537,252 @@ public final class Utils {
     
     public static String toUtf8AndClose(InputStream in) throws IOException {
         return new String(toByteArrayAndClose(in), StandardCharsets.UTF_8);
+    }
+
+    public static Object convertToShape(Object o, JsonShape shape, TypeReference<?> typeReference) {
+        if (shape == JsonShape.STRING) {
+            return convertToStringShape(o, typeReference);
+        } else {
+            return o; 
+        } 
+    }
+    
+    private static final Map<Class<?>, java.util.function.Function<Object, Object>> STRING_CONVERSIONS = Map.of(//
+            BigInteger.class, o -> new BigIntegerString((BigInteger) o), //
+            BigDecimal.class, o -> new BigDecimalString((BigDecimal) o));
+            
+    private static final Map<Class<?>, java.util.function.Function<Object, Object>> STRING_INVERSE_CONVERSIONS = Map.of(//
+            BigIntegerString.class, o -> ((BigIntegerString) o).value(), //
+            BigDecimalString.class, o -> ((BigDecimalString) o).value());
+
+
+    private static Object convertToStringShape(Object o, TypeReference<?> typeReference) {
+        JavaType jt = JSON
+            .getMapper()
+            .getTypeFactory()
+            .resolveMemberType(typeReference.getType(), null);
+        return convertToStringShape(o, jt);
+    }
+    
+    private static Object convertToStringShape(Object o, JavaType jt) {
+        if (jt.getRawClass().equals(List.class)) {
+            List<?> list = (List<?>) o;
+            return list.stream() //
+                    .map(x -> convertToStringShape(x, jt.getContentType())) //
+                    .collect(Collectors.toList());
+        } else if (jt.getRawClass().equals(Map.class)) {
+            Map<?, ?> map = (Map<?, ?>) o;
+            Map<Object, Object> result = new HashMap<>();
+            for (Entry<?, ?> entry : map.entrySet()) {
+                result.put(entry.getKey(), convertToStringShape(entry.getValue(), jt.getContentType()));
+            }
+            return result;
+        } else if (jt.getRawClass().equals(Optional.class)) {
+            Optional<?> optional = (Optional<?>) o;
+            if (optional.isPresent()) {
+                return Optional.of(convertToStringShape(optional.get(), jt.getContentType()));
+            } else {
+                return o;
+            }
+        } else if (jt.getRawClass().equals(JsonNullable.class)) {
+            JsonNullable<?> n = (JsonNullable<?>) o;
+            if (n.isPresent()) {
+                if (n.get() == null) {
+                    return o;
+                } else {
+                    return JsonNullable.of(convertToStringShape(n.get(), jt.getContentType()));
+                }
+            } else {
+                return o;
+            }
+        } else if (STRING_CONVERSIONS.containsKey(jt.getRawClass())) {
+            return STRING_CONVERSIONS.get(jt.getRawClass()).apply(o);
+        } else {
+            return o;
+        }
+    }
+    
+    private static Object convertToStringShapeInverse(Object o, JavaType jt) {
+        if (jt.getRawClass().equals(List.class)) {
+            List<?> list = (List<?>) o;
+            return list.stream() //
+                    .map(x -> convertToStringShapeInverse(x, jt.getContentType())) //
+                    .collect(Collectors.toList());
+        } else if (jt.getRawClass().equals(Map.class)) {
+            Map<?, ?> map = (Map<?, ?>) o;
+            Map<Object, Object> result = new HashMap<>();
+            for (Entry<?, ?> entry : map.entrySet()) {
+                result.put(entry.getKey(), convertToStringShapeInverse(entry.getValue(), jt.getContentType()));
+            }
+            return result;
+        } else if (jt.getRawClass().equals(Optional.class)) {
+            Optional<?> optional = (Optional<?>) o;
+            if (optional.isPresent()) {
+                return Optional.of(convertToStringShapeInverse(optional.get(), jt.getContentType()));
+            } else {
+                return o;
+            }
+        } else if (jt.getRawClass().equals(JsonNullable.class)) {
+            JsonNullable<?> n = (JsonNullable<?>) o;
+            if (n.isPresent()) {
+                if (n.get() == null) {
+                    return o;
+                } else {
+                    return JsonNullable.of(convertToStringShapeInverse(n.get(), jt.getContentType()));
+                }
+            } else {
+                return o;
+            }
+        } else if (STRING_INVERSE_CONVERSIONS.containsKey(jt.getRawClass())) {
+            return STRING_INVERSE_CONVERSIONS.get(jt.getRawClass()).apply(o);
+        } else {
+            return o;
+        }
+    }
+    
+    // used for deserialization
+    static JavaType convertToShape(TypeFactory f, TypeReference<?> typeReference, JsonShape shape) {
+        JavaType jt = f.resolveMemberType(typeReference.getType(), null);
+        if (shape == JsonShape.STRING) {
+            return convertToStringShape(f, jt);
+        } else {
+            return jt;
+        }
+    }
+    
+    static Object convertToShapeInverse(Object o, JsonShape shape, JavaType jt) {
+        if (shape == JsonShape.STRING) {
+            return convertToStringShapeInverse(o, jt);
+        } else {
+            return o;
+        }
+    }
+    
+    // VisibleForTesting
+    public static JavaType convertToStringShape(TypeFactory f, JavaType a) {
+        if (a.getRawClass().equals(List.class)) {
+            JavaType b = convertToStringShape(f, a.getContentType());
+            return f.constructCollectionType(List.class, b);
+        } else if (a.getRawClass().equals(Map.class)) {
+            JavaType key = f.constructType(String.class);
+            JavaType value = convertToStringShape(f, a.getContentType());
+            return f.constructMapType(Map.class, key, value);
+        } else if (a.getRawClass().equals(Optional.class)) {
+            JavaType b = convertToStringShape(f, a.getContentType());
+            return f.constructParametricType(Optional.class, b);
+        } else if (a.getRawClass().equals(JsonNullable.class)) {
+            JavaType b = convertToStringShape(f, a.getContentType());
+            return f.constructParametricType(JsonNullable.class, b);
+        } else if (a.getRawClass().equals(BigInteger.class)) {
+            return f.constructType(BigIntegerString.class);
+        } else if (a.getRawClass().equals(BigDecimal.class)) {
+            return f.constructType(BigDecimalString.class);
+        } else {
+            return a;
+        }
+    }
+    
+    public static final class TypeReferenceWithShape {
+        private final TypeReference<?> typeReference;
+        private final JsonShape shape;
+        
+        private TypeReferenceWithShape(TypeReference<?> typeReference, JsonShape shape) {
+            this.typeReference = typeReference;
+            this.shape = shape;
+        }
+        
+        public static TypeReferenceWithShape of(TypeReference<?> typeReference, JsonShape shape) {
+            return new TypeReferenceWithShape(typeReference, shape); 
+        }
+        
+        public TypeReference<?> typeReference() {
+            return typeReference;
+        }
+        
+        public JsonShape shape() {
+            return shape;
+        }
+    }
+    
+    static <T> Object resolveStringShape(Class<T> type, String fieldName, Object value) throws IllegalAccessException {
+        try {
+            // the presence of this TypeReference field indicates that the parameter
+            // has a JsonShape of String and that we should convert BigInteger to 
+            // BigIntegerString and BigDecimal to BigDecimalString
+            // where explicitly mentioned in the TypeReference
+            Field tr = type.getDeclaredField(fieldName + "_typeReference");
+            tr.setAccessible(true);
+            TypeReference<?> typeReference = (TypeReference<?>) tr.get(null);
+            // adjust the value so BigInteger and BigDecimal serialize to string
+            return convertToShape(value, JsonShape.STRING, typeReference);
+        } catch (NoSuchFieldException e) {
+            return value;
+        }
+    }
+    
+    public static <T> Stream<T> stream(Callable<Optional<T>> first, Function<T, Optional<T>> next) {
+        return StreamSupport.stream(iterable(first, next).spliterator(), false);
+    }
+    
+    // need a Function method that throws
+    public interface Function<S, T> {
+        T apply(S value) throws Exception;
+    }
+    
+    private static <T> Iterable<T> iterable(Callable<Optional<T>> first, Function<T, Optional<T>> next) {
+        return new Iterable<T>() {
+
+            @Override
+            public Iterator<T> iterator() {
+                return new Iterator<T>() {
+
+                    private boolean pending = true;
+
+                    private Optional<T> nxt;
+
+                    @Override
+                    public boolean hasNext() {
+                        load();
+                        return nxt.isPresent();
+                    }
+
+                    @Override
+                    public T next() {
+                        load();
+                        if (!nxt.isPresent()) {
+                            throw new NoSuchElementException();
+                        } else {
+                            pending = true;
+                            return nxt.get();
+                        }
+                    }
+
+                    private void load() {
+                        try {
+                            if (pending) {
+                                if (nxt == null) {
+                                    nxt = first.call();
+                                } else if (nxt.isPresent()) {
+                                    nxt = next.apply(nxt.get());
+                                } 
+                                pending = false;
+                            }
+                        } catch (Exception e) {
+                            rethrow(e);
+                        }
+                    }
+                };
+            }
+        };
+    }
+    
+    private static <T> T rethrow(Throwable e) {
+        if (e instanceof RuntimeException) {
+            throw (RuntimeException) e;
+        } else if (e instanceof Error) {
+            throw (Error) e;
+        } else {
+           throw new RuntimeException(e);
+        }
     }
 }

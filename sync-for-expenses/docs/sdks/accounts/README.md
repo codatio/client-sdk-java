@@ -39,6 +39,8 @@ import io.codat.sync.expenses.models.components.ValidDataTypeLinks;
 import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.CreateAccountRequest;
 import io.codat.sync.expenses.models.operations.CreateAccountResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -57,7 +59,7 @@ public class Application {
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .accountPrototype(AccountPrototype.builder()
                     .currency("USD")
-                    .currentBalance(0d)
+                    .currentBalance(new BigDecimal("0"))
                     .description("Invoices the business has issued but has not yet collected payment on.")
                     .fullyQualifiedCategory("Asset.Current")
                     .fullyQualifiedName("Cash On Hand")
@@ -107,9 +109,9 @@ public class Application {
 **[Optional<? extends io.codat.sync.expenses.models.operations.CreateAccountResponse>](../../models/operations/CreateAccountResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |
 
 ## getCreateModel
 
@@ -135,6 +137,8 @@ import io.codat.sync.expenses.models.components.Security;
 import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.GetCreateChartOfAccountsModelRequest;
 import io.codat.sync.expenses.models.operations.GetCreateChartOfAccountsModelResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -181,6 +185,6 @@ public class Application {
 **[Optional<? extends io.codat.sync.expenses.models.operations.GetCreateChartOfAccountsModelResponse>](../../models/operations/GetCreateChartOfAccountsModelResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |

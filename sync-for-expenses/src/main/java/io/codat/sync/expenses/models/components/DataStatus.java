@@ -4,12 +4,16 @@
 
 package io.codat.sync.expenses.models.components;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 /**
@@ -25,7 +29,7 @@ public class DataStatus {
     private String currentStatus;
 
     /**
-     * Available Data types
+     * Available data types
      */
     @JsonProperty("dataType")
     private DataTypes dataType;
@@ -94,7 +98,7 @@ public class DataStatus {
     }
 
     /**
-     * Available Data types
+     * Available data types
      */
     public DataTypes dataType() {
         return dataType;
@@ -138,7 +142,7 @@ public class DataStatus {
     public Optional<? extends String> latestSyncId() {
         return latestSyncId;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -153,7 +157,7 @@ public class DataStatus {
     }
 
     /**
-     * Available Data types
+     * Available data types
      */
     public DataStatus withDataType(DataTypes dataType) {
         Utils.checkNotNull(dataType, "dataType");
@@ -196,7 +200,7 @@ public class DataStatus {
         this.latestSuccessfulSyncId = Optional.ofNullable(latestSuccessfulSyncId);
         return this;
     }
-    
+
     /**
      * Unique identifier for the most recent successful sync of data type.
      */
@@ -214,7 +218,7 @@ public class DataStatus {
         this.latestSyncId = Optional.ofNullable(latestSyncId);
         return this;
     }
-    
+
     /**
      * Unique identifier for most recent sync of data type.
      */
@@ -287,7 +291,7 @@ public class DataStatus {
         }
 
         /**
-         * Available Data types
+         * Available data types
          */
         public Builder dataType(DataTypes dataType) {
             Utils.checkNotNull(dataType, "dataType");
@@ -330,7 +334,7 @@ public class DataStatus {
             this.latestSuccessfulSyncId = Optional.ofNullable(latestSuccessfulSyncId);
             return this;
         }
-        
+
         /**
          * Unique identifier for the most recent successful sync of data type.
          */
@@ -348,7 +352,7 @@ public class DataStatus {
             this.latestSyncId = Optional.ofNullable(latestSyncId);
             return this;
         }
-        
+
         /**
          * Unique identifier for most recent sync of data type.
          */

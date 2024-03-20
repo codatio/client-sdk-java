@@ -4,15 +4,19 @@
 
 package io.codat.sync.expenses.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.http.HttpResponse;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 
-public class GetSupplierResponse {
+public class GetSupplierResponse implements io.codat.sync.expenses.utils.Response {
 
     /**
      * HTTP response content type for this operation
@@ -91,7 +95,7 @@ public class GetSupplierResponse {
     public JsonNullable<? extends io.codat.sync.expenses.models.components.Supplier> supplier() {
         return supplier;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -113,7 +117,7 @@ public class GetSupplierResponse {
         this.errorMessage = Optional.ofNullable(errorMessage);
         return this;
     }
-    
+
     /**
      * Your API request was not properly authorized.
      */
@@ -229,7 +233,7 @@ public class GetSupplierResponse {
             this.errorMessage = Optional.ofNullable(errorMessage);
             return this;
         }
-        
+
         /**
          * Your API request was not properly authorized.
          */

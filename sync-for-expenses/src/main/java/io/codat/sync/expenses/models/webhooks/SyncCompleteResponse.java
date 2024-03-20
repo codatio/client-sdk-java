@@ -4,13 +4,17 @@
 
 package io.codat.sync.expenses.models.webhooks;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.http.HttpResponse;
 
 
-public class SyncCompleteResponse {
+public class SyncCompleteResponse implements io.codat.sync.expenses.utils.Response {
 
     /**
      * HTTP response content type for this operation
@@ -59,7 +63,7 @@ public class SyncCompleteResponse {
     public HttpResponse<InputStream> rawResponse() {
         return rawResponse;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }

@@ -4,12 +4,15 @@
 
 package io.codat.sync.expenses.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.expenses.utils.LazySingletonValue;
 import io.codat.sync.expenses.utils.SpeakeasyMetadata;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
@@ -81,7 +84,7 @@ public class ListSyncTransactionsRequest {
     public String syncId() {
         return syncId;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -103,7 +106,7 @@ public class ListSyncTransactionsRequest {
         this.page = Optional.ofNullable(page);
         return this;
     }
-    
+
     /**
      * Page number. [Read more](https://docs.codat.io/using-the-api/paging).
      */
@@ -121,7 +124,7 @@ public class ListSyncTransactionsRequest {
         this.pageSize = Optional.ofNullable(pageSize);
         return this;
     }
-    
+
     /**
      * Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).
      */
@@ -205,7 +208,7 @@ public class ListSyncTransactionsRequest {
             this.page = Optional.ofNullable(page);
             return this;
         }
-        
+
         /**
          * Page number. [Read more](https://docs.codat.io/using-the-api/paging).
          */
@@ -223,7 +226,7 @@ public class ListSyncTransactionsRequest {
             this.pageSize = Optional.ofNullable(pageSize);
             return this;
         }
-        
+
         /**
          * Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).
          */

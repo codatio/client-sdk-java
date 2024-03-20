@@ -4,12 +4,16 @@
 
 package io.codat.sync.expenses.models.components;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -65,7 +69,7 @@ public class AccountingAccount {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("currentBalance")
-    private JsonNullable<? extends Double> currentBalance;
+    private JsonNullable<? extends BigDecimal> currentBalance;
 
     /**
      * Description for the account.
@@ -165,7 +169,7 @@ public class AccountingAccount {
 
     public AccountingAccount(
             @JsonProperty("currency") Optional<? extends String> currency,
-            @JsonProperty("currentBalance") JsonNullable<? extends Double> currentBalance,
+            @JsonProperty("currentBalance") JsonNullable<? extends BigDecimal> currentBalance,
             @JsonProperty("description") JsonNullable<? extends String> description,
             @JsonProperty("fullyQualifiedCategory") JsonNullable<? extends String> fullyQualifiedCategory,
             @JsonProperty("fullyQualifiedName") JsonNullable<? extends String> fullyQualifiedName,
@@ -230,7 +234,7 @@ public class AccountingAccount {
     /**
      * Current balance in the account.
      */
-    public JsonNullable<? extends Double> currentBalance() {
+    public JsonNullable<? extends BigDecimal> currentBalance() {
         return currentBalance;
     }
 
@@ -329,7 +333,7 @@ public class AccountingAccount {
     public JsonNullable<? extends java.util.List<CreateAccountResponseValidDataTypeLinks>> validDatatypeLinks() {
         return validDatatypeLinks;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -348,7 +352,7 @@ public class AccountingAccount {
         this.currency = Optional.ofNullable(currency);
         return this;
     }
-    
+
     /**
      * The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
      * 
@@ -367,16 +371,24 @@ public class AccountingAccount {
     /**
      * Current balance in the account.
      */
-    public AccountingAccount withCurrentBalance(double currentBalance) {
+    public AccountingAccount withCurrentBalance(BigDecimal currentBalance) {
         Utils.checkNotNull(currentBalance, "currentBalance");
         this.currentBalance = JsonNullable.of(currentBalance);
+        return this;
+    }
+
+        /**
+         * Current balance in the account.
+         */
+    public AccountingAccount withCurrentBalance(double currentBalance) {
+        this.currentBalance = JsonNullable.of(BigDecimal.valueOf(currentBalance));
         return this;
     }
 
     /**
      * Current balance in the account.
      */
-    public AccountingAccount withCurrentBalance(JsonNullable<? extends Double> currentBalance) {
+    public AccountingAccount withCurrentBalance(JsonNullable<? extends BigDecimal> currentBalance) {
         Utils.checkNotNull(currentBalance, "currentBalance");
         this.currentBalance = currentBalance;
         return this;
@@ -454,7 +466,7 @@ public class AccountingAccount {
         this.id = Optional.ofNullable(id);
         return this;
     }
-    
+
     /**
      * Identifier for the account, unique for the company.
      */
@@ -472,7 +484,7 @@ public class AccountingAccount {
         this.isBankAccount = Optional.ofNullable(isBankAccount);
         return this;
     }
-    
+
     /**
      * Confirms whether the account is a bank account or not.
      */
@@ -487,7 +499,7 @@ public class AccountingAccount {
         this.metadata = Optional.ofNullable(metadata);
         return this;
     }
-    
+
     public AccountingAccount withMetadata(Optional<? extends CreateAccountResponseMetadata> metadata) {
         Utils.checkNotNull(metadata, "metadata");
         this.metadata = metadata;
@@ -499,7 +511,7 @@ public class AccountingAccount {
         this.modifiedDate = Optional.ofNullable(modifiedDate);
         return this;
     }
-    
+
     public AccountingAccount withModifiedDate(Optional<? extends String> modifiedDate) {
         Utils.checkNotNull(modifiedDate, "modifiedDate");
         this.modifiedDate = modifiedDate;
@@ -547,7 +559,7 @@ public class AccountingAccount {
         this.sourceModifiedDate = Optional.ofNullable(sourceModifiedDate);
         return this;
     }
-    
+
     public AccountingAccount withSourceModifiedDate(Optional<? extends String> sourceModifiedDate) {
         Utils.checkNotNull(sourceModifiedDate, "sourceModifiedDate");
         this.sourceModifiedDate = sourceModifiedDate;
@@ -562,7 +574,7 @@ public class AccountingAccount {
         this.status = Optional.ofNullable(status);
         return this;
     }
-    
+
     /**
      * Status of the account
      */
@@ -582,7 +594,7 @@ public class AccountingAccount {
         this.supplementalData = Optional.ofNullable(supplementalData);
         return this;
     }
-    
+
     /**
      * Supplemental data is additional data you can include in our standard data types. 
      * 
@@ -602,7 +614,7 @@ public class AccountingAccount {
         this.type = Optional.ofNullable(type);
         return this;
     }
-    
+
     /**
      * Type of account
      */
@@ -704,7 +716,7 @@ public class AccountingAccount {
  
         private Optional<? extends String> currency = Optional.empty();
  
-        private JsonNullable<? extends Double> currentBalance = JsonNullable.undefined();
+        private JsonNullable<? extends BigDecimal> currentBalance = JsonNullable.undefined();
  
         private JsonNullable<? extends String> description = JsonNullable.undefined();
  
@@ -752,7 +764,7 @@ public class AccountingAccount {
             this.currency = Optional.ofNullable(currency);
             return this;
         }
-        
+
         /**
          * The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
          * 
@@ -771,7 +783,7 @@ public class AccountingAccount {
         /**
          * Current balance in the account.
          */
-        public Builder currentBalance(double currentBalance) {
+        public Builder currentBalance(BigDecimal currentBalance) {
             Utils.checkNotNull(currentBalance, "currentBalance");
             this.currentBalance = JsonNullable.of(currentBalance);
             return this;
@@ -780,7 +792,15 @@ public class AccountingAccount {
         /**
          * Current balance in the account.
          */
-        public Builder currentBalance(JsonNullable<? extends Double> currentBalance) {
+        public Builder currentBalance(double currentBalance) {
+            this.currentBalance = JsonNullable.of(BigDecimal.valueOf(currentBalance));
+            return this;
+        }
+
+        /**
+         * Current balance in the account.
+         */
+        public Builder currentBalance(JsonNullable<? extends BigDecimal> currentBalance) {
             Utils.checkNotNull(currentBalance, "currentBalance");
             this.currentBalance = currentBalance;
             return this;
@@ -858,7 +878,7 @@ public class AccountingAccount {
             this.id = Optional.ofNullable(id);
             return this;
         }
-        
+
         /**
          * Identifier for the account, unique for the company.
          */
@@ -876,7 +896,7 @@ public class AccountingAccount {
             this.isBankAccount = Optional.ofNullable(isBankAccount);
             return this;
         }
-        
+
         /**
          * Confirms whether the account is a bank account or not.
          */
@@ -891,7 +911,7 @@ public class AccountingAccount {
             this.metadata = Optional.ofNullable(metadata);
             return this;
         }
-        
+
         public Builder metadata(Optional<? extends CreateAccountResponseMetadata> metadata) {
             Utils.checkNotNull(metadata, "metadata");
             this.metadata = metadata;
@@ -903,7 +923,7 @@ public class AccountingAccount {
             this.modifiedDate = Optional.ofNullable(modifiedDate);
             return this;
         }
-        
+
         public Builder modifiedDate(Optional<? extends String> modifiedDate) {
             Utils.checkNotNull(modifiedDate, "modifiedDate");
             this.modifiedDate = modifiedDate;
@@ -951,7 +971,7 @@ public class AccountingAccount {
             this.sourceModifiedDate = Optional.ofNullable(sourceModifiedDate);
             return this;
         }
-        
+
         public Builder sourceModifiedDate(Optional<? extends String> sourceModifiedDate) {
             Utils.checkNotNull(sourceModifiedDate, "sourceModifiedDate");
             this.sourceModifiedDate = sourceModifiedDate;
@@ -966,7 +986,7 @@ public class AccountingAccount {
             this.status = Optional.ofNullable(status);
             return this;
         }
-        
+
         /**
          * Status of the account
          */
@@ -986,7 +1006,7 @@ public class AccountingAccount {
             this.supplementalData = Optional.ofNullable(supplementalData);
             return this;
         }
-        
+
         /**
          * Supplemental data is additional data you can include in our standard data types. 
          * 
@@ -1006,7 +1026,7 @@ public class AccountingAccount {
             this.type = Optional.ofNullable(type);
             return this;
         }
-        
+
         /**
          * Type of account
          */

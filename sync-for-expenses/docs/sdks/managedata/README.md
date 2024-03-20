@@ -28,6 +28,8 @@ import io.codat.sync.expenses.models.components.Security;
 import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.GetDataStatusRequest;
 import io.codat.sync.expenses.models.operations.GetDataStatusResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -73,9 +75,9 @@ public class Application {
 **[Optional<? extends io.codat.sync.expenses.models.operations.GetDataStatusResponse>](../../models/operations/GetDataStatusResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |
 
 ## getPullOperation
 
@@ -92,6 +94,8 @@ import io.codat.sync.expenses.models.components.Security;
 import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.GetPullOperationRequest;
 import io.codat.sync.expenses.models.operations.GetPullOperationResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -138,9 +142,9 @@ public class Application {
 **[Optional<? extends io.codat.sync.expenses.models.operations.GetPullOperationResponse>](../../models/operations/GetPullOperationResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |
 
 ## listPullOperations
 
@@ -157,6 +161,8 @@ import io.codat.sync.expenses.models.components.Security;
 import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.ListPullOperationsRequest;
 import io.codat.sync.expenses.models.operations.ListPullOperationsResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -206,9 +212,9 @@ public class Application {
 **[Optional<? extends io.codat.sync.expenses.models.operations.ListPullOperationsResponse>](../../models/operations/ListPullOperationsResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |
 
 ## refreshAllDataTypes
 
@@ -229,6 +235,8 @@ import io.codat.sync.expenses.models.components.Security;
 import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.RefreshAllDataTypesRequest;
 import io.codat.sync.expenses.models.operations.RefreshAllDataTypesResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -272,9 +280,9 @@ public class Application {
 **[Optional<? extends io.codat.sync.expenses.models.operations.RefreshAllDataTypesResponse>](../../models/operations/RefreshAllDataTypesResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |
 
 ## refreshDataType
 
@@ -294,6 +302,8 @@ import io.codat.sync.expenses.models.components.Security;
 import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.RefreshDataTypeRequest;
 import io.codat.sync.expenses.models.operations.RefreshDataTypeResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -341,6 +351,6 @@ public class Application {
 **[Optional<? extends io.codat.sync.expenses.models.operations.RefreshDataTypeResponse>](../../models/operations/RefreshDataTypeResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |

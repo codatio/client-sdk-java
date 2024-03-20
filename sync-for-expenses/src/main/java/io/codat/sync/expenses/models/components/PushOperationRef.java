@@ -4,19 +4,23 @@
 
 package io.codat.sync.expenses.models.components;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
 public class PushOperationRef {
 
     /**
-     * Available Data types
+     * Available data types
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("dataType")
@@ -39,7 +43,7 @@ public class PushOperationRef {
     }
 
     /**
-     * Available Data types
+     * Available data types
      */
     public Optional<? extends DataType> dataType() {
         return dataType;
@@ -51,22 +55,22 @@ public class PushOperationRef {
     public Optional<? extends String> id() {
         return id;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
 
     /**
-     * Available Data types
+     * Available data types
      */
     public PushOperationRef withDataType(DataType dataType) {
         Utils.checkNotNull(dataType, "dataType");
         this.dataType = Optional.ofNullable(dataType);
         return this;
     }
-    
+
     /**
-     * Available Data types
+     * Available data types
      */
     public PushOperationRef withDataType(Optional<? extends DataType> dataType) {
         Utils.checkNotNull(dataType, "dataType");
@@ -82,7 +86,7 @@ public class PushOperationRef {
         this.id = Optional.ofNullable(id);
         return this;
     }
-    
+
     /**
      * Unique identifier for a push operation.
      */
@@ -131,16 +135,16 @@ public class PushOperationRef {
         }
 
         /**
-         * Available Data types
+         * Available data types
          */
         public Builder dataType(DataType dataType) {
             Utils.checkNotNull(dataType, "dataType");
             this.dataType = Optional.ofNullable(dataType);
             return this;
         }
-        
+
         /**
-         * Available Data types
+         * Available data types
          */
         public Builder dataType(Optional<? extends DataType> dataType) {
             Utils.checkNotNull(dataType, "dataType");
@@ -156,7 +160,7 @@ public class PushOperationRef {
             this.id = Optional.ofNullable(id);
             return this;
         }
-        
+
         /**
          * Unique identifier for a push operation.
          */

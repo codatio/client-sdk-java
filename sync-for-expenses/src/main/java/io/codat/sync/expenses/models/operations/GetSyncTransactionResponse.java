@@ -4,14 +4,18 @@
 
 package io.codat.sync.expenses.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.http.HttpResponse;
 import java.util.Optional;
 
 
-public class GetSyncTransactionResponse {
+public class GetSyncTransactionResponse implements io.codat.sync.expenses.utils.Response {
 
     /**
      * HTTP response content type for this operation
@@ -36,24 +40,24 @@ public class GetSyncTransactionResponse {
     /**
      * Success
      */
-    private Optional<? extends io.codat.sync.expenses.models.components.Transaction> transaction;
+    private Optional<? extends java.util.List<io.codat.sync.expenses.models.components.Transaction>> transactionResponse;
 
     public GetSyncTransactionResponse(
             String contentType,
             Optional<? extends io.codat.sync.expenses.models.components.ErrorMessage> errorMessage,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends io.codat.sync.expenses.models.components.Transaction> transaction) {
+            Optional<? extends java.util.List<io.codat.sync.expenses.models.components.Transaction>> transactionResponse) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(errorMessage, "errorMessage");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(transaction, "transaction");
+        Utils.checkNotNull(transactionResponse, "transactionResponse");
         this.contentType = contentType;
         this.errorMessage = errorMessage;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.transaction = transaction;
+        this.transactionResponse = transactionResponse;
     }
 
     /**
@@ -87,10 +91,10 @@ public class GetSyncTransactionResponse {
     /**
      * Success
      */
-    public Optional<? extends io.codat.sync.expenses.models.components.Transaction> transaction() {
-        return transaction;
+    public Optional<? extends java.util.List<io.codat.sync.expenses.models.components.Transaction>> transactionResponse() {
+        return transactionResponse;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -112,7 +116,7 @@ public class GetSyncTransactionResponse {
         this.errorMessage = Optional.ofNullable(errorMessage);
         return this;
     }
-    
+
     /**
      * Your API request was not properly authorized.
      */
@@ -143,18 +147,18 @@ public class GetSyncTransactionResponse {
     /**
      * Success
      */
-    public GetSyncTransactionResponse withTransaction(io.codat.sync.expenses.models.components.Transaction transaction) {
-        Utils.checkNotNull(transaction, "transaction");
-        this.transaction = Optional.ofNullable(transaction);
+    public GetSyncTransactionResponse withTransactionResponse(java.util.List<io.codat.sync.expenses.models.components.Transaction> transactionResponse) {
+        Utils.checkNotNull(transactionResponse, "transactionResponse");
+        this.transactionResponse = Optional.ofNullable(transactionResponse);
         return this;
     }
-    
+
     /**
      * Success
      */
-    public GetSyncTransactionResponse withTransaction(Optional<? extends io.codat.sync.expenses.models.components.Transaction> transaction) {
-        Utils.checkNotNull(transaction, "transaction");
-        this.transaction = transaction;
+    public GetSyncTransactionResponse withTransactionResponse(Optional<? extends java.util.List<io.codat.sync.expenses.models.components.Transaction>> transactionResponse) {
+        Utils.checkNotNull(transactionResponse, "transactionResponse");
+        this.transactionResponse = transactionResponse;
         return this;
     }
     
@@ -172,7 +176,7 @@ public class GetSyncTransactionResponse {
             java.util.Objects.deepEquals(this.errorMessage, other.errorMessage) &&
             java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
             java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.transaction, other.transaction);
+            java.util.Objects.deepEquals(this.transactionResponse, other.transactionResponse);
     }
     
     @Override
@@ -182,7 +186,7 @@ public class GetSyncTransactionResponse {
             errorMessage,
             statusCode,
             rawResponse,
-            transaction);
+            transactionResponse);
     }
     
     @Override
@@ -192,7 +196,7 @@ public class GetSyncTransactionResponse {
                 "errorMessage", errorMessage,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "transaction", transaction);
+                "transactionResponse", transactionResponse);
     }
     
     public final static class Builder {
@@ -205,7 +209,7 @@ public class GetSyncTransactionResponse {
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends io.codat.sync.expenses.models.components.Transaction> transaction = Optional.empty();  
+        private Optional<? extends java.util.List<io.codat.sync.expenses.models.components.Transaction>> transactionResponse = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -228,7 +232,7 @@ public class GetSyncTransactionResponse {
             this.errorMessage = Optional.ofNullable(errorMessage);
             return this;
         }
-        
+
         /**
          * Your API request was not properly authorized.
          */
@@ -259,18 +263,18 @@ public class GetSyncTransactionResponse {
         /**
          * Success
          */
-        public Builder transaction(io.codat.sync.expenses.models.components.Transaction transaction) {
-            Utils.checkNotNull(transaction, "transaction");
-            this.transaction = Optional.ofNullable(transaction);
+        public Builder transactionResponse(java.util.List<io.codat.sync.expenses.models.components.Transaction> transactionResponse) {
+            Utils.checkNotNull(transactionResponse, "transactionResponse");
+            this.transactionResponse = Optional.ofNullable(transactionResponse);
             return this;
         }
-        
+
         /**
          * Success
          */
-        public Builder transaction(Optional<? extends io.codat.sync.expenses.models.components.Transaction> transaction) {
-            Utils.checkNotNull(transaction, "transaction");
-            this.transaction = transaction;
+        public Builder transactionResponse(Optional<? extends java.util.List<io.codat.sync.expenses.models.components.Transaction>> transactionResponse) {
+            Utils.checkNotNull(transactionResponse, "transactionResponse");
+            this.transactionResponse = transactionResponse;
             return this;
         }
         
@@ -280,7 +284,7 @@ public class GetSyncTransactionResponse {
                 errorMessage,
                 statusCode,
                 rawResponse,
-                transaction);
+                transactionResponse);
         }
     }
 }

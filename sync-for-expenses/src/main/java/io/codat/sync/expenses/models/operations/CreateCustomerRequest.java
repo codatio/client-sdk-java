@@ -4,12 +4,15 @@
 
 package io.codat.sync.expenses.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.expenses.utils.LazySingletonValue;
 import io.codat.sync.expenses.utils.SpeakeasyMetadata;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -92,7 +95,7 @@ public class CreateCustomerRequest {
     public Optional<? extends Integer> timeoutInMinutes() {
         return timeoutInMinutes;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -117,7 +120,7 @@ public class CreateCustomerRequest {
         this.allowSyncOnPushComplete = Optional.ofNullable(allowSyncOnPushComplete);
         return this;
     }
-    
+
     /**
      * Allow a sync upon push completion.
      */
@@ -153,7 +156,7 @@ public class CreateCustomerRequest {
         this.timeoutInMinutes = Optional.ofNullable(timeoutInMinutes);
         return this;
     }
-    
+
     /**
      * Time limit for the push operation to complete before it is timed out.
      */
@@ -236,7 +239,7 @@ public class CreateCustomerRequest {
             this.allowSyncOnPushComplete = Optional.ofNullable(allowSyncOnPushComplete);
             return this;
         }
-        
+
         /**
          * Allow a sync upon push completion.
          */
@@ -272,7 +275,7 @@ public class CreateCustomerRequest {
             this.timeoutInMinutes = Optional.ofNullable(timeoutInMinutes);
             return this;
         }
-        
+
         /**
          * Time limit for the push operation to complete before it is timed out.
          */

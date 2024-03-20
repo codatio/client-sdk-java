@@ -14,6 +14,8 @@ import io.codat.sync.expenses.utils.JSON;
 import io.codat.sync.expenses.utils.Options;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;

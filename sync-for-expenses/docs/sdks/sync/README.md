@@ -28,6 +28,8 @@ import io.codat.sync.expenses.models.components.Security;
 import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.GetSyncByIdRequest;
 import io.codat.sync.expenses.models.operations.GetSyncByIdResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -74,9 +76,9 @@ public class Application {
 **[Optional<? extends io.codat.sync.expenses.models.operations.GetSyncByIdResponse>](../../models/operations/GetSyncByIdResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |
 
 ## getLastSuccessfulSync
 
@@ -93,6 +95,8 @@ import io.codat.sync.expenses.models.components.Security;
 import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.GetLastSuccessfulSyncRequest;
 import io.codat.sync.expenses.models.operations.GetLastSuccessfulSyncResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -138,9 +142,9 @@ public class Application {
 **[Optional<? extends io.codat.sync.expenses.models.operations.GetLastSuccessfulSyncResponse>](../../models/operations/GetLastSuccessfulSyncResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |
 
 ## getLatestSync
 
@@ -157,6 +161,8 @@ import io.codat.sync.expenses.models.components.Security;
 import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.GetLatestSyncRequest;
 import io.codat.sync.expenses.models.operations.GetLatestSyncResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -202,9 +208,9 @@ public class Application {
 **[Optional<? extends io.codat.sync.expenses.models.operations.GetLatestSyncResponse>](../../models/operations/GetLatestSyncResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |
 
 ## initiateSync
 
@@ -222,6 +228,8 @@ import io.codat.sync.expenses.models.components.Security;
 import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.InitiateSyncRequest;
 import io.codat.sync.expenses.models.operations.InitiateSyncResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -271,9 +279,9 @@ public class Application {
 **[Optional<? extends io.codat.sync.expenses.models.operations.InitiateSyncResponse>](../../models/operations/InitiateSyncResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |
 
 ## list
 
@@ -290,6 +298,8 @@ import io.codat.sync.expenses.models.components.Security;
 import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.ListSyncsRequest;
 import io.codat.sync.expenses.models.operations.ListSyncsResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -335,6 +345,6 @@ public class Application {
 **[Optional<? extends io.codat.sync.expenses.models.operations.ListSyncsResponse>](../../models/operations/ListSyncsResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |

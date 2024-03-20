@@ -118,7 +118,7 @@ public class Security {
                                 String.format("%s=%s", securityMetadata.name, Utils.valToString(value)));
                         break;
                     default:
-                        throw new Error(
+                        throw new RuntimeException(
                                 "Unsupported security scheme subtype for apiKey: " + securityMetadata.subtype);
                 }
                 break;
@@ -134,11 +134,11 @@ public class Security {
                         client.addHeader(securityMetadata.name, Utils.prefixBearer(Utils.valToString(value)));
                         break;
                     default:
-                        throw new Error("Unsupported security scheme subtype for bearer");
+                        throw new RuntimeException("Unsupported security scheme subtype for bearer");
                 }
                 break;
             default:
-                throw new Error("Unsupported security scheme type");
+                throw new RuntimeException("Unsupported security scheme type");
         }
     }
 
@@ -170,7 +170,7 @@ public class Security {
                     password = Utils.valToString(value);
                     break;
                 default:
-                    throw new Error("Unsupported security scheme field for basic auth: " + securityMetadata.name);
+                    throw new RuntimeException("Unsupported security scheme field for basic auth: " + securityMetadata.name);
             }
         }
 

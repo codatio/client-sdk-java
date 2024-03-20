@@ -4,6 +4,7 @@
 
 package io.codat.sync.expenses.models.components;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,6 +13,8 @@ import io.codat.sync.expenses.utils.LazySingletonValue;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
@@ -53,7 +56,7 @@ public class ContactRef {
     public Optional<? extends Type> type() {
         return type;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -66,7 +69,7 @@ public class ContactRef {
         this.id = Optional.ofNullable(id);
         return this;
     }
-    
+
     /**
      * Identifier of supplier or customer.
      */
@@ -84,7 +87,7 @@ public class ContactRef {
         this.type = Optional.ofNullable(type);
         return this;
     }
-    
+
     /**
      * The type of contact.
      */
@@ -140,7 +143,7 @@ public class ContactRef {
             this.id = Optional.ofNullable(id);
             return this;
         }
-        
+
         /**
          * Identifier of supplier or customer.
          */
@@ -158,7 +161,7 @@ public class ContactRef {
             this.type = Optional.ofNullable(type);
             return this;
         }
-        
+
         /**
          * The type of contact.
          */

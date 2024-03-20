@@ -8,7 +8,7 @@ Create expense datasets and upload receipts.
 ### Available Operations
 
 * [create](#create) - Create expense transaction
-* [update](#update) - Update expense-transactions
+* [update](#update) - Update expense transactions
 * [uploadAttachment](#uploadattachment) - Upload attachment
 
 ## create
@@ -52,6 +52,8 @@ import io.codat.sync.expenses.models.components.Type;
 import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.CreateExpenseTransactionRequest;
 import io.codat.sync.expenses.models.operations.CreateExpenseTransactionResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -108,9 +110,9 @@ public class Application {
 **[Optional<? extends io.codat.sync.expenses.models.operations.CreateExpenseTransactionResponse>](../../models/operations/CreateExpenseTransactionResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |
 
 ## update
 
@@ -144,6 +146,8 @@ import io.codat.sync.expenses.models.components.UpdateExpenseRequestBankAccountR
 import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.UpdateExpenseTransactionRequest;
 import io.codat.sync.expenses.models.operations.UpdateExpenseTransactionResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -171,14 +175,14 @@ public class Application {
                         .type(Type.SUPPLIER)
                         .build())
                     .currency("GBP")
-                    .currencyRate(8574.78d)
+                    .currencyRate(new BigDecimal("8574.78"))
                     .lines(java.util.List.of(
                         ExpenseTransactionLine.builder()
                             .accountRef(RecordRef.builder()
                                     .id("40e3e57c-2322-4898-966c-ca41adfd23fd")
                                     .build())
-                            .netAmount(110.42d)
-                            .taxAmount(14.43d)
+                            .netAmount(new BigDecimal("110.42"))
+                            .taxAmount(new BigDecimal("14.43"))
                             .build()))
                     .merchantName("Amazon UK")
                     .notes("APPLE.COM/BILL - 09001077498 - Card Ending: 4590")
@@ -213,9 +217,9 @@ public class Application {
 **[Optional<? extends io.codat.sync.expenses.models.operations.UpdateExpenseTransactionResponse>](../../models/operations/UpdateExpenseTransactionResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |
 
 ## uploadAttachment
 
@@ -247,6 +251,8 @@ import io.codat.sync.expenses.models.components.Security;
 import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.UploadExpenseAttachmentRequest;
 import io.codat.sync.expenses.models.operations.UploadExpenseAttachmentResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -300,6 +306,6 @@ public class Application {
 **[Optional<? extends io.codat.sync.expenses.models.operations.UploadExpenseAttachmentResponse>](../../models/operations/UploadExpenseAttachmentResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |

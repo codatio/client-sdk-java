@@ -4,14 +4,18 @@
 
 package io.codat.sync.expenses.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.http.HttpResponse;
 import java.util.Optional;
 
 
-public class CreatePartnerExpenseConnectionResponse {
+public class CreatePartnerExpenseConnectionResponse implements io.codat.sync.expenses.utils.Response {
 
     /**
      * Success
@@ -90,7 +94,7 @@ public class CreatePartnerExpenseConnectionResponse {
     public HttpResponse<InputStream> rawResponse() {
         return rawResponse;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -103,7 +107,7 @@ public class CreatePartnerExpenseConnectionResponse {
         this.connection = Optional.ofNullable(connection);
         return this;
     }
-    
+
     /**
      * Success
      */
@@ -130,7 +134,7 @@ public class CreatePartnerExpenseConnectionResponse {
         this.errorMessage = Optional.ofNullable(errorMessage);
         return this;
     }
-    
+
     /**
      * The request made is not valid.
      */
@@ -219,7 +223,7 @@ public class CreatePartnerExpenseConnectionResponse {
             this.connection = Optional.ofNullable(connection);
             return this;
         }
-        
+
         /**
          * Success
          */
@@ -246,7 +250,7 @@ public class CreatePartnerExpenseConnectionResponse {
             this.errorMessage = Optional.ofNullable(errorMessage);
             return this;
         }
-        
+
         /**
          * The request made is not valid.
          */

@@ -25,6 +25,8 @@ import io.codat.sync.expenses.models.components.Security;
 import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.GetSyncTransactionRequest;
 import io.codat.sync.expenses.models.operations.GetSyncTransactionResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -48,7 +50,7 @@ public class Application {
                 .request(req)
                 .call();
 
-            if (res.transaction().isPresent()) {
+            if (res.transactionResponse().isPresent()) {
                 // handle response
             }
         } catch (io.codat.sync.expenses.models.errors.SDKError e) {
@@ -72,9 +74,9 @@ public class Application {
 **[Optional<? extends io.codat.sync.expenses.models.operations.GetSyncTransactionResponse>](../../models/operations/GetSyncTransactionResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |
 
 ## list
 
@@ -91,6 +93,8 @@ import io.codat.sync.expenses.models.components.Security;
 import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.ListSyncTransactionsRequest;
 import io.codat.sync.expenses.models.operations.ListSyncTransactionsResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -139,6 +143,6 @@ public class Application {
 **[Optional<? extends io.codat.sync.expenses.models.operations.ListSyncTransactionsResponse>](../../models/operations/ListSyncTransactionsResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |

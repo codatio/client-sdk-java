@@ -7,10 +7,38 @@
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
 
-### Gradle
+### Getting started
 
+Speakeasy offers [automatic publishing](https://www.speakeasyapi.dev/docs/advanced-setup/publish-sdks) of SDK artifacts via GitHub Actions. 
+
+Once published to a repository (local or otherwise), the SDK artifact is used as below:
+
+Gradle:
 ```groovy
-implementation 'io.codat.sync.expenses:openapi:0.1.0'
+implementation 'io.codat.sync.expenses:openapi:0.2.0'
+```
+
+Maven:
+```xml
+<dependency>
+    <groupId>io.codat.sync.expenses</groupId>
+    <artifactId>openapi</artifactId>
+    <version>0.2.0</version>
+</dependency>
+```
+
+### How to build
+After cloning the git repository to your file system you can build the SDK artifact from source to the `build` directory by running `./gradlew build` on *nix systems or `gradlew.bat` on Windows systems.
+
+If you wish to build from source and publish the SDK artifact to your local Maven repository (on your filesystem) then use the following command (after cloning the git repo locally):
+
+On *nix:
+```bash
+./gradlew publishToMavenLocal -Pskip.signing
+```
+On Windows:
+```bash
+gradlew.bat publishToMavenLocal -Pskip.signing
 ```
 <!-- End SDK Installation [installation] -->
 
@@ -30,6 +58,8 @@ import io.codat.sync.expenses.models.components.GroupItems;
 import io.codat.sync.expenses.models.components.Security;
 import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.CreateCompanyResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -130,7 +160,7 @@ public class Application {
 ### [expenses()](docs/sdks/expenses/README.md)
 
 * [create](docs/sdks/expenses/README.md#create) - Create expense transaction
-* [update](docs/sdks/expenses/README.md#update) - Update expense-transactions
+* [update](docs/sdks/expenses/README.md#update) - Update expense transactions
 * [uploadAttachment](docs/sdks/expenses/README.md#uploadattachment) - Upload attachment
 
 ### [sync()](docs/sdks/sync/README.md)
@@ -165,6 +195,8 @@ import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.CreateCompanyResponse;
 import io.codat.sync.expenses.utils.BackoffStrategy;
 import io.codat.sync.expenses.utils.RetryConfig;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -227,6 +259,8 @@ import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.CreateCompanyResponse;
 import io.codat.sync.expenses.utils.BackoffStrategy;
 import io.codat.sync.expenses.utils.RetryConfig;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -282,9 +316,9 @@ public class Application {
 
 Handling errors in this SDK should largely match your expectations.  All operations return a response object or raise an error.  If Error objects are specified in your OpenAPI Spec, the SDK will throw the appropriate Exception type.
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |
 
 ### Example
 
@@ -298,6 +332,8 @@ import io.codat.sync.expenses.models.components.GroupItems;
 import io.codat.sync.expenses.models.components.Security;
 import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.CreateCompanyResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -360,6 +396,8 @@ import io.codat.sync.expenses.models.components.GroupItems;
 import io.codat.sync.expenses.models.components.Security;
 import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.CreateCompanyResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -413,6 +451,8 @@ import io.codat.sync.expenses.models.components.GroupItems;
 import io.codat.sync.expenses.models.components.Security;
 import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.CreateCompanyResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -475,6 +515,8 @@ import io.codat.sync.expenses.models.components.GroupItems;
 import io.codat.sync.expenses.models.components.Security;
 import io.codat.sync.expenses.models.operations.*;
 import io.codat.sync.expenses.models.operations.CreateCompanyResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;

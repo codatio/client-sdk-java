@@ -4,12 +4,15 @@
 
 package io.codat.sync.expenses.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.sync.expenses.utils.LazySingletonValue;
 import io.codat.sync.expenses.utils.SpeakeasyMetadata;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
 import java.lang.Deprecated;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -124,7 +127,7 @@ public class UpdateSupplierRequest {
     public Optional<? extends Integer> timeoutInMinutes() {
         return timeoutInMinutes;
     }
-    
+
     public final static Builder builder() {
         return new Builder();
     }
@@ -149,7 +152,7 @@ public class UpdateSupplierRequest {
         this.allowSyncOnPushComplete = Optional.ofNullable(allowSyncOnPushComplete);
         return this;
     }
-    
+
     /**
      * Allow a sync upon push completion.
      */
@@ -185,7 +188,7 @@ public class UpdateSupplierRequest {
         this.forceUpdate = Optional.ofNullable(forceUpdate);
         return this;
     }
-    
+
     /**
      * When updating data in the destination platform Codat checks the `sourceModifiedDate` against the `lastupdated` date from the accounting platform, if they're different Codat will return an error suggesting you should initiate another pull of the data. If this is set to `true` then the update will override this check.
      */
@@ -212,7 +215,7 @@ public class UpdateSupplierRequest {
         this.timeoutInMinutes = Optional.ofNullable(timeoutInMinutes);
         return this;
     }
-    
+
     /**
      * Time limit for the push operation to complete before it is timed out.
      */
@@ -305,7 +308,7 @@ public class UpdateSupplierRequest {
             this.allowSyncOnPushComplete = Optional.ofNullable(allowSyncOnPushComplete);
             return this;
         }
-        
+
         /**
          * Allow a sync upon push completion.
          */
@@ -341,7 +344,7 @@ public class UpdateSupplierRequest {
             this.forceUpdate = Optional.ofNullable(forceUpdate);
             return this;
         }
-        
+
         /**
          * When updating data in the destination platform Codat checks the `sourceModifiedDate` against the `lastupdated` date from the accounting platform, if they're different Codat will return an error suggesting you should initiate another pull of the data. If this is set to `true` then the update will override this check.
          */
@@ -368,7 +371,7 @@ public class UpdateSupplierRequest {
             this.timeoutInMinutes = Optional.ofNullable(timeoutInMinutes);
             return this;
         }
-        
+
         /**
          * Time limit for the push operation to complete before it is timed out.
          */
