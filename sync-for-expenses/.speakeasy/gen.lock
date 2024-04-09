@@ -1,26 +1,26 @@
 lockVersion: 2.0.0
 id: 37c7760d-adec-45ec-9000-ca662e9c0068
 management:
-  docChecksum: f7909a451d1597b90dec569f16a52c39
+  docChecksum: b84c137b488c9aa6b56fa6e53acdf2cc
   docVersion: prealpha
-  speakeasyVersion: 1.214.0
-  generationVersion: 2.286.2
-  releaseVersion: 0.2.0
-  configChecksum: bfb50fdae0098fd5dc78aad0d938b5c9
+  speakeasyVersion: 1.244.1
+  generationVersion: 2.301.2
+  releaseVersion: 0.2.1
+  configChecksum: 69aeaade36fb303243ae972577df696e
   repoURL: https://github.com/codatio/client-sdk-java.git
   repoSubDirectory: sync-for-expenses
   published: true
 features:
   java:
     constsAndDefaults: 0.1.1
-    core: 3.16.0
+    core: 3.16.4
     decimal: 0.0.1
     deprecations: 2.81.1
     examples: 2.81.3
     globalSecurity: 2.82.5
     globalServerURLs: 2.82.1
     inputOutputModels: 2.83.0
-    nameOverrides: 2.81.2
+    nameOverrides: 2.81.3
     retries: 0.1.1
     webhooks: 1.0.0
 generatedFiles:
@@ -35,8 +35,11 @@ generatedFiles:
   - src/main/java/io/codat/sync/expenses/PushOperations.java
   - src/main/java/io/codat/sync/expenses/Configuration.java
   - src/main/java/io/codat/sync/expenses/Expenses.java
+  - src/main/java/io/codat/sync/expenses/Reimbursements.java
   - src/main/java/io/codat/sync/expenses/Sync.java
   - src/main/java/io/codat/sync/expenses/TransactionStatus.java
+  - src/main/java/io/codat/sync/expenses/Attachments.java
+  - src/main/java/io/codat/sync/expenses/Transfers.java
   - src/main/java/io/codat/sync/expenses/models/operations/CreateCompanyRequestBuilder.java
   - src/main/java/io/codat/sync/expenses/models/operations/DeleteCompanyRequestBuilder.java
   - src/main/java/io/codat/sync/expenses/models/operations/GetCompanyRequestBuilder.java
@@ -70,7 +73,8 @@ generatedFiles:
   - src/main/java/io/codat/sync/expenses/models/operations/SetCompanyConfigurationRequestBuilder.java
   - src/main/java/io/codat/sync/expenses/models/operations/CreateExpenseTransactionRequestBuilder.java
   - src/main/java/io/codat/sync/expenses/models/operations/UpdateExpenseTransactionRequestBuilder.java
-  - src/main/java/io/codat/sync/expenses/models/operations/UploadExpenseAttachmentRequestBuilder.java
+  - src/main/java/io/codat/sync/expenses/models/operations/CreateReimbursableExpenseTransactionRequestBuilder.java
+  - src/main/java/io/codat/sync/expenses/models/operations/UpdateReimbursableExpenseTransactionRequestBuilder.java
   - src/main/java/io/codat/sync/expenses/models/operations/GetSyncByIdRequestBuilder.java
   - src/main/java/io/codat/sync/expenses/models/operations/GetLastSuccessfulSyncRequestBuilder.java
   - src/main/java/io/codat/sync/expenses/models/operations/GetLatestSyncRequestBuilder.java
@@ -78,6 +82,8 @@ generatedFiles:
   - src/main/java/io/codat/sync/expenses/models/operations/ListSyncsRequestBuilder.java
   - src/main/java/io/codat/sync/expenses/models/operations/GetSyncTransactionRequestBuilder.java
   - src/main/java/io/codat/sync/expenses/models/operations/ListSyncTransactionsRequestBuilder.java
+  - src/main/java/io/codat/sync/expenses/models/operations/UploadExpenseAttachmentRequestBuilder.java
+  - src/main/java/io/codat/sync/expenses/models/operations/CreateTransferTransactionRequestBuilder.java
   - src/main/java/io/codat/sync/expenses/models/operations/SDKMethodInterfaces.java
   - src/main/java/io/codat/sync/expenses/CodatSyncExpenses.java
   - .gitattributes
@@ -186,8 +192,10 @@ generatedFiles:
   - src/main/java/io/codat/sync/expenses/models/operations/CreateExpenseTransactionResponse.java
   - src/main/java/io/codat/sync/expenses/models/operations/UpdateExpenseTransactionRequest.java
   - src/main/java/io/codat/sync/expenses/models/operations/UpdateExpenseTransactionResponse.java
-  - src/main/java/io/codat/sync/expenses/models/operations/UploadExpenseAttachmentRequest.java
-  - src/main/java/io/codat/sync/expenses/models/operations/UploadExpenseAttachmentResponse.java
+  - src/main/java/io/codat/sync/expenses/models/operations/CreateReimbursableExpenseTransactionRequest.java
+  - src/main/java/io/codat/sync/expenses/models/operations/CreateReimbursableExpenseTransactionResponse.java
+  - src/main/java/io/codat/sync/expenses/models/operations/UpdateReimbursableExpenseTransactionRequest.java
+  - src/main/java/io/codat/sync/expenses/models/operations/UpdateReimbursableExpenseTransactionResponse.java
   - src/main/java/io/codat/sync/expenses/models/operations/GetSyncByIdRequest.java
   - src/main/java/io/codat/sync/expenses/models/operations/GetSyncByIdResponse.java
   - src/main/java/io/codat/sync/expenses/models/operations/GetLastSuccessfulSyncRequest.java
@@ -202,6 +210,10 @@ generatedFiles:
   - src/main/java/io/codat/sync/expenses/models/operations/GetSyncTransactionResponse.java
   - src/main/java/io/codat/sync/expenses/models/operations/ListSyncTransactionsRequest.java
   - src/main/java/io/codat/sync/expenses/models/operations/ListSyncTransactionsResponse.java
+  - src/main/java/io/codat/sync/expenses/models/operations/UploadExpenseAttachmentRequest.java
+  - src/main/java/io/codat/sync/expenses/models/operations/UploadExpenseAttachmentResponse.java
+  - src/main/java/io/codat/sync/expenses/models/operations/CreateTransferTransactionRequest.java
+  - src/main/java/io/codat/sync/expenses/models/operations/CreateTransferTransactionResponse.java
   - src/main/java/io/codat/sync/expenses/models/components/ErrorMessage.java
   - src/main/java/io/codat/sync/expenses/models/components/ErrorValidation.java
   - src/main/java/io/codat/sync/expenses/models/components/ErrorValidationItem.java
@@ -283,7 +295,7 @@ generatedFiles:
   - src/main/java/io/codat/sync/expenses/models/components/AccountMappingInfo.java
   - src/main/java/io/codat/sync/expenses/models/components/CreateExpenseResponse.java
   - src/main/java/io/codat/sync/expenses/models/components/CreateExpenseRequest.java
-  - src/main/java/io/codat/sync/expenses/models/components/BankAccountReference.java
+  - src/main/java/io/codat/sync/expenses/models/components/ExpenseTransactionBankAccountReference.java
   - src/main/java/io/codat/sync/expenses/models/components/ExpenseTransactionType.java
   - src/main/java/io/codat/sync/expenses/models/components/ExpenseTransaction.java
   - src/main/java/io/codat/sync/expenses/models/components/ExpenseTransactionLine.java
@@ -297,9 +309,11 @@ generatedFiles:
   - src/main/java/io/codat/sync/expenses/models/components/UpdateExpenseResponse.java
   - src/main/java/io/codat/sync/expenses/models/components/UpdateExpenseRequestBankAccountReference.java
   - src/main/java/io/codat/sync/expenses/models/components/UpdateExpenseRequest.java
-  - src/main/java/io/codat/sync/expenses/models/components/Attachment.java
-  - src/main/java/io/codat/sync/expenses/models/components/AttachmentUpload.java
-  - src/main/java/io/codat/sync/expenses/models/components/CodatFile.java
+  - src/main/java/io/codat/sync/expenses/models/components/CreateReimbursableExpenseResponse.java
+  - src/main/java/io/codat/sync/expenses/models/components/CreateReimbursableExpenseRequest.java
+  - src/main/java/io/codat/sync/expenses/models/components/BankAccountReference.java
+  - src/main/java/io/codat/sync/expenses/models/components/ReimbursableExpenseTransaction.java
+  - src/main/java/io/codat/sync/expenses/models/components/ReimbursableExpenseTransactionLine.java
   - src/main/java/io/codat/sync/expenses/models/components/CompanySyncStatus.java
   - src/main/java/io/codat/sync/expenses/models/components/SyncInitiated.java
   - src/main/java/io/codat/sync/expenses/models/components/InitiateSync.java
@@ -307,6 +321,13 @@ generatedFiles:
   - src/main/java/io/codat/sync/expenses/models/components/TransactionStatus.java
   - src/main/java/io/codat/sync/expenses/models/components/IntegrationType.java
   - src/main/java/io/codat/sync/expenses/models/components/Transactions.java
+  - src/main/java/io/codat/sync/expenses/models/components/Attachment.java
+  - src/main/java/io/codat/sync/expenses/models/components/AttachmentUpload.java
+  - src/main/java/io/codat/sync/expenses/models/components/CodatFile.java
+  - src/main/java/io/codat/sync/expenses/models/components/CreateTransferResponse.java
+  - src/main/java/io/codat/sync/expenses/models/components/CreateTransferRequest.java
+  - src/main/java/io/codat/sync/expenses/models/components/TransferDetails.java
+  - src/main/java/io/codat/sync/expenses/models/components/AccountRef.java
   - src/main/java/io/codat/sync/expenses/models/components/Security.java
   - src/main/java/io/codat/sync/expenses/models/components/ClientRateLimitReachedWebhook.java
   - src/main/java/io/codat/sync/expenses/models/components/ClientRateLimitReachedWebhookData.java
@@ -390,8 +411,10 @@ generatedFiles:
   - docs/models/operations/CreateExpenseTransactionResponse.md
   - docs/models/operations/UpdateExpenseTransactionRequest.md
   - docs/models/operations/UpdateExpenseTransactionResponse.md
-  - docs/models/operations/UploadExpenseAttachmentRequest.md
-  - docs/models/operations/UploadExpenseAttachmentResponse.md
+  - docs/models/operations/CreateReimbursableExpenseTransactionRequest.md
+  - docs/models/operations/CreateReimbursableExpenseTransactionResponse.md
+  - docs/models/operations/UpdateReimbursableExpenseTransactionRequest.md
+  - docs/models/operations/UpdateReimbursableExpenseTransactionResponse.md
   - docs/models/operations/GetSyncByIdRequest.md
   - docs/models/operations/GetSyncByIdResponse.md
   - docs/models/operations/GetLastSuccessfulSyncRequest.md
@@ -406,6 +429,10 @@ generatedFiles:
   - docs/models/operations/GetSyncTransactionResponse.md
   - docs/models/operations/ListSyncTransactionsRequest.md
   - docs/models/operations/ListSyncTransactionsResponse.md
+  - docs/models/operations/UploadExpenseAttachmentRequest.md
+  - docs/models/operations/UploadExpenseAttachmentResponse.md
+  - docs/models/operations/CreateTransferTransactionRequest.md
+  - docs/models/operations/CreateTransferTransactionResponse.md
   - docs/models/components/ErrorMessage.md
   - docs/models/components/ErrorValidation.md
   - docs/models/components/ErrorValidationItem.md
@@ -487,7 +514,7 @@ generatedFiles:
   - docs/models/components/AccountMappingInfo.md
   - docs/models/components/CreateExpenseResponse.md
   - docs/models/components/CreateExpenseRequest.md
-  - docs/models/components/BankAccountReference.md
+  - docs/models/components/ExpenseTransactionBankAccountReference.md
   - docs/models/components/ExpenseTransactionType.md
   - docs/models/components/ExpenseTransaction.md
   - docs/models/components/ExpenseTransactionLine.md
@@ -501,9 +528,11 @@ generatedFiles:
   - docs/models/components/UpdateExpenseResponse.md
   - docs/models/components/UpdateExpenseRequestBankAccountReference.md
   - docs/models/components/UpdateExpenseRequest.md
-  - docs/models/components/Attachment.md
-  - docs/models/components/AttachmentUpload.md
-  - docs/models/components/CodatFile.md
+  - docs/models/components/CreateReimbursableExpenseResponse.md
+  - docs/models/components/CreateReimbursableExpenseRequest.md
+  - docs/models/components/BankAccountReference.md
+  - docs/models/components/ReimbursableExpenseTransaction.md
+  - docs/models/components/ReimbursableExpenseTransactionLine.md
   - docs/models/components/CompanySyncStatus.md
   - docs/models/components/SyncInitiated.md
   - docs/models/components/InitiateSync.md
@@ -511,6 +540,13 @@ generatedFiles:
   - docs/models/components/TransactionStatus.md
   - docs/models/components/IntegrationType.md
   - docs/models/components/Transactions.md
+  - docs/models/components/Attachment.md
+  - docs/models/components/AttachmentUpload.md
+  - docs/models/components/CodatFile.md
+  - docs/models/components/CreateTransferResponse.md
+  - docs/models/components/CreateTransferRequest.md
+  - docs/models/components/TransferDetails.md
+  - docs/models/components/AccountRef.md
   - docs/models/components/Security.md
   - docs/models/components/ClientRateLimitReachedWebhook.md
   - docs/models/components/ClientRateLimitReachedWebhookData.md
@@ -537,6 +573,9 @@ generatedFiles:
   - docs/sdks/pushoperations/README.md
   - docs/sdks/configuration/README.md
   - docs/sdks/expenses/README.md
+  - docs/sdks/reimbursements/README.md
   - docs/sdks/sync/README.md
   - docs/sdks/transactionstatus/README.md
+  - docs/sdks/attachments/README.md
+  - docs/sdks/transfers/README.md
   - USAGE.md

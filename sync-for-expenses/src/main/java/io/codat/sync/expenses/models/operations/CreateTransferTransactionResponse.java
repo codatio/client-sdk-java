@@ -15,12 +15,17 @@ import java.net.http.HttpResponse;
 import java.util.Optional;
 
 
-public class InitiateSyncResponse implements io.codat.sync.expenses.utils.Response {
+public class CreateTransferTransactionResponse implements io.codat.sync.expenses.utils.Response {
 
     /**
      * HTTP response content type for this operation
      */
     private String contentType;
+
+    /**
+     * OK
+     */
+    private Optional<? extends io.codat.sync.expenses.models.components.CreateTransferResponse> createTransferResponse;
 
     /**
      * The request made is not valid.
@@ -37,27 +42,22 @@ public class InitiateSyncResponse implements io.codat.sync.expenses.utils.Respon
      */
     private HttpResponse<InputStream> rawResponse;
 
-    /**
-     * Returns the newly created syncId
-     */
-    private Optional<? extends io.codat.sync.expenses.models.components.SyncInitiated> syncInitiated;
-
-    public InitiateSyncResponse(
+    public CreateTransferTransactionResponse(
             String contentType,
+            Optional<? extends io.codat.sync.expenses.models.components.CreateTransferResponse> createTransferResponse,
             Optional<? extends io.codat.sync.expenses.models.components.ErrorMessage> errorMessage,
             int statusCode,
-            HttpResponse<InputStream> rawResponse,
-            Optional<? extends io.codat.sync.expenses.models.components.SyncInitiated> syncInitiated) {
+            HttpResponse<InputStream> rawResponse) {
         Utils.checkNotNull(contentType, "contentType");
+        Utils.checkNotNull(createTransferResponse, "createTransferResponse");
         Utils.checkNotNull(errorMessage, "errorMessage");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(syncInitiated, "syncInitiated");
         this.contentType = contentType;
+        this.createTransferResponse = createTransferResponse;
         this.errorMessage = errorMessage;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.syncInitiated = syncInitiated;
     }
 
     /**
@@ -65,6 +65,13 @@ public class InitiateSyncResponse implements io.codat.sync.expenses.utils.Respon
      */
     public String contentType() {
         return contentType;
+    }
+
+    /**
+     * OK
+     */
+    public Optional<? extends io.codat.sync.expenses.models.components.CreateTransferResponse> createTransferResponse() {
+        return createTransferResponse;
     }
 
     /**
@@ -88,13 +95,6 @@ public class InitiateSyncResponse implements io.codat.sync.expenses.utils.Respon
         return rawResponse;
     }
 
-    /**
-     * Returns the newly created syncId
-     */
-    public Optional<? extends io.codat.sync.expenses.models.components.SyncInitiated> syncInitiated() {
-        return syncInitiated;
-    }
-
     public final static Builder builder() {
         return new Builder();
     }
@@ -102,16 +102,34 @@ public class InitiateSyncResponse implements io.codat.sync.expenses.utils.Respon
     /**
      * HTTP response content type for this operation
      */
-    public InitiateSyncResponse withContentType(String contentType) {
+    public CreateTransferTransactionResponse withContentType(String contentType) {
         Utils.checkNotNull(contentType, "contentType");
         this.contentType = contentType;
         return this;
     }
 
     /**
+     * OK
+     */
+    public CreateTransferTransactionResponse withCreateTransferResponse(io.codat.sync.expenses.models.components.CreateTransferResponse createTransferResponse) {
+        Utils.checkNotNull(createTransferResponse, "createTransferResponse");
+        this.createTransferResponse = Optional.ofNullable(createTransferResponse);
+        return this;
+    }
+
+    /**
+     * OK
+     */
+    public CreateTransferTransactionResponse withCreateTransferResponse(Optional<? extends io.codat.sync.expenses.models.components.CreateTransferResponse> createTransferResponse) {
+        Utils.checkNotNull(createTransferResponse, "createTransferResponse");
+        this.createTransferResponse = createTransferResponse;
+        return this;
+    }
+
+    /**
      * The request made is not valid.
      */
-    public InitiateSyncResponse withErrorMessage(io.codat.sync.expenses.models.components.ErrorMessage errorMessage) {
+    public CreateTransferTransactionResponse withErrorMessage(io.codat.sync.expenses.models.components.ErrorMessage errorMessage) {
         Utils.checkNotNull(errorMessage, "errorMessage");
         this.errorMessage = Optional.ofNullable(errorMessage);
         return this;
@@ -120,7 +138,7 @@ public class InitiateSyncResponse implements io.codat.sync.expenses.utils.Respon
     /**
      * The request made is not valid.
      */
-    public InitiateSyncResponse withErrorMessage(Optional<? extends io.codat.sync.expenses.models.components.ErrorMessage> errorMessage) {
+    public CreateTransferTransactionResponse withErrorMessage(Optional<? extends io.codat.sync.expenses.models.components.ErrorMessage> errorMessage) {
         Utils.checkNotNull(errorMessage, "errorMessage");
         this.errorMessage = errorMessage;
         return this;
@@ -129,7 +147,7 @@ public class InitiateSyncResponse implements io.codat.sync.expenses.utils.Respon
     /**
      * HTTP response status code for this operation
      */
-    public InitiateSyncResponse withStatusCode(int statusCode) {
+    public CreateTransferTransactionResponse withStatusCode(int statusCode) {
         Utils.checkNotNull(statusCode, "statusCode");
         this.statusCode = statusCode;
         return this;
@@ -138,27 +156,9 @@ public class InitiateSyncResponse implements io.codat.sync.expenses.utils.Respon
     /**
      * Raw HTTP response; suitable for custom response parsing
      */
-    public InitiateSyncResponse withRawResponse(HttpResponse<InputStream> rawResponse) {
+    public CreateTransferTransactionResponse withRawResponse(HttpResponse<InputStream> rawResponse) {
         Utils.checkNotNull(rawResponse, "rawResponse");
         this.rawResponse = rawResponse;
-        return this;
-    }
-
-    /**
-     * Returns the newly created syncId
-     */
-    public InitiateSyncResponse withSyncInitiated(io.codat.sync.expenses.models.components.SyncInitiated syncInitiated) {
-        Utils.checkNotNull(syncInitiated, "syncInitiated");
-        this.syncInitiated = Optional.ofNullable(syncInitiated);
-        return this;
-    }
-
-    /**
-     * Returns the newly created syncId
-     */
-    public InitiateSyncResponse withSyncInitiated(Optional<? extends io.codat.sync.expenses.models.components.SyncInitiated> syncInitiated) {
-        Utils.checkNotNull(syncInitiated, "syncInitiated");
-        this.syncInitiated = syncInitiated;
         return this;
     }
     
@@ -170,46 +170,46 @@ public class InitiateSyncResponse implements io.codat.sync.expenses.utils.Respon
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        InitiateSyncResponse other = (InitiateSyncResponse) o;
+        CreateTransferTransactionResponse other = (CreateTransferTransactionResponse) o;
         return 
             java.util.Objects.deepEquals(this.contentType, other.contentType) &&
+            java.util.Objects.deepEquals(this.createTransferResponse, other.createTransferResponse) &&
             java.util.Objects.deepEquals(this.errorMessage, other.errorMessage) &&
             java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
-            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            java.util.Objects.deepEquals(this.syncInitiated, other.syncInitiated);
+            java.util.Objects.deepEquals(this.rawResponse, other.rawResponse);
     }
     
     @Override
     public int hashCode() {
         return java.util.Objects.hash(
             contentType,
+            createTransferResponse,
             errorMessage,
             statusCode,
-            rawResponse,
-            syncInitiated);
+            rawResponse);
     }
     
     @Override
     public String toString() {
-        return Utils.toString(InitiateSyncResponse.class,
+        return Utils.toString(CreateTransferTransactionResponse.class,
                 "contentType", contentType,
+                "createTransferResponse", createTransferResponse,
                 "errorMessage", errorMessage,
                 "statusCode", statusCode,
-                "rawResponse", rawResponse,
-                "syncInitiated", syncInitiated);
+                "rawResponse", rawResponse);
     }
     
     public final static class Builder {
  
         private String contentType;
  
+        private Optional<? extends io.codat.sync.expenses.models.components.CreateTransferResponse> createTransferResponse = Optional.empty();
+ 
         private Optional<? extends io.codat.sync.expenses.models.components.ErrorMessage> errorMessage = Optional.empty();
  
         private Integer statusCode;
  
-        private HttpResponse<InputStream> rawResponse;
- 
-        private Optional<? extends io.codat.sync.expenses.models.components.SyncInitiated> syncInitiated = Optional.empty();  
+        private HttpResponse<InputStream> rawResponse;  
         
         private Builder() {
           // force use of static builder() method
@@ -221,6 +221,24 @@ public class InitiateSyncResponse implements io.codat.sync.expenses.utils.Respon
         public Builder contentType(String contentType) {
             Utils.checkNotNull(contentType, "contentType");
             this.contentType = contentType;
+            return this;
+        }
+
+        /**
+         * OK
+         */
+        public Builder createTransferResponse(io.codat.sync.expenses.models.components.CreateTransferResponse createTransferResponse) {
+            Utils.checkNotNull(createTransferResponse, "createTransferResponse");
+            this.createTransferResponse = Optional.ofNullable(createTransferResponse);
+            return this;
+        }
+
+        /**
+         * OK
+         */
+        public Builder createTransferResponse(Optional<? extends io.codat.sync.expenses.models.components.CreateTransferResponse> createTransferResponse) {
+            Utils.checkNotNull(createTransferResponse, "createTransferResponse");
+            this.createTransferResponse = createTransferResponse;
             return this;
         }
 
@@ -259,32 +277,14 @@ public class InitiateSyncResponse implements io.codat.sync.expenses.utils.Respon
             this.rawResponse = rawResponse;
             return this;
         }
-
-        /**
-         * Returns the newly created syncId
-         */
-        public Builder syncInitiated(io.codat.sync.expenses.models.components.SyncInitiated syncInitiated) {
-            Utils.checkNotNull(syncInitiated, "syncInitiated");
-            this.syncInitiated = Optional.ofNullable(syncInitiated);
-            return this;
-        }
-
-        /**
-         * Returns the newly created syncId
-         */
-        public Builder syncInitiated(Optional<? extends io.codat.sync.expenses.models.components.SyncInitiated> syncInitiated) {
-            Utils.checkNotNull(syncInitiated, "syncInitiated");
-            this.syncInitiated = syncInitiated;
-            return this;
-        }
         
-        public InitiateSyncResponse build() {
-            return new InitiateSyncResponse(
+        public CreateTransferTransactionResponse build() {
+            return new CreateTransferTransactionResponse(
                 contentType,
+                createTransferResponse,
                 errorMessage,
                 statusCode,
-                rawResponse,
-                syncInitiated);
+                rawResponse);
         }
     }
 }

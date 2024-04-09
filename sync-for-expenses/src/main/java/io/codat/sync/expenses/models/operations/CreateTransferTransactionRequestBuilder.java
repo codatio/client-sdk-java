@@ -20,39 +20,39 @@ import java.util.stream.Stream;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 
-public class UploadExpenseAttachmentRequestBuilder {
+public class CreateTransferTransactionRequestBuilder {
 
-    private UploadExpenseAttachmentRequest request;
+    private CreateTransferTransactionRequest request;
     private Optional<io.codat.sync.expenses.utils.RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallUploadExpenseAttachment sdk;
+    private final SDKMethodInterfaces.MethodCallCreateTransferTransaction sdk;
 
-    public UploadExpenseAttachmentRequestBuilder(SDKMethodInterfaces.MethodCallUploadExpenseAttachment sdk) {
+    public CreateTransferTransactionRequestBuilder(SDKMethodInterfaces.MethodCallCreateTransferTransaction sdk) {
         this.sdk = sdk;
     }
 
-    public UploadExpenseAttachmentRequestBuilder request(UploadExpenseAttachmentRequest request) {
+    public CreateTransferTransactionRequestBuilder request(CreateTransferTransactionRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public UploadExpenseAttachmentRequestBuilder retryConfig(io.codat.sync.expenses.utils.RetryConfig retryConfig) {
+    public CreateTransferTransactionRequestBuilder retryConfig(io.codat.sync.expenses.utils.RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public UploadExpenseAttachmentRequestBuilder retryConfig(Optional<io.codat.sync.expenses.utils.RetryConfig> retryConfig) {
+    public CreateTransferTransactionRequestBuilder retryConfig(Optional<io.codat.sync.expenses.utils.RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;
     }
 
-    public UploadExpenseAttachmentResponse call() throws Exception {
+    public CreateTransferTransactionResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
                                                     .retryConfig(retryConfig)
                                                     .build());
-        return sdk.upload(
+        return sdk.create(
             request,
             options);
     }
