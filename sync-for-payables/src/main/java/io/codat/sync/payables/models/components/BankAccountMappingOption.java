@@ -31,6 +31,15 @@ public class BankAccountMappingOption {
     private JsonNullable<? extends String> accountNumber;
 
     /**
+     * The type of transactions and balances on the account.  
+     * For Credit accounts, positive balances are liabilities, and positive transactions **reduce** liabilities.  
+     * For Debit accounts, positive balances are assets, and positive transactions **increase** assets.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("accountType")
+    private Optional<? extends AccountType> accountType;
+
+    /**
      * The bank account's base currency.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -79,26 +88,18 @@ public class BankAccountMappingOption {
     @JsonProperty("status")
     private Optional<? extends BankAccountStatus> status;
 
-    /**
-     * The type of transactions and balances on the account.  
-     * For Credit accounts, positive balances are liabilities, and positive transactions **reduce** liabilities.  
-     * For Debit accounts, positive balances are assets, and positive transactions **increase** assets.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("type")
-    private Optional<? extends AccountType> type;
-
     public BankAccountMappingOption(
             @JsonProperty("accountNumber") JsonNullable<? extends String> accountNumber,
+            @JsonProperty("accountType") Optional<? extends AccountType> accountType,
             @JsonProperty("currency") JsonNullable<? extends String> currency,
             @JsonProperty("id") Optional<? extends String> id,
             @JsonProperty("name") JsonNullable<? extends String> name,
             @JsonProperty("nominalCode") JsonNullable<? extends String> nominalCode,
             @JsonProperty("sortCode") JsonNullable<? extends String> sortCode,
             @JsonProperty("sourceModifiedDate") Optional<? extends String> sourceModifiedDate,
-            @JsonProperty("status") Optional<? extends BankAccountStatus> status,
-            @JsonProperty("type") Optional<? extends AccountType> type) {
+            @JsonProperty("status") Optional<? extends BankAccountStatus> status) {
         Utils.checkNotNull(accountNumber, "accountNumber");
+        Utils.checkNotNull(accountType, "accountType");
         Utils.checkNotNull(currency, "currency");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(name, "name");
@@ -106,8 +107,8 @@ public class BankAccountMappingOption {
         Utils.checkNotNull(sortCode, "sortCode");
         Utils.checkNotNull(sourceModifiedDate, "sourceModifiedDate");
         Utils.checkNotNull(status, "status");
-        Utils.checkNotNull(type, "type");
         this.accountNumber = accountNumber;
+        this.accountType = accountType;
         this.currency = currency;
         this.id = id;
         this.name = name;
@@ -115,7 +116,6 @@ public class BankAccountMappingOption {
         this.sortCode = sortCode;
         this.sourceModifiedDate = sourceModifiedDate;
         this.status = status;
-        this.type = type;
     }
 
     /**
@@ -126,6 +126,15 @@ public class BankAccountMappingOption {
      */
     public JsonNullable<? extends String> accountNumber() {
         return accountNumber;
+    }
+
+    /**
+     * The type of transactions and balances on the account.  
+     * For Credit accounts, positive balances are liabilities, and positive transactions **reduce** liabilities.  
+     * For Debit accounts, positive balances are assets, and positive transactions **increase** assets.
+     */
+    public Optional<? extends AccountType> accountType() {
+        return accountType;
     }
 
     /**
@@ -177,15 +186,6 @@ public class BankAccountMappingOption {
         return status;
     }
 
-    /**
-     * The type of transactions and balances on the account.  
-     * For Credit accounts, positive balances are liabilities, and positive transactions **reduce** liabilities.  
-     * For Debit accounts, positive balances are assets, and positive transactions **increase** assets.
-     */
-    public Optional<? extends AccountType> type() {
-        return type;
-    }
-
     public final static Builder builder() {
         return new Builder();
     }
@@ -211,6 +211,28 @@ public class BankAccountMappingOption {
     public BankAccountMappingOption withAccountNumber(JsonNullable<? extends String> accountNumber) {
         Utils.checkNotNull(accountNumber, "accountNumber");
         this.accountNumber = accountNumber;
+        return this;
+    }
+
+    /**
+     * The type of transactions and balances on the account.  
+     * For Credit accounts, positive balances are liabilities, and positive transactions **reduce** liabilities.  
+     * For Debit accounts, positive balances are assets, and positive transactions **increase** assets.
+     */
+    public BankAccountMappingOption withAccountType(AccountType accountType) {
+        Utils.checkNotNull(accountType, "accountType");
+        this.accountType = Optional.ofNullable(accountType);
+        return this;
+    }
+
+    /**
+     * The type of transactions and balances on the account.  
+     * For Credit accounts, positive balances are liabilities, and positive transactions **reduce** liabilities.  
+     * For Debit accounts, positive balances are assets, and positive transactions **increase** assets.
+     */
+    public BankAccountMappingOption withAccountType(Optional<? extends AccountType> accountType) {
+        Utils.checkNotNull(accountType, "accountType");
+        this.accountType = accountType;
         return this;
     }
 
@@ -339,28 +361,6 @@ public class BankAccountMappingOption {
         this.status = status;
         return this;
     }
-
-    /**
-     * The type of transactions and balances on the account.  
-     * For Credit accounts, positive balances are liabilities, and positive transactions **reduce** liabilities.  
-     * For Debit accounts, positive balances are assets, and positive transactions **increase** assets.
-     */
-    public BankAccountMappingOption withType(AccountType type) {
-        Utils.checkNotNull(type, "type");
-        this.type = Optional.ofNullable(type);
-        return this;
-    }
-
-    /**
-     * The type of transactions and balances on the account.  
-     * For Credit accounts, positive balances are liabilities, and positive transactions **reduce** liabilities.  
-     * For Debit accounts, positive balances are assets, and positive transactions **increase** assets.
-     */
-    public BankAccountMappingOption withType(Optional<? extends AccountType> type) {
-        Utils.checkNotNull(type, "type");
-        this.type = type;
-        return this;
-    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -373,47 +373,49 @@ public class BankAccountMappingOption {
         BankAccountMappingOption other = (BankAccountMappingOption) o;
         return 
             java.util.Objects.deepEquals(this.accountNumber, other.accountNumber) &&
+            java.util.Objects.deepEquals(this.accountType, other.accountType) &&
             java.util.Objects.deepEquals(this.currency, other.currency) &&
             java.util.Objects.deepEquals(this.id, other.id) &&
             java.util.Objects.deepEquals(this.name, other.name) &&
             java.util.Objects.deepEquals(this.nominalCode, other.nominalCode) &&
             java.util.Objects.deepEquals(this.sortCode, other.sortCode) &&
             java.util.Objects.deepEquals(this.sourceModifiedDate, other.sourceModifiedDate) &&
-            java.util.Objects.deepEquals(this.status, other.status) &&
-            java.util.Objects.deepEquals(this.type, other.type);
+            java.util.Objects.deepEquals(this.status, other.status);
     }
     
     @Override
     public int hashCode() {
         return java.util.Objects.hash(
             accountNumber,
+            accountType,
             currency,
             id,
             name,
             nominalCode,
             sortCode,
             sourceModifiedDate,
-            status,
-            type);
+            status);
     }
     
     @Override
     public String toString() {
         return Utils.toString(BankAccountMappingOption.class,
                 "accountNumber", accountNumber,
+                "accountType", accountType,
                 "currency", currency,
                 "id", id,
                 "name", name,
                 "nominalCode", nominalCode,
                 "sortCode", sortCode,
                 "sourceModifiedDate", sourceModifiedDate,
-                "status", status,
-                "type", type);
+                "status", status);
     }
     
     public final static class Builder {
  
         private JsonNullable<? extends String> accountNumber = JsonNullable.undefined();
+ 
+        private Optional<? extends AccountType> accountType = Optional.empty();
  
         private JsonNullable<? extends String> currency = JsonNullable.undefined();
  
@@ -427,9 +429,7 @@ public class BankAccountMappingOption {
  
         private Optional<? extends String> sourceModifiedDate = Optional.empty();
  
-        private Optional<? extends BankAccountStatus> status = Optional.empty();
- 
-        private Optional<? extends AccountType> type = Optional.empty();  
+        private Optional<? extends BankAccountStatus> status = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -456,6 +456,28 @@ public class BankAccountMappingOption {
         public Builder accountNumber(JsonNullable<? extends String> accountNumber) {
             Utils.checkNotNull(accountNumber, "accountNumber");
             this.accountNumber = accountNumber;
+            return this;
+        }
+
+        /**
+         * The type of transactions and balances on the account.  
+         * For Credit accounts, positive balances are liabilities, and positive transactions **reduce** liabilities.  
+         * For Debit accounts, positive balances are assets, and positive transactions **increase** assets.
+         */
+        public Builder accountType(AccountType accountType) {
+            Utils.checkNotNull(accountType, "accountType");
+            this.accountType = Optional.ofNullable(accountType);
+            return this;
+        }
+
+        /**
+         * The type of transactions and balances on the account.  
+         * For Credit accounts, positive balances are liabilities, and positive transactions **reduce** liabilities.  
+         * For Debit accounts, positive balances are assets, and positive transactions **increase** assets.
+         */
+        public Builder accountType(Optional<? extends AccountType> accountType) {
+            Utils.checkNotNull(accountType, "accountType");
+            this.accountType = accountType;
             return this;
         }
 
@@ -584,40 +606,18 @@ public class BankAccountMappingOption {
             this.status = status;
             return this;
         }
-
-        /**
-         * The type of transactions and balances on the account.  
-         * For Credit accounts, positive balances are liabilities, and positive transactions **reduce** liabilities.  
-         * For Debit accounts, positive balances are assets, and positive transactions **increase** assets.
-         */
-        public Builder type(AccountType type) {
-            Utils.checkNotNull(type, "type");
-            this.type = Optional.ofNullable(type);
-            return this;
-        }
-
-        /**
-         * The type of transactions and balances on the account.  
-         * For Credit accounts, positive balances are liabilities, and positive transactions **reduce** liabilities.  
-         * For Debit accounts, positive balances are assets, and positive transactions **increase** assets.
-         */
-        public Builder type(Optional<? extends AccountType> type) {
-            Utils.checkNotNull(type, "type");
-            this.type = type;
-            return this;
-        }
         
         public BankAccountMappingOption build() {
             return new BankAccountMappingOption(
                 accountNumber,
+                accountType,
                 currency,
                 id,
                 name,
                 nominalCode,
                 sortCode,
                 sourceModifiedDate,
-                status,
-                type);
+                status);
         }
     }
 }

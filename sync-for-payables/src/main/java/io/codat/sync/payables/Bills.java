@@ -86,7 +86,7 @@ public class Bills implements
         req.addHeader("Accept", "application/json");
         req.addHeader("user-agent", this.sdkConfiguration.userAgent);
 
-        java.util.Map<String, java.util.List<String>> headers = io.codat.sync.payables.utils.Utils.getHeaders(request);
+        java.util.Map<String, java.util.List<String>> headers = io.codat.sync.payables.utils.Utils.getHeaders(request, null);
         if (headers != null) {
             for (java.util.Map.Entry<String, java.util.List<String>> header : headers.entrySet()) {
                 for (String value : header.getValue()) {
