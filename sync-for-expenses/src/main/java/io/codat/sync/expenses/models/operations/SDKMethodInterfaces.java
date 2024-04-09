@@ -246,9 +246,16 @@ public class SDKMethodInterfaces {
     }
 
 
-    public interface MethodCallUploadExpenseAttachment {
-        io.codat.sync.expenses.models.operations.UploadExpenseAttachmentResponse uploadAttachment(
-            io.codat.sync.expenses.models.operations.UploadExpenseAttachmentRequest request,
+    public interface MethodCallCreateReimbursableExpenseTransaction {
+        io.codat.sync.expenses.models.operations.CreateReimbursableExpenseTransactionResponse create(
+            io.codat.sync.expenses.models.operations.CreateReimbursableExpenseTransactionRequest request,
+            Optional<Options> options) throws Exception;
+    }
+
+
+    public interface MethodCallUpdateReimbursableExpenseTransaction {
+        io.codat.sync.expenses.models.operations.UpdateReimbursableExpenseTransactionResponse update(
+            io.codat.sync.expenses.models.operations.UpdateReimbursableExpenseTransactionRequest request,
             Optional<Options> options) throws Exception;
     }
 
@@ -298,6 +305,20 @@ public class SDKMethodInterfaces {
     public interface MethodCallListSyncTransactions {
         io.codat.sync.expenses.models.operations.ListSyncTransactionsResponse list(
             io.codat.sync.expenses.models.operations.ListSyncTransactionsRequest request,
+            Optional<Options> options) throws Exception;
+    }
+
+
+    public interface MethodCallUploadExpenseAttachment {
+        io.codat.sync.expenses.models.operations.UploadExpenseAttachmentResponse upload(
+            io.codat.sync.expenses.models.operations.UploadExpenseAttachmentRequest request,
+            Optional<Options> options) throws Exception;
+    }
+
+
+    public interface MethodCallCreateTransferTransaction {
+        io.codat.sync.expenses.models.operations.CreateTransferTransactionResponse create(
+            io.codat.sync.expenses.models.operations.CreateTransferTransactionRequest request,
             Optional<Options> options) throws Exception;
     }
 

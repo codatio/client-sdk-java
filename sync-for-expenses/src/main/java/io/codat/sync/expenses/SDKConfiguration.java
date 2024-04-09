@@ -16,9 +16,9 @@ class SDKConfiguration {
     public int serverIdx = 0;
   	public String language = "java";
   	public String openapiDocVersion = "prealpha";
-  	public String sdkVersion = "0.2.0";
-  	public String genVersion = "2.286.2";
-  	public String userAgent = "speakeasy-sdk/java 0.2.0 2.286.2 prealpha io.codat.sync.expenses";
+  	public String sdkVersion = "0.2.1";
+  	public String genVersion = "2.301.2";
+  	public String userAgent = "speakeasy-sdk/java 0.2.1 2.301.2 prealpha io.codat.sync.expenses";
   	
   	
     public Optional<RetryConfig> retryConfig = Optional.empty();

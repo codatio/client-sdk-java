@@ -20,39 +20,39 @@ import java.util.stream.Stream;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 
-public class UploadExpenseAttachmentRequestBuilder {
+public class CreateReimbursableExpenseTransactionRequestBuilder {
 
-    private UploadExpenseAttachmentRequest request;
+    private CreateReimbursableExpenseTransactionRequest request;
     private Optional<io.codat.sync.expenses.utils.RetryConfig> retryConfig = Optional.empty();
-    private final SDKMethodInterfaces.MethodCallUploadExpenseAttachment sdk;
+    private final SDKMethodInterfaces.MethodCallCreateReimbursableExpenseTransaction sdk;
 
-    public UploadExpenseAttachmentRequestBuilder(SDKMethodInterfaces.MethodCallUploadExpenseAttachment sdk) {
+    public CreateReimbursableExpenseTransactionRequestBuilder(SDKMethodInterfaces.MethodCallCreateReimbursableExpenseTransaction sdk) {
         this.sdk = sdk;
     }
 
-    public UploadExpenseAttachmentRequestBuilder request(UploadExpenseAttachmentRequest request) {
+    public CreateReimbursableExpenseTransactionRequestBuilder request(CreateReimbursableExpenseTransactionRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public UploadExpenseAttachmentRequestBuilder retryConfig(io.codat.sync.expenses.utils.RetryConfig retryConfig) {
+    public CreateReimbursableExpenseTransactionRequestBuilder retryConfig(io.codat.sync.expenses.utils.RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public UploadExpenseAttachmentRequestBuilder retryConfig(Optional<io.codat.sync.expenses.utils.RetryConfig> retryConfig) {
+    public CreateReimbursableExpenseTransactionRequestBuilder retryConfig(Optional<io.codat.sync.expenses.utils.RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;
     }
 
-    public UploadExpenseAttachmentResponse call() throws Exception {
+    public CreateReimbursableExpenseTransactionResponse call() throws Exception {
         Optional<Options> options = Optional.of(Options.builder()
                                                     .retryConfig(retryConfig)
                                                     .build());
-        return sdk.upload(
+        return sdk.create(
             request,
             options);
     }

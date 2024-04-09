@@ -18,15 +18,15 @@ import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 
-public class ExpenseTransaction {
+public class ReimbursableExpenseTransaction {
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("allOf")
+    private Optional<? extends java.lang.Object> allOf;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("bankAccountRef")
-    private Optional<? extends ExpenseTransactionBankAccountReference> bankAccountRef;
-
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("contactRef")
-    private Optional<? extends ContactRef> contactRef;
+    private Optional<? extends BankAccountReference> bankAccountRef;
 
     /**
      * Currency the transaction was recorded in.
@@ -72,6 +72,9 @@ public class ExpenseTransaction {
     @JsonProperty("currencyRate")
     private JsonNullable<? extends BigDecimal> currencyRate;
 
+    @JsonProperty("dueDate")
+    private java.lang.Object dueDate;
+
     /**
      * Your unique identifier for the transaction.
      */
@@ -107,14 +110,7 @@ public class ExpenseTransaction {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("lines")
-    private Optional<? extends java.util.List<ExpenseTransactionLine>> lines;
-
-    /**
-     * Name of the merchant where the purchase took place
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("merchantName")
-    private Optional<? extends String> merchantName;
+    private Optional<? extends java.util.List<ReimbursableExpenseTransactionLine>> lines;
 
     /**
      * Any private, company notes about the transaction.
@@ -123,61 +119,59 @@ public class ExpenseTransaction {
     @JsonProperty("notes")
     private Optional<? extends String> notes;
 
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("recordRef")
+    private Optional<? extends ContactRef> recordRef;
+
     /**
-     * For supported accouting platforms, setting this optional property to true will post the transaction to a drafted state.
+     * User-friendly reference for the reimbursable expense.
      */
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("postAsDraft")
-    private JsonNullable<? extends Boolean> postAsDraft;
+    @JsonProperty("reference")
+    private JsonNullable<? extends String> reference;
 
-    /**
-     * The type of transaction.
-     */
-    @JsonProperty("type")
-    private ExpenseTransactionType type;
-
-    public ExpenseTransaction(
-            @JsonProperty("bankAccountRef") Optional<? extends ExpenseTransactionBankAccountReference> bankAccountRef,
-            @JsonProperty("contactRef") Optional<? extends ContactRef> contactRef,
+    public ReimbursableExpenseTransaction(
+            @JsonProperty("allOf") Optional<? extends java.lang.Object> allOf,
+            @JsonProperty("bankAccountRef") Optional<? extends BankAccountReference> bankAccountRef,
             @JsonProperty("currency") String currency,
             @JsonProperty("currencyRate") JsonNullable<? extends BigDecimal> currencyRate,
+            @JsonProperty("dueDate") java.lang.Object dueDate,
             @JsonProperty("id") String id,
             @JsonProperty("issueDate") String issueDate,
-            @JsonProperty("lines") Optional<? extends java.util.List<ExpenseTransactionLine>> lines,
-            @JsonProperty("merchantName") Optional<? extends String> merchantName,
+            @JsonProperty("lines") Optional<? extends java.util.List<ReimbursableExpenseTransactionLine>> lines,
             @JsonProperty("notes") Optional<? extends String> notes,
-            @JsonProperty("postAsDraft") JsonNullable<? extends Boolean> postAsDraft,
-            @JsonProperty("type") ExpenseTransactionType type) {
+            @JsonProperty("recordRef") Optional<? extends ContactRef> recordRef,
+            @JsonProperty("reference") JsonNullable<? extends String> reference) {
+        Utils.checkNotNull(allOf, "allOf");
         Utils.checkNotNull(bankAccountRef, "bankAccountRef");
-        Utils.checkNotNull(contactRef, "contactRef");
         Utils.checkNotNull(currency, "currency");
         Utils.checkNotNull(currencyRate, "currencyRate");
+        Utils.checkNotNull(dueDate, "dueDate");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(issueDate, "issueDate");
         Utils.checkNotNull(lines, "lines");
-        Utils.checkNotNull(merchantName, "merchantName");
         Utils.checkNotNull(notes, "notes");
-        Utils.checkNotNull(postAsDraft, "postAsDraft");
-        Utils.checkNotNull(type, "type");
+        Utils.checkNotNull(recordRef, "recordRef");
+        Utils.checkNotNull(reference, "reference");
+        this.allOf = allOf;
         this.bankAccountRef = bankAccountRef;
-        this.contactRef = contactRef;
         this.currency = currency;
         this.currencyRate = currencyRate;
+        this.dueDate = dueDate;
         this.id = id;
         this.issueDate = issueDate;
         this.lines = lines;
-        this.merchantName = merchantName;
         this.notes = notes;
-        this.postAsDraft = postAsDraft;
-        this.type = type;
+        this.recordRef = recordRef;
+        this.reference = reference;
     }
 
-    public Optional<? extends ExpenseTransactionBankAccountReference> bankAccountRef() {
+    public Optional<? extends java.lang.Object> allOf() {
+        return allOf;
+    }
+
+    public Optional<? extends BankAccountReference> bankAccountRef() {
         return bankAccountRef;
-    }
-
-    public Optional<? extends ContactRef> contactRef() {
-        return contactRef;
     }
 
     /**
@@ -225,6 +219,10 @@ public class ExpenseTransaction {
         return currencyRate;
     }
 
+    public java.lang.Object dueDate() {
+        return dueDate;
+    }
+
     /**
      * Your unique identifier for the transaction.
      */
@@ -260,15 +258,8 @@ public class ExpenseTransaction {
     /**
      * Array of transaction lines.
      */
-    public Optional<? extends java.util.List<ExpenseTransactionLine>> lines() {
+    public Optional<? extends java.util.List<ReimbursableExpenseTransactionLine>> lines() {
         return lines;
-    }
-
-    /**
-     * Name of the merchant where the purchase took place
-     */
-    public Optional<? extends String> merchantName() {
-        return merchantName;
     }
 
     /**
@@ -278,52 +269,49 @@ public class ExpenseTransaction {
         return notes;
     }
 
-    /**
-     * For supported accouting platforms, setting this optional property to true will post the transaction to a drafted state.
-     */
-    public JsonNullable<? extends Boolean> postAsDraft() {
-        return postAsDraft;
+    public Optional<? extends ContactRef> recordRef() {
+        return recordRef;
     }
 
     /**
-     * The type of transaction.
+     * User-friendly reference for the reimbursable expense.
      */
-    public ExpenseTransactionType type() {
-        return type;
+    public JsonNullable<? extends String> reference() {
+        return reference;
     }
 
     public final static Builder builder() {
         return new Builder();
     }
 
-    public ExpenseTransaction withBankAccountRef(ExpenseTransactionBankAccountReference bankAccountRef) {
+    public ReimbursableExpenseTransaction withAllOf(java.lang.Object allOf) {
+        Utils.checkNotNull(allOf, "allOf");
+        this.allOf = Optional.ofNullable(allOf);
+        return this;
+    }
+
+    public ReimbursableExpenseTransaction withAllOf(Optional<? extends java.lang.Object> allOf) {
+        Utils.checkNotNull(allOf, "allOf");
+        this.allOf = allOf;
+        return this;
+    }
+
+    public ReimbursableExpenseTransaction withBankAccountRef(BankAccountReference bankAccountRef) {
         Utils.checkNotNull(bankAccountRef, "bankAccountRef");
         this.bankAccountRef = Optional.ofNullable(bankAccountRef);
         return this;
     }
 
-    public ExpenseTransaction withBankAccountRef(Optional<? extends ExpenseTransactionBankAccountReference> bankAccountRef) {
+    public ReimbursableExpenseTransaction withBankAccountRef(Optional<? extends BankAccountReference> bankAccountRef) {
         Utils.checkNotNull(bankAccountRef, "bankAccountRef");
         this.bankAccountRef = bankAccountRef;
-        return this;
-    }
-
-    public ExpenseTransaction withContactRef(ContactRef contactRef) {
-        Utils.checkNotNull(contactRef, "contactRef");
-        this.contactRef = Optional.ofNullable(contactRef);
-        return this;
-    }
-
-    public ExpenseTransaction withContactRef(Optional<? extends ContactRef> contactRef) {
-        Utils.checkNotNull(contactRef, "contactRef");
-        this.contactRef = contactRef;
         return this;
     }
 
     /**
      * Currency the transaction was recorded in.
      */
-    public ExpenseTransaction withCurrency(String currency) {
+    public ReimbursableExpenseTransaction withCurrency(String currency) {
         Utils.checkNotNull(currency, "currency");
         this.currency = currency;
         return this;
@@ -363,7 +351,7 @@ public class ExpenseTransaction {
      * |-------------------|-------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
      * | QuickBooks Online | Transaction currency differs from base currency | If currency rate value is left `null`, a rate of 1 will be used by QBO by default. To override this, include the required currency rate in the expense transaction.  |
      */
-    public ExpenseTransaction withCurrencyRate(BigDecimal currencyRate) {
+    public ReimbursableExpenseTransaction withCurrencyRate(BigDecimal currencyRate) {
         Utils.checkNotNull(currencyRate, "currencyRate");
         this.currencyRate = JsonNullable.of(currencyRate);
         return this;
@@ -403,7 +391,7 @@ public class ExpenseTransaction {
          * |-------------------|-------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
          * | QuickBooks Online | Transaction currency differs from base currency | If currency rate value is left `null`, a rate of 1 will be used by QBO by default. To override this, include the required currency rate in the expense transaction.  |
          */
-    public ExpenseTransaction withCurrencyRate(double currencyRate) {
+    public ReimbursableExpenseTransaction withCurrencyRate(double currencyRate) {
         this.currencyRate = JsonNullable.of(BigDecimal.valueOf(currencyRate));
         return this;
     }
@@ -442,16 +430,22 @@ public class ExpenseTransaction {
      * |-------------------|-------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
      * | QuickBooks Online | Transaction currency differs from base currency | If currency rate value is left `null`, a rate of 1 will be used by QBO by default. To override this, include the required currency rate in the expense transaction.  |
      */
-    public ExpenseTransaction withCurrencyRate(JsonNullable<? extends BigDecimal> currencyRate) {
+    public ReimbursableExpenseTransaction withCurrencyRate(JsonNullable<? extends BigDecimal> currencyRate) {
         Utils.checkNotNull(currencyRate, "currencyRate");
         this.currencyRate = currencyRate;
+        return this;
+    }
+
+    public ReimbursableExpenseTransaction withDueDate(java.lang.Object dueDate) {
+        Utils.checkNotNull(dueDate, "dueDate");
+        this.dueDate = dueDate;
         return this;
     }
 
     /**
      * Your unique identifier for the transaction.
      */
-    public ExpenseTransaction withId(String id) {
+    public ReimbursableExpenseTransaction withId(String id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
         return this;
@@ -478,7 +472,7 @@ public class ExpenseTransaction {
      * &gt; Not all dates from Codat will contain information about time zones.  
      * &gt; Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
      */
-    public ExpenseTransaction withIssueDate(String issueDate) {
+    public ReimbursableExpenseTransaction withIssueDate(String issueDate) {
         Utils.checkNotNull(issueDate, "issueDate");
         this.issueDate = issueDate;
         return this;
@@ -487,7 +481,7 @@ public class ExpenseTransaction {
     /**
      * Array of transaction lines.
      */
-    public ExpenseTransaction withLines(java.util.List<ExpenseTransactionLine> lines) {
+    public ReimbursableExpenseTransaction withLines(java.util.List<ReimbursableExpenseTransactionLine> lines) {
         Utils.checkNotNull(lines, "lines");
         this.lines = Optional.ofNullable(lines);
         return this;
@@ -496,34 +490,16 @@ public class ExpenseTransaction {
     /**
      * Array of transaction lines.
      */
-    public ExpenseTransaction withLines(Optional<? extends java.util.List<ExpenseTransactionLine>> lines) {
+    public ReimbursableExpenseTransaction withLines(Optional<? extends java.util.List<ReimbursableExpenseTransactionLine>> lines) {
         Utils.checkNotNull(lines, "lines");
         this.lines = lines;
         return this;
     }
 
     /**
-     * Name of the merchant where the purchase took place
-     */
-    public ExpenseTransaction withMerchantName(String merchantName) {
-        Utils.checkNotNull(merchantName, "merchantName");
-        this.merchantName = Optional.ofNullable(merchantName);
-        return this;
-    }
-
-    /**
-     * Name of the merchant where the purchase took place
-     */
-    public ExpenseTransaction withMerchantName(Optional<? extends String> merchantName) {
-        Utils.checkNotNull(merchantName, "merchantName");
-        this.merchantName = merchantName;
-        return this;
-    }
-
-    /**
      * Any private, company notes about the transaction.
      */
-    public ExpenseTransaction withNotes(String notes) {
+    public ReimbursableExpenseTransaction withNotes(String notes) {
         Utils.checkNotNull(notes, "notes");
         this.notes = Optional.ofNullable(notes);
         return this;
@@ -532,36 +508,39 @@ public class ExpenseTransaction {
     /**
      * Any private, company notes about the transaction.
      */
-    public ExpenseTransaction withNotes(Optional<? extends String> notes) {
+    public ReimbursableExpenseTransaction withNotes(Optional<? extends String> notes) {
         Utils.checkNotNull(notes, "notes");
         this.notes = notes;
         return this;
     }
 
-    /**
-     * For supported accouting platforms, setting this optional property to true will post the transaction to a drafted state.
-     */
-    public ExpenseTransaction withPostAsDraft(boolean postAsDraft) {
-        Utils.checkNotNull(postAsDraft, "postAsDraft");
-        this.postAsDraft = JsonNullable.of(postAsDraft);
+    public ReimbursableExpenseTransaction withRecordRef(ContactRef recordRef) {
+        Utils.checkNotNull(recordRef, "recordRef");
+        this.recordRef = Optional.ofNullable(recordRef);
+        return this;
+    }
+
+    public ReimbursableExpenseTransaction withRecordRef(Optional<? extends ContactRef> recordRef) {
+        Utils.checkNotNull(recordRef, "recordRef");
+        this.recordRef = recordRef;
         return this;
     }
 
     /**
-     * For supported accouting platforms, setting this optional property to true will post the transaction to a drafted state.
+     * User-friendly reference for the reimbursable expense.
      */
-    public ExpenseTransaction withPostAsDraft(JsonNullable<? extends Boolean> postAsDraft) {
-        Utils.checkNotNull(postAsDraft, "postAsDraft");
-        this.postAsDraft = postAsDraft;
+    public ReimbursableExpenseTransaction withReference(String reference) {
+        Utils.checkNotNull(reference, "reference");
+        this.reference = JsonNullable.of(reference);
         return this;
     }
 
     /**
-     * The type of transaction.
+     * User-friendly reference for the reimbursable expense.
      */
-    public ExpenseTransaction withType(ExpenseTransactionType type) {
-        Utils.checkNotNull(type, "type");
-        this.type = type;
+    public ReimbursableExpenseTransaction withReference(JsonNullable<? extends String> reference) {
+        Utils.checkNotNull(reference, "reference");
+        this.reference = reference;
         return this;
     }
     
@@ -573,102 +552,102 @@ public class ExpenseTransaction {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ExpenseTransaction other = (ExpenseTransaction) o;
+        ReimbursableExpenseTransaction other = (ReimbursableExpenseTransaction) o;
         return 
+            java.util.Objects.deepEquals(this.allOf, other.allOf) &&
             java.util.Objects.deepEquals(this.bankAccountRef, other.bankAccountRef) &&
-            java.util.Objects.deepEquals(this.contactRef, other.contactRef) &&
             java.util.Objects.deepEquals(this.currency, other.currency) &&
             java.util.Objects.deepEquals(this.currencyRate, other.currencyRate) &&
+            java.util.Objects.deepEquals(this.dueDate, other.dueDate) &&
             java.util.Objects.deepEquals(this.id, other.id) &&
             java.util.Objects.deepEquals(this.issueDate, other.issueDate) &&
             java.util.Objects.deepEquals(this.lines, other.lines) &&
-            java.util.Objects.deepEquals(this.merchantName, other.merchantName) &&
             java.util.Objects.deepEquals(this.notes, other.notes) &&
-            java.util.Objects.deepEquals(this.postAsDraft, other.postAsDraft) &&
-            java.util.Objects.deepEquals(this.type, other.type);
+            java.util.Objects.deepEquals(this.recordRef, other.recordRef) &&
+            java.util.Objects.deepEquals(this.reference, other.reference);
     }
     
     @Override
     public int hashCode() {
         return java.util.Objects.hash(
+            allOf,
             bankAccountRef,
-            contactRef,
             currency,
             currencyRate,
+            dueDate,
             id,
             issueDate,
             lines,
-            merchantName,
             notes,
-            postAsDraft,
-            type);
+            recordRef,
+            reference);
     }
     
     @Override
     public String toString() {
-        return Utils.toString(ExpenseTransaction.class,
+        return Utils.toString(ReimbursableExpenseTransaction.class,
+                "allOf", allOf,
                 "bankAccountRef", bankAccountRef,
-                "contactRef", contactRef,
                 "currency", currency,
                 "currencyRate", currencyRate,
+                "dueDate", dueDate,
                 "id", id,
                 "issueDate", issueDate,
                 "lines", lines,
-                "merchantName", merchantName,
                 "notes", notes,
-                "postAsDraft", postAsDraft,
-                "type", type);
+                "recordRef", recordRef,
+                "reference", reference);
     }
     
     public final static class Builder {
  
-        private Optional<? extends ExpenseTransactionBankAccountReference> bankAccountRef = Optional.empty();
+        private Optional<? extends java.lang.Object> allOf = Optional.empty();
  
-        private Optional<? extends ContactRef> contactRef = Optional.empty();
+        private Optional<? extends BankAccountReference> bankAccountRef = Optional.empty();
  
         private String currency;
  
         private JsonNullable<? extends BigDecimal> currencyRate = JsonNullable.undefined();
  
+        private java.lang.Object dueDate;
+ 
         private String id;
  
         private String issueDate;
  
-        private Optional<? extends java.util.List<ExpenseTransactionLine>> lines = Optional.empty();
- 
-        private Optional<? extends String> merchantName = Optional.empty();
+        private Optional<? extends java.util.List<ReimbursableExpenseTransactionLine>> lines = Optional.empty();
  
         private Optional<? extends String> notes = Optional.empty();
  
-        private JsonNullable<? extends Boolean> postAsDraft = JsonNullable.undefined();
+        private Optional<? extends ContactRef> recordRef = Optional.empty();
  
-        private ExpenseTransactionType type;  
+        private JsonNullable<? extends String> reference = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
         }
 
-        public Builder bankAccountRef(ExpenseTransactionBankAccountReference bankAccountRef) {
+        public Builder allOf(java.lang.Object allOf) {
+            Utils.checkNotNull(allOf, "allOf");
+            this.allOf = Optional.ofNullable(allOf);
+            return this;
+        }
+
+        public Builder allOf(Optional<? extends java.lang.Object> allOf) {
+            Utils.checkNotNull(allOf, "allOf");
+            this.allOf = allOf;
+            return this;
+        }
+
+        public Builder bankAccountRef(BankAccountReference bankAccountRef) {
             Utils.checkNotNull(bankAccountRef, "bankAccountRef");
             this.bankAccountRef = Optional.ofNullable(bankAccountRef);
             return this;
         }
 
-        public Builder bankAccountRef(Optional<? extends ExpenseTransactionBankAccountReference> bankAccountRef) {
+        public Builder bankAccountRef(Optional<? extends BankAccountReference> bankAccountRef) {
             Utils.checkNotNull(bankAccountRef, "bankAccountRef");
             this.bankAccountRef = bankAccountRef;
-            return this;
-        }
-
-        public Builder contactRef(ContactRef contactRef) {
-            Utils.checkNotNull(contactRef, "contactRef");
-            this.contactRef = Optional.ofNullable(contactRef);
-            return this;
-        }
-
-        public Builder contactRef(Optional<? extends ContactRef> contactRef) {
-            Utils.checkNotNull(contactRef, "contactRef");
-            this.contactRef = contactRef;
             return this;
         }
 
@@ -800,6 +779,12 @@ public class ExpenseTransaction {
             return this;
         }
 
+        public Builder dueDate(java.lang.Object dueDate) {
+            Utils.checkNotNull(dueDate, "dueDate");
+            this.dueDate = dueDate;
+            return this;
+        }
+
         /**
          * Your unique identifier for the transaction.
          */
@@ -839,7 +824,7 @@ public class ExpenseTransaction {
         /**
          * Array of transaction lines.
          */
-        public Builder lines(java.util.List<ExpenseTransactionLine> lines) {
+        public Builder lines(java.util.List<ReimbursableExpenseTransactionLine> lines) {
             Utils.checkNotNull(lines, "lines");
             this.lines = Optional.ofNullable(lines);
             return this;
@@ -848,27 +833,9 @@ public class ExpenseTransaction {
         /**
          * Array of transaction lines.
          */
-        public Builder lines(Optional<? extends java.util.List<ExpenseTransactionLine>> lines) {
+        public Builder lines(Optional<? extends java.util.List<ReimbursableExpenseTransactionLine>> lines) {
             Utils.checkNotNull(lines, "lines");
             this.lines = lines;
-            return this;
-        }
-
-        /**
-         * Name of the merchant where the purchase took place
-         */
-        public Builder merchantName(String merchantName) {
-            Utils.checkNotNull(merchantName, "merchantName");
-            this.merchantName = Optional.ofNullable(merchantName);
-            return this;
-        }
-
-        /**
-         * Name of the merchant where the purchase took place
-         */
-        public Builder merchantName(Optional<? extends String> merchantName) {
-            Utils.checkNotNull(merchantName, "merchantName");
-            this.merchantName = merchantName;
             return this;
         }
 
@@ -890,46 +857,49 @@ public class ExpenseTransaction {
             return this;
         }
 
-        /**
-         * For supported accouting platforms, setting this optional property to true will post the transaction to a drafted state.
-         */
-        public Builder postAsDraft(boolean postAsDraft) {
-            Utils.checkNotNull(postAsDraft, "postAsDraft");
-            this.postAsDraft = JsonNullable.of(postAsDraft);
+        public Builder recordRef(ContactRef recordRef) {
+            Utils.checkNotNull(recordRef, "recordRef");
+            this.recordRef = Optional.ofNullable(recordRef);
+            return this;
+        }
+
+        public Builder recordRef(Optional<? extends ContactRef> recordRef) {
+            Utils.checkNotNull(recordRef, "recordRef");
+            this.recordRef = recordRef;
             return this;
         }
 
         /**
-         * For supported accouting platforms, setting this optional property to true will post the transaction to a drafted state.
+         * User-friendly reference for the reimbursable expense.
          */
-        public Builder postAsDraft(JsonNullable<? extends Boolean> postAsDraft) {
-            Utils.checkNotNull(postAsDraft, "postAsDraft");
-            this.postAsDraft = postAsDraft;
+        public Builder reference(String reference) {
+            Utils.checkNotNull(reference, "reference");
+            this.reference = JsonNullable.of(reference);
             return this;
         }
 
         /**
-         * The type of transaction.
+         * User-friendly reference for the reimbursable expense.
          */
-        public Builder type(ExpenseTransactionType type) {
-            Utils.checkNotNull(type, "type");
-            this.type = type;
+        public Builder reference(JsonNullable<? extends String> reference) {
+            Utils.checkNotNull(reference, "reference");
+            this.reference = reference;
             return this;
         }
         
-        public ExpenseTransaction build() {
-            return new ExpenseTransaction(
+        public ReimbursableExpenseTransaction build() {
+            return new ReimbursableExpenseTransaction(
+                allOf,
                 bankAccountRef,
-                contactRef,
                 currency,
                 currencyRate,
+                dueDate,
                 id,
                 issueDate,
                 lines,
-                merchantName,
                 notes,
-                postAsDraft,
-                type);
+                recordRef,
+                reference);
         }
     }
 }

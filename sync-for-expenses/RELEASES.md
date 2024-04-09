@@ -19,3 +19,13 @@ Based on:
 - [java v0.2.0] sync-for-expenses
 ### Releases
 - [Maven Central v0.2.0] https://central.sonatype.com/artifact/io.codat.sync/expenses/0.2.0 - sync-for-expenses
+
+## 2024-04-09 15:58:44
+### Changes
+Based on:
+- OpenAPI Doc prealpha https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Sync-Expenses.yaml
+- Speakeasy CLI 1.244.1 (2.301.2) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [java v0.2.1] sync-for-expenses
+### Releases
+- [Maven Central v0.2.1] https://central.sonatype.com/artifact/io.codat.sync/expenses/0.2.1 - sync-for-expenses

@@ -17,23 +17,23 @@ import java.math.BigInteger;
 import java.util.Optional;
 
 
-public class RecordRef {
+public class ExpenseTransactionBankAccountReference {
 
     /**
-     * Identifier of linked reference from mapping options.
+     * Identifier of the bank account.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("id")
     private Optional<? extends String> id;
 
-    public RecordRef(
+    public ExpenseTransactionBankAccountReference(
             @JsonProperty("id") Optional<? extends String> id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
     }
 
     /**
-     * Identifier of linked reference from mapping options.
+     * Identifier of the bank account.
      */
     public Optional<? extends String> id() {
         return id;
@@ -44,18 +44,18 @@ public class RecordRef {
     }
 
     /**
-     * Identifier of linked reference from mapping options.
+     * Identifier of the bank account.
      */
-    public RecordRef withId(String id) {
+    public ExpenseTransactionBankAccountReference withId(String id) {
         Utils.checkNotNull(id, "id");
         this.id = Optional.ofNullable(id);
         return this;
     }
 
     /**
-     * Identifier of linked reference from mapping options.
+     * Identifier of the bank account.
      */
-    public RecordRef withId(Optional<? extends String> id) {
+    public ExpenseTransactionBankAccountReference withId(Optional<? extends String> id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
         return this;
@@ -69,7 +69,7 @@ public class RecordRef {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        RecordRef other = (RecordRef) o;
+        ExpenseTransactionBankAccountReference other = (ExpenseTransactionBankAccountReference) o;
         return 
             java.util.Objects.deepEquals(this.id, other.id);
     }
@@ -82,7 +82,7 @@ public class RecordRef {
     
     @Override
     public String toString() {
-        return Utils.toString(RecordRef.class,
+        return Utils.toString(ExpenseTransactionBankAccountReference.class,
                 "id", id);
     }
     
@@ -95,7 +95,7 @@ public class RecordRef {
         }
 
         /**
-         * Identifier of linked reference from mapping options.
+         * Identifier of the bank account.
          */
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
@@ -104,7 +104,7 @@ public class RecordRef {
         }
 
         /**
-         * Identifier of linked reference from mapping options.
+         * Identifier of the bank account.
          */
         public Builder id(Optional<? extends String> id) {
             Utils.checkNotNull(id, "id");
@@ -112,8 +112,8 @@ public class RecordRef {
             return this;
         }
         
-        public RecordRef build() {
-            return new RecordRef(
+        public ExpenseTransactionBankAccountReference build() {
+            return new ExpenseTransactionBankAccountReference(
                 id);
         }
     }

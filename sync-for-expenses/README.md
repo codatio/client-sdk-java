@@ -9,13 +9,11 @@
 
 ### Getting started
 
-Speakeasy offers [automatic publishing](https://www.speakeasyapi.dev/docs/advanced-setup/publish-sdks) of SDK artifacts via GitHub Actions. 
-
-Once published to a repository (local or otherwise), the SDK artifact is used as below:
+The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'io.codat.sync.expenses:openapi:0.2.0'
+implementation 'io.codat.sync.expenses:openapi:0.2.1'
 ```
 
 Maven:
@@ -23,7 +21,7 @@ Maven:
 <dependency>
     <groupId>io.codat.sync.expenses</groupId>
     <artifactId>openapi</artifactId>
-    <version>0.2.0</version>
+    <version>0.2.1</version>
 </dependency>
 ```
 
@@ -161,7 +159,11 @@ public class Application {
 
 * [create](docs/sdks/expenses/README.md#create) - Create expense transaction
 * [update](docs/sdks/expenses/README.md#update) - Update expense transactions
-* [uploadAttachment](docs/sdks/expenses/README.md#uploadattachment) - Upload attachment
+
+### [reimbursements()](docs/sdks/reimbursements/README.md)
+
+* [create](docs/sdks/reimbursements/README.md#create) - Create reimbursable expense transaction
+* [update](docs/sdks/reimbursements/README.md#update) - Update reimbursable expense transaction
 
 ### [sync()](docs/sdks/sync/README.md)
 
@@ -175,6 +177,14 @@ public class Application {
 
 * [get](docs/sdks/transactionstatus/README.md#get) - Get sync transaction
 * [list](docs/sdks/transactionstatus/README.md#list) - List sync transactions
+
+### [attachments()](docs/sdks/attachments/README.md)
+
+* [upload](docs/sdks/attachments/README.md#upload) - Upload attachment
+
+### [transfers()](docs/sdks/transfers/README.md)
+
+* [create](docs/sdks/transfers/README.md#create) - Create transfer transaction
 <!-- End Available Resources and Operations [operations] -->
 
 <!-- Start Retries [retries] -->
