@@ -56,9 +56,11 @@ public class ClientRateLimitReachedWebhook {
 
     /**
      * Unique identifier for the rule.
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("RuleId")
+    @Deprecated
     private Optional<? extends String> ruleId;
 
     /**
@@ -126,7 +128,9 @@ public class ClientRateLimitReachedWebhook {
 
     /**
      * Unique identifier for the rule.
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public Optional<? extends String> ruleId() {
         return ruleId;
     }
@@ -228,7 +232,9 @@ public class ClientRateLimitReachedWebhook {
 
     /**
      * Unique identifier for the rule.
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public ClientRateLimitReachedWebhook withRuleId(String ruleId) {
         Utils.checkNotNull(ruleId, "ruleId");
         this.ruleId = Optional.ofNullable(ruleId);
@@ -237,7 +243,9 @@ public class ClientRateLimitReachedWebhook {
 
     /**
      * Unique identifier for the rule.
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public ClientRateLimitReachedWebhook withRuleId(Optional<? extends String> ruleId) {
         Utils.checkNotNull(ruleId, "ruleId");
         this.ruleId = ruleId;
@@ -317,6 +325,7 @@ public class ClientRateLimitReachedWebhook {
  
         private Optional<? extends String> message = Optional.empty();
  
+        @Deprecated
         private Optional<? extends String> ruleId = Optional.empty();
  
         private Optional<? extends String> ruleType = Optional.empty();  
@@ -411,7 +420,9 @@ public class ClientRateLimitReachedWebhook {
 
         /**
          * Unique identifier for the rule.
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
          */
+        @Deprecated
         public Builder ruleId(String ruleId) {
             Utils.checkNotNull(ruleId, "ruleId");
             this.ruleId = Optional.ofNullable(ruleId);
@@ -420,7 +431,9 @@ public class ClientRateLimitReachedWebhook {
 
         /**
          * Unique identifier for the rule.
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
          */
+        @Deprecated
         public Builder ruleId(Optional<? extends String> ruleId) {
             Utils.checkNotNull(ruleId, "ruleId");
             this.ruleId = ruleId;

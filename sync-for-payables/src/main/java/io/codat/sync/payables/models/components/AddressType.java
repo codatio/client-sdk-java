@@ -14,9 +14,9 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
- * AccountingAddressType - The type of the address
+ * AddressType - The type of the address
  */
-public enum AccountingAddressType {
+public enum AddressType {
     UNKNOWN("Unknown"),
     BILLING("Billing"),
     DELIVERY("Delivery");
@@ -24,7 +24,7 @@ public enum AccountingAddressType {
     @JsonValue
     private final String value;
 
-    private AccountingAddressType(String value) {
+    private AddressType(String value) {
         this.value = value;
     }
     

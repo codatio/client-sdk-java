@@ -7,10 +7,36 @@ Streamline your customers' accounts payable workflow.
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
 
-### Gradle
+### Getting started
 
+The samples below show how a published SDK artifact is used:
+
+Gradle:
 ```groovy
-implementation 'io.codat.sync.payables:openapi:0.2.0'
+implementation 'io.codat.sync.payables:openapi:0.3.0'
+```
+
+Maven:
+```xml
+<dependency>
+    <groupId>io.codat.sync.payables</groupId>
+    <artifactId>openapi</artifactId>
+    <version>0.3.0</version>
+</dependency>
+```
+
+### How to build
+After cloning the git repository to your file system you can build the SDK artifact from source to the `build` directory by running `./gradlew build` on *nix systems or `gradlew.bat` on Windows systems.
+
+If you wish to build from source and publish the SDK artifact to your local Maven repository (on your filesystem) then use the following command (after cloning the git repo locally):
+
+On *nix:
+```bash
+./gradlew publishToMavenLocal -Pskip.signing
+```
+On Windows:
+```bash
+gradlew.bat publishToMavenLocal -Pskip.signing
 ```
 <!-- End SDK Installation [installation] -->
 
@@ -114,6 +140,7 @@ public class Application {
 
 ### [suppliers()](docs/sdks/suppliers/README.md)
 
+* [create](docs/sdks/suppliers/README.md#create) - Create supplier
 * [list](docs/sdks/suppliers/README.md#list) - List suppliers
 <!-- End Available Resources and Operations [operations] -->
 

@@ -17,7 +17,7 @@ import java.math.BigInteger;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 
-public class AccountingAddress {
+public class Address {
 
     /**
      * City of the customer address.
@@ -65,16 +65,16 @@ public class AccountingAddress {
      * The type of the address
      */
     @JsonProperty("type")
-    private AccountingAddressType type;
+    private AddressType type;
 
-    public AccountingAddress(
+    public Address(
             @JsonProperty("city") JsonNullable<? extends String> city,
             @JsonProperty("country") JsonNullable<? extends String> country,
             @JsonProperty("line1") JsonNullable<? extends String> line1,
             @JsonProperty("line2") JsonNullable<? extends String> line2,
             @JsonProperty("postalCode") JsonNullable<? extends String> postalCode,
             @JsonProperty("region") JsonNullable<? extends String> region,
-            @JsonProperty("type") AccountingAddressType type) {
+            @JsonProperty("type") AddressType type) {
         Utils.checkNotNull(city, "city");
         Utils.checkNotNull(country, "country");
         Utils.checkNotNull(line1, "line1");
@@ -136,7 +136,7 @@ public class AccountingAddress {
     /**
      * The type of the address
      */
-    public AccountingAddressType type() {
+    public AddressType type() {
         return type;
     }
 
@@ -147,7 +147,7 @@ public class AccountingAddress {
     /**
      * City of the customer address.
      */
-    public AccountingAddress withCity(String city) {
+    public Address withCity(String city) {
         Utils.checkNotNull(city, "city");
         this.city = JsonNullable.of(city);
         return this;
@@ -156,7 +156,7 @@ public class AccountingAddress {
     /**
      * City of the customer address.
      */
-    public AccountingAddress withCity(JsonNullable<? extends String> city) {
+    public Address withCity(JsonNullable<? extends String> city) {
         Utils.checkNotNull(city, "city");
         this.city = city;
         return this;
@@ -165,7 +165,7 @@ public class AccountingAddress {
     /**
      * Country of the customer address.
      */
-    public AccountingAddress withCountry(String country) {
+    public Address withCountry(String country) {
         Utils.checkNotNull(country, "country");
         this.country = JsonNullable.of(country);
         return this;
@@ -174,7 +174,7 @@ public class AccountingAddress {
     /**
      * Country of the customer address.
      */
-    public AccountingAddress withCountry(JsonNullable<? extends String> country) {
+    public Address withCountry(JsonNullable<? extends String> country) {
         Utils.checkNotNull(country, "country");
         this.country = country;
         return this;
@@ -183,7 +183,7 @@ public class AccountingAddress {
     /**
      * Line 1 of the customer address.
      */
-    public AccountingAddress withLine1(String line1) {
+    public Address withLine1(String line1) {
         Utils.checkNotNull(line1, "line1");
         this.line1 = JsonNullable.of(line1);
         return this;
@@ -192,7 +192,7 @@ public class AccountingAddress {
     /**
      * Line 1 of the customer address.
      */
-    public AccountingAddress withLine1(JsonNullable<? extends String> line1) {
+    public Address withLine1(JsonNullable<? extends String> line1) {
         Utils.checkNotNull(line1, "line1");
         this.line1 = line1;
         return this;
@@ -201,7 +201,7 @@ public class AccountingAddress {
     /**
      * Line 2 of the customer address.
      */
-    public AccountingAddress withLine2(String line2) {
+    public Address withLine2(String line2) {
         Utils.checkNotNull(line2, "line2");
         this.line2 = JsonNullable.of(line2);
         return this;
@@ -210,7 +210,7 @@ public class AccountingAddress {
     /**
      * Line 2 of the customer address.
      */
-    public AccountingAddress withLine2(JsonNullable<? extends String> line2) {
+    public Address withLine2(JsonNullable<? extends String> line2) {
         Utils.checkNotNull(line2, "line2");
         this.line2 = line2;
         return this;
@@ -219,7 +219,7 @@ public class AccountingAddress {
     /**
      * Postal code or zip code.
      */
-    public AccountingAddress withPostalCode(String postalCode) {
+    public Address withPostalCode(String postalCode) {
         Utils.checkNotNull(postalCode, "postalCode");
         this.postalCode = JsonNullable.of(postalCode);
         return this;
@@ -228,7 +228,7 @@ public class AccountingAddress {
     /**
      * Postal code or zip code.
      */
-    public AccountingAddress withPostalCode(JsonNullable<? extends String> postalCode) {
+    public Address withPostalCode(JsonNullable<? extends String> postalCode) {
         Utils.checkNotNull(postalCode, "postalCode");
         this.postalCode = postalCode;
         return this;
@@ -237,7 +237,7 @@ public class AccountingAddress {
     /**
      * Region of the customer address.
      */
-    public AccountingAddress withRegion(String region) {
+    public Address withRegion(String region) {
         Utils.checkNotNull(region, "region");
         this.region = JsonNullable.of(region);
         return this;
@@ -246,7 +246,7 @@ public class AccountingAddress {
     /**
      * Region of the customer address.
      */
-    public AccountingAddress withRegion(JsonNullable<? extends String> region) {
+    public Address withRegion(JsonNullable<? extends String> region) {
         Utils.checkNotNull(region, "region");
         this.region = region;
         return this;
@@ -255,7 +255,7 @@ public class AccountingAddress {
     /**
      * The type of the address
      */
-    public AccountingAddress withType(AccountingAddressType type) {
+    public Address withType(AddressType type) {
         Utils.checkNotNull(type, "type");
         this.type = type;
         return this;
@@ -269,7 +269,7 @@ public class AccountingAddress {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        AccountingAddress other = (AccountingAddress) o;
+        Address other = (Address) o;
         return 
             java.util.Objects.deepEquals(this.city, other.city) &&
             java.util.Objects.deepEquals(this.country, other.country) &&
@@ -294,7 +294,7 @@ public class AccountingAddress {
     
     @Override
     public String toString() {
-        return Utils.toString(AccountingAddress.class,
+        return Utils.toString(Address.class,
                 "city", city,
                 "country", country,
                 "line1", line1,
@@ -318,7 +318,7 @@ public class AccountingAddress {
  
         private JsonNullable<? extends String> region = JsonNullable.undefined();
  
-        private AccountingAddressType type;  
+        private AddressType type;  
         
         private Builder() {
           // force use of static builder() method
@@ -435,14 +435,14 @@ public class AccountingAddress {
         /**
          * The type of the address
          */
-        public Builder type(AccountingAddressType type) {
+        public Builder type(AddressType type) {
             Utils.checkNotNull(type, "type");
             this.type = type;
             return this;
         }
         
-        public AccountingAddress build() {
-            return new AccountingAddress(
+        public Address build() {
+            return new Address(
                 city,
                 country,
                 line1,
