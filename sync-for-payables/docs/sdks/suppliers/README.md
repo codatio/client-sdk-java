@@ -7,7 +7,95 @@ Suppliers
 
 ### Available Operations
 
+* [create](#create) - Create supplier
 * [list](#list) - List suppliers
+
+## create
+
+The *Create supplier* endpoint creates a new [supplier](https://docs.codat.io/sync-for-payables-api#/schemas/Supplier) for a given company's connection.
+
+[Suppliers](https://docs.codat.io/sync-for-payables-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.
+
+
+### Example Usage
+
+```java
+package hello.world;
+
+import io.codat.sync.payables.CodatSyncPayables;
+import io.codat.sync.payables.models.components.*;
+import io.codat.sync.payables.models.components.AccountingAddressType;
+import io.codat.sync.payables.models.components.Addresses;
+import io.codat.sync.payables.models.components.Security;
+import io.codat.sync.payables.models.components.SupplierPrototype;
+import io.codat.sync.payables.models.components.SupplierStatus;
+import io.codat.sync.payables.models.operations.*;
+import io.codat.sync.payables.models.operations.CreateSupplierRequest;
+import io.codat.sync.payables.models.operations.CreateSupplierResponse;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.util.Optional;
+import static java.util.Map.entry;
+
+public class Application {
+
+    public static void main(String[] args) {
+        try {
+            CodatSyncPayables sdk = CodatSyncPayables.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+                .build();
+
+            CreateSupplierRequest req = CreateSupplierRequest.builder()
+                .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
+                .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
+                .idempotencyKey("<value>")
+                .supplierPrototype(SupplierPrototype.builder()
+                    .addresses(java.util.List.of(
+                        Addresses.builder()
+                            .type(AccountingAddressType.BILLING)
+                            .build()))
+                    .contactName("<value>")
+                    .defaultCurrency("<value>")
+                    .emailAddress("Rylan13@yahoo.com")
+                    .phone("01224 658 999")
+                    .status(SupplierStatus.UNKNOWN)
+                    .supplierName("<value>")
+                    .build())
+                .build();
+
+            CreateSupplierResponse res = sdk.suppliers().create()
+                .request(req)
+                .call();
+
+            if (res.supplier().isPresent()) {
+                // handle response
+            }
+        } catch (io.codat.sync.payables.models.errors.SDKError e) {
+            // handle exception
+        } catch (Exception e) {
+            // handle exception
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                          | Type                                                                                                               | Required                                                                                                           | Description                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                          | [io.codat.sync.payables.models.operations.CreateSupplierRequest](../../models/operations/CreateSupplierRequest.md) | :heavy_check_mark:                                                                                                 | The request object to use for the request.                                                                         |
+
+
+### Response
+
+**[Optional<? extends io.codat.sync.payables.models.operations.CreateSupplierResponse>](../../models/operations/CreateSupplierResponse.md)**
+### Errors
+
+| Error Object           | Status Code            | Content Type           |
+| ---------------------- | ---------------------- | ---------------------- |
+| models/errors/SDKError | 4xx-5xx                | */*                    |
 
 ## list
 

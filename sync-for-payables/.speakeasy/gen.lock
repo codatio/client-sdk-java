@@ -1,26 +1,26 @@
 lockVersion: 2.0.0
 id: 18757ebf-96ad-433f-80e1-10950345f2fe
 management:
-  docChecksum: 2e075d5b372c9d3c9aee304fe1c3caf6
+  docChecksum: 2c08834c9030e64b1cac1c6f063b6007
   docVersion: 3.0.0
-  speakeasyVersion: 1.208.0
-  generationVersion: 2.281.0
-  releaseVersion: 0.2.0
-  configChecksum: 0fd8c0448e523f65d6706666d82e3ccf
+  speakeasyVersion: 1.244.1
+  generationVersion: 2.301.2
+  releaseVersion: 0.3.0
+  configChecksum: d966eb657a5da6f0d15d9601a80e7362
   repoURL: https://github.com/codatio/client-sdk-java.git
   repoSubDirectory: sync-for-payables
   published: true
 features:
   java:
     constsAndDefaults: 0.1.1
-    core: 3.15.0
+    core: 3.16.4
     decimal: 0.0.1
     deprecations: 2.81.1
     downloadStreams: 0.1.1
     examples: 2.81.3
-    globalSecurity: 2.82.4
+    globalSecurity: 2.82.5
     globalServerURLs: 2.82.1
-    nameOverrides: 2.81.2
+    nameOverrides: 2.81.3
     retries: 0.1.1
     webhooks: 1.0.0
 generatedFiles:
@@ -53,6 +53,7 @@ generatedFiles:
   - src/main/java/io/codat/sync/payables/models/operations/CreateBankAccountRequestBuilder.java
   - src/main/java/io/codat/sync/payables/models/operations/CreateBillPaymentRequestBuilder.java
   - src/main/java/io/codat/sync/payables/models/operations/GetMappingOptionsPaymentsRequestBuilder.java
+  - src/main/java/io/codat/sync/payables/models/operations/CreateSupplierRequestBuilder.java
   - src/main/java/io/codat/sync/payables/models/operations/ListSuppliersRequestBuilder.java
   - src/main/java/io/codat/sync/payables/models/operations/SDKMethodInterfaces.java
   - src/main/java/io/codat/sync/payables/CodatSyncPayables.java
@@ -136,6 +137,8 @@ generatedFiles:
   - src/main/java/io/codat/sync/payables/models/operations/CreateBillPaymentResponse.java
   - src/main/java/io/codat/sync/payables/models/operations/GetMappingOptionsPaymentsRequest.java
   - src/main/java/io/codat/sync/payables/models/operations/GetMappingOptionsPaymentsResponse.java
+  - src/main/java/io/codat/sync/payables/models/operations/CreateSupplierRequest.java
+  - src/main/java/io/codat/sync/payables/models/operations/CreateSupplierResponse.java
   - src/main/java/io/codat/sync/payables/models/operations/ListSuppliersRequest.java
   - src/main/java/io/codat/sync/payables/models/operations/ListSuppliersResponse.java
   - src/main/java/io/codat/sync/payables/models/components/One.java
@@ -181,11 +184,13 @@ generatedFiles:
   - src/main/java/io/codat/sync/payables/models/components/BillPaymentPrototype.java
   - src/main/java/io/codat/sync/payables/models/components/PaymentMappingOptions.java
   - src/main/java/io/codat/sync/payables/models/components/BankAccountMappingOption.java
-  - src/main/java/io/codat/sync/payables/models/components/Suppliers.java
   - src/main/java/io/codat/sync/payables/models/components/AccountingAddress.java
   - src/main/java/io/codat/sync/payables/models/components/Supplier.java
   - src/main/java/io/codat/sync/payables/models/components/SupplierStatus.java
   - src/main/java/io/codat/sync/payables/models/components/AccountingAddressType.java
+  - src/main/java/io/codat/sync/payables/models/components/SupplierPrototype.java
+  - src/main/java/io/codat/sync/payables/models/components/Addresses.java
+  - src/main/java/io/codat/sync/payables/models/components/Suppliers.java
   - src/main/java/io/codat/sync/payables/models/components/Security.java
   - src/main/java/io/codat/sync/payables/models/components/ClientRateLimitReachedWebhook.java
   - src/main/java/io/codat/sync/payables/models/components/ClientRateLimitReachedWebhookData.java
@@ -234,6 +239,8 @@ generatedFiles:
   - docs/models/operations/CreateBillPaymentResponse.md
   - docs/models/operations/GetMappingOptionsPaymentsRequest.md
   - docs/models/operations/GetMappingOptionsPaymentsResponse.md
+  - docs/models/operations/CreateSupplierRequest.md
+  - docs/models/operations/CreateSupplierResponse.md
   - docs/models/operations/ListSuppliersRequest.md
   - docs/models/operations/ListSuppliersResponse.md
   - docs/models/components/One.md
@@ -279,11 +286,13 @@ generatedFiles:
   - docs/models/components/BillPaymentPrototype.md
   - docs/models/components/PaymentMappingOptions.md
   - docs/models/components/BankAccountMappingOption.md
-  - docs/models/components/Suppliers.md
   - docs/models/components/AccountingAddress.md
   - docs/models/components/Supplier.md
   - docs/models/components/SupplierStatus.md
   - docs/models/components/AccountingAddressType.md
+  - docs/models/components/SupplierPrototype.md
+  - docs/models/components/Addresses.md
+  - docs/models/components/Suppliers.md
   - docs/models/components/Security.md
   - docs/models/components/ClientRateLimitReachedWebhook.md
   - docs/models/components/ClientRateLimitReachedWebhookData.md

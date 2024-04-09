@@ -155,6 +155,13 @@ public class SDKMethodInterfaces {
     }
 
 
+    public interface MethodCallCreateSupplier {
+        io.codat.sync.payables.models.operations.CreateSupplierResponse create(
+            io.codat.sync.payables.models.operations.CreateSupplierRequest request,
+            Optional<Options> options) throws Exception;
+    }
+
+
     public interface MethodCallListSuppliers {
         io.codat.sync.payables.models.operations.ListSuppliersResponse list(
             io.codat.sync.payables.models.operations.ListSuppliersRequest request,

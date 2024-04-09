@@ -17,30 +17,15 @@ import java.math.BigInteger;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-/**
- * Supplier - ﻿## Overview
- * 
- * Suppliers are people or organizations that provide something, such as a product or service. Use **Suppliers** endpoints to retrieve supplier data for a company. 
- * 
- * Suppliers' data links to accounts payable [bills](https://docs.codat.io/sync-for-payables-api#/schemas/Bill).
- *  
- */
 
-public class Supplier {
+public class SupplierPrototype {
 
     /**
      * An array of Addresses.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("addresses")
-    private JsonNullable<? extends java.util.List<AccountingAddress>> addresses;
-
-    /**
-     * Amount outstanding against the supplier.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("balance")
-    private Optional<? extends BigDecimal> balance;
+    private JsonNullable<? extends java.util.List<Addresses>> addresses;
 
     /**
      * Name of the main contact for the supplier.
@@ -64,28 +49,18 @@ public class Supplier {
     private JsonNullable<? extends String> emailAddress;
 
     /**
-     * Identifier for the supplier, unique to the company in the accounting platform.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("id")
-    private Optional<? extends String> id;
-
-    /**
      * Phone number that the supplier may be contacted on.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("phone")
     private JsonNullable<? extends String> phone;
 
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("sourceModifiedDate")
-    private JsonNullable<? extends One> sourceModifiedDate;
-
     /**
      * Status of the supplier.
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("status")
-    private SupplierStatus status;
+    private Optional<? extends SupplierStatus> status;
 
     /**
      * Name of the supplier as recorded in the accounting system, typically the company name.
@@ -94,35 +69,26 @@ public class Supplier {
     @JsonProperty("supplierName")
     private JsonNullable<? extends String> supplierName;
 
-    public Supplier(
-            @JsonProperty("addresses") JsonNullable<? extends java.util.List<AccountingAddress>> addresses,
-            @JsonProperty("balance") Optional<? extends BigDecimal> balance,
+    public SupplierPrototype(
+            @JsonProperty("addresses") JsonNullable<? extends java.util.List<Addresses>> addresses,
             @JsonProperty("contactName") JsonNullable<? extends String> contactName,
             @JsonProperty("defaultCurrency") JsonNullable<? extends String> defaultCurrency,
             @JsonProperty("emailAddress") JsonNullable<? extends String> emailAddress,
-            @JsonProperty("id") Optional<? extends String> id,
             @JsonProperty("phone") JsonNullable<? extends String> phone,
-            @JsonProperty("sourceModifiedDate") JsonNullable<? extends One> sourceModifiedDate,
-            @JsonProperty("status") SupplierStatus status,
+            @JsonProperty("status") Optional<? extends SupplierStatus> status,
             @JsonProperty("supplierName") JsonNullable<? extends String> supplierName) {
         Utils.checkNotNull(addresses, "addresses");
-        Utils.checkNotNull(balance, "balance");
         Utils.checkNotNull(contactName, "contactName");
         Utils.checkNotNull(defaultCurrency, "defaultCurrency");
         Utils.checkNotNull(emailAddress, "emailAddress");
-        Utils.checkNotNull(id, "id");
         Utils.checkNotNull(phone, "phone");
-        Utils.checkNotNull(sourceModifiedDate, "sourceModifiedDate");
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(supplierName, "supplierName");
         this.addresses = addresses;
-        this.balance = balance;
         this.contactName = contactName;
         this.defaultCurrency = defaultCurrency;
         this.emailAddress = emailAddress;
-        this.id = id;
         this.phone = phone;
-        this.sourceModifiedDate = sourceModifiedDate;
         this.status = status;
         this.supplierName = supplierName;
     }
@@ -130,15 +96,8 @@ public class Supplier {
     /**
      * An array of Addresses.
      */
-    public JsonNullable<? extends java.util.List<AccountingAddress>> addresses() {
+    public JsonNullable<? extends java.util.List<Addresses>> addresses() {
         return addresses;
-    }
-
-    /**
-     * Amount outstanding against the supplier.
-     */
-    public Optional<? extends BigDecimal> balance() {
-        return balance;
     }
 
     /**
@@ -163,27 +122,16 @@ public class Supplier {
     }
 
     /**
-     * Identifier for the supplier, unique to the company in the accounting platform.
-     */
-    public Optional<? extends String> id() {
-        return id;
-    }
-
-    /**
      * Phone number that the supplier may be contacted on.
      */
     public JsonNullable<? extends String> phone() {
         return phone;
     }
 
-    public JsonNullable<? extends One> sourceModifiedDate() {
-        return sourceModifiedDate;
-    }
-
     /**
      * Status of the supplier.
      */
-    public SupplierStatus status() {
+    public Optional<? extends SupplierStatus> status() {
         return status;
     }
 
@@ -201,7 +149,7 @@ public class Supplier {
     /**
      * An array of Addresses.
      */
-    public Supplier withAddresses(java.util.List<AccountingAddress> addresses) {
+    public SupplierPrototype withAddresses(java.util.List<Addresses> addresses) {
         Utils.checkNotNull(addresses, "addresses");
         this.addresses = JsonNullable.of(addresses);
         return this;
@@ -210,42 +158,16 @@ public class Supplier {
     /**
      * An array of Addresses.
      */
-    public Supplier withAddresses(JsonNullable<? extends java.util.List<AccountingAddress>> addresses) {
+    public SupplierPrototype withAddresses(JsonNullable<? extends java.util.List<Addresses>> addresses) {
         Utils.checkNotNull(addresses, "addresses");
         this.addresses = addresses;
         return this;
     }
 
     /**
-     * Amount outstanding against the supplier.
-     */
-    public Supplier withBalance(BigDecimal balance) {
-        Utils.checkNotNull(balance, "balance");
-        this.balance = Optional.ofNullable(balance);
-        return this;
-    }
-
-        /**
-         * Amount outstanding against the supplier.
-         */
-    public Supplier withBalance(double balance) {
-        this.balance = Optional.of(BigDecimal.valueOf(balance));
-        return this;
-    }
-
-    /**
-     * Amount outstanding against the supplier.
-     */
-    public Supplier withBalance(Optional<? extends BigDecimal> balance) {
-        Utils.checkNotNull(balance, "balance");
-        this.balance = balance;
-        return this;
-    }
-
-    /**
      * Name of the main contact for the supplier.
      */
-    public Supplier withContactName(String contactName) {
+    public SupplierPrototype withContactName(String contactName) {
         Utils.checkNotNull(contactName, "contactName");
         this.contactName = JsonNullable.of(contactName);
         return this;
@@ -254,7 +176,7 @@ public class Supplier {
     /**
      * Name of the main contact for the supplier.
      */
-    public Supplier withContactName(JsonNullable<? extends String> contactName) {
+    public SupplierPrototype withContactName(JsonNullable<? extends String> contactName) {
         Utils.checkNotNull(contactName, "contactName");
         this.contactName = contactName;
         return this;
@@ -263,7 +185,7 @@ public class Supplier {
     /**
      * Default currency the supplier's transactional data is recorded in.
      */
-    public Supplier withDefaultCurrency(String defaultCurrency) {
+    public SupplierPrototype withDefaultCurrency(String defaultCurrency) {
         Utils.checkNotNull(defaultCurrency, "defaultCurrency");
         this.defaultCurrency = JsonNullable.of(defaultCurrency);
         return this;
@@ -272,7 +194,7 @@ public class Supplier {
     /**
      * Default currency the supplier's transactional data is recorded in.
      */
-    public Supplier withDefaultCurrency(JsonNullable<? extends String> defaultCurrency) {
+    public SupplierPrototype withDefaultCurrency(JsonNullable<? extends String> defaultCurrency) {
         Utils.checkNotNull(defaultCurrency, "defaultCurrency");
         this.defaultCurrency = defaultCurrency;
         return this;
@@ -281,7 +203,7 @@ public class Supplier {
     /**
      * Email address that the supplier may be contacted on.
      */
-    public Supplier withEmailAddress(String emailAddress) {
+    public SupplierPrototype withEmailAddress(String emailAddress) {
         Utils.checkNotNull(emailAddress, "emailAddress");
         this.emailAddress = JsonNullable.of(emailAddress);
         return this;
@@ -290,34 +212,16 @@ public class Supplier {
     /**
      * Email address that the supplier may be contacted on.
      */
-    public Supplier withEmailAddress(JsonNullable<? extends String> emailAddress) {
+    public SupplierPrototype withEmailAddress(JsonNullable<? extends String> emailAddress) {
         Utils.checkNotNull(emailAddress, "emailAddress");
         this.emailAddress = emailAddress;
         return this;
     }
 
     /**
-     * Identifier for the supplier, unique to the company in the accounting platform.
-     */
-    public Supplier withId(String id) {
-        Utils.checkNotNull(id, "id");
-        this.id = Optional.ofNullable(id);
-        return this;
-    }
-
-    /**
-     * Identifier for the supplier, unique to the company in the accounting platform.
-     */
-    public Supplier withId(Optional<? extends String> id) {
-        Utils.checkNotNull(id, "id");
-        this.id = id;
-        return this;
-    }
-
-    /**
      * Phone number that the supplier may be contacted on.
      */
-    public Supplier withPhone(String phone) {
+    public SupplierPrototype withPhone(String phone) {
         Utils.checkNotNull(phone, "phone");
         this.phone = JsonNullable.of(phone);
         return this;
@@ -326,28 +230,25 @@ public class Supplier {
     /**
      * Phone number that the supplier may be contacted on.
      */
-    public Supplier withPhone(JsonNullable<? extends String> phone) {
+    public SupplierPrototype withPhone(JsonNullable<? extends String> phone) {
         Utils.checkNotNull(phone, "phone");
         this.phone = phone;
-        return this;
-    }
-
-    public Supplier withSourceModifiedDate(One sourceModifiedDate) {
-        Utils.checkNotNull(sourceModifiedDate, "sourceModifiedDate");
-        this.sourceModifiedDate = JsonNullable.of(sourceModifiedDate);
-        return this;
-    }
-
-    public Supplier withSourceModifiedDate(JsonNullable<? extends One> sourceModifiedDate) {
-        Utils.checkNotNull(sourceModifiedDate, "sourceModifiedDate");
-        this.sourceModifiedDate = sourceModifiedDate;
         return this;
     }
 
     /**
      * Status of the supplier.
      */
-    public Supplier withStatus(SupplierStatus status) {
+    public SupplierPrototype withStatus(SupplierStatus status) {
+        Utils.checkNotNull(status, "status");
+        this.status = Optional.ofNullable(status);
+        return this;
+    }
+
+    /**
+     * Status of the supplier.
+     */
+    public SupplierPrototype withStatus(Optional<? extends SupplierStatus> status) {
         Utils.checkNotNull(status, "status");
         this.status = status;
         return this;
@@ -356,7 +257,7 @@ public class Supplier {
     /**
      * Name of the supplier as recorded in the accounting system, typically the company name.
      */
-    public Supplier withSupplierName(String supplierName) {
+    public SupplierPrototype withSupplierName(String supplierName) {
         Utils.checkNotNull(supplierName, "supplierName");
         this.supplierName = JsonNullable.of(supplierName);
         return this;
@@ -365,7 +266,7 @@ public class Supplier {
     /**
      * Name of the supplier as recorded in the accounting system, typically the company name.
      */
-    public Supplier withSupplierName(JsonNullable<? extends String> supplierName) {
+    public SupplierPrototype withSupplierName(JsonNullable<? extends String> supplierName) {
         Utils.checkNotNull(supplierName, "supplierName");
         this.supplierName = supplierName;
         return this;
@@ -379,16 +280,13 @@ public class Supplier {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Supplier other = (Supplier) o;
+        SupplierPrototype other = (SupplierPrototype) o;
         return 
             java.util.Objects.deepEquals(this.addresses, other.addresses) &&
-            java.util.Objects.deepEquals(this.balance, other.balance) &&
             java.util.Objects.deepEquals(this.contactName, other.contactName) &&
             java.util.Objects.deepEquals(this.defaultCurrency, other.defaultCurrency) &&
             java.util.Objects.deepEquals(this.emailAddress, other.emailAddress) &&
-            java.util.Objects.deepEquals(this.id, other.id) &&
             java.util.Objects.deepEquals(this.phone, other.phone) &&
-            java.util.Objects.deepEquals(this.sourceModifiedDate, other.sourceModifiedDate) &&
             java.util.Objects.deepEquals(this.status, other.status) &&
             java.util.Objects.deepEquals(this.supplierName, other.supplierName);
     }
@@ -397,37 +295,29 @@ public class Supplier {
     public int hashCode() {
         return java.util.Objects.hash(
             addresses,
-            balance,
             contactName,
             defaultCurrency,
             emailAddress,
-            id,
             phone,
-            sourceModifiedDate,
             status,
             supplierName);
     }
     
     @Override
     public String toString() {
-        return Utils.toString(Supplier.class,
+        return Utils.toString(SupplierPrototype.class,
                 "addresses", addresses,
-                "balance", balance,
                 "contactName", contactName,
                 "defaultCurrency", defaultCurrency,
                 "emailAddress", emailAddress,
-                "id", id,
                 "phone", phone,
-                "sourceModifiedDate", sourceModifiedDate,
                 "status", status,
                 "supplierName", supplierName);
     }
     
     public final static class Builder {
  
-        private JsonNullable<? extends java.util.List<AccountingAddress>> addresses = JsonNullable.undefined();
- 
-        private Optional<? extends BigDecimal> balance = Optional.empty();
+        private JsonNullable<? extends java.util.List<Addresses>> addresses = JsonNullable.undefined();
  
         private JsonNullable<? extends String> contactName = JsonNullable.undefined();
  
@@ -435,13 +325,9 @@ public class Supplier {
  
         private JsonNullable<? extends String> emailAddress = JsonNullable.undefined();
  
-        private Optional<? extends String> id = Optional.empty();
- 
         private JsonNullable<? extends String> phone = JsonNullable.undefined();
  
-        private JsonNullable<? extends One> sourceModifiedDate = JsonNullable.undefined();
- 
-        private SupplierStatus status;
+        private Optional<? extends SupplierStatus> status = Optional.empty();
  
         private JsonNullable<? extends String> supplierName = JsonNullable.undefined();  
         
@@ -452,7 +338,7 @@ public class Supplier {
         /**
          * An array of Addresses.
          */
-        public Builder addresses(java.util.List<AccountingAddress> addresses) {
+        public Builder addresses(java.util.List<Addresses> addresses) {
             Utils.checkNotNull(addresses, "addresses");
             this.addresses = JsonNullable.of(addresses);
             return this;
@@ -461,35 +347,9 @@ public class Supplier {
         /**
          * An array of Addresses.
          */
-        public Builder addresses(JsonNullable<? extends java.util.List<AccountingAddress>> addresses) {
+        public Builder addresses(JsonNullable<? extends java.util.List<Addresses>> addresses) {
             Utils.checkNotNull(addresses, "addresses");
             this.addresses = addresses;
-            return this;
-        }
-
-        /**
-         * Amount outstanding against the supplier.
-         */
-        public Builder balance(BigDecimal balance) {
-            Utils.checkNotNull(balance, "balance");
-            this.balance = Optional.ofNullable(balance);
-            return this;
-        }
-
-        /**
-         * Amount outstanding against the supplier.
-         */
-        public Builder balance(double balance) {
-            this.balance = Optional.of(BigDecimal.valueOf(balance));
-            return this;
-        }
-
-        /**
-         * Amount outstanding against the supplier.
-         */
-        public Builder balance(Optional<? extends BigDecimal> balance) {
-            Utils.checkNotNull(balance, "balance");
-            this.balance = balance;
             return this;
         }
 
@@ -548,24 +408,6 @@ public class Supplier {
         }
 
         /**
-         * Identifier for the supplier, unique to the company in the accounting platform.
-         */
-        public Builder id(String id) {
-            Utils.checkNotNull(id, "id");
-            this.id = Optional.ofNullable(id);
-            return this;
-        }
-
-        /**
-         * Identifier for the supplier, unique to the company in the accounting platform.
-         */
-        public Builder id(Optional<? extends String> id) {
-            Utils.checkNotNull(id, "id");
-            this.id = id;
-            return this;
-        }
-
-        /**
          * Phone number that the supplier may be contacted on.
          */
         public Builder phone(String phone) {
@@ -583,22 +425,19 @@ public class Supplier {
             return this;
         }
 
-        public Builder sourceModifiedDate(One sourceModifiedDate) {
-            Utils.checkNotNull(sourceModifiedDate, "sourceModifiedDate");
-            this.sourceModifiedDate = JsonNullable.of(sourceModifiedDate);
-            return this;
-        }
-
-        public Builder sourceModifiedDate(JsonNullable<? extends One> sourceModifiedDate) {
-            Utils.checkNotNull(sourceModifiedDate, "sourceModifiedDate");
-            this.sourceModifiedDate = sourceModifiedDate;
+        /**
+         * Status of the supplier.
+         */
+        public Builder status(SupplierStatus status) {
+            Utils.checkNotNull(status, "status");
+            this.status = Optional.ofNullable(status);
             return this;
         }
 
         /**
          * Status of the supplier.
          */
-        public Builder status(SupplierStatus status) {
+        public Builder status(Optional<? extends SupplierStatus> status) {
             Utils.checkNotNull(status, "status");
             this.status = status;
             return this;
@@ -622,16 +461,13 @@ public class Supplier {
             return this;
         }
         
-        public Supplier build() {
-            return new Supplier(
+        public SupplierPrototype build() {
+            return new SupplierPrototype(
                 addresses,
-                balance,
                 contactName,
                 defaultCurrency,
                 emailAddress,
-                id,
                 phone,
-                sourceModifiedDate,
                 status,
                 supplierName);
         }

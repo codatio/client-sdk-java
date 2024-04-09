@@ -21,13 +21,6 @@ import org.openapitools.jackson.nullable.JsonNullable;
 public class AccountMappingOption {
 
     /**
-     * Type of account.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("accountType")
-    private JsonNullable<? extends String> accountType;
-
-    /**
      * The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
      * 
      * ## Unknown currencies
@@ -54,6 +47,13 @@ public class AccountMappingOption {
     @JsonProperty("name")
     private JsonNullable<? extends String> name;
 
+    /**
+     * Reference given to each nominal account for a business. It ensures money is allocated to the correct account. This code isn't a unique identifier in the Codat system.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("nominalCode")
+    private JsonNullable<? extends String> nominalCode;
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("sourceModifiedDate")
     private Optional<? extends String> sourceModifiedDate;
@@ -65,32 +65,35 @@ public class AccountMappingOption {
     @JsonProperty("status")
     private Optional<? extends AccountStatus> status;
 
-    public AccountMappingOption(
-            @JsonProperty("accountType") JsonNullable<? extends String> accountType,
-            @JsonProperty("currency") Optional<? extends String> currency,
-            @JsonProperty("id") Optional<? extends String> id,
-            @JsonProperty("name") JsonNullable<? extends String> name,
-            @JsonProperty("sourceModifiedDate") Optional<? extends String> sourceModifiedDate,
-            @JsonProperty("status") Optional<? extends AccountStatus> status) {
-        Utils.checkNotNull(accountType, "accountType");
-        Utils.checkNotNull(currency, "currency");
-        Utils.checkNotNull(id, "id");
-        Utils.checkNotNull(name, "name");
-        Utils.checkNotNull(sourceModifiedDate, "sourceModifiedDate");
-        Utils.checkNotNull(status, "status");
-        this.accountType = accountType;
-        this.currency = currency;
-        this.id = id;
-        this.name = name;
-        this.sourceModifiedDate = sourceModifiedDate;
-        this.status = status;
-    }
-
     /**
      * Type of account.
      */
-    public JsonNullable<? extends String> accountType() {
-        return accountType;
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("type")
+    private JsonNullable<? extends String> type;
+
+    public AccountMappingOption(
+            @JsonProperty("currency") Optional<? extends String> currency,
+            @JsonProperty("id") Optional<? extends String> id,
+            @JsonProperty("name") JsonNullable<? extends String> name,
+            @JsonProperty("nominalCode") JsonNullable<? extends String> nominalCode,
+            @JsonProperty("sourceModifiedDate") Optional<? extends String> sourceModifiedDate,
+            @JsonProperty("status") Optional<? extends AccountStatus> status,
+            @JsonProperty("type") JsonNullable<? extends String> type) {
+        Utils.checkNotNull(currency, "currency");
+        Utils.checkNotNull(id, "id");
+        Utils.checkNotNull(name, "name");
+        Utils.checkNotNull(nominalCode, "nominalCode");
+        Utils.checkNotNull(sourceModifiedDate, "sourceModifiedDate");
+        Utils.checkNotNull(status, "status");
+        Utils.checkNotNull(type, "type");
+        this.currency = currency;
+        this.id = id;
+        this.name = name;
+        this.nominalCode = nominalCode;
+        this.sourceModifiedDate = sourceModifiedDate;
+        this.status = status;
+        this.type = type;
     }
 
     /**
@@ -120,6 +123,13 @@ public class AccountMappingOption {
         return name;
     }
 
+    /**
+     * Reference given to each nominal account for a business. It ensures money is allocated to the correct account. This code isn't a unique identifier in the Codat system.
+     */
+    public JsonNullable<? extends String> nominalCode() {
+        return nominalCode;
+    }
+
     public Optional<? extends String> sourceModifiedDate() {
         return sourceModifiedDate;
     }
@@ -131,26 +141,15 @@ public class AccountMappingOption {
         return status;
     }
 
+    /**
+     * Type of account.
+     */
+    public JsonNullable<? extends String> type() {
+        return type;
+    }
+
     public final static Builder builder() {
         return new Builder();
-    }
-
-    /**
-     * Type of account.
-     */
-    public AccountMappingOption withAccountType(String accountType) {
-        Utils.checkNotNull(accountType, "accountType");
-        this.accountType = JsonNullable.of(accountType);
-        return this;
-    }
-
-    /**
-     * Type of account.
-     */
-    public AccountMappingOption withAccountType(JsonNullable<? extends String> accountType) {
-        Utils.checkNotNull(accountType, "accountType");
-        this.accountType = accountType;
-        return this;
     }
 
     /**
@@ -219,6 +218,24 @@ public class AccountMappingOption {
         return this;
     }
 
+    /**
+     * Reference given to each nominal account for a business. It ensures money is allocated to the correct account. This code isn't a unique identifier in the Codat system.
+     */
+    public AccountMappingOption withNominalCode(String nominalCode) {
+        Utils.checkNotNull(nominalCode, "nominalCode");
+        this.nominalCode = JsonNullable.of(nominalCode);
+        return this;
+    }
+
+    /**
+     * Reference given to each nominal account for a business. It ensures money is allocated to the correct account. This code isn't a unique identifier in the Codat system.
+     */
+    public AccountMappingOption withNominalCode(JsonNullable<? extends String> nominalCode) {
+        Utils.checkNotNull(nominalCode, "nominalCode");
+        this.nominalCode = nominalCode;
+        return this;
+    }
+
     public AccountMappingOption withSourceModifiedDate(String sourceModifiedDate) {
         Utils.checkNotNull(sourceModifiedDate, "sourceModifiedDate");
         this.sourceModifiedDate = Optional.ofNullable(sourceModifiedDate);
@@ -248,6 +265,24 @@ public class AccountMappingOption {
         this.status = status;
         return this;
     }
+
+    /**
+     * Type of account.
+     */
+    public AccountMappingOption withType(String type) {
+        Utils.checkNotNull(type, "type");
+        this.type = JsonNullable.of(type);
+        return this;
+    }
+
+    /**
+     * Type of account.
+     */
+    public AccountMappingOption withType(JsonNullable<? extends String> type) {
+        Utils.checkNotNull(type, "type");
+        this.type = type;
+        return this;
+    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -259,39 +294,40 @@ public class AccountMappingOption {
         }
         AccountMappingOption other = (AccountMappingOption) o;
         return 
-            java.util.Objects.deepEquals(this.accountType, other.accountType) &&
             java.util.Objects.deepEquals(this.currency, other.currency) &&
             java.util.Objects.deepEquals(this.id, other.id) &&
             java.util.Objects.deepEquals(this.name, other.name) &&
+            java.util.Objects.deepEquals(this.nominalCode, other.nominalCode) &&
             java.util.Objects.deepEquals(this.sourceModifiedDate, other.sourceModifiedDate) &&
-            java.util.Objects.deepEquals(this.status, other.status);
+            java.util.Objects.deepEquals(this.status, other.status) &&
+            java.util.Objects.deepEquals(this.type, other.type);
     }
     
     @Override
     public int hashCode() {
         return java.util.Objects.hash(
-            accountType,
             currency,
             id,
             name,
+            nominalCode,
             sourceModifiedDate,
-            status);
+            status,
+            type);
     }
     
     @Override
     public String toString() {
         return Utils.toString(AccountMappingOption.class,
-                "accountType", accountType,
                 "currency", currency,
                 "id", id,
                 "name", name,
+                "nominalCode", nominalCode,
                 "sourceModifiedDate", sourceModifiedDate,
-                "status", status);
+                "status", status,
+                "type", type);
     }
     
     public final static class Builder {
- 
-        private JsonNullable<? extends String> accountType = JsonNullable.undefined();
  
         private Optional<? extends String> currency = Optional.empty();
  
@@ -299,30 +335,16 @@ public class AccountMappingOption {
  
         private JsonNullable<? extends String> name = JsonNullable.undefined();
  
+        private JsonNullable<? extends String> nominalCode = JsonNullable.undefined();
+ 
         private Optional<? extends String> sourceModifiedDate = Optional.empty();
  
-        private Optional<? extends AccountStatus> status = Optional.empty();  
+        private Optional<? extends AccountStatus> status = Optional.empty();
+ 
+        private JsonNullable<? extends String> type = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
-        }
-
-        /**
-         * Type of account.
-         */
-        public Builder accountType(String accountType) {
-            Utils.checkNotNull(accountType, "accountType");
-            this.accountType = JsonNullable.of(accountType);
-            return this;
-        }
-
-        /**
-         * Type of account.
-         */
-        public Builder accountType(JsonNullable<? extends String> accountType) {
-            Utils.checkNotNull(accountType, "accountType");
-            this.accountType = accountType;
-            return this;
         }
 
         /**
@@ -391,6 +413,24 @@ public class AccountMappingOption {
             return this;
         }
 
+        /**
+         * Reference given to each nominal account for a business. It ensures money is allocated to the correct account. This code isn't a unique identifier in the Codat system.
+         */
+        public Builder nominalCode(String nominalCode) {
+            Utils.checkNotNull(nominalCode, "nominalCode");
+            this.nominalCode = JsonNullable.of(nominalCode);
+            return this;
+        }
+
+        /**
+         * Reference given to each nominal account for a business. It ensures money is allocated to the correct account. This code isn't a unique identifier in the Codat system.
+         */
+        public Builder nominalCode(JsonNullable<? extends String> nominalCode) {
+            Utils.checkNotNull(nominalCode, "nominalCode");
+            this.nominalCode = nominalCode;
+            return this;
+        }
+
         public Builder sourceModifiedDate(String sourceModifiedDate) {
             Utils.checkNotNull(sourceModifiedDate, "sourceModifiedDate");
             this.sourceModifiedDate = Optional.ofNullable(sourceModifiedDate);
@@ -420,15 +460,34 @@ public class AccountMappingOption {
             this.status = status;
             return this;
         }
+
+        /**
+         * Type of account.
+         */
+        public Builder type(String type) {
+            Utils.checkNotNull(type, "type");
+            this.type = JsonNullable.of(type);
+            return this;
+        }
+
+        /**
+         * Type of account.
+         */
+        public Builder type(JsonNullable<? extends String> type) {
+            Utils.checkNotNull(type, "type");
+            this.type = type;
+            return this;
+        }
         
         public AccountMappingOption build() {
             return new AccountMappingOption(
-                accountType,
                 currency,
                 id,
                 name,
+                nominalCode,
                 sourceModifiedDate,
-                status);
+                status,
+                type);
         }
     }
 }
