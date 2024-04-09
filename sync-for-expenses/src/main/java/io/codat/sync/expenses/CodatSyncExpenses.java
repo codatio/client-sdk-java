@@ -80,9 +80,14 @@ public class CodatSyncExpenses {
     private final Configuration configuration;
 
     /**
-     * Create expense datasets and upload receipts.
+     * Create expense transactions.
      */
     private final Expenses expenses;
+
+    /**
+     * Create reimbursable expense transactions.
+     */
+    private final Reimbursements reimbursements;
 
     /**
      * Trigger and monitor expense syncs to accounting software.
@@ -93,6 +98,16 @@ public class CodatSyncExpenses {
      * Retrieve the status of transactions within a sync.
      */
     private final TransactionStatus transactionStatus;
+
+    /**
+     * Upload attachmens to expenses, transfers and reimbursable expense transactions.
+     */
+    private final Attachments attachments;
+
+    /**
+     * Create transfer transactions.
+     */
+    private final Transfers transfers;
 
     /**
      * Create and manage your Codat companies.
@@ -151,10 +166,17 @@ public class CodatSyncExpenses {
     }
 
     /**
-     * Create expense datasets and upload receipts.
+     * Create expense transactions.
      */
     public Expenses expenses() {
         return expenses;
+    }
+
+    /**
+     * Create reimbursable expense transactions.
+     */
+    public Reimbursements reimbursements() {
+        return reimbursements;
     }
 
     /**
@@ -169,6 +191,20 @@ public class CodatSyncExpenses {
      */
     public TransactionStatus transactionStatus() {
         return transactionStatus;
+    }
+
+    /**
+     * Upload attachmens to expenses, transfers and reimbursable expense transactions.
+     */
+    public Attachments attachments() {
+        return attachments;
+    }
+
+    /**
+     * Create transfer transactions.
+     */
+    public Transfers transfers() {
+        return transfers;
     }
 
     private final SDKConfiguration sdkConfiguration;
@@ -302,9 +338,15 @@ public class CodatSyncExpenses {
         this.pushOperations = new PushOperations(sdkConfiguration);
         this.configuration = new Configuration(sdkConfiguration);
         this.expenses = new Expenses(sdkConfiguration);
+        this.reimbursements = new Reimbursements(sdkConfiguration);
         this.sync = new Sync(sdkConfiguration);
         this.transactionStatus = new TransactionStatus(sdkConfiguration);
+        this.attachments = new Attachments(sdkConfiguration);
+        this.transfers = new Transfers(sdkConfiguration);
     }
+
+
+
 
 
 
