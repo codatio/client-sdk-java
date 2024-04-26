@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.SpeakeasyMetadata;
 import io.codat.platform.utils.Utils;
@@ -22,6 +24,7 @@ public class GetCompanyDataStatusRequest {
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=companyId")
     private String companyId;
 
+    @JsonCreator
     public GetCompanyDataStatusRequest(
             String companyId) {
         Utils.checkNotNull(companyId, "companyId");
@@ -31,6 +34,7 @@ public class GetCompanyDataStatusRequest {
     /**
      * Unique identifier for a company.
      */
+    @JsonIgnore
     public String companyId() {
         return companyId;
     }

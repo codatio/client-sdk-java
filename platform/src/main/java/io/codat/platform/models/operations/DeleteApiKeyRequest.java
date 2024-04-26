@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.SpeakeasyMetadata;
 import io.codat.platform.utils.Utils;
@@ -22,6 +24,7 @@ public class DeleteApiKeyRequest {
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=apiKeyId")
     private String apiKeyId;
 
+    @JsonCreator
     public DeleteApiKeyRequest(
             String apiKeyId) {
         Utils.checkNotNull(apiKeyId, "apiKeyId");
@@ -31,6 +34,7 @@ public class DeleteApiKeyRequest {
     /**
      * Unique identifier for api key.
      */
+    @JsonIgnore
     public String apiKeyId() {
         return apiKeyId;
     }

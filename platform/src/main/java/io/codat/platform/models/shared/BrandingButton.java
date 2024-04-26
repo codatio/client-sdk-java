@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -30,6 +32,7 @@ public class BrandingButton {
     @JsonProperty("hover")
     private Optional<? extends BrandingImage> hover;
 
+    @JsonCreator
     public BrandingButton(
             @JsonProperty("default") Optional<? extends BrandingImage> default_,
             @JsonProperty("hover") Optional<? extends BrandingImage> hover) {
@@ -38,11 +41,17 @@ public class BrandingButton {
         this.default_ = default_;
         this.hover = hover;
     }
+    
+    public BrandingButton() {
+        this(Optional.empty(), Optional.empty());
+    }
 
+    @JsonIgnore
     public Optional<? extends BrandingImage> default_() {
         return default_;
     }
 
+    @JsonIgnore
     public Optional<? extends BrandingImage> hover() {
         return hover;
     }

@@ -3,7 +3,7 @@
 
 ## Overview
 
-View and configure custom data types for supported integrations.
+Configure and pull additional data types that are not included in Codat's standardized data model.
 
 ### Available Operations
 
@@ -76,6 +76,8 @@ public class Application {
             if (res.customDataTypeConfiguration().isPresent()) {
                 // handle response
             }
+        } catch (io.codat.platform.models.errors.ErrorMessage e) {
+            // handle exception
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -97,9 +99,10 @@ public class Application {
 **[Optional<? extends io.codat.platform.models.operations.ConfigureCustomDataTypeResponse>](../../models/operations/ConfigureCustomDataTypeResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                                 | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| io.codat.platform.models.errors.ErrorMessage | 401,402,403,404,429,500,503                  | application/json                             |
+| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
 
 ## getConfiguration
 
@@ -147,6 +150,8 @@ public class Application {
             if (res.customDataTypeRecords().isPresent()) {
                 // handle response
             }
+        } catch (io.codat.platform.models.errors.ErrorMessage e) {
+            // handle exception
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -168,9 +173,10 @@ public class Application {
 **[Optional<? extends io.codat.platform.models.operations.GetCustomDataTypeConfigurationResponse>](../../models/operations/GetCustomDataTypeConfigurationResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                                 | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| io.codat.platform.models.errors.ErrorMessage | 401,402,403,404,429,500,503                  | application/json                             |
+| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
 
 ## list
 
@@ -221,6 +227,8 @@ public class Application {
             if (res.customDataTypeRecords().isPresent()) {
                 // handle response
             }
+        } catch (io.codat.platform.models.errors.ErrorMessage e) {
+            // handle exception
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -242,9 +250,10 @@ public class Application {
 **[Optional<? extends io.codat.platform.models.operations.ListCustomDataTypeRecordsResponse>](../../models/operations/ListCustomDataTypeRecordsResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                                 | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| io.codat.platform.models.errors.ErrorMessage | 400,401,402,403,404,429,451,500,503          | application/json                             |
+| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
 
 ## refresh
 
@@ -291,6 +300,8 @@ public class Application {
             if (res.pullOperation().isPresent()) {
                 // handle response
             }
+        } catch (io.codat.platform.models.errors.ErrorMessage e) {
+            // handle exception
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -312,6 +323,7 @@ public class Application {
 **[Optional<? extends io.codat.platform.models.operations.RefreshCustomDataTypeResponse>](../../models/operations/RefreshCustomDataTypeResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                                 | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| io.codat.platform.models.errors.ErrorMessage | 401,402,403,404,429,451,500,503              | application/json                             |
+| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |

@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
@@ -15,17 +17,12 @@ import java.net.http.HttpResponse;
 import java.util.Optional;
 
 
-public class GetCompanyPushHistoryResponse {
+public class GetCompanyPushHistoryResponse implements io.codat.platform.utils.Response {
 
     /**
      * HTTP response content type for this operation
      */
     private String contentType;
-
-    /**
-     * Your `query` parameter was not correctly formed
-     */
-    private Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage;
 
     /**
      * OK
@@ -42,41 +39,41 @@ public class GetCompanyPushHistoryResponse {
      */
     private HttpResponse<InputStream> rawResponse;
 
+    @JsonCreator
     public GetCompanyPushHistoryResponse(
             String contentType,
-            Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage,
             Optional<? extends io.codat.platform.models.shared.PushOperations> pushOperations,
             int statusCode,
             HttpResponse<InputStream> rawResponse) {
         Utils.checkNotNull(contentType, "contentType");
-        Utils.checkNotNull(errorMessage, "errorMessage");
         Utils.checkNotNull(pushOperations, "pushOperations");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
         this.contentType = contentType;
-        this.errorMessage = errorMessage;
         this.pushOperations = pushOperations;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
+    }
+    
+    public GetCompanyPushHistoryResponse(
+            String contentType,
+            int statusCode,
+            HttpResponse<InputStream> rawResponse) {
+        this(contentType, Optional.empty(), statusCode, rawResponse);
     }
 
     /**
      * HTTP response content type for this operation
      */
+    @JsonIgnore
     public String contentType() {
         return contentType;
     }
 
     /**
-     * Your `query` parameter was not correctly formed
-     */
-    public Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage() {
-        return errorMessage;
-    }
-
-    /**
      * OK
      */
+    @JsonIgnore
     public Optional<? extends io.codat.platform.models.shared.PushOperations> pushOperations() {
         return pushOperations;
     }
@@ -84,6 +81,7 @@ public class GetCompanyPushHistoryResponse {
     /**
      * HTTP response status code for this operation
      */
+    @JsonIgnore
     public int statusCode() {
         return statusCode;
     }
@@ -91,6 +89,7 @@ public class GetCompanyPushHistoryResponse {
     /**
      * Raw HTTP response; suitable for custom response parsing
      */
+    @JsonIgnore
     public HttpResponse<InputStream> rawResponse() {
         return rawResponse;
     }
@@ -105,24 +104,6 @@ public class GetCompanyPushHistoryResponse {
     public GetCompanyPushHistoryResponse withContentType(String contentType) {
         Utils.checkNotNull(contentType, "contentType");
         this.contentType = contentType;
-        return this;
-    }
-
-    /**
-     * Your `query` parameter was not correctly formed
-     */
-    public GetCompanyPushHistoryResponse withErrorMessage(io.codat.platform.models.shared.ErrorMessage errorMessage) {
-        Utils.checkNotNull(errorMessage, "errorMessage");
-        this.errorMessage = Optional.ofNullable(errorMessage);
-        return this;
-    }
-
-    /**
-     * Your `query` parameter was not correctly formed
-     */
-    public GetCompanyPushHistoryResponse withErrorMessage(Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage) {
-        Utils.checkNotNull(errorMessage, "errorMessage");
-        this.errorMessage = errorMessage;
         return this;
     }
 
@@ -173,7 +154,6 @@ public class GetCompanyPushHistoryResponse {
         GetCompanyPushHistoryResponse other = (GetCompanyPushHistoryResponse) o;
         return 
             java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.errorMessage, other.errorMessage) &&
             java.util.Objects.deepEquals(this.pushOperations, other.pushOperations) &&
             java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
             java.util.Objects.deepEquals(this.rawResponse, other.rawResponse);
@@ -183,7 +163,6 @@ public class GetCompanyPushHistoryResponse {
     public int hashCode() {
         return java.util.Objects.hash(
             contentType,
-            errorMessage,
             pushOperations,
             statusCode,
             rawResponse);
@@ -193,7 +172,6 @@ public class GetCompanyPushHistoryResponse {
     public String toString() {
         return Utils.toString(GetCompanyPushHistoryResponse.class,
                 "contentType", contentType,
-                "errorMessage", errorMessage,
                 "pushOperations", pushOperations,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse);
@@ -202,8 +180,6 @@ public class GetCompanyPushHistoryResponse {
     public final static class Builder {
  
         private String contentType;
- 
-        private Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage = Optional.empty();
  
         private Optional<? extends io.codat.platform.models.shared.PushOperations> pushOperations = Optional.empty();
  
@@ -221,24 +197,6 @@ public class GetCompanyPushHistoryResponse {
         public Builder contentType(String contentType) {
             Utils.checkNotNull(contentType, "contentType");
             this.contentType = contentType;
-            return this;
-        }
-
-        /**
-         * Your `query` parameter was not correctly formed
-         */
-        public Builder errorMessage(io.codat.platform.models.shared.ErrorMessage errorMessage) {
-            Utils.checkNotNull(errorMessage, "errorMessage");
-            this.errorMessage = Optional.ofNullable(errorMessage);
-            return this;
-        }
-
-        /**
-         * Your `query` parameter was not correctly formed
-         */
-        public Builder errorMessage(Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage) {
-            Utils.checkNotNull(errorMessage, "errorMessage");
-            this.errorMessage = errorMessage;
             return this;
         }
 
@@ -281,7 +239,6 @@ public class GetCompanyPushHistoryResponse {
         public GetCompanyPushHistoryResponse build() {
             return new GetCompanyPushHistoryResponse(
                 contentType,
-                errorMessage,
                 pushOperations,
                 statusCode,
                 rawResponse);

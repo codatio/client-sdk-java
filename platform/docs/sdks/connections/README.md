@@ -3,7 +3,7 @@
 
 ## Overview
 
-Manage your companies' data connections.
+Create new and manage existing data connections for a company.
 
 ### Available Operations
 
@@ -63,6 +63,8 @@ public class Application {
             if (res.connection().isPresent()) {
                 // handle response
             }
+        } catch (io.codat.platform.models.errors.ErrorMessage e) {
+            // handle exception
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -84,9 +86,10 @@ public class Application {
 **[Optional<? extends io.codat.platform.models.operations.CreateConnectionResponse>](../../models/operations/CreateConnectionResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                                 | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| io.codat.platform.models.errors.ErrorMessage | 401,402,403,404,429,500,503                  | application/json                             |
+| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
 
 ## delete
 
@@ -131,6 +134,8 @@ public class Application {
                 .call();
 
             // handle response
+        } catch (io.codat.platform.models.errors.ErrorMessage e) {
+            // handle exception
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -152,9 +157,10 @@ public class Application {
 **[Optional<? extends io.codat.platform.models.operations.DeleteConnectionResponse>](../../models/operations/DeleteConnectionResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                                 | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| io.codat.platform.models.errors.ErrorMessage | 401,402,403,404,429,500,503                  | application/json                             |
+| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
 
 ## get
 
@@ -200,6 +206,8 @@ public class Application {
             if (res.connection().isPresent()) {
                 // handle response
             }
+        } catch (io.codat.platform.models.errors.ErrorMessage e) {
+            // handle exception
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -221,9 +229,10 @@ public class Application {
 **[Optional<? extends io.codat.platform.models.operations.GetConnectionResponse>](../../models/operations/GetConnectionResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                                 | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| io.codat.platform.models.errors.ErrorMessage | 401,402,403,404,429,500,503                  | application/json                             |
+| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
 
 ## list
 
@@ -272,6 +281,8 @@ public class Application {
             if (res.connections().isPresent()) {
                 // handle response
             }
+        } catch (io.codat.platform.models.errors.ErrorMessage e) {
+            // handle exception
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -293,9 +304,10 @@ public class Application {
 **[Optional<? extends io.codat.platform.models.operations.ListConnectionsResponse>](../../models/operations/ListConnectionsResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                                 | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| io.codat.platform.models.errors.ErrorMessage | 400,401,402,403,404,429,500,503              | application/json                             |
+| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
 
 ## unlink
 
@@ -346,6 +358,8 @@ public class Application {
             if (res.connection().isPresent()) {
                 // handle response
             }
+        } catch (io.codat.platform.models.errors.ErrorMessage e) {
+            // handle exception
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -367,9 +381,10 @@ public class Application {
 **[Optional<? extends io.codat.platform.models.operations.UnlinkConnectionResponse>](../../models/operations/UnlinkConnectionResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                                 | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| io.codat.platform.models.errors.ErrorMessage | 401,402,403,404,429,500,503                  | application/json                             |
+| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
 
 ## updateAuthorization
 
@@ -417,6 +432,8 @@ public class Application {
             if (res.connection().isPresent()) {
                 // handle response
             }
+        } catch (io.codat.platform.models.errors.ErrorMessage e) {
+            // handle exception
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -438,6 +455,7 @@ public class Application {
 **[Optional<? extends io.codat.platform.models.operations.UpdateConnectionAuthorizationResponse>](../../models/operations/UpdateConnectionAuthorizationResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                                 | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| io.codat.platform.models.errors.ErrorMessage | 401,402,403,404,429,500,503                  | application/json                             |
+| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |

@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.SpeakeasyMetadata;
 import io.codat.platform.utils.Utils;
@@ -28,6 +30,7 @@ public class GetCustomDataTypeConfigurationRequest {
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=platformKey")
     private String platformKey;
 
+    @JsonCreator
     public GetCustomDataTypeConfigurationRequest(
             String customDataIdentifier,
             String platformKey) {
@@ -40,6 +43,7 @@ public class GetCustomDataTypeConfigurationRequest {
     /**
      * Unique identifier for a custom data type.
      */
+    @JsonIgnore
     public String customDataIdentifier() {
         return customDataIdentifier;
     }
@@ -47,6 +51,7 @@ public class GetCustomDataTypeConfigurationRequest {
     /**
      * A unique 4-letter key to represent a platform in each integration.
      */
+    @JsonIgnore
     public String platformKey() {
         return platformKey;
     }

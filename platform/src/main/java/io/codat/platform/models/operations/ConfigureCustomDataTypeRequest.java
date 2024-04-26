@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.SpeakeasyMetadata;
 import io.codat.platform.utils.Utils;
@@ -35,6 +37,7 @@ public class ConfigureCustomDataTypeRequest {
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=platformKey")
     private String platformKey;
 
+    @JsonCreator
     public ConfigureCustomDataTypeRequest(
             Optional<? extends io.codat.platform.models.shared.CustomDataTypeConfiguration> customDataTypeConfiguration,
             String customDataIdentifier,
@@ -46,10 +49,17 @@ public class ConfigureCustomDataTypeRequest {
         this.customDataIdentifier = customDataIdentifier;
         this.platformKey = platformKey;
     }
+    
+    public ConfigureCustomDataTypeRequest(
+            String customDataIdentifier,
+            String platformKey) {
+        this(Optional.empty(), customDataIdentifier, platformKey);
+    }
 
     /**
      * Custom data type configuration for the specified platform.
      */
+    @JsonIgnore
     public Optional<? extends io.codat.platform.models.shared.CustomDataTypeConfiguration> customDataTypeConfiguration() {
         return customDataTypeConfiguration;
     }
@@ -57,6 +67,7 @@ public class ConfigureCustomDataTypeRequest {
     /**
      * Unique identifier for a custom data type.
      */
+    @JsonIgnore
     public String customDataIdentifier() {
         return customDataIdentifier;
     }
@@ -64,6 +75,7 @@ public class ConfigureCustomDataTypeRequest {
     /**
      * A unique 4-letter key to represent a platform in each integration.
      */
+    @JsonIgnore
     public String platformKey() {
         return platformKey;
     }

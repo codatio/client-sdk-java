@@ -3,7 +3,7 @@
 
 ## Overview
 
-View and configure supplemental data for supported data types.
+Configure and pull additional data you can include in Codat's standard data types.
 
 ### Available Operations
 
@@ -65,6 +65,8 @@ public class Application {
                 .call();
 
             // handle response
+        } catch (io.codat.platform.models.errors.ErrorMessage e) {
+            // handle exception
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -86,9 +88,10 @@ public class Application {
 **[Optional<? extends io.codat.platform.models.operations.ConfigureSupplementalDataResponse>](../../models/operations/ConfigureSupplementalDataResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                                 | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| io.codat.platform.models.errors.ErrorMessage | 401,402,403,404,429,500,503                  | application/json                             |
+| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
 
 ## getConfiguration
 
@@ -137,6 +140,8 @@ public class Application {
             if (res.supplementalDataConfiguration().isPresent()) {
                 // handle response
             }
+        } catch (io.codat.platform.models.errors.ErrorMessage e) {
+            // handle exception
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -158,6 +163,7 @@ public class Application {
 **[Optional<? extends io.codat.platform.models.operations.GetSupplementalDataConfigurationResponse>](../../models/operations/GetSupplementalDataConfigurationResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                                 | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| io.codat.platform.models.errors.ErrorMessage | 401,402,403,404,429,500,503                  | application/json                             |
+| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |

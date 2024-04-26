@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -40,6 +42,7 @@ public class Branding {
     @JsonProperty("sourceId")
     private Optional<? extends String> sourceId;
 
+    @JsonCreator
     public Branding(
             @JsonProperty("button") Optional<? extends BrandingButton> button,
             @JsonProperty("logo") Optional<? extends BrandingLogo> logo,
@@ -51,10 +54,15 @@ public class Branding {
         this.logo = logo;
         this.sourceId = sourceId;
     }
+    
+    public Branding() {
+        this(Optional.empty(), Optional.empty(), Optional.empty());
+    }
 
     /**
      * Button branding references.
      */
+    @JsonIgnore
     public Optional<? extends BrandingButton> button() {
         return button;
     }
@@ -62,6 +70,7 @@ public class Branding {
     /**
      * Logo branding references.
      */
+    @JsonIgnore
     public Optional<? extends BrandingLogo> logo() {
         return logo;
     }
@@ -69,6 +78,7 @@ public class Branding {
     /**
      * A source-specific ID used to distinguish between different sources originating from the same data connection. In general, a data connection is a single data source. However, for TrueLayer, `sourceId` is associated with a specific bank and has a many-to-one relationship with the `integrationId`.
      */
+    @JsonIgnore
     public Optional<? extends String> sourceId() {
         return sourceId;
     }

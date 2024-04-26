@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -128,6 +130,7 @@ public class Company {
     @JsonProperty("redirect")
     private String redirect;
 
+    @JsonCreator
     public Company(
             @JsonProperty("created") Optional<? extends String> created,
             @JsonProperty("createdByUserName") Optional<? extends String> createdByUserName,
@@ -160,6 +163,13 @@ public class Company {
         this.platform = platform;
         this.redirect = redirect;
     }
+    
+    public Company(
+            String id,
+            String name,
+            String redirect) {
+        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), id, Optional.empty(), name, Optional.empty(), redirect);
+    }
 
     /**
      * In Codat's data model, dates and times are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date and time fields are formatted as strings; for example:
@@ -182,6 +192,7 @@ public class Company {
      * &gt; Not all dates from Codat will contain information about time zones.  
      * &gt; Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
      */
+    @JsonIgnore
     public Optional<? extends String> created() {
         return created;
     }
@@ -189,10 +200,12 @@ public class Company {
     /**
      * Name of user that created the company in Codat.
      */
+    @JsonIgnore
     public Optional<? extends String> createdByUserName() {
         return createdByUserName;
     }
 
+    @JsonIgnore
     public Optional<? extends java.util.List<Connection>> dataConnections() {
         return dataConnections;
     }
@@ -200,6 +213,7 @@ public class Company {
     /**
      * Additional information about the company. This can be used to store foreign IDs, references, etc.
      */
+    @JsonIgnore
     public Optional<? extends String> description() {
         return description;
     }
@@ -207,6 +221,7 @@ public class Company {
     /**
      * An array of groups the company has been assigned to.
      */
+    @JsonIgnore
     public Optional<? extends java.util.List<GroupRef>> groups() {
         return groups;
     }
@@ -214,6 +229,7 @@ public class Company {
     /**
      * Unique identifier for your SMB in Codat.
      */
+    @JsonIgnore
     public String id() {
         return id;
     }
@@ -239,6 +255,7 @@ public class Company {
      * &gt; Not all dates from Codat will contain information about time zones.  
      * &gt; Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
      */
+    @JsonIgnore
     public Optional<? extends String> lastSync() {
         return lastSync;
     }
@@ -246,6 +263,7 @@ public class Company {
     /**
      * The name of the company
      */
+    @JsonIgnore
     public String name() {
         return name;
     }
@@ -255,6 +273,7 @@ public class Company {
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
+    @JsonIgnore
     public Optional<? extends String> platform() {
         return platform;
     }
@@ -262,6 +281,7 @@ public class Company {
     /**
      * The `redirect` [Link URL](https://docs.codat.io/auth-flow/authorize-hosted-link) enabling the customer to start their auth flow journey for the company.
      */
+    @JsonIgnore
     public String redirect() {
         return redirect;
     }

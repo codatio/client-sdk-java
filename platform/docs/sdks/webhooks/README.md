@@ -3,7 +3,7 @@
 
 ## Overview
 
-Manage webhooks, rules, and events.
+Create and manage webhooks that listen to Codat's events.
 
 ### Available Operations
 
@@ -66,6 +66,8 @@ public class Application {
             if (res.webhook().isPresent()) {
                 // handle response
             }
+        } catch (io.codat.platform.models.errors.ErrorMessage e) {
+            // handle exception
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -87,9 +89,10 @@ public class Application {
 **[Optional<? extends io.codat.platform.models.operations.CreateRuleResponse>](../../models/operations/CreateRuleResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                                 | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| io.codat.platform.models.errors.ErrorMessage | 401,402,403,429,500,503                      | application/json                             |
+| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
 
 ## createConsumer
 
@@ -126,6 +129,7 @@ public class Application {
                 .build();
 
             WebhookConsumerPrototype req = WebhookConsumerPrototype.builder()
+                .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .disabled(false)
                 .eventTypes(java.util.List.of(
                     "<value>"))
@@ -139,6 +143,8 @@ public class Application {
             if (res.webhookConsumer().isPresent()) {
                 // handle response
             }
+        } catch (io.codat.platform.models.errors.ErrorMessage e) {
+            // handle exception
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -160,9 +166,10 @@ public class Application {
 **[Optional<? extends io.codat.platform.models.operations.CreateWebhookConsumerResponse>](../../models/operations/CreateWebhookConsumerResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                                 | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| io.codat.platform.models.errors.ErrorMessage | 401,402,403,429,500,503                      | application/json                             |
+| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
 
 ## deleteConsumer
 
@@ -207,6 +214,8 @@ public class Application {
                 .call();
 
             // handle response
+        } catch (io.codat.platform.models.errors.ErrorMessage e) {
+            // handle exception
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -228,9 +237,10 @@ public class Application {
 **[Optional<? extends io.codat.platform.models.operations.DeleteWebhookConsumerResponse>](../../models/operations/DeleteWebhookConsumerResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                                 | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| io.codat.platform.models.errors.ErrorMessage | 401,402,403,404,429,500,503                  | application/json                             |
+| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
 
 ## ~~get~~
 
@@ -277,6 +287,8 @@ public class Application {
             if (res.webhook().isPresent()) {
                 // handle response
             }
+        } catch (io.codat.platform.models.errors.ErrorMessage e) {
+            // handle exception
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -298,9 +310,10 @@ public class Application {
 **[Optional<? extends io.codat.platform.models.operations.GetWebhookResponse>](../../models/operations/GetWebhookResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                                 | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| io.codat.platform.models.errors.ErrorMessage | 401,402,403,404,429,500,503                  | application/json                             |
+| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
 
 ## ~~list~~
 
@@ -350,6 +363,8 @@ public class Application {
             if (res.webhooks().isPresent()) {
                 // handle response
             }
+        } catch (io.codat.platform.models.errors.ErrorMessage e) {
+            // handle exception
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -371,9 +386,10 @@ public class Application {
 **[Optional<? extends io.codat.platform.models.operations.ListRulesResponse>](../../models/operations/ListRulesResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                                 | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| io.codat.platform.models.errors.ErrorMessage | 400,401,402,403,404,429,500,503              | application/json                             |
+| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
 
 ## listConsumers
 
@@ -414,6 +430,8 @@ public class Application {
             if (res.webhookConsumers().isPresent()) {
                 // handle response
             }
+        } catch (io.codat.platform.models.errors.ErrorMessage e) {
+            // handle exception
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -429,6 +447,7 @@ public class Application {
 **[Optional<? extends io.codat.platform.models.operations.ListWebhookConsumersResponse>](../../models/operations/ListWebhookConsumersResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                                 | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| io.codat.platform.models.errors.ErrorMessage | 400,401,402,403,429,500,503                  | application/json                             |
+| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |

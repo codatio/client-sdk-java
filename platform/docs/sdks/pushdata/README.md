@@ -3,7 +3,7 @@
 
 ## Overview
 
-View push options and get push statuses.
+Initiate and monitor Create, Update, and Delete operations.
 
 ### Available Operations
 
@@ -66,6 +66,8 @@ public class Application {
             if (res.pushOption().isPresent()) {
                 // handle response
             }
+        } catch (io.codat.platform.models.errors.ErrorMessage e) {
+            // handle exception
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -87,9 +89,10 @@ public class Application {
 **[Optional<? extends io.codat.platform.models.operations.GetCreateUpdateModelOptionsByDataTypeResponse>](../../models/operations/GetCreateUpdateModelOptionsByDataTypeResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                                 | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| io.codat.platform.models.errors.ErrorMessage | 401,402,403,404,429,500,503                  | application/json                             |
+| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
 
 ## getOperation
 
@@ -135,6 +138,8 @@ public class Application {
             if (res.pushOperation().isPresent()) {
                 // handle response
             }
+        } catch (io.codat.platform.models.errors.ErrorMessage e) {
+            // handle exception
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -156,9 +161,10 @@ public class Application {
 **[Optional<? extends io.codat.platform.models.operations.GetPushOperationResponse>](../../models/operations/GetPushOperationResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                                 | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| io.codat.platform.models.errors.ErrorMessage | 401,402,403,404,429,500,503                  | application/json                             |
+| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
 
 ## listOperations
 
@@ -207,6 +213,8 @@ public class Application {
             if (res.pushOperations().isPresent()) {
                 // handle response
             }
+        } catch (io.codat.platform.models.errors.ErrorMessage e) {
+            // handle exception
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -228,6 +236,7 @@ public class Application {
 **[Optional<? extends io.codat.platform.models.operations.GetCompanyPushHistoryResponse>](../../models/operations/GetCompanyPushHistoryResponse.md)**
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                                 | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| io.codat.platform.models.errors.ErrorMessage | 400,401,402,403,404,429,500,503              | application/json                             |
+| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |

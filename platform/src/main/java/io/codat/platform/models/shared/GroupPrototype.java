@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -29,15 +31,21 @@ public class GroupPrototype {
     @JsonProperty("name")
     private Optional<? extends String> name;
 
+    @JsonCreator
     public GroupPrototype(
             @JsonProperty("name") Optional<? extends String> name) {
         Utils.checkNotNull(name, "name");
         this.name = name;
     }
+    
+    public GroupPrototype() {
+        this(Optional.empty());
+    }
 
     /**
      * Descriptive name of the group.
      */
+    @JsonIgnore
     public Optional<? extends String> name() {
         return name;
     }

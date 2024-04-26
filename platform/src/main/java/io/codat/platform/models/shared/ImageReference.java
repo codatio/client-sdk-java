@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -36,6 +38,7 @@ public class ImageReference {
     @JsonProperty("src")
     private Optional<? extends String> src;
 
+    @JsonCreator
     public ImageReference(
             @JsonProperty("alt") Optional<? extends String> alt,
             @JsonProperty("src") Optional<? extends String> src) {
@@ -44,10 +47,15 @@ public class ImageReference {
         this.alt = alt;
         this.src = src;
     }
+    
+    public ImageReference() {
+        this(Optional.empty(), Optional.empty());
+    }
 
     /**
      * Alternative text when image is not available.
      */
+    @JsonIgnore
     public Optional<? extends String> alt() {
         return alt;
     }
@@ -55,6 +63,7 @@ public class ImageReference {
     /**
      * Source URL for image.
      */
+    @JsonIgnore
     public Optional<? extends String> src() {
         return src;
     }

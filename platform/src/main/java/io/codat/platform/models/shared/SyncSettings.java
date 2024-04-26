@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -37,6 +39,7 @@ public class SyncSettings {
     @JsonProperty("settings")
     private Optional<? extends java.util.List<SyncSetting>> settings;
 
+    @JsonCreator
     public SyncSettings(
             @JsonProperty("clientId") Optional<? extends String> clientId,
             @JsonProperty("overridesDefaults") Optional<? extends Boolean> overridesDefaults,
@@ -48,10 +51,15 @@ public class SyncSettings {
         this.overridesDefaults = overridesDefaults;
         this.settings = settings;
     }
+    
+    public SyncSettings() {
+        this(Optional.empty(), Optional.empty(), Optional.empty());
+    }
 
     /**
      * Unique identifier for your client in Codat.
      */
+    @JsonIgnore
     public Optional<? extends String> clientId() {
         return clientId;
     }
@@ -59,10 +67,12 @@ public class SyncSettings {
     /**
      * Set to `True` if you want to override the default [sync settings](https://docs.codat.io/knowledge-base/advanced-sync-settings).
      */
+    @JsonIgnore
     public Optional<? extends Boolean> overridesDefaults() {
         return overridesDefaults;
     }
 
+    @JsonIgnore
     public Optional<? extends java.util.List<SyncSetting>> settings() {
         return settings;
     }

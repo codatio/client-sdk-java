@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -43,6 +45,7 @@ public class SupplementalDataSourceConfiguration {
     @JsonProperty("pushData")
     private Optional<? extends java.util.Map<String, String>> pushData;
 
+    @JsonCreator
     public SupplementalDataSourceConfiguration(
             @JsonProperty("dataSource") Optional<? extends String> dataSource,
             @JsonProperty("pullData") Optional<? extends java.util.Map<String, String>> pullData,
@@ -54,10 +57,15 @@ public class SupplementalDataSourceConfiguration {
         this.pullData = pullData;
         this.pushData = pushData;
     }
+    
+    public SupplementalDataSourceConfiguration() {
+        this(Optional.empty(), Optional.empty(), Optional.empty());
+    }
 
     /**
      * The underlying endpoint of the source system which the configuration is targeting. 
      */
+    @JsonIgnore
     public Optional<? extends String> dataSource() {
         return dataSource;
     }
@@ -65,6 +73,7 @@ public class SupplementalDataSourceConfiguration {
     /**
      * The additional properties that are required when pulling records.
      */
+    @JsonIgnore
     public Optional<? extends java.util.Map<String, String>> pullData() {
         return pullData;
     }
@@ -72,6 +81,7 @@ public class SupplementalDataSourceConfiguration {
     /**
      * The additional properties that are required to create and/or update records.
      */
+    @JsonIgnore
     public Optional<? extends java.util.Map<String, String>> pushData() {
         return pushData;
     }

@@ -7,12 +7,17 @@ package io.codat.platform;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.models.operations.SDKMethodInterfaces.*;
 import io.codat.platform.utils.HTTPClient;
+import io.codat.platform.utils.Hook.AfterErrorContextImpl;
+import io.codat.platform.utils.Hook.AfterSuccessContextImpl;
+import io.codat.platform.utils.Hook.BeforeRequestContextImpl;
+import io.codat.platform.utils.Retries.NonRetryableException;
 import io.codat.platform.utils.RetryConfig;
 import io.codat.platform.utils.SpeakeasyHTTPClient;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.net.http.HttpRequest;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -24,11 +29,30 @@ import org.openapitools.jackson.nullable.JsonNullable;
  * 
  * These end points cover creating and managing your companies, data connections, and integrations.
  * 
- * [Read about the building blocks of Codat...](https://docs.codat.io/core-concepts/companies)
+ * [Read about the building blocks of Codat...](https://docs.codat.io/core-concepts/companies) | [See our OpenAPI spec](https://github.com/codatio/oas) 
  * 
- * [See our OpenAPI spec](https://github.com/codatio/oas) 
+ * ---
+ * &lt;!-- Start Codat Tags Table --&gt;
+ * ## Endpoints
+ * 
+ * | Endpoints | Description |
+ * | :- |:- |
+ * | Companies | Create and manage your SMB users' companies. |
+ * | Connections | Create new and manage existing data connections for a company. |
+ * | Connection management | Configure connection management UI and retrieve access tokens for authentication. |
+ * | Groups | Define and manage sets of companies based on a chosen characteristic. |
+ * | Webhooks | Create and manage webhooks that listen to Codat's events. |
+ * | Integrations | Get a list of integrations supported by Codat and their logos. |
+ * | Refresh data | Initiate data refreshes, view pull status and history. |
+ * | Settings | Manage company profile configuration, sync settings, and API keys. |
+ * | Push data | Initiate and monitor Create, Update, and Delete operations. |
+ * | Supplemental data | Configure and pull additional data you can include in Codat's standard data types. |
+ * | Custom data type | Configure and pull additional data types that are not included in Codat's standardized data model. |
+ * &lt;!-- End Codat Tags Table --&gt;
  */
 public class CodatPlatform {
+
+
     /**
      * SERVERS contains the list of server urls available to the SDK.
      */
@@ -40,120 +64,132 @@ public class CodatPlatform {
     };
 
     /**
-     * Manage your Codat instance.
+     * Manage company profile configuration, sync settings, and API keys.
      */
     private final Settings settings;
 
     /**
-     * Create and manage your Codat companies.
+     * Create and manage your SMB users' companies.
      */
     private final Companies companies;
 
     /**
-     * Manage your companies' data connections.
+     * Configure connection management UI and retrieve access tokens for authentication.
+     */
+    private final ConnectionManagement connectionManagement;
+
+    /**
+     * Create new and manage existing data connections for a company.
      */
     private final Connections connections;
 
     /**
-     * View and configure custom data types for supported integrations.
+     * Configure and pull additional data types that are not included in Codat's standardized data model.
      */
     private final CustomDataType customDataType;
 
     /**
-     * View push options and get push statuses.
+     * Initiate and monitor Create, Update, and Delete operations.
      */
     private final PushData pushData;
 
     /**
-     * Asynchronously retrieve data from an integration to refresh data in Codat.
+     * Initiate data refreshes, view pull status and history.
      */
     private final RefreshData refreshData;
 
     /**
-     * Create groups and link them to your Codat companies.
+     * Define and manage sets of companies based on a chosen characteristic.
      */
     private final Groups groups;
 
     /**
-     * View and manage your available integrations in Codat.
+     * Get a list of integrations supported by Codat and their logos.
      */
     private final Integrations integrations;
 
     /**
-     * View and configure supplemental data for supported data types.
+     * Configure and pull additional data you can include in Codat's standard data types.
      */
     private final SupplementalData supplementalData;
 
     /**
-     * Manage webhooks, rules, and events.
+     * Create and manage webhooks that listen to Codat's events.
      */
     private final Webhooks webhooks;
 
     /**
-     * Manage your Codat instance.
+     * Manage company profile configuration, sync settings, and API keys.
      */
     public Settings settings() {
         return settings;
     }
 
     /**
-     * Create and manage your Codat companies.
+     * Create and manage your SMB users' companies.
      */
     public Companies companies() {
         return companies;
     }
 
     /**
-     * Manage your companies' data connections.
+     * Configure connection management UI and retrieve access tokens for authentication.
+     */
+    public ConnectionManagement connectionManagement() {
+        return connectionManagement;
+    }
+
+    /**
+     * Create new and manage existing data connections for a company.
      */
     public Connections connections() {
         return connections;
     }
 
     /**
-     * View and configure custom data types for supported integrations.
+     * Configure and pull additional data types that are not included in Codat's standardized data model.
      */
     public CustomDataType customDataType() {
         return customDataType;
     }
 
     /**
-     * View push options and get push statuses.
+     * Initiate and monitor Create, Update, and Delete operations.
      */
     public PushData pushData() {
         return pushData;
     }
 
     /**
-     * Asynchronously retrieve data from an integration to refresh data in Codat.
+     * Initiate data refreshes, view pull status and history.
      */
     public RefreshData refreshData() {
         return refreshData;
     }
 
     /**
-     * Create groups and link them to your Codat companies.
+     * Define and manage sets of companies based on a chosen characteristic.
      */
     public Groups groups() {
         return groups;
     }
 
     /**
-     * View and manage your available integrations in Codat.
+     * Get a list of integrations supported by Codat and their logos.
      */
     public Integrations integrations() {
         return integrations;
     }
 
     /**
-     * View and configure supplemental data for supported data types.
+     * Configure and pull additional data you can include in Codat's standard data types.
      */
     public SupplementalData supplementalData() {
         return supplementalData;
     }
 
     /**
-     * Manage webhooks, rules, and events.
+     * Create and manage webhooks that listen to Codat's events.
      */
     public Webhooks webhooks() {
         return webhooks;
@@ -248,6 +284,11 @@ public class CodatPlatform {
             this.sdkConfiguration.retryConfig = Optional.of(retryConfig);
             return this;
         }
+        // Visible for testing, will be accessed via reflection
+        void _hooks(io.codat.platform.utils.Hooks hooks) {
+            sdkConfiguration.setHooks(hooks);    
+        }
+        
         /**
          * Builds a new instance of the SDK.
          * @return The SDK instance.
@@ -256,9 +297,9 @@ public class CodatPlatform {
             if (sdkConfiguration.defaultClient == null) {
                 sdkConfiguration.defaultClient = new SpeakeasyHTTPClient();
             }
-	    if (sdkConfiguration.securitySource == null) {
-	    	sdkConfiguration.securitySource = SecuritySource.of(null);
-	    }
+	        if (sdkConfiguration.securitySource == null) {
+	    	    sdkConfiguration.securitySource = SecuritySource.of(null);
+	        }
             if (sdkConfiguration.serverUrl == null || sdkConfiguration.serverUrl.isBlank()) {
                 sdkConfiguration.serverUrl = SERVERS[0];
                 sdkConfiguration.serverIdx = 0;
@@ -269,7 +310,7 @@ public class CodatPlatform {
             return new CodatPlatform(sdkConfiguration);
         }
     }
-
+    
     /**
      * Get a new instance of the SDK builder to configure a new instance of the SDK.
      * @return The SDK builder instance.
@@ -282,6 +323,7 @@ public class CodatPlatform {
         this.sdkConfiguration = sdkConfiguration;
         this.settings = new Settings(sdkConfiguration);
         this.companies = new Companies(sdkConfiguration);
+        this.connectionManagement = new ConnectionManagement(sdkConfiguration);
         this.connections = new Connections(sdkConfiguration);
         this.customDataType = new CustomDataType(sdkConfiguration);
         this.pushData = new PushData(sdkConfiguration);
@@ -290,49 +332,5 @@ public class CodatPlatform {
         this.integrations = new Integrations(sdkConfiguration);
         this.supplementalData = new SupplementalData(sdkConfiguration);
         this.webhooks = new Webhooks(sdkConfiguration);
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}
+        this.sdkConfiguration.initialize();
+    }}

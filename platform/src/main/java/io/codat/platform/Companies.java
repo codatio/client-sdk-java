@@ -10,13 +10,18 @@ import io.codat.platform.models.errors.SDKError;
 import io.codat.platform.models.operations.SDKMethodInterfaces.*;
 import io.codat.platform.utils.HTTPClient;
 import io.codat.platform.utils.HTTPRequest;
+import io.codat.platform.utils.Hook.AfterErrorContextImpl;
+import io.codat.platform.utils.Hook.AfterSuccessContextImpl;
+import io.codat.platform.utils.Hook.BeforeRequestContextImpl;
 import io.codat.platform.utils.JSON;
 import io.codat.platform.utils.Options;
+import io.codat.platform.utils.Retries.NonRetryableException;
 import io.codat.platform.utils.SerializedBody;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -27,7 +32,7 @@ import org.apache.http.NameValuePair;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
- * Create and manage your Codat companies.
+ * Create and manage your SMB users' companies.
  */
 public class Companies implements
             MethodCallCreateCompany,
@@ -42,6 +47,16 @@ public class Companies implements
         this.sdkConfiguration = sdkConfiguration;
     }
 
+    /**
+     * Create company
+     * ﻿Use the *Create company* endpoint to create a new [company](https://docs.codat.io/platform-api#/schemas/Company) that represents your customer in Codat. 
+     * 
+     * A [company](https://docs.codat.io/platform-api#/schemas/Company) represents a business sharing access to their data.
+     * Each company can have multiple [connections](https://docs.codat.io/platform-api#/schemas/Connection) to different data sources, such as one connection to Xero for accounting data, two connections to Plaid for two bank accounts, and a connection to Zettle for POS data.
+     * 
+     * If forbidden characters (see `name` pattern) are present in the request, a company will be created with the forbidden characters removed. For example, `Company (Codat[1])` with be created as `Company Codat1`.
+     * @return The call builder
+     */
     public io.codat.platform.models.operations.CreateCompanyRequestBuilder create() {
         return new io.codat.platform.models.operations.CreateCompanyRequestBuilder(this);
     }
@@ -54,10 +69,24 @@ public class Companies implements
      * Each company can have multiple [connections](https://docs.codat.io/platform-api#/schemas/Connection) to different data sources, such as one connection to Xero for accounting data, two connections to Plaid for two bank accounts, and a connection to Zettle for POS data.
      * 
      * If forbidden characters (see `name` pattern) are present in the request, a company will be created with the forbidden characters removed. For example, `Company (Codat[1])` with be created as `Company Codat1`.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public io.codat.platform.models.operations.CreateCompanyResponse createDirect() throws Exception {
+        return create(Optional.empty(), Optional.empty());
+    }
+    /**
+     * Create company
+     * ﻿Use the *Create company* endpoint to create a new [company](https://docs.codat.io/platform-api#/schemas/Company) that represents your customer in Codat. 
+     * 
+     * A [company](https://docs.codat.io/platform-api#/schemas/Company) represents a business sharing access to their data.
+     * Each company can have multiple [connections](https://docs.codat.io/platform-api#/schemas/Connection) to different data sources, such as one connection to Xero for accounting data, two connections to Plaid for two bank accounts, and a connection to Zettle for POS data.
+     * 
+     * If forbidden characters (see `name` pattern) are present in the request, a company will be created with the forbidden characters removed. For example, `Company (Codat[1])` with be created as `Company Codat1`.
      * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
-     * @return The response from the API call.
-     * @throws Exception if the API call fails.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
      */
     public io.codat.platform.models.operations.CreateCompanyResponse create(
             Optional<? extends io.codat.platform.models.shared.CompanyRequestBody> request,
@@ -67,98 +96,143 @@ public class Companies implements
           options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
 
-
-        String baseUrl = this.sdkConfiguration.serverUrl;
-
-        String url = io.codat.platform.utils.Utils.generateURL(
-                baseUrl,
+        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _url = Utils.generateURL(
+                _baseUrl,
                 "/companies");
-
-        HTTPRequest req = new HTTPRequest();
-        req.setMethod("POST");
-        req.setURL(url);
+        
+        HTTPRequest _req = new HTTPRequest(_url, "POST");
         Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
             new TypeReference<Optional<? extends io.codat.platform.models.shared.CompanyRequestBody>>() {});
-        SerializedBody serializedRequestBody = io.codat.platform.utils.Utils.serializeRequestBody(
+        SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
                 _convertedRequest, "request", "json", false);
-        req.setBody(serializedRequestBody);
+        _req.setBody(Optional.ofNullable(_serializedRequestBody));
+        _req.addHeader("Accept", "application/json")
+            .addHeader("user-agent", 
+                this.sdkConfiguration.userAgent);
 
-        req.addHeader("Accept", "application/json");
-        req.addHeader("user-agent", this.sdkConfiguration.userAgent);
+        Utils.configureSecurity(_req,  
+                this.sdkConfiguration.securitySource.getSecurity());
 
-        HTTPClient client = io.codat.platform.utils.Utils.configureSecurityClient(
-                this.sdkConfiguration.defaultClient, this.sdkConfiguration.securitySource.getSecurity());
-
-        io.codat.platform.utils.RetryConfig retryConfig;
+        HTTPClient _client = this.sdkConfiguration.defaultClient;
+        HTTPRequest _finalReq = _req;
+        io.codat.platform.utils.RetryConfig _retryConfig;
         if (options.isPresent() && options.get().retryConfig().isPresent()) {
-            retryConfig = options.get().retryConfig().get();
+            _retryConfig = options.get().retryConfig().get();
         } else if (this.sdkConfiguration.retryConfig.isPresent()) {
-            retryConfig = this.sdkConfiguration.retryConfig.get();
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
         } else {
-            retryConfig = io.codat.platform.utils.RetryConfig.builder()
+            _retryConfig = io.codat.platform.utils.RetryConfig.builder()
                 .backoff(io.codat.platform.utils.BackoffStrategy.builder()
-                            .initialInterval(500L, java.util.concurrent.TimeUnit.MILLISECONDS)
-                            .maxInterval(60000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .initialInterval(500, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, java.util.concurrent.TimeUnit.MILLISECONDS)
                             .baseFactor((double)(1.5))
-                            .maxElapsedTime(3600000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .maxElapsedTime(3600000, java.util.concurrent.TimeUnit.MILLISECONDS)
                             .retryConnectError(true)
                             .build())
                 .build();
         }
-
-        List<String> statusCodes = new java.util.ArrayList<String>();
-        statusCodes.add("408");
-        statusCodes.add("429");
-        statusCodes.add("5XX");
-        io.codat.platform.utils.Retries retries = io.codat.platform.utils.Retries.builder()
-            .action(() -> client.send(req))
-            .retryConfig(retryConfig)
-            .statusCodes(statusCodes)
+        List<String> _statusCodes = new java.util.ArrayList<>();
+        _statusCodes.add("408");
+        _statusCodes.add("429");
+        _statusCodes.add("5XX");
+        io.codat.platform.utils.Retries _retries = io.codat.platform.utils.Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl("create-company", sdkConfiguration.securitySource()),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl("create-company", sdkConfiguration.securitySource()), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
             .build();
-
-        HttpResponse<InputStream> httpRes = retries.run();
-
-        String contentType = httpRes
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl("create-company", sdkConfiguration.securitySource()),
+                     _retries.run());
+        String _contentType = _httpRes
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        io.codat.platform.models.operations.CreateCompanyResponse.Builder resBuilder = 
+        io.codat.platform.models.operations.CreateCompanyResponse.Builder _resBuilder = 
             io.codat.platform.models.operations.CreateCompanyResponse
                 .builder()
-                .contentType(contentType)
-                .statusCode(httpRes.statusCode())
-                .rawResponse(httpRes);
+                .contentType(_contentType)
+                .statusCode(_httpRes.statusCode())
+                .rawResponse(_httpRes);
 
-        io.codat.platform.models.operations.CreateCompanyResponse res = resBuilder.build();
-
-        res.withRawResponse(httpRes);
-
-        if (httpRes.statusCode() == 200) {
-            if (io.codat.platform.utils.Utils.matchContentType(contentType, "application/json")) {
-                ObjectMapper mapper = JSON.getMapper();
-                io.codat.platform.models.shared.Company out = mapper.readValue(
-                    Utils.toUtf8AndClose(httpRes.body()),
+        io.codat.platform.models.operations.CreateCompanyResponse _res = _resBuilder.build();
+        
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                ObjectMapper _mapper = JSON.getMapper();
+                io.codat.platform.models.shared.Company _out = _mapper.readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
                     new TypeReference<io.codat.platform.models.shared.Company>() {});
-                res.withCompany(java.util.Optional.ofNullable(out));
+                _res.withCompany(java.util.Optional.ofNullable(_out));
+                return _res;
             } else {
-                throw new SDKError(httpRes, httpRes.statusCode(), "Unknown content-type received: " + contentType, Utils.toByteArrayAndClose(httpRes.body()));
-            }
-        } else if (httpRes.statusCode() == 400 || httpRes.statusCode() == 401 || httpRes.statusCode() == 402 || httpRes.statusCode() == 403 || httpRes.statusCode() == 429 || httpRes.statusCode() == 500 || httpRes.statusCode() == 503) {
-            if (io.codat.platform.utils.Utils.matchContentType(contentType, "application/json")) {
-                ObjectMapper mapper = JSON.getMapper();
-                io.codat.platform.models.shared.ErrorMessage out = mapper.readValue(
-                    Utils.toUtf8AndClose(httpRes.body()),
-                    new TypeReference<io.codat.platform.models.shared.ErrorMessage>() {});
-                res.withErrorMessage(java.util.Optional.ofNullable(out));
-            } else {
-                throw new SDKError(httpRes, httpRes.statusCode(), "Unknown content-type received: " + contentType, Utils.toByteArrayAndClose(httpRes.body()));
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.toByteArrayAndClose(_httpRes.body()));
             }
         }
-
-        return res;
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "402", "403", "429", "500", "503")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                ObjectMapper _mapper = JSON.getMapper();
+                io.codat.platform.models.errors.ErrorMessage _out = _mapper.readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<io.codat.platform.models.errors.ErrorMessage>() {});
+                throw _out;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.toByteArrayAndClose(_httpRes.body()));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.toByteArrayAndClose(_httpRes.body()));
+        }
+        throw new SDKError(
+            _httpRes, 
+            _httpRes.statusCode(), 
+            "Unexpected status code received: " + _httpRes.statusCode(), 
+            Utils.toByteArrayAndClose(_httpRes.body()));
     }
 
 
+    /**
+     * Delete a company
+     * ﻿The *Delete company* endpoint permanently deletes a [company](https://docs.codat.io/platform-api#/schemas/Company), its [connections](https://docs.codat.io/platform-api#/schemas/Connection) and any cached data. This operation is irreversible.
+     * 
+     * A [company](https://docs.codat.io/platform-api#/schemas/Company) represents a business sharing access to their data.
+     * Each company can have multiple [connections](https://docs.codat.io/platform-api#/schemas/Connection) to different data sources, such as one connection to Xero for accounting data, two connections to Plaid for two bank accounts, and a connection to Zettle for POS data.
+     * 
+     * @return The call builder
+     */
     public io.codat.platform.models.operations.DeleteCompanyRequestBuilder delete() {
         return new io.codat.platform.models.operations.DeleteCompanyRequestBuilder(this);
     }
@@ -171,9 +245,24 @@ public class Companies implements
      * Each company can have multiple [connections](https://docs.codat.io/platform-api#/schemas/Connection) to different data sources, such as one connection to Xero for accounting data, two connections to Plaid for two bank accounts, and a connection to Zettle for POS data.
      * 
      * @param request The request object containing all of the parameters for the API call.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public io.codat.platform.models.operations.DeleteCompanyResponse delete(
+            io.codat.platform.models.operations.DeleteCompanyRequest request) throws Exception {
+        return delete(request, Optional.empty());
+    }
+    /**
+     * Delete a company
+     * ﻿The *Delete company* endpoint permanently deletes a [company](https://docs.codat.io/platform-api#/schemas/Company), its [connections](https://docs.codat.io/platform-api#/schemas/Connection) and any cached data. This operation is irreversible.
+     * 
+     * A [company](https://docs.codat.io/platform-api#/schemas/Company) represents a business sharing access to their data.
+     * Each company can have multiple [connections](https://docs.codat.io/platform-api#/schemas/Connection) to different data sources, such as one connection to Xero for accounting data, two connections to Plaid for two bank accounts, and a connection to Zettle for POS data.
+     * 
+     * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
-     * @return The response from the API call.
-     * @throws Exception if the API call fails.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
      */
     public io.codat.platform.models.operations.DeleteCompanyResponse delete(
             io.codat.platform.models.operations.DeleteCompanyRequest request,
@@ -183,86 +272,128 @@ public class Companies implements
           options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
 
-
-        String baseUrl = this.sdkConfiguration.serverUrl;
-
-        String url = io.codat.platform.utils.Utils.generateURL(
+        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _url = Utils.generateURL(
                 io.codat.platform.models.operations.DeleteCompanyRequest.class,
-                baseUrl,
+                _baseUrl,
                 "/companies/{companyId}",
                 request, null);
+        
+        HTTPRequest _req = new HTTPRequest(_url, "DELETE");
+        _req.addHeader("Accept", "application/json")
+            .addHeader("user-agent", 
+                this.sdkConfiguration.userAgent);
 
-        HTTPRequest req = new HTTPRequest();
-        req.setMethod("DELETE");
-        req.setURL(url);
+        Utils.configureSecurity(_req,  
+                this.sdkConfiguration.securitySource.getSecurity());
 
-        req.addHeader("Accept", "application/json");
-        req.addHeader("user-agent", this.sdkConfiguration.userAgent);
-
-        HTTPClient client = io.codat.platform.utils.Utils.configureSecurityClient(
-                this.sdkConfiguration.defaultClient, this.sdkConfiguration.securitySource.getSecurity());
-
-        io.codat.platform.utils.RetryConfig retryConfig;
+        HTTPClient _client = this.sdkConfiguration.defaultClient;
+        HTTPRequest _finalReq = _req;
+        io.codat.platform.utils.RetryConfig _retryConfig;
         if (options.isPresent() && options.get().retryConfig().isPresent()) {
-            retryConfig = options.get().retryConfig().get();
+            _retryConfig = options.get().retryConfig().get();
         } else if (this.sdkConfiguration.retryConfig.isPresent()) {
-            retryConfig = this.sdkConfiguration.retryConfig.get();
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
         } else {
-            retryConfig = io.codat.platform.utils.RetryConfig.builder()
+            _retryConfig = io.codat.platform.utils.RetryConfig.builder()
                 .backoff(io.codat.platform.utils.BackoffStrategy.builder()
-                            .initialInterval(500L, java.util.concurrent.TimeUnit.MILLISECONDS)
-                            .maxInterval(60000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .initialInterval(500, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, java.util.concurrent.TimeUnit.MILLISECONDS)
                             .baseFactor((double)(1.5))
-                            .maxElapsedTime(3600000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .maxElapsedTime(3600000, java.util.concurrent.TimeUnit.MILLISECONDS)
                             .retryConnectError(true)
                             .build())
                 .build();
         }
-
-        List<String> statusCodes = new java.util.ArrayList<String>();
-        statusCodes.add("408");
-        statusCodes.add("429");
-        statusCodes.add("5XX");
-        io.codat.platform.utils.Retries retries = io.codat.platform.utils.Retries.builder()
-            .action(() -> client.send(req))
-            .retryConfig(retryConfig)
-            .statusCodes(statusCodes)
+        List<String> _statusCodes = new java.util.ArrayList<>();
+        _statusCodes.add("408");
+        _statusCodes.add("429");
+        _statusCodes.add("5XX");
+        io.codat.platform.utils.Retries _retries = io.codat.platform.utils.Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl("delete-company", sdkConfiguration.securitySource()),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl("delete-company", sdkConfiguration.securitySource()), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
             .build();
-
-        HttpResponse<InputStream> httpRes = retries.run();
-
-        String contentType = httpRes
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl("delete-company", sdkConfiguration.securitySource()),
+                     _retries.run());
+        String _contentType = _httpRes
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        io.codat.platform.models.operations.DeleteCompanyResponse.Builder resBuilder = 
+        io.codat.platform.models.operations.DeleteCompanyResponse.Builder _resBuilder = 
             io.codat.platform.models.operations.DeleteCompanyResponse
                 .builder()
-                .contentType(contentType)
-                .statusCode(httpRes.statusCode())
-                .rawResponse(httpRes);
+                .contentType(_contentType)
+                .statusCode(_httpRes.statusCode())
+                .rawResponse(_httpRes);
 
-        io.codat.platform.models.operations.DeleteCompanyResponse res = resBuilder.build();
-
-        res.withRawResponse(httpRes);
-
-        if (httpRes.statusCode() == 204) {
-        } else if (httpRes.statusCode() == 401 || httpRes.statusCode() == 402 || httpRes.statusCode() == 403 || httpRes.statusCode() == 404 || httpRes.statusCode() == 429 || httpRes.statusCode() == 500 || httpRes.statusCode() == 503) {
-            if (io.codat.platform.utils.Utils.matchContentType(contentType, "application/json")) {
-                ObjectMapper mapper = JSON.getMapper();
-                io.codat.platform.models.shared.ErrorMessage out = mapper.readValue(
-                    Utils.toUtf8AndClose(httpRes.body()),
-                    new TypeReference<io.codat.platform.models.shared.ErrorMessage>() {});
-                res.withErrorMessage(java.util.Optional.ofNullable(out));
+        io.codat.platform.models.operations.DeleteCompanyResponse _res = _resBuilder.build();
+        
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "204")) {
+            // no content 
+            return _res;
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "401", "402", "403", "404", "429", "500", "503")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                ObjectMapper _mapper = JSON.getMapper();
+                io.codat.platform.models.errors.ErrorMessage _out = _mapper.readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<io.codat.platform.models.errors.ErrorMessage>() {});
+                throw _out;
             } else {
-                throw new SDKError(httpRes, httpRes.statusCode(), "Unknown content-type received: " + contentType, Utils.toByteArrayAndClose(httpRes.body()));
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.toByteArrayAndClose(_httpRes.body()));
             }
         }
-
-        return res;
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.toByteArrayAndClose(_httpRes.body()));
+        }
+        throw new SDKError(
+            _httpRes, 
+            _httpRes.statusCode(), 
+            "Unexpected status code received: " + _httpRes.statusCode(), 
+            Utils.toByteArrayAndClose(_httpRes.body()));
     }
 
 
+    /**
+     * Get company
+     * ﻿The *Get company* endpoint returns a single company for a given `companyId`.
+     * 
+     * A [company](https://docs.codat.io/platform-api#/schemas/Company) represents a business sharing access to their data.
+     * Each company can have multiple [connections](https://docs.codat.io/platform-api#/schemas/Connection) to different data sources, such as one connection to Xero for accounting data, two connections to Plaid for two bank accounts, and a connection to Zettle for POS data.
+     * 
+     * @return The call builder
+     */
     public io.codat.platform.models.operations.GetCompanyRequestBuilder get() {
         return new io.codat.platform.models.operations.GetCompanyRequestBuilder(this);
     }
@@ -275,9 +406,24 @@ public class Companies implements
      * Each company can have multiple [connections](https://docs.codat.io/platform-api#/schemas/Connection) to different data sources, such as one connection to Xero for accounting data, two connections to Plaid for two bank accounts, and a connection to Zettle for POS data.
      * 
      * @param request The request object containing all of the parameters for the API call.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public io.codat.platform.models.operations.GetCompanyResponse get(
+            io.codat.platform.models.operations.GetCompanyRequest request) throws Exception {
+        return get(request, Optional.empty());
+    }
+    /**
+     * Get company
+     * ﻿The *Get company* endpoint returns a single company for a given `companyId`.
+     * 
+     * A [company](https://docs.codat.io/platform-api#/schemas/Company) represents a business sharing access to their data.
+     * Each company can have multiple [connections](https://docs.codat.io/platform-api#/schemas/Connection) to different data sources, such as one connection to Xero for accounting data, two connections to Plaid for two bank accounts, and a connection to Zettle for POS data.
+     * 
+     * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
-     * @return The response from the API call.
-     * @throws Exception if the API call fails.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
      */
     public io.codat.platform.models.operations.GetCompanyResponse get(
             io.codat.platform.models.operations.GetCompanyRequest request,
@@ -287,95 +433,139 @@ public class Companies implements
           options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
 
-
-        String baseUrl = this.sdkConfiguration.serverUrl;
-
-        String url = io.codat.platform.utils.Utils.generateURL(
+        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _url = Utils.generateURL(
                 io.codat.platform.models.operations.GetCompanyRequest.class,
-                baseUrl,
+                _baseUrl,
                 "/companies/{companyId}",
                 request, null);
+        
+        HTTPRequest _req = new HTTPRequest(_url, "GET");
+        _req.addHeader("Accept", "application/json")
+            .addHeader("user-agent", 
+                this.sdkConfiguration.userAgent);
 
-        HTTPRequest req = new HTTPRequest();
-        req.setMethod("GET");
-        req.setURL(url);
+        Utils.configureSecurity(_req,  
+                this.sdkConfiguration.securitySource.getSecurity());
 
-        req.addHeader("Accept", "application/json");
-        req.addHeader("user-agent", this.sdkConfiguration.userAgent);
-
-        HTTPClient client = io.codat.platform.utils.Utils.configureSecurityClient(
-                this.sdkConfiguration.defaultClient, this.sdkConfiguration.securitySource.getSecurity());
-
-        io.codat.platform.utils.RetryConfig retryConfig;
+        HTTPClient _client = this.sdkConfiguration.defaultClient;
+        HTTPRequest _finalReq = _req;
+        io.codat.platform.utils.RetryConfig _retryConfig;
         if (options.isPresent() && options.get().retryConfig().isPresent()) {
-            retryConfig = options.get().retryConfig().get();
+            _retryConfig = options.get().retryConfig().get();
         } else if (this.sdkConfiguration.retryConfig.isPresent()) {
-            retryConfig = this.sdkConfiguration.retryConfig.get();
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
         } else {
-            retryConfig = io.codat.platform.utils.RetryConfig.builder()
+            _retryConfig = io.codat.platform.utils.RetryConfig.builder()
                 .backoff(io.codat.platform.utils.BackoffStrategy.builder()
-                            .initialInterval(500L, java.util.concurrent.TimeUnit.MILLISECONDS)
-                            .maxInterval(60000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .initialInterval(500, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, java.util.concurrent.TimeUnit.MILLISECONDS)
                             .baseFactor((double)(1.5))
-                            .maxElapsedTime(3600000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .maxElapsedTime(3600000, java.util.concurrent.TimeUnit.MILLISECONDS)
                             .retryConnectError(true)
                             .build())
                 .build();
         }
-
-        List<String> statusCodes = new java.util.ArrayList<String>();
-        statusCodes.add("408");
-        statusCodes.add("429");
-        statusCodes.add("5XX");
-        io.codat.platform.utils.Retries retries = io.codat.platform.utils.Retries.builder()
-            .action(() -> client.send(req))
-            .retryConfig(retryConfig)
-            .statusCodes(statusCodes)
+        List<String> _statusCodes = new java.util.ArrayList<>();
+        _statusCodes.add("408");
+        _statusCodes.add("429");
+        _statusCodes.add("5XX");
+        io.codat.platform.utils.Retries _retries = io.codat.platform.utils.Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl("get-company", sdkConfiguration.securitySource()),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl("get-company", sdkConfiguration.securitySource()), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
             .build();
-
-        HttpResponse<InputStream> httpRes = retries.run();
-
-        String contentType = httpRes
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl("get-company", sdkConfiguration.securitySource()),
+                     _retries.run());
+        String _contentType = _httpRes
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        io.codat.platform.models.operations.GetCompanyResponse.Builder resBuilder = 
+        io.codat.platform.models.operations.GetCompanyResponse.Builder _resBuilder = 
             io.codat.platform.models.operations.GetCompanyResponse
                 .builder()
-                .contentType(contentType)
-                .statusCode(httpRes.statusCode())
-                .rawResponse(httpRes);
+                .contentType(_contentType)
+                .statusCode(_httpRes.statusCode())
+                .rawResponse(_httpRes);
 
-        io.codat.platform.models.operations.GetCompanyResponse res = resBuilder.build();
-
-        res.withRawResponse(httpRes);
-
-        if (httpRes.statusCode() == 200) {
-            if (io.codat.platform.utils.Utils.matchContentType(contentType, "application/json")) {
-                ObjectMapper mapper = JSON.getMapper();
-                io.codat.platform.models.shared.Company out = mapper.readValue(
-                    Utils.toUtf8AndClose(httpRes.body()),
+        io.codat.platform.models.operations.GetCompanyResponse _res = _resBuilder.build();
+        
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                ObjectMapper _mapper = JSON.getMapper();
+                io.codat.platform.models.shared.Company _out = _mapper.readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
                     new TypeReference<io.codat.platform.models.shared.Company>() {});
-                res.withCompany(java.util.Optional.ofNullable(out));
+                _res.withCompany(java.util.Optional.ofNullable(_out));
+                return _res;
             } else {
-                throw new SDKError(httpRes, httpRes.statusCode(), "Unknown content-type received: " + contentType, Utils.toByteArrayAndClose(httpRes.body()));
-            }
-        } else if (httpRes.statusCode() == 401 || httpRes.statusCode() == 402 || httpRes.statusCode() == 403 || httpRes.statusCode() == 404 || httpRes.statusCode() == 429 || httpRes.statusCode() == 500 || httpRes.statusCode() == 503) {
-            if (io.codat.platform.utils.Utils.matchContentType(contentType, "application/json")) {
-                ObjectMapper mapper = JSON.getMapper();
-                io.codat.platform.models.shared.ErrorMessage out = mapper.readValue(
-                    Utils.toUtf8AndClose(httpRes.body()),
-                    new TypeReference<io.codat.platform.models.shared.ErrorMessage>() {});
-                res.withErrorMessage(java.util.Optional.ofNullable(out));
-            } else {
-                throw new SDKError(httpRes, httpRes.statusCode(), "Unknown content-type received: " + contentType, Utils.toByteArrayAndClose(httpRes.body()));
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.toByteArrayAndClose(_httpRes.body()));
             }
         }
-
-        return res;
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "401", "402", "403", "404", "429", "500", "503")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                ObjectMapper _mapper = JSON.getMapper();
+                io.codat.platform.models.errors.ErrorMessage _out = _mapper.readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<io.codat.platform.models.errors.ErrorMessage>() {});
+                throw _out;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.toByteArrayAndClose(_httpRes.body()));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.toByteArrayAndClose(_httpRes.body()));
+        }
+        throw new SDKError(
+            _httpRes, 
+            _httpRes.statusCode(), 
+            "Unexpected status code received: " + _httpRes.statusCode(), 
+            Utils.toByteArrayAndClose(_httpRes.body()));
     }
 
 
+    /**
+     * List companies
+     * ﻿The *List companies* endpoint returns a list of [companies] associated to your instances.
+     * 
+     * A [company](https://docs.codat.io/platform-api#/schemas/Company) represents a business sharing access to their data.
+     * Each company can have multiple [connections](https://docs.codat.io/platform-api#/schemas/Connection) to different data sources, such as one connection to Xero for accounting data, two connections to Plaid for two bank accounts, and a connection to Zettle for POS data.
+     * @return The call builder
+     */
     public io.codat.platform.models.operations.ListCompaniesRequestBuilder list() {
         return new io.codat.platform.models.operations.ListCompaniesRequestBuilder(this);
     }
@@ -387,9 +577,23 @@ public class Companies implements
      * A [company](https://docs.codat.io/platform-api#/schemas/Company) represents a business sharing access to their data.
      * Each company can have multiple [connections](https://docs.codat.io/platform-api#/schemas/Connection) to different data sources, such as one connection to Xero for accounting data, two connections to Plaid for two bank accounts, and a connection to Zettle for POS data.
      * @param request The request object containing all of the parameters for the API call.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public io.codat.platform.models.operations.ListCompaniesResponse list(
+            io.codat.platform.models.operations.ListCompaniesRequest request) throws Exception {
+        return list(request, Optional.empty());
+    }
+    /**
+     * List companies
+     * ﻿The *List companies* endpoint returns a list of [companies] associated to your instances.
+     * 
+     * A [company](https://docs.codat.io/platform-api#/schemas/Company) represents a business sharing access to their data.
+     * Each company can have multiple [connections](https://docs.codat.io/platform-api#/schemas/Connection) to different data sources, such as one connection to Xero for accounting data, two connections to Plaid for two bank accounts, and a connection to Zettle for POS data.
+     * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
-     * @return The response from the API call.
-     * @throws Exception if the API call fails.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
      */
     public io.codat.platform.models.operations.ListCompaniesResponse list(
             io.codat.platform.models.operations.ListCompaniesRequest request,
@@ -399,101 +603,143 @@ public class Companies implements
           options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
 
-
-        String baseUrl = this.sdkConfiguration.serverUrl;
-
-        String url = io.codat.platform.utils.Utils.generateURL(
-                baseUrl,
+        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _url = Utils.generateURL(
+                _baseUrl,
                 "/companies");
+        
+        HTTPRequest _req = new HTTPRequest(_url, "GET");
+        _req.addHeader("Accept", "application/json")
+            .addHeader("user-agent", 
+                this.sdkConfiguration.userAgent);
 
-        HTTPRequest req = new HTTPRequest();
-        req.setMethod("GET");
-        req.setURL(url);
+        _req.addQueryParams(Utils.getQueryParams(
+                io.codat.platform.models.operations.ListCompaniesRequest.class,
+                request, 
+                null));
 
-        req.addHeader("Accept", "application/json");
-        req.addHeader("user-agent", this.sdkConfiguration.userAgent);
+        Utils.configureSecurity(_req,  
+                this.sdkConfiguration.securitySource.getSecurity());
 
-        java.util.List<NameValuePair> queryParams = io.codat.platform.utils.Utils.getQueryParams(
-                io.codat.platform.models.operations.ListCompaniesRequest.class, request, null);
-        if (queryParams != null) {
-            for (NameValuePair queryParam : queryParams) {
-                req.addQueryParam(queryParam);
-            }
-        }
-
-        HTTPClient client = io.codat.platform.utils.Utils.configureSecurityClient(
-                this.sdkConfiguration.defaultClient, this.sdkConfiguration.securitySource.getSecurity());
-
-        io.codat.platform.utils.RetryConfig retryConfig;
+        HTTPClient _client = this.sdkConfiguration.defaultClient;
+        HTTPRequest _finalReq = _req;
+        io.codat.platform.utils.RetryConfig _retryConfig;
         if (options.isPresent() && options.get().retryConfig().isPresent()) {
-            retryConfig = options.get().retryConfig().get();
+            _retryConfig = options.get().retryConfig().get();
         } else if (this.sdkConfiguration.retryConfig.isPresent()) {
-            retryConfig = this.sdkConfiguration.retryConfig.get();
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
         } else {
-            retryConfig = io.codat.platform.utils.RetryConfig.builder()
+            _retryConfig = io.codat.platform.utils.RetryConfig.builder()
                 .backoff(io.codat.platform.utils.BackoffStrategy.builder()
-                            .initialInterval(500L, java.util.concurrent.TimeUnit.MILLISECONDS)
-                            .maxInterval(60000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .initialInterval(500, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, java.util.concurrent.TimeUnit.MILLISECONDS)
                             .baseFactor((double)(1.5))
-                            .maxElapsedTime(3600000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .maxElapsedTime(3600000, java.util.concurrent.TimeUnit.MILLISECONDS)
                             .retryConnectError(true)
                             .build())
                 .build();
         }
-
-        List<String> statusCodes = new java.util.ArrayList<String>();
-        statusCodes.add("408");
-        statusCodes.add("429");
-        statusCodes.add("5XX");
-        io.codat.platform.utils.Retries retries = io.codat.platform.utils.Retries.builder()
-            .action(() -> client.send(req))
-            .retryConfig(retryConfig)
-            .statusCodes(statusCodes)
+        List<String> _statusCodes = new java.util.ArrayList<>();
+        _statusCodes.add("408");
+        _statusCodes.add("429");
+        _statusCodes.add("5XX");
+        io.codat.platform.utils.Retries _retries = io.codat.platform.utils.Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl("list-companies", sdkConfiguration.securitySource()),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl("list-companies", sdkConfiguration.securitySource()), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
             .build();
-
-        HttpResponse<InputStream> httpRes = retries.run();
-
-        String contentType = httpRes
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl("list-companies", sdkConfiguration.securitySource()),
+                     _retries.run());
+        String _contentType = _httpRes
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        io.codat.platform.models.operations.ListCompaniesResponse.Builder resBuilder = 
+        io.codat.platform.models.operations.ListCompaniesResponse.Builder _resBuilder = 
             io.codat.platform.models.operations.ListCompaniesResponse
                 .builder()
-                .contentType(contentType)
-                .statusCode(httpRes.statusCode())
-                .rawResponse(httpRes);
+                .contentType(_contentType)
+                .statusCode(_httpRes.statusCode())
+                .rawResponse(_httpRes);
 
-        io.codat.platform.models.operations.ListCompaniesResponse res = resBuilder.build();
-
-        res.withRawResponse(httpRes);
-
-        if (httpRes.statusCode() == 200) {
-            if (io.codat.platform.utils.Utils.matchContentType(contentType, "application/json")) {
-                ObjectMapper mapper = JSON.getMapper();
-                io.codat.platform.models.shared.Companies out = mapper.readValue(
-                    Utils.toUtf8AndClose(httpRes.body()),
+        io.codat.platform.models.operations.ListCompaniesResponse _res = _resBuilder.build();
+        
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                ObjectMapper _mapper = JSON.getMapper();
+                io.codat.platform.models.shared.Companies _out = _mapper.readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
                     new TypeReference<io.codat.platform.models.shared.Companies>() {});
-                res.withCompanies(java.util.Optional.ofNullable(out));
+                _res.withCompanies(java.util.Optional.ofNullable(_out));
+                return _res;
             } else {
-                throw new SDKError(httpRes, httpRes.statusCode(), "Unknown content-type received: " + contentType, Utils.toByteArrayAndClose(httpRes.body()));
-            }
-        } else if (httpRes.statusCode() == 400 || httpRes.statusCode() == 401 || httpRes.statusCode() == 402 || httpRes.statusCode() == 403 || httpRes.statusCode() == 404 || httpRes.statusCode() == 429 || httpRes.statusCode() == 500 || httpRes.statusCode() == 503) {
-            if (io.codat.platform.utils.Utils.matchContentType(contentType, "application/json")) {
-                ObjectMapper mapper = JSON.getMapper();
-                io.codat.platform.models.shared.ErrorMessage out = mapper.readValue(
-                    Utils.toUtf8AndClose(httpRes.body()),
-                    new TypeReference<io.codat.platform.models.shared.ErrorMessage>() {});
-                res.withErrorMessage(java.util.Optional.ofNullable(out));
-            } else {
-                throw new SDKError(httpRes, httpRes.statusCode(), "Unknown content-type received: " + contentType, Utils.toByteArrayAndClose(httpRes.body()));
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.toByteArrayAndClose(_httpRes.body()));
             }
         }
-
-        return res;
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "402", "403", "404", "429", "500", "503")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                ObjectMapper _mapper = JSON.getMapper();
+                io.codat.platform.models.errors.ErrorMessage _out = _mapper.readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<io.codat.platform.models.errors.ErrorMessage>() {});
+                throw _out;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.toByteArrayAndClose(_httpRes.body()));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.toByteArrayAndClose(_httpRes.body()));
+        }
+        throw new SDKError(
+            _httpRes, 
+            _httpRes.statusCode(), 
+            "Unexpected status code received: " + _httpRes.statusCode(), 
+            Utils.toByteArrayAndClose(_httpRes.body()));
     }
 
 
+    /**
+     * Update company
+     * ﻿Use the *Update company* endpoint to update both the name and description of the company. 
+     * If you use [groups](https://docs.codat.io/platform-api#/schemas/Group) to manage a set of companies, use the [Add company](https://docs.codat.io/platform-api#/operations/add-company-to-group) or [Remove company](https://docs.codat.io/platform-api#/operations/remove-company-from-group) endpoints to add or remove a company from a group.
+     * 
+     * A [company](https://docs.codat.io/platform-api#/schemas/Company) represents a business sharing access to their data.
+     * Each company can have multiple [connections](https://docs.codat.io/platform-api#/schemas/Connection) to different data sources, such as one connection to Xero for accounting data, two connections to Plaid for two bank accounts, and a connection to Zettle for POS data.
+     * @return The call builder
+     */
     public io.codat.platform.models.operations.UpdateCompanyRequestBuilder update() {
         return new io.codat.platform.models.operations.UpdateCompanyRequestBuilder(this);
     }
@@ -506,9 +752,24 @@ public class Companies implements
      * A [company](https://docs.codat.io/platform-api#/schemas/Company) represents a business sharing access to their data.
      * Each company can have multiple [connections](https://docs.codat.io/platform-api#/schemas/Connection) to different data sources, such as one connection to Xero for accounting data, two connections to Plaid for two bank accounts, and a connection to Zettle for POS data.
      * @param request The request object containing all of the parameters for the API call.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public io.codat.platform.models.operations.UpdateCompanyResponse update(
+            io.codat.platform.models.operations.UpdateCompanyRequest request) throws Exception {
+        return update(request, Optional.empty());
+    }
+    /**
+     * Update company
+     * ﻿Use the *Update company* endpoint to update both the name and description of the company. 
+     * If you use [groups](https://docs.codat.io/platform-api#/schemas/Group) to manage a set of companies, use the [Add company](https://docs.codat.io/platform-api#/operations/add-company-to-group) or [Remove company](https://docs.codat.io/platform-api#/operations/remove-company-from-group) endpoints to add or remove a company from a group.
+     * 
+     * A [company](https://docs.codat.io/platform-api#/schemas/Company) represents a business sharing access to their data.
+     * Each company can have multiple [connections](https://docs.codat.io/platform-api#/schemas/Connection) to different data sources, such as one connection to Xero for accounting data, two connections to Plaid for two bank accounts, and a connection to Zettle for POS data.
+     * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
-     * @return The response from the API call.
-     * @throws Exception if the API call fails.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
      */
     public io.codat.platform.models.operations.UpdateCompanyResponse update(
             io.codat.platform.models.operations.UpdateCompanyRequest request,
@@ -518,97 +779,133 @@ public class Companies implements
           options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
 
-
-        String baseUrl = this.sdkConfiguration.serverUrl;
-
-        String url = io.codat.platform.utils.Utils.generateURL(
+        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _url = Utils.generateURL(
                 io.codat.platform.models.operations.UpdateCompanyRequest.class,
-                baseUrl,
+                _baseUrl,
                 "/companies/{companyId}",
                 request, null);
-
-        HTTPRequest req = new HTTPRequest();
-        req.setMethod("PUT");
-        req.setURL(url);
+        
+        HTTPRequest _req = new HTTPRequest(_url, "PUT");
         Object _convertedRequest = Utils.convertToShape(request, Utils.JsonShape.DEFAULT,
             new TypeReference<io.codat.platform.models.operations.UpdateCompanyRequest>() {});
-        SerializedBody serializedRequestBody = io.codat.platform.utils.Utils.serializeRequestBody(
+        SerializedBody _serializedRequestBody = Utils.serializeRequestBody(
                 _convertedRequest, "companyRequestBody", "json", false);
-        req.setBody(serializedRequestBody);
+        _req.setBody(Optional.ofNullable(_serializedRequestBody));
+        _req.addHeader("Accept", "application/json")
+            .addHeader("user-agent", 
+                this.sdkConfiguration.userAgent);
 
-        req.addHeader("Accept", "application/json");
-        req.addHeader("user-agent", this.sdkConfiguration.userAgent);
+        Utils.configureSecurity(_req,  
+                this.sdkConfiguration.securitySource.getSecurity());
 
-        HTTPClient client = io.codat.platform.utils.Utils.configureSecurityClient(
-                this.sdkConfiguration.defaultClient, this.sdkConfiguration.securitySource.getSecurity());
-
-        io.codat.platform.utils.RetryConfig retryConfig;
+        HTTPClient _client = this.sdkConfiguration.defaultClient;
+        HTTPRequest _finalReq = _req;
+        io.codat.platform.utils.RetryConfig _retryConfig;
         if (options.isPresent() && options.get().retryConfig().isPresent()) {
-            retryConfig = options.get().retryConfig().get();
+            _retryConfig = options.get().retryConfig().get();
         } else if (this.sdkConfiguration.retryConfig.isPresent()) {
-            retryConfig = this.sdkConfiguration.retryConfig.get();
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
         } else {
-            retryConfig = io.codat.platform.utils.RetryConfig.builder()
+            _retryConfig = io.codat.platform.utils.RetryConfig.builder()
                 .backoff(io.codat.platform.utils.BackoffStrategy.builder()
-                            .initialInterval(500L, java.util.concurrent.TimeUnit.MILLISECONDS)
-                            .maxInterval(60000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .initialInterval(500, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, java.util.concurrent.TimeUnit.MILLISECONDS)
                             .baseFactor((double)(1.5))
-                            .maxElapsedTime(3600000L, java.util.concurrent.TimeUnit.MILLISECONDS)
+                            .maxElapsedTime(3600000, java.util.concurrent.TimeUnit.MILLISECONDS)
                             .retryConnectError(true)
                             .build())
                 .build();
         }
-
-        List<String> statusCodes = new java.util.ArrayList<String>();
-        statusCodes.add("408");
-        statusCodes.add("429");
-        statusCodes.add("5XX");
-        io.codat.platform.utils.Retries retries = io.codat.platform.utils.Retries.builder()
-            .action(() -> client.send(req))
-            .retryConfig(retryConfig)
-            .statusCodes(statusCodes)
+        List<String> _statusCodes = new java.util.ArrayList<>();
+        _statusCodes.add("408");
+        _statusCodes.add("429");
+        _statusCodes.add("5XX");
+        io.codat.platform.utils.Retries _retries = io.codat.platform.utils.Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl("update-company", sdkConfiguration.securitySource()),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl("update-company", sdkConfiguration.securitySource()), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
             .build();
-
-        HttpResponse<InputStream> httpRes = retries.run();
-
-        String contentType = httpRes
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl("update-company", sdkConfiguration.securitySource()),
+                     _retries.run());
+        String _contentType = _httpRes
             .headers()
             .firstValue("Content-Type")
             .orElse("application/octet-stream");
-        io.codat.platform.models.operations.UpdateCompanyResponse.Builder resBuilder = 
+        io.codat.platform.models.operations.UpdateCompanyResponse.Builder _resBuilder = 
             io.codat.platform.models.operations.UpdateCompanyResponse
                 .builder()
-                .contentType(contentType)
-                .statusCode(httpRes.statusCode())
-                .rawResponse(httpRes);
+                .contentType(_contentType)
+                .statusCode(_httpRes.statusCode())
+                .rawResponse(_httpRes);
 
-        io.codat.platform.models.operations.UpdateCompanyResponse res = resBuilder.build();
-
-        res.withRawResponse(httpRes);
-
-        if (httpRes.statusCode() == 200) {
-            if (io.codat.platform.utils.Utils.matchContentType(contentType, "application/json")) {
-                ObjectMapper mapper = JSON.getMapper();
-                io.codat.platform.models.shared.Company out = mapper.readValue(
-                    Utils.toUtf8AndClose(httpRes.body()),
+        io.codat.platform.models.operations.UpdateCompanyResponse _res = _resBuilder.build();
+        
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                ObjectMapper _mapper = JSON.getMapper();
+                io.codat.platform.models.shared.Company _out = _mapper.readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
                     new TypeReference<io.codat.platform.models.shared.Company>() {});
-                res.withCompany(java.util.Optional.ofNullable(out));
+                _res.withCompany(java.util.Optional.ofNullable(_out));
+                return _res;
             } else {
-                throw new SDKError(httpRes, httpRes.statusCode(), "Unknown content-type received: " + contentType, Utils.toByteArrayAndClose(httpRes.body()));
-            }
-        } else if (httpRes.statusCode() == 401 || httpRes.statusCode() == 402 || httpRes.statusCode() == 403 || httpRes.statusCode() == 404 || httpRes.statusCode() == 429 || httpRes.statusCode() == 500 || httpRes.statusCode() == 503) {
-            if (io.codat.platform.utils.Utils.matchContentType(contentType, "application/json")) {
-                ObjectMapper mapper = JSON.getMapper();
-                io.codat.platform.models.shared.ErrorMessage out = mapper.readValue(
-                    Utils.toUtf8AndClose(httpRes.body()),
-                    new TypeReference<io.codat.platform.models.shared.ErrorMessage>() {});
-                res.withErrorMessage(java.util.Optional.ofNullable(out));
-            } else {
-                throw new SDKError(httpRes, httpRes.statusCode(), "Unknown content-type received: " + contentType, Utils.toByteArrayAndClose(httpRes.body()));
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.toByteArrayAndClose(_httpRes.body()));
             }
         }
-
-        return res;
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "401", "402", "403", "404", "429", "500", "503")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                ObjectMapper _mapper = JSON.getMapper();
+                io.codat.platform.models.errors.ErrorMessage _out = _mapper.readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<io.codat.platform.models.errors.ErrorMessage>() {});
+                throw _out;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.toByteArrayAndClose(_httpRes.body()));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.toByteArrayAndClose(_httpRes.body()));
+        }
+        throw new SDKError(
+            _httpRes, 
+            _httpRes.statusCode(), 
+            "Unexpected status code received: " + _httpRes.statusCode(), 
+            Utils.toByteArrayAndClose(_httpRes.body()));
     }
 
 }

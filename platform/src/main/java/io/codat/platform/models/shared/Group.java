@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -36,6 +38,7 @@ public class Group {
     @JsonProperty("name")
     private Optional<? extends String> name;
 
+    @JsonCreator
     public Group(
             @JsonProperty("id") Optional<? extends String> id,
             @JsonProperty("name") Optional<? extends String> name) {
@@ -44,10 +47,15 @@ public class Group {
         this.id = id;
         this.name = name;
     }
+    
+    public Group() {
+        this(Optional.empty(), Optional.empty());
+    }
 
     /**
      * Unique identifier for the group.
      */
+    @JsonIgnore
     public Optional<? extends String> id() {
         return id;
     }
@@ -55,6 +63,7 @@ public class Group {
     /**
      * Descriptive name of the group.
      */
+    @JsonIgnore
     public Optional<? extends String> name() {
         return name;
     }

@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -39,6 +41,7 @@ public class CompanyRequestBody {
     @JsonProperty("name")
     private String name;
 
+    @JsonCreator
     public CompanyRequestBody(
             @JsonProperty("description") Optional<? extends String> description,
             @JsonProperty("groups") Optional<? extends java.util.List<GroupRef>> groups,
@@ -50,10 +53,16 @@ public class CompanyRequestBody {
         this.groups = groups;
         this.name = name;
     }
+    
+    public CompanyRequestBody(
+            String name) {
+        this(Optional.empty(), Optional.empty(), name);
+    }
 
     /**
      * Additional information about the company. This can be used to store foreign IDs, references, etc.
      */
+    @JsonIgnore
     public Optional<? extends String> description() {
         return description;
     }
@@ -61,6 +70,7 @@ public class CompanyRequestBody {
     /**
      * Reference to the groups that the company is assigned to.
      */
+    @JsonIgnore
     public Optional<? extends java.util.List<GroupRef>> groups() {
         return groups;
     }
@@ -68,6 +78,7 @@ public class CompanyRequestBody {
     /**
      * Name of company being connected.
      */
+    @JsonIgnore
     public String name() {
         return name;
     }

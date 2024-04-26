@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -80,6 +82,7 @@ public class Profile {
     @JsonProperty("whiteListUrls")
     private Optional<? extends java.util.List<String>> whiteListUrls;
 
+    @JsonCreator
     public Profile(
             @JsonProperty("alertAuthHeader") Optional<? extends String> alertAuthHeader,
             @JsonProperty("apiKey") Optional<? extends String> apiKey,
@@ -106,10 +109,17 @@ public class Profile {
         this.redirectUrl = redirectUrl;
         this.whiteListUrls = whiteListUrls;
     }
+    
+    public Profile(
+            String name,
+            String redirectUrl) {
+        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), name, redirectUrl, Optional.empty());
+    }
 
     /**
      * Alert or webhooks authorization header.
      */
+    @JsonIgnore
     public Optional<? extends String> alertAuthHeader() {
         return alertAuthHeader;
     }
@@ -119,6 +129,7 @@ public class Profile {
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
+    @JsonIgnore
     public Optional<? extends String> apiKey() {
         return apiKey;
     }
@@ -128,6 +139,7 @@ public class Profile {
      * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
+    @JsonIgnore
     public Optional<? extends Boolean> confirmCompanyName() {
         return confirmCompanyName;
     }
@@ -135,6 +147,7 @@ public class Profile {
     /**
      * Static url to your organization's icon.
      */
+    @JsonIgnore
     public Optional<? extends String> iconUrl() {
         return iconUrl;
     }
@@ -142,6 +155,7 @@ public class Profile {
     /**
      * Static url to your organization's logo.
      */
+    @JsonIgnore
     public Optional<? extends String> logoUrl() {
         return logoUrl;
     }
@@ -149,6 +163,7 @@ public class Profile {
     /**
      * The name given to the instance.
      */
+    @JsonIgnore
     public String name() {
         return name;
     }
@@ -156,6 +171,7 @@ public class Profile {
     /**
      * The redirect URL pasted on to the SMB once Codat's [Hosted Link](https://docs.codat.io/auth-flow/authorize-hosted-link) has been completed by the SMB.
      */
+    @JsonIgnore
     public String redirectUrl() {
         return redirectUrl;
     }
@@ -163,6 +179,7 @@ public class Profile {
     /**
      * A list of urls that are allowed to communicate with Codat. If empty any url is allowed to communicate with Codat.
      */
+    @JsonIgnore
     public Optional<? extends java.util.List<String>> whiteListUrls() {
         return whiteListUrls;
     }

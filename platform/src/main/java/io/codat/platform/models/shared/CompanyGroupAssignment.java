@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,12 +25,18 @@ public class CompanyGroupAssignment {
     @JsonProperty("groupId")
     private Optional<? extends String> groupId;
 
+    @JsonCreator
     public CompanyGroupAssignment(
             @JsonProperty("groupId") Optional<? extends String> groupId) {
         Utils.checkNotNull(groupId, "groupId");
         this.groupId = groupId;
     }
+    
+    public CompanyGroupAssignment() {
+        this(Optional.empty());
+    }
 
+    @JsonIgnore
     public Optional<? extends String> groupId() {
         return groupId;
     }

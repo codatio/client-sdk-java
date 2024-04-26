@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -32,6 +34,7 @@ public class DataTypeFeature {
     @JsonProperty("supportedFeatures")
     private java.util.List<SupportedFeature> supportedFeatures;
 
+    @JsonCreator
     public DataTypeFeature(
             @JsonProperty("dataType") Optional<? extends DataType> dataType,
             @JsonProperty("supportedFeatures") java.util.List<SupportedFeature> supportedFeatures) {
@@ -40,14 +43,21 @@ public class DataTypeFeature {
         this.dataType = dataType;
         this.supportedFeatures = supportedFeatures;
     }
+    
+    public DataTypeFeature(
+            java.util.List<SupportedFeature> supportedFeatures) {
+        this(Optional.empty(), supportedFeatures);
+    }
 
     /**
      * Available data types
      */
+    @JsonIgnore
     public Optional<? extends DataType> dataType() {
         return dataType;
     }
 
+    @JsonIgnore
     public java.util.List<SupportedFeature> supportedFeatures() {
         return supportedFeatures;
     }

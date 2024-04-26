@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -92,6 +94,7 @@ public class Integration {
     @JsonProperty("sourceType")
     private Optional<? extends SourceType> sourceType;
 
+    @JsonCreator
     public Integration(
             @JsonProperty("dataProvidedBy") Optional<? extends String> dataProvidedBy,
             @JsonProperty("datatypeFeatures") Optional<? extends java.util.List<DataTypeFeature>> datatypeFeatures,
@@ -127,14 +130,24 @@ public class Integration {
         this.sourceId = sourceId;
         this.sourceType = sourceType;
     }
+    
+    public Integration(
+            boolean enabled,
+            String key,
+            String logoUrl,
+            String name) {
+        this(Optional.empty(), Optional.empty(), enabled, Optional.empty(), Optional.empty(), Optional.empty(), key, logoUrl, name, Optional.empty(), Optional.empty());
+    }
 
     /**
      * The name of the data provider.
      */
+    @JsonIgnore
     public Optional<? extends String> dataProvidedBy() {
         return dataProvidedBy;
     }
 
+    @JsonIgnore
     public Optional<? extends java.util.List<DataTypeFeature>> datatypeFeatures() {
         return datatypeFeatures;
     }
@@ -142,6 +155,7 @@ public class Integration {
     /**
      * Whether this integration is enabled for your customers to use.
      */
+    @JsonIgnore
     public boolean enabled() {
         return enabled;
     }
@@ -149,6 +163,7 @@ public class Integration {
     /**
      * A Codat ID representing the integration.
      */
+    @JsonIgnore
     public Optional<? extends String> integrationId() {
         return integrationId;
     }
@@ -156,6 +171,7 @@ public class Integration {
     /**
      * `True` if the integration is currently in beta release.
      */
+    @JsonIgnore
     public Optional<? extends Boolean> isBeta() {
         return isBeta;
     }
@@ -163,6 +179,7 @@ public class Integration {
     /**
      * `True` if the integration is to an application installed and run locally on an SMBs computer.
      */
+    @JsonIgnore
     public Optional<? extends Boolean> isOfflineConnector() {
         return isOfflineConnector;
     }
@@ -170,6 +187,7 @@ public class Integration {
     /**
      * A unique 4-letter key to represent a platform in each integration. View [accounting](https://docs.codat.io/integrations/accounting/overview#platform-keys), [banking](https://docs.codat.io/integrations/banking/overview#platform-keys), and [commerce](https://docs.codat.io/integrations/commerce/overview#platform-keys) platform keys.
      */
+    @JsonIgnore
     public String key() {
         return key;
     }
@@ -177,6 +195,7 @@ public class Integration {
     /**
      * Static url for integration's logo.
      */
+    @JsonIgnore
     public String logoUrl() {
         return logoUrl;
     }
@@ -184,6 +203,7 @@ public class Integration {
     /**
      * Name of integration.
      */
+    @JsonIgnore
     public String name() {
         return name;
     }
@@ -191,6 +211,7 @@ public class Integration {
     /**
      * A source-specific ID used to distinguish between different sources originating from the same data connection. In general, a data connection is a single data source. However, for TrueLayer, `sourceId` is associated with a specific bank and has a many-to-one relationship with the `integrationId`.
      */
+    @JsonIgnore
     public Optional<? extends String> sourceId() {
         return sourceId;
     }
@@ -198,6 +219,7 @@ public class Integration {
     /**
      * The type of platform of the connection.
      */
+    @JsonIgnore
     public Optional<? extends SourceType> sourceType() {
         return sourceType;
     }

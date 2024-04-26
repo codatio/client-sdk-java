@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -40,6 +42,7 @@ public class ValidationItem {
     @JsonProperty("validatorName")
     private JsonNullable<? extends String> validatorName;
 
+    @JsonCreator
     public ValidationItem(
             @JsonProperty("itemId") JsonNullable<? extends String> itemId,
             @JsonProperty("message") JsonNullable<? extends String> message,
@@ -51,10 +54,15 @@ public class ValidationItem {
         this.message = message;
         this.validatorName = validatorName;
     }
+    
+    public ValidationItem() {
+        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+    }
 
     /**
      * Unique identifier for a validation item.
      */
+    @JsonIgnore
     public JsonNullable<? extends String> itemId() {
         return itemId;
     }
@@ -62,6 +70,7 @@ public class ValidationItem {
     /**
      * A message outlining validation item's issue.
      */
+    @JsonIgnore
     public JsonNullable<? extends String> message() {
         return message;
     }
@@ -69,6 +78,7 @@ public class ValidationItem {
     /**
      * Name of validator.
      */
+    @JsonIgnore
     public JsonNullable<? extends String> validatorName() {
         return validatorName;
     }

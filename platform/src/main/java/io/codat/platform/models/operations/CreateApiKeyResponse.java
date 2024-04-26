@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
@@ -12,11 +14,10 @@ import java.lang.Deprecated;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.http.HttpResponse;
-import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 
-public class CreateApiKeyResponse {
+public class CreateApiKeyResponse implements io.codat.platform.utils.Response {
 
     /**
      * Success
@@ -29,11 +30,6 @@ public class CreateApiKeyResponse {
     private String contentType;
 
     /**
-     * Bad Request
-     */
-    private Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage;
-
-    /**
      * HTTP response status code for this operation
      */
     private int statusCode;
@@ -43,27 +39,33 @@ public class CreateApiKeyResponse {
      */
     private HttpResponse<InputStream> rawResponse;
 
+    @JsonCreator
     public CreateApiKeyResponse(
             JsonNullable<? extends io.codat.platform.models.shared.ApiKeyDetails> apiKeyDetails,
             String contentType,
-            Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage,
             int statusCode,
             HttpResponse<InputStream> rawResponse) {
         Utils.checkNotNull(apiKeyDetails, "apiKeyDetails");
         Utils.checkNotNull(contentType, "contentType");
-        Utils.checkNotNull(errorMessage, "errorMessage");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
         this.apiKeyDetails = apiKeyDetails;
         this.contentType = contentType;
-        this.errorMessage = errorMessage;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
+    }
+    
+    public CreateApiKeyResponse(
+            String contentType,
+            int statusCode,
+            HttpResponse<InputStream> rawResponse) {
+        this(JsonNullable.undefined(), contentType, statusCode, rawResponse);
     }
 
     /**
      * Success
      */
+    @JsonIgnore
     public JsonNullable<? extends io.codat.platform.models.shared.ApiKeyDetails> apiKeyDetails() {
         return apiKeyDetails;
     }
@@ -71,20 +73,15 @@ public class CreateApiKeyResponse {
     /**
      * HTTP response content type for this operation
      */
+    @JsonIgnore
     public String contentType() {
         return contentType;
     }
 
     /**
-     * Bad Request
-     */
-    public Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage() {
-        return errorMessage;
-    }
-
-    /**
      * HTTP response status code for this operation
      */
+    @JsonIgnore
     public int statusCode() {
         return statusCode;
     }
@@ -92,6 +89,7 @@ public class CreateApiKeyResponse {
     /**
      * Raw HTTP response; suitable for custom response parsing
      */
+    @JsonIgnore
     public HttpResponse<InputStream> rawResponse() {
         return rawResponse;
     }
@@ -128,24 +126,6 @@ public class CreateApiKeyResponse {
     }
 
     /**
-     * Bad Request
-     */
-    public CreateApiKeyResponse withErrorMessage(io.codat.platform.models.shared.ErrorMessage errorMessage) {
-        Utils.checkNotNull(errorMessage, "errorMessage");
-        this.errorMessage = Optional.ofNullable(errorMessage);
-        return this;
-    }
-
-    /**
-     * Bad Request
-     */
-    public CreateApiKeyResponse withErrorMessage(Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage) {
-        Utils.checkNotNull(errorMessage, "errorMessage");
-        this.errorMessage = errorMessage;
-        return this;
-    }
-
-    /**
      * HTTP response status code for this operation
      */
     public CreateApiKeyResponse withStatusCode(int statusCode) {
@@ -175,7 +155,6 @@ public class CreateApiKeyResponse {
         return 
             java.util.Objects.deepEquals(this.apiKeyDetails, other.apiKeyDetails) &&
             java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.errorMessage, other.errorMessage) &&
             java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
             java.util.Objects.deepEquals(this.rawResponse, other.rawResponse);
     }
@@ -185,7 +164,6 @@ public class CreateApiKeyResponse {
         return java.util.Objects.hash(
             apiKeyDetails,
             contentType,
-            errorMessage,
             statusCode,
             rawResponse);
     }
@@ -195,7 +173,6 @@ public class CreateApiKeyResponse {
         return Utils.toString(CreateApiKeyResponse.class,
                 "apiKeyDetails", apiKeyDetails,
                 "contentType", contentType,
-                "errorMessage", errorMessage,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse);
     }
@@ -205,8 +182,6 @@ public class CreateApiKeyResponse {
         private JsonNullable<? extends io.codat.platform.models.shared.ApiKeyDetails> apiKeyDetails = JsonNullable.undefined();
  
         private String contentType;
- 
-        private Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage = Optional.empty();
  
         private Integer statusCode;
  
@@ -244,24 +219,6 @@ public class CreateApiKeyResponse {
         }
 
         /**
-         * Bad Request
-         */
-        public Builder errorMessage(io.codat.platform.models.shared.ErrorMessage errorMessage) {
-            Utils.checkNotNull(errorMessage, "errorMessage");
-            this.errorMessage = Optional.ofNullable(errorMessage);
-            return this;
-        }
-
-        /**
-         * Bad Request
-         */
-        public Builder errorMessage(Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage) {
-            Utils.checkNotNull(errorMessage, "errorMessage");
-            this.errorMessage = errorMessage;
-            return this;
-        }
-
-        /**
          * HTTP response status code for this operation
          */
         public Builder statusCode(int statusCode) {
@@ -283,7 +240,6 @@ public class CreateApiKeyResponse {
             return new CreateApiKeyResponse(
                 apiKeyDetails,
                 contentType,
-                errorMessage,
                 statusCode,
                 rawResponse);
         }

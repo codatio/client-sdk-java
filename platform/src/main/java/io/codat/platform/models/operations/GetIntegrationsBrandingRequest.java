@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.SpeakeasyMetadata;
 import io.codat.platform.utils.Utils;
@@ -22,6 +24,7 @@ public class GetIntegrationsBrandingRequest {
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=platformKey")
     private String platformKey;
 
+    @JsonCreator
     public GetIntegrationsBrandingRequest(
             String platformKey) {
         Utils.checkNotNull(platformKey, "platformKey");
@@ -31,6 +34,7 @@ public class GetIntegrationsBrandingRequest {
     /**
      * A unique 4-letter key to represent a platform in each integration.
      */
+    @JsonIgnore
     public String platformKey() {
         return platformKey;
     }

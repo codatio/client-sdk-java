@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -70,9 +72,11 @@ public class DatasetDataChangedWebhook {
 
     /**
      * Unique identifier for the rule.
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("RuleId")
+    @Deprecated
     private Optional<? extends String> ruleId;
 
     /**
@@ -82,6 +86,7 @@ public class DatasetDataChangedWebhook {
     @JsonProperty("RuleType")
     private Optional<? extends String> ruleType;
 
+    @JsonCreator
     public DatasetDataChangedWebhook(
             @JsonProperty("AlertId") Optional<? extends String> alertId,
             @JsonProperty("ClientId") Optional<? extends String> clientId,
@@ -111,10 +116,15 @@ public class DatasetDataChangedWebhook {
         this.ruleId = ruleId;
         this.ruleType = ruleType;
     }
+    
+    public DatasetDataChangedWebhook() {
+        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+    }
 
     /**
      * Unique identifier of the webhook event.
      */
+    @JsonIgnore
     public Optional<? extends String> alertId() {
         return alertId;
     }
@@ -122,6 +132,7 @@ public class DatasetDataChangedWebhook {
     /**
      * Unique identifier for your client in Codat.
      */
+    @JsonIgnore
     public Optional<? extends String> clientId() {
         return clientId;
     }
@@ -129,6 +140,7 @@ public class DatasetDataChangedWebhook {
     /**
      * Name of your client in Codat.
      */
+    @JsonIgnore
     public Optional<? extends String> clientName() {
         return clientName;
     }
@@ -136,10 +148,12 @@ public class DatasetDataChangedWebhook {
     /**
      * Unique identifier for your SMB in Codat.
      */
+    @JsonIgnore
     public Optional<? extends String> companyId() {
         return companyId;
     }
 
+    @JsonIgnore
     public Optional<? extends DatasetDataChangedWebhookData> data() {
         return data;
     }
@@ -147,6 +161,7 @@ public class DatasetDataChangedWebhook {
     /**
      * Unique identifier for a company's data connection.
      */
+    @JsonIgnore
     public Optional<? extends String> dataConnectionId() {
         return dataConnectionId;
     }
@@ -154,13 +169,17 @@ public class DatasetDataChangedWebhook {
     /**
      * A human-readable message about the webhook.
      */
+    @JsonIgnore
     public Optional<? extends String> message() {
         return message;
     }
 
     /**
      * Unique identifier for the rule.
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
+    @JsonIgnore
     public Optional<? extends String> ruleId() {
         return ruleId;
     }
@@ -168,6 +187,7 @@ public class DatasetDataChangedWebhook {
     /**
      * The type of rule.
      */
+    @JsonIgnore
     public Optional<? extends String> ruleType() {
         return ruleType;
     }
@@ -298,7 +318,9 @@ public class DatasetDataChangedWebhook {
 
     /**
      * Unique identifier for the rule.
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public DatasetDataChangedWebhook withRuleId(String ruleId) {
         Utils.checkNotNull(ruleId, "ruleId");
         this.ruleId = Optional.ofNullable(ruleId);
@@ -307,7 +329,9 @@ public class DatasetDataChangedWebhook {
 
     /**
      * Unique identifier for the rule.
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public DatasetDataChangedWebhook withRuleId(Optional<? extends String> ruleId) {
         Utils.checkNotNull(ruleId, "ruleId");
         this.ruleId = ruleId;
@@ -397,6 +421,7 @@ public class DatasetDataChangedWebhook {
  
         private Optional<? extends String> message = Optional.empty();
  
+        @Deprecated
         private Optional<? extends String> ruleId = Optional.empty();
  
         private Optional<? extends String> ruleType = Optional.empty();  
@@ -527,7 +552,9 @@ public class DatasetDataChangedWebhook {
 
         /**
          * Unique identifier for the rule.
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
          */
+        @Deprecated
         public Builder ruleId(String ruleId) {
             Utils.checkNotNull(ruleId, "ruleId");
             this.ruleId = Optional.ofNullable(ruleId);
@@ -536,7 +563,9 @@ public class DatasetDataChangedWebhook {
 
         /**
          * Unique identifier for the rule.
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
          */
+        @Deprecated
         public Builder ruleId(Optional<? extends String> ruleId) {
             Utils.checkNotNull(ruleId, "ruleId");
             this.ruleId = ruleId;

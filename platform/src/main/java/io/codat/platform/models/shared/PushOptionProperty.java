@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -56,6 +58,7 @@ public class PushOptionProperty {
     @JsonProperty("validation")
     private Optional<? extends PushValidationInfo> validation;
 
+    @JsonCreator
     public PushOptionProperty(
             @JsonProperty("description") String description,
             @JsonProperty("displayName") String displayName,
@@ -79,10 +82,19 @@ public class PushOptionProperty {
         this.type = type;
         this.validation = validation;
     }
+    
+    public PushOptionProperty(
+            String description,
+            String displayName,
+            boolean required,
+            PushOptionType type) {
+        this(description, displayName, JsonNullable.undefined(), JsonNullable.undefined(), required, type, Optional.empty());
+    }
 
     /**
      * A description of the property.
      */
+    @JsonIgnore
     public String description() {
         return description;
     }
@@ -90,14 +102,17 @@ public class PushOptionProperty {
     /**
      * The property's display name.
      */
+    @JsonIgnore
     public String displayName() {
         return displayName;
     }
 
+    @JsonIgnore
     public JsonNullable<? extends java.util.List<PushOptionChoice>> options() {
         return options;
     }
 
+    @JsonIgnore
     public JsonNullable<? extends java.util.Map<String, PushOptionProperty>> properties() {
         return properties;
     }
@@ -105,6 +120,7 @@ public class PushOptionProperty {
     /**
      * The property is required if `True`.
      */
+    @JsonIgnore
     public boolean required() {
         return required;
     }
@@ -112,10 +128,12 @@ public class PushOptionProperty {
     /**
      * The option type.
      */
+    @JsonIgnore
     public PushOptionType type() {
         return type;
     }
 
+    @JsonIgnore
     public Optional<? extends PushValidationInfo> validation() {
         return validation;
     }

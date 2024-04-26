@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -29,15 +31,21 @@ public class CreateApiKey {
     @JsonProperty("name")
     private JsonNullable<? extends String> name;
 
+    @JsonCreator
     public CreateApiKey(
             @JsonProperty("name") JsonNullable<? extends String> name) {
         Utils.checkNotNull(name, "name");
         this.name = name;
     }
+    
+    public CreateApiKey() {
+        this(JsonNullable.undefined());
+    }
 
     /**
      * A meaningful name assigned to the API key.
      */
+    @JsonIgnore
     public JsonNullable<? extends String> name() {
         return name;
     }

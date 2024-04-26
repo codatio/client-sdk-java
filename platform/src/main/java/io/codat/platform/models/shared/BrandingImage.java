@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -26,15 +28,21 @@ public class BrandingImage {
     @JsonProperty("image")
     private Optional<? extends ImageReference> image;
 
+    @JsonCreator
     public BrandingImage(
             @JsonProperty("image") Optional<? extends ImageReference> image) {
         Utils.checkNotNull(image, "image");
         this.image = image;
     }
+    
+    public BrandingImage() {
+        this(Optional.empty());
+    }
 
     /**
      * Image reference.
      */
+    @JsonIgnore
     public Optional<? extends ImageReference> image() {
         return image;
     }

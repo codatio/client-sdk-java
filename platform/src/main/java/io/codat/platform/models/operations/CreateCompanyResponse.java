@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
@@ -15,7 +17,7 @@ import java.net.http.HttpResponse;
 import java.util.Optional;
 
 
-public class CreateCompanyResponse {
+public class CreateCompanyResponse implements io.codat.platform.utils.Response {
 
     /**
      * OK
@@ -28,11 +30,6 @@ public class CreateCompanyResponse {
     private String contentType;
 
     /**
-     * The request made is not valid.
-     */
-    private Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage;
-
-    /**
      * HTTP response status code for this operation
      */
     private int statusCode;
@@ -42,27 +39,33 @@ public class CreateCompanyResponse {
      */
     private HttpResponse<InputStream> rawResponse;
 
+    @JsonCreator
     public CreateCompanyResponse(
             Optional<? extends io.codat.platform.models.shared.Company> company,
             String contentType,
-            Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage,
             int statusCode,
             HttpResponse<InputStream> rawResponse) {
         Utils.checkNotNull(company, "company");
         Utils.checkNotNull(contentType, "contentType");
-        Utils.checkNotNull(errorMessage, "errorMessage");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
         this.company = company;
         this.contentType = contentType;
-        this.errorMessage = errorMessage;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
+    }
+    
+    public CreateCompanyResponse(
+            String contentType,
+            int statusCode,
+            HttpResponse<InputStream> rawResponse) {
+        this(Optional.empty(), contentType, statusCode, rawResponse);
     }
 
     /**
      * OK
      */
+    @JsonIgnore
     public Optional<? extends io.codat.platform.models.shared.Company> company() {
         return company;
     }
@@ -70,20 +73,15 @@ public class CreateCompanyResponse {
     /**
      * HTTP response content type for this operation
      */
+    @JsonIgnore
     public String contentType() {
         return contentType;
     }
 
     /**
-     * The request made is not valid.
-     */
-    public Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage() {
-        return errorMessage;
-    }
-
-    /**
      * HTTP response status code for this operation
      */
+    @JsonIgnore
     public int statusCode() {
         return statusCode;
     }
@@ -91,6 +89,7 @@ public class CreateCompanyResponse {
     /**
      * Raw HTTP response; suitable for custom response parsing
      */
+    @JsonIgnore
     public HttpResponse<InputStream> rawResponse() {
         return rawResponse;
     }
@@ -127,24 +126,6 @@ public class CreateCompanyResponse {
     }
 
     /**
-     * The request made is not valid.
-     */
-    public CreateCompanyResponse withErrorMessage(io.codat.platform.models.shared.ErrorMessage errorMessage) {
-        Utils.checkNotNull(errorMessage, "errorMessage");
-        this.errorMessage = Optional.ofNullable(errorMessage);
-        return this;
-    }
-
-    /**
-     * The request made is not valid.
-     */
-    public CreateCompanyResponse withErrorMessage(Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage) {
-        Utils.checkNotNull(errorMessage, "errorMessage");
-        this.errorMessage = errorMessage;
-        return this;
-    }
-
-    /**
      * HTTP response status code for this operation
      */
     public CreateCompanyResponse withStatusCode(int statusCode) {
@@ -174,7 +155,6 @@ public class CreateCompanyResponse {
         return 
             java.util.Objects.deepEquals(this.company, other.company) &&
             java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.errorMessage, other.errorMessage) &&
             java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
             java.util.Objects.deepEquals(this.rawResponse, other.rawResponse);
     }
@@ -184,7 +164,6 @@ public class CreateCompanyResponse {
         return java.util.Objects.hash(
             company,
             contentType,
-            errorMessage,
             statusCode,
             rawResponse);
     }
@@ -194,7 +173,6 @@ public class CreateCompanyResponse {
         return Utils.toString(CreateCompanyResponse.class,
                 "company", company,
                 "contentType", contentType,
-                "errorMessage", errorMessage,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse);
     }
@@ -204,8 +182,6 @@ public class CreateCompanyResponse {
         private Optional<? extends io.codat.platform.models.shared.Company> company = Optional.empty();
  
         private String contentType;
- 
-        private Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage = Optional.empty();
  
         private Integer statusCode;
  
@@ -243,24 +219,6 @@ public class CreateCompanyResponse {
         }
 
         /**
-         * The request made is not valid.
-         */
-        public Builder errorMessage(io.codat.platform.models.shared.ErrorMessage errorMessage) {
-            Utils.checkNotNull(errorMessage, "errorMessage");
-            this.errorMessage = Optional.ofNullable(errorMessage);
-            return this;
-        }
-
-        /**
-         * The request made is not valid.
-         */
-        public Builder errorMessage(Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage) {
-            Utils.checkNotNull(errorMessage, "errorMessage");
-            this.errorMessage = errorMessage;
-            return this;
-        }
-
-        /**
          * HTTP response status code for this operation
          */
         public Builder statusCode(int statusCode) {
@@ -282,7 +240,6 @@ public class CreateCompanyResponse {
             return new CreateCompanyResponse(
                 company,
                 contentType,
-                errorMessage,
                 statusCode,
                 rawResponse);
         }

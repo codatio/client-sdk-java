@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -38,6 +40,7 @@ public class PushOperationChange {
     @JsonProperty("type")
     private Optional<? extends PushChangeType> type;
 
+    @JsonCreator
     public PushOperationChange(
             @JsonProperty("attachmentId") JsonNullable<? extends String> attachmentId,
             @JsonProperty("recordRef") Optional<? extends PushOperationRef> recordRef,
@@ -49,14 +52,20 @@ public class PushOperationChange {
         this.recordRef = recordRef;
         this.type = type;
     }
+    
+    public PushOperationChange() {
+        this(JsonNullable.undefined(), Optional.empty(), Optional.empty());
+    }
 
     /**
      * Unique identifier for the attachment created otherwise null.
      */
+    @JsonIgnore
     public JsonNullable<? extends String> attachmentId() {
         return attachmentId;
     }
 
+    @JsonIgnore
     public Optional<? extends PushOperationRef> recordRef() {
         return recordRef;
     }
@@ -64,6 +73,7 @@ public class PushOperationChange {
     /**
      * Type of change being applied to record in third party platform.
      */
+    @JsonIgnore
     public Optional<? extends PushChangeType> type() {
         return type;
     }

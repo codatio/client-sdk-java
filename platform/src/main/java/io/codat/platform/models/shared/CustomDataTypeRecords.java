@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -47,6 +49,7 @@ public class CustomDataTypeRecords {
     @JsonProperty("totalResults")
     private Optional<? extends Long> totalResults;
 
+    @JsonCreator
     public CustomDataTypeRecords(
             @JsonProperty("pageNumber") Optional<? extends Long> pageNumber,
             @JsonProperty("pageSize") Optional<? extends Long> pageSize,
@@ -61,10 +64,15 @@ public class CustomDataTypeRecords {
         this.results = results;
         this.totalResults = totalResults;
     }
+    
+    public CustomDataTypeRecords() {
+        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+    }
 
     /**
      * Current page number.
      */
+    @JsonIgnore
     public Optional<? extends Long> pageNumber() {
         return pageNumber;
     }
@@ -72,10 +80,12 @@ public class CustomDataTypeRecords {
     /**
      * Number of items to return in results array.
      */
+    @JsonIgnore
     public Optional<? extends Long> pageSize() {
         return pageSize;
     }
 
+    @JsonIgnore
     public Optional<? extends java.util.List<CustomDataTypeRecord>> results() {
         return results;
     }
@@ -83,6 +93,7 @@ public class CustomDataTypeRecords {
     /**
      * Total number of items.
      */
+    @JsonIgnore
     public Optional<? extends Long> totalResults() {
         return totalResults;
     }

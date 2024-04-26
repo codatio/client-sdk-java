@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -44,6 +46,7 @@ public class Companies {
     @JsonProperty("totalResults")
     private long totalResults;
 
+    @JsonCreator
     public Companies(
             @JsonProperty("_links") Links links,
             @JsonProperty("pageNumber") long pageNumber,
@@ -61,7 +64,16 @@ public class Companies {
         this.results = results;
         this.totalResults = totalResults;
     }
+    
+    public Companies(
+            Links links,
+            long pageNumber,
+            long pageSize,
+            long totalResults) {
+        this(links, pageNumber, pageSize, Optional.empty(), totalResults);
+    }
 
+    @JsonIgnore
     public Links links() {
         return links;
     }
@@ -69,6 +81,7 @@ public class Companies {
     /**
      * Current page number.
      */
+    @JsonIgnore
     public long pageNumber() {
         return pageNumber;
     }
@@ -76,10 +89,12 @@ public class Companies {
     /**
      * Number of items to return in results array.
      */
+    @JsonIgnore
     public long pageSize() {
         return pageSize;
     }
 
+    @JsonIgnore
     public Optional<? extends java.util.List<Company>> results() {
         return results;
     }
@@ -87,6 +102,7 @@ public class Companies {
     /**
      * Total number of items.
      */
+    @JsonIgnore
     public long totalResults() {
         return totalResults;
     }

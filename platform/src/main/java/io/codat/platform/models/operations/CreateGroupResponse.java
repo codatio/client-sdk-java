@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
@@ -15,17 +17,12 @@ import java.net.http.HttpResponse;
 import java.util.Optional;
 
 
-public class CreateGroupResponse {
+public class CreateGroupResponse implements io.codat.platform.utils.Response {
 
     /**
      * HTTP response content type for this operation
      */
     private String contentType;
-
-    /**
-     * Your API request was not properly authorized.
-     */
-    private Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage;
 
     /**
      * Success
@@ -42,41 +39,41 @@ public class CreateGroupResponse {
      */
     private HttpResponse<InputStream> rawResponse;
 
+    @JsonCreator
     public CreateGroupResponse(
             String contentType,
-            Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage,
             Optional<? extends io.codat.platform.models.shared.Group> group,
             int statusCode,
             HttpResponse<InputStream> rawResponse) {
         Utils.checkNotNull(contentType, "contentType");
-        Utils.checkNotNull(errorMessage, "errorMessage");
         Utils.checkNotNull(group, "group");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
         this.contentType = contentType;
-        this.errorMessage = errorMessage;
         this.group = group;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
+    }
+    
+    public CreateGroupResponse(
+            String contentType,
+            int statusCode,
+            HttpResponse<InputStream> rawResponse) {
+        this(contentType, Optional.empty(), statusCode, rawResponse);
     }
 
     /**
      * HTTP response content type for this operation
      */
+    @JsonIgnore
     public String contentType() {
         return contentType;
     }
 
     /**
-     * Your API request was not properly authorized.
-     */
-    public Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage() {
-        return errorMessage;
-    }
-
-    /**
      * Success
      */
+    @JsonIgnore
     public Optional<? extends io.codat.platform.models.shared.Group> group() {
         return group;
     }
@@ -84,6 +81,7 @@ public class CreateGroupResponse {
     /**
      * HTTP response status code for this operation
      */
+    @JsonIgnore
     public int statusCode() {
         return statusCode;
     }
@@ -91,6 +89,7 @@ public class CreateGroupResponse {
     /**
      * Raw HTTP response; suitable for custom response parsing
      */
+    @JsonIgnore
     public HttpResponse<InputStream> rawResponse() {
         return rawResponse;
     }
@@ -105,24 +104,6 @@ public class CreateGroupResponse {
     public CreateGroupResponse withContentType(String contentType) {
         Utils.checkNotNull(contentType, "contentType");
         this.contentType = contentType;
-        return this;
-    }
-
-    /**
-     * Your API request was not properly authorized.
-     */
-    public CreateGroupResponse withErrorMessage(io.codat.platform.models.shared.ErrorMessage errorMessage) {
-        Utils.checkNotNull(errorMessage, "errorMessage");
-        this.errorMessage = Optional.ofNullable(errorMessage);
-        return this;
-    }
-
-    /**
-     * Your API request was not properly authorized.
-     */
-    public CreateGroupResponse withErrorMessage(Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage) {
-        Utils.checkNotNull(errorMessage, "errorMessage");
-        this.errorMessage = errorMessage;
         return this;
     }
 
@@ -173,7 +154,6 @@ public class CreateGroupResponse {
         CreateGroupResponse other = (CreateGroupResponse) o;
         return 
             java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.errorMessage, other.errorMessage) &&
             java.util.Objects.deepEquals(this.group, other.group) &&
             java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
             java.util.Objects.deepEquals(this.rawResponse, other.rawResponse);
@@ -183,7 +163,6 @@ public class CreateGroupResponse {
     public int hashCode() {
         return java.util.Objects.hash(
             contentType,
-            errorMessage,
             group,
             statusCode,
             rawResponse);
@@ -193,7 +172,6 @@ public class CreateGroupResponse {
     public String toString() {
         return Utils.toString(CreateGroupResponse.class,
                 "contentType", contentType,
-                "errorMessage", errorMessage,
                 "group", group,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse);
@@ -202,8 +180,6 @@ public class CreateGroupResponse {
     public final static class Builder {
  
         private String contentType;
- 
-        private Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage = Optional.empty();
  
         private Optional<? extends io.codat.platform.models.shared.Group> group = Optional.empty();
  
@@ -221,24 +197,6 @@ public class CreateGroupResponse {
         public Builder contentType(String contentType) {
             Utils.checkNotNull(contentType, "contentType");
             this.contentType = contentType;
-            return this;
-        }
-
-        /**
-         * Your API request was not properly authorized.
-         */
-        public Builder errorMessage(io.codat.platform.models.shared.ErrorMessage errorMessage) {
-            Utils.checkNotNull(errorMessage, "errorMessage");
-            this.errorMessage = Optional.ofNullable(errorMessage);
-            return this;
-        }
-
-        /**
-         * Your API request was not properly authorized.
-         */
-        public Builder errorMessage(Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage) {
-            Utils.checkNotNull(errorMessage, "errorMessage");
-            this.errorMessage = errorMessage;
             return this;
         }
 
@@ -281,7 +239,6 @@ public class CreateGroupResponse {
         public CreateGroupResponse build() {
             return new CreateGroupResponse(
                 contentType,
-                errorMessage,
                 group,
                 statusCode,
                 rawResponse);

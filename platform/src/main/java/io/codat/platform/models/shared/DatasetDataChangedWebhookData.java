@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -33,6 +35,7 @@ public class DatasetDataChangedWebhookData {
     @JsonProperty("datasetId")
     private Optional<? extends String> datasetId;
 
+    @JsonCreator
     public DatasetDataChangedWebhookData(
             @JsonProperty("dataType") Optional<? extends DataType> dataType,
             @JsonProperty("datasetId") Optional<? extends String> datasetId) {
@@ -41,10 +44,15 @@ public class DatasetDataChangedWebhookData {
         this.dataType = dataType;
         this.datasetId = datasetId;
     }
+    
+    public DatasetDataChangedWebhookData() {
+        this(Optional.empty(), Optional.empty());
+    }
 
     /**
      * Available data types
      */
+    @JsonIgnore
     public Optional<? extends DataType> dataType() {
         return dataType;
     }
@@ -52,6 +60,7 @@ public class DatasetDataChangedWebhookData {
     /**
      * Unique identifier for the dataset that completed its sync.
      */
+    @JsonIgnore
     public Optional<? extends String> datasetId() {
         return datasetId;
     }

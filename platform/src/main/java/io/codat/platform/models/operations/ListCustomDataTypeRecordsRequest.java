@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.LazySingletonValue;
 import io.codat.platform.utils.SpeakeasyMetadata;
@@ -48,6 +50,7 @@ public class ListCustomDataTypeRecordsRequest {
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=pageSize")
     private Optional<? extends Integer> pageSize;
 
+    @JsonCreator
     public ListCustomDataTypeRecordsRequest(
             String companyId,
             String connectionId,
@@ -65,10 +68,18 @@ public class ListCustomDataTypeRecordsRequest {
         this.page = page;
         this.pageSize = pageSize;
     }
+    
+    public ListCustomDataTypeRecordsRequest(
+            String companyId,
+            String connectionId,
+            String customDataIdentifier) {
+        this(companyId, connectionId, customDataIdentifier, Optional.empty(), Optional.empty());
+    }
 
     /**
      * Unique identifier for a company.
      */
+    @JsonIgnore
     public String companyId() {
         return companyId;
     }
@@ -76,6 +87,7 @@ public class ListCustomDataTypeRecordsRequest {
     /**
      * Unique identifier for a connection.
      */
+    @JsonIgnore
     public String connectionId() {
         return connectionId;
     }
@@ -83,6 +95,7 @@ public class ListCustomDataTypeRecordsRequest {
     /**
      * Unique identifier for a custom data type.
      */
+    @JsonIgnore
     public String customDataIdentifier() {
         return customDataIdentifier;
     }
@@ -90,6 +103,7 @@ public class ListCustomDataTypeRecordsRequest {
     /**
      * Page number. [Read more](https://docs.codat.io/using-the-api/paging).
      */
+    @JsonIgnore
     public Optional<? extends Integer> page() {
         return page;
     }
@@ -97,6 +111,7 @@ public class ListCustomDataTypeRecordsRequest {
     /**
      * Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).
      */
+    @JsonIgnore
     public Optional<? extends Integer> pageSize() {
         return pageSize;
     }

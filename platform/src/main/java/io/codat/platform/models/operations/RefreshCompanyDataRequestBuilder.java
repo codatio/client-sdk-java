@@ -5,6 +5,7 @@
 package io.codat.platform.models.operations;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import io.codat.platform.models.errors.SDKError;
 import io.codat.platform.utils.LazySingletonValue;
 import io.codat.platform.utils.Options.Builder;
 import io.codat.platform.utils.Options;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.stream.Stream;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 

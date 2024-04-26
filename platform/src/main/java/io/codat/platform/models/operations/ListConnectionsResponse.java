@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
@@ -15,7 +17,7 @@ import java.net.http.HttpResponse;
 import java.util.Optional;
 
 
-public class ListConnectionsResponse {
+public class ListConnectionsResponse implements io.codat.platform.utils.Response {
 
     /**
      * OK
@@ -28,11 +30,6 @@ public class ListConnectionsResponse {
     private String contentType;
 
     /**
-     * Your `query` parameter was not correctly formed
-     */
-    private Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage;
-
-    /**
      * HTTP response status code for this operation
      */
     private int statusCode;
@@ -42,27 +39,33 @@ public class ListConnectionsResponse {
      */
     private HttpResponse<InputStream> rawResponse;
 
+    @JsonCreator
     public ListConnectionsResponse(
             Optional<? extends io.codat.platform.models.shared.Connections> connections,
             String contentType,
-            Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage,
             int statusCode,
             HttpResponse<InputStream> rawResponse) {
         Utils.checkNotNull(connections, "connections");
         Utils.checkNotNull(contentType, "contentType");
-        Utils.checkNotNull(errorMessage, "errorMessage");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
         this.connections = connections;
         this.contentType = contentType;
-        this.errorMessage = errorMessage;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
+    }
+    
+    public ListConnectionsResponse(
+            String contentType,
+            int statusCode,
+            HttpResponse<InputStream> rawResponse) {
+        this(Optional.empty(), contentType, statusCode, rawResponse);
     }
 
     /**
      * OK
      */
+    @JsonIgnore
     public Optional<? extends io.codat.platform.models.shared.Connections> connections() {
         return connections;
     }
@@ -70,20 +73,15 @@ public class ListConnectionsResponse {
     /**
      * HTTP response content type for this operation
      */
+    @JsonIgnore
     public String contentType() {
         return contentType;
     }
 
     /**
-     * Your `query` parameter was not correctly formed
-     */
-    public Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage() {
-        return errorMessage;
-    }
-
-    /**
      * HTTP response status code for this operation
      */
+    @JsonIgnore
     public int statusCode() {
         return statusCode;
     }
@@ -91,6 +89,7 @@ public class ListConnectionsResponse {
     /**
      * Raw HTTP response; suitable for custom response parsing
      */
+    @JsonIgnore
     public HttpResponse<InputStream> rawResponse() {
         return rawResponse;
     }
@@ -127,24 +126,6 @@ public class ListConnectionsResponse {
     }
 
     /**
-     * Your `query` parameter was not correctly formed
-     */
-    public ListConnectionsResponse withErrorMessage(io.codat.platform.models.shared.ErrorMessage errorMessage) {
-        Utils.checkNotNull(errorMessage, "errorMessage");
-        this.errorMessage = Optional.ofNullable(errorMessage);
-        return this;
-    }
-
-    /**
-     * Your `query` parameter was not correctly formed
-     */
-    public ListConnectionsResponse withErrorMessage(Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage) {
-        Utils.checkNotNull(errorMessage, "errorMessage");
-        this.errorMessage = errorMessage;
-        return this;
-    }
-
-    /**
      * HTTP response status code for this operation
      */
     public ListConnectionsResponse withStatusCode(int statusCode) {
@@ -174,7 +155,6 @@ public class ListConnectionsResponse {
         return 
             java.util.Objects.deepEquals(this.connections, other.connections) &&
             java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.errorMessage, other.errorMessage) &&
             java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
             java.util.Objects.deepEquals(this.rawResponse, other.rawResponse);
     }
@@ -184,7 +164,6 @@ public class ListConnectionsResponse {
         return java.util.Objects.hash(
             connections,
             contentType,
-            errorMessage,
             statusCode,
             rawResponse);
     }
@@ -194,7 +173,6 @@ public class ListConnectionsResponse {
         return Utils.toString(ListConnectionsResponse.class,
                 "connections", connections,
                 "contentType", contentType,
-                "errorMessage", errorMessage,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse);
     }
@@ -204,8 +182,6 @@ public class ListConnectionsResponse {
         private Optional<? extends io.codat.platform.models.shared.Connections> connections = Optional.empty();
  
         private String contentType;
- 
-        private Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage = Optional.empty();
  
         private Integer statusCode;
  
@@ -243,24 +219,6 @@ public class ListConnectionsResponse {
         }
 
         /**
-         * Your `query` parameter was not correctly formed
-         */
-        public Builder errorMessage(io.codat.platform.models.shared.ErrorMessage errorMessage) {
-            Utils.checkNotNull(errorMessage, "errorMessage");
-            this.errorMessage = Optional.ofNullable(errorMessage);
-            return this;
-        }
-
-        /**
-         * Your `query` parameter was not correctly formed
-         */
-        public Builder errorMessage(Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage) {
-            Utils.checkNotNull(errorMessage, "errorMessage");
-            this.errorMessage = errorMessage;
-            return this;
-        }
-
-        /**
          * HTTP response status code for this operation
          */
         public Builder statusCode(int statusCode) {
@@ -282,7 +240,6 @@ public class ListConnectionsResponse {
             return new ListConnectionsResponse(
                 connections,
                 contentType,
-                errorMessage,
                 statusCode,
                 rawResponse);
         }

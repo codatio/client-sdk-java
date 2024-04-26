@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -54,6 +56,7 @@ public class PushOptionChoice {
     @JsonProperty("value")
     private Optional<? extends String> value;
 
+    @JsonCreator
     public PushOptionChoice(
             @JsonProperty("description") Optional<? extends String> description,
             @JsonProperty("displayName") Optional<? extends String> displayName,
@@ -71,10 +74,15 @@ public class PushOptionChoice {
         this.type = type;
         this.value = value;
     }
+    
+    public PushOptionChoice() {
+        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+    }
 
     /**
      * A description of the property.
      */
+    @JsonIgnore
     public Optional<? extends String> description() {
         return description;
     }
@@ -82,6 +90,7 @@ public class PushOptionChoice {
     /**
      * The property's display name.
      */
+    @JsonIgnore
     public Optional<? extends String> displayName() {
         return displayName;
     }
@@ -89,6 +98,7 @@ public class PushOptionChoice {
     /**
      * The property is required if `True`.
      */
+    @JsonIgnore
     public Optional<? extends Boolean> required() {
         return required;
     }
@@ -96,6 +106,7 @@ public class PushOptionChoice {
     /**
      * The option type.
      */
+    @JsonIgnore
     public Optional<? extends PushOptionType> type() {
         return type;
     }
@@ -103,6 +114,7 @@ public class PushOptionChoice {
     /**
      * Allowed value for field.
      */
+    @JsonIgnore
     public Optional<? extends String> value() {
         return value;
     }
