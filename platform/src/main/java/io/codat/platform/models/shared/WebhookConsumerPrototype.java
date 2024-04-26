@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -20,6 +22,13 @@ import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class WebhookConsumerPrototype {
+
+    /**
+     * Unique identifier of the company to indicate company-specific events. The associated webhook consumer will receive events only for the specified ID.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("companyId")
+    private JsonNullable<? extends String> companyId;
 
     /**
      * Flag that enables or disables the endpoint from receiving events. Disabled when set to `true`.
@@ -42,21 +51,38 @@ public class WebhookConsumerPrototype {
     @JsonProperty("url")
     private Optional<? extends String> url;
 
+    @JsonCreator
     public WebhookConsumerPrototype(
+            @JsonProperty("companyId") JsonNullable<? extends String> companyId,
             @JsonProperty("disabled") JsonNullable<? extends Boolean> disabled,
             @JsonProperty("eventTypes") Optional<? extends java.util.List<String>> eventTypes,
             @JsonProperty("url") Optional<? extends String> url) {
+        Utils.checkNotNull(companyId, "companyId");
         Utils.checkNotNull(disabled, "disabled");
         Utils.checkNotNull(eventTypes, "eventTypes");
         Utils.checkNotNull(url, "url");
+        this.companyId = companyId;
         this.disabled = disabled;
         this.eventTypes = eventTypes;
         this.url = url;
+    }
+    
+    public WebhookConsumerPrototype() {
+        this(JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Unique identifier of the company to indicate company-specific events. The associated webhook consumer will receive events only for the specified ID.
+     */
+    @JsonIgnore
+    public JsonNullable<? extends String> companyId() {
+        return companyId;
     }
 
     /**
      * Flag that enables or disables the endpoint from receiving events. Disabled when set to `true`.
      */
+    @JsonIgnore
     public JsonNullable<? extends Boolean> disabled() {
         return disabled;
     }
@@ -64,6 +90,7 @@ public class WebhookConsumerPrototype {
     /**
      * An array of event types the webhook consumer subscribes to.
      */
+    @JsonIgnore
     public Optional<? extends java.util.List<String>> eventTypes() {
         return eventTypes;
     }
@@ -71,12 +98,31 @@ public class WebhookConsumerPrototype {
     /**
      * The URL that will consume webhook events dispatched by Codat.
      */
+    @JsonIgnore
     public Optional<? extends String> url() {
         return url;
     }
 
     public final static Builder builder() {
         return new Builder();
+    }
+
+    /**
+     * Unique identifier of the company to indicate company-specific events. The associated webhook consumer will receive events only for the specified ID.
+     */
+    public WebhookConsumerPrototype withCompanyId(String companyId) {
+        Utils.checkNotNull(companyId, "companyId");
+        this.companyId = JsonNullable.of(companyId);
+        return this;
+    }
+
+    /**
+     * Unique identifier of the company to indicate company-specific events. The associated webhook consumer will receive events only for the specified ID.
+     */
+    public WebhookConsumerPrototype withCompanyId(JsonNullable<? extends String> companyId) {
+        Utils.checkNotNull(companyId, "companyId");
+        this.companyId = companyId;
+        return this;
     }
 
     /**
@@ -143,6 +189,7 @@ public class WebhookConsumerPrototype {
         }
         WebhookConsumerPrototype other = (WebhookConsumerPrototype) o;
         return 
+            java.util.Objects.deepEquals(this.companyId, other.companyId) &&
             java.util.Objects.deepEquals(this.disabled, other.disabled) &&
             java.util.Objects.deepEquals(this.eventTypes, other.eventTypes) &&
             java.util.Objects.deepEquals(this.url, other.url);
@@ -151,6 +198,7 @@ public class WebhookConsumerPrototype {
     @Override
     public int hashCode() {
         return java.util.Objects.hash(
+            companyId,
             disabled,
             eventTypes,
             url);
@@ -159,12 +207,15 @@ public class WebhookConsumerPrototype {
     @Override
     public String toString() {
         return Utils.toString(WebhookConsumerPrototype.class,
+                "companyId", companyId,
                 "disabled", disabled,
                 "eventTypes", eventTypes,
                 "url", url);
     }
     
     public final static class Builder {
+ 
+        private JsonNullable<? extends String> companyId = JsonNullable.undefined();
  
         private JsonNullable<? extends Boolean> disabled;
  
@@ -174,6 +225,24 @@ public class WebhookConsumerPrototype {
         
         private Builder() {
           // force use of static builder() method
+        }
+
+        /**
+         * Unique identifier of the company to indicate company-specific events. The associated webhook consumer will receive events only for the specified ID.
+         */
+        public Builder companyId(String companyId) {
+            Utils.checkNotNull(companyId, "companyId");
+            this.companyId = JsonNullable.of(companyId);
+            return this;
+        }
+
+        /**
+         * Unique identifier of the company to indicate company-specific events. The associated webhook consumer will receive events only for the specified ID.
+         */
+        public Builder companyId(JsonNullable<? extends String> companyId) {
+            Utils.checkNotNull(companyId, "companyId");
+            this.companyId = companyId;
+            return this;
         }
 
         /**
@@ -235,6 +304,7 @@ public class WebhookConsumerPrototype {
                 disabled = _SINGLETON_VALUE_Disabled.value();
             }
             return new WebhookConsumerPrototype(
+                companyId,
                 disabled,
                 eventTypes,
                 url);

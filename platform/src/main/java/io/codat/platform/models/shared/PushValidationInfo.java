@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -27,6 +29,7 @@ public class PushValidationInfo {
     @JsonProperty("warnings")
     private JsonNullable<? extends java.util.List<PushFieldValidation>> warnings;
 
+    @JsonCreator
     public PushValidationInfo(
             @JsonProperty("information") JsonNullable<? extends java.util.List<PushFieldValidation>> information,
             @JsonProperty("warnings") JsonNullable<? extends java.util.List<PushFieldValidation>> warnings) {
@@ -35,11 +38,17 @@ public class PushValidationInfo {
         this.information = information;
         this.warnings = warnings;
     }
+    
+    public PushValidationInfo() {
+        this(JsonNullable.undefined(), JsonNullable.undefined());
+    }
 
+    @JsonIgnore
     public JsonNullable<? extends java.util.List<PushFieldValidation>> information() {
         return information;
     }
 
+    @JsonIgnore
     public JsonNullable<? extends java.util.List<PushFieldValidation>> warnings() {
         return warnings;
     }

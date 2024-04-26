@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.webhooks;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
@@ -14,7 +16,7 @@ import java.math.BigInteger;
 import java.net.http.HttpResponse;
 
 
-public class PushOperationStatusHasChangedResponse {
+public class PushOperationStatusHasChangedResponse implements io.codat.platform.utils.Response {
 
     /**
      * HTTP response content type for this operation
@@ -31,6 +33,7 @@ public class PushOperationStatusHasChangedResponse {
      */
     private HttpResponse<InputStream> rawResponse;
 
+    @JsonCreator
     public PushOperationStatusHasChangedResponse(
             String contentType,
             int statusCode,
@@ -46,6 +49,7 @@ public class PushOperationStatusHasChangedResponse {
     /**
      * HTTP response content type for this operation
      */
+    @JsonIgnore
     public String contentType() {
         return contentType;
     }
@@ -53,6 +57,7 @@ public class PushOperationStatusHasChangedResponse {
     /**
      * HTTP response status code for this operation
      */
+    @JsonIgnore
     public int statusCode() {
         return statusCode;
     }
@@ -60,6 +65,7 @@ public class PushOperationStatusHasChangedResponse {
     /**
      * Raw HTTP response; suitable for custom response parsing
      */
+    @JsonIgnore
     public HttpResponse<InputStream> rawResponse() {
         return rawResponse;
     }

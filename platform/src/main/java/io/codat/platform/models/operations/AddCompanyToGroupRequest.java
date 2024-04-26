@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.SpeakeasyMetadata;
 import io.codat.platform.utils.Utils;
@@ -26,6 +28,7 @@ public class AddCompanyToGroupRequest {
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=companyId")
     private String companyId;
 
+    @JsonCreator
     public AddCompanyToGroupRequest(
             Optional<? extends io.codat.platform.models.shared.CompanyGroupAssignment> companyGroupAssignment,
             String companyId) {
@@ -34,7 +37,13 @@ public class AddCompanyToGroupRequest {
         this.companyGroupAssignment = companyGroupAssignment;
         this.companyId = companyId;
     }
+    
+    public AddCompanyToGroupRequest(
+            String companyId) {
+        this(Optional.empty(), companyId);
+    }
 
+    @JsonIgnore
     public Optional<? extends io.codat.platform.models.shared.CompanyGroupAssignment> companyGroupAssignment() {
         return companyGroupAssignment;
     }
@@ -42,6 +51,7 @@ public class AddCompanyToGroupRequest {
     /**
      * Unique identifier for a company.
      */
+    @JsonIgnore
     public String companyId() {
         return companyId;
     }

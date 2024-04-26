@@ -51,7 +51,7 @@ tasks.withType(Javadoc) {
   options.addStringOption('Xdoclint:none', '-quiet')
 }
 group = "io.codat"
-version = "0.3.0"
+version = "0.4.0"
 
 sourcesJar {
     archiveBaseName = "platform"
@@ -88,7 +88,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'io.codat'
             artifactId = 'platform'
-            version = '0.3.0'
+            version = '0.4.0'
 
             from components.java
 
@@ -132,13 +132,14 @@ if (!project.hasProperty('skip.signing')) {
 }
 
 dependencies {
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.1'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.16.1'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.16.1'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.0'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.17.0'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.17.0'
     implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
     implementation 'org.apache.httpcomponents:httpclient:4.5.14'
     implementation 'org.apache.httpcomponents:httpmime:4.5.14'
     implementation 'com.jayway.jsonpath:json-path:2.9.0'
     implementation 'commons-io:commons-io:2.15.1'
 }
+
 

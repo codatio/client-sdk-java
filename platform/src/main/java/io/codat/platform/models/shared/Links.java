@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -33,6 +35,7 @@ public class Links {
     @JsonProperty("self")
     private HalRef self;
 
+    @JsonCreator
     public Links(
             @JsonProperty("current") HalRef current,
             @JsonProperty("next") Optional<? extends HalRef> next,
@@ -47,19 +50,29 @@ public class Links {
         this.previous = previous;
         this.self = self;
     }
+    
+    public Links(
+            HalRef current,
+            HalRef self) {
+        this(current, Optional.empty(), Optional.empty(), self);
+    }
 
+    @JsonIgnore
     public HalRef current() {
         return current;
     }
 
+    @JsonIgnore
     public Optional<? extends HalRef> next() {
         return next;
     }
 
+    @JsonIgnore
     public Optional<? extends HalRef> previous() {
         return previous;
     }
 
+    @JsonIgnore
     public HalRef self() {
         return self;
     }

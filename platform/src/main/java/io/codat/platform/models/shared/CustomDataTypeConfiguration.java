@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -51,6 +53,7 @@ public class CustomDataTypeConfiguration {
     @JsonProperty("sourceModifiedDate")
     private JsonNullable<? extends java.util.List<String>> sourceModifiedDate;
 
+    @JsonCreator
     public CustomDataTypeConfiguration(
             @JsonProperty("dataSource") Optional<? extends String> dataSource,
             @JsonProperty("keyBy") Optional<? extends java.util.List<String>> keyBy,
@@ -65,10 +68,15 @@ public class CustomDataTypeConfiguration {
         this.requiredData = requiredData;
         this.sourceModifiedDate = sourceModifiedDate;
     }
+    
+    public CustomDataTypeConfiguration() {
+        this(Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined());
+    }
 
     /**
      * Underlying endpoint of the source platform that will serve as a data source for the custom data type. This value is not validated by Codat.
      */
+    @JsonIgnore
     public Optional<? extends String> dataSource() {
         return dataSource;
     }
@@ -76,6 +84,7 @@ public class CustomDataTypeConfiguration {
     /**
      * An array of properties from the source system that can be used to uniquely identify the records returned for the custom data type. This value is not validated by Codat.
      */
+    @JsonIgnore
     public Optional<? extends java.util.List<String>> keyBy() {
         return keyBy;
     }
@@ -83,6 +92,7 @@ public class CustomDataTypeConfiguration {
     /**
      * Properties required to be fetched from the underlying platform for the custom data type that is being configured. This value is not validated by Codat.
      */
+    @JsonIgnore
     public Optional<? extends java.util.Map<String, String>> requiredData() {
         return requiredData;
     }
@@ -90,6 +100,7 @@ public class CustomDataTypeConfiguration {
     /**
      * Property in the source platform nominated by the client that defines the date when a record was last modified there. This value is not validated by Codat.
      */
+    @JsonIgnore
     public JsonNullable<? extends java.util.List<String>> sourceModifiedDate() {
         return sourceModifiedDate;
     }

@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
@@ -15,17 +17,12 @@ import java.net.http.HttpResponse;
 import java.util.Optional;
 
 
-public class RefreshCustomDataTypeResponse {
+public class RefreshCustomDataTypeResponse implements io.codat.platform.utils.Response {
 
     /**
      * HTTP response content type for this operation
      */
     private String contentType;
-
-    /**
-     * Your API request was not properly authorized.
-     */
-    private Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage;
 
     /**
      * OK
@@ -42,41 +39,41 @@ public class RefreshCustomDataTypeResponse {
      */
     private HttpResponse<InputStream> rawResponse;
 
+    @JsonCreator
     public RefreshCustomDataTypeResponse(
             String contentType,
-            Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage,
             Optional<? extends io.codat.platform.models.shared.PullOperation> pullOperation,
             int statusCode,
             HttpResponse<InputStream> rawResponse) {
         Utils.checkNotNull(contentType, "contentType");
-        Utils.checkNotNull(errorMessage, "errorMessage");
         Utils.checkNotNull(pullOperation, "pullOperation");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
         this.contentType = contentType;
-        this.errorMessage = errorMessage;
         this.pullOperation = pullOperation;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
+    }
+    
+    public RefreshCustomDataTypeResponse(
+            String contentType,
+            int statusCode,
+            HttpResponse<InputStream> rawResponse) {
+        this(contentType, Optional.empty(), statusCode, rawResponse);
     }
 
     /**
      * HTTP response content type for this operation
      */
+    @JsonIgnore
     public String contentType() {
         return contentType;
     }
 
     /**
-     * Your API request was not properly authorized.
-     */
-    public Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage() {
-        return errorMessage;
-    }
-
-    /**
      * OK
      */
+    @JsonIgnore
     public Optional<? extends io.codat.platform.models.shared.PullOperation> pullOperation() {
         return pullOperation;
     }
@@ -84,6 +81,7 @@ public class RefreshCustomDataTypeResponse {
     /**
      * HTTP response status code for this operation
      */
+    @JsonIgnore
     public int statusCode() {
         return statusCode;
     }
@@ -91,6 +89,7 @@ public class RefreshCustomDataTypeResponse {
     /**
      * Raw HTTP response; suitable for custom response parsing
      */
+    @JsonIgnore
     public HttpResponse<InputStream> rawResponse() {
         return rawResponse;
     }
@@ -105,24 +104,6 @@ public class RefreshCustomDataTypeResponse {
     public RefreshCustomDataTypeResponse withContentType(String contentType) {
         Utils.checkNotNull(contentType, "contentType");
         this.contentType = contentType;
-        return this;
-    }
-
-    /**
-     * Your API request was not properly authorized.
-     */
-    public RefreshCustomDataTypeResponse withErrorMessage(io.codat.platform.models.shared.ErrorMessage errorMessage) {
-        Utils.checkNotNull(errorMessage, "errorMessage");
-        this.errorMessage = Optional.ofNullable(errorMessage);
-        return this;
-    }
-
-    /**
-     * Your API request was not properly authorized.
-     */
-    public RefreshCustomDataTypeResponse withErrorMessage(Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage) {
-        Utils.checkNotNull(errorMessage, "errorMessage");
-        this.errorMessage = errorMessage;
         return this;
     }
 
@@ -173,7 +154,6 @@ public class RefreshCustomDataTypeResponse {
         RefreshCustomDataTypeResponse other = (RefreshCustomDataTypeResponse) o;
         return 
             java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.errorMessage, other.errorMessage) &&
             java.util.Objects.deepEquals(this.pullOperation, other.pullOperation) &&
             java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
             java.util.Objects.deepEquals(this.rawResponse, other.rawResponse);
@@ -183,7 +163,6 @@ public class RefreshCustomDataTypeResponse {
     public int hashCode() {
         return java.util.Objects.hash(
             contentType,
-            errorMessage,
             pullOperation,
             statusCode,
             rawResponse);
@@ -193,7 +172,6 @@ public class RefreshCustomDataTypeResponse {
     public String toString() {
         return Utils.toString(RefreshCustomDataTypeResponse.class,
                 "contentType", contentType,
-                "errorMessage", errorMessage,
                 "pullOperation", pullOperation,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse);
@@ -202,8 +180,6 @@ public class RefreshCustomDataTypeResponse {
     public final static class Builder {
  
         private String contentType;
- 
-        private Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage = Optional.empty();
  
         private Optional<? extends io.codat.platform.models.shared.PullOperation> pullOperation = Optional.empty();
  
@@ -221,24 +197,6 @@ public class RefreshCustomDataTypeResponse {
         public Builder contentType(String contentType) {
             Utils.checkNotNull(contentType, "contentType");
             this.contentType = contentType;
-            return this;
-        }
-
-        /**
-         * Your API request was not properly authorized.
-         */
-        public Builder errorMessage(io.codat.platform.models.shared.ErrorMessage errorMessage) {
-            Utils.checkNotNull(errorMessage, "errorMessage");
-            this.errorMessage = Optional.ofNullable(errorMessage);
-            return this;
-        }
-
-        /**
-         * Your API request was not properly authorized.
-         */
-        public Builder errorMessage(Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage) {
-            Utils.checkNotNull(errorMessage, "errorMessage");
-            this.errorMessage = errorMessage;
             return this;
         }
 
@@ -281,7 +239,6 @@ public class RefreshCustomDataTypeResponse {
         public RefreshCustomDataTypeResponse build() {
             return new RefreshCustomDataTypeResponse(
                 contentType,
-                errorMessage,
                 pullOperation,
                 statusCode,
                 rawResponse);

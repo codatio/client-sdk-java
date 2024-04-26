@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.SpeakeasyMetadata;
 import io.codat.platform.utils.Utils;
@@ -35,6 +37,7 @@ public class ConfigureSupplementalDataRequest {
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=platformKey")
     private String platformKey;
 
+    @JsonCreator
     public ConfigureSupplementalDataRequest(
             Optional<? extends io.codat.platform.models.shared.SupplementalDataConfiguration> supplementalDataConfiguration,
             DataType dataType,
@@ -46,10 +49,17 @@ public class ConfigureSupplementalDataRequest {
         this.dataType = dataType;
         this.platformKey = platformKey;
     }
+    
+    public ConfigureSupplementalDataRequest(
+            DataType dataType,
+            String platformKey) {
+        this(Optional.empty(), dataType, platformKey);
+    }
 
     /**
      * The configuration for the specified platform and data type.
      */
+    @JsonIgnore
     public Optional<? extends io.codat.platform.models.shared.SupplementalDataConfiguration> supplementalDataConfiguration() {
         return supplementalDataConfiguration;
     }
@@ -57,6 +67,7 @@ public class ConfigureSupplementalDataRequest {
     /**
      * Supported supplemental data data type.
      */
+    @JsonIgnore
     public DataType dataType() {
         return dataType;
     }
@@ -64,6 +75,7 @@ public class ConfigureSupplementalDataRequest {
     /**
      * A unique 4-letter key to represent a platform in each integration.
      */
+    @JsonIgnore
     public String platformKey() {
         return platformKey;
     }

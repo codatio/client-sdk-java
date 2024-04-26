@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
@@ -15,7 +17,7 @@ import java.net.http.HttpResponse;
 import java.util.Optional;
 
 
-public class GetCompanyDataStatusResponse {
+public class GetCompanyDataStatusResponse implements io.codat.platform.utils.Response {
 
     /**
      * HTTP response content type for this operation
@@ -25,12 +27,7 @@ public class GetCompanyDataStatusResponse {
     /**
      * OK
      */
-    private Optional<? extends java.util.Map<String, io.codat.platform.models.shared.DataStatus>> dataStatuses;
-
-    /**
-     * Your API request was not properly authorized.
-     */
-    private Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage;
+    private Optional<? extends io.codat.platform.models.shared.DataStatuses> dataStatuses;
 
     /**
      * HTTP response status code for this operation
@@ -42,27 +39,33 @@ public class GetCompanyDataStatusResponse {
      */
     private HttpResponse<InputStream> rawResponse;
 
+    @JsonCreator
     public GetCompanyDataStatusResponse(
             String contentType,
-            Optional<? extends java.util.Map<String, io.codat.platform.models.shared.DataStatus>> dataStatuses,
-            Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage,
+            Optional<? extends io.codat.platform.models.shared.DataStatuses> dataStatuses,
             int statusCode,
             HttpResponse<InputStream> rawResponse) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(dataStatuses, "dataStatuses");
-        Utils.checkNotNull(errorMessage, "errorMessage");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
         this.contentType = contentType;
         this.dataStatuses = dataStatuses;
-        this.errorMessage = errorMessage;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
+    }
+    
+    public GetCompanyDataStatusResponse(
+            String contentType,
+            int statusCode,
+            HttpResponse<InputStream> rawResponse) {
+        this(contentType, Optional.empty(), statusCode, rawResponse);
     }
 
     /**
      * HTTP response content type for this operation
      */
+    @JsonIgnore
     public String contentType() {
         return contentType;
     }
@@ -70,20 +73,15 @@ public class GetCompanyDataStatusResponse {
     /**
      * OK
      */
-    public Optional<? extends java.util.Map<String, io.codat.platform.models.shared.DataStatus>> dataStatuses() {
+    @JsonIgnore
+    public Optional<? extends io.codat.platform.models.shared.DataStatuses> dataStatuses() {
         return dataStatuses;
-    }
-
-    /**
-     * Your API request was not properly authorized.
-     */
-    public Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage() {
-        return errorMessage;
     }
 
     /**
      * HTTP response status code for this operation
      */
+    @JsonIgnore
     public int statusCode() {
         return statusCode;
     }
@@ -91,6 +89,7 @@ public class GetCompanyDataStatusResponse {
     /**
      * Raw HTTP response; suitable for custom response parsing
      */
+    @JsonIgnore
     public HttpResponse<InputStream> rawResponse() {
         return rawResponse;
     }
@@ -111,7 +110,7 @@ public class GetCompanyDataStatusResponse {
     /**
      * OK
      */
-    public GetCompanyDataStatusResponse withDataStatuses(java.util.Map<String, io.codat.platform.models.shared.DataStatus> dataStatuses) {
+    public GetCompanyDataStatusResponse withDataStatuses(io.codat.platform.models.shared.DataStatuses dataStatuses) {
         Utils.checkNotNull(dataStatuses, "dataStatuses");
         this.dataStatuses = Optional.ofNullable(dataStatuses);
         return this;
@@ -120,27 +119,9 @@ public class GetCompanyDataStatusResponse {
     /**
      * OK
      */
-    public GetCompanyDataStatusResponse withDataStatuses(Optional<? extends java.util.Map<String, io.codat.platform.models.shared.DataStatus>> dataStatuses) {
+    public GetCompanyDataStatusResponse withDataStatuses(Optional<? extends io.codat.platform.models.shared.DataStatuses> dataStatuses) {
         Utils.checkNotNull(dataStatuses, "dataStatuses");
         this.dataStatuses = dataStatuses;
-        return this;
-    }
-
-    /**
-     * Your API request was not properly authorized.
-     */
-    public GetCompanyDataStatusResponse withErrorMessage(io.codat.platform.models.shared.ErrorMessage errorMessage) {
-        Utils.checkNotNull(errorMessage, "errorMessage");
-        this.errorMessage = Optional.ofNullable(errorMessage);
-        return this;
-    }
-
-    /**
-     * Your API request was not properly authorized.
-     */
-    public GetCompanyDataStatusResponse withErrorMessage(Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage) {
-        Utils.checkNotNull(errorMessage, "errorMessage");
-        this.errorMessage = errorMessage;
         return this;
     }
 
@@ -174,7 +155,6 @@ public class GetCompanyDataStatusResponse {
         return 
             java.util.Objects.deepEquals(this.contentType, other.contentType) &&
             java.util.Objects.deepEquals(this.dataStatuses, other.dataStatuses) &&
-            java.util.Objects.deepEquals(this.errorMessage, other.errorMessage) &&
             java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
             java.util.Objects.deepEquals(this.rawResponse, other.rawResponse);
     }
@@ -184,7 +164,6 @@ public class GetCompanyDataStatusResponse {
         return java.util.Objects.hash(
             contentType,
             dataStatuses,
-            errorMessage,
             statusCode,
             rawResponse);
     }
@@ -194,7 +173,6 @@ public class GetCompanyDataStatusResponse {
         return Utils.toString(GetCompanyDataStatusResponse.class,
                 "contentType", contentType,
                 "dataStatuses", dataStatuses,
-                "errorMessage", errorMessage,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse);
     }
@@ -203,9 +181,7 @@ public class GetCompanyDataStatusResponse {
  
         private String contentType;
  
-        private Optional<? extends java.util.Map<String, io.codat.platform.models.shared.DataStatus>> dataStatuses = Optional.empty();
- 
-        private Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage = Optional.empty();
+        private Optional<? extends io.codat.platform.models.shared.DataStatuses> dataStatuses = Optional.empty();
  
         private Integer statusCode;
  
@@ -227,7 +203,7 @@ public class GetCompanyDataStatusResponse {
         /**
          * OK
          */
-        public Builder dataStatuses(java.util.Map<String, io.codat.platform.models.shared.DataStatus> dataStatuses) {
+        public Builder dataStatuses(io.codat.platform.models.shared.DataStatuses dataStatuses) {
             Utils.checkNotNull(dataStatuses, "dataStatuses");
             this.dataStatuses = Optional.ofNullable(dataStatuses);
             return this;
@@ -236,27 +212,9 @@ public class GetCompanyDataStatusResponse {
         /**
          * OK
          */
-        public Builder dataStatuses(Optional<? extends java.util.Map<String, io.codat.platform.models.shared.DataStatus>> dataStatuses) {
+        public Builder dataStatuses(Optional<? extends io.codat.platform.models.shared.DataStatuses> dataStatuses) {
             Utils.checkNotNull(dataStatuses, "dataStatuses");
             this.dataStatuses = dataStatuses;
-            return this;
-        }
-
-        /**
-         * Your API request was not properly authorized.
-         */
-        public Builder errorMessage(io.codat.platform.models.shared.ErrorMessage errorMessage) {
-            Utils.checkNotNull(errorMessage, "errorMessage");
-            this.errorMessage = Optional.ofNullable(errorMessage);
-            return this;
-        }
-
-        /**
-         * Your API request was not properly authorized.
-         */
-        public Builder errorMessage(Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage) {
-            Utils.checkNotNull(errorMessage, "errorMessage");
-            this.errorMessage = errorMessage;
             return this;
         }
 
@@ -282,7 +240,6 @@ public class GetCompanyDataStatusResponse {
             return new GetCompanyDataStatusResponse(
                 contentType,
                 dataStatuses,
-                errorMessage,
                 statusCode,
                 rawResponse);
         }

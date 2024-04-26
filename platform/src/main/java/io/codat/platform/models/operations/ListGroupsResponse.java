@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
@@ -15,17 +17,12 @@ import java.net.http.HttpResponse;
 import java.util.Optional;
 
 
-public class ListGroupsResponse {
+public class ListGroupsResponse implements io.codat.platform.utils.Response {
 
     /**
      * HTTP response content type for this operation
      */
     private String contentType;
-
-    /**
-     * Your API request was not properly authorized.
-     */
-    private Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage;
 
     /**
      * HTTP response status code for this operation
@@ -42,41 +39,41 @@ public class ListGroupsResponse {
      */
     private Optional<? extends io.codat.platform.models.shared.Groups> groups;
 
+    @JsonCreator
     public ListGroupsResponse(
             String contentType,
-            Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
             Optional<? extends io.codat.platform.models.shared.Groups> groups) {
         Utils.checkNotNull(contentType, "contentType");
-        Utils.checkNotNull(errorMessage, "errorMessage");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
         Utils.checkNotNull(groups, "groups");
         this.contentType = contentType;
-        this.errorMessage = errorMessage;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
         this.groups = groups;
+    }
+    
+    public ListGroupsResponse(
+            String contentType,
+            int statusCode,
+            HttpResponse<InputStream> rawResponse) {
+        this(contentType, statusCode, rawResponse, Optional.empty());
     }
 
     /**
      * HTTP response content type for this operation
      */
+    @JsonIgnore
     public String contentType() {
         return contentType;
     }
 
     /**
-     * Your API request was not properly authorized.
-     */
-    public Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage() {
-        return errorMessage;
-    }
-
-    /**
      * HTTP response status code for this operation
      */
+    @JsonIgnore
     public int statusCode() {
         return statusCode;
     }
@@ -84,6 +81,7 @@ public class ListGroupsResponse {
     /**
      * Raw HTTP response; suitable for custom response parsing
      */
+    @JsonIgnore
     public HttpResponse<InputStream> rawResponse() {
         return rawResponse;
     }
@@ -91,6 +89,7 @@ public class ListGroupsResponse {
     /**
      * Success
      */
+    @JsonIgnore
     public Optional<? extends io.codat.platform.models.shared.Groups> groups() {
         return groups;
     }
@@ -105,24 +104,6 @@ public class ListGroupsResponse {
     public ListGroupsResponse withContentType(String contentType) {
         Utils.checkNotNull(contentType, "contentType");
         this.contentType = contentType;
-        return this;
-    }
-
-    /**
-     * Your API request was not properly authorized.
-     */
-    public ListGroupsResponse withErrorMessage(io.codat.platform.models.shared.ErrorMessage errorMessage) {
-        Utils.checkNotNull(errorMessage, "errorMessage");
-        this.errorMessage = Optional.ofNullable(errorMessage);
-        return this;
-    }
-
-    /**
-     * Your API request was not properly authorized.
-     */
-    public ListGroupsResponse withErrorMessage(Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage) {
-        Utils.checkNotNull(errorMessage, "errorMessage");
-        this.errorMessage = errorMessage;
         return this;
     }
 
@@ -173,7 +154,6 @@ public class ListGroupsResponse {
         ListGroupsResponse other = (ListGroupsResponse) o;
         return 
             java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.errorMessage, other.errorMessage) &&
             java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
             java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
             java.util.Objects.deepEquals(this.groups, other.groups);
@@ -183,7 +163,6 @@ public class ListGroupsResponse {
     public int hashCode() {
         return java.util.Objects.hash(
             contentType,
-            errorMessage,
             statusCode,
             rawResponse,
             groups);
@@ -193,7 +172,6 @@ public class ListGroupsResponse {
     public String toString() {
         return Utils.toString(ListGroupsResponse.class,
                 "contentType", contentType,
-                "errorMessage", errorMessage,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
                 "groups", groups);
@@ -202,8 +180,6 @@ public class ListGroupsResponse {
     public final static class Builder {
  
         private String contentType;
- 
-        private Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage = Optional.empty();
  
         private Integer statusCode;
  
@@ -221,24 +197,6 @@ public class ListGroupsResponse {
         public Builder contentType(String contentType) {
             Utils.checkNotNull(contentType, "contentType");
             this.contentType = contentType;
-            return this;
-        }
-
-        /**
-         * Your API request was not properly authorized.
-         */
-        public Builder errorMessage(io.codat.platform.models.shared.ErrorMessage errorMessage) {
-            Utils.checkNotNull(errorMessage, "errorMessage");
-            this.errorMessage = Optional.ofNullable(errorMessage);
-            return this;
-        }
-
-        /**
-         * Your API request was not properly authorized.
-         */
-        public Builder errorMessage(Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage) {
-            Utils.checkNotNull(errorMessage, "errorMessage");
-            this.errorMessage = errorMessage;
             return this;
         }
 
@@ -281,7 +239,6 @@ public class ListGroupsResponse {
         public ListGroupsResponse build() {
             return new ListGroupsResponse(
                 contentType,
-                errorMessage,
                 statusCode,
                 rawResponse,
                 groups);

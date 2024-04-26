@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.SpeakeasyMetadata;
 import io.codat.platform.utils.Utils;
@@ -22,6 +24,7 @@ public class GetWebhookRequest {
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=ruleId")
     private String ruleId;
 
+    @JsonCreator
     public GetWebhookRequest(
             String ruleId) {
         Utils.checkNotNull(ruleId, "ruleId");
@@ -31,6 +34,7 @@ public class GetWebhookRequest {
     /**
      * Unique ID of the webhook or rule.
      */
+    @JsonIgnore
     public String ruleId() {
         return ruleId;
     }

@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
@@ -15,7 +17,7 @@ import java.net.http.HttpResponse;
 import java.util.Optional;
 
 
-public class DeleteApiKeyResponse {
+public class DeleteApiKeyResponse implements io.codat.platform.utils.Response {
 
     /**
      * HTTP response content type for this operation
@@ -25,7 +27,7 @@ public class DeleteApiKeyResponse {
     /**
      * Too many requests were made in a given amount of time. Wait a short period and then try again.
      */
-    private Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage;
+    private Optional<? extends io.codat.platform.models.errors.ErrorMessage> errorMessage;
 
     /**
      * HTTP response status code for this operation
@@ -37,9 +39,10 @@ public class DeleteApiKeyResponse {
      */
     private HttpResponse<InputStream> rawResponse;
 
+    @JsonCreator
     public DeleteApiKeyResponse(
             String contentType,
-            Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage,
+            Optional<? extends io.codat.platform.models.errors.ErrorMessage> errorMessage,
             int statusCode,
             HttpResponse<InputStream> rawResponse) {
         Utils.checkNotNull(contentType, "contentType");
@@ -51,10 +54,18 @@ public class DeleteApiKeyResponse {
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
     }
+    
+    public DeleteApiKeyResponse(
+            String contentType,
+            int statusCode,
+            HttpResponse<InputStream> rawResponse) {
+        this(contentType, Optional.empty(), statusCode, rawResponse);
+    }
 
     /**
      * HTTP response content type for this operation
      */
+    @JsonIgnore
     public String contentType() {
         return contentType;
     }
@@ -62,13 +73,15 @@ public class DeleteApiKeyResponse {
     /**
      * Too many requests were made in a given amount of time. Wait a short period and then try again.
      */
-    public Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage() {
+    @JsonIgnore
+    public Optional<? extends io.codat.platform.models.errors.ErrorMessage> errorMessage() {
         return errorMessage;
     }
 
     /**
      * HTTP response status code for this operation
      */
+    @JsonIgnore
     public int statusCode() {
         return statusCode;
     }
@@ -76,6 +89,7 @@ public class DeleteApiKeyResponse {
     /**
      * Raw HTTP response; suitable for custom response parsing
      */
+    @JsonIgnore
     public HttpResponse<InputStream> rawResponse() {
         return rawResponse;
     }
@@ -96,7 +110,7 @@ public class DeleteApiKeyResponse {
     /**
      * Too many requests were made in a given amount of time. Wait a short period and then try again.
      */
-    public DeleteApiKeyResponse withErrorMessage(io.codat.platform.models.shared.ErrorMessage errorMessage) {
+    public DeleteApiKeyResponse withErrorMessage(io.codat.platform.models.errors.ErrorMessage errorMessage) {
         Utils.checkNotNull(errorMessage, "errorMessage");
         this.errorMessage = Optional.ofNullable(errorMessage);
         return this;
@@ -105,7 +119,7 @@ public class DeleteApiKeyResponse {
     /**
      * Too many requests were made in a given amount of time. Wait a short period and then try again.
      */
-    public DeleteApiKeyResponse withErrorMessage(Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage) {
+    public DeleteApiKeyResponse withErrorMessage(Optional<? extends io.codat.platform.models.errors.ErrorMessage> errorMessage) {
         Utils.checkNotNull(errorMessage, "errorMessage");
         this.errorMessage = errorMessage;
         return this;
@@ -167,7 +181,7 @@ public class DeleteApiKeyResponse {
  
         private String contentType;
  
-        private Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage = Optional.empty();
+        private Optional<? extends io.codat.platform.models.errors.ErrorMessage> errorMessage = Optional.empty();
  
         private Integer statusCode;
  
@@ -189,7 +203,7 @@ public class DeleteApiKeyResponse {
         /**
          * Too many requests were made in a given amount of time. Wait a short period and then try again.
          */
-        public Builder errorMessage(io.codat.platform.models.shared.ErrorMessage errorMessage) {
+        public Builder errorMessage(io.codat.platform.models.errors.ErrorMessage errorMessage) {
             Utils.checkNotNull(errorMessage, "errorMessage");
             this.errorMessage = Optional.ofNullable(errorMessage);
             return this;
@@ -198,7 +212,7 @@ public class DeleteApiKeyResponse {
         /**
          * Too many requests were made in a given amount of time. Wait a short period and then try again.
          */
-        public Builder errorMessage(Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage) {
+        public Builder errorMessage(Optional<? extends io.codat.platform.models.errors.ErrorMessage> errorMessage) {
             Utils.checkNotNull(errorMessage, "errorMessage");
             this.errorMessage = errorMessage;
             return this;

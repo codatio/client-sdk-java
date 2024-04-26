@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -47,6 +49,7 @@ public class ConnectionStatusChangedWebhookData {
     @JsonProperty("platformKey")
     private Optional<? extends String> platformKey;
 
+    @JsonCreator
     public ConnectionStatusChangedWebhookData(
             @JsonProperty("dataConnectionId") Optional<? extends String> dataConnectionId,
             @JsonProperty("newStatus") Optional<? extends DataConnectionStatus> newStatus,
@@ -61,10 +64,15 @@ public class ConnectionStatusChangedWebhookData {
         this.oldStatus = oldStatus;
         this.platformKey = platformKey;
     }
+    
+    public ConnectionStatusChangedWebhookData() {
+        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+    }
 
     /**
      * Unique identifier for a company's data connection.
      */
+    @JsonIgnore
     public Optional<? extends String> dataConnectionId() {
         return dataConnectionId;
     }
@@ -72,6 +80,7 @@ public class ConnectionStatusChangedWebhookData {
     /**
      * The current authorization status of the data connection.
      */
+    @JsonIgnore
     public Optional<? extends DataConnectionStatus> newStatus() {
         return newStatus;
     }
@@ -79,6 +88,7 @@ public class ConnectionStatusChangedWebhookData {
     /**
      * The current authorization status of the data connection.
      */
+    @JsonIgnore
     public Optional<? extends DataConnectionStatus> oldStatus() {
         return oldStatus;
     }
@@ -86,6 +96,7 @@ public class ConnectionStatusChangedWebhookData {
     /**
      * A unique 4-letter key to represent a platform in each integration. View [accounting](https://docs.codat.io/integrations/accounting/overview#platform-keys), [banking](https://docs.codat.io/integrations/banking/overview#platform-keys), and [commerce](https://docs.codat.io/integrations/commerce/overview#platform-keys) platform keys.
      */
+    @JsonIgnore
     public Optional<? extends String> platformKey() {
         return platformKey;
     }

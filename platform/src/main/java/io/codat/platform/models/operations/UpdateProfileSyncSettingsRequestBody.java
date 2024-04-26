@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -40,6 +42,7 @@ public class UpdateProfileSyncSettingsRequestBody {
     @JsonProperty("settings")
     private java.util.List<io.codat.platform.models.shared.SyncSetting> settings;
 
+    @JsonCreator
     public UpdateProfileSyncSettingsRequestBody(
             @JsonProperty("clientId") String clientId,
             @JsonProperty("overridesDefaults") Optional<? extends Boolean> overridesDefaults,
@@ -51,10 +54,17 @@ public class UpdateProfileSyncSettingsRequestBody {
         this.overridesDefaults = overridesDefaults;
         this.settings = settings;
     }
+    
+    public UpdateProfileSyncSettingsRequestBody(
+            String clientId,
+            java.util.List<io.codat.platform.models.shared.SyncSetting> settings) {
+        this(clientId, Optional.empty(), settings);
+    }
 
     /**
      * Unique identifier for your client in Codat.
      */
+    @JsonIgnore
     public String clientId() {
         return clientId;
     }
@@ -62,10 +72,12 @@ public class UpdateProfileSyncSettingsRequestBody {
     /**
      * Set to `True` if you want to override default [sync settings](https://docs.codat.io/knowledge-base/advanced-sync-settings).
      */
+    @JsonIgnore
     public Optional<? extends Boolean> overridesDefaults() {
         return overridesDefaults;
     }
 
+    @JsonIgnore
     public java.util.List<io.codat.platform.models.shared.SyncSetting> settings() {
         return settings;
     }

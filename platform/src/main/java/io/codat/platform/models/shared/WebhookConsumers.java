@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,12 +25,18 @@ public class WebhookConsumers {
     @JsonProperty("results")
     private Optional<? extends java.util.List<WebhookConsumer>> results;
 
+    @JsonCreator
     public WebhookConsumers(
             @JsonProperty("results") Optional<? extends java.util.List<WebhookConsumer>> results) {
         Utils.checkNotNull(results, "results");
         this.results = results;
     }
+    
+    public WebhookConsumers() {
+        this(Optional.empty());
+    }
 
+    @JsonIgnore
     public Optional<? extends java.util.List<WebhookConsumer>> results() {
         return results;
     }

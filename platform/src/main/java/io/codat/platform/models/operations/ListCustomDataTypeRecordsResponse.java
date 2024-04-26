@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
@@ -15,7 +17,7 @@ import java.net.http.HttpResponse;
 import java.util.Optional;
 
 
-public class ListCustomDataTypeRecordsResponse {
+public class ListCustomDataTypeRecordsResponse implements io.codat.platform.utils.Response {
 
     /**
      * HTTP response content type for this operation
@@ -28,11 +30,6 @@ public class ListCustomDataTypeRecordsResponse {
     private Optional<? extends io.codat.platform.models.shared.CustomDataTypeRecords> customDataTypeRecords;
 
     /**
-     * The request made is not valid.
-     */
-    private Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage;
-
-    /**
      * HTTP response status code for this operation
      */
     private int statusCode;
@@ -42,27 +39,33 @@ public class ListCustomDataTypeRecordsResponse {
      */
     private HttpResponse<InputStream> rawResponse;
 
+    @JsonCreator
     public ListCustomDataTypeRecordsResponse(
             String contentType,
             Optional<? extends io.codat.platform.models.shared.CustomDataTypeRecords> customDataTypeRecords,
-            Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage,
             int statusCode,
             HttpResponse<InputStream> rawResponse) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(customDataTypeRecords, "customDataTypeRecords");
-        Utils.checkNotNull(errorMessage, "errorMessage");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
         this.contentType = contentType;
         this.customDataTypeRecords = customDataTypeRecords;
-        this.errorMessage = errorMessage;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
+    }
+    
+    public ListCustomDataTypeRecordsResponse(
+            String contentType,
+            int statusCode,
+            HttpResponse<InputStream> rawResponse) {
+        this(contentType, Optional.empty(), statusCode, rawResponse);
     }
 
     /**
      * HTTP response content type for this operation
      */
+    @JsonIgnore
     public String contentType() {
         return contentType;
     }
@@ -70,20 +73,15 @@ public class ListCustomDataTypeRecordsResponse {
     /**
      * OK
      */
+    @JsonIgnore
     public Optional<? extends io.codat.platform.models.shared.CustomDataTypeRecords> customDataTypeRecords() {
         return customDataTypeRecords;
     }
 
     /**
-     * The request made is not valid.
-     */
-    public Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage() {
-        return errorMessage;
-    }
-
-    /**
      * HTTP response status code for this operation
      */
+    @JsonIgnore
     public int statusCode() {
         return statusCode;
     }
@@ -91,6 +89,7 @@ public class ListCustomDataTypeRecordsResponse {
     /**
      * Raw HTTP response; suitable for custom response parsing
      */
+    @JsonIgnore
     public HttpResponse<InputStream> rawResponse() {
         return rawResponse;
     }
@@ -127,24 +126,6 @@ public class ListCustomDataTypeRecordsResponse {
     }
 
     /**
-     * The request made is not valid.
-     */
-    public ListCustomDataTypeRecordsResponse withErrorMessage(io.codat.platform.models.shared.ErrorMessage errorMessage) {
-        Utils.checkNotNull(errorMessage, "errorMessage");
-        this.errorMessage = Optional.ofNullable(errorMessage);
-        return this;
-    }
-
-    /**
-     * The request made is not valid.
-     */
-    public ListCustomDataTypeRecordsResponse withErrorMessage(Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage) {
-        Utils.checkNotNull(errorMessage, "errorMessage");
-        this.errorMessage = errorMessage;
-        return this;
-    }
-
-    /**
      * HTTP response status code for this operation
      */
     public ListCustomDataTypeRecordsResponse withStatusCode(int statusCode) {
@@ -174,7 +155,6 @@ public class ListCustomDataTypeRecordsResponse {
         return 
             java.util.Objects.deepEquals(this.contentType, other.contentType) &&
             java.util.Objects.deepEquals(this.customDataTypeRecords, other.customDataTypeRecords) &&
-            java.util.Objects.deepEquals(this.errorMessage, other.errorMessage) &&
             java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
             java.util.Objects.deepEquals(this.rawResponse, other.rawResponse);
     }
@@ -184,7 +164,6 @@ public class ListCustomDataTypeRecordsResponse {
         return java.util.Objects.hash(
             contentType,
             customDataTypeRecords,
-            errorMessage,
             statusCode,
             rawResponse);
     }
@@ -194,7 +173,6 @@ public class ListCustomDataTypeRecordsResponse {
         return Utils.toString(ListCustomDataTypeRecordsResponse.class,
                 "contentType", contentType,
                 "customDataTypeRecords", customDataTypeRecords,
-                "errorMessage", errorMessage,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse);
     }
@@ -204,8 +182,6 @@ public class ListCustomDataTypeRecordsResponse {
         private String contentType;
  
         private Optional<? extends io.codat.platform.models.shared.CustomDataTypeRecords> customDataTypeRecords = Optional.empty();
- 
-        private Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage = Optional.empty();
  
         private Integer statusCode;
  
@@ -243,24 +219,6 @@ public class ListCustomDataTypeRecordsResponse {
         }
 
         /**
-         * The request made is not valid.
-         */
-        public Builder errorMessage(io.codat.platform.models.shared.ErrorMessage errorMessage) {
-            Utils.checkNotNull(errorMessage, "errorMessage");
-            this.errorMessage = Optional.ofNullable(errorMessage);
-            return this;
-        }
-
-        /**
-         * The request made is not valid.
-         */
-        public Builder errorMessage(Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage) {
-            Utils.checkNotNull(errorMessage, "errorMessage");
-            this.errorMessage = errorMessage;
-            return this;
-        }
-
-        /**
          * HTTP response status code for this operation
          */
         public Builder statusCode(int statusCode) {
@@ -282,7 +240,6 @@ public class ListCustomDataTypeRecordsResponse {
             return new ListCustomDataTypeRecordsResponse(
                 contentType,
                 customDataTypeRecords,
-                errorMessage,
                 statusCode,
                 rawResponse);
         }

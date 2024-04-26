@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
@@ -28,6 +30,7 @@ public class SupportedFeature {
     @JsonProperty("featureType")
     private FeatureType featureType;
 
+    @JsonCreator
     public SupportedFeature(
             @JsonProperty("featureState") FeatureState featureState,
             @JsonProperty("featureType") FeatureType featureType) {
@@ -40,6 +43,7 @@ public class SupportedFeature {
     /**
      * The current release state of the feature.
      */
+    @JsonIgnore
     public FeatureState featureState() {
         return featureState;
     }
@@ -47,6 +51,7 @@ public class SupportedFeature {
     /**
      * The type of feature.
      */
+    @JsonIgnore
     public FeatureType featureType() {
         return featureType;
     }

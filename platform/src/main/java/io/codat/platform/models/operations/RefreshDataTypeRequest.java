@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.SpeakeasyMetadata;
 import io.codat.platform.utils.Utils;
@@ -35,6 +37,7 @@ public class RefreshDataTypeRequest {
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=dataType")
     private io.codat.platform.models.shared.SchemaDataType dataType;
 
+    @JsonCreator
     public RefreshDataTypeRequest(
             String companyId,
             Optional<? extends String> connectionId,
@@ -46,10 +49,17 @@ public class RefreshDataTypeRequest {
         this.connectionId = connectionId;
         this.dataType = dataType;
     }
+    
+    public RefreshDataTypeRequest(
+            String companyId,
+            io.codat.platform.models.shared.SchemaDataType dataType) {
+        this(companyId, Optional.empty(), dataType);
+    }
 
     /**
      * Unique identifier for a company.
      */
+    @JsonIgnore
     public String companyId() {
         return companyId;
     }
@@ -57,6 +67,7 @@ public class RefreshDataTypeRequest {
     /**
      * Optionally, provide a data connection id to only queue pull operations on that connection.
      */
+    @JsonIgnore
     public Optional<? extends String> connectionId() {
         return connectionId;
     }
@@ -64,6 +75,7 @@ public class RefreshDataTypeRequest {
     /**
      * The key of a Codat data type
      */
+    @JsonIgnore
     public io.codat.platform.models.shared.SchemaDataType dataType() {
         return dataType;
     }

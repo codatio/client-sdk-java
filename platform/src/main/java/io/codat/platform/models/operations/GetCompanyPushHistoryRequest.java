@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.LazySingletonValue;
 import io.codat.platform.utils.SpeakeasyMetadata;
@@ -48,6 +50,7 @@ public class GetCompanyPushHistoryRequest {
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=query")
     private Optional<? extends String> query;
 
+    @JsonCreator
     public GetCompanyPushHistoryRequest(
             String companyId,
             Optional<? extends String> orderBy,
@@ -65,10 +68,16 @@ public class GetCompanyPushHistoryRequest {
         this.pageSize = pageSize;
         this.query = query;
     }
+    
+    public GetCompanyPushHistoryRequest(
+            String companyId) {
+        this(companyId, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+    }
 
     /**
      * Unique identifier for a company.
      */
+    @JsonIgnore
     public String companyId() {
         return companyId;
     }
@@ -76,6 +85,7 @@ public class GetCompanyPushHistoryRequest {
     /**
      * Field to order results by. [Read more](https://docs.codat.io/using-the-api/ordering-results).
      */
+    @JsonIgnore
     public Optional<? extends String> orderBy() {
         return orderBy;
     }
@@ -83,6 +93,7 @@ public class GetCompanyPushHistoryRequest {
     /**
      * Page number. [Read more](https://docs.codat.io/using-the-api/paging).
      */
+    @JsonIgnore
     public Optional<? extends Integer> page() {
         return page;
     }
@@ -90,6 +101,7 @@ public class GetCompanyPushHistoryRequest {
     /**
      * Number of records to return in a page. [Read more](https://docs.codat.io/using-the-api/paging).
      */
+    @JsonIgnore
     public Optional<? extends Integer> pageSize() {
         return pageSize;
     }
@@ -97,6 +109,7 @@ public class GetCompanyPushHistoryRequest {
     /**
      * Codat query string. [Read more](https://docs.codat.io/using-the-api/querying).
      */
+    @JsonIgnore
     public Optional<? extends String> query() {
         return query;
     }

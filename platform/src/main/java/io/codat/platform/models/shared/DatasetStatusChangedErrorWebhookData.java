@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -40,6 +42,7 @@ public class DatasetStatusChangedErrorWebhookData {
     @JsonProperty("datasetStatus")
     private Optional<? extends String> datasetStatus;
 
+    @JsonCreator
     public DatasetStatusChangedErrorWebhookData(
             @JsonProperty("dataType") Optional<? extends DataType> dataType,
             @JsonProperty("datasetId") Optional<? extends String> datasetId,
@@ -51,10 +54,15 @@ public class DatasetStatusChangedErrorWebhookData {
         this.datasetId = datasetId;
         this.datasetStatus = datasetStatus;
     }
+    
+    public DatasetStatusChangedErrorWebhookData() {
+        this(Optional.empty(), Optional.empty(), Optional.empty());
+    }
 
     /**
      * Available data types
      */
+    @JsonIgnore
     public Optional<? extends DataType> dataType() {
         return dataType;
     }
@@ -62,6 +70,7 @@ public class DatasetStatusChangedErrorWebhookData {
     /**
      * Unique identifier for the dataset that completed its sync.
      */
+    @JsonIgnore
     public Optional<? extends String> datasetId() {
         return datasetId;
     }
@@ -69,6 +78,7 @@ public class DatasetStatusChangedErrorWebhookData {
     /**
      * The current status of the dataset's sync.
      */
+    @JsonIgnore
     public Optional<? extends String> datasetStatus() {
         return datasetStatus;
     }

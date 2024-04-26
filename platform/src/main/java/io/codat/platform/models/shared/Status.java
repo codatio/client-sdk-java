@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
@@ -14,7 +16,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
- * Status - The current status of the pull operation.
+ * Status - The current status of the dataset.
  */
 public enum Status {
     INITIAL("Initial"),
@@ -34,8 +36,6 @@ public enum Status {
     VALIDATION_ERROR("ValidationError"),
     AUTH_ERROR("AuthError"),
     CANCELLED("Cancelled"),
-    ROUTING("Routing"),
-    ROUTING_ERROR("RoutingError"),
     NOT_SUPPORTED("NotSupported"),
     RATE_LIMIT_ERROR("RateLimitError"),
     PERMISSIONS_ERROR("PermissionsError"),

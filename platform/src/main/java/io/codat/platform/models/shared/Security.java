@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.SpeakeasyMetadata;
@@ -20,12 +22,14 @@ public class Security {
     @SpeakeasyMetadata("security:scheme=true,type=apiKey,subtype=header,name=Authorization")
     private String authHeader;
 
+    @JsonCreator
     public Security(
             String authHeader) {
         Utils.checkNotNull(authHeader, "authHeader");
         this.authHeader = authHeader;
     }
 
+    @JsonIgnore
     public String authHeader() {
         return authHeader;
     }

@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,10 +25,10 @@ import java.util.Optional;
 public class DataStatus {
 
     /**
-     * The current status of the dataset in Codat's cache.
+     * The current status of the dataset.
      */
     @JsonProperty("currentStatus")
-    private String currentStatus;
+    private Status currentStatus;
 
     /**
      * Available data types
@@ -72,8 +74,9 @@ public class DataStatus {
     @JsonProperty("latestSyncId")
     private Optional<? extends String> latestSyncId;
 
+    @JsonCreator
     public DataStatus(
-            @JsonProperty("currentStatus") String currentStatus,
+            @JsonProperty("currentStatus") Status currentStatus,
             @JsonProperty("dataType") DataTypes dataType,
             @JsonProperty("lastSuccessfulSync") String lastSuccessfulSync,
             @JsonProperty("latestSuccessfulSyncId") Optional<? extends String> latestSuccessfulSyncId,
@@ -89,17 +92,26 @@ public class DataStatus {
         this.latestSuccessfulSyncId = latestSuccessfulSyncId;
         this.latestSyncId = latestSyncId;
     }
+    
+    public DataStatus(
+            Status currentStatus,
+            DataTypes dataType,
+            String lastSuccessfulSync) {
+        this(currentStatus, dataType, lastSuccessfulSync, Optional.empty(), Optional.empty());
+    }
 
     /**
-     * The current status of the dataset in Codat's cache.
+     * The current status of the dataset.
      */
-    public String currentStatus() {
+    @JsonIgnore
+    public Status currentStatus() {
         return currentStatus;
     }
 
     /**
      * Available data types
      */
+    @JsonIgnore
     public DataTypes dataType() {
         return dataType;
     }
@@ -125,6 +137,7 @@ public class DataStatus {
      * &gt; Not all dates from Codat will contain information about time zones.  
      * &gt; Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
      */
+    @JsonIgnore
     public String lastSuccessfulSync() {
         return lastSuccessfulSync;
     }
@@ -132,6 +145,7 @@ public class DataStatus {
     /**
      * Unique identifier for the most recent successful sync of data type.
      */
+    @JsonIgnore
     public Optional<? extends String> latestSuccessfulSyncId() {
         return latestSuccessfulSyncId;
     }
@@ -139,6 +153,7 @@ public class DataStatus {
     /**
      * Unique identifier for most recent sync of data type.
      */
+    @JsonIgnore
     public Optional<? extends String> latestSyncId() {
         return latestSyncId;
     }
@@ -148,9 +163,9 @@ public class DataStatus {
     }
 
     /**
-     * The current status of the dataset in Codat's cache.
+     * The current status of the dataset.
      */
-    public DataStatus withCurrentStatus(String currentStatus) {
+    public DataStatus withCurrentStatus(Status currentStatus) {
         Utils.checkNotNull(currentStatus, "currentStatus");
         this.currentStatus = currentStatus;
         return this;
@@ -267,7 +282,7 @@ public class DataStatus {
     
     public final static class Builder {
  
-        private String currentStatus;
+        private Status currentStatus;
  
         private DataTypes dataType;
  
@@ -282,9 +297,9 @@ public class DataStatus {
         }
 
         /**
-         * The current status of the dataset in Codat's cache.
+         * The current status of the dataset.
          */
-        public Builder currentStatus(String currentStatus) {
+        public Builder currentStatus(Status currentStatus) {
             Utils.checkNotNull(currentStatus, "currentStatus");
             this.currentStatus = currentStatus;
             return this;

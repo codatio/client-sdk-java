@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -92,6 +94,7 @@ public class SyncSetting {
     @JsonProperty("syncSchedule")
     private long syncSchedule;
 
+    @JsonCreator
     public SyncSetting(
             @JsonProperty("dataType") DataType dataType,
             @JsonProperty("fetchOnFirstLink") boolean fetchOnFirstLink,
@@ -118,10 +121,19 @@ public class SyncSetting {
         this.syncOrder = syncOrder;
         this.syncSchedule = syncSchedule;
     }
+    
+    public SyncSetting(
+            DataType dataType,
+            boolean fetchOnFirstLink,
+            long syncOrder,
+            long syncSchedule) {
+        this(dataType, fetchOnFirstLink, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), syncOrder, syncSchedule);
+    }
 
     /**
      * Available data types
      */
+    @JsonIgnore
     public DataType dataType() {
         return dataType;
     }
@@ -129,6 +141,7 @@ public class SyncSetting {
     /**
      * Whether this data type should be queued after a company has authorized a connection.
      */
+    @JsonIgnore
     public boolean fetchOnFirstLink() {
         return fetchOnFirstLink;
     }
@@ -136,6 +149,7 @@ public class SyncSetting {
     /**
      * `True` if the [sync setting](https://docs.codat.io/knowledge-base/advanced-sync-settings) is locked.
      */
+    @JsonIgnore
     public Optional<? extends Boolean> isLocked() {
         return isLocked;
     }
@@ -143,6 +157,7 @@ public class SyncSetting {
     /**
      * Months of data to fetch, for report data types (`balanceSheet` &amp; `profitAndLoss`) only.
      */
+    @JsonIgnore
     public Optional<? extends Long> monthsToSync() {
         return monthsToSync;
     }
@@ -168,6 +183,7 @@ public class SyncSetting {
      * &gt; Not all dates from Codat will contain information about time zones.  
      * &gt; Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
      */
+    @JsonIgnore
     public Optional<? extends String> syncFromUtc() {
         return syncFromUtc;
     }
@@ -175,6 +191,7 @@ public class SyncSetting {
     /**
      * Number of months of data to be fetched. Set this *or* `syncFromUTC`.
      */
+    @JsonIgnore
     public Optional<? extends Long> syncFromWindow() {
         return syncFromWindow;
     }
@@ -182,6 +199,7 @@ public class SyncSetting {
     /**
      * The sync in which data types are queued for a sync.
      */
+    @JsonIgnore
     public long syncOrder() {
         return syncOrder;
     }
@@ -189,6 +207,7 @@ public class SyncSetting {
     /**
      * Number of hours after which this data type should be refreshed.
      */
+    @JsonIgnore
     public long syncSchedule() {
         return syncSchedule;
     }

@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -33,6 +35,7 @@ public class PushOperationRef {
     @JsonProperty("id")
     private Optional<? extends String> id;
 
+    @JsonCreator
     public PushOperationRef(
             @JsonProperty("dataType") Optional<? extends DataType> dataType,
             @JsonProperty("id") Optional<? extends String> id) {
@@ -41,10 +44,15 @@ public class PushOperationRef {
         this.dataType = dataType;
         this.id = id;
     }
+    
+    public PushOperationRef() {
+        this(Optional.empty(), Optional.empty());
+    }
 
     /**
      * Available data types
      */
+    @JsonIgnore
     public Optional<? extends DataType> dataType() {
         return dataType;
     }
@@ -52,6 +60,7 @@ public class PushOperationRef {
     /**
      * Unique identifier for a push operation.
      */
+    @JsonIgnore
     public Optional<? extends String> id() {
         return id;
     }

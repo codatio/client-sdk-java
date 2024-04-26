@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -37,6 +39,7 @@ public class CustomDataTypeRecord {
     @JsonProperty("modifiedDate")
     private Optional<? extends ModifiedDate> modifiedDate;
 
+    @JsonCreator
     public CustomDataTypeRecord(
             @JsonProperty("content") Optional<? extends java.util.Map<String, Content>> content,
             @JsonProperty("id") Optional<? extends String> id,
@@ -48,10 +51,15 @@ public class CustomDataTypeRecord {
         this.id = id;
         this.modifiedDate = modifiedDate;
     }
+    
+    public CustomDataTypeRecord() {
+        this(Optional.empty(), Optional.empty(), Optional.empty());
+    }
 
     /**
      * Values from the source system for the properties defined in the custom data type configuration.
      */
+    @JsonIgnore
     public Optional<? extends java.util.Map<String, Content>> content() {
         return content;
     }
@@ -59,10 +67,12 @@ public class CustomDataTypeRecord {
     /**
      * Unique identifier of the record.
      */
+    @JsonIgnore
     public Optional<? extends String> id() {
         return id;
     }
 
+    @JsonIgnore
     public Optional<? extends ModifiedDate> modifiedDate() {
         return modifiedDate;
     }

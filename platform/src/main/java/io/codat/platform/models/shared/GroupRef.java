@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -26,15 +28,21 @@ public class GroupRef {
     @JsonProperty("id")
     private Optional<? extends String> id;
 
+    @JsonCreator
     public GroupRef(
             @JsonProperty("id") Optional<? extends String> id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
     }
+    
+    public GroupRef() {
+        this(Optional.empty());
+    }
 
     /**
      * Unique identifier for the group.
      */
+    @JsonIgnore
     public Optional<? extends String> id() {
         return id;
     }

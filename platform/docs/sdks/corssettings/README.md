@@ -1,0 +1,146 @@
+# CorsSettings
+(*connectionManagement().corsSettings()*)
+
+### Available Operations
+
+* [get](#get) - Get CORS settings
+* [set](#set) - Set CORS settings
+
+## get
+
+﻿The *Get CORS settings* endpoint returns the allowed origins (i.e. your domains) you want to allow cross-origin resource sharing ([CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)) with Codat. 
+
+Enabling CORS with Codat is required by our embedded [connection management UI](https://docs.codat.io/auth-flow/optimize/connection-management) to access Codat's API endpoints.
+
+The embedded [connection management UI](https://docs.codat.io/auth-flow/optimize/connection-management) lets your customers control access to their data by allowing them to manage their existing connections.
+
+### Example Usage
+
+```java
+package hello.world;
+
+import io.codat.platform.CodatPlatform;
+import io.codat.platform.models.operations.*;
+import io.codat.platform.models.operations.GetConnectionManagementCorsSettingsResponse;
+import io.codat.platform.models.shared.*;
+import io.codat.platform.models.shared.Security;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.util.Optional;
+import static java.util.Map.entry;
+
+public class Application {
+
+    public static void main(String[] args) {
+        try {
+            CodatPlatform sdk = CodatPlatform.builder()
+                .security(Security.builder()
+                    .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+                    .build())
+                .build();
+
+            GetConnectionManagementCorsSettingsResponse res = sdk.connectionManagement().corsSettings().get()
+                .call();
+
+            if (res.connectionManagementAllowedOrigins().isPresent()) {
+                // handle response
+            }
+        } catch (io.codat.platform.models.errors.ErrorMessage e) {
+            // handle exception
+        } catch (io.codat.platform.models.errors.SDKError e) {
+            // handle exception
+        } catch (Exception e) {
+            // handle exception
+        }
+    }
+}
+```
+
+
+### Response
+
+**[Optional<? extends io.codat.platform.models.operations.GetConnectionManagementCorsSettingsResponse>](../../models/operations/GetConnectionManagementCorsSettingsResponse.md)**
+### Errors
+
+| Error Object                                 | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| io.codat.platform.models.errors.ErrorMessage | 401,402,403,404,429,500,503                  | application/json                             |
+| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
+
+## set
+
+﻿The *Set CORS settings* endpoint allows you to register allowed origins (i.e. your domains) for use in cross-origin resource sharing ([CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)).
+ 
+Enabling CORS with Codat is required by our embedded [connection management UI](https://docs.codat.io/auth-flow/optimize/connection-management) to access Codat's API endpoints. 
+
+The embedded [connection management UI](https://docs.codat.io/auth-flow/optimize/connection-management) lets your customers control access to their data by allowing them to manage their existing connections.
+
+### Example Usage
+
+```java
+package hello.world;
+
+import io.codat.platform.CodatPlatform;
+import io.codat.platform.models.operations.*;
+import io.codat.platform.models.operations.SetConnectionManagementCorsSettingsResponse;
+import io.codat.platform.models.shared.*;
+import io.codat.platform.models.shared.ConnectionManagementAllowedOrigins;
+import io.codat.platform.models.shared.Security;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.util.Optional;
+import static java.util.Map.entry;
+
+public class Application {
+
+    public static void main(String[] args) {
+        try {
+            CodatPlatform sdk = CodatPlatform.builder()
+                .security(Security.builder()
+                    .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+                    .build())
+                .build();
+
+            ConnectionManagementAllowedOrigins req = ConnectionManagementAllowedOrigins.builder()
+                .allowedOrigins(java.util.List.of(
+                    "http://unwitting-algebra.net"))
+                .build();
+
+            SetConnectionManagementCorsSettingsResponse res = sdk.connectionManagement().corsSettings().set()
+                .request(req)
+                .call();
+
+            if (res.connectionManagementAllowedOrigins().isPresent()) {
+                // handle response
+            }
+        } catch (io.codat.platform.models.errors.ErrorMessage e) {
+            // handle exception
+        } catch (io.codat.platform.models.errors.SDKError e) {
+            // handle exception
+        } catch (Exception e) {
+            // handle exception
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                       | Type                                                                                                                            | Required                                                                                                                        | Description                                                                                                                     |
+| ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `request`                                                                                                                       | [io.codat.platform.models.shared.ConnectionManagementAllowedOrigins](../../models/shared/ConnectionManagementAllowedOrigins.md) | :heavy_check_mark:                                                                                                              | The request object to use for the request.                                                                                      |
+
+
+### Response
+
+**[Optional<? extends io.codat.platform.models.operations.SetConnectionManagementCorsSettingsResponse>](../../models/operations/SetConnectionManagementCorsSettingsResponse.md)**
+### Errors
+
+| Error Object                                 | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| io.codat.platform.models.errors.ErrorMessage | 401,402,403,404,429,500,503                  | application/json                             |
+| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |

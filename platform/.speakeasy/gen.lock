@@ -1,25 +1,27 @@
 lockVersion: 2.0.0
 id: 68b4ba11-1085-4f18-b273-9196a9d3e697
 management:
-  docChecksum: 6b9afa35a1ca4d8a1834643e80dd9a19
+  docChecksum: 91b86a7707fc536ccbdc7b7345d775a0
   docVersion: 3.0.0
-  speakeasyVersion: internal
-  generationVersion: 2.277.0
-  releaseVersion: 0.3.0
-  configChecksum: e7267e0804b09f5d43a0b2fef635da8a
+  speakeasyVersion: 1.274.1
+  generationVersion: 2.314.0
+  releaseVersion: 0.4.0
+  configChecksum: 987a0d5c0fea6113fd775db1c4682353
   repoURL: https://github.com/codatio/client-sdk-java.git
   repoSubDirectory: platform
   published: true
 features:
   java:
     constsAndDefaults: 0.1.1
-    core: 3.13.3
+    core: 3.18.0
     deprecations: 2.81.1
     examples: 2.81.3
-    globalSecurity: 2.82.4
+    globalSecurity: 2.82.5
     globalServerURLs: 2.82.1
+    groups: 2.81.2
+    ignores: 2.81.1
     inputOutputModels: 2.83.0
-    nameOverrides: 2.81.2
+    nameOverrides: 2.81.3
     retries: 0.1.1
     webhooks: 1.0.0
 generatedFiles:
@@ -27,6 +29,8 @@ generatedFiles:
   - src/main/java/io/codat/platform/SDKConfiguration.java
   - src/main/java/io/codat/platform/Settings.java
   - src/main/java/io/codat/platform/Companies.java
+  - src/main/java/io/codat/platform/CorsSettings.java
+  - src/main/java/io/codat/platform/ConnectionManagement.java
   - src/main/java/io/codat/platform/Connections.java
   - src/main/java/io/codat/platform/CustomDataType.java
   - src/main/java/io/codat/platform/PushData.java
@@ -47,6 +51,9 @@ generatedFiles:
   - src/main/java/io/codat/platform/models/operations/GetCompanyRequestBuilder.java
   - src/main/java/io/codat/platform/models/operations/ListCompaniesRequestBuilder.java
   - src/main/java/io/codat/platform/models/operations/UpdateCompanyRequestBuilder.java
+  - src/main/java/io/codat/platform/models/operations/GetConnectionManagementAccessTokenRequestBuilder.java
+  - src/main/java/io/codat/platform/models/operations/GetConnectionManagementCorsSettingsRequestBuilder.java
+  - src/main/java/io/codat/platform/models/operations/SetConnectionManagementCorsSettingsRequestBuilder.java
   - src/main/java/io/codat/platform/models/operations/CreateConnectionRequestBuilder.java
   - src/main/java/io/codat/platform/models/operations/DeleteConnectionRequestBuilder.java
   - src/main/java/io/codat/platform/models/operations/GetConnectionRequestBuilder.java
@@ -92,10 +99,13 @@ generatedFiles:
   - src/main/java/io/codat/platform/utils/BackoffStrategy.java
   - src/main/java/io/codat/platform/utils/BigDecimalString.java
   - src/main/java/io/codat/platform/utils/BigIntegerString.java
+  - src/main/java/io/codat/platform/utils/Deserializers.java
   - src/main/java/io/codat/platform/utils/FormMetadata.java
   - src/main/java/io/codat/platform/utils/HTTPClient.java
   - src/main/java/io/codat/platform/utils/HTTPRequest.java
   - src/main/java/io/codat/platform/utils/HeaderMetadata.java
+  - src/main/java/io/codat/platform/utils/Hook.java
+  - src/main/java/io/codat/platform/utils/Hooks.java
   - src/main/java/io/codat/platform/utils/JSON.java
   - src/main/java/io/codat/platform/utils/LazySingletonValue.java
   - src/main/java/io/codat/platform/utils/Metadata.java
@@ -107,13 +117,13 @@ generatedFiles:
   - src/main/java/io/codat/platform/utils/QueryParamsMetadata.java
   - src/main/java/io/codat/platform/utils/RequestBody.java
   - src/main/java/io/codat/platform/utils/RequestMetadata.java
+  - src/main/java/io/codat/platform/utils/Response.java
   - src/main/java/io/codat/platform/utils/Retries.java
   - src/main/java/io/codat/platform/utils/RetryConfig.java
   - src/main/java/io/codat/platform/utils/Security.java
   - src/main/java/io/codat/platform/utils/SecurityMetadata.java
   - src/main/java/io/codat/platform/utils/SerializedBody.java
   - src/main/java/io/codat/platform/utils/SpeakeasyHTTPClient.java
-  - src/main/java/io/codat/platform/utils/SpeakeasyHTTPSecurityClient.java
   - src/main/java/io/codat/platform/utils/SpeakeasyMetadata.java
   - src/main/java/io/codat/platform/utils/TypedObject.java
   - src/main/java/io/codat/platform/utils/Types.java
@@ -137,6 +147,10 @@ generatedFiles:
   - src/main/java/io/codat/platform/models/operations/ListCompaniesResponse.java
   - src/main/java/io/codat/platform/models/operations/UpdateCompanyRequest.java
   - src/main/java/io/codat/platform/models/operations/UpdateCompanyResponse.java
+  - src/main/java/io/codat/platform/models/operations/GetConnectionManagementAccessTokenRequest.java
+  - src/main/java/io/codat/platform/models/operations/GetConnectionManagementAccessTokenResponse.java
+  - src/main/java/io/codat/platform/models/operations/GetConnectionManagementCorsSettingsResponse.java
+  - src/main/java/io/codat/platform/models/operations/SetConnectionManagementCorsSettingsResponse.java
   - src/main/java/io/codat/platform/models/operations/CreateConnectionRequestBody.java
   - src/main/java/io/codat/platform/models/operations/CreateConnectionRequest.java
   - src/main/java/io/codat/platform/models/operations/CreateConnectionResponse.java
@@ -201,10 +215,9 @@ generatedFiles:
   - src/main/java/io/codat/platform/models/operations/ListRulesRequest.java
   - src/main/java/io/codat/platform/models/operations/ListRulesResponse.java
   - src/main/java/io/codat/platform/models/operations/ListWebhookConsumersResponse.java
-  - src/main/java/io/codat/platform/models/shared/ErrorMessage.java
+  - src/main/java/io/codat/platform/models/shared/ApiKeyDetails.java
   - src/main/java/io/codat/platform/models/shared/ErrorValidation.java
   - src/main/java/io/codat/platform/models/shared/ErrorValidationItem.java
-  - src/main/java/io/codat/platform/models/shared/ApiKeyDetails.java
   - src/main/java/io/codat/platform/models/shared/CreateApiKey.java
   - src/main/java/io/codat/platform/models/shared/Profile.java
   - src/main/java/io/codat/platform/models/shared/SyncSettings.java
@@ -221,6 +234,8 @@ generatedFiles:
   - src/main/java/io/codat/platform/models/shared/Companies.java
   - src/main/java/io/codat/platform/models/shared/Links.java
   - src/main/java/io/codat/platform/models/shared/HalRef.java
+  - src/main/java/io/codat/platform/models/shared/ConnectionManagementAccessToken.java
+  - src/main/java/io/codat/platform/models/shared/ConnectionManagementAllowedOrigins.java
   - src/main/java/io/codat/platform/models/shared/Connections.java
   - src/main/java/io/codat/platform/models/shared/UpdateConnectionStatus.java
   - src/main/java/io/codat/platform/models/shared/CustomDataTypeConfiguration.java
@@ -228,7 +243,7 @@ generatedFiles:
   - src/main/java/io/codat/platform/models/shared/Content.java
   - src/main/java/io/codat/platform/models/shared/ModifiedDate.java
   - src/main/java/io/codat/platform/models/shared/CustomDataTypeRecord.java
-  - src/main/java/io/codat/platform/models/shared/Status.java
+  - src/main/java/io/codat/platform/models/shared/DatasetStatus.java
   - src/main/java/io/codat/platform/models/shared/PullOperation.java
   - src/main/java/io/codat/platform/models/shared/PushOption.java
   - src/main/java/io/codat/platform/models/shared/PushValidationInfo.java
@@ -245,8 +260,10 @@ generatedFiles:
   - src/main/java/io/codat/platform/models/shared/PushChangeType.java
   - src/main/java/io/codat/platform/models/shared/PushOperationRef.java
   - src/main/java/io/codat/platform/models/shared/PushOperations.java
+  - src/main/java/io/codat/platform/models/shared/DataStatuses.java
   - src/main/java/io/codat/platform/models/shared/DataTypes.java
   - src/main/java/io/codat/platform/models/shared/DataStatus.java
+  - src/main/java/io/codat/platform/models/shared/Status.java
   - src/main/java/io/codat/platform/models/shared/PullOperations.java
   - src/main/java/io/codat/platform/models/shared/CompanyGroupAssignment.java
   - src/main/java/io/codat/platform/models/shared/Group.java
@@ -291,6 +308,7 @@ generatedFiles:
   - src/main/java/io/codat/platform/models/shared/PushOperationTimedOutWebhookData.java
   - src/main/java/io/codat/platform/models/shared/PushOperationStatusChangedWebhook.java
   - src/main/java/io/codat/platform/models/shared/PushOperationStatusChangedWebhookData.java
+  - src/main/java/io/codat/platform/models/errors/ErrorMessage.java
   - src/main/java/io/codat/platform/models/webhooks/ClientRateLimitReachedResponse.java
   - src/main/java/io/codat/platform/models/webhooks/ClientRateLimitResetResponse.java
   - src/main/java/io/codat/platform/models/webhooks/CompanyDataConnectionStatusChangedResponse.java
@@ -318,6 +336,10 @@ generatedFiles:
   - docs/models/operations/ListCompaniesResponse.md
   - docs/models/operations/UpdateCompanyRequest.md
   - docs/models/operations/UpdateCompanyResponse.md
+  - docs/models/operations/GetConnectionManagementAccessTokenRequest.md
+  - docs/models/operations/GetConnectionManagementAccessTokenResponse.md
+  - docs/models/operations/GetConnectionManagementCorsSettingsResponse.md
+  - docs/models/operations/SetConnectionManagementCorsSettingsResponse.md
   - docs/models/operations/CreateConnectionRequestBody.md
   - docs/models/operations/CreateConnectionRequest.md
   - docs/models/operations/CreateConnectionResponse.md
@@ -382,10 +404,9 @@ generatedFiles:
   - docs/models/operations/ListRulesRequest.md
   - docs/models/operations/ListRulesResponse.md
   - docs/models/operations/ListWebhookConsumersResponse.md
-  - docs/models/shared/ErrorMessage.md
+  - docs/models/shared/ApiKeyDetails.md
   - docs/models/shared/ErrorValidation.md
   - docs/models/shared/ErrorValidationItem.md
-  - docs/models/shared/ApiKeyDetails.md
   - docs/models/shared/CreateApiKey.md
   - docs/models/shared/Profile.md
   - docs/models/shared/SyncSettings.md
@@ -402,6 +423,8 @@ generatedFiles:
   - docs/models/shared/Companies.md
   - docs/models/shared/Links.md
   - docs/models/shared/HalRef.md
+  - docs/models/shared/ConnectionManagementAccessToken.md
+  - docs/models/shared/ConnectionManagementAllowedOrigins.md
   - docs/models/shared/Connections.md
   - docs/models/shared/UpdateConnectionStatus.md
   - docs/models/shared/CustomDataTypeConfiguration.md
@@ -409,7 +432,7 @@ generatedFiles:
   - docs/models/shared/Content.md
   - docs/models/shared/ModifiedDate.md
   - docs/models/shared/CustomDataTypeRecord.md
-  - docs/models/shared/Status.md
+  - docs/models/shared/DatasetStatus.md
   - docs/models/shared/PullOperation.md
   - docs/models/shared/PushOption.md
   - docs/models/shared/PushValidationInfo.md
@@ -426,8 +449,10 @@ generatedFiles:
   - docs/models/shared/PushChangeType.md
   - docs/models/shared/PushOperationRef.md
   - docs/models/shared/PushOperations.md
+  - docs/models/shared/DataStatuses.md
   - docs/models/shared/DataTypes.md
   - docs/models/shared/DataStatus.md
+  - docs/models/shared/Status.md
   - docs/models/shared/PullOperations.md
   - docs/models/shared/CompanyGroupAssignment.md
   - docs/models/shared/Group.md
@@ -472,6 +497,7 @@ generatedFiles:
   - docs/models/shared/PushOperationTimedOutWebhookData.md
   - docs/models/shared/PushOperationStatusChangedWebhook.md
   - docs/models/shared/PushOperationStatusChangedWebhookData.md
+  - docs/models/errors/ErrorMessage.md
   - docs/models/webhooks/ClientRateLimitReachedResponse.md
   - docs/models/webhooks/ClientRateLimitResetResponse.md
   - docs/models/webhooks/CompanyDataConnectionStatusChangedResponse.md
@@ -484,6 +510,8 @@ generatedFiles:
   - docs/sdks/codatplatform/README.md
   - docs/sdks/settings/README.md
   - docs/sdks/companies/README.md
+  - docs/sdks/connectionmanagement/README.md
+  - docs/sdks/corssettings/README.md
   - docs/sdks/connections/README.md
   - docs/sdks/customdatatype/README.md
   - docs/sdks/pushdata/README.md

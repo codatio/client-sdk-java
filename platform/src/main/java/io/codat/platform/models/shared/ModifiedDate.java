@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,12 +25,18 @@ public class ModifiedDate {
     @JsonProperty("modifiedDate")
     private Optional<? extends String> modifiedDate;
 
+    @JsonCreator
     public ModifiedDate(
             @JsonProperty("modifiedDate") Optional<? extends String> modifiedDate) {
         Utils.checkNotNull(modifiedDate, "modifiedDate");
         this.modifiedDate = modifiedDate;
     }
+    
+    public ModifiedDate() {
+        this(Optional.empty());
+    }
 
+    @JsonIgnore
     public Optional<? extends String> modifiedDate() {
         return modifiedDate;
     }

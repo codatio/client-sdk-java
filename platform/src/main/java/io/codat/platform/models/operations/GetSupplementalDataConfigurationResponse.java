@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;
@@ -15,17 +17,12 @@ import java.net.http.HttpResponse;
 import java.util.Optional;
 
 
-public class GetSupplementalDataConfigurationResponse {
+public class GetSupplementalDataConfigurationResponse implements io.codat.platform.utils.Response {
 
     /**
      * HTTP response content type for this operation
      */
     private String contentType;
-
-    /**
-     * Your API request was not properly authorized.
-     */
-    private Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage;
 
     /**
      * HTTP response status code for this operation
@@ -42,41 +39,41 @@ public class GetSupplementalDataConfigurationResponse {
      */
     private Optional<? extends io.codat.platform.models.shared.SupplementalDataConfiguration> supplementalDataConfiguration;
 
+    @JsonCreator
     public GetSupplementalDataConfigurationResponse(
             String contentType,
-            Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
             Optional<? extends io.codat.platform.models.shared.SupplementalDataConfiguration> supplementalDataConfiguration) {
         Utils.checkNotNull(contentType, "contentType");
-        Utils.checkNotNull(errorMessage, "errorMessage");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
         Utils.checkNotNull(supplementalDataConfiguration, "supplementalDataConfiguration");
         this.contentType = contentType;
-        this.errorMessage = errorMessage;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
         this.supplementalDataConfiguration = supplementalDataConfiguration;
+    }
+    
+    public GetSupplementalDataConfigurationResponse(
+            String contentType,
+            int statusCode,
+            HttpResponse<InputStream> rawResponse) {
+        this(contentType, statusCode, rawResponse, Optional.empty());
     }
 
     /**
      * HTTP response content type for this operation
      */
+    @JsonIgnore
     public String contentType() {
         return contentType;
     }
 
     /**
-     * Your API request was not properly authorized.
-     */
-    public Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage() {
-        return errorMessage;
-    }
-
-    /**
      * HTTP response status code for this operation
      */
+    @JsonIgnore
     public int statusCode() {
         return statusCode;
     }
@@ -84,6 +81,7 @@ public class GetSupplementalDataConfigurationResponse {
     /**
      * Raw HTTP response; suitable for custom response parsing
      */
+    @JsonIgnore
     public HttpResponse<InputStream> rawResponse() {
         return rawResponse;
     }
@@ -91,6 +89,7 @@ public class GetSupplementalDataConfigurationResponse {
     /**
      * OK
      */
+    @JsonIgnore
     public Optional<? extends io.codat.platform.models.shared.SupplementalDataConfiguration> supplementalDataConfiguration() {
         return supplementalDataConfiguration;
     }
@@ -105,24 +104,6 @@ public class GetSupplementalDataConfigurationResponse {
     public GetSupplementalDataConfigurationResponse withContentType(String contentType) {
         Utils.checkNotNull(contentType, "contentType");
         this.contentType = contentType;
-        return this;
-    }
-
-    /**
-     * Your API request was not properly authorized.
-     */
-    public GetSupplementalDataConfigurationResponse withErrorMessage(io.codat.platform.models.shared.ErrorMessage errorMessage) {
-        Utils.checkNotNull(errorMessage, "errorMessage");
-        this.errorMessage = Optional.ofNullable(errorMessage);
-        return this;
-    }
-
-    /**
-     * Your API request was not properly authorized.
-     */
-    public GetSupplementalDataConfigurationResponse withErrorMessage(Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage) {
-        Utils.checkNotNull(errorMessage, "errorMessage");
-        this.errorMessage = errorMessage;
         return this;
     }
 
@@ -173,7 +154,6 @@ public class GetSupplementalDataConfigurationResponse {
         GetSupplementalDataConfigurationResponse other = (GetSupplementalDataConfigurationResponse) o;
         return 
             java.util.Objects.deepEquals(this.contentType, other.contentType) &&
-            java.util.Objects.deepEquals(this.errorMessage, other.errorMessage) &&
             java.util.Objects.deepEquals(this.statusCode, other.statusCode) &&
             java.util.Objects.deepEquals(this.rawResponse, other.rawResponse) &&
             java.util.Objects.deepEquals(this.supplementalDataConfiguration, other.supplementalDataConfiguration);
@@ -183,7 +163,6 @@ public class GetSupplementalDataConfigurationResponse {
     public int hashCode() {
         return java.util.Objects.hash(
             contentType,
-            errorMessage,
             statusCode,
             rawResponse,
             supplementalDataConfiguration);
@@ -193,7 +172,6 @@ public class GetSupplementalDataConfigurationResponse {
     public String toString() {
         return Utils.toString(GetSupplementalDataConfigurationResponse.class,
                 "contentType", contentType,
-                "errorMessage", errorMessage,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
                 "supplementalDataConfiguration", supplementalDataConfiguration);
@@ -202,8 +180,6 @@ public class GetSupplementalDataConfigurationResponse {
     public final static class Builder {
  
         private String contentType;
- 
-        private Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage = Optional.empty();
  
         private Integer statusCode;
  
@@ -221,24 +197,6 @@ public class GetSupplementalDataConfigurationResponse {
         public Builder contentType(String contentType) {
             Utils.checkNotNull(contentType, "contentType");
             this.contentType = contentType;
-            return this;
-        }
-
-        /**
-         * Your API request was not properly authorized.
-         */
-        public Builder errorMessage(io.codat.platform.models.shared.ErrorMessage errorMessage) {
-            Utils.checkNotNull(errorMessage, "errorMessage");
-            this.errorMessage = Optional.ofNullable(errorMessage);
-            return this;
-        }
-
-        /**
-         * Your API request was not properly authorized.
-         */
-        public Builder errorMessage(Optional<? extends io.codat.platform.models.shared.ErrorMessage> errorMessage) {
-            Utils.checkNotNull(errorMessage, "errorMessage");
-            this.errorMessage = errorMessage;
             return this;
         }
 
@@ -281,7 +239,6 @@ public class GetSupplementalDataConfigurationResponse {
         public GetSupplementalDataConfigurationResponse build() {
             return new GetSupplementalDataConfigurationResponse(
                 contentType,
-                errorMessage,
                 statusCode,
                 rawResponse,
                 supplementalDataConfiguration);

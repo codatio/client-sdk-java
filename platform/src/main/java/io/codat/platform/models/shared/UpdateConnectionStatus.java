@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -26,15 +28,21 @@ public class UpdateConnectionStatus {
     @JsonProperty("status")
     private Optional<? extends DataConnectionStatus> status;
 
+    @JsonCreator
     public UpdateConnectionStatus(
             @JsonProperty("status") Optional<? extends DataConnectionStatus> status) {
         Utils.checkNotNull(status, "status");
         this.status = status;
     }
+    
+    public UpdateConnectionStatus() {
+        this(Optional.empty());
+    }
 
     /**
      * The current authorization status of the data connection.
      */
+    @JsonIgnore
     public Optional<? extends DataConnectionStatus> status() {
         return status;
     }

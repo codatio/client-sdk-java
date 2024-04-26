@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -38,6 +40,7 @@ public class CreateRule {
     @JsonProperty("type")
     private String type;
 
+    @JsonCreator
     public CreateRule(
             @JsonProperty("companyId") Optional<? extends String> companyId,
             @JsonProperty("notifiers") WebhookNotifier notifiers,
@@ -49,14 +52,22 @@ public class CreateRule {
         this.notifiers = notifiers;
         this.type = type;
     }
+    
+    public CreateRule(
+            WebhookNotifier notifiers,
+            String type) {
+        this(Optional.empty(), notifiers, type);
+    }
 
     /**
      * Unique identifier for your SMB in Codat.
      */
+    @JsonIgnore
     public Optional<? extends String> companyId() {
         return companyId;
     }
 
+    @JsonIgnore
     public WebhookNotifier notifiers() {
         return notifiers;
     }
@@ -64,6 +75,7 @@ public class CreateRule {
     /**
      * The type of webhook.
      */
+    @JsonIgnore
     public String type() {
         return type;
     }

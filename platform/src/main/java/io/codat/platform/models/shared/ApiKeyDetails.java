@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -69,6 +71,7 @@ public class ApiKeyDetails {
     @JsonProperty("name")
     private JsonNullable<? extends String> name;
 
+    @JsonCreator
     public ApiKeyDetails(
             @JsonProperty("apiKey") Optional<? extends String> apiKey,
             @JsonProperty("createdDate") Optional<? extends String> createdDate,
@@ -83,10 +86,15 @@ public class ApiKeyDetails {
         this.id = id;
         this.name = name;
     }
+    
+    public ApiKeyDetails() {
+        this(Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined());
+    }
 
     /**
      * The API key value used to make authenticated http requests.
      */
+    @JsonIgnore
     public Optional<? extends String> apiKey() {
         return apiKey;
     }
@@ -112,6 +120,7 @@ public class ApiKeyDetails {
      * &gt; Not all dates from Codat will contain information about time zones.  
      * &gt; Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
      */
+    @JsonIgnore
     public Optional<? extends String> createdDate() {
         return createdDate;
     }
@@ -119,6 +128,7 @@ public class ApiKeyDetails {
     /**
      * Unique identifier for the API key.
      */
+    @JsonIgnore
     public Optional<? extends String> id() {
         return id;
     }
@@ -126,6 +136,7 @@ public class ApiKeyDetails {
     /**
      * A meaningful name assigned to the API key.
      */
+    @JsonIgnore
     public JsonNullable<? extends String> name() {
         return name;
     }

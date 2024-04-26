@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -123,10 +125,10 @@ public class PullOperation {
     private String requested;
 
     /**
-     * The current status of the pull operation.
+     * The current status of the dataset.
      */
     @JsonProperty("status")
-    private Status status;
+    private DatasetStatus status;
 
     /**
      * Additional information about the dataset status.
@@ -135,6 +137,7 @@ public class PullOperation {
     @JsonProperty("statusDescription")
     private JsonNullable<? extends String> statusDescription;
 
+    @JsonCreator
     public PullOperation(
             @JsonProperty("companyId") String companyId,
             @JsonProperty("completed") Optional<? extends String> completed,
@@ -146,7 +149,7 @@ public class PullOperation {
             @JsonProperty("isErrored") boolean isErrored,
             @JsonProperty("progress") long progress,
             @JsonProperty("requested") String requested,
-            @JsonProperty("status") Status status,
+            @JsonProperty("status") DatasetStatus status,
             @JsonProperty("statusDescription") JsonNullable<? extends String> statusDescription) {
         Utils.checkNotNull(companyId, "companyId");
         Utils.checkNotNull(completed, "completed");
@@ -173,10 +176,24 @@ public class PullOperation {
         this.status = status;
         this.statusDescription = statusDescription;
     }
+    
+    public PullOperation(
+            String companyId,
+            String connectionId,
+            String dataType,
+            String id,
+            boolean isCompleted,
+            boolean isErrored,
+            long progress,
+            String requested,
+            DatasetStatus status) {
+        this(companyId, Optional.empty(), connectionId, dataType, JsonNullable.undefined(), id, isCompleted, isErrored, progress, requested, status, JsonNullable.undefined());
+    }
 
     /**
      * Unique identifier of the company associated to this pull operation.
      */
+    @JsonIgnore
     public String companyId() {
         return companyId;
     }
@@ -202,6 +219,7 @@ public class PullOperation {
      * &gt; Not all dates from Codat will contain information about time zones.  
      * &gt; Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
      */
+    @JsonIgnore
     public Optional<? extends String> completed() {
         return completed;
     }
@@ -209,6 +227,7 @@ public class PullOperation {
     /**
      * Unique identifier of the connection associated to this pull operation.
      */
+    @JsonIgnore
     public String connectionId() {
         return connectionId;
     }
@@ -216,6 +235,7 @@ public class PullOperation {
     /**
      * The data type you are requesting in a pull operation.
      */
+    @JsonIgnore
     public String dataType() {
         return dataType;
     }
@@ -223,6 +243,7 @@ public class PullOperation {
     /**
      * A message about a transient or persistent error.
      */
+    @JsonIgnore
     public JsonNullable<? extends String> errorMessage() {
         return errorMessage;
     }
@@ -230,6 +251,7 @@ public class PullOperation {
     /**
      * Unique identifier of the pull operation.
      */
+    @JsonIgnore
     public String id() {
         return id;
     }
@@ -237,6 +259,7 @@ public class PullOperation {
     /**
      * `True` if the pull operation is completed successfully. The `isCompleted` property is not queryable. To filter failed pull operations, query by `status!=Complete&amp;&amp;status!=NotSupported` instead.
      */
+    @JsonIgnore
     public boolean isCompleted() {
         return isCompleted;
     }
@@ -244,6 +267,7 @@ public class PullOperation {
     /**
      * `True` if the pull operation entered an error state.
      */
+    @JsonIgnore
     public boolean isErrored() {
         return isErrored;
     }
@@ -251,6 +275,7 @@ public class PullOperation {
     /**
      * An integer signifying the progress of the pull operation.
      */
+    @JsonIgnore
     public long progress() {
         return progress;
     }
@@ -276,20 +301,23 @@ public class PullOperation {
      * &gt; Not all dates from Codat will contain information about time zones.  
      * &gt; Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
      */
+    @JsonIgnore
     public String requested() {
         return requested;
     }
 
     /**
-     * The current status of the pull operation.
+     * The current status of the dataset.
      */
-    public Status status() {
+    @JsonIgnore
+    public DatasetStatus status() {
         return status;
     }
 
     /**
      * Additional information about the dataset status.
      */
+    @JsonIgnore
     public JsonNullable<? extends String> statusDescription() {
         return statusDescription;
     }
@@ -461,9 +489,9 @@ public class PullOperation {
     }
 
     /**
-     * The current status of the pull operation.
+     * The current status of the dataset.
      */
-    public PullOperation withStatus(Status status) {
+    public PullOperation withStatus(DatasetStatus status) {
         Utils.checkNotNull(status, "status");
         this.status = status;
         return this;
@@ -567,7 +595,7 @@ public class PullOperation {
  
         private String requested;
  
-        private Status status;
+        private DatasetStatus status;
  
         private JsonNullable<? extends String> statusDescription = JsonNullable.undefined();  
         
@@ -738,9 +766,9 @@ public class PullOperation {
         }
 
         /**
-         * The current status of the pull operation.
+         * The current status of the dataset.
          */
-        public Builder status(Status status) {
+        public Builder status(DatasetStatus status) {
             Utils.checkNotNull(status, "status");
             this.status = status;
             return this;

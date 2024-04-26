@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -30,6 +32,7 @@ public class WebhookNotifier {
     @JsonProperty("webhook")
     private Optional<? extends String> webhook;
 
+    @JsonCreator
     public WebhookNotifier(
             @JsonProperty("emails") Optional<? extends java.util.List<String>> emails,
             @JsonProperty("webhook") Optional<? extends String> webhook) {
@@ -38,7 +41,12 @@ public class WebhookNotifier {
         this.emails = emails;
         this.webhook = webhook;
     }
+    
+    public WebhookNotifier() {
+        this(Optional.empty(), Optional.empty());
+    }
 
+    @JsonIgnore
     public Optional<? extends java.util.List<String>> emails() {
         return emails;
     }
@@ -46,6 +54,7 @@ public class WebhookNotifier {
     /**
      * The URI the webhook service will use to post events.
      */
+    @JsonIgnore
     public Optional<? extends String> webhook() {
         return webhook;
     }

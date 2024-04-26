@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -51,6 +53,7 @@ public class ClientRateLimitReachedWebhookData {
     @JsonProperty("ExpiresUtc")
     private Optional<? extends String> expiresUtc;
 
+    @JsonCreator
     public ClientRateLimitReachedWebhookData(
             @JsonProperty("DailyQuota") Optional<? extends Long> dailyQuota,
             @JsonProperty("ExpiresUtc") Optional<? extends String> expiresUtc) {
@@ -59,10 +62,15 @@ public class ClientRateLimitReachedWebhookData {
         this.dailyQuota = dailyQuota;
         this.expiresUtc = expiresUtc;
     }
+    
+    public ClientRateLimitReachedWebhookData() {
+        this(Optional.empty(), Optional.empty());
+    }
 
     /**
      * The number of available requests per day.
      */
+    @JsonIgnore
     public Optional<? extends Long> dailyQuota() {
         return dailyQuota;
     }
@@ -88,6 +96,7 @@ public class ClientRateLimitReachedWebhookData {
      * &gt; Not all dates from Codat will contain information about time zones.  
      * &gt; Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
      */
+    @JsonIgnore
     public Optional<? extends String> expiresUtc() {
         return expiresUtc;
     }

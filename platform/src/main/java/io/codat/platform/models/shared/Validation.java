@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -30,6 +32,7 @@ public class Validation {
     @JsonProperty("warnings")
     private JsonNullable<? extends java.util.List<ValidationItem>> warnings;
 
+    @JsonCreator
     public Validation(
             @JsonProperty("errors") JsonNullable<? extends java.util.List<ValidationItem>> errors,
             @JsonProperty("warnings") JsonNullable<? extends java.util.List<ValidationItem>> warnings) {
@@ -38,11 +41,17 @@ public class Validation {
         this.errors = errors;
         this.warnings = warnings;
     }
+    
+    public Validation() {
+        this(JsonNullable.undefined(), JsonNullable.undefined());
+    }
 
+    @JsonIgnore
     public JsonNullable<? extends java.util.List<ValidationItem>> errors() {
         return errors;
     }
 
+    @JsonIgnore
     public JsonNullable<? extends java.util.List<ValidationItem>> warnings() {
         return warnings;
     }

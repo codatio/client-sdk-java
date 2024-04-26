@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -26,15 +28,21 @@ public class HalRef {
     @JsonProperty("href")
     private Optional<? extends String> href;
 
+    @JsonCreator
     public HalRef(
             @JsonProperty("href") Optional<? extends String> href) {
         Utils.checkNotNull(href, "href");
         this.href = href;
     }
+    
+    public HalRef() {
+        this(Optional.empty());
+    }
 
     /**
      * Uri hypertext reference.
      */
+    @JsonIgnore
     public Optional<? extends String> href() {
         return href;
     }

@@ -96,6 +96,26 @@ public class SDKMethodInterfaces {
     }
 
 
+    public interface MethodCallGetConnectionManagementAccessToken {
+        io.codat.platform.models.operations.GetConnectionManagementAccessTokenResponse getAccessToken(
+            io.codat.platform.models.operations.GetConnectionManagementAccessTokenRequest request,
+            Optional<Options> options) throws Exception;
+    }
+
+
+    public interface MethodCallGetConnectionManagementCorsSettings {
+        io.codat.platform.models.operations.GetConnectionManagementCorsSettingsResponse get(
+            Optional<Options> options) throws Exception;
+    }
+
+
+    public interface MethodCallSetConnectionManagementCorsSettings {
+        io.codat.platform.models.operations.SetConnectionManagementCorsSettingsResponse set(
+            Optional<? extends io.codat.platform.models.shared.ConnectionManagementAllowedOrigins> request,
+            Optional<Options> options) throws Exception;
+    }
+
+
     public interface MethodCallCreateConnection {
         io.codat.platform.models.operations.CreateConnectionResponse create(
             io.codat.platform.models.operations.CreateConnectionRequest request,

@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.SpeakeasyMetadata;
 import io.codat.platform.utils.Utils;
@@ -26,6 +28,7 @@ public class CreateConnectionRequest {
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=companyId")
     private String companyId;
 
+    @JsonCreator
     public CreateConnectionRequest(
             Optional<? extends CreateConnectionRequestBody> requestBody,
             String companyId) {
@@ -34,7 +37,13 @@ public class CreateConnectionRequest {
         this.requestBody = requestBody;
         this.companyId = companyId;
     }
+    
+    public CreateConnectionRequest(
+            String companyId) {
+        this(Optional.empty(), companyId);
+    }
 
+    @JsonIgnore
     public Optional<? extends CreateConnectionRequestBody> requestBody() {
         return requestBody;
     }
@@ -42,6 +51,7 @@ public class CreateConnectionRequest {
     /**
      * Unique identifier for a company.
      */
+    @JsonIgnore
     public String companyId() {
         return companyId;
     }

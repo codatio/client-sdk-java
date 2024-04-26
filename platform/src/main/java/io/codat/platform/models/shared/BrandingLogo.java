@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -30,6 +32,7 @@ public class BrandingLogo {
     @JsonProperty("square")
     private Optional<? extends BrandingImage> square;
 
+    @JsonCreator
     public BrandingLogo(
             @JsonProperty("full") Optional<? extends BrandingImage> full,
             @JsonProperty("square") Optional<? extends BrandingImage> square) {
@@ -38,11 +41,17 @@ public class BrandingLogo {
         this.full = full;
         this.square = square;
     }
+    
+    public BrandingLogo() {
+        this(Optional.empty(), Optional.empty());
+    }
 
+    @JsonIgnore
     public Optional<? extends BrandingImage> full() {
         return full;
     }
 
+    @JsonIgnore
     public Optional<? extends BrandingImage> square() {
         return square;
     }

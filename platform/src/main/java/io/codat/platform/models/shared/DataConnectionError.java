@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -65,6 +67,7 @@ public class DataConnectionError {
     @JsonProperty("statusText")
     private Optional<? extends String> statusText;
 
+    @JsonCreator
     public DataConnectionError(
             @JsonProperty("errorMessage") Optional<? extends String> errorMessage,
             @JsonProperty("erroredOnUtc") Optional<? extends String> erroredOnUtc,
@@ -79,10 +82,15 @@ public class DataConnectionError {
         this.statusCode = statusCode;
         this.statusText = statusText;
     }
+    
+    public DataConnectionError() {
+        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+    }
 
     /**
      * A brief message about the error.
      */
+    @JsonIgnore
     public Optional<? extends String> errorMessage() {
         return errorMessage;
     }
@@ -108,6 +116,7 @@ public class DataConnectionError {
      * &gt; Not all dates from Codat will contain information about time zones.  
      * &gt; Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
      */
+    @JsonIgnore
     public Optional<? extends String> erroredOnUtc() {
         return erroredOnUtc;
     }
@@ -115,6 +124,7 @@ public class DataConnectionError {
     /**
      * The HTTP status code returned by the error.
      */
+    @JsonIgnore
     public Optional<? extends String> statusCode() {
         return statusCode;
     }
@@ -122,6 +132,7 @@ public class DataConnectionError {
     /**
      * A non-numeric status code/text.
      */
+    @JsonIgnore
     public Optional<? extends String> statusText() {
         return statusText;
     }

@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,12 +25,18 @@ public class SupplementalDataConfiguration {
     @JsonProperty("supplementalDataConfig")
     private Optional<? extends java.util.Map<String, SupplementalDataSourceConfiguration>> supplementalDataConfig;
 
+    @JsonCreator
     public SupplementalDataConfiguration(
             @JsonProperty("supplementalDataConfig") Optional<? extends java.util.Map<String, SupplementalDataSourceConfiguration>> supplementalDataConfig) {
         Utils.checkNotNull(supplementalDataConfig, "supplementalDataConfig");
         this.supplementalDataConfig = supplementalDataConfig;
     }
+    
+    public SupplementalDataConfiguration() {
+        this(Optional.empty());
+    }
 
+    @JsonIgnore
     public Optional<? extends java.util.Map<String, SupplementalDataSourceConfiguration>> supplementalDataConfig() {
         return supplementalDataConfig;
     }

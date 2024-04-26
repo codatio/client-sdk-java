@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -40,6 +42,7 @@ public class PushFieldValidation {
     @JsonProperty("ref")
     private JsonNullable<? extends String> ref;
 
+    @JsonCreator
     public PushFieldValidation(
             @JsonProperty("details") String details,
             @JsonProperty("field") Optional<? extends String> field,
@@ -51,10 +54,16 @@ public class PushFieldValidation {
         this.field = field;
         this.ref = ref;
     }
+    
+    public PushFieldValidation(
+            String details) {
+        this(details, Optional.empty(), JsonNullable.undefined());
+    }
 
     /**
      * Details on the validation issue.
      */
+    @JsonIgnore
     public String details() {
         return details;
     }
@@ -62,6 +71,7 @@ public class PushFieldValidation {
     /**
      * Field name that resulted in the validation issue.
      */
+    @JsonIgnore
     public Optional<? extends String> field() {
         return field;
     }
@@ -69,6 +79,7 @@ public class PushFieldValidation {
     /**
      * Unique reference identifier for the validation issue.
      */
+    @JsonIgnore
     public JsonNullable<? extends String> ref() {
         return ref;
     }

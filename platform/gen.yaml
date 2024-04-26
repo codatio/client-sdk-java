@@ -11,9 +11,11 @@ generation:
     oAuth2ClientCredentialsEnabled: false
   telemetryEnabled: true
 java:
-  version: 0.3.0
+  version: 0.4.0
+  additionalDependencies: []
   artifactID: platform
   author: Codat
+  clientServerStatusCodesAsErrors: true
   companyEmail: support@codat.io
   companyName: Codat
   companyURL: https://www.codat.io/

@@ -7,10 +7,36 @@ Manage the building blocks of Codat, including companies, connections, and more.
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
 
-### Gradle
+### Getting started
 
+The samples below show how a published SDK artifact is used:
+
+Gradle:
 ```groovy
-implementation 'io.codat.platform:openapi:0.3.0'
+implementation 'io.codat.platform:openapi:0.4.0'
+```
+
+Maven:
+```xml
+<dependency>
+    <groupId>io.codat.platform</groupId>
+    <artifactId>openapi</artifactId>
+    <version>0.4.0</version>
+</dependency>
+```
+
+### How to build
+After cloning the git repository to your file system you can build the SDK artifact from source to the `build` directory by running `./gradlew build` on *nix systems or `gradlew.bat` on Windows systems.
+
+If you wish to build from source and publish the SDK artifact to your local Maven repository (on your filesystem) then use the following command (after cloning the git repo locally):
+
+On *nix:
+```bash
+./gradlew publishToMavenLocal -Pskip.signing
+```
+On Windows:
+```bash
+gradlew.bat publishToMavenLocal -Pskip.signing
 ```
 <!-- End SDK Installation [installation] -->
 
@@ -57,6 +83,8 @@ public class Application {
             if (res.apiKeyDetails().isPresent()) {
                 // handle response
             }
+        } catch (io.codat.platform.models.errors.ErrorMessage e) {
+            // handle exception
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -87,6 +115,15 @@ public class Application {
 * [get](docs/sdks/companies/README.md#get) - Get company
 * [list](docs/sdks/companies/README.md#list) - List companies
 * [update](docs/sdks/companies/README.md#update) - Update company
+
+### [connectionManagement()](docs/sdks/connectionmanagement/README.md)
+
+* [getAccessToken](docs/sdks/connectionmanagement/README.md#getaccesstoken) - Get access token
+
+### [connectionManagement().corsSettings()](docs/sdks/corssettings/README.md)
+
+* [get](docs/sdks/corssettings/README.md#get) - Get CORS settings
+* [set](docs/sdks/corssettings/README.md#set) - Set CORS settings
 
 ### [connections()](docs/sdks/connections/README.md)
 
@@ -151,9 +188,10 @@ public class Application {
 
 Handling errors in this SDK should largely match your expectations.  All operations return a response object or raise an error.  If Error objects are specified in your OpenAPI Spec, the SDK will throw the appropriate Exception type.
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                                 | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| io.codat.platform.models.errors.ErrorMessage | 400,401,402,403,409,429,500,503              | application/json                             |
+| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
 
 ### Example
 
@@ -194,6 +232,8 @@ public class Application {
             if (res.apiKeyDetails().isPresent()) {
                 // handle response
             }
+        } catch (io.codat.platform.models.errors.ErrorMessage e) {
+            // handle exception
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -255,6 +295,8 @@ public class Application {
             if (res.apiKeyDetails().isPresent()) {
                 // handle response
             }
+        } catch (io.codat.platform.models.errors.ErrorMessage e) {
+            // handle exception
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -306,6 +348,8 @@ public class Application {
             if (res.apiKeyDetails().isPresent()) {
                 // handle response
             }
+        } catch (io.codat.platform.models.errors.ErrorMessage e) {
+            // handle exception
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -365,6 +409,8 @@ public class Application {
             if (res.apiKeyDetails().isPresent()) {
                 // handle response
             }
+        } catch (io.codat.platform.models.errors.ErrorMessage e) {
+            // handle exception
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -431,6 +477,8 @@ public class Application {
             if (res.apiKeyDetails().isPresent()) {
                 // handle response
             }
+        } catch (io.codat.platform.models.errors.ErrorMessage e) {
+            // handle exception
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {
@@ -491,6 +539,8 @@ public class Application {
             if (res.apiKeyDetails().isPresent()) {
                 // handle response
             }
+        } catch (io.codat.platform.models.errors.ErrorMessage e) {
+            // handle exception
         } catch (io.codat.platform.models.errors.SDKError e) {
             // handle exception
         } catch (Exception e) {

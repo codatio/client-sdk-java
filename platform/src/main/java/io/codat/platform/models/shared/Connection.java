@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.shared;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -140,6 +142,7 @@ public class Connection {
     @JsonProperty("status")
     private DataConnectionStatus status;
 
+    @JsonCreator
     public Connection(
             @JsonProperty("additionalProperties") Optional<? extends java.lang.Object> additionalProperties,
             @JsonProperty("connectionInfo") Optional<? extends java.util.Map<String, String>> connectionInfo,
@@ -181,11 +184,26 @@ public class Connection {
         this.sourceType = sourceType;
         this.status = status;
     }
+    
+    public Connection(
+            String created,
+            String id,
+            String integrationId,
+            String integrationKey,
+            String linkUrl,
+            String platformName,
+            String sourceId,
+            SourceType sourceType,
+            DataConnectionStatus status) {
+        this(Optional.empty(), Optional.empty(), created, Optional.empty(), id, integrationId, integrationKey, Optional.empty(), linkUrl, platformName, sourceId, sourceType, status);
+    }
 
+    @JsonIgnore
     public Optional<? extends java.lang.Object> additionalProperties() {
         return additionalProperties;
     }
 
+    @JsonIgnore
     public Optional<? extends java.util.Map<String, String>> connectionInfo() {
         return connectionInfo;
     }
@@ -211,10 +229,12 @@ public class Connection {
      * &gt; Not all dates from Codat will contain information about time zones.  
      * &gt; Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
      */
+    @JsonIgnore
     public String created() {
         return created;
     }
 
+    @JsonIgnore
     public Optional<? extends java.util.List<DataConnectionError>> dataConnectionErrors() {
         return dataConnectionErrors;
     }
@@ -222,6 +242,7 @@ public class Connection {
     /**
      * Unique identifier for a company's data connection.
      */
+    @JsonIgnore
     public String id() {
         return id;
     }
@@ -229,6 +250,7 @@ public class Connection {
     /**
      * A Codat ID representing the integration.
      */
+    @JsonIgnore
     public String integrationId() {
         return integrationId;
     }
@@ -236,6 +258,7 @@ public class Connection {
     /**
      * A unique four-character ID that identifies the platform of the company's data connection. This ensures continuity if the platform changes its name in the future.
      */
+    @JsonIgnore
     public String integrationKey() {
         return integrationKey;
     }
@@ -261,6 +284,7 @@ public class Connection {
      * &gt; Not all dates from Codat will contain information about time zones.  
      * &gt; Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
      */
+    @JsonIgnore
     public Optional<? extends String> lastSync() {
         return lastSync;
     }
@@ -268,6 +292,7 @@ public class Connection {
     /**
      * The link URL your customers can use to authorize access to their business application.
      */
+    @JsonIgnore
     public String linkUrl() {
         return linkUrl;
     }
@@ -275,6 +300,7 @@ public class Connection {
     /**
      * Name of integration connected to company.
      */
+    @JsonIgnore
     public String platformName() {
         return platformName;
     }
@@ -282,6 +308,7 @@ public class Connection {
     /**
      * A source-specific ID used to distinguish between different sources originating from the same data connection. In general, a data connection is a single data source. However, for TrueLayer, `sourceId` is associated with a specific bank and has a many-to-one relationship with the `integrationId`.
      */
+    @JsonIgnore
     public String sourceId() {
         return sourceId;
     }
@@ -289,6 +316,7 @@ public class Connection {
     /**
      * The type of platform of the connection.
      */
+    @JsonIgnore
     public SourceType sourceType() {
         return sourceType;
     }
@@ -296,6 +324,7 @@ public class Connection {
     /**
      * The current authorization status of the data connection.
      */
+    @JsonIgnore
     public DataConnectionStatus status() {
         return status;
     }

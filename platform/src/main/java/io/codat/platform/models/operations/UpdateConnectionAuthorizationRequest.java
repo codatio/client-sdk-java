@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.SpeakeasyMetadata;
 import io.codat.platform.utils.Utils;
@@ -32,6 +34,7 @@ public class UpdateConnectionAuthorizationRequest {
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=connectionId")
     private String connectionId;
 
+    @JsonCreator
     public UpdateConnectionAuthorizationRequest(
             Optional<? extends java.util.Map<String, String>> requestBody,
             String companyId,
@@ -43,7 +46,14 @@ public class UpdateConnectionAuthorizationRequest {
         this.companyId = companyId;
         this.connectionId = connectionId;
     }
+    
+    public UpdateConnectionAuthorizationRequest(
+            String companyId,
+            String connectionId) {
+        this(Optional.empty(), companyId, connectionId);
+    }
 
+    @JsonIgnore
     public Optional<? extends java.util.Map<String, String>> requestBody() {
         return requestBody;
     }
@@ -51,6 +61,7 @@ public class UpdateConnectionAuthorizationRequest {
     /**
      * Unique identifier for a company.
      */
+    @JsonIgnore
     public String companyId() {
         return companyId;
     }
@@ -58,6 +69,7 @@ public class UpdateConnectionAuthorizationRequest {
     /**
      * Unique identifier for a connection.
      */
+    @JsonIgnore
     public String connectionId() {
         return connectionId;
     }

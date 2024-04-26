@@ -4,7 +4,9 @@
 
 package io.codat.platform.models.operations;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -26,15 +28,21 @@ public class CreateConnectionRequestBody {
     @JsonProperty("platformKey")
     private Optional<? extends String> platformKey;
 
+    @JsonCreator
     public CreateConnectionRequestBody(
             @JsonProperty("platformKey") Optional<? extends String> platformKey) {
         Utils.checkNotNull(platformKey, "platformKey");
         this.platformKey = platformKey;
     }
+    
+    public CreateConnectionRequestBody() {
+        this(Optional.empty());
+    }
 
     /**
      * A unique 4-letter key to represent a platform in each integration. View [accounting](https://docs.codat.io/integrations/accounting/overview#platform-keys), [banking](https://docs.codat.io/integrations/banking/overview#platform-keys), and [commerce](https://docs.codat.io/integrations/commerce/overview#platform-keys) platform keys.
      */
+    @JsonIgnore
     public Optional<? extends String> platformKey() {
         return platformKey;
     }
