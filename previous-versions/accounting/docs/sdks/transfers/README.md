@@ -3,7 +3,7 @@
 
 ## Overview
 
-Transfers
+Access standardized Transfers from linked accounting software.
 
 ### Available Operations
 
@@ -32,28 +32,18 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
-import io.codat.accounting.models.components.AccountRef;
-import io.codat.accounting.models.components.ContactRef;
-import io.codat.accounting.models.components.ContactRefDataType;
 import io.codat.accounting.models.components.InvoiceTo;
-import io.codat.accounting.models.components.Metadata;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.components.SupplementalData;
-import io.codat.accounting.models.components.TrackingCategoryRef;
 import io.codat.accounting.models.components.Transfer;
 import io.codat.accounting.models.components.TransferAccount;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.CreateTransferRequest;
 import io.codat.accounting.models.operations.CreateTransferResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
+import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -63,47 +53,19 @@ public class Application {
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .transfer(Transfer.builder()
-                    .contactRef(ContactRef.builder()
-                        .id("<value>")
-                        .dataType(ContactRefDataType.CUSTOMERS)
-                        .build())
                     .date("2022-10-23T00:00:00Z")
-                    .depositedRecordRefs(java.util.List.of(
+                    .depositedRecordRefs(List.of(
                         InvoiceTo.builder()
-                            .dataType("accountTransaction")
+                            .dataType("transfer")
                             .build()))
-                    .description("Synchronised full-range emulation")
                     .from(TransferAccount.builder()
-                        .accountRef(AccountRef.builder()
-                            .id("<id>")
-                            .name("<value>")
-                            .build())
-                        .amount(1343.65d)
-                        .currency("EUR")
-                        .build())
-                    .id("<id>")
-                    .metadata(Metadata.builder()
-                        .isDeleted(false)
+                        .currency("GBP")
                         .build())
                     .modifiedDate("2022-10-23T00:00:00Z")
                     .sourceModifiedDate("2022-10-23T00:00:00Z")
-                    .supplementalData(SupplementalData.builder()
-                        .content(java.util.Map.ofEntries(
-                            entry("key", java.util.Map.ofEntries(
-                                entry("key", "<value>")))))
-                        .build())
                     .to(TransferAccount.builder()
-                        .accountRef(AccountRef.builder()
-                            .id("<id>")
-                            .name("<value>")
-                            .build())
-                        .amount(7964.74d)
                         .currency("USD")
                         .build())
-                    .trackingCategoryRefs(java.util.List.of(
-                        TrackingCategoryRef.builder()
-                            .id("<value>")
-                            .build()))
                     .build())
                 .build();
 
@@ -114,30 +76,38 @@ public class Application {
             if (res.createTransferResponse().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                       | Type                                                                                                            | Required                                                                                                        | Description                                                                                                     |
-| --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                       | [io.codat.accounting.models.operations.CreateTransferRequest](../../models/operations/CreateTransferRequest.md) | :heavy_check_mark:                                                                                              | The request object to use for the request.                                                                      |
-
+| Parameter                                                                 | Type                                                                      | Required                                                                  | Description                                                               |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `request`                                                                 | [CreateTransferRequest](../../models/operations/CreateTransferRequest.md) | :heavy_check_mark:                                                        | The request object to use for the request.                                |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.CreateTransferResponse>](../../models/operations/CreateTransferResponse.md)**
+**[CreateTransferResponse](../../models/operations/CreateTransferResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## get
 
@@ -156,19 +126,14 @@ Before using this endpoint, you must have [retrieved data for the company](https
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.GetTransferRequest;
 import io.codat.accounting.models.operations.GetTransferResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -187,30 +152,38 @@ public class Application {
             if (res.transfer().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                 | Type                                                                                                      | Required                                                                                                  | Description                                                                                               |
-| --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                 | [io.codat.accounting.models.operations.GetTransferRequest](../../models/operations/GetTransferRequest.md) | :heavy_check_mark:                                                                                        | The request object to use for the request.                                                                |
-
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `request`                                                           | [GetTransferRequest](../../models/operations/GetTransferRequest.md) | :heavy_check_mark:                                                  | The request object to use for the request.                          |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.GetTransferResponse>](../../models/operations/GetTransferResponse.md)**
+**[GetTransferResponse](../../models/operations/GetTransferResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 401,402,403,404,409,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## getCreateModel
 
@@ -231,19 +204,14 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.GetCreateTransfersModelRequest;
 import io.codat.accounting.models.operations.GetCreateTransfersModelResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -261,30 +229,38 @@ public class Application {
             if (res.pushOption().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                         | Type                                                                                                                              | Required                                                                                                                          | Description                                                                                                                       |
-| --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                         | [io.codat.accounting.models.operations.GetCreateTransfersModelRequest](../../models/operations/GetCreateTransfersModelRequest.md) | :heavy_check_mark:                                                                                                                | The request object to use for the request.                                                                                        |
-
+| Parameter                                                                                   | Type                                                                                        | Required                                                                                    | Description                                                                                 |
+| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `request`                                                                                   | [GetCreateTransfersModelRequest](../../models/operations/GetCreateTransfersModelRequest.md) | :heavy_check_mark:                                                                          | The request object to use for the request.                                                  |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.GetCreateTransfersModelResponse>](../../models/operations/GetCreateTransfersModelResponse.md)**
+**[GetCreateTransfersModelResponse](../../models/operations/GetCreateTransfersModelResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## list
 
@@ -301,19 +277,14 @@ Before using this endpoint, you must have [retrieved data for the company](https
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.ListTransfersRequest;
 import io.codat.accounting.models.operations.ListTransfersResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -325,7 +296,7 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("<value>")
+                .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
             ListTransfersResponse res = sdk.transfers().list()
@@ -335,30 +306,38 @@ public class Application {
             if (res.transfers().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                     | Type                                                                                                          | Required                                                                                                      | Description                                                                                                   |
-| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                     | [io.codat.accounting.models.operations.ListTransfersRequest](../../models/operations/ListTransfersRequest.md) | :heavy_check_mark:                                                                                            | The request object to use for the request.                                                                    |
-
+| Parameter                                                               | Type                                                                    | Required                                                                | Description                                                             |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `request`                                                               | [ListTransfersRequest](../../models/operations/ListTransfersRequest.md) | :heavy_check_mark:                                                      | The request object to use for the request.                              |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.ListTransfersResponse>](../../models/operations/ListTransfersResponse.md)**
+**[ListTransfersResponse](../../models/operations/ListTransfersResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                        | Status Code                         | Content Type                        |
+| ----------------------------------- | ----------------------------------- | ----------------------------------- |
+| models/errors/ErrorMessage          | 400,401,402,403,404,409,429,500,503 | application/json                    |
+| models/errors/SDKError              | 4xx-5xx                             | \*\/*                               |
+
 
 ## uploadAttachment
 
@@ -379,21 +358,14 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
-import io.codat.accounting.models.components.AttachmentUpload;
-import io.codat.accounting.models.components.CodatFile;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.UploadTransferAttachmentRequest;
 import io.codat.accounting.models.operations.UploadTransferAttachmentResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -403,12 +375,6 @@ public class Application {
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .transferId("<value>")
-                .attachmentUpload(AttachmentUpload.builder()
-                    .file(CodatFile.builder()
-                            .content("0xE3ABc1980E".getBytes())
-                            .fileName("<value>")
-                            .build())
-                    .build())
                 .build();
 
             UploadTransferAttachmentResponse res = sdk.transfers().uploadAttachment()
@@ -416,27 +382,34 @@ public class Application {
                 .call();
 
             // handle response
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                           | Type                                                                                                                                | Required                                                                                                                            | Description                                                                                                                         |
-| ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                           | [io.codat.accounting.models.operations.UploadTransferAttachmentRequest](../../models/operations/UploadTransferAttachmentRequest.md) | :heavy_check_mark:                                                                                                                  | The request object to use for the request.                                                                                          |
-
+| Parameter                                                                                     | Type                                                                                          | Required                                                                                      | Description                                                                                   |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `request`                                                                                     | [UploadTransferAttachmentRequest](../../models/operations/UploadTransferAttachmentRequest.md) | :heavy_check_mark:                                                                            | The request object to use for the request.                                                    |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.UploadTransferAttachmentResponse>](../../models/operations/UploadTransferAttachmentResponse.md)**
+**[UploadTransferAttachmentResponse](../../models/operations/UploadTransferAttachmentResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |

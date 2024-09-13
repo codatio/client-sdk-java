@@ -10,4 +10,4 @@ The status of the account transaction.
 | `UNKNOWN`      | Unknown        |
 | `UNRECONCILED` | Unreconciled   |
 | `RECONCILED`   | Reconciled     |
-| `VOID_`        | Void           |
+| `VOID`         | Void           |

@@ -3,7 +3,7 @@
 
 ## Overview
 
-Direct incomes
+Access standardized Direct incomes from linked accounting software.
 
 ### Available Operations
 
@@ -35,32 +35,21 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
-import io.codat.accounting.models.components.AccountRef;
 import io.codat.accounting.models.components.Allocation;
-import io.codat.accounting.models.components.ContactRef;
-import io.codat.accounting.models.components.ContactRefDataType;
 import io.codat.accounting.models.components.DirectIncome;
 import io.codat.accounting.models.components.DirectIncomeLineItem;
-import io.codat.accounting.models.components.ItemRef;
-import io.codat.accounting.models.components.Metadata;
 import io.codat.accounting.models.components.PaymentAllocationItems;
 import io.codat.accounting.models.components.PaymentAllocationPayment;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.components.SupplementalData;
-import io.codat.accounting.models.components.TaxRateRef;
-import io.codat.accounting.models.components.TrackingCategoryRef;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.CreateDirectIncomeRequest;
 import io.codat.accounting.models.operations.CreateDirectIncomeResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
+import java.math.BigDecimal;
+import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -72,56 +61,28 @@ public class Application {
                 .directIncome(DirectIncome.builder()
                     .currency("USD")
                     .issueDate("2022-10-23T00:00:00Z")
-                    .lineItems(java.util.List.of(
-                            DirectIncomeLineItem.builder()
-                                .quantity(4174.58d)
-                                .unitAmount(2884.08d)
-                                .build()))
-                    .paymentAllocations(java.util.List.of(
-                            PaymentAllocationItems.builder()
-                                .allocation(Allocation.builder()
-                                        .allocatedOnDate("2022-10-23T00:00:00Z")
-                                        .currency("USD")
-                                        .currencyRate(9510.62d)
-                                        .totalAmount(8915.1d)
-                                        .build())
-                                .payment(PaymentAllocationPayment.builder()
-                                        .accountRef(AccountRef.builder()
-                                            .id("<id>")
-                                            .name("<value>")
-                                            .build())
-                                        .currency("GBP")
-                                        .currencyRate(4552.22d)
-                                        .id("<id>")
-                                        .note("<value>")
-                                        .paidOnDate("2022-10-23T00:00:00Z")
-                                        .reference("<value>")
-                                        .totalAmount(3015.1d)
-                                        .build())
-                                .build()))
-                    .subTotal(899.64d)
-                    .taxAmount(7150.4d)
-                    .totalAmount(7926.2d)
-                    .contactRef(ContactRef.builder()
-                        .id("<value>")
-                        .dataType(ContactRefDataType.SUPPLIERS)
-                        .build())
-                    .currencyRate(8165.88d)
-                    .id("<id>")
-                    .metadata(Metadata.builder()
-                        .isDeleted(false)
-                        .build())
+                    .lineItems(List.of(
+                        DirectIncomeLineItem.builder()
+                            .quantity(new BigDecimal("4174.58"))
+                            .unitAmount(new BigDecimal("2884.08"))
+                            .build()))
+                    .paymentAllocations(List.of(
+                        PaymentAllocationItems.builder()
+                            .allocation(Allocation.builder()
+                                .allocatedOnDate("2022-10-23T00:00:00Z")
+                                .currency("EUR")
+                                .build())
+                            .payment(PaymentAllocationPayment.builder()
+                                .currency("USD")
+                                .paidOnDate("2022-10-23T00:00:00Z")
+                                .build())
+                            .build()))
+                    .subTotal(new BigDecimal("0.86"))
+                    .taxAmount(new BigDecimal("4552.22"))
+                    .totalAmount(new BigDecimal("1697.27"))
                     .modifiedDate("2022-10-23T00:00:00Z")
-                    .note("<value>")
-                    .reference("<value>")
                     .sourceModifiedDate("2022-10-23T00:00:00Z")
-                    .supplementalData(SupplementalData.builder()
-                        .content(java.util.Map.ofEntries(
-                            entry("key", java.util.Map.ofEntries(
-                                entry("key", "<value>")))))
-                        .build())
                     .build())
-                .timeoutInMinutes(827563)
                 .build();
 
             CreateDirectIncomeResponse res = sdk.directIncomes().create()
@@ -131,30 +92,38 @@ public class Application {
             if (res.createDirectIncomeResponse().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                               | Type                                                                                                                    | Required                                                                                                                | Description                                                                                                             |
-| ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                               | [io.codat.accounting.models.operations.CreateDirectIncomeRequest](../../models/operations/CreateDirectIncomeRequest.md) | :heavy_check_mark:                                                                                                      | The request object to use for the request.                                                                              |
-
+| Parameter                                                                         | Type                                                                              | Required                                                                          | Description                                                                       |
+| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `request`                                                                         | [CreateDirectIncomeRequest](../../models/operations/CreateDirectIncomeRequest.md) | :heavy_check_mark:                                                                | The request object to use for the request.                                        |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.CreateDirectIncomeResponse>](../../models/operations/CreateDirectIncomeResponse.md)**
+**[CreateDirectIncomeResponse](../../models/operations/CreateDirectIncomeResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## downloadAttachment
 
@@ -171,19 +140,14 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.DownloadDirectIncomeAttachmentRequest;
 import io.codat.accounting.models.operations.DownloadDirectIncomeAttachmentResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -203,30 +167,38 @@ public class Application {
             if (res.data().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                       | Type                                                                                                                                            | Required                                                                                                                                        | Description                                                                                                                                     |
-| ----------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                                       | [io.codat.accounting.models.operations.DownloadDirectIncomeAttachmentRequest](../../models/operations/DownloadDirectIncomeAttachmentRequest.md) | :heavy_check_mark:                                                                                                                              | The request object to use for the request.                                                                                                      |
-
+| Parameter                                                                                                 | Type                                                                                                      | Required                                                                                                  | Description                                                                                               |
+| --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `request`                                                                                                 | [DownloadDirectIncomeAttachmentRequest](../../models/operations/DownloadDirectIncomeAttachmentRequest.md) | :heavy_check_mark:                                                                                        | The request object to use for the request.                                                                |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.DownloadDirectIncomeAttachmentResponse>](../../models/operations/DownloadDirectIncomeAttachmentResponse.md)**
+**[DownloadDirectIncomeAttachmentResponse](../../models/operations/DownloadDirectIncomeAttachmentResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## get
 
@@ -245,19 +217,14 @@ Before using this endpoint, you must have [retrieved data for the company](https
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.GetDirectIncomeRequest;
 import io.codat.accounting.models.operations.GetDirectIncomeResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -276,30 +243,38 @@ public class Application {
             if (res.directIncome().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                         | Type                                                                                                              | Required                                                                                                          | Description                                                                                                       |
-| ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                         | [io.codat.accounting.models.operations.GetDirectIncomeRequest](../../models/operations/GetDirectIncomeRequest.md) | :heavy_check_mark:                                                                                                | The request object to use for the request.                                                                        |
-
+| Parameter                                                                   | Type                                                                        | Required                                                                    | Description                                                                 |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `request`                                                                   | [GetDirectIncomeRequest](../../models/operations/GetDirectIncomeRequest.md) | :heavy_check_mark:                                                          | The request object to use for the request.                                  |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.GetDirectIncomeResponse>](../../models/operations/GetDirectIncomeResponse.md)**
+**[GetDirectIncomeResponse](../../models/operations/GetDirectIncomeResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 401,402,403,404,409,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## getAttachment
 
@@ -316,19 +291,14 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.GetDirectIncomeAttachmentRequest;
 import io.codat.accounting.models.operations.GetDirectIncomeAttachmentResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -339,7 +309,6 @@ public class Application {
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .directIncomeId("<value>")
-                .timeoutInMinutes(903055)
                 .build();
 
             GetDirectIncomeAttachmentResponse res = sdk.directIncomes().getAttachment()
@@ -349,30 +318,38 @@ public class Application {
             if (res.attachment().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                             | Type                                                                                                                                  | Required                                                                                                                              | Description                                                                                                                           |
-| ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                             | [io.codat.accounting.models.operations.GetDirectIncomeAttachmentRequest](../../models/operations/GetDirectIncomeAttachmentRequest.md) | :heavy_check_mark:                                                                                                                    | The request object to use for the request.                                                                                            |
-
+| Parameter                                                                                       | Type                                                                                            | Required                                                                                        | Description                                                                                     |
+| ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `request`                                                                                       | [GetDirectIncomeAttachmentRequest](../../models/operations/GetDirectIncomeAttachmentRequest.md) | :heavy_check_mark:                                                                              | The request object to use for the request.                                                      |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.GetDirectIncomeAttachmentResponse>](../../models/operations/GetDirectIncomeAttachmentResponse.md)**
+**[GetDirectIncomeAttachmentResponse](../../models/operations/GetDirectIncomeAttachmentResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## getCreateModel
 
@@ -393,19 +370,14 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.GetCreateDirectIncomesModelRequest;
 import io.codat.accounting.models.operations.GetCreateDirectIncomesModelResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -423,30 +395,38 @@ public class Application {
             if (res.pushOption().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                 | Type                                                                                                                                      | Required                                                                                                                                  | Description                                                                                                                               |
-| ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                                 | [io.codat.accounting.models.operations.GetCreateDirectIncomesModelRequest](../../models/operations/GetCreateDirectIncomesModelRequest.md) | :heavy_check_mark:                                                                                                                        | The request object to use for the request.                                                                                                |
-
+| Parameter                                                                                           | Type                                                                                                | Required                                                                                            | Description                                                                                         |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `request`                                                                                           | [GetCreateDirectIncomesModelRequest](../../models/operations/GetCreateDirectIncomesModelRequest.md) | :heavy_check_mark:                                                                                  | The request object to use for the request.                                                          |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.GetCreateDirectIncomesModelResponse>](../../models/operations/GetCreateDirectIncomesModelResponse.md)**
+**[GetCreateDirectIncomesModelResponse](../../models/operations/GetCreateDirectIncomesModelResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## list
 
@@ -463,19 +443,14 @@ Before using this endpoint, you must have [retrieved data for the company](https
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.ListDirectIncomesRequest;
 import io.codat.accounting.models.operations.ListDirectIncomesResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -487,7 +462,7 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("<value>")
+                .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
             ListDirectIncomesResponse res = sdk.directIncomes().list()
@@ -497,30 +472,38 @@ public class Application {
             if (res.directIncomes().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                             | Type                                                                                                                  | Required                                                                                                              | Description                                                                                                           |
-| --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                             | [io.codat.accounting.models.operations.ListDirectIncomesRequest](../../models/operations/ListDirectIncomesRequest.md) | :heavy_check_mark:                                                                                                    | The request object to use for the request.                                                                            |
-
+| Parameter                                                                       | Type                                                                            | Required                                                                        | Description                                                                     |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `request`                                                                       | [ListDirectIncomesRequest](../../models/operations/ListDirectIncomesRequest.md) | :heavy_check_mark:                                                              | The request object to use for the request.                                      |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.ListDirectIncomesResponse>](../../models/operations/ListDirectIncomesResponse.md)**
+**[ListDirectIncomesResponse](../../models/operations/ListDirectIncomesResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                        | Status Code                         | Content Type                        |
+| ----------------------------------- | ----------------------------------- | ----------------------------------- |
+| models/errors/ErrorMessage          | 400,401,402,403,404,409,429,500,503 | application/json                    |
+| models/errors/SDKError              | 4xx-5xx                             | \*\/*                               |
+
 
 ## listAttachments
 
@@ -537,19 +520,14 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.ListDirectIncomeAttachmentsRequest;
 import io.codat.accounting.models.operations.ListDirectIncomeAttachmentsResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -568,30 +546,38 @@ public class Application {
             if (res.attachmentsDataset().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                 | Type                                                                                                                                      | Required                                                                                                                                  | Description                                                                                                                               |
-| ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                                 | [io.codat.accounting.models.operations.ListDirectIncomeAttachmentsRequest](../../models/operations/ListDirectIncomeAttachmentsRequest.md) | :heavy_check_mark:                                                                                                                        | The request object to use for the request.                                                                                                |
-
+| Parameter                                                                                           | Type                                                                                                | Required                                                                                            | Description                                                                                         |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `request`                                                                                           | [ListDirectIncomeAttachmentsRequest](../../models/operations/ListDirectIncomeAttachmentsRequest.md) | :heavy_check_mark:                                                                                  | The request object to use for the request.                                                          |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.ListDirectIncomeAttachmentsResponse>](../../models/operations/ListDirectIncomeAttachmentsResponse.md)**
+**[ListDirectIncomeAttachmentsResponse](../../models/operations/ListDirectIncomeAttachmentsResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 401,402,403,404,409,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## uploadAttachment
 
@@ -612,21 +598,14 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
-import io.codat.accounting.models.components.AttachmentUpload;
-import io.codat.accounting.models.components.CodatFile;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.UploadDirectIncomeAttachmentRequest;
 import io.codat.accounting.models.operations.UploadDirectIncomeAttachmentResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -636,12 +615,6 @@ public class Application {
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .directIncomeId("<value>")
-                .attachmentUpload(AttachmentUpload.builder()
-                    .file(CodatFile.builder()
-                            .content("0xE3ABc1980E".getBytes())
-                            .fileName("<value>")
-                            .build())
-                    .build())
                 .build();
 
             UploadDirectIncomeAttachmentResponse res = sdk.directIncomes().uploadAttachment()
@@ -649,27 +622,34 @@ public class Application {
                 .call();
 
             // handle response
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                   | Type                                                                                                                                        | Required                                                                                                                                    | Description                                                                                                                                 |
-| ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                                   | [io.codat.accounting.models.operations.UploadDirectIncomeAttachmentRequest](../../models/operations/UploadDirectIncomeAttachmentRequest.md) | :heavy_check_mark:                                                                                                                          | The request object to use for the request.                                                                                                  |
-
+| Parameter                                                                                             | Type                                                                                                  | Required                                                                                              | Description                                                                                           |
+| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `request`                                                                                             | [UploadDirectIncomeAttachmentRequest](../../models/operations/UploadDirectIncomeAttachmentRequest.md) | :heavy_check_mark:                                                                                    | The request object to use for the request.                                                            |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.UploadDirectIncomeAttachmentResponse>](../../models/operations/UploadDirectIncomeAttachmentResponse.md)**
+**[UploadDirectIncomeAttachmentResponse](../../models/operations/UploadDirectIncomeAttachmentResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |

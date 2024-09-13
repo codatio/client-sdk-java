@@ -3,7 +3,7 @@
 
 ## Overview
 
-Bill credit notes
+Access standardized Bill credit notes from linked accounting software.
 
 ### Available Operations
 
@@ -33,37 +33,22 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
-import io.codat.accounting.models.components.AccountRef;
-import io.codat.accounting.models.components.AccountingCustomerRef;
 import io.codat.accounting.models.components.Allocation;
 import io.codat.accounting.models.components.BillCreditNote;
-import io.codat.accounting.models.components.BillCreditNoteLineItem;
-import io.codat.accounting.models.components.BillCreditNoteLineItemTracking;
 import io.codat.accounting.models.components.BillCreditNoteStatus;
-import io.codat.accounting.models.components.BilledToType;
-import io.codat.accounting.models.components.ItemRef;
-import io.codat.accounting.models.components.Metadata;
+import io.codat.accounting.models.components.InvoiceTo;
 import io.codat.accounting.models.components.PaymentAllocationItems;
 import io.codat.accounting.models.components.PaymentAllocationPayment;
-import io.codat.accounting.models.components.ProjectRef;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.components.SupplementalData;
-import io.codat.accounting.models.components.SupplierRef;
-import io.codat.accounting.models.components.TaxRateRef;
-import io.codat.accounting.models.components.TrackingCategoryRef;
-import io.codat.accounting.models.components.WithholdingTaxItems;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.CreateBillCreditNoteRequest;
 import io.codat.accounting.models.operations.CreateBillCreditNoteResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
+import java.math.BigDecimal;
+import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -73,68 +58,37 @@ public class Application {
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .billCreditNote(BillCreditNote.builder()
-                    .discountPercentage(0d)
+                    .discountPercentage(new BigDecimal("0"))
                     .status(BillCreditNoteStatus.PAID)
-                    .subTotal(805.78d)
-                    .totalAmount(805.78d)
-                    .totalDiscount(0d)
-                    .totalTaxAmount(0d)
+                    .subTotal(new BigDecimal("805.78"))
+                    .totalAmount(new BigDecimal("805.78"))
+                    .totalDiscount(new BigDecimal("0"))
+                    .totalTaxAmount(new BigDecimal("0"))
                     .allocatedOnDate("2022-10-23T00:00:00Z")
                     .billCreditNoteNumber("91fe2a83-e161-4c21-929d-c5c10c4b07e5")
-                    .currency("USD")
-                    .currencyRate(6384.24d)
+                    .createdFromRefs(List.of(
+                        InvoiceTo.builder()
+                            .dataType("transfer")
+                            .build()))
+                    .currency("GBP")
                     .id("1509398f-98e2-436d-8a5d-c042e0c74ffc")
                     .issueDate("2022-10-23T00:00:00Z")
-                    .lineItems(java.util.List.of(
-                        BillCreditNoteLineItem.builder()
-                            .quantity(1343.65d)
-                            .unitAmount(7865.46d)
-                            .build()))
-                    .metadata(Metadata.builder()
-                        .isDeleted(false)
-                        .build())
                     .modifiedDate("2022-10-23T00:00:00Z")
                     .note("Bill Credit Note with 1 line items, totaling 805.78")
-                    .paymentAllocations(java.util.List.of(
+                    .paymentAllocations(List.of(
                         PaymentAllocationItems.builder()
                             .allocation(Allocation.builder()
-                                    .allocatedOnDate("2022-10-23T00:00:00Z")
-                                    .currency("GBP")
-                                    .currencyRate(4552.22d)
-                                    .totalAmount(1697.27d)
-                                    .build())
+                                .allocatedOnDate("2022-10-23T00:00:00Z")
+                                .currency("EUR")
+                                .build())
                             .payment(PaymentAllocationPayment.builder()
-                                    .accountRef(AccountRef.builder()
-                                        .id("<id>")
-                                        .name("<value>")
-                                        .build())
-                                    .currency("GBP")
-                                    .currencyRate(899.64d)
-                                    .id("<id>")
-                                    .note("<value>")
-                                    .paidOnDate("2022-10-23T00:00:00Z")
-                                    .reference("<value>")
-                                    .totalAmount(7926.2d)
-                                    .build())
+                                .currency("USD")
+                                .paidOnDate("2022-10-23T00:00:00Z")
+                                .build())
                             .build()))
-                    .remainingCredit(0d)
+                    .remainingCredit(new BigDecimal("0"))
                     .sourceModifiedDate("2022-10-23T00:00:00Z")
-                    .supplementalData(SupplementalData.builder()
-                        .content(java.util.Map.ofEntries(
-                            entry("key", java.util.Map.ofEntries(
-                                entry("key", "<value>")))))
-                        .build())
-                    .supplierRef(SupplierRef.builder()
-                        .id("<value>")
-                        .supplierName("<value>")
-                        .build())
-                    .withholdingTax(java.util.List.of(
-                        WithholdingTaxItems.builder()
-                            .amount(5519.29d)
-                            .name("<value>")
-                            .build()))
                     .build())
-                .timeoutInMinutes(586220)
                 .build();
 
             CreateBillCreditNoteResponse res = sdk.billCreditNotes().create()
@@ -144,30 +98,38 @@ public class Application {
             if (res.createBillCreditNoteResponse().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                   | Type                                                                                                                        | Required                                                                                                                    | Description                                                                                                                 |
-| --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                   | [io.codat.accounting.models.operations.CreateBillCreditNoteRequest](../../models/operations/CreateBillCreditNoteRequest.md) | :heavy_check_mark:                                                                                                          | The request object to use for the request.                                                                                  |
-
+| Parameter                                                                             | Type                                                                                  | Required                                                                              | Description                                                                           |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `request`                                                                             | [CreateBillCreditNoteRequest](../../models/operations/CreateBillCreditNoteRequest.md) | :heavy_check_mark:                                                                    | The request object to use for the request.                                            |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.CreateBillCreditNoteResponse>](../../models/operations/CreateBillCreditNoteResponse.md)**
+**[CreateBillCreditNoteResponse](../../models/operations/CreateBillCreditNoteResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## get
 
@@ -186,19 +148,14 @@ Before using this endpoint, you must have [retrieved data for the company](https
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.GetBillCreditNoteRequest;
 import io.codat.accounting.models.operations.GetBillCreditNoteResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -216,30 +173,38 @@ public class Application {
             if (res.billCreditNote().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                             | Type                                                                                                                  | Required                                                                                                              | Description                                                                                                           |
-| --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                             | [io.codat.accounting.models.operations.GetBillCreditNoteRequest](../../models/operations/GetBillCreditNoteRequest.md) | :heavy_check_mark:                                                                                                    | The request object to use for the request.                                                                            |
-
+| Parameter                                                                       | Type                                                                            | Required                                                                        | Description                                                                     |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `request`                                                                       | [GetBillCreditNoteRequest](../../models/operations/GetBillCreditNoteRequest.md) | :heavy_check_mark:                                                              | The request object to use for the request.                                      |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.GetBillCreditNoteResponse>](../../models/operations/GetBillCreditNoteResponse.md)**
+**[GetBillCreditNoteResponse](../../models/operations/GetBillCreditNoteResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 401,402,403,404,409,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## getCreateUpdateModel
 
@@ -260,19 +225,14 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.GetCreateUpdateBillCreditNotesModelRequest;
 import io.codat.accounting.models.operations.GetCreateUpdateBillCreditNotesModelResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -290,30 +250,38 @@ public class Application {
             if (res.pushOption().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                                 | Type                                                                                                                                                      | Required                                                                                                                                                  | Description                                                                                                                                               |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                                                 | [io.codat.accounting.models.operations.GetCreateUpdateBillCreditNotesModelRequest](../../models/operations/GetCreateUpdateBillCreditNotesModelRequest.md) | :heavy_check_mark:                                                                                                                                        | The request object to use for the request.                                                                                                                |
-
+| Parameter                                                                                                           | Type                                                                                                                | Required                                                                                                            | Description                                                                                                         |
+| ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `request`                                                                                                           | [GetCreateUpdateBillCreditNotesModelRequest](../../models/operations/GetCreateUpdateBillCreditNotesModelRequest.md) | :heavy_check_mark:                                                                                                  | The request object to use for the request.                                                                          |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.GetCreateUpdateBillCreditNotesModelResponse>](../../models/operations/GetCreateUpdateBillCreditNotesModelResponse.md)**
+**[GetCreateUpdateBillCreditNotesModelResponse](../../models/operations/GetCreateUpdateBillCreditNotesModelResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## list
 
@@ -330,19 +298,14 @@ Before using this endpoint, you must have [retrieved data for the company](https
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.ListBillCreditNotesRequest;
 import io.codat.accounting.models.operations.ListBillCreditNotesResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -353,7 +316,7 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("<value>")
+                .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
             ListBillCreditNotesResponse res = sdk.billCreditNotes().list()
@@ -363,30 +326,38 @@ public class Application {
             if (res.billCreditNotes().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                 | Type                                                                                                                      | Required                                                                                                                  | Description                                                                                                               |
-| ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                 | [io.codat.accounting.models.operations.ListBillCreditNotesRequest](../../models/operations/ListBillCreditNotesRequest.md) | :heavy_check_mark:                                                                                                        | The request object to use for the request.                                                                                |
-
+| Parameter                                                                           | Type                                                                                | Required                                                                            | Description                                                                         |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `request`                                                                           | [ListBillCreditNotesRequest](../../models/operations/ListBillCreditNotesRequest.md) | :heavy_check_mark:                                                                  | The request object to use for the request.                                          |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.ListBillCreditNotesResponse>](../../models/operations/ListBillCreditNotesResponse.md)**
+**[ListBillCreditNotesResponse](../../models/operations/ListBillCreditNotesResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                        | Status Code                         | Content Type                        |
+| ----------------------------------- | ----------------------------------- | ----------------------------------- |
+| models/errors/ErrorMessage          | 400,401,402,403,404,409,429,500,503 | application/json                    |
+| models/errors/SDKError              | 4xx-5xx                             | \*\/*                               |
+
 
 ## update
 
@@ -407,37 +378,22 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
-import io.codat.accounting.models.components.AccountRef;
-import io.codat.accounting.models.components.AccountingCustomerRef;
 import io.codat.accounting.models.components.Allocation;
 import io.codat.accounting.models.components.BillCreditNote;
-import io.codat.accounting.models.components.BillCreditNoteLineItem;
-import io.codat.accounting.models.components.BillCreditNoteLineItemTracking;
 import io.codat.accounting.models.components.BillCreditNoteStatus;
-import io.codat.accounting.models.components.BilledToType;
-import io.codat.accounting.models.components.ItemRef;
-import io.codat.accounting.models.components.Metadata;
+import io.codat.accounting.models.components.InvoiceTo;
 import io.codat.accounting.models.components.PaymentAllocationItems;
 import io.codat.accounting.models.components.PaymentAllocationPayment;
-import io.codat.accounting.models.components.ProjectRef;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.components.SupplementalData;
-import io.codat.accounting.models.components.SupplierRef;
-import io.codat.accounting.models.components.TaxRateRef;
-import io.codat.accounting.models.components.TrackingCategoryRef;
-import io.codat.accounting.models.components.WithholdingTaxItems;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.UpdateBillCreditNoteRequest;
 import io.codat.accounting.models.operations.UpdateBillCreditNoteResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
+import java.math.BigDecimal;
+import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -448,69 +404,37 @@ public class Application {
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .billCreditNote(BillCreditNote.builder()
-                    .discountPercentage(0d)
+                    .discountPercentage(new BigDecimal("0"))
                     .status(BillCreditNoteStatus.PAID)
-                    .subTotal(805.78d)
-                    .totalAmount(805.78d)
-                    .totalDiscount(0d)
-                    .totalTaxAmount(0d)
+                    .subTotal(new BigDecimal("805.78"))
+                    .totalAmount(new BigDecimal("805.78"))
+                    .totalDiscount(new BigDecimal("0"))
+                    .totalTaxAmount(new BigDecimal("0"))
                     .allocatedOnDate("2022-10-23T00:00:00Z")
                     .billCreditNoteNumber("91fe2a83-e161-4c21-929d-c5c10c4b07e5")
-                    .currency("GBP")
-                    .currencyRate(5971.29d)
+                    .createdFromRefs(List.of(
+                        InvoiceTo.builder()
+                            .dataType("journalEntry")
+                            .build()))
+                    .currency("EUR")
                     .id("1509398f-98e2-436d-8a5d-c042e0c74ffc")
                     .issueDate("2022-10-23T00:00:00Z")
-                    .lineItems(java.util.List.of(
-                        BillCreditNoteLineItem.builder()
-                            .quantity(9914.64d)
-                            .unitAmount(2703.24d)
-                            .build()))
-                    .metadata(Metadata.builder()
-                        .isDeleted(false)
-                        .build())
                     .modifiedDate("2022-10-23T00:00:00Z")
                     .note("Bill Credit Note with 1 line items, totaling 805.78")
-                    .paymentAllocations(java.util.List.of(
+                    .paymentAllocations(List.of(
                         PaymentAllocationItems.builder()
                             .allocation(Allocation.builder()
-                                    .allocatedOnDate("2022-10-23T00:00:00Z")
-                                    .currency("GBP")
-                                    .currencyRate(2782.81d)
-                                    .totalAmount(8965.01d)
-                                    .build())
+                                .allocatedOnDate("2022-10-23T00:00:00Z")
+                                .currency("GBP")
+                                .build())
                             .payment(PaymentAllocationPayment.builder()
-                                    .accountRef(AccountRef.builder()
-                                        .id("<id>")
-                                        .name("<value>")
-                                        .build())
-                                    .currency("USD")
-                                    .currencyRate(4468.63d)
-                                    .id("<id>")
-                                    .note("<value>")
-                                    .paidOnDate("2022-10-23T00:00:00Z")
-                                    .reference("<value>")
-                                    .totalAmount(3115.07d)
-                                    .build())
+                                .currency("GBP")
+                                .paidOnDate("2022-10-23T00:00:00Z")
+                                .build())
                             .build()))
-                    .remainingCredit(0d)
+                    .remainingCredit(new BigDecimal("0"))
                     .sourceModifiedDate("2022-10-23T00:00:00Z")
-                    .supplementalData(SupplementalData.builder()
-                        .content(java.util.Map.ofEntries(
-                            entry("key", java.util.Map.ofEntries(
-                                entry("key", "<value>")))))
-                        .build())
-                    .supplierRef(SupplierRef.builder()
-                        .id("<value>")
-                        .supplierName("<value>")
-                        .build())
-                    .withholdingTax(java.util.List.of(
-                        WithholdingTaxItems.builder()
-                            .amount(3668.07d)
-                            .name("<value>")
-                            .build()))
                     .build())
-                .forceUpdate(false)
-                .timeoutInMinutes(139579)
                 .build();
 
             UpdateBillCreditNoteResponse res = sdk.billCreditNotes().update()
@@ -520,30 +444,38 @@ public class Application {
             if (res.updateBillCreditNoteResponse().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                   | Type                                                                                                                        | Required                                                                                                                    | Description                                                                                                                 |
-| --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                   | [io.codat.accounting.models.operations.UpdateBillCreditNoteRequest](../../models/operations/UpdateBillCreditNoteRequest.md) | :heavy_check_mark:                                                                                                          | The request object to use for the request.                                                                                  |
-
+| Parameter                                                                             | Type                                                                                  | Required                                                                              | Description                                                                           |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `request`                                                                             | [UpdateBillCreditNoteRequest](../../models/operations/UpdateBillCreditNoteRequest.md) | :heavy_check_mark:                                                                    | The request object to use for the request.                                            |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.UpdateBillCreditNoteResponse>](../../models/operations/UpdateBillCreditNoteResponse.md)**
+**[UpdateBillCreditNoteResponse](../../models/operations/UpdateBillCreditNoteResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## uploadAttachment
 
@@ -568,21 +500,14 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
-import io.codat.accounting.models.components.AttachmentUpload;
-import io.codat.accounting.models.components.CodatFile;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.UploadBillCreditNoteAttachmentRequest;
 import io.codat.accounting.models.operations.UploadBillCreditNoteAttachmentResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -592,12 +517,6 @@ public class Application {
                 .billCreditNoteId("<value>")
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .attachmentUpload(AttachmentUpload.builder()
-                    .file(CodatFile.builder()
-                            .content("0xE3ABc1980E".getBytes())
-                            .fileName("<value>")
-                            .build())
-                    .build())
                 .build();
 
             UploadBillCreditNoteAttachmentResponse res = sdk.billCreditNotes().uploadAttachment()
@@ -605,27 +524,34 @@ public class Application {
                 .call();
 
             // handle response
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                       | Type                                                                                                                                            | Required                                                                                                                                        | Description                                                                                                                                     |
-| ----------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                                       | [io.codat.accounting.models.operations.UploadBillCreditNoteAttachmentRequest](../../models/operations/UploadBillCreditNoteAttachmentRequest.md) | :heavy_check_mark:                                                                                                                              | The request object to use for the request.                                                                                                      |
-
+| Parameter                                                                                                 | Type                                                                                                      | Required                                                                                                  | Description                                                                                               |
+| --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `request`                                                                                                 | [UploadBillCreditNoteAttachmentRequest](../../models/operations/UploadBillCreditNoteAttachmentRequest.md) | :heavy_check_mark:                                                                                        | The request object to use for the request.                                                                |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.UploadBillCreditNoteAttachmentResponse>](../../models/operations/UploadBillCreditNoteAttachmentResponse.md)**
+**[UploadBillCreditNoteAttachmentResponse](../../models/operations/UploadBillCreditNoteAttachmentResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |

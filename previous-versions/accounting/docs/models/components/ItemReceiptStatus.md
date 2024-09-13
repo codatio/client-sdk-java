@@ -11,4 +11,4 @@ Current status of the item receipt.
 | `DRAFT`    | Draft      |
 | `RECEIVED` | Received   |
 | `REJECTED` | Rejected   |
-| `VOID_`    | Void       |
+| `VOID`     | Void       |

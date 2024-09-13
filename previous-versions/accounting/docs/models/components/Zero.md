@@ -1,12 +1,14 @@
 # Zero
 
-Reference to the purchase order line this line was generated from.
+Links the current record line to the underlying record line that created it. 
+
+For example, if a bill is generated from a purchase order, this property allows you to connect the bill line item to the purchase order line item in our data model. 
 
 
 ## Fields
 
-| Field                                                                                                             | Type                                                                                                              | Required                                                                                                          | Description                                                                                                       |
-| ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `dataType`                                                                                                        | [Optional<? extends io.codat.accounting.models.components.ZeroDataType>](../../models/components/ZeroDataType.md) | :heavy_minus_sign:                                                                                                | Allowed name of the 'dataType'.                                                                                   |
-| `id`                                                                                                              | *Optional<? extends String>*                                                                                      | :heavy_minus_sign:                                                                                                | 'id' of the underlying record.                                                                                    |
-| `lineNumber`                                                                                                      | *Optional<? extends String>*                                                                                      | :heavy_minus_sign:                                                                                                | Line number of the underlying record.                                                                             |
+| Field                                                             | Type                                                              | Required                                                          | Description                                                       |
+| ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `dataType`                                                        | [Optional<ZeroDataType>](../../models/components/ZeroDataType.md) | :heavy_minus_sign:                                                | Allowed name of the 'dataType'.                                   |
+| `id`                                                              | *Optional<String>*                                                | :heavy_minus_sign:                                                | 'id' of the underlying record.                                    |
+| `lineNumber`                                                      | *Optional<String>*                                                | :heavy_minus_sign:                                                | Line number of the underlying record.                             |

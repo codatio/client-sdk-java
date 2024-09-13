@@ -18,4 +18,4 @@ Current state of the invoice:
 | `SUBMITTED`      | Submitted        |
 | `PARTIALLY_PAID` | PartiallyPaid    |
 | `PAID`           | Paid             |
-| `VOID_`          | Void             |
+| `VOID`           | Void             |
