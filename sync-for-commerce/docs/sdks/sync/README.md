@@ -3,7 +3,7 @@
 
 ## Overview
 
-Initiate and monitor the sync of company data into accounting software.
+Initiate data syncs and monitor their status.
 
 ### Available Operations
 
@@ -25,19 +25,14 @@ Get the sync status for a specified sync
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.components.*;
-import io.codat.sync.commerce.models.components.Security;
-import io.codat.sync.commerce.models.operations.*;
+import io.codat.sync.commerce.models.errors.SDKError;
 import io.codat.sync.commerce.models.operations.GetSyncByIdRequest;
 import io.codat.sync.commerce.models.operations.GetSyncByIdResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncCommerce sdk = CodatSyncCommerce.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -55,30 +50,38 @@ public class Application {
             if (res.companySyncStatus().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.commerce.models.errors.SDKError e) {
+        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                    | Type                                                                                                         | Required                                                                                                     | Description                                                                                                  |
-| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                    | [io.codat.sync.commerce.models.operations.GetSyncByIdRequest](../../models/operations/GetSyncByIdRequest.md) | :heavy_check_mark:                                                                                           | The request object to use for the request.                                                                   |
-
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `request`                                                           | [GetSyncByIdRequest](../../models/operations/GetSyncByIdRequest.md) | :heavy_check_mark:                                                  | The request object to use for the request.                          |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.commerce.models.operations.GetSyncByIdResponse>](../../models/operations/GetSyncByIdResponse.md)**
+**[GetSyncByIdResponse](../../models/operations/GetSyncByIdResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## getLastSuccessfulSync
 
@@ -90,19 +93,14 @@ Gets the status of the last successful sync
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.components.*;
-import io.codat.sync.commerce.models.components.Security;
-import io.codat.sync.commerce.models.operations.*;
+import io.codat.sync.commerce.models.errors.SDKError;
 import io.codat.sync.commerce.models.operations.GetLastSuccessfulSyncRequest;
 import io.codat.sync.commerce.models.operations.GetLastSuccessfulSyncResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncCommerce sdk = CodatSyncCommerce.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -119,30 +117,38 @@ public class Application {
             if (res.companySyncStatus().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.commerce.models.errors.SDKError e) {
+        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                        | Type                                                                                                                             | Required                                                                                                                         | Description                                                                                                                      |
-| -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                        | [io.codat.sync.commerce.models.operations.GetLastSuccessfulSyncRequest](../../models/operations/GetLastSuccessfulSyncRequest.md) | :heavy_check_mark:                                                                                                               | The request object to use for the request.                                                                                       |
-
+| Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `request`                                                                               | [GetLastSuccessfulSyncRequest](../../models/operations/GetLastSuccessfulSyncRequest.md) | :heavy_check_mark:                                                                      | The request object to use for the request.                                              |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.commerce.models.operations.GetLastSuccessfulSyncResponse>](../../models/operations/GetLastSuccessfulSyncResponse.md)**
+**[GetLastSuccessfulSyncResponse](../../models/operations/GetLastSuccessfulSyncResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## getLatestSync
 
@@ -154,19 +160,14 @@ Gets the latest sync status
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.components.*;
-import io.codat.sync.commerce.models.components.Security;
-import io.codat.sync.commerce.models.operations.*;
+import io.codat.sync.commerce.models.errors.SDKError;
 import io.codat.sync.commerce.models.operations.GetLatestSyncRequest;
 import io.codat.sync.commerce.models.operations.GetLatestSyncResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncCommerce sdk = CodatSyncCommerce.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -183,30 +184,38 @@ public class Application {
             if (res.companySyncStatus().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.commerce.models.errors.SDKError e) {
+        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                        | Type                                                                                                             | Required                                                                                                         | Description                                                                                                      |
-| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                        | [io.codat.sync.commerce.models.operations.GetLatestSyncRequest](../../models/operations/GetLatestSyncRequest.md) | :heavy_check_mark:                                                                                               | The request object to use for the request.                                                                       |
-
+| Parameter                                                               | Type                                                                    | Required                                                                | Description                                                             |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `request`                                                               | [GetLatestSyncRequest](../../models/operations/GetLatestSyncRequest.md) | :heavy_check_mark:                                                      | The request object to use for the request.                              |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.commerce.models.operations.GetLatestSyncResponse>](../../models/operations/GetLatestSyncResponse.md)**
+**[GetLatestSyncResponse](../../models/operations/GetLatestSyncResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## getStatus
 
@@ -218,19 +227,14 @@ Gets a list of sync statuses.
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.components.*;
-import io.codat.sync.commerce.models.components.Security;
-import io.codat.sync.commerce.models.operations.*;
+import io.codat.sync.commerce.models.errors.SDKError;
 import io.codat.sync.commerce.models.operations.GetSyncStatusRequest;
 import io.codat.sync.commerce.models.operations.GetSyncStatusResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncCommerce sdk = CodatSyncCommerce.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -247,30 +251,38 @@ public class Application {
             if (res.syncStatus().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.commerce.models.errors.SDKError e) {
+        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                        | Type                                                                                                             | Required                                                                                                         | Description                                                                                                      |
-| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                        | [io.codat.sync.commerce.models.operations.GetSyncStatusRequest](../../models/operations/GetSyncStatusRequest.md) | :heavy_check_mark:                                                                                               | The request object to use for the request.                                                                       |
-
+| Parameter                                                               | Type                                                                    | Required                                                                | Description                                                             |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `request`                                                               | [GetSyncStatusRequest](../../models/operations/GetSyncStatusRequest.md) | :heavy_check_mark:                                                      | The request object to use for the request.                              |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.commerce.models.operations.GetSyncStatusResponse>](../../models/operations/GetSyncStatusResponse.md)**
+**[GetSyncStatusResponse](../../models/operations/GetSyncStatusResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## list
 
@@ -282,19 +294,14 @@ Gets a list of sync statuses
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.components.*;
-import io.codat.sync.commerce.models.components.Security;
-import io.codat.sync.commerce.models.operations.*;
+import io.codat.sync.commerce.models.errors.SDKError;
 import io.codat.sync.commerce.models.operations.ListSyncsRequest;
 import io.codat.sync.commerce.models.operations.ListSyncsResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncCommerce sdk = CodatSyncCommerce.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -311,30 +318,38 @@ public class Application {
             if (res.classes().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.commerce.models.errors.SDKError e) {
+        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                | Type                                                                                                     | Required                                                                                                 | Description                                                                                              |
-| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                | [io.codat.sync.commerce.models.operations.ListSyncsRequest](../../models/operations/ListSyncsRequest.md) | :heavy_check_mark:                                                                                       | The request object to use for the request.                                                               |
-
+| Parameter                                                       | Type                                                            | Required                                                        | Description                                                     |
+| --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
+| `request`                                                       | [ListSyncsRequest](../../models/operations/ListSyncsRequest.md) | :heavy_check_mark:                                              | The request object to use for the request.                      |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.commerce.models.operations.ListSyncsResponse>](../../models/operations/ListSyncsResponse.md)**
+**[ListSyncsResponse](../../models/operations/ListSyncsResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## request
 
@@ -346,20 +361,15 @@ Run a Commerce sync from the last successful sync up to the date provided (optio
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.components.*;
-import io.codat.sync.commerce.models.components.Security;
 import io.codat.sync.commerce.models.components.SyncToLatestArgs;
-import io.codat.sync.commerce.models.operations.*;
+import io.codat.sync.commerce.models.errors.SDKError;
 import io.codat.sync.commerce.models.operations.RequestSyncRequest;
 import io.codat.sync.commerce.models.operations.RequestSyncResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncCommerce sdk = CodatSyncCommerce.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -379,30 +389,38 @@ public class Application {
             if (res.syncSummary().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.commerce.models.errors.SDKError e) {
+        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                    | Type                                                                                                         | Required                                                                                                     | Description                                                                                                  |
-| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                    | [io.codat.sync.commerce.models.operations.RequestSyncRequest](../../models/operations/RequestSyncRequest.md) | :heavy_check_mark:                                                                                           | The request object to use for the request.                                                                   |
-
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `request`                                                           | [RequestSyncRequest](../../models/operations/RequestSyncRequest.md) | :heavy_check_mark:                                                  | The request object to use for the request.                          |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.commerce.models.operations.RequestSyncResponse>](../../models/operations/RequestSyncResponse.md)**
+**[RequestSyncResponse](../../models/operations/RequestSyncResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## requestForDateRange
 
@@ -414,21 +432,16 @@ Initiate a sync for the specified start date to the specified finish date in the
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.components.*;
 import io.codat.sync.commerce.models.components.DateRange;
-import io.codat.sync.commerce.models.components.Security;
 import io.codat.sync.commerce.models.components.SyncRange;
-import io.codat.sync.commerce.models.operations.*;
+import io.codat.sync.commerce.models.errors.SDKError;
 import io.codat.sync.commerce.models.operations.RequestSyncForDateRangeRequest;
 import io.codat.sync.commerce.models.operations.RequestSyncForDateRangeResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncCommerce sdk = CodatSyncCommerce.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -438,9 +451,9 @@ public class Application {
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .syncRange(SyncRange.builder()
                     .dateRange(DateRange.builder()
-                            .finish("2022-10-23T00:00:00Z")
-                            .start("2022-10-23T00:00:00Z")
-                            .build())
+                        .finish("2022-10-23T00:00:00Z")
+                        .start("2022-10-23T00:00:00Z")
+                        .build())
                     .build())
                 .build();
 
@@ -451,27 +464,34 @@ public class Application {
             if (res.syncSummary().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.commerce.models.errors.SDKError e) {
+        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                            | Type                                                                                                                                 | Required                                                                                                                             | Description                                                                                                                          |
-| ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                            | [io.codat.sync.commerce.models.operations.RequestSyncForDateRangeRequest](../../models/operations/RequestSyncForDateRangeRequest.md) | :heavy_check_mark:                                                                                                                   | The request object to use for the request.                                                                                           |
-
+| Parameter                                                                                   | Type                                                                                        | Required                                                                                    | Description                                                                                 |
+| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `request`                                                                                   | [RequestSyncForDateRangeRequest](../../models/operations/RequestSyncForDateRangeRequest.md) | :heavy_check_mark:                                                                          | The request object to use for the request.                                                  |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.commerce.models.operations.RequestSyncForDateRangeResponse>](../../models/operations/RequestSyncForDateRangeResponse.md)**
+**[RequestSyncForDateRangeResponse](../../models/operations/RequestSyncForDateRangeResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |

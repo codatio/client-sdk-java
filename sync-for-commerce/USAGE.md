@@ -3,20 +3,15 @@
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.components.*;
 import io.codat.sync.commerce.models.components.Locale;
-import io.codat.sync.commerce.models.components.Security;
-import io.codat.sync.commerce.models.operations.*;
+import io.codat.sync.commerce.models.errors.SDKError;
 import io.codat.sync.commerce.models.operations.GetConfigTextSyncFlowRequest;
 import io.codat.sync.commerce.models.operations.GetConfigTextSyncFlowResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncCommerce sdk = CodatSyncCommerce.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -33,11 +28,17 @@ public class Application {
             if (res.localizationInfo().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.commerce.models.errors.SDKError e) {
+        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```

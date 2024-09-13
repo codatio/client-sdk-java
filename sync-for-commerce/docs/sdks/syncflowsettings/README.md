@@ -3,7 +3,7 @@
 
 ## Overview
 
-Configure preferences for any given Sync for Commerce company using sync flow.
+Control text and visibility settings for the Sync Flow.
 
 ### Available Operations
 
@@ -22,20 +22,15 @@ Return preferences set for the text fields on sync flow.
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.components.*;
 import io.codat.sync.commerce.models.components.Locale;
-import io.codat.sync.commerce.models.components.Security;
-import io.codat.sync.commerce.models.operations.*;
+import io.codat.sync.commerce.models.errors.SDKError;
 import io.codat.sync.commerce.models.operations.GetConfigTextSyncFlowRequest;
 import io.codat.sync.commerce.models.operations.GetConfigTextSyncFlowResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncCommerce sdk = CodatSyncCommerce.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -52,30 +47,38 @@ public class Application {
             if (res.localizationInfo().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.commerce.models.errors.SDKError e) {
+        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                        | Type                                                                                                                             | Required                                                                                                                         | Description                                                                                                                      |
-| -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                        | [io.codat.sync.commerce.models.operations.GetConfigTextSyncFlowRequest](../../models/operations/GetConfigTextSyncFlowRequest.md) | :heavy_check_mark:                                                                                                               | The request object to use for the request.                                                                                       |
-
+| Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `request`                                                                               | [GetConfigTextSyncFlowRequest](../../models/operations/GetConfigTextSyncFlowRequest.md) | :heavy_check_mark:                                                                      | The request object to use for the request.                                              |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.commerce.models.operations.GetConfigTextSyncFlowResponse>](../../models/operations/GetConfigTextSyncFlowResponse.md)**
+**[GetConfigTextSyncFlowResponse](../../models/operations/GetConfigTextSyncFlowResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object               | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| models/errors/ErrorMessage | 401,402,403,429,500,503    | application/json           |
+| models/errors/SDKError     | 4xx-5xx                    | \*\/*                      |
+
 
 ## getVisibleAccounts
 
@@ -87,19 +90,14 @@ Return accounts which are visible on sync flow.
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.components.*;
-import io.codat.sync.commerce.models.components.Security;
-import io.codat.sync.commerce.models.operations.*;
+import io.codat.sync.commerce.models.errors.SDKError;
 import io.codat.sync.commerce.models.operations.GetVisibleAccountsRequest;
 import io.codat.sync.commerce.models.operations.GetVisibleAccountsResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncCommerce sdk = CodatSyncCommerce.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -117,30 +115,38 @@ public class Application {
             if (res.visibleAccounts().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.commerce.models.errors.SDKError e) {
+        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                  | Type                                                                                                                       | Required                                                                                                                   | Description                                                                                                                |
-| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                  | [io.codat.sync.commerce.models.operations.GetVisibleAccountsRequest](../../models/operations/GetVisibleAccountsRequest.md) | :heavy_check_mark:                                                                                                         | The request object to use for the request.                                                                                 |
-
+| Parameter                                                                         | Type                                                                              | Required                                                                          | Description                                                                       |
+| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `request`                                                                         | [GetVisibleAccountsRequest](../../models/operations/GetVisibleAccountsRequest.md) | :heavy_check_mark:                                                                | The request object to use for the request.                                        |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.commerce.models.operations.GetVisibleAccountsResponse>](../../models/operations/GetVisibleAccountsResponse.md)**
+**[GetVisibleAccountsResponse](../../models/operations/GetVisibleAccountsResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## updateConfigTextSyncFlow
 
@@ -152,21 +158,15 @@ Set preferences for the text fields on sync flow.
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.components.*;
 import io.codat.sync.commerce.models.components.Locale;
-import io.codat.sync.commerce.models.components.Localization;
-import io.codat.sync.commerce.models.components.Security;
-import io.codat.sync.commerce.models.operations.*;
+import io.codat.sync.commerce.models.errors.SDKError;
 import io.codat.sync.commerce.models.operations.UpdateConfigTextSyncFlowRequest;
 import io.codat.sync.commerce.models.operations.UpdateConfigTextSyncFlowResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncCommerce sdk = CodatSyncCommerce.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -174,9 +174,6 @@ public class Application {
 
             UpdateConfigTextSyncFlowRequest req = UpdateConfigTextSyncFlowRequest.builder()
                 .locale(Locale.EN_US)
-                .requestBody(java.util.Map.ofEntries(
-                    entry("key", Localization.builder()
-                        .build())))
                 .build();
 
             UpdateConfigTextSyncFlowResponse res = sdk.syncFlowSettings().updateConfigTextSyncFlow()
@@ -186,30 +183,38 @@ public class Application {
             if (res.localizationInfo().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.commerce.models.errors.SDKError e) {
+        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                              | Type                                                                                                                                   | Required                                                                                                                               | Description                                                                                                                            |
-| -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                              | [io.codat.sync.commerce.models.operations.UpdateConfigTextSyncFlowRequest](../../models/operations/UpdateConfigTextSyncFlowRequest.md) | :heavy_check_mark:                                                                                                                     | The request object to use for the request.                                                                                             |
-
+| Parameter                                                                                     | Type                                                                                          | Required                                                                                      | Description                                                                                   |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `request`                                                                                     | [UpdateConfigTextSyncFlowRequest](../../models/operations/UpdateConfigTextSyncFlowRequest.md) | :heavy_check_mark:                                                                            | The request object to use for the request.                                                    |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.commerce.models.operations.UpdateConfigTextSyncFlowResponse>](../../models/operations/UpdateConfigTextSyncFlowResponse.md)**
+**[UpdateConfigTextSyncFlowResponse](../../models/operations/UpdateConfigTextSyncFlowResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 400,401,402,403,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## updateVisibleAccountsSyncFlow
 
@@ -221,20 +226,14 @@ Update which accounts are visible on sync flow.
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.components.*;
-import io.codat.sync.commerce.models.components.Security;
-import io.codat.sync.commerce.models.components.VisibleAccounts;
-import io.codat.sync.commerce.models.operations.*;
+import io.codat.sync.commerce.models.errors.SDKError;
 import io.codat.sync.commerce.models.operations.UpdateVisibleAccountsSyncFlowRequest;
 import io.codat.sync.commerce.models.operations.UpdateVisibleAccountsSyncFlowResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncCommerce sdk = CodatSyncCommerce.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -242,10 +241,6 @@ public class Application {
 
             UpdateVisibleAccountsSyncFlowRequest req = UpdateVisibleAccountsSyncFlowRequest.builder()
                 .platformKey("gbol")
-                .visibleAccounts(VisibleAccounts.builder()
-                    .visibleAccounts(java.util.List.of(
-                        "<value>"))
-                    .build())
                 .build();
 
             UpdateVisibleAccountsSyncFlowResponse res = sdk.syncFlowSettings().updateVisibleAccountsSyncFlow()
@@ -255,27 +250,34 @@ public class Application {
             if (res.visibleAccounts().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.commerce.models.errors.SDKError e) {
+        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                        | Type                                                                                                                                             | Required                                                                                                                                         | Description                                                                                                                                      |
-| ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                        | [io.codat.sync.commerce.models.operations.UpdateVisibleAccountsSyncFlowRequest](../../models/operations/UpdateVisibleAccountsSyncFlowRequest.md) | :heavy_check_mark:                                                                                                                               | The request object to use for the request.                                                                                                       |
-
+| Parameter                                                                                               | Type                                                                                                    | Required                                                                                                | Description                                                                                             |
+| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `request`                                                                                               | [UpdateVisibleAccountsSyncFlowRequest](../../models/operations/UpdateVisibleAccountsSyncFlowRequest.md) | :heavy_check_mark:                                                                                      | The request object to use for the request.                                                              |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.commerce.models.operations.UpdateVisibleAccountsSyncFlowResponse>](../../models/operations/UpdateVisibleAccountsSyncFlowResponse.md)**
+**[UpdateVisibleAccountsSyncFlowResponse](../../models/operations/UpdateVisibleAccountsSyncFlowResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
