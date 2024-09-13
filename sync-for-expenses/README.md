@@ -4,24 +4,74 @@
 ﻿Embedded accounting integrations for corporate card providers.
 <!-- End Codat Library Description -->
 
+<!-- Start Summary [summary] -->
+## Summary
+
+Sync for Expenses: The API for Sync for Expenses.
+
+Sync for Expenses is an API and a set of supporting tools. It has been built to
+enable corporate card and expense management platforms to provide high-quality
+integrations with multiple accounting software through a standardized API.
+
+[Explore product](https://docs.codat.io/sync-for-expenses/overview) | [See our OpenAPI spec](https://github.com/codatio/oas)
+
+Not seeing the endpoints you're expecting? We've [reorganized our products](https://docs.codat.io/updates/230901-new-products), and you may be using a [different version of Sync for Expenses](https://docs.codat.io/sync-for-expenses-v1-api#/).
+
+---
+<!-- Start Codat Tags Table -->
+## Endpoints
+
+| Endpoints | Description |
+| :- |:- |
+| Companies | Create and manage your SMB users' companies. |
+| Connections | Create new and manage existing data connections for a company. |
+| Configuration | View and manage mapping configuration and defaults for expense transactions. |
+| Sync | Monitor the status of data syncs. |
+| Expenses | Create and update transactions that represent your customers' spend. |
+| Transfers | Create and update transactions that represent the movement of your customers' money. |
+| Reimbursements | Create and update transactions that represent your customers' repayable spend. |
+| Attachments | Attach receipts to a transaction for a complete audit trail. |
+| Transaction status | Monitor the status of individual transactions in data syncs. |
+| Manage data | Control and monitor the retrieval of data from an integration. |
+| Push operations | View historic push operations. |
+| Accounts | Create accounts and view account schemas. |
+| Customers | Get, create, and update customers. |
+| Suppliers | Get, create, and update suppliers. |
+<!-- End Codat Tags Table -->
+<!-- End Summary [summary] -->
+
+<!-- Start Table of Contents [toc] -->
+## Table of Contents
+
+* [SDK Installation](#sdk-installation)
+* [SDK Example Usage](#sdk-example-usage)
+* [Available Resources and Operations](#available-resources-and-operations)
+* [Retries](#retries)
+* [Error Handling](#error-handling)
+* [Server Selection](#server-selection)
+* [Authentication](#authentication)
+<!-- End Table of Contents [toc] -->
+
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
 
 ### Getting started
 
+JDK 11 or later is required.
+
 The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'io.codat.sync.expenses:openapi:0.2.1'
+implementation 'io.codat:sync.expenses:0.3.0'
 ```
 
 Maven:
 ```xml
 <dependency>
-    <groupId>io.codat.sync.expenses</groupId>
-    <artifactId>openapi</artifactId>
-    <version>0.2.1</version>
+    <groupId>io.codat</groupId>
+    <artifactId>sync.expenses</artifactId>
+    <version>0.3.0</version>
 </dependency>
 ```
 
@@ -50,22 +100,16 @@ gradlew.bat publishToMavenLocal -Pskip.signing
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.components.*;
 import io.codat.sync.expenses.models.components.CompanyRequestBody;
-import io.codat.sync.expenses.models.components.GroupItems;
-import io.codat.sync.expenses.models.components.Security;
-import io.codat.sync.expenses.models.operations.*;
+import io.codat.sync.expenses.models.components.GroupReference;
+import io.codat.sync.expenses.models.errors.SDKError;
 import io.codat.sync.expenses.models.operations.CreateCompanyResponse;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
+import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncExpenses sdk = CodatSyncExpenses.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -74,8 +118,8 @@ public class Application {
             CompanyRequestBody req = CompanyRequestBody.builder()
                 .name("Bank of Dave")
                 .description("Requested early access to the new financing scheme.")
-                .groups(java.util.List.of(
-                    GroupItems.builder()
+                .groups(List.of(
+                    GroupReference.builder()
                         .id("60d2fa12-8a04-11ee-b9d1-0242ac120002")
                         .build()))
                 .build();
@@ -87,11 +131,17 @@ public class Application {
             if (res.company().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.expenses.models.errors.SDKError e) {
+        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
@@ -100,6 +150,28 @@ public class Application {
 <!-- Start Available Resources and Operations [operations] -->
 ## Available Resources and Operations
 
+<details open>
+<summary>Available methods</summary>
+
+### [accounts()](docs/sdks/accounts/README.md)
+
+* [create](docs/sdks/accounts/README.md#create) - Create account
+* [getCreateModel](docs/sdks/accounts/README.md#getcreatemodel) - Get create account model
+
+### [adjustments()](docs/sdks/adjustments/README.md)
+
+* [create](docs/sdks/adjustments/README.md#create) - Create adjustment transaction
+
+### [attachments()](docs/sdks/attachments/README.md)
+
+* [upload](docs/sdks/attachments/README.md#upload) - Upload attachment
+
+### [bankAccounts()](docs/sdks/bankaccounts/README.md)
+
+* [create](docs/sdks/bankaccounts/README.md#create) - Create bank account
+* [getCreateModel](docs/sdks/bankaccounts/README.md#getcreatemodel) - Get create bank account model
+
+
 ### [companies()](docs/sdks/companies/README.md)
 
 * [create](docs/sdks/companies/README.md#create) - Create company
@@ -107,6 +179,11 @@ public class Application {
 * [get](docs/sdks/companies/README.md#get) - Get company
 * [list](docs/sdks/companies/README.md#list) - List companies
 * [update](docs/sdks/companies/README.md#update) - Update company
+
+### [configuration()](docs/sdks/configuration/README.md)
+
+* [get](docs/sdks/configuration/README.md#get) - Get company configuration
+* [set](docs/sdks/configuration/README.md#set) - Set company configuration
 
 ### [connections()](docs/sdks/connections/README.md)
 
@@ -117,11 +194,6 @@ public class Application {
 * [list](docs/sdks/connections/README.md#list) - List connections
 * [unlink](docs/sdks/connections/README.md#unlink) - Unlink connection
 
-### [accounts()](docs/sdks/accounts/README.md)
-
-* [create](docs/sdks/accounts/README.md#create) - Create account
-* [getCreateModel](docs/sdks/accounts/README.md#getcreatemodel) - Get create account model
-
 ### [customers()](docs/sdks/customers/README.md)
 
 * [create](docs/sdks/customers/README.md#create) - Create customer
@@ -129,12 +201,10 @@ public class Application {
 * [list](docs/sdks/customers/README.md#list) - List customers
 * [update](docs/sdks/customers/README.md#update) - Update customer
 
-### [suppliers()](docs/sdks/suppliers/README.md)
+### [expenses()](docs/sdks/expenses/README.md)
 
-* [create](docs/sdks/suppliers/README.md#create) - Create supplier
-* [get](docs/sdks/suppliers/README.md#get) - Get supplier
-* [list](docs/sdks/suppliers/README.md#list) - List suppliers
-* [update](docs/sdks/suppliers/README.md#update) - Update supplier
+* [create](docs/sdks/expenses/README.md#create) - Create expense transaction
+* [update](docs/sdks/expenses/README.md#update) - Update expense transactions
 
 ### [manageData()](docs/sdks/managedata/README.md)
 
@@ -144,33 +214,32 @@ public class Application {
 * [refreshAllDataTypes](docs/sdks/managedata/README.md#refreshalldatatypes) - Refresh all data
 * [refreshDataType](docs/sdks/managedata/README.md#refreshdatatype) - Refresh data type
 
+### [mappingOptions()](docs/sdks/mappingoptions/README.md)
+
+* [getMappingOptions](docs/sdks/mappingoptions/README.md#getmappingoptions) - Mapping options
+
 ### [pushOperations()](docs/sdks/pushoperations/README.md)
 
 * [get](docs/sdks/pushoperations/README.md#get) - Get push operation
 * [list](docs/sdks/pushoperations/README.md#list) - List push operations
-
-### [configuration()](docs/sdks/configuration/README.md)
-
-* [get](docs/sdks/configuration/README.md#get) - Get company configuration
-* [getMappingOptions](docs/sdks/configuration/README.md#getmappingoptions) - Mapping options
-* [set](docs/sdks/configuration/README.md#set) - Set company configuration
-
-### [expenses()](docs/sdks/expenses/README.md)
-
-* [create](docs/sdks/expenses/README.md#create) - Create expense transaction
-* [update](docs/sdks/expenses/README.md#update) - Update expense transactions
 
 ### [reimbursements()](docs/sdks/reimbursements/README.md)
 
 * [create](docs/sdks/reimbursements/README.md#create) - Create reimbursable expense transaction
 * [update](docs/sdks/reimbursements/README.md#update) - Update reimbursable expense transaction
 
+### [suppliers()](docs/sdks/suppliers/README.md)
+
+* [create](docs/sdks/suppliers/README.md#create) - Create supplier
+* [get](docs/sdks/suppliers/README.md#get) - Get supplier
+* [list](docs/sdks/suppliers/README.md#list) - List suppliers
+* [update](docs/sdks/suppliers/README.md#update) - Update supplier
+
 ### [sync()](docs/sdks/sync/README.md)
 
 * [get](docs/sdks/sync/README.md#get) - Get sync status
 * [getLastSuccessfulSync](docs/sdks/sync/README.md#getlastsuccessfulsync) - Last successful sync
 * [getLatestSync](docs/sdks/sync/README.md#getlatestsync) - Latest sync status
-* [initiateSync](docs/sdks/sync/README.md#initiatesync) - Initiate sync
 * [list](docs/sdks/sync/README.md#list) - List sync statuses
 
 ### [transactionStatus()](docs/sdks/transactionstatus/README.md)
@@ -178,13 +247,11 @@ public class Application {
 * [get](docs/sdks/transactionstatus/README.md#get) - Get sync transaction
 * [list](docs/sdks/transactionstatus/README.md#list) - List sync transactions
 
-### [attachments()](docs/sdks/attachments/README.md)
-
-* [upload](docs/sdks/attachments/README.md#upload) - Upload attachment
-
 ### [transfers()](docs/sdks/transfers/README.md)
 
 * [create](docs/sdks/transfers/README.md#create) - Create transfer transaction
+
+</details>
 <!-- End Available Resources and Operations [operations] -->
 
 <!-- Start Retries [retries] -->
@@ -197,25 +264,19 @@ To change the default retry strategy for a single API call, you can provide a `R
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.components.*;
 import io.codat.sync.expenses.models.components.CompanyRequestBody;
-import io.codat.sync.expenses.models.components.GroupItems;
-import io.codat.sync.expenses.models.components.Security;
-import io.codat.sync.expenses.models.operations.*;
+import io.codat.sync.expenses.models.components.GroupReference;
+import io.codat.sync.expenses.models.errors.SDKError;
 import io.codat.sync.expenses.models.operations.CreateCompanyResponse;
 import io.codat.sync.expenses.utils.BackoffStrategy;
 import io.codat.sync.expenses.utils.RetryConfig;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
+import java.lang.Exception;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
-import static java.util.Map.entry;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncExpenses sdk = CodatSyncExpenses.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -224,8 +285,8 @@ public class Application {
             CompanyRequestBody req = CompanyRequestBody.builder()
                 .name("Bank of Dave")
                 .description("Requested early access to the new financing scheme.")
-                .groups(java.util.List.of(
-                    GroupItems.builder()
+                .groups(List.of(
+                    GroupReference.builder()
                         .id("60d2fa12-8a04-11ee-b9d1-0242ac120002")
                         .build()))
                 .build();
@@ -233,25 +294,31 @@ public class Application {
             CreateCompanyResponse res = sdk.companies().create()
                 .request(req)
                 .retryConfig(RetryConfig.builder()
-                                .backoff(BackoffStrategy.builder()
-                                            .initialInterval(1L, TimeUnit.MILLISECONDS)
-                                            .maxInterval(50L, TimeUnit.MILLISECONDS)
-                                            .maxElapsedTime(1000L, TimeUnit.MILLISECONDS)
-                                            .baseFactor(1.1)
-                                            .jitterFactor(0.15)
-                                            .retryConnectError(false)
-                                            .build())
-                                .build())
+                    .backoff(BackoffStrategy.builder()
+                        .initialInterval(1L, TimeUnit.MILLISECONDS)
+                        .maxInterval(50L, TimeUnit.MILLISECONDS)
+                        .maxElapsedTime(1000L, TimeUnit.MILLISECONDS)
+                        .baseFactor(1.1)
+                        .jitterFactor(0.15)
+                        .retryConnectError(false)
+                        .build())
+                    .build())
                 .call();
 
             if (res.company().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.expenses.models.errors.SDKError e) {
+        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
@@ -261,45 +328,39 @@ If you'd like to override the default retry strategy for all operations that sup
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.components.*;
 import io.codat.sync.expenses.models.components.CompanyRequestBody;
-import io.codat.sync.expenses.models.components.GroupItems;
-import io.codat.sync.expenses.models.components.Security;
-import io.codat.sync.expenses.models.operations.*;
+import io.codat.sync.expenses.models.components.GroupReference;
+import io.codat.sync.expenses.models.errors.SDKError;
 import io.codat.sync.expenses.models.operations.CreateCompanyResponse;
 import io.codat.sync.expenses.utils.BackoffStrategy;
 import io.codat.sync.expenses.utils.RetryConfig;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
+import java.lang.Exception;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
-import static java.util.Map.entry;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncExpenses sdk = CodatSyncExpenses.builder()
                 .retryConfig(RetryConfig.builder()
-                                .backoff(BackoffStrategy.builder()
-                                            .initialInterval(1L, TimeUnit.MILLISECONDS)
-                                            .maxInterval(50L, TimeUnit.MILLISECONDS)
-                                            .maxElapsedTime(1000L, TimeUnit.MILLISECONDS)
-                                            .baseFactor(1.1)
-                                            .jitterFactor(0.15)
-                                            .retryConnectError(false)
-                                            .build())
-                                .build())
+                    .backoff(BackoffStrategy.builder()
+                        .initialInterval(1L, TimeUnit.MILLISECONDS)
+                        .maxInterval(50L, TimeUnit.MILLISECONDS)
+                        .maxElapsedTime(1000L, TimeUnit.MILLISECONDS)
+                        .baseFactor(1.1)
+                        .jitterFactor(0.15)
+                        .retryConnectError(false)
+                        .build())
+                    .build())
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                 .build();
 
             CompanyRequestBody req = CompanyRequestBody.builder()
                 .name("Bank of Dave")
                 .description("Requested early access to the new financing scheme.")
-                .groups(java.util.List.of(
-                    GroupItems.builder()
+                .groups(List.of(
+                    GroupReference.builder()
                         .id("60d2fa12-8a04-11ee-b9d1-0242ac120002")
                         .build()))
                 .build();
@@ -311,11 +372,17 @@ public class Application {
             if (res.company().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.expenses.models.errors.SDKError e) {
+        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
@@ -326,9 +393,10 @@ public class Application {
 
 Handling errors in this SDK should largely match your expectations.  All operations return a response object or raise an error.  If Error objects are specified in your OpenAPI Spec, the SDK will throw the appropriate Exception type.
 
-| Error Object           | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models/errors/SDKError | 4xx-5xx                | */*                    |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 400,401,402,403,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
 
 ### Example
 
@@ -336,22 +404,16 @@ Handling errors in this SDK should largely match your expectations.  All operati
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.components.*;
 import io.codat.sync.expenses.models.components.CompanyRequestBody;
-import io.codat.sync.expenses.models.components.GroupItems;
-import io.codat.sync.expenses.models.components.Security;
-import io.codat.sync.expenses.models.operations.*;
+import io.codat.sync.expenses.models.components.GroupReference;
+import io.codat.sync.expenses.models.errors.SDKError;
 import io.codat.sync.expenses.models.operations.CreateCompanyResponse;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
+import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncExpenses sdk = CodatSyncExpenses.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -360,8 +422,8 @@ public class Application {
             CompanyRequestBody req = CompanyRequestBody.builder()
                 .name("Bank of Dave")
                 .description("Requested early access to the new financing scheme.")
-                .groups(java.util.List.of(
-                    GroupItems.builder()
+                .groups(List.of(
+                    GroupReference.builder()
                         .id("60d2fa12-8a04-11ee-b9d1-0242ac120002")
                         .build()))
                 .build();
@@ -373,11 +435,17 @@ public class Application {
             if (res.company().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.expenses.models.errors.SDKError e) {
+        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
@@ -400,22 +468,16 @@ You can override the default server globally by passing a server index to the `s
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.components.*;
 import io.codat.sync.expenses.models.components.CompanyRequestBody;
-import io.codat.sync.expenses.models.components.GroupItems;
-import io.codat.sync.expenses.models.components.Security;
-import io.codat.sync.expenses.models.operations.*;
+import io.codat.sync.expenses.models.components.GroupReference;
+import io.codat.sync.expenses.models.errors.SDKError;
 import io.codat.sync.expenses.models.operations.CreateCompanyResponse;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
+import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncExpenses sdk = CodatSyncExpenses.builder()
                 .serverIndex(0)
@@ -425,8 +487,8 @@ public class Application {
             CompanyRequestBody req = CompanyRequestBody.builder()
                 .name("Bank of Dave")
                 .description("Requested early access to the new financing scheme.")
-                .groups(java.util.List.of(
-                    GroupItems.builder()
+                .groups(List.of(
+                    GroupReference.builder()
                         .id("60d2fa12-8a04-11ee-b9d1-0242ac120002")
                         .build()))
                 .build();
@@ -438,11 +500,17 @@ public class Application {
             if (res.company().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.expenses.models.errors.SDKError e) {
+        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
@@ -455,22 +523,16 @@ The default server can also be overridden globally by passing a URL to the `serv
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.components.*;
 import io.codat.sync.expenses.models.components.CompanyRequestBody;
-import io.codat.sync.expenses.models.components.GroupItems;
-import io.codat.sync.expenses.models.components.Security;
-import io.codat.sync.expenses.models.operations.*;
+import io.codat.sync.expenses.models.components.GroupReference;
+import io.codat.sync.expenses.models.errors.SDKError;
 import io.codat.sync.expenses.models.operations.CreateCompanyResponse;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
+import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncExpenses sdk = CodatSyncExpenses.builder()
                 .serverURL("https://api.codat.io")
@@ -480,8 +542,8 @@ public class Application {
             CompanyRequestBody req = CompanyRequestBody.builder()
                 .name("Bank of Dave")
                 .description("Requested early access to the new financing scheme.")
-                .groups(java.util.List.of(
-                    GroupItems.builder()
+                .groups(List.of(
+                    GroupReference.builder()
                         .id("60d2fa12-8a04-11ee-b9d1-0242ac120002")
                         .build()))
                 .build();
@@ -493,11 +555,17 @@ public class Application {
             if (res.company().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.expenses.models.errors.SDKError e) {
+        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
@@ -519,22 +587,16 @@ To authenticate with the API the `authHeader` parameter must be set when initial
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.components.*;
 import io.codat.sync.expenses.models.components.CompanyRequestBody;
-import io.codat.sync.expenses.models.components.GroupItems;
-import io.codat.sync.expenses.models.components.Security;
-import io.codat.sync.expenses.models.operations.*;
+import io.codat.sync.expenses.models.components.GroupReference;
+import io.codat.sync.expenses.models.errors.SDKError;
 import io.codat.sync.expenses.models.operations.CreateCompanyResponse;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
+import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncExpenses sdk = CodatSyncExpenses.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -543,8 +605,8 @@ public class Application {
             CompanyRequestBody req = CompanyRequestBody.builder()
                 .name("Bank of Dave")
                 .description("Requested early access to the new financing scheme.")
-                .groups(java.util.List.of(
-                    GroupItems.builder()
+                .groups(List.of(
+                    GroupReference.builder()
                         .id("60d2fa12-8a04-11ee-b9d1-0242ac120002")
                         .build()))
                 .build();
@@ -556,11 +618,17 @@ public class Application {
             if (res.company().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.expenses.models.errors.SDKError e) {
+        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
