@@ -1,0 +1,132 @@
+workflowVersion: 1.0.0
+speakeasyVersion: latest
+sources:
+  accounting-source:
+    inputs:
+      - location: https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Accounting.yaml
+  bank-feeds-source:
+    inputs:
+      - location: https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Bank-Feeds.yaml
+    registry:
+      location: registry.speakeasyapi.dev/codat/codat/bank-feeds-source
+  banking-source:
+    inputs:
+      - location: https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Banking.yaml
+  lending-source:
+    inputs:
+      - location: https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Lending.yaml
+  platform-source:
+    inputs:
+      - location: https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Platform.yaml
+  sync-for-commerce-source:
+    inputs:
+      - location: https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Sync-Commerce.yaml
+  sync-for-expenses-source:
+    inputs:
+      - location: https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Sync-Expenses.yaml
+  sync-for-payables-source:
+    inputs:
+      - location: https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Sync-Payables.yaml
+  sync-for-payroll-source:
+    inputs:
+      - location: https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Sync-Payroll.yaml
+targets:
+  accounting-library:
+    target: java
+    source: accounting-source
+    output: previous-versions/accounting
+    publish:
+      java:
+        useSonatypeLegacy: false
+        ossrhUsername: $ossrh_username
+        ossrhPassword: $ossrh_password
+        gpgSecretKey: $java_gpg_secret_key
+        gpgPassPhrase: $java_gpg_passphrase
+  bank-feeds-library:
+    target: java
+    source: bank-feeds-source
+    output: bank-feeds
+    publish:
+      java:
+        useSonatypeLegacy: false
+        ossrhUsername: $ossrh_username
+        ossrhPassword: $ossrh_password
+        gpgSecretKey: $java_gpg_secret_key
+        gpgPassPhrase: $java_gpg_passphrase
+  banking-library:
+    target: java
+    source: banking-source
+    output: previous-versions/banking
+    publish:
+      java:
+        useSonatypeLegacy: false
+        ossrhUsername: $ossrh_username
+        ossrhPassword: $ossrh_password
+        gpgSecretKey: $java_gpg_secret_key
+        gpgPassPhrase: $java_gpg_passphrase
+  lending-library:
+    target: java
+    source: lending-source
+    output: lending
+    publish:
+      java:
+        useSonatypeLegacy: false
+        ossrhUsername: $ossrh_username
+        ossrhPassword: $ossrh_password
+        gpgSecretKey: $java_gpg_secret_key
+        gpgPassPhrase: $java_gpg_passphrase
+  platform-library:
+    target: java
+    source: platform-source
+    output: platform
+    publish:
+      java:
+        useSonatypeLegacy: false
+        ossrhUsername: $ossrh_username
+        ossrhPassword: $ossrh_password
+        gpgSecretKey: $java_gpg_secret_key
+        gpgPassPhrase: $java_gpg_passphrase
+  sync-for-commerce-library:
+    target: java
+    source: sync-for-commerce-source
+    output: sync-for-commerce
+    publish:
+      java:
+        useSonatypeLegacy: false
+        ossrhUsername: $ossrh_username
+        ossrhPassword: $ossrh_password
+        gpgSecretKey: $java_gpg_secret_key
+        gpgPassPhrase: $java_gpg_passphrase
+  sync-for-expenses-library:
+    target: java
+    source: sync-for-expenses-source
+    output: sync-for-expenses
+    publish:
+      java:
+        useSonatypeLegacy: false
+        ossrhUsername: $ossrh_username
+        ossrhPassword: $ossrh_password
+        gpgSecretKey: $java_gpg_secret_key
+        gpgPassPhrase: $java_gpg_passphrase
+  sync-for-payables-library:
+    target: java
+    source: sync-for-payables-source
+    output: sync-for-payables
+    publish:
+      java:
+        useSonatypeLegacy: false
+        ossrhUsername: $ossrh_username
+        ossrhPassword: $ossrh_password
+        gpgSecretKey: $java_gpg_secret_key
+        gpgPassPhrase: $java_gpg_passphrase
+  sync-for-payroll-library:
+    target: java
+    source: sync-for-payroll-source
+    output: sync-for-payroll
+    publish:
+      java:
+        useSonatypeLegacy: false
+        ossrhUsername: $ossrh_username
+        ossrhPassword: $ossrh_password
+        gpgSecretKey: $java_gpg_secret_key
+        gpgPassPhrase: $java_gpg_passphrase
