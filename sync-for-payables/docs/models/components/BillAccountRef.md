@@ -7,4 +7,4 @@ Reference to the account to which the line item is linked.
 
 | Field                             | Type                              | Required                          | Description                       |
 | --------------------------------- | --------------------------------- | --------------------------------- | --------------------------------- |
-| `id`                              | *Optional<? extends String>*      | :heavy_minus_sign:                | 'id' from the Accounts data type. |
+| `id`                              | *Optional<String>*                | :heavy_minus_sign:                | 'id' from the Accounts data type. |

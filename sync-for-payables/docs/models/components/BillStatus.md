@@ -11,5 +11,5 @@ Current state of the bill. If creating a bill the status must be `Open`.
 | `OPEN`           | Open             |
 | `PARTIALLY_PAID` | PartiallyPaid    |
 | `PAID`           | Paid             |
-| `VOID_`          | Void             |
+| `VOID`           | Void             |
 | `DRAFT`          | Draft            |

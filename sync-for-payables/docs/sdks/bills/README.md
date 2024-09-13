@@ -3,7 +3,7 @@
 
 ## Overview
 
-Bills
+Get, create, and update Bills.
 
 ### Available Operations
 
@@ -26,27 +26,17 @@ The *Create bill* endpoint creates a new [bill](https://docs.codat.io/sync-for-p
 package hello.world;
 
 import io.codat.sync.payables.CodatSyncPayables;
-import io.codat.sync.payables.models.components.*;
-import io.codat.sync.payables.models.components.BillAccountRef;
-import io.codat.sync.payables.models.components.BillLineItem;
 import io.codat.sync.payables.models.components.BillPrototype;
 import io.codat.sync.payables.models.components.BillStatus;
-import io.codat.sync.payables.models.components.BillTaxRateRef;
-import io.codat.sync.payables.models.components.Security;
 import io.codat.sync.payables.models.components.SupplierRef;
-import io.codat.sync.payables.models.operations.*;
+import io.codat.sync.payables.models.errors.SDKError;
 import io.codat.sync.payables.models.operations.CreateBillRequest;
 import io.codat.sync.payables.models.operations.CreateBillResponse;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncPayables sdk = CodatSyncPayables.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -55,31 +45,14 @@ public class Application {
             CreateBillRequest req = CreateBillRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .idempotencyKey("<value>")
                 .billPrototype(BillPrototype.builder()
                     .currency("USD")
                     .dueDate("2022-10-23T00:00:00Z")
                     .issueDate("2022-10-23T00:00:00Z")
                     .status(BillStatus.OPEN)
                     .supplierRef(SupplierRef.builder()
-                            .id("<value>")
-                            .supplierName("<value>")
-                            .build())
-                    .amountDue(new BigDecimal("8592.13"))
-                    .currencyRate(new BigDecimal("4174.58"))
-                    .lineItems(java.util.List.of(
-                        BillLineItem.builder()
-                            .accountRef(BillAccountRef.builder()
-                                    .id("<id>")
-                                    .build())
-                            .quantity(new BigDecimal("7865.46"))
-                            .taxRateRef(BillTaxRateRef.builder()
-                                    .id("<id>")
-                                    .build())
-                            .unitAmount(new BigDecimal("690.25"))
-                            .build()))
-                    .reference("<value>")
-                    .totalAmount(new BigDecimal("9967.06"))
+                        .id("<id>")
+                        .build())
                     .build())
                 .build();
 
@@ -90,30 +63,38 @@ public class Application {
             if (res.bill().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.payables.models.errors.SDKError e) {
+        } catch (io.codat.sync.payables.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                  | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
-| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                  | [io.codat.sync.payables.models.operations.CreateBillRequest](../../models/operations/CreateBillRequest.md) | :heavy_check_mark:                                                                                         | The request object to use for the request.                                                                 |
-
+| Parameter                                                         | Type                                                              | Required                                                          | Description                                                       |
+| ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `request`                                                         | [CreateBillRequest](../../models/operations/CreateBillRequest.md) | :heavy_check_mark:                                                | The request object to use for the request.                        |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.payables.models.operations.CreateBillResponse>](../../models/operations/CreateBillResponse.md)**
+**[CreateBillResponse](../../models/operations/CreateBillResponse.md)**
+
 ### Errors
 
-| Error Object           | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models/errors/SDKError | 4xx-5xx                | */*                    |
+| Error Object                        | Status Code                         | Content Type                        |
+| ----------------------------------- | ----------------------------------- | ----------------------------------- |
+| models/errors/ErrorMessage          | 400,401,402,403,404,409,429,500,503 | application/json                    |
+| models/errors/SDKError              | 4xx-5xx                             | \*\/*                               |
+
 
 ## downloadAttachment
 
@@ -130,21 +111,14 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.sync.payables.CodatSyncPayables;
-import io.codat.sync.payables.models.components.*;
-import io.codat.sync.payables.models.components.Security;
-import io.codat.sync.payables.models.operations.*;
+import io.codat.sync.payables.models.errors.SDKError;
 import io.codat.sync.payables.models.operations.DownloadBillAttachmentRequest;
 import io.codat.sync.payables.models.operations.DownloadBillAttachmentResponse;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncPayables sdk = CodatSyncPayables.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -152,7 +126,7 @@ public class Application {
 
             DownloadBillAttachmentRequest req = DownloadBillAttachmentRequest.builder()
                 .attachmentId("8a210b68-6988-11ed-a1eb-0242ac120002")
-                .billId("EILBDVJVNUAGVKRQ")
+                .billId("13d946f0-c5d5-42bc-b092-97ece17923ab")
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .build();
@@ -164,34 +138,44 @@ public class Application {
             if (res.data().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.payables.models.errors.SDKError e) {
+        } catch (io.codat.sync.payables.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                          | Type                                                                                                                               | Required                                                                                                                           | Description                                                                                                                        |
-| ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                          | [io.codat.sync.payables.models.operations.DownloadBillAttachmentRequest](../../models/operations/DownloadBillAttachmentRequest.md) | :heavy_check_mark:                                                                                                                 | The request object to use for the request.                                                                                         |
-
+| Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `request`                                                                                 | [DownloadBillAttachmentRequest](../../models/operations/DownloadBillAttachmentRequest.md) | :heavy_check_mark:                                                                        | The request object to use for the request.                                                |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.payables.models.operations.DownloadBillAttachmentResponse>](../../models/operations/DownloadBillAttachmentResponse.md)**
+**[DownloadBillAttachmentResponse](../../models/operations/DownloadBillAttachmentResponse.md)**
+
 ### Errors
 
-| Error Object           | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models/errors/SDKError | 4xx-5xx                | */*                    |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## getBillOptions
 
 ﻿Use the *Get mapping options - Bills* endpoint to return a list of available mapping options for a given company's connection ID.
+
+By default, this endpoint returns a list of active accounts and tax rates. You can use [querying](https://docs.codat.io/using-the-api/querying) to change that.
 
 Mapping options are a set of accounts and tax rates used to configure the SMB's payables integration.
 
@@ -201,21 +185,14 @@ Mapping options are a set of accounts and tax rates used to configure the SMB's 
 package hello.world;
 
 import io.codat.sync.payables.CodatSyncPayables;
-import io.codat.sync.payables.models.components.*;
-import io.codat.sync.payables.models.components.Security;
-import io.codat.sync.payables.models.operations.*;
+import io.codat.sync.payables.models.errors.SDKError;
 import io.codat.sync.payables.models.operations.GetMappingOptionsBillsRequest;
 import io.codat.sync.payables.models.operations.GetMappingOptionsBillsResponse;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncPayables sdk = CodatSyncPayables.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -225,6 +202,7 @@ public class Application {
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .continuationToken("continuationToken=eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ==")
+                .statusQuery("status=Archived")
                 .build();
 
             GetMappingOptionsBillsResponse res = sdk.bills().getBillOptions()
@@ -234,30 +212,38 @@ public class Application {
             if (res.billMappingOptions().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.payables.models.errors.SDKError e) {
+        } catch (io.codat.sync.payables.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                          | Type                                                                                                                               | Required                                                                                                                           | Description                                                                                                                        |
-| ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                          | [io.codat.sync.payables.models.operations.GetMappingOptionsBillsRequest](../../models/operations/GetMappingOptionsBillsRequest.md) | :heavy_check_mark:                                                                                                                 | The request object to use for the request.                                                                                         |
-
+| Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `request`                                                                                 | [GetMappingOptionsBillsRequest](../../models/operations/GetMappingOptionsBillsRequest.md) | :heavy_check_mark:                                                                        | The request object to use for the request.                                                |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.payables.models.operations.GetMappingOptionsBillsResponse>](../../models/operations/GetMappingOptionsBillsResponse.md)**
+**[GetMappingOptionsBillsResponse](../../models/operations/GetMappingOptionsBillsResponse.md)**
+
 ### Errors
 
-| Error Object           | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models/errors/SDKError | 4xx-5xx                | */*                    |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## list
 
@@ -273,21 +259,14 @@ By default, the endpoint will return all bills with a status of 'Open' & 'Partia
 package hello.world;
 
 import io.codat.sync.payables.CodatSyncPayables;
-import io.codat.sync.payables.models.components.*;
-import io.codat.sync.payables.models.components.Security;
-import io.codat.sync.payables.models.operations.*;
+import io.codat.sync.payables.models.errors.SDKError;
 import io.codat.sync.payables.models.operations.ListBillsRequest;
 import io.codat.sync.payables.models.operations.ListBillsResponse;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncPayables sdk = CodatSyncPayables.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -297,7 +276,6 @@ public class Application {
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .continuationToken("continuationToken=eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ==")
-                .query("<value>")
                 .build();
 
             ListBillsResponse res = sdk.bills().list()
@@ -307,30 +285,38 @@ public class Application {
             if (res.bills().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.payables.models.errors.SDKError e) {
+        } catch (io.codat.sync.payables.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                | Type                                                                                                     | Required                                                                                                 | Description                                                                                              |
-| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                | [io.codat.sync.payables.models.operations.ListBillsRequest](../../models/operations/ListBillsRequest.md) | :heavy_check_mark:                                                                                       | The request object to use for the request.                                                               |
-
+| Parameter                                                       | Type                                                            | Required                                                        | Description                                                     |
+| --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
+| `request`                                                       | [ListBillsRequest](../../models/operations/ListBillsRequest.md) | :heavy_check_mark:                                              | The request object to use for the request.                      |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.payables.models.operations.ListBillsResponse>](../../models/operations/ListBillsResponse.md)**
+**[ListBillsResponse](../../models/operations/ListBillsResponse.md)**
+
 ### Errors
 
-| Error Object           | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models/errors/SDKError | 4xx-5xx                | */*                    |
+| Error Object                        | Status Code                         | Content Type                        |
+| ----------------------------------- | ----------------------------------- | ----------------------------------- |
+| models/errors/ErrorMessage          | 400,401,402,403,404,409,429,500,503 | application/json                    |
+| models/errors/SDKError              | 4xx-5xx                             | \*\/*                               |
+
 
 ## listAttachments
 
@@ -344,28 +330,21 @@ The *List bill attachments* endpoint returns a list of attachments available to 
 package hello.world;
 
 import io.codat.sync.payables.CodatSyncPayables;
-import io.codat.sync.payables.models.components.*;
-import io.codat.sync.payables.models.components.Security;
-import io.codat.sync.payables.models.operations.*;
+import io.codat.sync.payables.models.errors.SDKError;
 import io.codat.sync.payables.models.operations.ListBillAttachmentsRequest;
 import io.codat.sync.payables.models.operations.ListBillAttachmentsResponse;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncPayables sdk = CodatSyncPayables.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                 .build();
 
             ListBillAttachmentsRequest req = ListBillAttachmentsRequest.builder()
-                .billId("EILBDVJVNUAGVKRQ")
+                .billId("9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2")
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .build();
@@ -377,30 +356,38 @@ public class Application {
             if (res.attachment().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.payables.models.errors.SDKError e) {
+        } catch (io.codat.sync.payables.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                    | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  |
-| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                    | [io.codat.sync.payables.models.operations.ListBillAttachmentsRequest](../../models/operations/ListBillAttachmentsRequest.md) | :heavy_check_mark:                                                                                                           | The request object to use for the request.                                                                                   |
-
+| Parameter                                                                           | Type                                                                                | Required                                                                            | Description                                                                         |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `request`                                                                           | [ListBillAttachmentsRequest](../../models/operations/ListBillAttachmentsRequest.md) | :heavy_check_mark:                                                                  | The request object to use for the request.                                          |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.payables.models.operations.ListBillAttachmentsResponse>](../../models/operations/ListBillAttachmentsResponse.md)**
+**[ListBillAttachmentsResponse](../../models/operations/ListBillAttachmentsResponse.md)**
+
 ### Errors
 
-| Error Object           | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models/errors/SDKError | 4xx-5xx                | */*                    |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 401,402,403,404,409,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## uploadAttachment
 
@@ -414,38 +401,23 @@ The *Upload bill attachment* endpoint uploads an attachment and assigns it again
 package hello.world;
 
 import io.codat.sync.payables.CodatSyncPayables;
-import io.codat.sync.payables.models.components.*;
-import io.codat.sync.payables.models.components.AttachmentUpload;
-import io.codat.sync.payables.models.components.CodatFile;
-import io.codat.sync.payables.models.components.Security;
-import io.codat.sync.payables.models.operations.*;
+import io.codat.sync.payables.models.errors.SDKError;
 import io.codat.sync.payables.models.operations.UploadBillAttachmentRequest;
 import io.codat.sync.payables.models.operations.UploadBillAttachmentResponse;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncPayables sdk = CodatSyncPayables.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                 .build();
 
             UploadBillAttachmentRequest req = UploadBillAttachmentRequest.builder()
-                .billId("EILBDVJVNUAGVKRQ")
+                .billId("13d946f0-c5d5-42bc-b092-97ece17923ab")
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .attachmentUpload(AttachmentUpload.builder()
-                    .file(CodatFile.builder()
-                            .content("0x3ABc1980Ef".getBytes())
-                            .fileName("<value>")
-                            .build())
-                    .build())
                 .build();
 
             UploadBillAttachmentResponse res = sdk.bills().uploadAttachment()
@@ -453,27 +425,34 @@ public class Application {
                 .call();
 
             // handle response
-        } catch (io.codat.sync.payables.models.errors.SDKError e) {
+        } catch (io.codat.sync.payables.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                      | Type                                                                                                                           | Required                                                                                                                       | Description                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                      | [io.codat.sync.payables.models.operations.UploadBillAttachmentRequest](../../models/operations/UploadBillAttachmentRequest.md) | :heavy_check_mark:                                                                                                             | The request object to use for the request.                                                                                     |
-
+| Parameter                                                                             | Type                                                                                  | Required                                                                              | Description                                                                           |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `request`                                                                             | [UploadBillAttachmentRequest](../../models/operations/UploadBillAttachmentRequest.md) | :heavy_check_mark:                                                                    | The request object to use for the request.                                            |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.payables.models.operations.UploadBillAttachmentResponse>](../../models/operations/UploadBillAttachmentResponse.md)**
+**[UploadBillAttachmentResponse](../../models/operations/UploadBillAttachmentResponse.md)**
+
 ### Errors
 
-| Error Object           | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models/errors/SDKError | 4xx-5xx                | */*                    |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |

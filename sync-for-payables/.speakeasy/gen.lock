@@ -1,77 +1,315 @@
 lockVersion: 2.0.0
 id: 18757ebf-96ad-433f-80e1-10950345f2fe
 management:
-  docChecksum: 0a5105593e81570862b31af7e3e3277c
+  docChecksum: 8f7c309d737e74dd8e124f6da34b399c
   docVersion: 3.0.0
-  speakeasyVersion: 1.244.1
-  generationVersion: 2.301.2
-  releaseVersion: 0.3.0
-  configChecksum: d966eb657a5da6f0d15d9601a80e7362
+  speakeasyVersion: 1.396.7
+  generationVersion: 2.415.6
+  releaseVersion: 0.4.0
+  configChecksum: e359500ad5c26589922e78022a4bed09
   repoURL: https://github.com/codatio/client-sdk-java.git
   repoSubDirectory: sync-for-payables
   published: true
 features:
   java:
+    additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.1
-    core: 3.16.4
+    core: 3.29.7
     decimal: 0.0.1
     deprecations: 2.81.1
     downloadStreams: 0.1.1
     examples: 2.81.3
-    globalSecurity: 2.82.5
+    globalSecurity: 2.82.7
+    globalSecurityCallbacks: 0.1.0
+    globalSecurityFlattening: 0.1.0
     globalServerURLs: 2.82.1
     nameOverrides: 2.81.3
+    nullables: 0.1.0
     retries: 0.1.1
+    sdkHooks: 0.1.0
     webhooks: 1.0.0
 generatedFiles:
-  - src/main/java/io/codat/sync/payables/SecuritySource.java
-  - src/main/java/io/codat/sync/payables/SDKConfiguration.java
-  - src/main/java/io/codat/sync/payables/Companies.java
-  - src/main/java/io/codat/sync/payables/CompanyInformation.java
-  - src/main/java/io/codat/sync/payables/Connections.java
-  - src/main/java/io/codat/sync/payables/Bills.java
-  - src/main/java/io/codat/sync/payables/BankAccounts.java
-  - src/main/java/io/codat/sync/payables/BillPayments.java
-  - src/main/java/io/codat/sync/payables/Suppliers.java
-  - src/main/java/io/codat/sync/payables/models/operations/CreateCompanyRequestBuilder.java
-  - src/main/java/io/codat/sync/payables/models/operations/DeleteCompanyRequestBuilder.java
-  - src/main/java/io/codat/sync/payables/models/operations/GetCompanyRequestBuilder.java
-  - src/main/java/io/codat/sync/payables/models/operations/ListCompaniesRequestBuilder.java
-  - src/main/java/io/codat/sync/payables/models/operations/UpdateCompanyRequestBuilder.java
-  - src/main/java/io/codat/sync/payables/models/operations/GetCompanyInformationRequestBuilder.java
-  - src/main/java/io/codat/sync/payables/models/operations/CreateConnectionRequestBuilder.java
-  - src/main/java/io/codat/sync/payables/models/operations/DeleteConnectionRequestBuilder.java
-  - src/main/java/io/codat/sync/payables/models/operations/GetConnectionRequestBuilder.java
-  - src/main/java/io/codat/sync/payables/models/operations/ListConnectionsRequestBuilder.java
-  - src/main/java/io/codat/sync/payables/models/operations/UnlinkConnectionRequestBuilder.java
-  - src/main/java/io/codat/sync/payables/models/operations/CreateBillRequestBuilder.java
-  - src/main/java/io/codat/sync/payables/models/operations/DownloadBillAttachmentRequestBuilder.java
-  - src/main/java/io/codat/sync/payables/models/operations/GetMappingOptionsBillsRequestBuilder.java
-  - src/main/java/io/codat/sync/payables/models/operations/ListBillsRequestBuilder.java
-  - src/main/java/io/codat/sync/payables/models/operations/ListBillAttachmentsRequestBuilder.java
-  - src/main/java/io/codat/sync/payables/models/operations/UploadBillAttachmentRequestBuilder.java
-  - src/main/java/io/codat/sync/payables/models/operations/CreateBankAccountRequestBuilder.java
-  - src/main/java/io/codat/sync/payables/models/operations/CreateBillPaymentRequestBuilder.java
-  - src/main/java/io/codat/sync/payables/models/operations/GetMappingOptionsPaymentsRequestBuilder.java
-  - src/main/java/io/codat/sync/payables/models/operations/CreateSupplierRequestBuilder.java
-  - src/main/java/io/codat/sync/payables/models/operations/ListSuppliersRequestBuilder.java
-  - src/main/java/io/codat/sync/payables/models/operations/SDKMethodInterfaces.java
-  - src/main/java/io/codat/sync/payables/CodatSyncPayables.java
   - .gitattributes
+  - CONTRIBUTING.md
+  - USAGE.md
   - build.gradle
+  - docs/models/components/AccountMappingOption.md
+  - docs/models/components/AccountStatus.md
+  - docs/models/components/AccountType.md
+  - docs/models/components/Address.md
+  - docs/models/components/AddressType.md
+  - docs/models/components/Attachment.md
+  - docs/models/components/AttachmentUpload.md
+  - docs/models/components/BankAccount.md
+  - docs/models/components/BankAccountMappingOption.md
+  - docs/models/components/BankAccountPrototype.md
+  - docs/models/components/BankAccountStatus.md
+  - docs/models/components/BankAccountType.md
+  - docs/models/components/Bill.md
+  - docs/models/components/BillAccountRef.md
+  - docs/models/components/BillLineItem.md
+  - docs/models/components/BillMappingOptions.md
+  - docs/models/components/BillPayment.md
+  - docs/models/components/BillPaymentAccountRef.md
+  - docs/models/components/BillPaymentPrototype.md
+  - docs/models/components/BillPrototype.md
+  - docs/models/components/BillStatus.md
+  - docs/models/components/BillTaxRateRef.md
+  - docs/models/components/Bills.md
+  - docs/models/components/ClientRateLimitReachedWebhook.md
+  - docs/models/components/ClientRateLimitReachedWebhookData.md
+  - docs/models/components/ClientRateLimitResetWebhook.md
+  - docs/models/components/ClientRateLimitResetWebhookData.md
+  - docs/models/components/ClientRateLimitWebhook.md
+  - docs/models/components/ClientRateLimitWebhookPayload.md
+  - docs/models/components/CodatFile.md
+  - docs/models/components/Companies.md
+  - docs/models/components/Company.md
+  - docs/models/components/CompanyInformation.md
+  - docs/models/components/CompanyRequestBody.md
+  - docs/models/components/Connection.md
+  - docs/models/components/Connections.md
+  - docs/models/components/DataConnectionError.md
+  - docs/models/components/DataConnectionStatus.md
+  - docs/models/components/ErrorStatus.md
+  - docs/models/components/ErrorValidation.md
+  - docs/models/components/ErrorValidationItem.md
+  - docs/models/components/GroupReference.md
+  - docs/models/components/HalRef.md
+  - docs/models/components/Links.md
+  - docs/models/components/One.md
+  - docs/models/components/Pagination.md
+  - docs/models/components/PaymentMappingOptions.md
+  - docs/models/components/Security.md
+  - docs/models/components/SourceType.md
+  - docs/models/components/Supplier.md
+  - docs/models/components/SupplierPrototype.md
+  - docs/models/components/SupplierRef.md
+  - docs/models/components/SupplierStatus.md
+  - docs/models/components/Suppliers.md
+  - docs/models/components/Tags.md
+  - docs/models/components/TaxRateMappingOption.md
+  - docs/models/components/TaxRateStatus.md
+  - docs/models/errors/ErrorMessage.md
+  - docs/models/operations/CreateBankAccountRequest.md
+  - docs/models/operations/CreateBankAccountResponse.md
+  - docs/models/operations/CreateBillPaymentRequest.md
+  - docs/models/operations/CreateBillPaymentResponse.md
+  - docs/models/operations/CreateBillRequest.md
+  - docs/models/operations/CreateBillResponse.md
+  - docs/models/operations/CreateCompanyResponse.md
+  - docs/models/operations/CreateConnectionRequest.md
+  - docs/models/operations/CreateConnectionRequestBody.md
+  - docs/models/operations/CreateConnectionResponse.md
+  - docs/models/operations/CreateSupplierRequest.md
+  - docs/models/operations/CreateSupplierResponse.md
+  - docs/models/operations/DeleteCompanyRequest.md
+  - docs/models/operations/DeleteCompanyResponse.md
+  - docs/models/operations/DeleteConnectionRequest.md
+  - docs/models/operations/DeleteConnectionResponse.md
+  - docs/models/operations/DownloadBillAttachmentRequest.md
+  - docs/models/operations/DownloadBillAttachmentResponse.md
+  - docs/models/operations/GetCompanyInformationRequest.md
+  - docs/models/operations/GetCompanyInformationResponse.md
+  - docs/models/operations/GetCompanyRequest.md
+  - docs/models/operations/GetCompanyResponse.md
+  - docs/models/operations/GetConnectionRequest.md
+  - docs/models/operations/GetConnectionResponse.md
+  - docs/models/operations/GetMappingOptionsBillsRequest.md
+  - docs/models/operations/GetMappingOptionsBillsResponse.md
+  - docs/models/operations/GetMappingOptionsPaymentsRequest.md
+  - docs/models/operations/GetMappingOptionsPaymentsResponse.md
+  - docs/models/operations/ListBillAttachmentsRequest.md
+  - docs/models/operations/ListBillAttachmentsResponse.md
+  - docs/models/operations/ListBillsRequest.md
+  - docs/models/operations/ListBillsResponse.md
+  - docs/models/operations/ListCompaniesRequest.md
+  - docs/models/operations/ListCompaniesResponse.md
+  - docs/models/operations/ListConnectionsRequest.md
+  - docs/models/operations/ListConnectionsResponse.md
+  - docs/models/operations/ListSuppliersRequest.md
+  - docs/models/operations/ListSuppliersResponse.md
+  - docs/models/operations/UnlinkConnectionRequest.md
+  - docs/models/operations/UnlinkConnectionResponse.md
+  - docs/models/operations/UnlinkConnectionUpdateConnection.md
+  - docs/models/operations/UpdateCompanyRequest.md
+  - docs/models/operations/UpdateCompanyResponse.md
+  - docs/models/operations/UploadBillAttachmentRequest.md
+  - docs/models/operations/UploadBillAttachmentResponse.md
+  - docs/models/webhooks/ClientRateLimitReachedResponse.md
+  - docs/models/webhooks/ClientRateLimitReachedResponse1.md
+  - docs/models/webhooks/ClientRateLimitResetResponse.md
+  - docs/models/webhooks/ClientRateLimitResetResponse1.md
+  - docs/sdks/bankaccounts/README.md
+  - docs/sdks/billpayments/README.md
+  - docs/sdks/bills/README.md
+  - docs/sdks/codatsyncpayables/README.md
+  - docs/sdks/companies/README.md
+  - docs/sdks/companyinformation/README.md
+  - docs/sdks/connections/README.md
+  - docs/sdks/suppliers/README.md
   - gradle/wrapper/gradle-wrapper.jar
   - gradle/wrapper/gradle-wrapper.properties
   - gradlew
   - gradlew.bat
   - settings.gradle
+  - src/main/java/io/codat/sync/payables/BankAccounts.java
+  - src/main/java/io/codat/sync/payables/BillPayments.java
+  - src/main/java/io/codat/sync/payables/Bills.java
+  - src/main/java/io/codat/sync/payables/CodatSyncPayables.java
+  - src/main/java/io/codat/sync/payables/Companies.java
+  - src/main/java/io/codat/sync/payables/CompanyInformation.java
+  - src/main/java/io/codat/sync/payables/Connections.java
+  - src/main/java/io/codat/sync/payables/SDKConfiguration.java
+  - src/main/java/io/codat/sync/payables/SecuritySource.java
+  - src/main/java/io/codat/sync/payables/Suppliers.java
+  - src/main/java/io/codat/sync/payables/models/components/AccountMappingOption.java
+  - src/main/java/io/codat/sync/payables/models/components/AccountStatus.java
+  - src/main/java/io/codat/sync/payables/models/components/AccountType.java
+  - src/main/java/io/codat/sync/payables/models/components/Address.java
+  - src/main/java/io/codat/sync/payables/models/components/AddressType.java
+  - src/main/java/io/codat/sync/payables/models/components/Attachment.java
+  - src/main/java/io/codat/sync/payables/models/components/AttachmentUpload.java
+  - src/main/java/io/codat/sync/payables/models/components/BankAccount.java
+  - src/main/java/io/codat/sync/payables/models/components/BankAccountMappingOption.java
+  - src/main/java/io/codat/sync/payables/models/components/BankAccountPrototype.java
+  - src/main/java/io/codat/sync/payables/models/components/BankAccountStatus.java
+  - src/main/java/io/codat/sync/payables/models/components/BankAccountType.java
+  - src/main/java/io/codat/sync/payables/models/components/Bill.java
+  - src/main/java/io/codat/sync/payables/models/components/BillAccountRef.java
+  - src/main/java/io/codat/sync/payables/models/components/BillLineItem.java
+  - src/main/java/io/codat/sync/payables/models/components/BillMappingOptions.java
+  - src/main/java/io/codat/sync/payables/models/components/BillPayment.java
+  - src/main/java/io/codat/sync/payables/models/components/BillPaymentAccountRef.java
+  - src/main/java/io/codat/sync/payables/models/components/BillPaymentPrototype.java
+  - src/main/java/io/codat/sync/payables/models/components/BillPrototype.java
+  - src/main/java/io/codat/sync/payables/models/components/BillStatus.java
+  - src/main/java/io/codat/sync/payables/models/components/BillTaxRateRef.java
+  - src/main/java/io/codat/sync/payables/models/components/Bills.java
+  - src/main/java/io/codat/sync/payables/models/components/ClientRateLimitReachedWebhook.java
+  - src/main/java/io/codat/sync/payables/models/components/ClientRateLimitReachedWebhookData.java
+  - src/main/java/io/codat/sync/payables/models/components/ClientRateLimitResetWebhook.java
+  - src/main/java/io/codat/sync/payables/models/components/ClientRateLimitResetWebhookData.java
+  - src/main/java/io/codat/sync/payables/models/components/ClientRateLimitWebhook.java
+  - src/main/java/io/codat/sync/payables/models/components/ClientRateLimitWebhookPayload.java
+  - src/main/java/io/codat/sync/payables/models/components/CodatFile.java
+  - src/main/java/io/codat/sync/payables/models/components/Companies.java
+  - src/main/java/io/codat/sync/payables/models/components/Company.java
+  - src/main/java/io/codat/sync/payables/models/components/CompanyInformation.java
+  - src/main/java/io/codat/sync/payables/models/components/CompanyRequestBody.java
+  - src/main/java/io/codat/sync/payables/models/components/Connection.java
+  - src/main/java/io/codat/sync/payables/models/components/Connections.java
+  - src/main/java/io/codat/sync/payables/models/components/DataConnectionError.java
+  - src/main/java/io/codat/sync/payables/models/components/DataConnectionStatus.java
+  - src/main/java/io/codat/sync/payables/models/components/ErrorStatus.java
+  - src/main/java/io/codat/sync/payables/models/components/ErrorValidation.java
+  - src/main/java/io/codat/sync/payables/models/components/ErrorValidationItem.java
+  - src/main/java/io/codat/sync/payables/models/components/GroupReference.java
+  - src/main/java/io/codat/sync/payables/models/components/HalRef.java
+  - src/main/java/io/codat/sync/payables/models/components/Links.java
+  - src/main/java/io/codat/sync/payables/models/components/One.java
+  - src/main/java/io/codat/sync/payables/models/components/Pagination.java
+  - src/main/java/io/codat/sync/payables/models/components/PaymentMappingOptions.java
+  - src/main/java/io/codat/sync/payables/models/components/Security.java
+  - src/main/java/io/codat/sync/payables/models/components/SourceType.java
+  - src/main/java/io/codat/sync/payables/models/components/Supplier.java
+  - src/main/java/io/codat/sync/payables/models/components/SupplierPrototype.java
+  - src/main/java/io/codat/sync/payables/models/components/SupplierRef.java
+  - src/main/java/io/codat/sync/payables/models/components/SupplierStatus.java
+  - src/main/java/io/codat/sync/payables/models/components/Suppliers.java
+  - src/main/java/io/codat/sync/payables/models/components/Tags.java
+  - src/main/java/io/codat/sync/payables/models/components/TaxRateMappingOption.java
+  - src/main/java/io/codat/sync/payables/models/components/TaxRateStatus.java
+  - src/main/java/io/codat/sync/payables/models/errors/AuthException.java
+  - src/main/java/io/codat/sync/payables/models/errors/ErrorMessage.java
+  - src/main/java/io/codat/sync/payables/models/errors/SDKError.java
+  - src/main/java/io/codat/sync/payables/models/operations/CreateBankAccountRequest.java
+  - src/main/java/io/codat/sync/payables/models/operations/CreateBankAccountRequestBuilder.java
+  - src/main/java/io/codat/sync/payables/models/operations/CreateBankAccountResponse.java
+  - src/main/java/io/codat/sync/payables/models/operations/CreateBillPaymentRequest.java
+  - src/main/java/io/codat/sync/payables/models/operations/CreateBillPaymentRequestBuilder.java
+  - src/main/java/io/codat/sync/payables/models/operations/CreateBillPaymentResponse.java
+  - src/main/java/io/codat/sync/payables/models/operations/CreateBillRequest.java
+  - src/main/java/io/codat/sync/payables/models/operations/CreateBillRequestBuilder.java
+  - src/main/java/io/codat/sync/payables/models/operations/CreateBillResponse.java
+  - src/main/java/io/codat/sync/payables/models/operations/CreateCompanyRequestBuilder.java
+  - src/main/java/io/codat/sync/payables/models/operations/CreateCompanyResponse.java
+  - src/main/java/io/codat/sync/payables/models/operations/CreateConnectionRequest.java
+  - src/main/java/io/codat/sync/payables/models/operations/CreateConnectionRequestBody.java
+  - src/main/java/io/codat/sync/payables/models/operations/CreateConnectionRequestBuilder.java
+  - src/main/java/io/codat/sync/payables/models/operations/CreateConnectionResponse.java
+  - src/main/java/io/codat/sync/payables/models/operations/CreateSupplierRequest.java
+  - src/main/java/io/codat/sync/payables/models/operations/CreateSupplierRequestBuilder.java
+  - src/main/java/io/codat/sync/payables/models/operations/CreateSupplierResponse.java
+  - src/main/java/io/codat/sync/payables/models/operations/DeleteCompanyRequest.java
+  - src/main/java/io/codat/sync/payables/models/operations/DeleteCompanyRequestBuilder.java
+  - src/main/java/io/codat/sync/payables/models/operations/DeleteCompanyResponse.java
+  - src/main/java/io/codat/sync/payables/models/operations/DeleteConnectionRequest.java
+  - src/main/java/io/codat/sync/payables/models/operations/DeleteConnectionRequestBuilder.java
+  - src/main/java/io/codat/sync/payables/models/operations/DeleteConnectionResponse.java
+  - src/main/java/io/codat/sync/payables/models/operations/DownloadBillAttachmentRequest.java
+  - src/main/java/io/codat/sync/payables/models/operations/DownloadBillAttachmentRequestBuilder.java
+  - src/main/java/io/codat/sync/payables/models/operations/DownloadBillAttachmentResponse.java
+  - src/main/java/io/codat/sync/payables/models/operations/GetCompanyInformationRequest.java
+  - src/main/java/io/codat/sync/payables/models/operations/GetCompanyInformationRequestBuilder.java
+  - src/main/java/io/codat/sync/payables/models/operations/GetCompanyInformationResponse.java
+  - src/main/java/io/codat/sync/payables/models/operations/GetCompanyRequest.java
+  - src/main/java/io/codat/sync/payables/models/operations/GetCompanyRequestBuilder.java
+  - src/main/java/io/codat/sync/payables/models/operations/GetCompanyResponse.java
+  - src/main/java/io/codat/sync/payables/models/operations/GetConnectionRequest.java
+  - src/main/java/io/codat/sync/payables/models/operations/GetConnectionRequestBuilder.java
+  - src/main/java/io/codat/sync/payables/models/operations/GetConnectionResponse.java
+  - src/main/java/io/codat/sync/payables/models/operations/GetMappingOptionsBillsRequest.java
+  - src/main/java/io/codat/sync/payables/models/operations/GetMappingOptionsBillsRequestBuilder.java
+  - src/main/java/io/codat/sync/payables/models/operations/GetMappingOptionsBillsResponse.java
+  - src/main/java/io/codat/sync/payables/models/operations/GetMappingOptionsPaymentsRequest.java
+  - src/main/java/io/codat/sync/payables/models/operations/GetMappingOptionsPaymentsRequestBuilder.java
+  - src/main/java/io/codat/sync/payables/models/operations/GetMappingOptionsPaymentsResponse.java
+  - src/main/java/io/codat/sync/payables/models/operations/ListBillAttachmentsRequest.java
+  - src/main/java/io/codat/sync/payables/models/operations/ListBillAttachmentsRequestBuilder.java
+  - src/main/java/io/codat/sync/payables/models/operations/ListBillAttachmentsResponse.java
+  - src/main/java/io/codat/sync/payables/models/operations/ListBillsRequest.java
+  - src/main/java/io/codat/sync/payables/models/operations/ListBillsRequestBuilder.java
+  - src/main/java/io/codat/sync/payables/models/operations/ListBillsResponse.java
+  - src/main/java/io/codat/sync/payables/models/operations/ListCompaniesRequest.java
+  - src/main/java/io/codat/sync/payables/models/operations/ListCompaniesRequestBuilder.java
+  - src/main/java/io/codat/sync/payables/models/operations/ListCompaniesResponse.java
+  - src/main/java/io/codat/sync/payables/models/operations/ListConnectionsRequest.java
+  - src/main/java/io/codat/sync/payables/models/operations/ListConnectionsRequestBuilder.java
+  - src/main/java/io/codat/sync/payables/models/operations/ListConnectionsResponse.java
+  - src/main/java/io/codat/sync/payables/models/operations/ListSuppliersRequest.java
+  - src/main/java/io/codat/sync/payables/models/operations/ListSuppliersRequestBuilder.java
+  - src/main/java/io/codat/sync/payables/models/operations/ListSuppliersResponse.java
+  - src/main/java/io/codat/sync/payables/models/operations/SDKMethodInterfaces.java
+  - src/main/java/io/codat/sync/payables/models/operations/UnlinkConnectionRequest.java
+  - src/main/java/io/codat/sync/payables/models/operations/UnlinkConnectionRequestBuilder.java
+  - src/main/java/io/codat/sync/payables/models/operations/UnlinkConnectionResponse.java
+  - src/main/java/io/codat/sync/payables/models/operations/UnlinkConnectionUpdateConnection.java
+  - src/main/java/io/codat/sync/payables/models/operations/UpdateCompanyRequest.java
+  - src/main/java/io/codat/sync/payables/models/operations/UpdateCompanyRequestBuilder.java
+  - src/main/java/io/codat/sync/payables/models/operations/UpdateCompanyResponse.java
+  - src/main/java/io/codat/sync/payables/models/operations/UploadBillAttachmentRequest.java
+  - src/main/java/io/codat/sync/payables/models/operations/UploadBillAttachmentRequestBuilder.java
+  - src/main/java/io/codat/sync/payables/models/operations/UploadBillAttachmentResponse.java
+  - src/main/java/io/codat/sync/payables/models/webhooks/ClientRateLimitReachedResponse.java
+  - src/main/java/io/codat/sync/payables/models/webhooks/ClientRateLimitReachedResponse1.java
+  - src/main/java/io/codat/sync/payables/models/webhooks/ClientRateLimitResetResponse.java
+  - src/main/java/io/codat/sync/payables/models/webhooks/ClientRateLimitResetResponse1.java
   - src/main/java/io/codat/sync/payables/utils/BackoffStrategy.java
   - src/main/java/io/codat/sync/payables/utils/BigDecimalString.java
   - src/main/java/io/codat/sync/payables/utils/BigIntegerString.java
   - src/main/java/io/codat/sync/payables/utils/Deserializers.java
+  - src/main/java/io/codat/sync/payables/utils/EventStream.java
+  - src/main/java/io/codat/sync/payables/utils/EventStreamLineReader.java
+  - src/main/java/io/codat/sync/payables/utils/EventStreamMessage.java
+  - src/main/java/io/codat/sync/payables/utils/EventStreamReader.java
   - src/main/java/io/codat/sync/payables/utils/FormMetadata.java
   - src/main/java/io/codat/sync/payables/utils/HTTPClient.java
   - src/main/java/io/codat/sync/payables/utils/HTTPRequest.java
   - src/main/java/io/codat/sync/payables/utils/HeaderMetadata.java
+  - src/main/java/io/codat/sync/payables/utils/Helpers.java
+  - src/main/java/io/codat/sync/payables/utils/Hook.java
+  - src/main/java/io/codat/sync/payables/utils/Hooks.java
   - src/main/java/io/codat/sync/payables/utils/JSON.java
   - src/main/java/io/codat/sync/payables/utils/LazySingletonValue.java
   - src/main/java/io/codat/sync/payables/utils/Metadata.java
@@ -90,220 +328,693 @@ generatedFiles:
   - src/main/java/io/codat/sync/payables/utils/SecurityMetadata.java
   - src/main/java/io/codat/sync/payables/utils/SerializedBody.java
   - src/main/java/io/codat/sync/payables/utils/SpeakeasyHTTPClient.java
-  - src/main/java/io/codat/sync/payables/utils/SpeakeasyHTTPSecurityClient.java
   - src/main/java/io/codat/sync/payables/utils/SpeakeasyMetadata.java
   - src/main/java/io/codat/sync/payables/utils/TypedObject.java
   - src/main/java/io/codat/sync/payables/utils/Types.java
   - src/main/java/io/codat/sync/payables/utils/Utils.java
-  - src/main/java/io/codat/sync/payables/models/errors/SDKError.java
-  - src/main/java/io/codat/sync/payables/models/operations/CreateCompanyResponse.java
-  - src/main/java/io/codat/sync/payables/models/operations/DeleteCompanyRequest.java
-  - src/main/java/io/codat/sync/payables/models/operations/DeleteCompanyResponse.java
-  - src/main/java/io/codat/sync/payables/models/operations/GetCompanyRequest.java
-  - src/main/java/io/codat/sync/payables/models/operations/GetCompanyResponse.java
-  - src/main/java/io/codat/sync/payables/models/operations/ListCompaniesRequest.java
-  - src/main/java/io/codat/sync/payables/models/operations/ListCompaniesResponse.java
-  - src/main/java/io/codat/sync/payables/models/operations/UpdateCompanyRequest.java
-  - src/main/java/io/codat/sync/payables/models/operations/UpdateCompanyResponse.java
-  - src/main/java/io/codat/sync/payables/models/operations/GetCompanyInformationRequest.java
-  - src/main/java/io/codat/sync/payables/models/operations/GetCompanyInformationResponse.java
-  - src/main/java/io/codat/sync/payables/models/operations/CreateConnectionRequestBody.java
-  - src/main/java/io/codat/sync/payables/models/operations/CreateConnectionRequest.java
-  - src/main/java/io/codat/sync/payables/models/operations/CreateConnectionResponse.java
-  - src/main/java/io/codat/sync/payables/models/operations/DeleteConnectionRequest.java
-  - src/main/java/io/codat/sync/payables/models/operations/DeleteConnectionResponse.java
-  - src/main/java/io/codat/sync/payables/models/operations/GetConnectionRequest.java
-  - src/main/java/io/codat/sync/payables/models/operations/GetConnectionResponse.java
-  - src/main/java/io/codat/sync/payables/models/operations/ListConnectionsRequest.java
-  - src/main/java/io/codat/sync/payables/models/operations/ListConnectionsResponse.java
-  - src/main/java/io/codat/sync/payables/models/operations/UnlinkConnectionUpdateConnection.java
-  - src/main/java/io/codat/sync/payables/models/operations/UnlinkConnectionRequest.java
-  - src/main/java/io/codat/sync/payables/models/operations/UnlinkConnectionResponse.java
-  - src/main/java/io/codat/sync/payables/models/operations/CreateBillRequest.java
-  - src/main/java/io/codat/sync/payables/models/operations/CreateBillResponse.java
-  - src/main/java/io/codat/sync/payables/models/operations/DownloadBillAttachmentRequest.java
-  - src/main/java/io/codat/sync/payables/models/operations/DownloadBillAttachmentResponse.java
-  - src/main/java/io/codat/sync/payables/models/operations/GetMappingOptionsBillsRequest.java
-  - src/main/java/io/codat/sync/payables/models/operations/GetMappingOptionsBillsResponse.java
-  - src/main/java/io/codat/sync/payables/models/operations/ListBillsRequest.java
-  - src/main/java/io/codat/sync/payables/models/operations/ListBillsResponse.java
-  - src/main/java/io/codat/sync/payables/models/operations/ListBillAttachmentsRequest.java
-  - src/main/java/io/codat/sync/payables/models/operations/ListBillAttachmentsResponse.java
-  - src/main/java/io/codat/sync/payables/models/operations/UploadBillAttachmentRequest.java
-  - src/main/java/io/codat/sync/payables/models/operations/UploadBillAttachmentResponse.java
-  - src/main/java/io/codat/sync/payables/models/operations/CreateBankAccountRequest.java
-  - src/main/java/io/codat/sync/payables/models/operations/CreateBankAccountResponse.java
-  - src/main/java/io/codat/sync/payables/models/operations/CreateBillPaymentRequest.java
-  - src/main/java/io/codat/sync/payables/models/operations/CreateBillPaymentResponse.java
-  - src/main/java/io/codat/sync/payables/models/operations/GetMappingOptionsPaymentsRequest.java
-  - src/main/java/io/codat/sync/payables/models/operations/GetMappingOptionsPaymentsResponse.java
-  - src/main/java/io/codat/sync/payables/models/operations/CreateSupplierRequest.java
-  - src/main/java/io/codat/sync/payables/models/operations/CreateSupplierResponse.java
-  - src/main/java/io/codat/sync/payables/models/operations/ListSuppliersRequest.java
-  - src/main/java/io/codat/sync/payables/models/operations/ListSuppliersResponse.java
-  - src/main/java/io/codat/sync/payables/models/components/One.java
-  - src/main/java/io/codat/sync/payables/models/components/ErrorMessage.java
-  - src/main/java/io/codat/sync/payables/models/components/ErrorValidation.java
-  - src/main/java/io/codat/sync/payables/models/components/ErrorValidationItem.java
-  - src/main/java/io/codat/sync/payables/models/components/GroupReference.java
-  - src/main/java/io/codat/sync/payables/models/components/Company.java
-  - src/main/java/io/codat/sync/payables/models/components/SourceType.java
-  - src/main/java/io/codat/sync/payables/models/components/Connection.java
-  - src/main/java/io/codat/sync/payables/models/components/DataConnectionStatus.java
-  - src/main/java/io/codat/sync/payables/models/components/DataConnectionError.java
-  - src/main/java/io/codat/sync/payables/models/components/CompanyRequestBody.java
-  - src/main/java/io/codat/sync/payables/models/components/Items.java
-  - src/main/java/io/codat/sync/payables/models/components/Companies.java
-  - src/main/java/io/codat/sync/payables/models/components/Links.java
-  - src/main/java/io/codat/sync/payables/models/components/HalRef.java
-  - src/main/java/io/codat/sync/payables/models/components/CompanyInformation.java
-  - src/main/java/io/codat/sync/payables/models/components/Connections.java
-  - src/main/java/io/codat/sync/payables/models/components/Bill.java
-  - src/main/java/io/codat/sync/payables/models/components/SupplierRef.java
-  - src/main/java/io/codat/sync/payables/models/components/BillStatus.java
-  - src/main/java/io/codat/sync/payables/models/components/BillLineItem.java
-  - src/main/java/io/codat/sync/payables/models/components/BillTaxRateRef.java
-  - src/main/java/io/codat/sync/payables/models/components/BillAccountRef.java
-  - src/main/java/io/codat/sync/payables/models/components/BillPrototype.java
-  - src/main/java/io/codat/sync/payables/models/components/BillMappingOptions.java
-  - src/main/java/io/codat/sync/payables/models/components/TaxRateStatus.java
-  - src/main/java/io/codat/sync/payables/models/components/TaxRateMappingOption.java
-  - src/main/java/io/codat/sync/payables/models/components/Pagination.java
-  - src/main/java/io/codat/sync/payables/models/components/AccountMappingOption.java
-  - src/main/java/io/codat/sync/payables/models/components/AccountStatus.java
-  - src/main/java/io/codat/sync/payables/models/components/Bills.java
-  - src/main/java/io/codat/sync/payables/models/components/Attachment.java
-  - src/main/java/io/codat/sync/payables/models/components/AttachmentUpload.java
-  - src/main/java/io/codat/sync/payables/models/components/CodatFile.java
-  - src/main/java/io/codat/sync/payables/models/components/BankAccountType.java
-  - src/main/java/io/codat/sync/payables/models/components/BankAccount.java
-  - src/main/java/io/codat/sync/payables/models/components/BankAccountStatus.java
-  - src/main/java/io/codat/sync/payables/models/components/BankAccountPrototype.java
-  - src/main/java/io/codat/sync/payables/models/components/AccountType.java
-  - src/main/java/io/codat/sync/payables/models/components/BillPayment.java
-  - src/main/java/io/codat/sync/payables/models/components/BillPaymentPrototype.java
-  - src/main/java/io/codat/sync/payables/models/components/PaymentMappingOptions.java
-  - src/main/java/io/codat/sync/payables/models/components/BankAccountMappingOption.java
-  - src/main/java/io/codat/sync/payables/models/components/Supplier.java
-  - src/main/java/io/codat/sync/payables/models/components/SupplierStatus.java
-  - src/main/java/io/codat/sync/payables/models/components/Address.java
-  - src/main/java/io/codat/sync/payables/models/components/AddressType.java
-  - src/main/java/io/codat/sync/payables/models/components/SupplierPrototype.java
-  - src/main/java/io/codat/sync/payables/models/components/Suppliers.java
-  - src/main/java/io/codat/sync/payables/models/components/Security.java
-  - src/main/java/io/codat/sync/payables/models/components/ClientRateLimitReachedWebhook.java
-  - src/main/java/io/codat/sync/payables/models/components/ClientRateLimitReachedWebhookData.java
-  - src/main/java/io/codat/sync/payables/models/components/ClientRateLimitResetWebhook.java
-  - src/main/java/io/codat/sync/payables/models/components/ClientRateLimitResetWebhookData.java
-  - src/main/java/io/codat/sync/payables/models/webhooks/ClientRateLimitReachedResponse.java
-  - src/main/java/io/codat/sync/payables/models/webhooks/ClientRateLimitResetResponse.java
-  - docs/models/operations/CreateCompanyResponse.md
-  - docs/models/operations/DeleteCompanyRequest.md
-  - docs/models/operations/DeleteCompanyResponse.md
-  - docs/models/operations/GetCompanyRequest.md
-  - docs/models/operations/GetCompanyResponse.md
-  - docs/models/operations/ListCompaniesRequest.md
-  - docs/models/operations/ListCompaniesResponse.md
-  - docs/models/operations/UpdateCompanyRequest.md
-  - docs/models/operations/UpdateCompanyResponse.md
-  - docs/models/operations/GetCompanyInformationRequest.md
-  - docs/models/operations/GetCompanyInformationResponse.md
-  - docs/models/operations/CreateConnectionRequestBody.md
-  - docs/models/operations/CreateConnectionRequest.md
-  - docs/models/operations/CreateConnectionResponse.md
-  - docs/models/operations/DeleteConnectionRequest.md
-  - docs/models/operations/DeleteConnectionResponse.md
-  - docs/models/operations/GetConnectionRequest.md
-  - docs/models/operations/GetConnectionResponse.md
-  - docs/models/operations/ListConnectionsRequest.md
-  - docs/models/operations/ListConnectionsResponse.md
-  - docs/models/operations/UnlinkConnectionUpdateConnection.md
-  - docs/models/operations/UnlinkConnectionRequest.md
-  - docs/models/operations/UnlinkConnectionResponse.md
-  - docs/models/operations/CreateBillRequest.md
-  - docs/models/operations/CreateBillResponse.md
-  - docs/models/operations/DownloadBillAttachmentRequest.md
-  - docs/models/operations/DownloadBillAttachmentResponse.md
-  - docs/models/operations/GetMappingOptionsBillsRequest.md
-  - docs/models/operations/GetMappingOptionsBillsResponse.md
-  - docs/models/operations/ListBillsRequest.md
-  - docs/models/operations/ListBillsResponse.md
-  - docs/models/operations/ListBillAttachmentsRequest.md
-  - docs/models/operations/ListBillAttachmentsResponse.md
-  - docs/models/operations/UploadBillAttachmentRequest.md
-  - docs/models/operations/UploadBillAttachmentResponse.md
-  - docs/models/operations/CreateBankAccountRequest.md
-  - docs/models/operations/CreateBankAccountResponse.md
-  - docs/models/operations/CreateBillPaymentRequest.md
-  - docs/models/operations/CreateBillPaymentResponse.md
-  - docs/models/operations/GetMappingOptionsPaymentsRequest.md
-  - docs/models/operations/GetMappingOptionsPaymentsResponse.md
-  - docs/models/operations/CreateSupplierRequest.md
-  - docs/models/operations/CreateSupplierResponse.md
-  - docs/models/operations/ListSuppliersRequest.md
-  - docs/models/operations/ListSuppliersResponse.md
-  - docs/models/components/One.md
-  - docs/models/components/ErrorMessage.md
-  - docs/models/components/ErrorValidation.md
-  - docs/models/components/ErrorValidationItem.md
-  - docs/models/components/GroupReference.md
-  - docs/models/components/Company.md
-  - docs/models/components/SourceType.md
-  - docs/models/components/Connection.md
-  - docs/models/components/DataConnectionStatus.md
-  - docs/models/components/DataConnectionError.md
-  - docs/models/components/CompanyRequestBody.md
-  - docs/models/components/Items.md
-  - docs/models/components/Companies.md
-  - docs/models/components/Links.md
-  - docs/models/components/HalRef.md
-  - docs/models/components/CompanyInformation.md
-  - docs/models/components/Connections.md
-  - docs/models/components/Bill.md
-  - docs/models/components/SupplierRef.md
-  - docs/models/components/BillStatus.md
-  - docs/models/components/BillLineItem.md
-  - docs/models/components/BillTaxRateRef.md
-  - docs/models/components/BillAccountRef.md
-  - docs/models/components/BillPrototype.md
-  - docs/models/components/BillMappingOptions.md
-  - docs/models/components/TaxRateStatus.md
-  - docs/models/components/TaxRateMappingOption.md
-  - docs/models/components/Pagination.md
-  - docs/models/components/AccountMappingOption.md
-  - docs/models/components/AccountStatus.md
-  - docs/models/components/Bills.md
-  - docs/models/components/Attachment.md
-  - docs/models/components/AttachmentUpload.md
-  - docs/models/components/CodatFile.md
-  - docs/models/components/BankAccountType.md
-  - docs/models/components/BankAccount.md
-  - docs/models/components/BankAccountStatus.md
-  - docs/models/components/BankAccountPrototype.md
-  - docs/models/components/AccountType.md
-  - docs/models/components/BillPayment.md
-  - docs/models/components/BillPaymentPrototype.md
-  - docs/models/components/PaymentMappingOptions.md
-  - docs/models/components/BankAccountMappingOption.md
-  - docs/models/components/Supplier.md
-  - docs/models/components/SupplierStatus.md
-  - docs/models/components/Address.md
-  - docs/models/components/AddressType.md
-  - docs/models/components/SupplierPrototype.md
-  - docs/models/components/Suppliers.md
-  - docs/models/components/Security.md
-  - docs/models/components/ClientRateLimitReachedWebhook.md
-  - docs/models/components/ClientRateLimitReachedWebhookData.md
-  - docs/models/components/ClientRateLimitResetWebhook.md
-  - docs/models/components/ClientRateLimitResetWebhookData.md
-  - docs/models/webhooks/ClientRateLimitReachedResponse.md
-  - docs/models/webhooks/ClientRateLimitResetResponse.md
-  - docs/sdks/codatsyncpayables/README.md
-  - docs/sdks/companies/README.md
-  - docs/sdks/companyinformation/README.md
-  - docs/sdks/connections/README.md
-  - docs/sdks/bills/README.md
-  - docs/sdks/bankaccounts/README.md
-  - docs/sdks/billpayments/README.md
-  - docs/sdks/suppliers/README.md
-  - USAGE.md
+examples:
+  create-company:
+    With no description:
+      requestBody:
+        application/json: {"description": "Requested early access to the new financing scheme.", "groups": [], "name": "Technicalium"}
+      responses:
+        "200":
+          application/json: {"created": "2022-11-10T10:45:18.1950523Z", "createdByUserName": "Dan Tzabar", "dataConnections": [], "description": "", "id": "ab12c58d-a678-4ebf-a159-ae99e1807bd0", "lastSync": "2022-10-23T00:00:00Z", "name": "Technicalium", "redirect": "https://link.codat.io/company/ab12c58d-a678-4ebf-a159-ae99e1807bd0"}
+        "400": {}
+    With a description:
+      requestBody:
+        application/json: {"description": "Technology services, including web and app design and development", "groups": [], "name": "Technicalium"}
+      responses:
+        "200":
+          application/json: {"created": "2022-11-10T10:45:18.1950523Z", "createdByUserName": "Dan Tzabar", "dataConnections": [], "description": "Technology services, including web and app design and development", "id": "ab12c58d-a678-4ebf-a159-ae99e1807bd0", "lastSync": "2022-10-23T00:00:00Z", "name": "Technicalium", "redirect": "https://link.codat.io/company/ab12c58d-a678-4ebf-a159-ae99e1807bd0"}
+        "400": {}
+    With a group:
+      requestBody:
+        application/json: {"description": "Requested early access to the new financing scheme.", "groups": [{"id": "d7a6c4b4-dc87-45f6-b803-62f466398680"}], "name": "Technicalium"}
+      responses:
+        "200":
+          application/json: {"created": "2022-11-10T10:45:18.1950523Z", "createdByUserName": "Dan Tzabar", "dataConnections": [], "description": "", "id": "ab12c58d-a678-4ebf-a159-ae99e1807bd0", "lastSync": "2022-10-23T00:00:00Z", "name": "Technicalium", "redirect": "https://link.codat.io/company/ab12c58d-a678-4ebf-a159-ae99e1807bd0"}
+        "400": {}
+    Malformed query:
+      requestBody:
+        application/json: {"description": "Requested early access to the new financing scheme.", "groups": [], "name": "Bank of Dave"}
+      responses:
+        "400":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "bc997528a9d7abb9161ef45f05d38599", "detailedErrorCode": 0, "error": "Error processing request - not valid.", "service": "PublicApi", "statusCode": 400}
+  delete-company:
+    Unauthorized:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+      responses:
+        "401":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "7eb40d6b415d7bcd99ce658268284056", "detailedErrorCode": 0, "error": "Unauthorized", "service": "PublicApi", "statusCode": 401}
+  get-company:
+    Simple company:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+      responses:
+        "200":
+          application/json: {"created": "2022-11-10T10:45:18Z", "createdByUserName": "Dan Tzabar", "dataConnections": [], "description": "", "id": "ab12c58d-a678-4ebf-a159-ae99e1807bd0", "lastSync": "2022-10-23T00:00:00Z", "name": "My First Company", "redirect": "https://link.codat.io/company/ab12c58d-a678-4ebf-a159-ae99e1807bd0"}
+    With groups:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+      responses:
+        "200":
+          application/json: {"created": "2022-11-10T10:45:18Z", "createdByUserName": "Dan Tzabar", "dataConnections": [], "description": "", "id": "ab12c58d-a678-4ebf-a159-ae99e1807bd0", "lastSync": "2022-10-23T00:00:00Z", "name": "My First Company", "redirect": "https://link.codat.io/company/ab12c58d-a678-4ebf-a159-ae99e1807bd0"}
+    Unauthorized:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+      responses:
+        "401":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "7eb40d6b415d7bcd99ce658268284056", "detailedErrorCode": 0, "error": "Unauthorized", "service": "PublicApi", "statusCode": 401}
+  list-companies:
+    "":
+      parameters:
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "200":
+          application/json: {"_links": {"current": {"href": "/companies/{id}/data/{dataType}?page=1&pageSize=10"}, "self": {"href": "/companies/{id}/data/{dataType}"}}, "pageNumber": 1, "pageSize": 10, "results": [{"created": "2022-01-01T12:00:00.000Z", "createdByUserName": "string", "dataConnections": [{"created": "2022-10-27T09:53:29Z", "dataConnectionErrors": [], "id": "ee2eb431-c0fa-4dc9-93fa-d29781c12bcd", "integrationId": "bf083d72-62c7-493e-aec9-81b4dbba7e2c", "integrationKey": "dfxm", "lastSync": "2022-10-27T10:22:43.6464237Z", "linkUrl": "https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start", "platformName": "Basiq", "sourceId": "bdd831ce-eebd-4896-89a7-20e5ee8989ee", "sourceType": "Banking", "status": "Linked"}], "description": "Requested early access to the new financing scheme.", "id": "0498e921-9b53-4396-a412-4f2f5983b0a2", "lastSync": "2022-01-01T12:00:00.000Z", "name": "string", "redirect": "https://link.codat.io/company/27628208-459c-46a2-a705-5641ce25f739"}], "totalResults": 1}
+        "400": {}
+    One company:
+      parameters:
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "200":
+          application/json: {"_links": {"current": {"href": "/companies?page=1&pageSize=100"}, "self": {"href": "/companies"}}, "pageNumber": 1, "pageSize": 100, "results": [{"created": "2022-01-01T11:30:00Z", "createdByUserName": "Mike Smith", "dataConnections": [{"created": "2022-01-01T11:30:00Z", "dataConnectionErrors": [], "id": "51baa045-4836-4317-a42e-3542e991e581", "integrationId": "1c312d69-e638-46d4-ad31-72e6c3ba8390", "integrationKey": "vjms", "lastSync": "2022-01-01T12:30:00.000Z", "linkUrl": "https://link-api.codat.io/companies/3fa85f64-5717-4562-b3fc-2c963f66afa6/connections/51baa045-4836-4317-a42e-3542e991e581/start", "platformName": "Pandle", "sourceId": "396c3158-5dd7-481b-a7c4-a795ca31792b", "sourceType": "Accounting", "status": "Linked"}], "description": "My Test Company make testing software", "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6", "lastSync": "2022-01-01T12:30:00.000Z", "name": "My Test Company", "redirect": "https://link.codat.io/company/3fa85f64-5717-4562-b3fc-2c963f66afa6"}], "totalResults": 1}
+    List of Companies:
+      parameters:
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "200":
+          application/json: {"_links": {"current": {"href": "/companies?page=1&pageSize=100"}, "self": {"href": "/companies"}}, "pageNumber": 1, "pageSize": 100, "results": [{"created": "2022-01-01T11:30:00Z", "createdByUserName": "Joe Bloggs", "dataConnections": [{"created": "2022-01-01T11:30:00Z", "dataConnectionErrors": [], "id": "51baa045-4836-4317-a42e-3542e991e581", "integrationId": "1c312d69-e638-46d4-ad31-72e6c3ba8390", "integrationKey": "vjms", "lastSync": "2022-01-01T12:30:00.000Z", "linkUrl": "https://link-api.codat.io/companies/d1568dde-adf6-11ed-afa1-0242ac120002/connections/51baa045-4836-4317-a42e-3542e991e581/start", "platformName": "Pandle", "sourceId": "396c3158-5dd7-481b-a7c4-a795ca31792b", "sourceType": "Accounting", "status": "Linked"}], "description": "Technology services, including web and app design and development", "id": "d1568dde-adf6-11ed-afa1-0242ac120002", "lastSync": "2022-01-01T12:30:00.000Z", "name": "Technicalium", "redirect": "https://link.codat.io/company/d1568dde-adf6-11ed-afa1-0242ac120002"}, {"created": "2022-01-01T11:30:00Z", "createdByUserName": "Mike Smith", "dataConnections": [{"created": "2022-01-01T11:30:00Z", "dataConnectionErrors": [], "id": "a70bc148-dc21-46b2-a257-d9c58ac15cbb", "integrationId": "1c312d69-e638-46d4-ad31-72e6c3ba8390", "integrationKey": "vjms", "lastSync": "2022-01-01T12:30:00.000Z", "linkUrl": "https://link-api.codat.io/companies/096db70b-78de-4ff0-aa98-299cb5fe17a0/connections/a70bc148-dc21-46b2-a257-d9c58ac15cbb/start", "platformName": "Pandle", "sourceId": "396c3158-5dd7-481b-a7c4-a795ca31792b", "sourceType": "Accounting", "status": "Linked"}], "description": "A new digital agency with a passion for creating amazing digital experiences", "id": "096db70b-78de-4ff0-aa98-299cb5fe17a0", "lastSync": "2022-01-01T12:30:00.000Z", "name": "Godata", "redirect": "https://link.codat.io/company/096db70b-78de-4ff0-aa98-299cb5fe17a0"}], "totalResults": 2}
+    Malformed query:
+      parameters:
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "400":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "bc997528a9d7abb9161ef45f05d38599", "detailedErrorCode": 0, "error": "Error parsing query - Malformed query.", "service": "ClientsApi", "statusCode": 400}
+    Unresolved property:
+      parameters:
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "400":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "98457fb9956b7f9b4b2fd4f6e23bb5c8", "detailedErrorCode": 0, "error": "Error parsing query - Could not resolve property isCompleted on Dataset", "service": "PullApi", "statusCode": 400}
+  update-company:
+    Update name:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+      requestBody:
+        application/json: {"description": "Requested early access to the new financing scheme.", "groups": [], "name": "New Name"}
+      responses:
+        "200":
+          application/json: {"created": "2022-01-01T12:00:00.000Z", "createdByUserName": "string", "dataConnections": [{"created": "2022-10-27T09:53:29Z", "dataConnectionErrors": [], "id": "ee2eb431-c0fa-4dc9-93fa-d29781c12bcd", "integrationId": "bf083d72-62c7-493e-aec9-81b4dbba7e2c", "integrationKey": "dfxm", "lastSync": "2022-10-27T10:22:43.6464237Z", "linkUrl": "https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start", "platformName": "Basiq", "sourceId": "bdd831ce-eebd-4896-89a7-20e5ee8989ee", "sourceType": "Banking", "status": "Linked"}], "description": "Requested early access to the new financing scheme.", "id": "0498e921-9b53-4396-a412-4f2f5983b0a2", "lastSync": "2022-01-01T12:00:00.000Z", "name": "string", "redirect": "https://link.codat.io/company/27628208-459c-46a2-a705-5641ce25f739"}
+        "401": {}
+    Update description:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+      requestBody:
+        application/json: {"description": "Additional documents required", "groups": [], "name": "Same name"}
+      responses:
+        "200":
+          application/json: {"created": "2022-01-01T12:00:00.000Z", "createdByUserName": "string", "dataConnections": [{"created": "2022-10-27T09:53:29Z", "dataConnectionErrors": [], "id": "ee2eb431-c0fa-4dc9-93fa-d29781c12bcd", "integrationId": "bf083d72-62c7-493e-aec9-81b4dbba7e2c", "integrationKey": "dfxm", "lastSync": "2022-10-27T10:22:43.6464237Z", "linkUrl": "https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start", "platformName": "Basiq", "sourceId": "bdd831ce-eebd-4896-89a7-20e5ee8989ee", "sourceType": "Banking", "status": "Linked"}], "description": "Requested early access to the new financing scheme.", "id": "0498e921-9b53-4396-a412-4f2f5983b0a2", "lastSync": "2022-01-01T12:00:00.000Z", "name": "string", "redirect": "https://link.codat.io/company/27628208-459c-46a2-a705-5641ce25f739"}
+        "401": {}
+    Unauthorized:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+      requestBody:
+        application/json: {"description": "Requested early access to the new financing scheme.", "groups": [], "name": "Bank of Dave"}
+      responses:
+        "401":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "7eb40d6b415d7bcd99ce658268284056", "detailedErrorCode": 0, "error": "Unauthorized", "service": "PublicApi", "statusCode": 401}
+  create-connection:
+    Connection:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+      requestBody:
+        application/json: {"platformKey": "gbol"}
+      responses:
+        "200":
+          application/json: {"created": "2022-10-27T09:53:29Z", "dataConnectionErrors": [], "id": "ee2eb431-c0fa-4dc9-93fa-d29781c12bcd", "integrationId": "bf083d72-62c7-493e-aec9-81b4dbba7e2c", "integrationKey": "dfxm", "lastSync": "2022-10-27T10:22:43.6464237Z", "linkUrl": "https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start", "platformName": "Basiq", "sourceId": "bdd831ce-eebd-4896-89a7-20e5ee8989ee", "sourceType": "Banking", "status": "Linked"}
+    Unauthorized:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+      requestBody:
+        application/json: {"platformKey": "gbol"}
+      responses:
+        "401":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "7eb40d6b415d7bcd99ce658268284056", "detailedErrorCode": 0, "error": "Unauthorized", "service": "PublicApi", "statusCode": 401}
+  delete-connection:
+    Unauthorized:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+      responses:
+        "401":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "7eb40d6b415d7bcd99ce658268284056", "detailedErrorCode": 0, "error": "Unauthorized", "service": "PublicApi", "statusCode": 401}
+  get-connection:
+    Connection:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+      responses:
+        "200":
+          application/json: {"created": "2022-10-27T09:53:29Z", "dataConnectionErrors": [], "id": "ee2eb431-c0fa-4dc9-93fa-d29781c12bcd", "integrationId": "bf083d72-62c7-493e-aec9-81b4dbba7e2c", "integrationKey": "dfxm", "lastSync": "2022-10-27T10:22:43.6464237Z", "linkUrl": "https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start", "platformName": "Basiq", "sourceId": "bdd831ce-eebd-4896-89a7-20e5ee8989ee", "sourceType": "Banking", "status": "Linked"}
+    Unauthorized:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+      responses:
+        "401":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "7eb40d6b415d7bcd99ce658268284056", "detailedErrorCode": 0, "error": "Unauthorized", "service": "PublicApi", "statusCode": 401}
+  list-connections:
+    "":
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "200":
+          application/json: {"_links": {"current": {"href": "/companies/{id}/data/{dataType}?page=1&pageSize=10"}, "self": {"href": "/companies/{id}/data/{dataType}"}}, "pageNumber": 1, "pageSize": 10, "results": [{"created": "2022-10-27T09:53:29Z", "dataConnectionErrors": [], "id": "ee2eb431-c0fa-4dc9-93fa-d29781c12bcd", "integrationId": "bf083d72-62c7-493e-aec9-81b4dbba7e2c", "integrationKey": "dfxm", "lastSync": "2022-10-27T10:22:43.6464237Z", "linkUrl": "https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start", "platformName": "Basiq", "sourceId": "bdd831ce-eebd-4896-89a7-20e5ee8989ee", "sourceType": "Banking", "status": "Linked"}], "totalResults": 1}
+        "400": {}
+    Connections:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "200":
+          application/json: {"_links": {"current": {"href": "string"}, "next": {"href": "string"}, "previous": {"href": "string"}, "self": {"href": "string"}}, "pageNumber": 0, "pageSize": 0, "results": [{"created": "2022-10-27T09:53:29Z", "dataConnectionErrors": [], "id": "ee2eb431-c0fa-4dc9-93fa-d29781c12bcd", "integrationId": "bf083d72-62c7-493e-aec9-81b4dbba7e2c", "integrationKey": "dfxm", "lastSync": "2022-10-27T10:22:43.6464237Z", "linkUrl": "https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start", "platformName": "Basiq", "sourceId": "bdd831ce-eebd-4896-89a7-20e5ee8989ee", "sourceType": "Banking", "status": "Linked"}], "totalResults": 0}
+    Malformed query:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "400":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "bc997528a9d7abb9161ef45f05d38599", "detailedErrorCode": 0, "error": "Error parsing query - Malformed query.", "service": "ClientsApi", "statusCode": 400}
+    Unresolved property:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "400":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "98457fb9956b7f9b4b2fd4f6e23bb5c8", "detailedErrorCode": 0, "error": "Error parsing query - Could not resolve property isCompleted on Dataset", "service": "PullApi", "statusCode": 400}
+  unlink-connection:
+    Example:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+      requestBody:
+        application/json: {"status": "Unlinked"}
+      responses:
+        "200":
+          application/json: {"created": "2022-10-27T09:53:29Z", "dataConnectionErrors": [], "id": "ee2eb431-c0fa-4dc9-93fa-d29781c12bcd", "integrationId": "bf083d72-62c7-493e-aec9-81b4dbba7e2c", "integrationKey": "dfxm", "lastSync": "2022-10-27T10:22:43.6464237Z", "linkUrl": "https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start", "platformName": "Basiq", "sourceId": "bdd831ce-eebd-4896-89a7-20e5ee8989ee", "sourceType": "Banking", "status": "Linked"}
+        "401": {}
+    Unauthorized:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+      responses:
+        "401":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "7eb40d6b415d7bcd99ce658268284056", "detailedErrorCode": 0, "error": "Unauthorized", "service": "PublicApi", "statusCode": 401}
+  create-bill:
+    Create bill:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        header: {}
+      requestBody:
+        application/json: {"amountDue": 7267.2, "currency": "GBP", "currencyRate": 1, "dueDate": "2023-04-23T00:00:00", "issueDate": "2023-04-23T00:00:00", "lineItems": [{"accountRef": {"id": "46f9461e-788b-4906-8b74-d1ea17f6dc10"}, "description": "Half day training - Microsoft Office", "quantity": 1, "taxAmount": 360, "taxRateRef": {"id": "INPUT2"}, "totalAmount": 2160, "unitAmount": 1800}, {"accountRef": {"id": "f96c9458-d724-47bf-8f74-a9d5726465ce"}, "description": "Desktop/network support via email & phone.Per month fixed fee for minimum 20 hours/month.", "quantity": 1, "taxAmount": 800, "taxRateRef": {"id": "INPUT2"}, "totalAmount": 4800, "unitAmount": 4000}, {"accountRef": {"id": "cba6527d-f102-4538-b421-e483233e9d5a"}, "description": "Stationery charges", "quantity": 8, "taxAmount": 51.2, "taxRateRef": {"id": "INPUT2"}, "totalAmount": 307.2, "unitAmount": 32}], "reference": "bill_b8qmmj4ksf1suax", "status": "Open", "supplierRef": {"id": "1262c350-fe0f-40ec-aeff-41c95b4a45af", "supplierName": "DIISR - Small Business Services"}, "totalAmount": 7267.2}
+      responses:
+        "200":
+          application/json: {"currency": "GBP", "dueDate": "2022-10-23T00:00:00Z", "issueDate": "2022-10-23T00:00:00Z", "sourceModifiedDate": {"sourceModifiedDate": "2022-10-23T00:00:00Z"}, "status": "Open", "supplierRef": {"id": "<id>"}}
+        "400": {}
+    Created bill:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        header: {}
+      requestBody:
+        application/json: {"currency": "USD", "dueDate": "2022-10-23T00:00:00Z", "issueDate": "2022-10-23T00:00:00Z", "status": "Open", "supplierRef": {"id": "<id>"}}
+      responses:
+        "200":
+          application/json: {"amountDue": 7267.2, "currency": "GBP", "dueDate": "2023-04-23T00:00:00", "id": "bill-1029932", "issueDate": "2023-04-23T00:00:00", "lineItems": [{"accountRef": {"id": "46f9461e-788b-4906-8b74-d1ea17f6dc10"}, "description": "Half day training - Microsoft Office", "quantity": 1, "taxAmount": 360, "taxRateRef": {"id": "INPUT2"}, "totalAmount": 2160, "unitAmount": 1800}, {"accountRef": {"id": "f96c9458-d724-47bf-8f74-a9d5726465ce"}, "description": "Desktop/network support via email & phone.Per month fixed fee for minimum 20 hours/month.", "quantity": 1, "taxAmount": 800, "taxRateRef": {"id": "INPUT2"}, "totalAmount": 4800, "unitAmount": 4000}, {"accountRef": {"id": "cba6527d-f102-4538-b421-e483233e9d5a"}, "description": "Stationery charges", "quantity": 8, "taxAmount": 51.2, "taxRateRef": {"id": "INPUT2"}, "totalAmount": 307.2, "unitAmount": 32}], "reference": "bill_b8qmmj4ksf1suax", "sourceModifiedDate": {"sourceModifiedDate": "2022-10-23T00:00:00Z"}, "status": "Open", "supplierRef": {"id": "1262c350-fe0f-40ec-aeff-41c95b4a45af", "supplierName": "DIISR - Small Business Services"}, "totalAmount": 7267.2}
+    Malformed query:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        header: {}
+      requestBody:
+        application/json: {"currency": "EUR", "dueDate": "2022-10-23T00:00:00Z", "issueDate": "2022-10-23T00:00:00Z", "status": "Open", "supplierRef": {"id": "<id>"}}
+      responses:
+        "400":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "bc997528a9d7abb9161ef45f05d38599", "detailedErrorCode": 0, "error": "Error processing request - not valid.", "service": "PublicApi", "statusCode": 400}
+  download-bill-attachment:
+    Unauthorized:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+          billId: "EILBDVJVNUAGVKRQ"
+          attachmentId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+      responses:
+        "401":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "7eb40d6b415d7bcd99ce658268284056", "detailedErrorCode": 0, "error": "Unauthorized", "service": "PublicApi", "statusCode": 401}
+  get-mapping-options-bills:
+    "":
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          continuationToken: "continuationToken=eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ=="
+          statusQuery: "status=Archived"
+      responses:
+        "200":
+          application/json: {"accounts": [], "taxRate": []}
+        "400": {}
+    Mapping options:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          continuationToken: "continuationToken=eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ=="
+          statusQuery: "status=Archived"
+      responses:
+        "200":
+          application/json: {"accounts": [{"currency": "GBP", "id": "1b6266d1-1e44-46c5-8eb5-a8f98e03124e", "name": "Accounts payable", "nominalCode": "879-i", "sourceModifiedDate": "2022-10-23T00:00:00Z", "status": "Active", "type": "Liability"}], "pagination": {"continuationToken": "eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ=="}, "taxRate": []}
+    Malformed query:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          continuationToken: "continuationToken=eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ=="
+          statusQuery: "status=Archived"
+      responses:
+        "400":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "bc997528a9d7abb9161ef45f05d38599", "detailedErrorCode": 0, "error": "Error processing request - not valid.", "service": "PublicApi", "statusCode": 400}
+  list-bills:
+    Status (open):
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          continuationToken: "continuationToken=eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ=="
+          query: "status=Open"
+      responses:
+        "200":
+          application/json: {"results": []}
+        "400": {}
+    Status (partially paid):
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          continuationToken: "continuationToken=eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ=="
+          query: "status=PartiallyPaid"
+      responses:
+        "200":
+          application/json: {"results": []}
+        "400": {}
+    Source modified date:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          continuationToken: "continuationToken=eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ=="
+          query: "sourceModifiedDate>2023-12-15T00:00:00.000Z"
+      responses:
+        "200":
+          application/json: {"results": []}
+        "400": {}
+    Status (open) & source modified date:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          continuationToken: "continuationToken=eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ=="
+          query: "sourceModifiedDate>2023-12-15T00:00:00.000Z&&status=Open"
+      responses:
+        "200":
+          application/json: {"results": []}
+        "400": {}
+    Status (partially paid) & source modified date:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          continuationToken: "continuationToken=eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ=="
+          query: "sourceModifiedDate>2023-12-15T00:00:00.000Z&&status=PartiallyPaid"
+      responses:
+        "200":
+          application/json: {"results": []}
+        "400": {}
+    Bills:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          continuationToken: "continuationToken=eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ=="
+      responses:
+        "200":
+          application/json: {"pagination": {"continuationToken": "eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ=="}, "results": [{"amountDue": 0, "currency": "GBP", "currencyRate": "1,", "dueDate": "2019-05-13T00:00:00", "id": "18", "issueDate": "2019-05-13T00:00:00", "lineItems": [{"accountRef": {"id": "16"}, "description": "Dance shoes", "quantity": 1, "taxAmount": 0, "taxRateRef": {"id": "NON"}, "totalAmount": 5, "unitAmount": 5}], "reference": "12", "sourceModifiedDate": {"sourceModifiedDate": "2022-10-23T00:00:00Z"}, "status": "Open", "supplierRef": {"id": "4", "supplierName": "BILLy elliot"}, "totalAmount": 5}, {"amountDue": 0, "currency": "GBP", "currencyRate": 1, "dueDate": "2019-05-13T00:00:00", "id": "22", "issueDate": "2019-05-13T00:00:00", "lineItems": [{"accountRef": {"id": "16"}, "description": "Dance shoes", "quantity": 1, "taxAmount": 0, "taxRateRef": {"id": "NON"}, "totalAmount": 5, "unitAmount": 5}], "reference": "12", "sourceModifiedDate": {"sourceModifiedDate": "2022-10-23T00:00:00Z"}, "status": "Paid", "supplierRef": {"id": "4", "supplierName": "BILLy elliot"}, "totalAmount": 5}]}
+    Malformed query:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          continuationToken: "continuationToken=eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ=="
+      responses:
+        "400":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "bc997528a9d7abb9161ef45f05d38599", "detailedErrorCode": 0, "error": "Error parsing query - Malformed query.", "service": "ClientsApi", "statusCode": 400}
+    Unresolved property:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          continuationToken: "continuationToken=eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ=="
+      responses:
+        "400":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "98457fb9956b7f9b4b2fd4f6e23bb5c8", "detailedErrorCode": 0, "error": "Error parsing query - Could not resolve property isCompleted on Dataset", "service": "PullApi", "statusCode": 400}
+  list-bill-attachments:
+    Info:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+          billId: "EILBDVJVNUAGVKRQ"
+      responses:
+        "200":
+          application/json: {"contentType": "image/png", "dateCreated": "2022-10-23T00:00:00.000Z", "fileSize": 100, "id": "422f093f-e556-4bf3-91c0-93af70c3e850", "includeWhenSent": true, "name": "receipt.png", "sourceModifiedDate": "2022-05-26T10:34:10Z"}
+    Unauthorized:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+          billId: "9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2"
+      responses:
+        "401":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "7eb40d6b415d7bcd99ce658268284056", "detailedErrorCode": 0, "error": "Unauthorized", "service": "PublicApi", "statusCode": 401}
+  upload-bill-attachment:
+    Malformed query:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+          billId: "EILBDVJVNUAGVKRQ"
+      responses:
+        "400":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "bc997528a9d7abb9161ef45f05d38599", "detailedErrorCode": 0, "error": "Error processing request - not valid.", "service": "PublicApi", "statusCode": 400}
+  create-bank-account:
+    Bank account example:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        header: {}
+      requestBody:
+        application/json: {"accountNumber": "0120 0440", "accountType": "Debit", "currency": "GBP", "name": "Plutus - Payables - Bank Account 12", "nominalCode": "22", "sortCode": "50-50-50"}
+      responses:
+        "200":
+          application/json: {"currency": "USD", "sourceModifiedDate": "2022-10-23T00:00:00Z"}
+        "400": {}
+    Malformed query:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        header: {}
+      requestBody:
+        application/json: {"accountNumber": "<value>", "accountType": "Credit", "currency": "USD", "name": "<value>"}
+      responses:
+        "400":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "bc997528a9d7abb9161ef45f05d38599", "detailedErrorCode": 0, "error": "Error processing request - not valid.", "service": "PublicApi", "statusCode": 400}
+  create-bill-payment:
+    Bill payment example:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+          billId: "7110701885"
+        header: {}
+      requestBody:
+        application/json: {"accountRef": {"id": "7bda9f44sr56"}, "amount": 22, "currencyRate": 1, "date": "2022-10-23T00:00:00.000Z", "reference": "Bill Payment against bill c13e37b6 dfaa-4894-b3be-9fe97bda9f44"}
+      responses:
+        "200":
+          application/json: {"accountRef": {"id": "9e32cbf8-e7d5-4d4d-a593-08d550682aab"}, "amount": 22, "currencyRate": 1, "date": "2022-10-23T00:00:00.000Z", "reference": "Bill Payment against bill c13e37b6 dfaa-4894-b3be-9fe97bda9f44"}
+        "400": {}
+    Bill payment:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+          billId: "EILBDVJVNUAGVKRQ"
+        header: {}
+      requestBody:
+        application/json: {"accountRef": {"id": "<id>"}, "amount": 1329.54, "date": "2022-10-23T00:00:00Z", "reference": "Bill Payment against bill c13e37b6-dfaa-4894-b3be-9fe97bda9f44"}
+      responses:
+        "200":
+          application/json: {"accountRef": {"id": "7bda9f44sr56"}, "amount": 22, "currencyRate": 1, "date": "2022-10-23T00:00:00.000Z", "id": "billPayment-1029932", "reference": "Bill Payment against bill c13e37b6 dfaa-4894-b3be-9fe97bda9f44"}
+    Malformed query:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+          billId: "9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2"
+        header: {}
+      requestBody:
+        application/json: {"accountRef": {"id": "<id>"}, "amount": 1329.54, "date": "2022-10-23T00:00:00Z", "reference": "Bill Payment against bill c13e37b6-dfaa-4894-b3be-9fe97bda9f44"}
+      responses:
+        "400":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "bc997528a9d7abb9161ef45f05d38599", "detailedErrorCode": 0, "error": "Error processing request - not valid.", "service": "PublicApi", "statusCode": 400}
+  get-mapping-options-payments:
+    "":
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          continuationToken: "continuationToken=eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ=="
+          statusQuery: "status=Archived"
+      responses:
+        "200":
+          application/json: {"bankAccounts": []}
+        "400": {}
+    Mapping options:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          continuationToken: "continuationToken=eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ=="
+          statusQuery: "status=Archived"
+      responses:
+        "200":
+          application/json: {"bankAccounts": [{"accountNumber": "12345678", "accountType": "Debit", "currency": "GBP", "id": "3d5a8e00-d108-4045-8823-7f342676cffa", "name": "Bank of Dave current account", "nominalCode": "1234567", "sortCode": "123456", "sourceModifiedDate": "2022-10-23T00:00:00Z", "status": "Active"}], "pagination": {"continuationToken": "eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ=="}}
+    Malformed query:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          continuationToken: "continuationToken=eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ=="
+          statusQuery: "status=Archived"
+      responses:
+        "400":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "bc997528a9d7abb9161ef45f05d38599", "detailedErrorCode": 0, "error": "Error processing request - not valid.", "service": "PublicApi", "statusCode": 400}
+  get-company-information:
+    Company information:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+      responses:
+        "200":
+          application/json: {"baseCurrency": "GBP", "companyName": "Bank of Dave"}
+    Malformed query:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+      responses:
+        "400":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "bc997528a9d7abb9161ef45f05d38599", "detailedErrorCode": 0, "error": "Error processing request - not valid.", "service": "PublicApi", "statusCode": 400}
+  create-supplier:
+    Suppliers:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        header: {}
+      requestBody:
+        application/json: {"addresses": [{"city": "London", "country": "GBR", "line1": "Flat 1", "line2": "2 Dennis Avenue", "postalCode": "EC1N 7TE", "region": "Camden", "type": "Billing"}], "contactName": "Greg Greggs", "defaultCurrency": "GBP", "emailAddress": "greg@greggs.com", "phone": "+44 (0)1223 322410", "status": "Active", "supplierName": "Greggs"}
+      responses:
+        "200":
+          application/json: {"contactName": "Greg Greggs", "defaultCurrency": "GBP", "emailAddress": "greg@greggs.com", "id": "sup-10933920", "phone": "+44 (0)1223 322410", "sourceModifiedDate": {"sourceModifiedDate": "2022-10-23T00:00:00Z"}, "status": "Active", "supplierName": "Greggs"}
+        "400": {}
+    Malformed query:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        header: {}
+      requestBody:
+        application/json: {"phone": "(877) 492-8687", "status": "Active", "supplierName": "<value>"}
+      responses:
+        "400":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "bc997528a9d7abb9161ef45f05d38599", "detailedErrorCode": 0, "error": "Error processing request - not valid.", "service": "PublicApi", "statusCode": 400}
+  list-suppliers:
+    Source modified date:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          continuationToken: "continuationToken=eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ=="
+          query: "sourceModifiedDate>2023-12-15T00:00:00.000Z"
+      responses:
+        "200":
+          application/json: {"results": [{"addresses": [{"city": "Bakersfield", "country": "USA", "line1": "Unit 51", "line2": "Bakersfield Industrial Estate", "region": "California", "type": "Billing"}], "contactName": "Kelly Ipsum", "defaultCurrency": "GBP", "emailAddress": "sales@kellysupplies.com", "id": "C520FFD4-F6F6-4FC2-A6D2-5D7088B2B14F", "phone": "07999 999999", "sourceModifiedDate": {"sourceModifiedDate": "2022-10-23T00:00:00Z"}, "status": "Active", "supplierName": "Kelly's Industrial Supplies"}]}
+        "400": {}
+    Status (active):
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          continuationToken: "continuationToken=eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ=="
+          query: "status=Active"
+      responses:
+        "200":
+          application/json: {"results": [{"addresses": [{"city": "Bakersfield", "country": "USA", "line1": "Unit 51", "line2": "Bakersfield Industrial Estate", "region": "California", "type": "Billing"}], "contactName": "Kelly Ipsum", "defaultCurrency": "GBP", "emailAddress": "sales@kellysupplies.com", "id": "C520FFD4-F6F6-4FC2-A6D2-5D7088B2B14F", "phone": "07999 999999", "sourceModifiedDate": {"sourceModifiedDate": "2022-10-23T00:00:00Z"}, "status": "Active", "supplierName": "Kelly's Industrial Supplies"}]}
+        "400": {}
+    Status (archived):
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          continuationToken: "continuationToken=eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ=="
+          query: "status=Archived"
+      responses:
+        "200":
+          application/json: {"results": [{"addresses": [{"city": "Bakersfield", "country": "USA", "line1": "Unit 51", "line2": "Bakersfield Industrial Estate", "region": "California", "type": "Billing"}], "contactName": "Kelly Ipsum", "defaultCurrency": "GBP", "emailAddress": "sales@kellysupplies.com", "id": "C520FFD4-F6F6-4FC2-A6D2-5D7088B2B14F", "phone": "07999 999999", "sourceModifiedDate": {"sourceModifiedDate": "2022-10-23T00:00:00Z"}, "status": "Active", "supplierName": "Kelly's Industrial Supplies"}]}
+        "400": {}
+    Status (active) & source modified date:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          continuationToken: "continuationToken=eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ=="
+          query: "sourceModifiedDate>2023-12-15T00:00:00.000Z&&status=Active"
+      responses:
+        "200":
+          application/json: {"results": [{"addresses": [{"city": "Bakersfield", "country": "USA", "line1": "Unit 51", "line2": "Bakersfield Industrial Estate", "region": "California", "type": "Billing"}], "contactName": "Kelly Ipsum", "defaultCurrency": "GBP", "emailAddress": "sales@kellysupplies.com", "id": "C520FFD4-F6F6-4FC2-A6D2-5D7088B2B14F", "phone": "07999 999999", "sourceModifiedDate": {"sourceModifiedDate": "2022-10-23T00:00:00Z"}, "status": "Active", "supplierName": "Kelly's Industrial Supplies"}]}
+        "400": {}
+    Status (archived) & source modified date:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          continuationToken: "continuationToken=eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ=="
+          query: "sourceModifiedDate>2023-12-15T00:00:00.000Z&&status=Archived"
+      responses:
+        "200":
+          application/json: {"results": [{"addresses": [{"city": "Bakersfield", "country": "USA", "line1": "Unit 51", "line2": "Bakersfield Industrial Estate", "region": "California", "type": "Billing"}], "contactName": "Kelly Ipsum", "defaultCurrency": "GBP", "emailAddress": "sales@kellysupplies.com", "id": "C520FFD4-F6F6-4FC2-A6D2-5D7088B2B14F", "phone": "07999 999999", "sourceModifiedDate": {"sourceModifiedDate": "2022-10-23T00:00:00Z"}, "status": "Active", "supplierName": "Kelly's Industrial Supplies"}]}
+        "400": {}
+    Suppliers:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          continuationToken: "continuationToken=eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ=="
+      responses:
+        "200":
+          application/json: {"pagination": {"continuationToken": "eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ=="}, "results": [{"addresses": [{"city": "Bakersfield", "country": "USA", "line1": "Unit 51", "line2": "Bakersfield Industrial Estate", "region": "California", "type": "Billing"}], "balance": 100, "contactName": "Martin Dale", "defaultCurrency": "GBP", "emailAddress": "martyd@citylim.co", "id": "c523e12f-8b74-4d3a-bbd8-32d7a2f598b4", "phone": "07999 999999", "sourceModifiedDate": {"sourceModifiedDate": "2022-10-23T00:00:00Z"}, "status": "Active", "supplierName": "City Limousines"}, {"addresses": [{"country": "Djibouti", "line1": "test", "region": "string", "type": "Billing"}], "contactName": "AI Support", "defaultCurrency": "GBP", "id": "41", "phone": "+44 25691 154789", "sourceModifiedDate": {"sourceModifiedDate": "2022-10-23T00:00:00Z"}, "status": "Active", "supplierName": "AI Support"}]}
+    Malformed query:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          continuationToken: "continuationToken=eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ=="
+      responses:
+        "400":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "bc997528a9d7abb9161ef45f05d38599", "detailedErrorCode": 0, "error": "Error parsing query - Malformed query.", "service": "ClientsApi", "statusCode": 400}
+    Unresolved property:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          continuationToken: "continuationToken=eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ=="
+      responses:
+        "400":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "98457fb9956b7f9b4b2fd4f6e23bb5c8", "detailedErrorCode": 0, "error": "Error parsing query - Could not resolve property isCompleted on Dataset", "service": "PullApi", "statusCode": 400}

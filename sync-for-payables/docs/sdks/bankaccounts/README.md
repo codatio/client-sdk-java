@@ -3,7 +3,7 @@
 
 ## Overview
 
-Bank accounts
+Create a bank account for a given company's connection.
 
 ### Available Operations
 
@@ -21,23 +21,16 @@ The *Create bank account* endpoint creates a new [bank account](https://docs.cod
 package hello.world;
 
 import io.codat.sync.payables.CodatSyncPayables;
-import io.codat.sync.payables.models.components.*;
 import io.codat.sync.payables.models.components.AccountType;
 import io.codat.sync.payables.models.components.BankAccountPrototype;
-import io.codat.sync.payables.models.components.Security;
-import io.codat.sync.payables.models.operations.*;
+import io.codat.sync.payables.models.errors.SDKError;
 import io.codat.sync.payables.models.operations.CreateBankAccountRequest;
 import io.codat.sync.payables.models.operations.CreateBankAccountResponse;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncPayables sdk = CodatSyncPayables.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -46,14 +39,11 @@ public class Application {
             CreateBankAccountRequest req = CreateBankAccountRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .idempotencyKey("<value>")
                 .bankAccountPrototype(BankAccountPrototype.builder()
                     .accountNumber("<value>")
                     .accountType(AccountType.CREDIT)
                     .currency("USD")
                     .name("<value>")
-                    .nominalCode("<value>")
-                    .sortCode("<value>")
                     .build())
                 .build();
 
@@ -64,27 +54,34 @@ public class Application {
             if (res.bankAccount().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.payables.models.errors.SDKError e) {
+        } catch (io.codat.sync.payables.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                | [io.codat.sync.payables.models.operations.CreateBankAccountRequest](../../models/operations/CreateBankAccountRequest.md) | :heavy_check_mark:                                                                                                       | The request object to use for the request.                                                                               |
-
+| Parameter                                                                       | Type                                                                            | Required                                                                        | Description                                                                     |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `request`                                                                       | [CreateBankAccountRequest](../../models/operations/CreateBankAccountRequest.md) | :heavy_check_mark:                                                              | The request object to use for the request.                                      |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.payables.models.operations.CreateBankAccountResponse>](../../models/operations/CreateBankAccountResponse.md)**
+**[CreateBankAccountResponse](../../models/operations/CreateBankAccountResponse.md)**
+
 ### Errors
 
-| Error Object           | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models/errors/SDKError | 4xx-5xx                | */*                    |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |

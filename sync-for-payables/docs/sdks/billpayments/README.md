@@ -3,7 +3,7 @@
 
 ## Overview
 
-Bill payments
+Get, create, and update Bill payments.
 
 ### Available Operations
 
@@ -14,7 +14,7 @@ Bill payments
 
 The *Create bill payment* endpoint creates a new [bill payment](https://docs.codat.io/sync-for-payables-api#/schemas/BillPayment) for a given company's connection.
 
-[Bill payments](https://docs.codat.io/sync-for-payables-api#/schemas/BillPayment) are an allocation of money within any customer accounts payable account.
+[Bill payments](https://docs.codat.io/sync-for-payables-api#/schemas/BillPayment) are an allocation of money within any Accounts Payable account.
 
 ### Example Usage
 
@@ -22,23 +22,17 @@ The *Create bill payment* endpoint creates a new [bill payment](https://docs.cod
 package hello.world;
 
 import io.codat.sync.payables.CodatSyncPayables;
-import io.codat.sync.payables.models.components.*;
-import io.codat.sync.payables.models.components.BillAccountRef;
+import io.codat.sync.payables.models.components.BillPaymentAccountRef;
 import io.codat.sync.payables.models.components.BillPaymentPrototype;
-import io.codat.sync.payables.models.components.Security;
-import io.codat.sync.payables.models.operations.*;
+import io.codat.sync.payables.models.errors.SDKError;
 import io.codat.sync.payables.models.operations.CreateBillPaymentRequest;
 import io.codat.sync.payables.models.operations.CreateBillPaymentResponse;
+import java.lang.Exception;
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncPayables sdk = CodatSyncPayables.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -48,14 +42,12 @@ public class Application {
                 .billId("9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2")
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .idempotencyKey("<value>")
                 .billPaymentPrototype(BillPaymentPrototype.builder()
-                    .accountRef(BillAccountRef.builder()
-                            .id("<id>")
-                            .build())
+                    .accountRef(BillPaymentAccountRef.builder()
+                        .id("<id>")
+                        .build())
                     .amount(new BigDecimal("1329.54"))
                     .date("2022-10-23T00:00:00Z")
-                    .currencyRate(new BigDecimal("6384.24"))
                     .reference("Bill Payment against bill c13e37b6-dfaa-4894-b3be-9fe97bda9f44")
                     .build())
                 .build();
@@ -67,34 +59,44 @@ public class Application {
             if (res.billPayment().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.payables.models.errors.SDKError e) {
+        } catch (io.codat.sync.payables.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                | [io.codat.sync.payables.models.operations.CreateBillPaymentRequest](../../models/operations/CreateBillPaymentRequest.md) | :heavy_check_mark:                                                                                                       | The request object to use for the request.                                                                               |
-
+| Parameter                                                                       | Type                                                                            | Required                                                                        | Description                                                                     |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `request`                                                                       | [CreateBillPaymentRequest](../../models/operations/CreateBillPaymentRequest.md) | :heavy_check_mark:                                                              | The request object to use for the request.                                      |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.payables.models.operations.CreateBillPaymentResponse>](../../models/operations/CreateBillPaymentResponse.md)**
+**[CreateBillPaymentResponse](../../models/operations/CreateBillPaymentResponse.md)**
+
 ### Errors
 
-| Error Object           | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models/errors/SDKError | 4xx-5xx                | */*                    |
+| Error Object                        | Status Code                         | Content Type                        |
+| ----------------------------------- | ----------------------------------- | ----------------------------------- |
+| models/errors/ErrorMessage          | 400,401,402,403,404,409,429,500,503 | application/json                    |
+| models/errors/SDKError              | 4xx-5xx                             | \*\/*                               |
+
 
 ## getPaymentOptions
 
 Use the *Get mapping options - Payments* endpoint to return a list of available mapping options for a given company's connection ID.
+
+By default, this endpoint returns a list of active bank accounts. You can use [querying](https://docs.codat.io/using-the-api/querying) to change that.
 
 Mapping options are a set of bank accounts used to configure the SMB's payables integration.
 
@@ -104,21 +106,14 @@ Mapping options are a set of bank accounts used to configure the SMB's payables 
 package hello.world;
 
 import io.codat.sync.payables.CodatSyncPayables;
-import io.codat.sync.payables.models.components.*;
-import io.codat.sync.payables.models.components.Security;
-import io.codat.sync.payables.models.operations.*;
+import io.codat.sync.payables.models.errors.SDKError;
 import io.codat.sync.payables.models.operations.GetMappingOptionsPaymentsRequest;
 import io.codat.sync.payables.models.operations.GetMappingOptionsPaymentsResponse;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncPayables sdk = CodatSyncPayables.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -128,6 +123,7 @@ public class Application {
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .continuationToken("continuationToken=eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ==")
+                .statusQuery("status=Archived")
                 .build();
 
             GetMappingOptionsPaymentsResponse res = sdk.billPayments().getPaymentOptions()
@@ -137,27 +133,34 @@ public class Application {
             if (res.paymentMappingOptions().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.payables.models.errors.SDKError e) {
+        } catch (io.codat.sync.payables.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                | Type                                                                                                                                     | Required                                                                                                                                 | Description                                                                                                                              |
-| ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                                | [io.codat.sync.payables.models.operations.GetMappingOptionsPaymentsRequest](../../models/operations/GetMappingOptionsPaymentsRequest.md) | :heavy_check_mark:                                                                                                                       | The request object to use for the request.                                                                                               |
-
+| Parameter                                                                                       | Type                                                                                            | Required                                                                                        | Description                                                                                     |
+| ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `request`                                                                                       | [GetMappingOptionsPaymentsRequest](../../models/operations/GetMappingOptionsPaymentsRequest.md) | :heavy_check_mark:                                                                              | The request object to use for the request.                                                      |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.payables.models.operations.GetMappingOptionsPaymentsResponse>](../../models/operations/GetMappingOptionsPaymentsResponse.md)**
+**[GetMappingOptionsPaymentsResponse](../../models/operations/GetMappingOptionsPaymentsResponse.md)**
+
 ### Errors
 
-| Error Object           | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models/errors/SDKError | 4xx-5xx                | */*                    |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
