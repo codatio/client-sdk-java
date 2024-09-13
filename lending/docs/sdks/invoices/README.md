@@ -1,6 +1,8 @@
 # Invoices
 (*accountsReceivable().invoices()*)
 
+## Overview
+
 ### Available Operations
 
 * [downloadAttachment](#downloadattachment) - Download invoice attachment
@@ -26,19 +28,15 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.operations.*;
+import io.codat.lending.models.errors.SDKError;
 import io.codat.lending.models.operations.DownloadAccountingInvoiceAttachmentRequest;
 import io.codat.lending.models.operations.DownloadAccountingInvoiceAttachmentResponse;
-import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
@@ -60,30 +58,38 @@ public class Application {
             if (res.data().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.lending.models.errors.SDKError e) {
+        } catch (io.codat.lending.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                              | Type                                                                                                                                                   | Required                                                                                                                                               | Description                                                                                                                                            |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                              | [io.codat.lending.models.operations.DownloadAccountingInvoiceAttachmentRequest](../../models/operations/DownloadAccountingInvoiceAttachmentRequest.md) | :heavy_check_mark:                                                                                                                                     | The request object to use for the request.                                                                                                             |
-
+| Parameter                                                                                                           | Type                                                                                                                | Required                                                                                                            | Description                                                                                                         |
+| ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `request`                                                                                                           | [DownloadAccountingInvoiceAttachmentRequest](../../models/operations/DownloadAccountingInvoiceAttachmentRequest.md) | :heavy_check_mark:                                                                                                  | The request object to use for the request.                                                                          |
 
 ### Response
 
-**[Optional<? extends io.codat.lending.models.operations.DownloadAccountingInvoiceAttachmentResponse>](../../models/operations/DownloadAccountingInvoiceAttachmentResponse.md)**
+**[DownloadAccountingInvoiceAttachmentResponse](../../models/operations/DownloadAccountingInvoiceAttachmentResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## downloadPdf
 
@@ -95,19 +101,15 @@ public class Application {
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.operations.*;
+import io.codat.lending.models.errors.SDKError;
 import io.codat.lending.models.operations.DownloadAccountingInvoicePdfRequest;
 import io.codat.lending.models.operations.DownloadAccountingInvoicePdfResponse;
-import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
@@ -127,30 +129,38 @@ public class Application {
             if (res.data().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.lending.models.errors.SDKError e) {
+        } catch (io.codat.lending.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                | Type                                                                                                                                     | Required                                                                                                                                 | Description                                                                                                                              |
-| ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                                | [io.codat.lending.models.operations.DownloadAccountingInvoicePdfRequest](../../models/operations/DownloadAccountingInvoicePdfRequest.md) | :heavy_check_mark:                                                                                                                       | The request object to use for the request.                                                                                               |
-
+| Parameter                                                                                             | Type                                                                                                  | Required                                                                                              | Description                                                                                           |
+| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `request`                                                                                             | [DownloadAccountingInvoicePdfRequest](../../models/operations/DownloadAccountingInvoicePdfRequest.md) | :heavy_check_mark:                                                                                    | The request object to use for the request.                                                            |
 
 ### Response
 
-**[Optional<? extends io.codat.lending.models.operations.DownloadAccountingInvoicePdfResponse>](../../models/operations/DownloadAccountingInvoicePdfResponse.md)**
+**[DownloadAccountingInvoicePdfResponse](../../models/operations/DownloadAccountingInvoicePdfResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 401,402,403,404,409,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## get
 
@@ -162,25 +172,26 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 
 Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
 
+### Tips and traps
+
+To access the `paymentAllocations` property, ensure that the `payments` data type is queued and cached in Codat before retrieving `invoices` from Codat's cache.
+
+
 ### Example Usage
 
 ```java
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.operations.*;
+import io.codat.lending.models.errors.SDKError;
 import io.codat.lending.models.operations.GetAccountingInvoiceRequest;
 import io.codat.lending.models.operations.GetAccountingInvoiceResponse;
-import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
@@ -200,30 +211,38 @@ public class Application {
             if (res.accountingInvoice().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.lending.models.errors.SDKError e) {
+        } catch (io.codat.lending.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                | [io.codat.lending.models.operations.GetAccountingInvoiceRequest](../../models/operations/GetAccountingInvoiceRequest.md) | :heavy_check_mark:                                                                                                       | The request object to use for the request.                                                                               |
-
+| Parameter                                                                             | Type                                                                                  | Required                                                                              | Description                                                                           |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `request`                                                                             | [GetAccountingInvoiceRequest](../../models/operations/GetAccountingInvoiceRequest.md) | :heavy_check_mark:                                                                    | The request object to use for the request.                                            |
 
 ### Response
 
-**[Optional<? extends io.codat.lending.models.operations.GetAccountingInvoiceResponse>](../../models/operations/GetAccountingInvoiceResponse.md)**
+**[GetAccountingInvoiceResponse](../../models/operations/GetAccountingInvoiceResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 401,402,403,404,409,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## getAttachment
 
@@ -240,19 +259,15 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.operations.*;
+import io.codat.lending.models.errors.SDKError;
 import io.codat.lending.models.operations.GetAccountingInvoiceAttachmentRequest;
 import io.codat.lending.models.operations.GetAccountingInvoiceAttachmentResponse;
-import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
@@ -274,30 +289,38 @@ public class Application {
             if (res.accountingAttachment().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.lending.models.errors.SDKError e) {
+        } catch (io.codat.lending.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                    | Type                                                                                                                                         | Required                                                                                                                                     | Description                                                                                                                                  |
-| -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                                    | [io.codat.lending.models.operations.GetAccountingInvoiceAttachmentRequest](../../models/operations/GetAccountingInvoiceAttachmentRequest.md) | :heavy_check_mark:                                                                                                                           | The request object to use for the request.                                                                                                   |
-
+| Parameter                                                                                                 | Type                                                                                                      | Required                                                                                                  | Description                                                                                               |
+| --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `request`                                                                                                 | [GetAccountingInvoiceAttachmentRequest](../../models/operations/GetAccountingInvoiceAttachmentRequest.md) | :heavy_check_mark:                                                                                        | The request object to use for the request.                                                                |
 
 ### Response
 
-**[Optional<? extends io.codat.lending.models.operations.GetAccountingInvoiceAttachmentResponse>](../../models/operations/GetAccountingInvoiceAttachmentResponse.md)**
+**[GetAccountingInvoiceAttachmentResponse](../../models/operations/GetAccountingInvoiceAttachmentResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## list
 
@@ -314,25 +337,26 @@ Before using this endpoint, you must have [retrieved data for the company](https
 
 [Read more about querying](https://docs.codat.io/using-the-api/querying).
 
+### Tips and traps
+
+To access the `paymentAllocations` property, ensure that the `payments` data type is queued and cached in Codat before retrieving `invoices` from Codat's cache.
+
+
 ### Example Usage
 
 ```java
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.operations.*;
+import io.codat.lending.models.errors.SDKError;
 import io.codat.lending.models.operations.ListAccountingInvoicesRequest;
 import io.codat.lending.models.operations.ListAccountingInvoicesResponse;
-import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
@@ -345,7 +369,7 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("<value>")
+                .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
             ListAccountingInvoicesResponse res = sdk.accountsReceivable().invoices().list()
@@ -355,30 +379,38 @@ public class Application {
             if (res.accountingInvoices().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.lending.models.errors.SDKError e) {
+        } catch (io.codat.lending.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                    | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  |
-| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                    | [io.codat.lending.models.operations.ListAccountingInvoicesRequest](../../models/operations/ListAccountingInvoicesRequest.md) | :heavy_check_mark:                                                                                                           | The request object to use for the request.                                                                                   |
-
+| Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `request`                                                                                 | [ListAccountingInvoicesRequest](../../models/operations/ListAccountingInvoicesRequest.md) | :heavy_check_mark:                                                                        | The request object to use for the request.                                                |
 
 ### Response
 
-**[Optional<? extends io.codat.lending.models.operations.ListAccountingInvoicesResponse>](../../models/operations/ListAccountingInvoicesResponse.md)**
+**[ListAccountingInvoicesResponse](../../models/operations/ListAccountingInvoicesResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                        | Status Code                         | Content Type                        |
+| ----------------------------------- | ----------------------------------- | ----------------------------------- |
+| models/errors/ErrorMessage          | 400,401,402,403,404,409,429,500,503 | application/json                    |
+| models/errors/SDKError              | 4xx-5xx                             | \*\/*                               |
+
 
 ## listAttachments
 
@@ -395,19 +427,15 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.operations.*;
+import io.codat.lending.models.errors.SDKError;
 import io.codat.lending.models.operations.ListAccountingInvoiceAttachmentsRequest;
 import io.codat.lending.models.operations.ListAccountingInvoiceAttachmentsResponse;
-import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
@@ -428,30 +456,38 @@ public class Application {
             if (res.attachments().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.lending.models.errors.SDKError e) {
+        } catch (io.codat.lending.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                        | Type                                                                                                                                             | Required                                                                                                                                         | Description                                                                                                                                      |
-| ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                        | [io.codat.lending.models.operations.ListAccountingInvoiceAttachmentsRequest](../../models/operations/ListAccountingInvoiceAttachmentsRequest.md) | :heavy_check_mark:                                                                                                                               | The request object to use for the request.                                                                                                       |
-
+| Parameter                                                                                                     | Type                                                                                                          | Required                                                                                                      | Description                                                                                                   |
+| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `request`                                                                                                     | [ListAccountingInvoiceAttachmentsRequest](../../models/operations/ListAccountingInvoiceAttachmentsRequest.md) | :heavy_check_mark:                                                                                            | The request object to use for the request.                                                                    |
 
 ### Response
 
-**[Optional<? extends io.codat.lending.models.operations.ListAccountingInvoiceAttachmentsResponse>](../../models/operations/ListAccountingInvoiceAttachmentsResponse.md)**
+**[ListAccountingInvoiceAttachmentsResponse](../../models/operations/ListAccountingInvoiceAttachmentsResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 401,402,403,404,409,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## listReconciled
 
@@ -463,19 +499,15 @@ Gets a list of invoices linked to the corresponding banking transaction
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.operations.*;
+import io.codat.lending.models.errors.SDKError;
 import io.codat.lending.models.operations.ListReconciledInvoicesRequest;
 import io.codat.lending.models.operations.ListReconciledInvoicesResponse;
-import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
@@ -487,7 +519,7 @@ public class Application {
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .page(1)
                 .pageSize(100)
-                .query("<value>")
+                .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
             ListReconciledInvoicesResponse res = sdk.accountsReceivable().invoices().listReconciled()
@@ -497,27 +529,34 @@ public class Application {
             if (res.enhancedInvoicesReport().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.lending.models.errors.SDKError e) {
+        } catch (io.codat.lending.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                    | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  |
-| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                    | [io.codat.lending.models.operations.ListReconciledInvoicesRequest](../../models/operations/ListReconciledInvoicesRequest.md) | :heavy_check_mark:                                                                                                           | The request object to use for the request.                                                                                   |
-
+| Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `request`                                                                                 | [ListReconciledInvoicesRequest](../../models/operations/ListReconciledInvoicesRequest.md) | :heavy_check_mark:                                                                        | The request object to use for the request.                                                |
 
 ### Response
 
-**[Optional<? extends io.codat.lending.models.operations.ListReconciledInvoicesResponse>](../../models/operations/ListReconciledInvoicesResponse.md)**
+**[ListReconciledInvoicesResponse](../../models/operations/ListReconciledInvoicesResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |

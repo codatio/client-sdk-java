@@ -1,6 +1,8 @@
 # CodatLendingSuppliers
 (*loanWriteback().suppliers()*)
 
+## Overview
+
 ### Available Operations
 
 * [create](#create) - Create supplier
@@ -25,25 +27,17 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.operations.*;
+import io.codat.lending.models.errors.SDKError;
 import io.codat.lending.models.operations.CreateSupplierRequest;
 import io.codat.lending.models.operations.CreateSupplierResponse;
-import io.codat.lending.models.shared.*;
-import io.codat.lending.models.shared.AccountingAddress;
-import io.codat.lending.models.shared.AccountingAddressType;
 import io.codat.lending.models.shared.AccountingSupplier;
-import io.codat.lending.models.shared.Metadata;
 import io.codat.lending.models.shared.Security;
-import io.codat.lending.models.shared.SupplementalData;
 import io.codat.lending.models.shared.SupplierStatus;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
@@ -56,31 +50,10 @@ public class Application {
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .accountingSupplier(AccountingSupplier.builder()
                     .status(SupplierStatus.ACTIVE)
-                    .addresses(java.util.List.of(
-                        AccountingAddress.builder()
-                            .type(AccountingAddressType.BILLING)
-                            .build()))
-                    .contactName("<value>")
-                    .defaultCurrency("<value>")
-                    .emailAddress("Haylie78@hotmail.com")
-                    .id("<id>")
-                    .metadata(Metadata.builder()
-                        .isDeleted(false)
-                        .build())
                     .modifiedDate("2022-10-23T00:00:00Z")
-                    .phone("01224 658 999")
-                    .registrationNumber("<value>")
+                    .phone("(877) 492-8687")
                     .sourceModifiedDate("2022-10-23T00:00:00Z")
-                    .supplementalData(SupplementalData.builder()
-                        .content(java.util.Map.ofEntries(
-                            entry("key", java.util.Map.ofEntries(
-                                entry("key", "<value>")))))
-                        .build())
-                    .supplierName("<value>")
-                    .taxNumber("<value>")
                     .build())
-                .allowSyncOnPushComplete(false)
-                .timeoutInMinutes(376844)
                 .build();
 
             CreateSupplierResponse res = sdk.loanWriteback().suppliers().create()
@@ -90,30 +63,38 @@ public class Application {
             if (res.accountingCreateSupplierResponse().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.lending.models.errors.SDKError e) {
+        } catch (io.codat.lending.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                    | Type                                                                                                         | Required                                                                                                     | Description                                                                                                  |
-| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                    | [io.codat.lending.models.operations.CreateSupplierRequest](../../models/operations/CreateSupplierRequest.md) | :heavy_check_mark:                                                                                           | The request object to use for the request.                                                                   |
-
+| Parameter                                                                 | Type                                                                      | Required                                                                  | Description                                                               |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `request`                                                                 | [CreateSupplierRequest](../../models/operations/CreateSupplierRequest.md) | :heavy_check_mark:                                                        | The request object to use for the request.                                |
 
 ### Response
 
-**[Optional<? extends io.codat.lending.models.operations.CreateSupplierResponse>](../../models/operations/CreateSupplierResponse.md)**
+**[CreateSupplierResponse](../../models/operations/CreateSupplierResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## getCreateUpdateModel
 
@@ -134,19 +115,15 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.operations.*;
+import io.codat.lending.models.errors.SDKError;
 import io.codat.lending.models.operations.GetCreateUpdateSuppliersModelRequest;
 import io.codat.lending.models.operations.GetCreateUpdateSuppliersModelResponse;
-import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
@@ -166,27 +143,34 @@ public class Application {
             if (res.pushOption().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.lending.models.errors.SDKError e) {
+        } catch (io.codat.lending.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                  | Type                                                                                                                                       | Required                                                                                                                                   | Description                                                                                                                                |
-| ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                  | [io.codat.lending.models.operations.GetCreateUpdateSuppliersModelRequest](../../models/operations/GetCreateUpdateSuppliersModelRequest.md) | :heavy_check_mark:                                                                                                                         | The request object to use for the request.                                                                                                 |
-
+| Parameter                                                                                               | Type                                                                                                    | Required                                                                                                | Description                                                                                             |
+| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `request`                                                                                               | [GetCreateUpdateSuppliersModelRequest](../../models/operations/GetCreateUpdateSuppliersModelRequest.md) | :heavy_check_mark:                                                                                      | The request object to use for the request.                                                              |
 
 ### Response
 
-**[Optional<? extends io.codat.lending.models.operations.GetCreateUpdateSuppliersModelResponse>](../../models/operations/GetCreateUpdateSuppliersModelResponse.md)**
+**[GetCreateUpdateSuppliersModelResponse](../../models/operations/GetCreateUpdateSuppliersModelResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |

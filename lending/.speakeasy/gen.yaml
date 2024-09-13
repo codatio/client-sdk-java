@@ -7,16 +7,20 @@ generation:
     nameResolutionDec2023: false
     parameterOrderingFeb2024: false
     requestResponseComponentNamesFeb2024: false
+  auth:
+    oAuth2ClientCredentialsEnabled: false
   telemetryEnabled: true
 java:
-  version: 1.0.0
+  version: 1.1.0
+  additionalDependencies: []
+  additionalPlugins: []
   artifactID: lending
   author: Codat
+  clientServerStatusCodesAsErrors: true
   companyEmail: support@codat.io
   companyName: Codat
   companyURL: https://www.codat.io/
-  description: Make credit decisions backed by enhanced financials, metrics, reports,
-    and data integrity features.
+  description: Make credit decisions backed by enhanced financials, metrics, reports, and data integrity features.
   flattenGlobalSecurity: false
   githubURL: github.com/codatio/client-sdk-java/lending
   groupID: io.codat
@@ -29,6 +33,10 @@ java:
       shared: models/shared
       webhooks: models/webhooks
   inputModelSuffix: input
+  license:
+    name: The MIT License (MIT)
+    shortName: MIT
+    url: https://mit-license.org/
   maxMethodParams: 0
   outputModelSuffix: output
   projectName: openapi

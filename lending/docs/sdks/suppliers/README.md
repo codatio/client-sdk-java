@@ -1,6 +1,8 @@
 # Suppliers
 (*accountsPayable().suppliers()*)
 
+## Overview
+
 ### Available Operations
 
 * [downloadAttachment](#downloadattachment) - Download supplier attachment
@@ -24,19 +26,15 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.operations.*;
+import io.codat.lending.models.errors.SDKError;
 import io.codat.lending.models.operations.DownloadAccountingSupplierAttachmentRequest;
 import io.codat.lending.models.operations.DownloadAccountingSupplierAttachmentResponse;
-import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
@@ -58,30 +56,38 @@ public class Application {
             if (res.data().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.lending.models.errors.SDKError e) {
+        } catch (io.codat.lending.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                                | Type                                                                                                                                                     | Required                                                                                                                                                 | Description                                                                                                                                              |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                                                | [io.codat.lending.models.operations.DownloadAccountingSupplierAttachmentRequest](../../models/operations/DownloadAccountingSupplierAttachmentRequest.md) | :heavy_check_mark:                                                                                                                                       | The request object to use for the request.                                                                                                               |
-
+| Parameter                                                                                                             | Type                                                                                                                  | Required                                                                                                              | Description                                                                                                           |
+| --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `request`                                                                                                             | [DownloadAccountingSupplierAttachmentRequest](../../models/operations/DownloadAccountingSupplierAttachmentRequest.md) | :heavy_check_mark:                                                                                                    | The request object to use for the request.                                                                            |
 
 ### Response
 
-**[Optional<? extends io.codat.lending.models.operations.DownloadAccountingSupplierAttachmentResponse>](../../models/operations/DownloadAccountingSupplierAttachmentResponse.md)**
+**[DownloadAccountingSupplierAttachmentResponse](../../models/operations/DownloadAccountingSupplierAttachmentResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## get
 
@@ -100,19 +106,15 @@ Before using this endpoint, you must have [retrieved data for the company](https
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.operations.*;
+import io.codat.lending.models.errors.SDKError;
 import io.codat.lending.models.operations.GetAccountingSupplierRequest;
 import io.codat.lending.models.operations.GetAccountingSupplierResponse;
-import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
@@ -132,30 +134,38 @@ public class Application {
             if (res.accountingSupplier().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.lending.models.errors.SDKError e) {
+        } catch (io.codat.lending.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                  | Type                                                                                                                       | Required                                                                                                                   | Description                                                                                                                |
-| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                  | [io.codat.lending.models.operations.GetAccountingSupplierRequest](../../models/operations/GetAccountingSupplierRequest.md) | :heavy_check_mark:                                                                                                         | The request object to use for the request.                                                                                 |
-
+| Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `request`                                                                               | [GetAccountingSupplierRequest](../../models/operations/GetAccountingSupplierRequest.md) | :heavy_check_mark:                                                                      | The request object to use for the request.                                              |
 
 ### Response
 
-**[Optional<? extends io.codat.lending.models.operations.GetAccountingSupplierResponse>](../../models/operations/GetAccountingSupplierResponse.md)**
+**[GetAccountingSupplierResponse](../../models/operations/GetAccountingSupplierResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 401,402,403,404,409,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## getAttachment
 
@@ -172,19 +182,15 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.operations.*;
+import io.codat.lending.models.errors.SDKError;
 import io.codat.lending.models.operations.GetAccountingSupplierAttachmentRequest;
 import io.codat.lending.models.operations.GetAccountingSupplierAttachmentResponse;
-import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
@@ -206,30 +212,38 @@ public class Application {
             if (res.accountingAttachment().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.lending.models.errors.SDKError e) {
+        } catch (io.codat.lending.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                      | Type                                                                                                                                           | Required                                                                                                                                       | Description                                                                                                                                    |
-| ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                                      | [io.codat.lending.models.operations.GetAccountingSupplierAttachmentRequest](../../models/operations/GetAccountingSupplierAttachmentRequest.md) | :heavy_check_mark:                                                                                                                             | The request object to use for the request.                                                                                                     |
-
+| Parameter                                                                                                   | Type                                                                                                        | Required                                                                                                    | Description                                                                                                 |
+| ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `request`                                                                                                   | [GetAccountingSupplierAttachmentRequest](../../models/operations/GetAccountingSupplierAttachmentRequest.md) | :heavy_check_mark:                                                                                          | The request object to use for the request.                                                                  |
 
 ### Response
 
-**[Optional<? extends io.codat.lending.models.operations.GetAccountingSupplierAttachmentResponse>](../../models/operations/GetAccountingSupplierAttachmentResponse.md)**
+**[GetAccountingSupplierAttachmentResponse](../../models/operations/GetAccountingSupplierAttachmentResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## list
 
@@ -246,19 +260,15 @@ Before using this endpoint, you must have [retrieved data for the company](https
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.operations.*;
+import io.codat.lending.models.errors.SDKError;
 import io.codat.lending.models.operations.ListAccountingSuppliersRequest;
 import io.codat.lending.models.operations.ListAccountingSuppliersResponse;
-import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
@@ -271,7 +281,7 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("<value>")
+                .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
             ListAccountingSuppliersResponse res = sdk.accountsPayable().suppliers().list()
@@ -281,30 +291,38 @@ public class Application {
             if (res.accountingSuppliers().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.lending.models.errors.SDKError e) {
+        } catch (io.codat.lending.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                      | Type                                                                                                                           | Required                                                                                                                       | Description                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                      | [io.codat.lending.models.operations.ListAccountingSuppliersRequest](../../models/operations/ListAccountingSuppliersRequest.md) | :heavy_check_mark:                                                                                                             | The request object to use for the request.                                                                                     |
-
+| Parameter                                                                                   | Type                                                                                        | Required                                                                                    | Description                                                                                 |
+| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `request`                                                                                   | [ListAccountingSuppliersRequest](../../models/operations/ListAccountingSuppliersRequest.md) | :heavy_check_mark:                                                                          | The request object to use for the request.                                                  |
 
 ### Response
 
-**[Optional<? extends io.codat.lending.models.operations.ListAccountingSuppliersResponse>](../../models/operations/ListAccountingSuppliersResponse.md)**
+**[ListAccountingSuppliersResponse](../../models/operations/ListAccountingSuppliersResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                        | Status Code                         | Content Type                        |
+| ----------------------------------- | ----------------------------------- | ----------------------------------- |
+| models/errors/ErrorMessage          | 400,401,402,403,404,409,429,500,503 | application/json                    |
+| models/errors/SDKError              | 4xx-5xx                             | \*\/*                               |
+
 
 ## listAttachments
 
@@ -321,19 +339,15 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.operations.*;
+import io.codat.lending.models.errors.SDKError;
 import io.codat.lending.models.operations.ListAccountingSupplierAttachmentsRequest;
 import io.codat.lending.models.operations.ListAccountingSupplierAttachmentsResponse;
-import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
@@ -354,27 +368,34 @@ public class Application {
             if (res.attachments().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.lending.models.errors.SDKError e) {
+        } catch (io.codat.lending.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                          | Type                                                                                                                                               | Required                                                                                                                                           | Description                                                                                                                                        |
-| -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                                          | [io.codat.lending.models.operations.ListAccountingSupplierAttachmentsRequest](../../models/operations/ListAccountingSupplierAttachmentsRequest.md) | :heavy_check_mark:                                                                                                                                 | The request object to use for the request.                                                                                                         |
-
+| Parameter                                                                                                       | Type                                                                                                            | Required                                                                                                        | Description                                                                                                     |
+| --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `request`                                                                                                       | [ListAccountingSupplierAttachmentsRequest](../../models/operations/ListAccountingSupplierAttachmentsRequest.md) | :heavy_check_mark:                                                                                              | The request object to use for the request.                                                                      |
 
 ### Response
 
-**[Optional<? extends io.codat.lending.models.operations.ListAccountingSupplierAttachmentsResponse>](../../models/operations/ListAccountingSupplierAttachmentsResponse.md)**
+**[ListAccountingSupplierAttachmentsResponse](../../models/operations/ListAccountingSupplierAttachmentsResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 401,402,403,404,409,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |

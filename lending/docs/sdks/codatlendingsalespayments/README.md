@@ -1,6 +1,8 @@
 # CodatLendingSalesPayments
 (*sales().payments()*)
 
+## Overview
+
 ### Available Operations
 
 * [get](#get) - Get payment
@@ -23,19 +25,15 @@ Before using this endpoint, you must have [retrieved data for the company](https
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.operations.*;
+import io.codat.lending.models.errors.SDKError;
 import io.codat.lending.models.operations.GetCommercePaymentRequest;
 import io.codat.lending.models.operations.GetCommercePaymentResponse;
-import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
@@ -56,30 +54,38 @@ public class Application {
             if (res.commercePayment().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.lending.models.errors.SDKError e) {
+        } catch (io.codat.lending.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                            | Type                                                                                                                 | Required                                                                                                             | Description                                                                                                          |
-| -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                            | [io.codat.lending.models.operations.GetCommercePaymentRequest](../../models/operations/GetCommercePaymentRequest.md) | :heavy_check_mark:                                                                                                   | The request object to use for the request.                                                                           |
-
+| Parameter                                                                         | Type                                                                              | Required                                                                          | Description                                                                       |
+| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `request`                                                                         | [GetCommercePaymentRequest](../../models/operations/GetCommercePaymentRequest.md) | :heavy_check_mark:                                                                | The request object to use for the request.                                        |
 
 ### Response
 
-**[Optional<? extends io.codat.lending.models.operations.GetCommercePaymentResponse>](../../models/operations/GetCommercePaymentResponse.md)**
+**[GetCommercePaymentResponse](../../models/operations/GetCommercePaymentResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 401,402,403,404,409,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## list
 
@@ -96,19 +102,15 @@ Before using this endpoint, you must have [retrieved data for the company](https
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.operations.*;
+import io.codat.lending.models.errors.SDKError;
 import io.codat.lending.models.operations.ListCommercePaymentsRequest;
 import io.codat.lending.models.operations.ListCommercePaymentsResponse;
-import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
@@ -122,7 +124,7 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("<value>")
+                .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
             ListCommercePaymentsResponse res = sdk.sales().payments().list()
@@ -132,27 +134,34 @@ public class Application {
             if (res.commercePayments().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.lending.models.errors.SDKError e) {
+        } catch (io.codat.lending.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                | [io.codat.lending.models.operations.ListCommercePaymentsRequest](../../models/operations/ListCommercePaymentsRequest.md) | :heavy_check_mark:                                                                                                       | The request object to use for the request.                                                                               |
-
+| Parameter                                                                             | Type                                                                                  | Required                                                                              | Description                                                                           |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `request`                                                                             | [ListCommercePaymentsRequest](../../models/operations/ListCommercePaymentsRequest.md) | :heavy_check_mark:                                                                    | The request object to use for the request.                                            |
 
 ### Response
 
-**[Optional<? extends io.codat.lending.models.operations.ListCommercePaymentsResponse>](../../models/operations/ListCommercePaymentsResponse.md)**
+**[ListCommercePaymentsResponse](../../models/operations/ListCommercePaymentsResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                        | Status Code                         | Content Type                        |
+| ----------------------------------- | ----------------------------------- | ----------------------------------- |
+| models/errors/ErrorMessage          | 400,401,402,403,404,409,429,500,503 | application/json                    |
+| models/errors/SDKError              | 4xx-5xx                             | \*\/*                               |

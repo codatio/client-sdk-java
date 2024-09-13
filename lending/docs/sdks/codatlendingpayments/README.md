@@ -1,6 +1,8 @@
 # CodatLendingPayments
 (*loanWriteback().payments()*)
 
+## Overview
+
 ### Available Operations
 
 * [create](#create) - Create payment
@@ -25,28 +27,20 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.operations.*;
+import io.codat.lending.models.errors.SDKError;
 import io.codat.lending.models.operations.CreatePaymentRequest;
 import io.codat.lending.models.operations.CreatePaymentResponse;
-import io.codat.lending.models.shared.*;
-import io.codat.lending.models.shared.AccountRef;
-import io.codat.lending.models.shared.AccountingCustomerRef;
 import io.codat.lending.models.shared.AccountingPayment;
-import io.codat.lending.models.shared.Metadata;
 import io.codat.lending.models.shared.PaymentLine;
-import io.codat.lending.models.shared.PaymentLineLink;
-import io.codat.lending.models.shared.PaymentLinkType;
 import io.codat.lending.models.shared.PaymentMethodRef;
 import io.codat.lending.models.shared.Security;
-import io.codat.lending.models.shared.SupplementalData;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
+import java.math.BigDecimal;
+import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
@@ -59,42 +53,18 @@ public class Application {
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .accountingPayment(AccountingPayment.builder()
                     .date("2022-10-23T00:00:00Z")
-                    .accountRef(AccountRef.builder()
-                        .id("<id>")
-                        .name("<value>")
-                        .build())
-                    .currency("USD")
-                    .currencyRate(6384.24d)
-                    .customerRef(AccountingCustomerRef.builder()
-                        .id("<value>")
-                        .companyName("Johnson, Green and Collier")
-                        .build())
-                    .id("<id>")
-                    .lines(java.util.List.of(
+                    .currency("EUR")
+                    .lines(List.of(
                         PaymentLine.builder()
-                            .amount(9967.06d)
+                            .amount(new BigDecimal("4174.58"))
                             .allocatedOnDate("2022-10-23T00:00:00Z")
                             .build()))
-                    .metadata(Metadata.builder()
-                        .isDeleted(false)
-                        .build())
                     .modifiedDate("2022-10-23T00:00:00Z")
-                    .note("<value>")
                     .paymentMethodRef(PaymentMethodRef.builder()
-                        .id("<value>")
-                        .name("<value>")
+                        .id("<id>")
                         .build())
-                    .reference("<value>")
                     .sourceModifiedDate("2022-10-23T00:00:00Z")
-                    .supplementalData(SupplementalData.builder()
-                        .content(java.util.Map.ofEntries(
-                            entry("key", java.util.Map.ofEntries(
-                                entry("key", "<value>")))))
-                        .build())
-                    .totalAmount(9510.62d)
                     .build())
-                .allowSyncOnPushComplete(false)
-                .timeoutInMinutes(891510)
                 .build();
 
             CreatePaymentResponse res = sdk.loanWriteback().payments().create()
@@ -104,30 +74,38 @@ public class Application {
             if (res.accountingCreatePaymentResponse().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.lending.models.errors.SDKError e) {
+        } catch (io.codat.lending.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                  | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
-| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                  | [io.codat.lending.models.operations.CreatePaymentRequest](../../models/operations/CreatePaymentRequest.md) | :heavy_check_mark:                                                                                         | The request object to use for the request.                                                                 |
-
+| Parameter                                                               | Type                                                                    | Required                                                                | Description                                                             |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `request`                                                               | [CreatePaymentRequest](../../models/operations/CreatePaymentRequest.md) | :heavy_check_mark:                                                      | The request object to use for the request.                              |
 
 ### Response
 
-**[Optional<? extends io.codat.lending.models.operations.CreatePaymentResponse>](../../models/operations/CreatePaymentResponse.md)**
+**[CreatePaymentResponse](../../models/operations/CreatePaymentResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## getCreateModel
 
@@ -148,19 +126,15 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.operations.*;
+import io.codat.lending.models.errors.SDKError;
 import io.codat.lending.models.operations.GetCreatePaymentModelRequest;
 import io.codat.lending.models.operations.GetCreatePaymentModelResponse;
-import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
@@ -180,27 +154,34 @@ public class Application {
             if (res.pushOption().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.lending.models.errors.SDKError e) {
+        } catch (io.codat.lending.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                  | Type                                                                                                                       | Required                                                                                                                   | Description                                                                                                                |
-| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                  | [io.codat.lending.models.operations.GetCreatePaymentModelRequest](../../models/operations/GetCreatePaymentModelRequest.md) | :heavy_check_mark:                                                                                                         | The request object to use for the request.                                                                                 |
-
+| Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `request`                                                                               | [GetCreatePaymentModelRequest](../../models/operations/GetCreatePaymentModelRequest.md) | :heavy_check_mark:                                                                      | The request object to use for the request.                                              |
 
 ### Response
 
-**[Optional<? extends io.codat.lending.models.operations.GetCreatePaymentModelResponse>](../../models/operations/GetCreatePaymentModelResponse.md)**
+**[GetCreatePaymentModelResponse](../../models/operations/GetCreatePaymentModelResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |

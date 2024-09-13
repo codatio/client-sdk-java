@@ -19,3 +19,13 @@ Based on:
 - [java v1.0.0] lending
 ### Releases
 - [Maven Central v1.0.0] https://central.sonatype.com/artifact/io.codat/lending/1.0.0 - lending
+
+## 2024-09-13 15:57:07
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.396.7 (2.415.6) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [java v1.1.0] lending
+### Releases
+- [Maven Central v1.1.0] https://central.sonatype.com/artifact/io.codat/lending/1.1.0 - lending
