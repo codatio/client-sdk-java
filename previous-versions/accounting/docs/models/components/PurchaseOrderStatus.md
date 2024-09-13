@@ -11,4 +11,4 @@ Current state of the purchase order
 | `DRAFT`   | Draft     |
 | `OPEN`    | Open      |
 | `CLOSED`  | Closed    |
-| `VOID_`   | Void      |
+| `VOID`    | Void      |

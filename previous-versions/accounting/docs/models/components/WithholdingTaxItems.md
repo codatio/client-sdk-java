@@ -5,5 +5,5 @@
 
 | Field                          | Type                           | Required                       | Description                    |
 | ------------------------------ | ------------------------------ | ------------------------------ | ------------------------------ |
-| `amount`                       | *double*                       | :heavy_check_mark:             | Amount of tax withheld.        |
+| `amount`                       | *BigDecimal*                   | :heavy_check_mark:             | Amount of tax withheld.        |
 | `name`                         | *String*                       | :heavy_check_mark:             | Name assigned to withheld tax. |

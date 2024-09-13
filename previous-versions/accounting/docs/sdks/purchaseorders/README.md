@@ -3,7 +3,7 @@
 
 ## Overview
 
-Purchase orders
+Access standardized Purchase orders from linked accounting software.
 
 ### Available Operations
 
@@ -36,33 +36,15 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
-import io.codat.accounting.models.components.AccountRef;
-import io.codat.accounting.models.components.AccountingAddressType;
-import io.codat.accounting.models.components.ItemRef;
-import io.codat.accounting.models.components.Items;
-import io.codat.accounting.models.components.Metadata;
 import io.codat.accounting.models.components.PurchaseOrder;
-import io.codat.accounting.models.components.PurchaseOrderLineItem;
-import io.codat.accounting.models.components.PurchaseOrderStatus;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.components.ShipTo;
-import io.codat.accounting.models.components.ShipToContact;
-import io.codat.accounting.models.components.SupplierRef;
-import io.codat.accounting.models.components.TaxRateRef;
-import io.codat.accounting.models.components.TrackingCategoryRef;
-import io.codat.accounting.models.components.User;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.CreatePurchaseOrderRequest;
 import io.codat.accounting.models.operations.CreatePurchaseOrderResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -72,55 +54,14 @@ public class Application {
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .purchaseOrder(PurchaseOrder.builder()
-                    .createdBy(User.builder()
-                        .email("Jena.Nienow28@yahoo.com")
-                        .firstName("Bria")
-                        .lastName("Schaefer")
-                        .build())
-                    .currency("GBP")
-                    .currencyRate(9967.06d)
+                    .currency("USD")
                     .deliveryDate("2022-10-23T00:00:00Z")
                     .expectedDeliveryDate("2022-10-23T00:00:00Z")
-                    .id("<id>")
                     .issueDate("2022-10-23T00:00:00Z")
-                    .lineItems(java.util.List.of(
-                        PurchaseOrderLineItem.builder()
-                            .build()))
-                    .metadata(Metadata.builder()
-                        .isDeleted(false)
-                        .build())
                     .modifiedDate("2022-10-23T00:00:00Z")
-                    .note("<value>")
                     .paymentDueDate("2022-10-23T00:00:00Z")
-                    .purchaseOrderNumber("<value>")
-                    .shipTo(ShipTo.builder()
-                        .address(Items.builder()
-                            .type(AccountingAddressType.BILLING)
-                            .city("West Astridcester")
-                            .country("Serbia")
-                            .line1("<value>")
-                            .line2("<value>")
-                            .postalCode("85587-4963")
-                            .region("<value>")
-                            .build())
-                        .contact(ShipToContact.builder()
-                            .email("Destiny51@gmail.com")
-                            .name("<value>")
-                            .phone("327.283.8140")
-                            .build())
-                        .build())
                     .sourceModifiedDate("2022-10-23T00:00:00Z")
-                    .status(PurchaseOrderStatus.UNKNOWN)
-                    .subTotal(3577.62d)
-                    .supplierRef(SupplierRef.builder()
-                        .id("<value>")
-                        .supplierName("<value>")
-                        .build())
-                    .totalAmount(6519.85d)
-                    .totalDiscount(1325.85d)
-                    .totalTaxAmount(3392.36d)
                     .build())
-                .timeoutInMinutes(863306)
                 .build();
 
             CreatePurchaseOrderResponse res = sdk.purchaseOrders().create()
@@ -130,30 +71,38 @@ public class Application {
             if (res.createPurchaseOrderResponse().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                 | Type                                                                                                                      | Required                                                                                                                  | Description                                                                                                               |
-| ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                 | [io.codat.accounting.models.operations.CreatePurchaseOrderRequest](../../models/operations/CreatePurchaseOrderRequest.md) | :heavy_check_mark:                                                                                                        | The request object to use for the request.                                                                                |
-
+| Parameter                                                                           | Type                                                                                | Required                                                                            | Description                                                                         |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `request`                                                                           | [CreatePurchaseOrderRequest](../../models/operations/CreatePurchaseOrderRequest.md) | :heavy_check_mark:                                                                  | The request object to use for the request.                                          |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.CreatePurchaseOrderResponse>](../../models/operations/CreatePurchaseOrderResponse.md)**
+**[CreatePurchaseOrderResponse](../../models/operations/CreatePurchaseOrderResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## downloadAttachment
 
@@ -170,19 +119,14 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.DownloadPurchaseOrderAttachmentRequest;
 import io.codat.accounting.models.operations.DownloadPurchaseOrderAttachmentResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -202,30 +146,38 @@ public class Application {
             if (res.data().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                         | Type                                                                                                                                              | Required                                                                                                                                          | Description                                                                                                                                       |
-| ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                                         | [io.codat.accounting.models.operations.DownloadPurchaseOrderAttachmentRequest](../../models/operations/DownloadPurchaseOrderAttachmentRequest.md) | :heavy_check_mark:                                                                                                                                | The request object to use for the request.                                                                                                        |
-
+| Parameter                                                                                                   | Type                                                                                                        | Required                                                                                                    | Description                                                                                                 |
+| ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `request`                                                                                                   | [DownloadPurchaseOrderAttachmentRequest](../../models/operations/DownloadPurchaseOrderAttachmentRequest.md) | :heavy_check_mark:                                                                                          | The request object to use for the request.                                                                  |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.DownloadPurchaseOrderAttachmentResponse>](../../models/operations/DownloadPurchaseOrderAttachmentResponse.md)**
+**[DownloadPurchaseOrderAttachmentResponse](../../models/operations/DownloadPurchaseOrderAttachmentResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## downloadPurchaseOrderPdf
 
@@ -241,19 +193,14 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.DownloadPurchaseOrderPdfRequest;
 import io.codat.accounting.models.operations.DownloadPurchaseOrderPdfResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -271,30 +218,38 @@ public class Application {
             if (res.data().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                           | Type                                                                                                                                | Required                                                                                                                            | Description                                                                                                                         |
-| ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                           | [io.codat.accounting.models.operations.DownloadPurchaseOrderPdfRequest](../../models/operations/DownloadPurchaseOrderPdfRequest.md) | :heavy_check_mark:                                                                                                                  | The request object to use for the request.                                                                                          |
-
+| Parameter                                                                                     | Type                                                                                          | Required                                                                                      | Description                                                                                   |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `request`                                                                                     | [DownloadPurchaseOrderPdfRequest](../../models/operations/DownloadPurchaseOrderPdfRequest.md) | :heavy_check_mark:                                                                            | The request object to use for the request.                                                    |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.DownloadPurchaseOrderPdfResponse>](../../models/operations/DownloadPurchaseOrderPdfResponse.md)**
+**[DownloadPurchaseOrderPdfResponse](../../models/operations/DownloadPurchaseOrderPdfResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## get
 
@@ -313,19 +268,14 @@ Before using this endpoint, you must have [retrieved data for the company](https
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.GetPurchaseOrderRequest;
 import io.codat.accounting.models.operations.GetPurchaseOrderResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -343,30 +293,38 @@ public class Application {
             if (res.purchaseOrder().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                           | Type                                                                                                                | Required                                                                                                            | Description                                                                                                         |
-| ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                           | [io.codat.accounting.models.operations.GetPurchaseOrderRequest](../../models/operations/GetPurchaseOrderRequest.md) | :heavy_check_mark:                                                                                                  | The request object to use for the request.                                                                          |
-
+| Parameter                                                                     | Type                                                                          | Required                                                                      | Description                                                                   |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `request`                                                                     | [GetPurchaseOrderRequest](../../models/operations/GetPurchaseOrderRequest.md) | :heavy_check_mark:                                                            | The request object to use for the request.                                    |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.GetPurchaseOrderResponse>](../../models/operations/GetPurchaseOrderResponse.md)**
+**[GetPurchaseOrderResponse](../../models/operations/GetPurchaseOrderResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 401,402,403,404,409,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## getAttachment
 
@@ -383,19 +341,14 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.GetPurchaseOrderAttachmentRequest;
 import io.codat.accounting.models.operations.GetPurchaseOrderAttachmentResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -415,30 +368,38 @@ public class Application {
             if (res.attachment().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                               | Type                                                                                                                                    | Required                                                                                                                                | Description                                                                                                                             |
-| --------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                               | [io.codat.accounting.models.operations.GetPurchaseOrderAttachmentRequest](../../models/operations/GetPurchaseOrderAttachmentRequest.md) | :heavy_check_mark:                                                                                                                      | The request object to use for the request.                                                                                              |
-
+| Parameter                                                                                         | Type                                                                                              | Required                                                                                          | Description                                                                                       |
+| ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `request`                                                                                         | [GetPurchaseOrderAttachmentRequest](../../models/operations/GetPurchaseOrderAttachmentRequest.md) | :heavy_check_mark:                                                                                | The request object to use for the request.                                                        |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.GetPurchaseOrderAttachmentResponse>](../../models/operations/GetPurchaseOrderAttachmentResponse.md)**
+**[GetPurchaseOrderAttachmentResponse](../../models/operations/GetPurchaseOrderAttachmentResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## getCreateUpdateModel
 
@@ -459,19 +420,14 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.GetCreateUpdatePurchaseOrdersModelRequest;
 import io.codat.accounting.models.operations.GetCreateUpdatePurchaseOrdersModelResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -489,30 +445,38 @@ public class Application {
             if (res.pushOption().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                               | Type                                                                                                                                                    | Required                                                                                                                                                | Description                                                                                                                                             |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                                               | [io.codat.accounting.models.operations.GetCreateUpdatePurchaseOrdersModelRequest](../../models/operations/GetCreateUpdatePurchaseOrdersModelRequest.md) | :heavy_check_mark:                                                                                                                                      | The request object to use for the request.                                                                                                              |
-
+| Parameter                                                                                                         | Type                                                                                                              | Required                                                                                                          | Description                                                                                                       |
+| ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `request`                                                                                                         | [GetCreateUpdatePurchaseOrdersModelRequest](../../models/operations/GetCreateUpdatePurchaseOrdersModelRequest.md) | :heavy_check_mark:                                                                                                | The request object to use for the request.                                                                        |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.GetCreateUpdatePurchaseOrdersModelResponse>](../../models/operations/GetCreateUpdatePurchaseOrdersModelResponse.md)**
+**[GetCreateUpdatePurchaseOrdersModelResponse](../../models/operations/GetCreateUpdatePurchaseOrdersModelResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## list
 
@@ -529,19 +493,14 @@ Before using this endpoint, you must have [retrieved data for the company](https
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.ListPurchaseOrdersRequest;
 import io.codat.accounting.models.operations.ListPurchaseOrdersResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -552,7 +511,7 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("<value>")
+                .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
             ListPurchaseOrdersResponse res = sdk.purchaseOrders().list()
@@ -562,30 +521,38 @@ public class Application {
             if (res.purchaseOrders().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                               | Type                                                                                                                    | Required                                                                                                                | Description                                                                                                             |
-| ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                               | [io.codat.accounting.models.operations.ListPurchaseOrdersRequest](../../models/operations/ListPurchaseOrdersRequest.md) | :heavy_check_mark:                                                                                                      | The request object to use for the request.                                                                              |
-
+| Parameter                                                                         | Type                                                                              | Required                                                                          | Description                                                                       |
+| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `request`                                                                         | [ListPurchaseOrdersRequest](../../models/operations/ListPurchaseOrdersRequest.md) | :heavy_check_mark:                                                                | The request object to use for the request.                                        |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.ListPurchaseOrdersResponse>](../../models/operations/ListPurchaseOrdersResponse.md)**
+**[ListPurchaseOrdersResponse](../../models/operations/ListPurchaseOrdersResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                        | Status Code                         | Content Type                        |
+| ----------------------------------- | ----------------------------------- | ----------------------------------- |
+| models/errors/ErrorMessage          | 400,401,402,403,404,409,429,500,503 | application/json                    |
+| models/errors/SDKError              | 4xx-5xx                             | \*\/*                               |
+
 
 ## listAttachments
 
@@ -602,19 +569,14 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.ListPurchaseOrderAttachmentsRequest;
 import io.codat.accounting.models.operations.ListPurchaseOrderAttachmentsResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -633,30 +595,38 @@ public class Application {
             if (res.attachmentsDataset().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                   | Type                                                                                                                                        | Required                                                                                                                                    | Description                                                                                                                                 |
-| ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                                   | [io.codat.accounting.models.operations.ListPurchaseOrderAttachmentsRequest](../../models/operations/ListPurchaseOrderAttachmentsRequest.md) | :heavy_check_mark:                                                                                                                          | The request object to use for the request.                                                                                                  |
-
+| Parameter                                                                                             | Type                                                                                                  | Required                                                                                              | Description                                                                                           |
+| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `request`                                                                                             | [ListPurchaseOrderAttachmentsRequest](../../models/operations/ListPurchaseOrderAttachmentsRequest.md) | :heavy_check_mark:                                                                                    | The request object to use for the request.                                                            |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.ListPurchaseOrderAttachmentsResponse>](../../models/operations/ListPurchaseOrderAttachmentsResponse.md)**
+**[ListPurchaseOrderAttachmentsResponse](../../models/operations/ListPurchaseOrderAttachmentsResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## update
 
@@ -677,33 +647,15 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
-import io.codat.accounting.models.components.AccountRef;
-import io.codat.accounting.models.components.AccountingAddressType;
-import io.codat.accounting.models.components.ItemRef;
-import io.codat.accounting.models.components.Items;
-import io.codat.accounting.models.components.Metadata;
 import io.codat.accounting.models.components.PurchaseOrder;
-import io.codat.accounting.models.components.PurchaseOrderLineItem;
-import io.codat.accounting.models.components.PurchaseOrderStatus;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.components.ShipTo;
-import io.codat.accounting.models.components.ShipToContact;
-import io.codat.accounting.models.components.SupplierRef;
-import io.codat.accounting.models.components.TaxRateRef;
-import io.codat.accounting.models.components.TrackingCategoryRef;
-import io.codat.accounting.models.components.User;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.UpdatePurchaseOrderRequest;
 import io.codat.accounting.models.operations.UpdatePurchaseOrderResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -714,56 +666,14 @@ public class Application {
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .purchaseOrderId("<value>")
                 .purchaseOrder(PurchaseOrder.builder()
-                    .createdBy(User.builder()
-                        .email("Alberto34@hotmail.com")
-                        .firstName("Mellie")
-                        .lastName("Zboncak")
-                        .build())
                     .currency("GBP")
-                    .currencyRate(6276.9d)
                     .deliveryDate("2022-10-23T00:00:00Z")
                     .expectedDeliveryDate("2022-10-23T00:00:00Z")
-                    .id("<id>")
                     .issueDate("2022-10-23T00:00:00Z")
-                    .lineItems(java.util.List.of(
-                        PurchaseOrderLineItem.builder()
-                            .build()))
-                    .metadata(Metadata.builder()
-                        .isDeleted(false)
-                        .build())
                     .modifiedDate("2022-10-23T00:00:00Z")
-                    .note("<value>")
                     .paymentDueDate("2022-10-23T00:00:00Z")
-                    .purchaseOrderNumber("<value>")
-                    .shipTo(ShipTo.builder()
-                        .address(Items.builder()
-                            .type(AccountingAddressType.UNKNOWN)
-                            .city("Fort Jesus")
-                            .country("Jordan")
-                            .line1("<value>")
-                            .line2("<value>")
-                            .postalCode("37231")
-                            .region("<value>")
-                            .build())
-                        .contact(ShipToContact.builder()
-                            .email("Patience.Ziemann30@yahoo.com")
-                            .name("<value>")
-                            .phone("547-769-4503")
-                            .build())
-                        .build())
                     .sourceModifiedDate("2022-10-23T00:00:00Z")
-                    .status(PurchaseOrderStatus.DRAFT)
-                    .subTotal(8108.77d)
-                    .supplierRef(SupplierRef.builder()
-                        .id("<value>")
-                        .supplierName("<value>")
-                        .build())
-                    .totalAmount(6376.96d)
-                    .totalDiscount(4391.52d)
-                    .totalTaxAmount(820.48d)
                     .build())
-                .forceUpdate(false)
-                .timeoutInMinutes(501135)
                 .build();
 
             UpdatePurchaseOrderResponse res = sdk.purchaseOrders().update()
@@ -773,27 +683,34 @@ public class Application {
             if (res.updatePurchaseOrderResponse().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                 | Type                                                                                                                      | Required                                                                                                                  | Description                                                                                                               |
-| ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                 | [io.codat.accounting.models.operations.UpdatePurchaseOrderRequest](../../models/operations/UpdatePurchaseOrderRequest.md) | :heavy_check_mark:                                                                                                        | The request object to use for the request.                                                                                |
-
+| Parameter                                                                           | Type                                                                                | Required                                                                            | Description                                                                         |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `request`                                                                           | [UpdatePurchaseOrderRequest](../../models/operations/UpdatePurchaseOrderRequest.md) | :heavy_check_mark:                                                                  | The request object to use for the request.                                          |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.UpdatePurchaseOrderResponse>](../../models/operations/UpdatePurchaseOrderResponse.md)**
+**[UpdatePurchaseOrderResponse](../../models/operations/UpdatePurchaseOrderResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |

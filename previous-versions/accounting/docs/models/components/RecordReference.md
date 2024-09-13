@@ -9,5 +9,5 @@ For example, if a journal entry is generated based on an invoice, this property 
 
 | Field                                       | Type                                        | Required                                    | Description                                 | Example                                     |
 | ------------------------------------------- | ------------------------------------------- | ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
-| `dataType`                                  | *Optional<? extends String>*                | :heavy_minus_sign:                          | Allowed name of the 'dataType'.             | journalEntry                                |
-| `id`                                        | *Optional<? extends String>*                | :heavy_minus_sign:                          | 'id' of the underlying record or data type. |                                             |
+| `dataType`                                  | *Optional<String>*                          | :heavy_minus_sign:                          | Allowed name of the 'dataType'.             | journalEntry                                |
+| `id`                                        | *Optional<String>*                          | :heavy_minus_sign:                          | 'id' of the underlying record or data type. |                                             |

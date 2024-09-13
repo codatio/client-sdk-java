@@ -11,4 +11,4 @@ Current state of the sales order.
 | `DRAFT`   | Draft     |
 | `OPEN`    | Open      |
 | `CLOSED`  | Closed    |
-| `VOID_`   | Void      |
+| `VOID`    | Void      |

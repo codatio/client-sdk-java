@@ -11,7 +11,7 @@ The option type.
 | `OBJECT`     | Object       |
 | `STRING`     | String       |
 | `NUMBER`     | Number       |
-| `BOOLEAN_`   | Boolean      |
+| `BOOLEAN`    | Boolean      |
 | `DATE_TIME`  | DateTime     |
 | `FILE`       | File         |
 | `MULTI_PART` | MultiPart    |

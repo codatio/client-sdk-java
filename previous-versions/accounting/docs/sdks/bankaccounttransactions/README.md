@@ -3,7 +3,7 @@
 
 ## Overview
 
-Bank transactions for bank accounts
+Access standardized Bank transactions for bank accounts from linked accounting software.
 
 ### Available Operations
 
@@ -30,21 +30,17 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
 import io.codat.accounting.models.components.CreateBankAccountTransaction;
 import io.codat.accounting.models.components.CreateBankTransactions;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.CreateBankTransactionsRequest;
 import io.codat.accounting.models.operations.CreateBankTransactionsResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
+import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -56,13 +52,11 @@ public class Application {
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .createBankTransactions(CreateBankTransactions.builder()
                     .accountId("7110701885")
-                    .transactions(java.util.List.of(
+                    .transactions(List.of(
                         CreateBankAccountTransaction.builder()
                             .date("2022-10-23T00:00:00Z")
                             .build()))
                     .build())
-                .allowSyncOnPushComplete(false)
-                .timeoutInMinutes(638424)
                 .build();
 
             CreateBankTransactionsResponse res = sdk.bankAccountTransactions().create()
@@ -72,30 +66,38 @@ public class Application {
             if (res.createBankTransactionsResponse().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                       | Type                                                                                                                            | Required                                                                                                                        | Description                                                                                                                     |
-| ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                       | [io.codat.accounting.models.operations.CreateBankTransactionsRequest](../../models/operations/CreateBankTransactionsRequest.md) | :heavy_check_mark:                                                                                                              | The request object to use for the request.                                                                                      |
-
+| Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `request`                                                                                 | [CreateBankTransactionsRequest](../../models/operations/CreateBankTransactionsRequest.md) | :heavy_check_mark:                                                                        | The request object to use for the request.                                                |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.CreateBankTransactionsResponse>](../../models/operations/CreateBankTransactionsResponse.md)**
+**[CreateBankTransactionsResponse](../../models/operations/CreateBankTransactionsResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## getCreateModel
 
@@ -116,19 +118,14 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.GetCreateBankTransactionsModelRequest;
 import io.codat.accounting.models.operations.GetCreateBankTransactionsModelResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -147,30 +144,38 @@ public class Application {
             if (res.pushOption().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                       | Type                                                                                                                                            | Required                                                                                                                                        | Description                                                                                                                                     |
-| ----------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                                       | [io.codat.accounting.models.operations.GetCreateBankTransactionsModelRequest](../../models/operations/GetCreateBankTransactionsModelRequest.md) | :heavy_check_mark:                                                                                                                              | The request object to use for the request.                                                                                                      |
-
+| Parameter                                                                                                 | Type                                                                                                      | Required                                                                                                  | Description                                                                                               |
+| --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `request`                                                                                                 | [GetCreateBankTransactionsModelRequest](../../models/operations/GetCreateBankTransactionsModelRequest.md) | :heavy_check_mark:                                                                                        | The request object to use for the request.                                                                |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.GetCreateBankTransactionsModelResponse>](../../models/operations/GetCreateBankTransactionsModelResponse.md)**
+**[GetCreateBankTransactionsModelResponse](../../models/operations/GetCreateBankTransactionsModelResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## list
 
@@ -189,19 +194,14 @@ Before using this endpoint, you must have [retrieved data for the company](https
 package hello.world;
 
 import io.codat.accounting.CodatAccounting;
-import io.codat.accounting.models.components.*;
-import io.codat.accounting.models.components.Security;
-import io.codat.accounting.models.operations.*;
+import io.codat.accounting.models.errors.SDKError;
 import io.codat.accounting.models.operations.ListBankAccountTransactionsRequest;
 import io.codat.accounting.models.operations.ListBankAccountTransactionsResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatAccounting sdk = CodatAccounting.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -214,7 +214,7 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("<value>")
+                .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
             ListBankAccountTransactionsResponse res = sdk.bankAccountTransactions().list()
@@ -224,27 +224,34 @@ public class Application {
             if (res.bankTransactions().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.accounting.models.errors.SDKError e) {
+        } catch (io.codat.accounting.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                 | Type                                                                                                                                      | Required                                                                                                                                  | Description                                                                                                                               |
-| ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                                 | [io.codat.accounting.models.operations.ListBankAccountTransactionsRequest](../../models/operations/ListBankAccountTransactionsRequest.md) | :heavy_check_mark:                                                                                                                        | The request object to use for the request.                                                                                                |
-
+| Parameter                                                                                           | Type                                                                                                | Required                                                                                            | Description                                                                                         |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `request`                                                                                           | [ListBankAccountTransactionsRequest](../../models/operations/ListBankAccountTransactionsRequest.md) | :heavy_check_mark:                                                                                  | The request object to use for the request.                                                          |
 
 ### Response
 
-**[Optional<? extends io.codat.accounting.models.operations.ListBankAccountTransactionsResponse>](../../models/operations/ListBankAccountTransactionsResponse.md)**
+**[ListBankAccountTransactionsResponse](../../models/operations/ListBankAccountTransactionsResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                        | Status Code                         | Content Type                        |
+| ----------------------------------- | ----------------------------------- | ----------------------------------- |
+| models/errors/ErrorMessage          | 400,401,402,403,404,409,429,500,503 | application/json                    |
+| models/errors/SDKError              | 4xx-5xx                             | \*\/*                               |

@@ -1,4 +1,4 @@
-# DirectCostDataType
+# JournalLineDataType
 
 Allowed name of the 'dataType'.
 
