@@ -1,0 +1,14 @@
+# AccountConfiguration
+
+G/L account object for configuration.
+
+
+## Fields
+
+| Field                                                                                     | Type                                                                                      | Required                                                                                  | Description                                                                               |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `accountOptions`                                                                          | List<[AccountConfigurationOption](../../models/components/AccountConfigurationOption.md)> | :heavy_minus_sign:                                                                        | Object containing account options.                                                        |
+| `descriptionText`                                                                         | *JsonNullable<String>*                                                                    | :heavy_minus_sign:                                                                        | Descriptive text for sales configuration section.                                         |
+| `labelText`                                                                               | *JsonNullable<String>*                                                                    | :heavy_minus_sign:                                                                        | Label text for sales configuration section.                                               |
+| `required`                                                                                | *Optional<Boolean>*                                                                       | :heavy_minus_sign:                                                                        | Required section to be configured for sync.                                               |
+| `selectedAccountId`                                                                       | *JsonNullable<String>*                                                                    | :heavy_minus_sign:                                                                        | Selected account id from the list of available accounts.                                  |

@@ -3,7 +3,7 @@
 
 ## Overview
 
-Create new and manage existing Sync for Commerce connections using the Sync flow UI.
+Create new and manage existing data connections for a company.
 
 ### Available Operations
 
@@ -25,20 +25,15 @@ Use the [List Integrations](https://docs.codat.io/sync-for-sync-for-commerce-api
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.components.*;
-import io.codat.sync.commerce.models.components.Security;
-import io.codat.sync.commerce.models.operations.*;
+import io.codat.sync.commerce.models.errors.SDKError;
 import io.codat.sync.commerce.models.operations.CreateConnectionRequest;
 import io.codat.sync.commerce.models.operations.CreateConnectionRequestBody;
 import io.codat.sync.commerce.models.operations.CreateConnectionResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncCommerce sdk = CodatSyncCommerce.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -58,30 +53,38 @@ public class Application {
             if (res.connection().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.commerce.models.errors.SDKError e) {
+        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                              | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            |
-| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                              | [io.codat.sync.commerce.models.operations.CreateConnectionRequest](../../models/operations/CreateConnectionRequest.md) | :heavy_check_mark:                                                                                                     | The request object to use for the request.                                                                             |
-
+| Parameter                                                                     | Type                                                                          | Required                                                                      | Description                                                                   |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `request`                                                                     | [CreateConnectionRequest](../../models/operations/CreateConnectionRequest.md) | :heavy_check_mark:                                                            | The request object to use for the request.                                    |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.commerce.models.operations.CreateConnectionResponse>](../../models/operations/CreateConnectionResponse.md)**
+**[CreateConnectionResponse](../../models/operations/CreateConnectionResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## getSyncFlowUrl
 
@@ -93,19 +96,14 @@ Create a new company and connections. Get a URL for Sync Flow, including a one t
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.components.*;
-import io.codat.sync.commerce.models.components.Security;
-import io.codat.sync.commerce.models.operations.*;
+import io.codat.sync.commerce.models.errors.SDKError;
 import io.codat.sync.commerce.models.operations.GetSyncFlowUrlRequest;
 import io.codat.sync.commerce.models.operations.GetSyncFlowUrlResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncCommerce sdk = CodatSyncCommerce.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -114,7 +112,6 @@ public class Application {
             GetSyncFlowUrlRequest req = GetSyncFlowUrlRequest.builder()
                 .accountingKey("<value>")
                 .commerceKey("<value>")
-                .merchantIdentifier("<value>")
                 .build();
 
             GetSyncFlowUrlResponse res = sdk.connections().getSyncFlowUrl()
@@ -124,30 +121,38 @@ public class Application {
             if (res.syncFlowUrl().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.commerce.models.errors.SDKError e) {
+        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                          | Type                                                                                                               | Required                                                                                                           | Description                                                                                                        |
-| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                          | [io.codat.sync.commerce.models.operations.GetSyncFlowUrlRequest](../../models/operations/GetSyncFlowUrlRequest.md) | :heavy_check_mark:                                                                                                 | The request object to use for the request.                                                                         |
-
+| Parameter                                                                 | Type                                                                      | Required                                                                  | Description                                                               |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `request`                                                                 | [GetSyncFlowUrlRequest](../../models/operations/GetSyncFlowUrlRequest.md) | :heavy_check_mark:                                                        | The request object to use for the request.                                |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.commerce.models.operations.GetSyncFlowUrlResponse>](../../models/operations/GetSyncFlowUrlResponse.md)**
+**[GetSyncFlowUrlResponse](../../models/operations/GetSyncFlowUrlResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## list
 
@@ -159,19 +164,14 @@ public class Application {
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.components.*;
-import io.codat.sync.commerce.models.components.Security;
-import io.codat.sync.commerce.models.operations.*;
+import io.codat.sync.commerce.models.errors.SDKError;
 import io.codat.sync.commerce.models.operations.ListConnectionsRequest;
 import io.codat.sync.commerce.models.operations.ListConnectionsResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncCommerce sdk = CodatSyncCommerce.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -182,7 +182,7 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("<value>")
+                .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
             ListConnectionsResponse res = sdk.connections().list()
@@ -192,30 +192,38 @@ public class Application {
             if (res.connections().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.commerce.models.errors.SDKError e) {
+        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                            | Type                                                                                                                 | Required                                                                                                             | Description                                                                                                          |
-| -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                            | [io.codat.sync.commerce.models.operations.ListConnectionsRequest](../../models/operations/ListConnectionsRequest.md) | :heavy_check_mark:                                                                                                   | The request object to use for the request.                                                                           |
-
+| Parameter                                                                   | Type                                                                        | Required                                                                    | Description                                                                 |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `request`                                                                   | [ListConnectionsRequest](../../models/operations/ListConnectionsRequest.md) | :heavy_check_mark:                                                          | The request object to use for the request.                                  |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.commerce.models.operations.ListConnectionsResponse>](../../models/operations/ListConnectionsResponse.md)**
+**[ListConnectionsResponse](../../models/operations/ListConnectionsResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## updateAuthorization
 
@@ -227,19 +235,14 @@ Update data connection's authorization.
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.components.*;
-import io.codat.sync.commerce.models.components.Security;
-import io.codat.sync.commerce.models.operations.*;
+import io.codat.sync.commerce.models.errors.SDKError;
 import io.codat.sync.commerce.models.operations.UpdateConnectionAuthorizationRequest;
 import io.codat.sync.commerce.models.operations.UpdateConnectionAuthorizationResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncCommerce sdk = CodatSyncCommerce.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -248,8 +251,6 @@ public class Application {
             UpdateConnectionAuthorizationRequest req = UpdateConnectionAuthorizationRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .requestBody(java.util.Map.ofEntries(
-                    entry("key", "<value>")))
                 .build();
 
             UpdateConnectionAuthorizationResponse res = sdk.connections().updateAuthorization()
@@ -259,30 +260,38 @@ public class Application {
             if (res.connection().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.commerce.models.errors.SDKError e) {
+        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                        | Type                                                                                                                                             | Required                                                                                                                                         | Description                                                                                                                                      |
-| ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                        | [io.codat.sync.commerce.models.operations.UpdateConnectionAuthorizationRequest](../../models/operations/UpdateConnectionAuthorizationRequest.md) | :heavy_check_mark:                                                                                                                               | The request object to use for the request.                                                                                                       |
-
+| Parameter                                                                                               | Type                                                                                                    | Required                                                                                                | Description                                                                                             |
+| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `request`                                                                                               | [UpdateConnectionAuthorizationRequest](../../models/operations/UpdateConnectionAuthorizationRequest.md) | :heavy_check_mark:                                                                                      | The request object to use for the request.                                                              |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.commerce.models.operations.UpdateConnectionAuthorizationResponse>](../../models/operations/UpdateConnectionAuthorizationResponse.md)**
+**[UpdateConnectionAuthorizationResponse](../../models/operations/UpdateConnectionAuthorizationResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## updateConnection
 
@@ -294,21 +303,14 @@ Update a data connection
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.components.*;
-import io.codat.sync.commerce.models.components.DataConnectionStatus;
-import io.codat.sync.commerce.models.components.Security;
-import io.codat.sync.commerce.models.components.UpdateConnection;
-import io.codat.sync.commerce.models.operations.*;
+import io.codat.sync.commerce.models.errors.SDKError;
 import io.codat.sync.commerce.models.operations.UpdateConnectionRequest;
 import io.codat.sync.commerce.models.operations.UpdateConnectionResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncCommerce sdk = CodatSyncCommerce.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -317,9 +319,6 @@ public class Application {
             UpdateConnectionRequest req = UpdateConnectionRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .updateConnection(UpdateConnection.builder()
-                    .status(DataConnectionStatus.DEAUTHORIZED)
-                    .build())
                 .build();
 
             UpdateConnectionResponse res = sdk.connections().updateConnection()
@@ -329,27 +328,34 @@ public class Application {
             if (res.connection().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.commerce.models.errors.SDKError e) {
+        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                              | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            |
-| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                              | [io.codat.sync.commerce.models.operations.UpdateConnectionRequest](../../models/operations/UpdateConnectionRequest.md) | :heavy_check_mark:                                                                                                     | The request object to use for the request.                                                                             |
-
+| Parameter                                                                     | Type                                                                          | Required                                                                      | Description                                                                   |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `request`                                                                     | [UpdateConnectionRequest](../../models/operations/UpdateConnectionRequest.md) | :heavy_check_mark:                                                            | The request object to use for the request.                                    |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.commerce.models.operations.UpdateConnectionResponse>](../../models/operations/UpdateConnectionResponse.md)**
+**[UpdateConnectionResponse](../../models/operations/UpdateConnectionResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |

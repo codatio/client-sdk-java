@@ -7,5 +7,5 @@ Image reference.
 
 | Field                                         | Type                                          | Required                                      | Description                                   |
 | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
-| `alt`                                         | *Optional<? extends String>*                  | :heavy_minus_sign:                            | Alternative text when image is not available. |
-| `src`                                         | *Optional<? extends String>*                  | :heavy_minus_sign:                            | Source URL for image.                         |
+| `alt`                                         | *Optional<String>*                            | :heavy_minus_sign:                            | Alternative text when image is not available. |
+| `src`                                         | *Optional<String>*                            | :heavy_minus_sign:                            | Source URL for image.                         |

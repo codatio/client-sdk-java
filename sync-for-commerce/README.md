@@ -4,13 +4,79 @@
 ﻿Embedded accounting integrations for POS and eCommerce platforms.
 <!-- End Codat Library Description -->
 
+<!-- Start Summary [summary] -->
+## Summary
+
+Sync for Commerce: The API for Sync for Commerce. 
+
+Sync for Commerce automatically replicates and reconciles sales data from a merchant’s source PoS, Payments, and eCommerce systems into their accounting software. This eliminates manual processing by merchants and transforms their ability to run and grow their business.
+  
+[Explore product](https://docs.codat.io/commerce/overview) | [See our OpenAPI spec](https://github.com/codatio/oas)
+
+Not seeing the endpoints you're expecting? We've [reorganized our products](https://docs.codat.io/updates/230901-new-products), and you may be using a [different version of Sync for Commerce](https://docs.codat.io/sync-for-commerce-v1-api#/).
+
+---
+
+<!-- Start Codat Tags Table -->
+## Endpoints
+
+| Endpoints | Description |
+| :- |:- |
+| Connections | Create new and manage existing data connections for a company. |
+| Sync | Initiate data syncs and monitor their status. |
+| Sync flow settings | Control text and visibility settings for the Sync Flow. |
+| Integrations | Get a list of integrations supported by Sync for Commerce and their logos. |
+| Advanced controls | View and manage mapping configured for a company's commerce sync. |
+<!-- End Codat Tags Table -->
+<!-- End Summary [summary] -->
+
+<!-- Start Table of Contents [toc] -->
+## Table of Contents
+
+* [SDK Installation](#sdk-installation)
+* [SDK Example Usage](#sdk-example-usage)
+* [Available Resources and Operations](#available-resources-and-operations)
+* [Retries](#retries)
+* [Error Handling](#error-handling)
+* [Server Selection](#server-selection)
+* [Authentication](#authentication)
+<!-- End Table of Contents [toc] -->
+
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
 
-### Gradle
+### Getting started
 
+JDK 11 or later is required.
+
+The samples below show how a published SDK artifact is used:
+
+Gradle:
 ```groovy
-implementation 'io.codat.sync.commerce:openapi:0.1.0'
+implementation 'io.codat:sync.commerce:0.2.0'
+```
+
+Maven:
+```xml
+<dependency>
+    <groupId>io.codat</groupId>
+    <artifactId>sync.commerce</artifactId>
+    <version>0.2.0</version>
+</dependency>
+```
+
+### How to build
+After cloning the git repository to your file system you can build the SDK artifact from source to the `build` directory by running `./gradlew build` on *nix systems or `gradlew.bat` on Windows systems.
+
+If you wish to build from source and publish the SDK artifact to your local Maven repository (on your filesystem) then use the following command (after cloning the git repo locally):
+
+On *nix:
+```bash
+./gradlew publishToMavenLocal -Pskip.signing
+```
+On Windows:
+```bash
+gradlew.bat publishToMavenLocal -Pskip.signing
 ```
 <!-- End SDK Installation [installation] -->
 
@@ -24,20 +90,15 @@ implementation 'io.codat.sync.commerce:openapi:0.1.0'
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.components.*;
 import io.codat.sync.commerce.models.components.Locale;
-import io.codat.sync.commerce.models.components.Security;
-import io.codat.sync.commerce.models.operations.*;
+import io.codat.sync.commerce.models.errors.SDKError;
 import io.codat.sync.commerce.models.operations.GetConfigTextSyncFlowRequest;
 import io.codat.sync.commerce.models.operations.GetConfigTextSyncFlowResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncCommerce sdk = CodatSyncCommerce.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -54,11 +115,17 @@ public class Application {
             if (res.localizationInfo().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.commerce.models.errors.SDKError e) {
+        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
@@ -67,12 +134,8 @@ public class Application {
 <!-- Start Available Resources and Operations [operations] -->
 ## Available Resources and Operations
 
-### [syncFlowSettings()](docs/sdks/syncflowsettings/README.md)
-
-* [getConfigTextSyncFlow](docs/sdks/syncflowsettings/README.md#getconfigtextsyncflow) - Get preferences for text fields
-* [getVisibleAccounts](docs/sdks/syncflowsettings/README.md#getvisibleaccounts) - List visible accounts
-* [updateConfigTextSyncFlow](docs/sdks/syncflowsettings/README.md#updateconfigtextsyncflow) - Update preferences for text fields
-* [updateVisibleAccountsSyncFlow](docs/sdks/syncflowsettings/README.md#updatevisibleaccountssyncflow) - Update visible accounts
+<details open>
+<summary>Available methods</summary>
 
 ### [advancedControls()](docs/sdks/advancedcontrols/README.md)
 
@@ -81,6 +144,7 @@ public class Application {
 * [listCompanies](docs/sdks/advancedcontrols/README.md#listcompanies) - List companies
 * [setConfiguration](docs/sdks/advancedcontrols/README.md#setconfiguration) - Set configuration
 
+
 ### [connections()](docs/sdks/connections/README.md)
 
 * [create](docs/sdks/connections/README.md#create) - Create connection
@@ -88,6 +152,11 @@ public class Application {
 * [list](docs/sdks/connections/README.md#list) - List connections
 * [updateAuthorization](docs/sdks/connections/README.md#updateauthorization) - Update authorization
 * [updateConnection](docs/sdks/connections/README.md#updateconnection) - Update connection
+
+### [integrations()](docs/sdks/integrations/README.md)
+
+* [getBranding](docs/sdks/integrations/README.md#getbranding) - Get branding for an integration
+* [list](docs/sdks/integrations/README.md#list) - List integrations
 
 ### [sync()](docs/sdks/sync/README.md)
 
@@ -99,10 +168,14 @@ public class Application {
 * [request](docs/sdks/sync/README.md#request) - Initiate new sync
 * [requestForDateRange](docs/sdks/sync/README.md#requestfordaterange) - Initiate sync for specific range
 
-### [integrations()](docs/sdks/integrations/README.md)
+### [syncFlowSettings()](docs/sdks/syncflowsettings/README.md)
 
-* [getBranding](docs/sdks/integrations/README.md#getbranding) - Get branding for an integration
-* [list](docs/sdks/integrations/README.md#list) - List integrations
+* [getConfigTextSyncFlow](docs/sdks/syncflowsettings/README.md#getconfigtextsyncflow) - Get preferences for text fields
+* [getVisibleAccounts](docs/sdks/syncflowsettings/README.md#getvisibleaccounts) - List visible accounts
+* [updateConfigTextSyncFlow](docs/sdks/syncflowsettings/README.md#updateconfigtextsyncflow) - Update preferences for text fields
+* [updateVisibleAccountsSyncFlow](docs/sdks/syncflowsettings/README.md#updatevisibleaccountssyncflow) - Update visible accounts
+
+</details>
 <!-- End Available Resources and Operations [operations] -->
 
 <!-- Start Retries [retries] -->
@@ -115,23 +188,18 @@ To change the default retry strategy for a single API call, you can provide a `R
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.components.*;
 import io.codat.sync.commerce.models.components.Locale;
-import io.codat.sync.commerce.models.components.Security;
-import io.codat.sync.commerce.models.operations.*;
+import io.codat.sync.commerce.models.errors.SDKError;
 import io.codat.sync.commerce.models.operations.GetConfigTextSyncFlowRequest;
 import io.codat.sync.commerce.models.operations.GetConfigTextSyncFlowResponse;
 import io.codat.sync.commerce.utils.BackoffStrategy;
 import io.codat.sync.commerce.utils.RetryConfig;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
+import java.lang.Exception;
 import java.util.concurrent.TimeUnit;
-import static java.util.Map.entry;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncCommerce sdk = CodatSyncCommerce.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -144,25 +212,31 @@ public class Application {
             GetConfigTextSyncFlowResponse res = sdk.syncFlowSettings().getConfigTextSyncFlow()
                 .request(req)
                 .retryConfig(RetryConfig.builder()
-                                .backoff(BackoffStrategy.builder()
-                                            .initialInterval(1L, TimeUnit.MILLISECONDS)
-                                            .maxInterval(50L, TimeUnit.MILLISECONDS)
-                                            .maxElapsedTime(1000L, TimeUnit.MILLISECONDS)
-                                            .baseFactor(1.1)
-                                            .jitterFactor(0.15)
-                                            .retryConnectError(false)
-                                            .build())
-                                .build())
+                    .backoff(BackoffStrategy.builder()
+                        .initialInterval(1L, TimeUnit.MILLISECONDS)
+                        .maxInterval(50L, TimeUnit.MILLISECONDS)
+                        .maxElapsedTime(1000L, TimeUnit.MILLISECONDS)
+                        .baseFactor(1.1)
+                        .jitterFactor(0.15)
+                        .retryConnectError(false)
+                        .build())
+                    .build())
                 .call();
 
             if (res.localizationInfo().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.commerce.models.errors.SDKError e) {
+        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
@@ -172,35 +246,30 @@ If you'd like to override the default retry strategy for all operations that sup
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.components.*;
 import io.codat.sync.commerce.models.components.Locale;
-import io.codat.sync.commerce.models.components.Security;
-import io.codat.sync.commerce.models.operations.*;
+import io.codat.sync.commerce.models.errors.SDKError;
 import io.codat.sync.commerce.models.operations.GetConfigTextSyncFlowRequest;
 import io.codat.sync.commerce.models.operations.GetConfigTextSyncFlowResponse;
 import io.codat.sync.commerce.utils.BackoffStrategy;
 import io.codat.sync.commerce.utils.RetryConfig;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
+import java.lang.Exception;
 import java.util.concurrent.TimeUnit;
-import static java.util.Map.entry;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncCommerce sdk = CodatSyncCommerce.builder()
                 .retryConfig(RetryConfig.builder()
-                                .backoff(BackoffStrategy.builder()
-                                            .initialInterval(1L, TimeUnit.MILLISECONDS)
-                                            .maxInterval(50L, TimeUnit.MILLISECONDS)
-                                            .maxElapsedTime(1000L, TimeUnit.MILLISECONDS)
-                                            .baseFactor(1.1)
-                                            .jitterFactor(0.15)
-                                            .retryConnectError(false)
-                                            .build())
-                                .build())
+                    .backoff(BackoffStrategy.builder()
+                        .initialInterval(1L, TimeUnit.MILLISECONDS)
+                        .maxInterval(50L, TimeUnit.MILLISECONDS)
+                        .maxElapsedTime(1000L, TimeUnit.MILLISECONDS)
+                        .baseFactor(1.1)
+                        .jitterFactor(0.15)
+                        .retryConnectError(false)
+                        .build())
+                    .build())
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                 .build();
 
@@ -215,11 +284,17 @@ public class Application {
             if (res.localizationInfo().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.commerce.models.errors.SDKError e) {
+        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
@@ -230,9 +305,10 @@ public class Application {
 
 Handling errors in this SDK should largely match your expectations.  All operations return a response object or raise an error.  If Error objects are specified in your OpenAPI Spec, the SDK will throw the appropriate Exception type.
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object               | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| models/errors/ErrorMessage | 401,402,403,429,500,503    | application/json           |
+| models/errors/SDKError     | 4xx-5xx                    | \*\/*                      |
 
 ### Example
 
@@ -240,20 +316,15 @@ Handling errors in this SDK should largely match your expectations.  All operati
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.components.*;
 import io.codat.sync.commerce.models.components.Locale;
-import io.codat.sync.commerce.models.components.Security;
-import io.codat.sync.commerce.models.operations.*;
+import io.codat.sync.commerce.models.errors.SDKError;
 import io.codat.sync.commerce.models.operations.GetConfigTextSyncFlowRequest;
 import io.codat.sync.commerce.models.operations.GetConfigTextSyncFlowResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncCommerce sdk = CodatSyncCommerce.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -270,11 +341,17 @@ public class Application {
             if (res.localizationInfo().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.commerce.models.errors.SDKError e) {
+        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
@@ -297,20 +374,15 @@ You can override the default server globally by passing a server index to the `s
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.components.*;
 import io.codat.sync.commerce.models.components.Locale;
-import io.codat.sync.commerce.models.components.Security;
-import io.codat.sync.commerce.models.operations.*;
+import io.codat.sync.commerce.models.errors.SDKError;
 import io.codat.sync.commerce.models.operations.GetConfigTextSyncFlowRequest;
 import io.codat.sync.commerce.models.operations.GetConfigTextSyncFlowResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncCommerce sdk = CodatSyncCommerce.builder()
                 .serverIndex(0)
@@ -328,11 +400,17 @@ public class Application {
             if (res.localizationInfo().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.commerce.models.errors.SDKError e) {
+        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
@@ -345,20 +423,15 @@ The default server can also be overridden globally by passing a URL to the `serv
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.components.*;
 import io.codat.sync.commerce.models.components.Locale;
-import io.codat.sync.commerce.models.components.Security;
-import io.codat.sync.commerce.models.operations.*;
+import io.codat.sync.commerce.models.errors.SDKError;
 import io.codat.sync.commerce.models.operations.GetConfigTextSyncFlowRequest;
 import io.codat.sync.commerce.models.operations.GetConfigTextSyncFlowResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncCommerce sdk = CodatSyncCommerce.builder()
                 .serverURL("https://api.codat.io")
@@ -376,11 +449,17 @@ public class Application {
             if (res.localizationInfo().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.commerce.models.errors.SDKError e) {
+        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
@@ -402,20 +481,15 @@ To authenticate with the API the `authHeader` parameter must be set when initial
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.components.*;
 import io.codat.sync.commerce.models.components.Locale;
-import io.codat.sync.commerce.models.components.Security;
-import io.codat.sync.commerce.models.operations.*;
+import io.codat.sync.commerce.models.errors.SDKError;
 import io.codat.sync.commerce.models.operations.GetConfigTextSyncFlowRequest;
 import io.codat.sync.commerce.models.operations.GetConfigTextSyncFlowResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncCommerce sdk = CodatSyncCommerce.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -432,11 +506,17 @@ public class Application {
             if (res.localizationInfo().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.commerce.models.errors.SDKError e) {
+        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
