@@ -29,3 +29,13 @@ Based on:
 - [java v0.3.0] sync-for-payables
 ### Releases
 - [Maven Central v0.3.0] https://central.sonatype.com/artifact/io.codat.sync/payables/0.3.0 - sync-for-payables
+
+## 2024-09-13 16:22:47
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.396.7 (2.415.6) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [java v0.4.0] sync-for-payables
+### Releases
+- [Maven Central v0.4.0] https://central.sonatype.com/artifact/io.codat.sync/payables/0.4.0 - sync-for-payables
