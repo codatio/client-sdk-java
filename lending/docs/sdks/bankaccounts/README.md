@@ -1,6 +1,8 @@
 # BankAccounts
 (*loanWriteback().bankAccounts()*)
 
+## Overview
+
 ### Available Operations
 
 * [create](#create) - Create bank account
@@ -24,23 +26,17 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.operations.*;
+import io.codat.lending.models.errors.SDKError;
 import io.codat.lending.models.operations.CreateBankAccountRequest;
 import io.codat.lending.models.operations.CreateBankAccountResponse;
-import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.AccountingBankAccount;
-import io.codat.lending.models.shared.AccountingBankAccountType;
-import io.codat.lending.models.shared.Metadata;
+import io.codat.lending.models.shared.BankAccountStatus;
 import io.codat.lending.models.shared.Security;
-import io.codat.lending.models.shared.SupplementalData;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
@@ -52,31 +48,11 @@ public class Application {
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .accountingBankAccount(AccountingBankAccount.builder()
-                    .accountName("<value>")
-                    .accountNumber("<value>")
-                    .accountType(AccountingBankAccountType.CREDIT)
-                    .availableBalance(4893.82d)
-                    .balance(6384.24d)
-                    .currency("EUR")
-                    .iBan("IE8210U901078857930905")
-                    .id("<id>")
-                    .institution("<value>")
-                    .metadata(Metadata.builder()
-                        .isDeleted(false)
-                        .build())
+                    .currency("USD")
                     .modifiedDate("2022-10-23T00:00:00Z")
-                    .nominalCode("<value>")
-                    .overdraftLimit(2075.65d)
-                    .sortCode("<value>")
                     .sourceModifiedDate("2022-10-23T00:00:00Z")
-                    .supplementalData(SupplementalData.builder()
-                        .content(java.util.Map.ofEntries(
-                            entry("key", java.util.Map.ofEntries(
-                                entry("key", "<value>")))))
-                        .build())
+                    .status(BankAccountStatus.ACTIVE)
                     .build())
-                .allowSyncOnPushComplete(false)
-                .timeoutInMinutes(714115)
                 .build();
 
             CreateBankAccountResponse res = sdk.loanWriteback().bankAccounts().create()
@@ -86,30 +62,38 @@ public class Application {
             if (res.accountingCreateBankAccountResponse().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.lending.models.errors.SDKError e) {
+        } catch (io.codat.lending.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                          | Type                                                                                                               | Required                                                                                                           | Description                                                                                                        |
-| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                          | [io.codat.lending.models.operations.CreateBankAccountRequest](../../models/operations/CreateBankAccountRequest.md) | :heavy_check_mark:                                                                                                 | The request object to use for the request.                                                                         |
-
+| Parameter                                                                       | Type                                                                            | Required                                                                        | Description                                                                     |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `request`                                                                       | [CreateBankAccountRequest](../../models/operations/CreateBankAccountRequest.md) | :heavy_check_mark:                                                              | The request object to use for the request.                                      |
 
 ### Response
 
-**[Optional<? extends io.codat.lending.models.operations.CreateBankAccountResponse>](../../models/operations/CreateBankAccountResponse.md)**
+**[CreateBankAccountResponse](../../models/operations/CreateBankAccountResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## getCreateUpdateModel
 
@@ -130,19 +114,15 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.operations.*;
+import io.codat.lending.models.errors.SDKError;
 import io.codat.lending.models.operations.GetCreateUpdateBankAccountsModelRequest;
 import io.codat.lending.models.operations.GetCreateUpdateBankAccountsModelResponse;
-import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.Security;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
@@ -162,27 +142,34 @@ public class Application {
             if (res.pushOption().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.lending.models.errors.SDKError e) {
+        } catch (io.codat.lending.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                        | Type                                                                                                                                             | Required                                                                                                                                         | Description                                                                                                                                      |
-| ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                        | [io.codat.lending.models.operations.GetCreateUpdateBankAccountsModelRequest](../../models/operations/GetCreateUpdateBankAccountsModelRequest.md) | :heavy_check_mark:                                                                                                                               | The request object to use for the request.                                                                                                       |
-
+| Parameter                                                                                                     | Type                                                                                                          | Required                                                                                                      | Description                                                                                                   |
+| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `request`                                                                                                     | [GetCreateUpdateBankAccountsModelRequest](../../models/operations/GetCreateUpdateBankAccountsModelRequest.md) | :heavy_check_mark:                                                                                            | The request object to use for the request.                                                                    |
 
 ### Response
 
-**[Optional<? extends io.codat.lending.models.operations.GetCreateUpdateBankAccountsModelResponse>](../../models/operations/GetCreateUpdateBankAccountsModelResponse.md)**
+**[GetCreateUpdateBankAccountsModelResponse](../../models/operations/GetCreateUpdateBankAccountsModelResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |

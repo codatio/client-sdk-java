@@ -23,20 +23,16 @@ The [details](https://docs.codat.io/lending-api#/schemas/DataIntegrityDetails) a
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.operations.*;
+import io.codat.lending.models.errors.SDKError;
 import io.codat.lending.models.operations.ListDataIntegrityDetailsRequest;
 import io.codat.lending.models.operations.ListDataIntegrityDetailsResponse;
-import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.DataIntegrityDataType;
 import io.codat.lending.models.shared.Security;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
@@ -50,7 +46,7 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("<value>")
+                .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
             ListDataIntegrityDetailsResponse res = sdk.dataIntegrity().details()
@@ -60,30 +56,38 @@ public class Application {
             if (res.dataIntegrityDetails().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.lending.models.errors.SDKError e) {
+        } catch (io.codat.lending.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                        | Type                                                                                                                             | Required                                                                                                                         | Description                                                                                                                      |
-| -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                        | [io.codat.lending.models.operations.ListDataIntegrityDetailsRequest](../../models/operations/ListDataIntegrityDetailsRequest.md) | :heavy_check_mark:                                                                                                               | The request object to use for the request.                                                                                       |
-
+| Parameter                                                                                     | Type                                                                                          | Required                                                                                      | Description                                                                                   |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `request`                                                                                     | [ListDataIntegrityDetailsRequest](../../models/operations/ListDataIntegrityDetailsRequest.md) | :heavy_check_mark:                                                                            | The request object to use for the request.                                                    |
 
 ### Response
 
-**[Optional<? extends io.codat.lending.models.operations.ListDataIntegrityDetailsResponse>](../../models/operations/ListDataIntegrityDetailsResponse.md)**
+**[ListDataIntegrityDetailsResponse](../../models/operations/ListDataIntegrityDetailsResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## status
 
@@ -102,20 +106,16 @@ The response tells you:
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.operations.*;
+import io.codat.lending.models.errors.SDKError;
 import io.codat.lending.models.operations.GetDataIntegrityStatusRequest;
 import io.codat.lending.models.operations.GetDataIntegrityStatusResponse;
-import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.DataIntegrityDataType;
 import io.codat.lending.models.shared.Security;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
@@ -135,30 +135,38 @@ public class Application {
             if (res.dataIntegrityStatuses().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.lending.models.errors.SDKError e) {
+        } catch (io.codat.lending.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                    | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  |
-| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                    | [io.codat.lending.models.operations.GetDataIntegrityStatusRequest](../../models/operations/GetDataIntegrityStatusRequest.md) | :heavy_check_mark:                                                                                                           | The request object to use for the request.                                                                                   |
-
+| Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `request`                                                                                 | [GetDataIntegrityStatusRequest](../../models/operations/GetDataIntegrityStatusRequest.md) | :heavy_check_mark:                                                                        | The request object to use for the request.                                                |
 
 ### Response
 
-**[Optional<? extends io.codat.lending.models.operations.GetDataIntegrityStatusResponse>](../../models/operations/GetDataIntegrityStatusResponse.md)**
+**[GetDataIntegrityStatusResponse](../../models/operations/GetDataIntegrityStatusResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## summaries
 
@@ -174,20 +182,16 @@ The endpoint response includes only the summary results, not transactions. To vi
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.operations.*;
+import io.codat.lending.models.errors.SDKError;
 import io.codat.lending.models.operations.GetDataIntegritySummariesRequest;
 import io.codat.lending.models.operations.GetDataIntegritySummariesResponse;
-import io.codat.lending.models.shared.*;
 import io.codat.lending.models.shared.DataIntegrityDataType;
 import io.codat.lending.models.shared.Security;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
@@ -198,7 +202,7 @@ public class Application {
             GetDataIntegritySummariesRequest req = GetDataIntegritySummariesRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .dataType(DataIntegrityDataType.BANKING_ACCOUNTS)
-                .query("<value>")
+                .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
             GetDataIntegritySummariesResponse res = sdk.dataIntegrity().summaries()
@@ -208,27 +212,34 @@ public class Application {
             if (res.dataIntegritySummaries().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.lending.models.errors.SDKError e) {
+        } catch (io.codat.lending.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                          | Type                                                                                                                               | Required                                                                                                                           | Description                                                                                                                        |
-| ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                          | [io.codat.lending.models.operations.GetDataIntegritySummariesRequest](../../models/operations/GetDataIntegritySummariesRequest.md) | :heavy_check_mark:                                                                                                                 | The request object to use for the request.                                                                                         |
-
+| Parameter                                                                                       | Type                                                                                            | Required                                                                                        | Description                                                                                     |
+| ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `request`                                                                                       | [GetDataIntegritySummariesRequest](../../models/operations/GetDataIntegritySummariesRequest.md) | :heavy_check_mark:                                                                              | The request object to use for the request.                                                      |
 
 ### Response
 
-**[Optional<? extends io.codat.lending.models.operations.GetDataIntegritySummariesResponse>](../../models/operations/GetDataIntegritySummariesResponse.md)**
+**[GetDataIntegritySummariesResponse](../../models/operations/GetDataIntegritySummariesResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |

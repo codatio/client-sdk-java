@@ -11,5 +11,5 @@ Current state of the bill credit note
 | `DRAFT`          | Draft            |
 | `SUBMITTED`      | Submitted        |
 | `PAID`           | Paid             |
-| `VOID_`          | Void             |
+| `VOID`           | Void             |
 | `PARTIALLY_PAID` | PartiallyPaid    |

@@ -3,6 +3,7 @@
 
 ## Fields
 
-| Field                                | Type                                 | Required                             | Description                          | Example                              |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| `id`                                 | *Optional<? extends String>*         | :heavy_minus_sign:                   | Unique identifier for the group.     | 60d2fa12-8a04-11ee-b9d1-0242ac120002 |
+| Field                          | Type                           | Required                       | Description                    |
+| ------------------------------ | ------------------------------ | ------------------------------ | ------------------------------ |
+| `amount`                       | *BigDecimal*                   | :heavy_check_mark:             | Amount of tax withheld.        |
+| `name`                         | *String*                       | :heavy_check_mark:             | Name assigned to withheld tax. |

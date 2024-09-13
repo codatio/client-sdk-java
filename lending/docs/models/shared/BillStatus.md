@@ -11,5 +11,5 @@ Current state of the bill.
 | `OPEN`           | Open             |
 | `PARTIALLY_PAID` | PartiallyPaid    |
 | `PAID`           | Paid             |
-| `VOID_`          | Void             |
+| `VOID`           | Void             |
 | `DRAFT`          | Draft            |
