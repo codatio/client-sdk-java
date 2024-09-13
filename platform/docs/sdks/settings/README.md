@@ -35,21 +35,15 @@ You can [read more](https://docs.codat.io/using-the-api/authentication) about au
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.operations.*;
+import io.codat.platform.models.errors.SDKError;
 import io.codat.platform.models.operations.CreateApiKeyResponse;
-import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.CreateApiKey;
 import io.codat.platform.models.shared.Security;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
@@ -70,31 +64,36 @@ public class Application {
             }
         } catch (io.codat.platform.models.errors.ErrorMessage e) {
             // handle exception
-        } catch (io.codat.platform.models.errors.SDKError e) {
+            throw e;
+        } catch (SDKError e) {
             // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                           | Type                                                                                | Required                                                                            | Description                                                                         |
-| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| `request`                                                                           | [io.codat.platform.models.shared.CreateApiKey](../../models/shared/CreateApiKey.md) | :heavy_check_mark:                                                                  | The request object to use for the request.                                          |
-
+| Parameter                                           | Type                                                | Required                                            | Description                                         |
+| --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
+| `request`                                           | [CreateApiKey](../../models/shared/CreateApiKey.md) | :heavy_check_mark:                                  | The request object to use for the request.          |
 
 ### Response
 
-**[Optional<? extends io.codat.platform.models.operations.CreateApiKeyResponse>](../../models/operations/CreateApiKeyResponse.md)**
+**[CreateApiKeyResponse](../../models/operations/CreateApiKeyResponse.md)**
+
 ### Errors
 
-| Error Object                                 | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| io.codat.platform.models.errors.ErrorMessage | 400,401,402,403,409,429,500,503              | application/json                             |
-| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,409,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## deleteApiKey
 
@@ -115,21 +114,15 @@ You can [read more](https://docs.codat.io/using-the-api/authentication) about au
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.operations.*;
+import io.codat.platform.models.errors.SDKError;
 import io.codat.platform.models.operations.DeleteApiKeyRequest;
 import io.codat.platform.models.operations.DeleteApiKeyResponse;
-import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
@@ -150,31 +143,36 @@ public class Application {
             }
         } catch (io.codat.platform.models.errors.ErrorMessage e) {
             // handle exception
-        } catch (io.codat.platform.models.errors.SDKError e) {
+            throw e;
+        } catch (SDKError e) {
             // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                 | Type                                                                                                      | Required                                                                                                  | Description                                                                                               |
-| --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                 | [io.codat.platform.models.operations.DeleteApiKeyRequest](../../models/operations/DeleteApiKeyRequest.md) | :heavy_check_mark:                                                                                        | The request object to use for the request.                                                                |
-
+| Parameter                                                             | Type                                                                  | Required                                                              | Description                                                           |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `request`                                                             | [DeleteApiKeyRequest](../../models/operations/DeleteApiKeyRequest.md) | :heavy_check_mark:                                                    | The request object to use for the request.                            |
 
 ### Response
 
-**[Optional<? extends io.codat.platform.models.operations.DeleteApiKeyResponse>](../../models/operations/DeleteApiKeyResponse.md)**
+**[DeleteApiKeyResponse](../../models/operations/DeleteApiKeyResponse.md)**
+
 ### Errors
 
-| Error Object                                 | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| io.codat.platform.models.errors.ErrorMessage | 401,402,403,404,429,500,503                  | application/json                             |
-| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## getProfile
 
@@ -186,20 +184,14 @@ Fetch your Codat profile.
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.operations.*;
+import io.codat.platform.models.errors.SDKError;
 import io.codat.platform.models.operations.GetProfileResponse;
-import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
@@ -215,25 +207,30 @@ public class Application {
             }
         } catch (io.codat.platform.models.errors.ErrorMessage e) {
             // handle exception
-        } catch (io.codat.platform.models.errors.SDKError e) {
+            throw e;
+        } catch (SDKError e) {
             // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
-
 ### Response
 
-**[Optional<? extends io.codat.platform.models.operations.GetProfileResponse>](../../models/operations/GetProfileResponse.md)**
+**[GetProfileResponse](../../models/operations/GetProfileResponse.md)**
+
 ### Errors
 
-| Error Object                                 | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| io.codat.platform.models.errors.ErrorMessage | 401,402,403,429,500,503                      | application/json                             |
-| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
+| Error Object               | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| models/errors/ErrorMessage | 401,402,403,429,500,503    | application/json           |
+| models/errors/SDKError     | 4xx-5xx                    | \*\/*                      |
+
 
 ## getSyncSettings
 
@@ -245,20 +242,14 @@ Retrieve the [sync settings](https://docs.codat.io/knowledge-base/advanced-sync-
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.operations.*;
+import io.codat.platform.models.errors.SDKError;
 import io.codat.platform.models.operations.GetProfileSyncSettingsResponse;
-import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
@@ -274,25 +265,30 @@ public class Application {
             }
         } catch (io.codat.platform.models.errors.ErrorMessage e) {
             // handle exception
-        } catch (io.codat.platform.models.errors.SDKError e) {
+            throw e;
+        } catch (SDKError e) {
             // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
-
 ### Response
 
-**[Optional<? extends io.codat.platform.models.operations.GetProfileSyncSettingsResponse>](../../models/operations/GetProfileSyncSettingsResponse.md)**
+**[GetProfileSyncSettingsResponse](../../models/operations/GetProfileSyncSettingsResponse.md)**
+
 ### Errors
 
-| Error Object                                 | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| io.codat.platform.models.errors.ErrorMessage | 401,402,403,429,500,503                      | application/json                             |
-| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
+| Error Object               | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| models/errors/ErrorMessage | 401,402,403,429,500,503    | application/json           |
+| models/errors/SDKError     | 4xx-5xx                    | \*\/*                      |
+
 
 ## listApiKeys
 
@@ -308,20 +304,14 @@ You can [read more](https://docs.codat.io/using-the-api/authentication) about au
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.operations.*;
+import io.codat.platform.models.errors.SDKError;
 import io.codat.platform.models.operations.ListApiKeysResponse;
-import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
@@ -337,25 +327,30 @@ public class Application {
             }
         } catch (io.codat.platform.models.errors.ErrorMessage e) {
             // handle exception
-        } catch (io.codat.platform.models.errors.SDKError e) {
+            throw e;
+        } catch (SDKError e) {
             // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
-
 ### Response
 
-**[Optional<? extends io.codat.platform.models.operations.ListApiKeysResponse>](../../models/operations/ListApiKeysResponse.md)**
+**[ListApiKeysResponse](../../models/operations/ListApiKeysResponse.md)**
+
 ### Errors
 
-| Error Object                                 | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| io.codat.platform.models.errors.ErrorMessage | 401,402,403,429,500,503                      | application/json                             |
-| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
+| Error Object               | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| models/errors/ErrorMessage | 401,402,403,429,500,503    | application/json           |
+| models/errors/SDKError     | 4xx-5xx                    | \*\/*                      |
+
 
 ## updateProfile
 
@@ -367,21 +362,16 @@ Update your Codat profile
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.operations.*;
+import io.codat.platform.models.errors.SDKError;
 import io.codat.platform.models.operations.UpdateProfileResponse;
-import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Profile;
 import io.codat.platform.models.shared.Security;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
+import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
@@ -393,11 +383,9 @@ public class Application {
                 .name("Bob's Burgers")
                 .redirectUrl("https://bobs-burgers.{countrySuffix}/{companyId}")
                 .alertAuthHeader("Bearer tXEiHiRK7XCtI8TNHbpGs1LI1pumdb4Cl1QIo7B2")
-                .apiKey("sartANTjHAkLdbyDfaynoTQb7pkmj6hXHmnQKMrB")
-                .confirmCompanyName(false)
                 .iconUrl("https://client-images.codat.io/icon/042399f5-d104-4f38-9ce8-cac3524f4e88_3f5623af-d992-4c22-bc08-e58c520a8526.ico")
                 .logoUrl("https://client-images.codat.io/logo/042399f5-d104-4f38-9ce8-cac3524f4e88_5806cb1f-7342-4c0e-a0a8-99bfbc47b0ff.png")
-                .whiteListUrls(java.util.List.of(
+                .whiteListUrls(List.of(
                     "https://bobs-burgers.com"))
                 .build();
 
@@ -410,31 +398,36 @@ public class Application {
             }
         } catch (io.codat.platform.models.errors.ErrorMessage e) {
             // handle exception
-        } catch (io.codat.platform.models.errors.SDKError e) {
+            throw e;
+        } catch (SDKError e) {
             // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                 | Type                                                                      | Required                                                                  | Description                                                               |
-| ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| `request`                                                                 | [io.codat.platform.models.shared.Profile](../../models/shared/Profile.md) | :heavy_check_mark:                                                        | The request object to use for the request.                                |
-
+| Parameter                                  | Type                                       | Required                                   | Description                                |
+| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
+| `request`                                  | [Profile](../../models/shared/Profile.md)  | :heavy_check_mark:                         | The request object to use for the request. |
 
 ### Response
 
-**[Optional<? extends io.codat.platform.models.operations.UpdateProfileResponse>](../../models/operations/UpdateProfileResponse.md)**
+**[UpdateProfileResponse](../../models/operations/UpdateProfileResponse.md)**
+
 ### Errors
 
-| Error Object                                 | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| io.codat.platform.models.errors.ErrorMessage | 401,402,403,429,500,503                      | application/json                             |
-| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
+| Error Object               | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| models/errors/ErrorMessage | 401,402,403,429,500,503    | application/json           |
+| models/errors/SDKError     | 4xx-5xx                    | \*\/*                      |
+
 
 ## updateSyncSettings
 
@@ -446,23 +439,18 @@ Update sync settings for all data types.
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.operations.*;
+import io.codat.platform.models.errors.SDKError;
 import io.codat.platform.models.operations.UpdateProfileSyncSettingsRequestBody;
 import io.codat.platform.models.operations.UpdateProfileSyncSettingsResponse;
-import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.DataType;
 import io.codat.platform.models.shared.Security;
 import io.codat.platform.models.shared.SyncSetting;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
+import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
@@ -472,17 +460,16 @@ public class Application {
 
             UpdateProfileSyncSettingsRequestBody req = UpdateProfileSyncSettingsRequestBody.builder()
                 .clientId("ce429104-79f0-4085-a720-e2d40fcc800f")
-                .settings(java.util.List.of(
-                        SyncSetting.builder()
-                            .dataType(DataType.INVOICES)
-                            .fetchOnFirstLink(false)
-                            .syncOrder(995823L)
-                            .syncSchedule(24L)
-                            .monthsToSync(24L)
-                            .syncFromUtc("2022-10-23T00:00:00Z")
-                            .syncFromWindow(24L)
-                            .build()))
-                .overridesDefaults(false)
+                .settings(List.of(
+                    SyncSetting.builder()
+                        .dataType(DataType.INVOICES)
+                        .fetchOnFirstLink(false)
+                        .syncOrder(747860L)
+                        .syncSchedule(24L)
+                        .monthsToSync(24L)
+                        .syncFromUtc("2022-10-23T00:00:00Z")
+                        .syncFromWindow(24L)
+                        .build()))
                 .build();
 
             UpdateProfileSyncSettingsResponse res = sdk.settings().updateSyncSettings()
@@ -492,28 +479,32 @@ public class Application {
             // handle response
         } catch (io.codat.platform.models.errors.ErrorMessage e) {
             // handle exception
-        } catch (io.codat.platform.models.errors.SDKError e) {
+            throw e;
+        } catch (SDKError e) {
             // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                   | Type                                                                                                                                        | Required                                                                                                                                    | Description                                                                                                                                 |
-| ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                                   | [io.codat.platform.models.operations.UpdateProfileSyncSettingsRequestBody](../../models/operations/UpdateProfileSyncSettingsRequestBody.md) | :heavy_check_mark:                                                                                                                          | The request object to use for the request.                                                                                                  |
-
+| Parameter                                                                                               | Type                                                                                                    | Required                                                                                                | Description                                                                                             |
+| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `request`                                                                                               | [UpdateProfileSyncSettingsRequestBody](../../models/operations/UpdateProfileSyncSettingsRequestBody.md) | :heavy_check_mark:                                                                                      | The request object to use for the request.                                                              |
 
 ### Response
 
-**[Optional<? extends io.codat.platform.models.operations.UpdateProfileSyncSettingsResponse>](../../models/operations/UpdateProfileSyncSettingsResponse.md)**
+**[UpdateProfileSyncSettingsResponse](../../models/operations/UpdateProfileSyncSettingsResponse.md)**
+
 ### Errors
 
-| Error Object                                 | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| io.codat.platform.models.errors.ErrorMessage | 401,402,403,429,500,503                      | application/json                             |
-| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
+| Error Object               | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| models/errors/ErrorMessage | 401,402,403,429,500,503    | application/json           |
+| models/errors/SDKError     | 4xx-5xx                    | \*\/*                      |

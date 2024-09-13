@@ -7,5 +7,5 @@ A container you can use to organize companies together according to a shared cha
 
 | Field                                | Type                                 | Required                             | Description                          | Example                              |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| `id`                                 | *Optional<? extends String>*         | :heavy_minus_sign:                   | Unique identifier for the group.     | 60d2fa12-8a04-11ee-b9d1-0242ac120002 |
-| `name`                               | *Optional<? extends String>*         | :heavy_minus_sign:                   | Descriptive name of the group.       | Invoice finance team                 |
+| `id`                                 | *Optional<String>*                   | :heavy_minus_sign:                   | Unique identifier for the group.     | 60d2fa12-8a04-11ee-b9d1-0242ac120002 |
+| `name`                               | *Optional<String>*                   | :heavy_minus_sign:                   | Descriptive name of the group.       | Invoice finance team                 |

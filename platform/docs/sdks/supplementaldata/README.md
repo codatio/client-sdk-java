@@ -25,24 +25,17 @@ See the *examples* for integration-specific frequently requested properties.
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.operations.*;
+import io.codat.platform.models.errors.SDKError;
 import io.codat.platform.models.operations.ConfigureSupplementalDataRequest;
 import io.codat.platform.models.operations.ConfigureSupplementalDataResponse;
 import io.codat.platform.models.operations.DataType;
-import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
 import io.codat.platform.models.shared.SupplementalDataConfiguration;
-import io.codat.platform.models.shared.SupplementalDataSourceConfiguration;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
@@ -54,9 +47,6 @@ public class Application {
                 .dataType(DataType.INVOICES)
                 .platformKey("gbol")
                 .supplementalDataConfiguration(SupplementalDataConfiguration.builder()
-                    .supplementalDataConfig(java.util.Map.ofEntries(
-                        entry("key", SupplementalDataSourceConfiguration.builder()
-                            .build())))
                     .build())
                 .build();
 
@@ -67,31 +57,36 @@ public class Application {
             // handle response
         } catch (io.codat.platform.models.errors.ErrorMessage e) {
             // handle exception
-        } catch (io.codat.platform.models.errors.SDKError e) {
+            throw e;
+        } catch (SDKError e) {
             // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                           | Type                                                                                                                                | Required                                                                                                                            | Description                                                                                                                         |
-| ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                           | [io.codat.platform.models.operations.ConfigureSupplementalDataRequest](../../models/operations/ConfigureSupplementalDataRequest.md) | :heavy_check_mark:                                                                                                                  | The request object to use for the request.                                                                                          |
-
+| Parameter                                                                                       | Type                                                                                            | Required                                                                                        | Description                                                                                     |
+| ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `request`                                                                                       | [ConfigureSupplementalDataRequest](../../models/operations/ConfigureSupplementalDataRequest.md) | :heavy_check_mark:                                                                              | The request object to use for the request.                                                      |
 
 ### Response
 
-**[Optional<? extends io.codat.platform.models.operations.ConfigureSupplementalDataResponse>](../../models/operations/ConfigureSupplementalDataResponse.md)**
+**[ConfigureSupplementalDataResponse](../../models/operations/ConfigureSupplementalDataResponse.md)**
+
 ### Errors
 
-| Error Object                                 | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| io.codat.platform.models.errors.ErrorMessage | 401,402,403,404,429,500,503                  | application/json                             |
-| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## getConfiguration
 
@@ -105,22 +100,16 @@ The *Get configuration* endpoint returns supplemental data configuration previou
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.operations.*;
+import io.codat.platform.models.errors.SDKError;
 import io.codat.platform.models.operations.GetSupplementalDataConfigurationRequest;
 import io.codat.platform.models.operations.GetSupplementalDataConfigurationResponse;
 import io.codat.platform.models.operations.PathParamDataType;
-import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
@@ -142,28 +131,32 @@ public class Application {
             }
         } catch (io.codat.platform.models.errors.ErrorMessage e) {
             // handle exception
-        } catch (io.codat.platform.models.errors.SDKError e) {
+            throw e;
+        } catch (SDKError e) {
             // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                         | Type                                                                                                                                              | Required                                                                                                                                          | Description                                                                                                                                       |
-| ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                                         | [io.codat.platform.models.operations.GetSupplementalDataConfigurationRequest](../../models/operations/GetSupplementalDataConfigurationRequest.md) | :heavy_check_mark:                                                                                                                                | The request object to use for the request.                                                                                                        |
-
+| Parameter                                                                                                     | Type                                                                                                          | Required                                                                                                      | Description                                                                                                   |
+| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `request`                                                                                                     | [GetSupplementalDataConfigurationRequest](../../models/operations/GetSupplementalDataConfigurationRequest.md) | :heavy_check_mark:                                                                                            | The request object to use for the request.                                                                    |
 
 ### Response
 
-**[Optional<? extends io.codat.platform.models.operations.GetSupplementalDataConfigurationResponse>](../../models/operations/GetSupplementalDataConfigurationResponse.md)**
+**[GetSupplementalDataConfigurationResponse](../../models/operations/GetSupplementalDataConfigurationResponse.md)**
+
 ### Errors
 
-| Error Object                                 | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| io.codat.platform.models.errors.ErrorMessage | 401,402,403,404,429,500,503                  | application/json                             |
-| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |

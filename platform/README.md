@@ -4,24 +4,69 @@
 Manage the building blocks of Codat, including companies, connections, and more.
 <!-- End Codat Library Description -->
 
+<!-- Start Summary [summary] -->
+## Summary
+
+Platform API: Platform API
+
+An API for the common components of all of Codat's products.
+
+These end points cover creating and managing your companies, data connections, and integrations.
+
+[Read about the building blocks of Codat...](https://docs.codat.io/core-concepts/companies) | [See our OpenAPI spec](https://github.com/codatio/oas) 
+
+---
+<!-- Start Codat Tags Table -->
+## Endpoints
+
+| Endpoints | Description |
+| :- |:- |
+| Companies | Create and manage your SMB users' companies. |
+| Connections | Create new and manage existing data connections for a company. |
+| Connection management | Configure connection management UI and retrieve access tokens for authentication. |
+| Groups | Define and manage sets of companies based on a chosen characteristic. |
+| Webhooks | Create and manage webhooks that listen to Codat's events. |
+| Integrations | Get a list of integrations supported by Codat and their logos. |
+| Refresh data | Initiate data refreshes, view pull status and history. |
+| Settings | Manage company profile configuration, sync settings, and API keys. |
+| Push data | Initiate and monitor Create, Update, and Delete operations. |
+| Supplemental data | Configure and pull additional data you can include in Codat's standard data types. |
+| Custom data type | Configure and pull additional data types that are not included in Codat's standardized data model. |
+<!-- End Codat Tags Table -->
+<!-- End Summary [summary] -->
+
+<!-- Start Table of Contents [toc] -->
+## Table of Contents
+
+* [SDK Installation](#sdk-installation)
+* [SDK Example Usage](#sdk-example-usage)
+* [Available Resources and Operations](#available-resources-and-operations)
+* [Retries](#retries)
+* [Error Handling](#error-handling)
+* [Server Selection](#server-selection)
+* [Authentication](#authentication)
+<!-- End Table of Contents [toc] -->
+
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
 
 ### Getting started
 
+JDK 11 or later is required.
+
 The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'io.codat.platform:openapi:0.4.0'
+implementation 'io.codat:platform:0.5.0'
 ```
 
 Maven:
 ```xml
 <dependency>
-    <groupId>io.codat.platform</groupId>
-    <artifactId>openapi</artifactId>
-    <version>0.4.0</version>
+    <groupId>io.codat</groupId>
+    <artifactId>platform</artifactId>
+    <version>0.5.0</version>
 </dependency>
 ```
 
@@ -50,21 +95,15 @@ gradlew.bat publishToMavenLocal -Pskip.signing
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.operations.*;
+import io.codat.platform.models.errors.SDKError;
 import io.codat.platform.models.operations.CreateApiKeyResponse;
-import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.CreateApiKey;
 import io.codat.platform.models.shared.Security;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
@@ -85,11 +124,15 @@ public class Application {
             }
         } catch (io.codat.platform.models.errors.ErrorMessage e) {
             // handle exception
-        } catch (io.codat.platform.models.errors.SDKError e) {
+            throw e;
+        } catch (SDKError e) {
             // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
@@ -98,15 +141,9 @@ public class Application {
 <!-- Start Available Resources and Operations [operations] -->
 ## Available Resources and Operations
 
-### [settings()](docs/sdks/settings/README.md)
+<details open>
+<summary>Available methods</summary>
 
-* [createApiKey](docs/sdks/settings/README.md#createapikey) - Create API key
-* [deleteApiKey](docs/sdks/settings/README.md#deleteapikey) - Delete API key
-* [getProfile](docs/sdks/settings/README.md#getprofile) - Get profile
-* [getSyncSettings](docs/sdks/settings/README.md#getsyncsettings) - Get sync settings
-* [listApiKeys](docs/sdks/settings/README.md#listapikeys) - List API keys
-* [updateProfile](docs/sdks/settings/README.md#updateprofile) - Update profile
-* [updateSyncSettings](docs/sdks/settings/README.md#updatesyncsettings) - Update all sync settings
 
 ### [companies()](docs/sdks/companies/README.md)
 
@@ -120,7 +157,7 @@ public class Application {
 
 * [getAccessToken](docs/sdks/connectionmanagement/README.md#getaccesstoken) - Get access token
 
-### [connectionManagement().corsSettings()](docs/sdks/corssettings/README.md)
+#### [connectionManagement().corsSettings()](docs/sdks/corssettings/README.md)
 
 * [get](docs/sdks/corssettings/README.md#get) - Get CORS settings
 * [set](docs/sdks/corssettings/README.md#set) - Set CORS settings
@@ -141,6 +178,19 @@ public class Application {
 * [list](docs/sdks/customdatatype/README.md#list) - List custom data type records
 * [refresh](docs/sdks/customdatatype/README.md#refresh) - Refresh custom data type
 
+### [groups()](docs/sdks/groups/README.md)
+
+* [addCompany](docs/sdks/groups/README.md#addcompany) - Add company
+* [create](docs/sdks/groups/README.md#create) - Create group
+* [list](docs/sdks/groups/README.md#list) - List groups
+* [removeCompany](docs/sdks/groups/README.md#removecompany) - Remove company
+
+### [integrations()](docs/sdks/integrations/README.md)
+
+* [get](docs/sdks/integrations/README.md#get) - Get integration
+* [getBranding](docs/sdks/integrations/README.md#getbranding) - Get branding
+* [list](docs/sdks/integrations/README.md#list) - List integrations
+
 ### [pushData()](docs/sdks/pushdata/README.md)
 
 * [getModelOptions](docs/sdks/pushdata/README.md#getmodeloptions) - Get push options
@@ -155,18 +205,15 @@ public class Application {
 * [getPullOperation](docs/sdks/refreshdata/README.md#getpulloperation) - Get pull operation
 * [listPullOperations](docs/sdks/refreshdata/README.md#listpulloperations) - List pull operations
 
-### [groups()](docs/sdks/groups/README.md)
+### [settings()](docs/sdks/settings/README.md)
 
-* [addCompany](docs/sdks/groups/README.md#addcompany) - Add company
-* [create](docs/sdks/groups/README.md#create) - Create group
-* [list](docs/sdks/groups/README.md#list) - List groups
-* [removeCompany](docs/sdks/groups/README.md#removecompany) - Remove company
-
-### [integrations()](docs/sdks/integrations/README.md)
-
-* [get](docs/sdks/integrations/README.md#get) - Get integration
-* [getBranding](docs/sdks/integrations/README.md#getbranding) - Get branding
-* [list](docs/sdks/integrations/README.md#list) - List integrations
+* [createApiKey](docs/sdks/settings/README.md#createapikey) - Create API key
+* [deleteApiKey](docs/sdks/settings/README.md#deleteapikey) - Delete API key
+* [getProfile](docs/sdks/settings/README.md#getprofile) - Get profile
+* [getSyncSettings](docs/sdks/settings/README.md#getsyncsettings) - Get sync settings
+* [listApiKeys](docs/sdks/settings/README.md#listapikeys) - List API keys
+* [updateProfile](docs/sdks/settings/README.md#updateprofile) - Update profile
+* [updateSyncSettings](docs/sdks/settings/README.md#updatesyncsettings) - Update all sync settings
 
 ### [supplementalData()](docs/sdks/supplementaldata/README.md)
 
@@ -181,6 +228,8 @@ public class Application {
 * [~~get~~](docs/sdks/webhooks/README.md#get) - Get webhook :warning: **Deprecated**
 * [~~list~~](docs/sdks/webhooks/README.md#list) - List webhooks :warning: **Deprecated**
 * [listConsumers](docs/sdks/webhooks/README.md#listconsumers) - List webhook consumers
+
+</details>
 <!-- End Available Resources and Operations [operations] -->
 
 <!-- Start Error Handling [errors] -->
@@ -188,10 +237,10 @@ public class Application {
 
 Handling errors in this SDK should largely match your expectations.  All operations return a response object or raise an error.  If Error objects are specified in your OpenAPI Spec, the SDK will throw the appropriate Exception type.
 
-| Error Object                                 | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| io.codat.platform.models.errors.ErrorMessage | 400,401,402,403,409,429,500,503              | application/json                             |
-| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,409,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
 
 ### Example
 
@@ -199,21 +248,15 @@ Handling errors in this SDK should largely match your expectations.  All operati
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.operations.*;
+import io.codat.platform.models.errors.SDKError;
 import io.codat.platform.models.operations.CreateApiKeyResponse;
-import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.CreateApiKey;
 import io.codat.platform.models.shared.Security;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
@@ -234,11 +277,15 @@ public class Application {
             }
         } catch (io.codat.platform.models.errors.ErrorMessage e) {
             // handle exception
-        } catch (io.codat.platform.models.errors.SDKError e) {
+            throw e;
+        } catch (SDKError e) {
             // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
@@ -261,21 +308,15 @@ You can override the default server globally by passing a server index to the `s
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.operations.*;
+import io.codat.platform.models.errors.SDKError;
 import io.codat.platform.models.operations.CreateApiKeyResponse;
-import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.CreateApiKey;
 import io.codat.platform.models.shared.Security;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .serverIndex(0)
@@ -297,11 +338,15 @@ public class Application {
             }
         } catch (io.codat.platform.models.errors.ErrorMessage e) {
             // handle exception
-        } catch (io.codat.platform.models.errors.SDKError e) {
+            throw e;
+        } catch (SDKError e) {
             // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
@@ -314,21 +359,15 @@ The default server can also be overridden globally by passing a URL to the `serv
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.operations.*;
+import io.codat.platform.models.errors.SDKError;
 import io.codat.platform.models.operations.CreateApiKeyResponse;
-import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.CreateApiKey;
 import io.codat.platform.models.shared.Security;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .serverURL("https://api.codat.io")
@@ -350,11 +389,15 @@ public class Application {
             }
         } catch (io.codat.platform.models.errors.ErrorMessage e) {
             // handle exception
-        } catch (io.codat.platform.models.errors.SDKError e) {
+            throw e;
+        } catch (SDKError e) {
             // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
@@ -376,21 +419,15 @@ You can set the security parameters through the `security` builder method when i
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.operations.*;
+import io.codat.platform.models.errors.SDKError;
 import io.codat.platform.models.operations.CreateApiKeyResponse;
-import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.CreateApiKey;
 import io.codat.platform.models.shared.Security;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
@@ -411,11 +448,15 @@ public class Application {
             }
         } catch (io.codat.platform.models.errors.ErrorMessage e) {
             // handle exception
-        } catch (io.codat.platform.models.errors.SDKError e) {
+            throw e;
+        } catch (SDKError e) {
             // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
@@ -431,24 +472,18 @@ To change the default retry strategy for a single API call, you can provide a `R
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.operations.*;
+import io.codat.platform.models.errors.SDKError;
 import io.codat.platform.models.operations.CreateApiKeyResponse;
-import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.CreateApiKey;
 import io.codat.platform.models.shared.Security;
 import io.codat.platform.utils.BackoffStrategy;
 import io.codat.platform.utils.RetryConfig;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
+import java.lang.Exception;
 import java.util.concurrent.TimeUnit;
-import static java.util.Map.entry;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
@@ -463,15 +498,15 @@ public class Application {
             CreateApiKeyResponse res = sdk.settings().createApiKey()
                 .request(req)
                 .retryConfig(RetryConfig.builder()
-                                .backoff(BackoffStrategy.builder()
-                                            .initialInterval(1L, TimeUnit.MILLISECONDS)
-                                            .maxInterval(50L, TimeUnit.MILLISECONDS)
-                                            .maxElapsedTime(1000L, TimeUnit.MILLISECONDS)
-                                            .baseFactor(1.1)
-                                            .jitterFactor(0.15)
-                                            .retryConnectError(false)
-                                            .build())
-                                .build())
+                    .backoff(BackoffStrategy.builder()
+                        .initialInterval(1L, TimeUnit.MILLISECONDS)
+                        .maxInterval(50L, TimeUnit.MILLISECONDS)
+                        .maxElapsedTime(1000L, TimeUnit.MILLISECONDS)
+                        .baseFactor(1.1)
+                        .jitterFactor(0.15)
+                        .retryConnectError(false)
+                        .build())
+                    .build())
                 .call();
 
             if (res.apiKeyDetails().isPresent()) {
@@ -479,11 +514,15 @@ public class Application {
             }
         } catch (io.codat.platform.models.errors.ErrorMessage e) {
             // handle exception
-        } catch (io.codat.platform.models.errors.SDKError e) {
+            throw e;
+        } catch (SDKError e) {
             // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
@@ -493,36 +532,30 @@ If you'd like to override the default retry strategy for all operations that sup
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.operations.*;
+import io.codat.platform.models.errors.SDKError;
 import io.codat.platform.models.operations.CreateApiKeyResponse;
-import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.CreateApiKey;
 import io.codat.platform.models.shared.Security;
 import io.codat.platform.utils.BackoffStrategy;
 import io.codat.platform.utils.RetryConfig;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
+import java.lang.Exception;
 import java.util.concurrent.TimeUnit;
-import static java.util.Map.entry;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .retryConfig(RetryConfig.builder()
-                                .backoff(BackoffStrategy.builder()
-                                            .initialInterval(1L, TimeUnit.MILLISECONDS)
-                                            .maxInterval(50L, TimeUnit.MILLISECONDS)
-                                            .maxElapsedTime(1000L, TimeUnit.MILLISECONDS)
-                                            .baseFactor(1.1)
-                                            .jitterFactor(0.15)
-                                            .retryConnectError(false)
-                                            .build())
-                                .build())
+                    .backoff(BackoffStrategy.builder()
+                        .initialInterval(1L, TimeUnit.MILLISECONDS)
+                        .maxInterval(50L, TimeUnit.MILLISECONDS)
+                        .maxElapsedTime(1000L, TimeUnit.MILLISECONDS)
+                        .baseFactor(1.1)
+                        .jitterFactor(0.15)
+                        .retryConnectError(false)
+                        .build())
+                    .build())
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
@@ -541,11 +574,15 @@ public class Application {
             }
         } catch (io.codat.platform.models.errors.ErrorMessage e) {
             // handle exception
-        } catch (io.codat.platform.models.errors.SDKError e) {
+            throw e;
+        } catch (SDKError e) {
             // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```

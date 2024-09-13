@@ -26,22 +26,17 @@ Create a new webhook configuration
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.operations.*;
+import io.codat.platform.models.errors.SDKError;
 import io.codat.platform.models.operations.CreateRuleResponse;
-import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.CreateRule;
 import io.codat.platform.models.shared.Security;
 import io.codat.platform.models.shared.WebhookNotifier;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
+import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
@@ -51,10 +46,10 @@ public class Application {
 
             CreateRule req = CreateRule.builder()
                 .notifiers(WebhookNotifier.builder()
-                        .emails(java.util.List.of(
-                            "info@client.com"))
-                        .webhook("https://webhook.client.com")
-                        .build())
+                    .emails(List.of(
+                        "info@client.com"))
+                    .webhook("https://webhook.client.com")
+                    .build())
                 .type("<value>")
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .build();
@@ -68,31 +63,36 @@ public class Application {
             }
         } catch (io.codat.platform.models.errors.ErrorMessage e) {
             // handle exception
-        } catch (io.codat.platform.models.errors.SDKError e) {
+            throw e;
+        } catch (SDKError e) {
             // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                       | Type                                                                            | Required                                                                        | Description                                                                     |
-| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| `request`                                                                       | [io.codat.platform.models.shared.CreateRule](../../models/shared/CreateRule.md) | :heavy_check_mark:                                                              | The request object to use for the request.                                      |
-
+| Parameter                                       | Type                                            | Required                                        | Description                                     |
+| ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
+| `request`                                       | [CreateRule](../../models/shared/CreateRule.md) | :heavy_check_mark:                              | The request object to use for the request.      |
 
 ### Response
 
-**[Optional<? extends io.codat.platform.models.operations.CreateRuleResponse>](../../models/operations/CreateRuleResponse.md)**
+**[CreateRuleResponse](../../models/operations/CreateRuleResponse.md)**
+
 ### Errors
 
-| Error Object                                 | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| io.codat.platform.models.errors.ErrorMessage | 401,402,403,429,500,503                      | application/json                             |
-| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
+| Error Object               | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| models/errors/ErrorMessage | 401,402,403,429,500,503    | application/json           |
+| models/errors/SDKError     | 4xx-5xx                    | \*\/*                      |
+
 
 ## createConsumer
 
@@ -100,27 +100,24 @@ public class Application {
 
 [Webhook consumer](https://docs.codat.io/platform-api#/schemas/WebhookConsumer) is an HTTP endpoint that you configure to subscribe to specific events. See our documentation for more details on [Codat's webhook service](https://docs.codat.io/using-the-api/webhooks/overview).
 
+### Tips and traps
+- The number of webhook consumers you can create is limited to 50. If you have reached the maximum number of consumers, use the [*Delete webhook consumer*](https://docs.codat.io/platform-api#/operations/delete-webhook-consumer) endpoint to delete an unused consumer first.
+
 ### Example Usage
 
 ```java
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.operations.*;
+import io.codat.platform.models.errors.SDKError;
 import io.codat.platform.models.operations.CreateWebhookConsumerResponse;
-import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
 import io.codat.platform.models.shared.WebhookConsumerPrototype;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
@@ -130,10 +127,6 @@ public class Application {
 
             WebhookConsumerPrototype req = WebhookConsumerPrototype.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
-                .disabled(false)
-                .eventTypes(java.util.List.of(
-                    "<value>"))
-                .url("https://illegal-billion.info")
                 .build();
 
             CreateWebhookConsumerResponse res = sdk.webhooks().createConsumer()
@@ -145,31 +138,36 @@ public class Application {
             }
         } catch (io.codat.platform.models.errors.ErrorMessage e) {
             // handle exception
-        } catch (io.codat.platform.models.errors.SDKError e) {
+            throw e;
+        } catch (SDKError e) {
             // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                   | Type                                                                                                        | Required                                                                                                    | Description                                                                                                 |
-| ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                   | [io.codat.platform.models.shared.WebhookConsumerPrototype](../../models/shared/WebhookConsumerPrototype.md) | :heavy_check_mark:                                                                                          | The request object to use for the request.                                                                  |
-
+| Parameter                                                                   | Type                                                                        | Required                                                                    | Description                                                                 |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `request`                                                                   | [WebhookConsumerPrototype](../../models/shared/WebhookConsumerPrototype.md) | :heavy_check_mark:                                                          | The request object to use for the request.                                  |
 
 ### Response
 
-**[Optional<? extends io.codat.platform.models.operations.CreateWebhookConsumerResponse>](../../models/operations/CreateWebhookConsumerResponse.md)**
+**[CreateWebhookConsumerResponse](../../models/operations/CreateWebhookConsumerResponse.md)**
+
 ### Errors
 
-| Error Object                                 | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| io.codat.platform.models.errors.ErrorMessage | 401,402,403,429,500,503                      | application/json                             |
-| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 400,401,402,403,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## deleteConsumer
 
@@ -183,21 +181,15 @@ public class Application {
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.operations.*;
+import io.codat.platform.models.errors.SDKError;
 import io.codat.platform.models.operations.DeleteWebhookConsumerRequest;
 import io.codat.platform.models.operations.DeleteWebhookConsumerResponse;
-import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
@@ -216,31 +208,36 @@ public class Application {
             // handle response
         } catch (io.codat.platform.models.errors.ErrorMessage e) {
             // handle exception
-        } catch (io.codat.platform.models.errors.SDKError e) {
+            throw e;
+        } catch (SDKError e) {
             // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                   | Type                                                                                                                        | Required                                                                                                                    | Description                                                                                                                 |
-| --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                   | [io.codat.platform.models.operations.DeleteWebhookConsumerRequest](../../models/operations/DeleteWebhookConsumerRequest.md) | :heavy_check_mark:                                                                                                          | The request object to use for the request.                                                                                  |
-
+| Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `request`                                                                               | [DeleteWebhookConsumerRequest](../../models/operations/DeleteWebhookConsumerRequest.md) | :heavy_check_mark:                                                                      | The request object to use for the request.                                              |
 
 ### Response
 
-**[Optional<? extends io.codat.platform.models.operations.DeleteWebhookConsumerResponse>](../../models/operations/DeleteWebhookConsumerResponse.md)**
+**[DeleteWebhookConsumerResponse](../../models/operations/DeleteWebhookConsumerResponse.md)**
+
 ### Errors
 
-| Error Object                                 | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| io.codat.platform.models.errors.ErrorMessage | 401,402,403,404,429,500,503                  | application/json                             |
-| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## ~~get~~
 
@@ -254,21 +251,15 @@ Get a single webhook
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.operations.*;
+import io.codat.platform.models.errors.SDKError;
 import io.codat.platform.models.operations.GetWebhookRequest;
 import io.codat.platform.models.operations.GetWebhookResponse;
-import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
@@ -289,31 +280,36 @@ public class Application {
             }
         } catch (io.codat.platform.models.errors.ErrorMessage e) {
             // handle exception
-        } catch (io.codat.platform.models.errors.SDKError e) {
+            throw e;
+        } catch (SDKError e) {
             // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                             | Type                                                                                                  | Required                                                                                              | Description                                                                                           |
-| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `request`                                                                                             | [io.codat.platform.models.operations.GetWebhookRequest](../../models/operations/GetWebhookRequest.md) | :heavy_check_mark:                                                                                    | The request object to use for the request.                                                            |
-
+| Parameter                                                         | Type                                                              | Required                                                          | Description                                                       |
+| ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `request`                                                         | [GetWebhookRequest](../../models/operations/GetWebhookRequest.md) | :heavy_check_mark:                                                | The request object to use for the request.                        |
 
 ### Response
 
-**[Optional<? extends io.codat.platform.models.operations.GetWebhookResponse>](../../models/operations/GetWebhookResponse.md)**
+**[GetWebhookResponse](../../models/operations/GetWebhookResponse.md)**
+
 ### Errors
 
-| Error Object                                 | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| io.codat.platform.models.errors.ErrorMessage | 401,402,403,404,429,500,503                  | application/json                             |
-| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## ~~list~~
 
@@ -327,21 +323,15 @@ List webhooks that you are subscribed to.
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.operations.*;
+import io.codat.platform.models.errors.SDKError;
 import io.codat.platform.models.operations.ListRulesRequest;
 import io.codat.platform.models.operations.ListRulesResponse;
-import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
@@ -353,7 +343,7 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("<value>")
+                .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
             ListRulesResponse res = sdk.webhooks().list()
@@ -365,31 +355,36 @@ public class Application {
             }
         } catch (io.codat.platform.models.errors.ErrorMessage e) {
             // handle exception
-        } catch (io.codat.platform.models.errors.SDKError e) {
+            throw e;
+        } catch (SDKError e) {
             // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                           | Type                                                                                                | Required                                                                                            | Description                                                                                         |
-| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| `request`                                                                                           | [io.codat.platform.models.operations.ListRulesRequest](../../models/operations/ListRulesRequest.md) | :heavy_check_mark:                                                                                  | The request object to use for the request.                                                          |
-
+| Parameter                                                       | Type                                                            | Required                                                        | Description                                                     |
+| --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
+| `request`                                                       | [ListRulesRequest](../../models/operations/ListRulesRequest.md) | :heavy_check_mark:                                              | The request object to use for the request.                      |
 
 ### Response
 
-**[Optional<? extends io.codat.platform.models.operations.ListRulesResponse>](../../models/operations/ListRulesResponse.md)**
+**[ListRulesResponse](../../models/operations/ListRulesResponse.md)**
+
 ### Errors
 
-| Error Object                                 | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| io.codat.platform.models.errors.ErrorMessage | 400,401,402,403,404,429,500,503              | application/json                             |
-| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## listConsumers
 
@@ -403,20 +398,14 @@ public class Application {
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.operations.*;
+import io.codat.platform.models.errors.SDKError;
 import io.codat.platform.models.operations.ListWebhookConsumersResponse;
-import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
@@ -432,22 +421,26 @@ public class Application {
             }
         } catch (io.codat.platform.models.errors.ErrorMessage e) {
             // handle exception
-        } catch (io.codat.platform.models.errors.SDKError e) {
+            throw e;
+        } catch (SDKError e) {
             // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
-
 ### Response
 
-**[Optional<? extends io.codat.platform.models.operations.ListWebhookConsumersResponse>](../../models/operations/ListWebhookConsumersResponse.md)**
+**[ListWebhookConsumersResponse](../../models/operations/ListWebhookConsumersResponse.md)**
+
 ### Errors
 
-| Error Object                                 | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| io.codat.platform.models.errors.ErrorMessage | 400,401,402,403,429,500,503                  | application/json                             |
-| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 400,401,402,403,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
