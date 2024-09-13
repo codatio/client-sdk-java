@@ -3,7 +3,7 @@
 
 ## Overview
 
-Create transfer transactions.
+Create and update transactions that represent the movement of your customers' money.
 
 ### Available Operations
 
@@ -11,12 +11,19 @@ Create transfer transactions.
 
 ## create
 
-Use the *Create transfer* endpoint to create or update a [transfer transaction](https://docs.codat.io/sync-for-expenses-api#/schemas/TransferTransaction) in the accounting platform for a given company's connection. 
+Use the *Create transfer* endpoint to create or update a [transfer transaction](https://docs.codat.io/sync-for-expenses-api#/schemas/TransferTransactionRequest) in the accounting software for a given company's connection. 
 
 Transfers record the movement of money between two bank accounts, or between a bank account and a nominal account. Use them to represent actions such as topping up a debit card account or a balance transfer to another credit card.
 
 The `from.amount` and `to.amount` fields are in the native currency of the account.
 
+### Supported Integrations
+| Integration           | Supported |
+|-----------------------|-----------|
+| FreeAgent             | Yes       |
+| QuickBooks Desktop    | Yes       |
+| QuickBooks Online     | Yes       |
+| Xero                  | Yes       |
 
 ### Example Usage
 
@@ -24,24 +31,20 @@ The `from.amount` and `to.amount` fields are in the native currency of the accou
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.components.*;
-import io.codat.sync.expenses.models.components.AccountRef;
-import io.codat.sync.expenses.models.components.CreateTransferRequest;
-import io.codat.sync.expenses.models.components.Security;
-import io.codat.sync.expenses.models.components.TransferDetails;
-import io.codat.sync.expenses.models.operations.*;
+import io.codat.sync.expenses.models.components.AccountReference;
+import io.codat.sync.expenses.models.components.From;
+import io.codat.sync.expenses.models.components.To;
+import io.codat.sync.expenses.models.components.TransferTransactionRequest;
+import io.codat.sync.expenses.models.components.TransferTransactionRequestAccountReference;
+import io.codat.sync.expenses.models.errors.SDKError;
 import io.codat.sync.expenses.models.operations.CreateTransferTransactionRequest;
 import io.codat.sync.expenses.models.operations.CreateTransferTransactionResponse;
+import java.lang.Exception;
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncExpenses sdk = CodatSyncExpenses.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -50,23 +53,21 @@ public class Application {
             CreateTransferTransactionRequest req = CreateTransferTransactionRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .transactionId("336694d8-2dca-4cb5-a28d-3ccb83e55eee")
-                .createTransferRequest(CreateTransferRequest.builder()
+                .transferTransactionRequest(TransferTransactionRequest.builder()
                     .date("2022-10-23T00:00:00Z")
-                    .description("APPLE.COM/BILL - 09001077498 - Card Ending: 4590")
-                    .from(TransferDetails.builder()
-                        .accountRef(AccountRef.builder()
+                    .from(From.builder()
+                        .accountRef(AccountReference.builder()
                             .id("<id>")
-                            .name("<value>")
-                            .build())
-                        .amount(new BigDecimal("4893.82"))
-                        .build())
-                    .to(TransferDetails.builder()
-                        .accountRef(AccountRef.builder()
-                            .id("<id>")
-                            .name("<value>")
                             .build())
                         .amount(new BigDecimal("6384.24"))
                         .build())
+                    .to(To.builder()
+                        .accountRef(TransferTransactionRequestAccountReference.builder()
+                            .id("<id>")
+                            .build())
+                        .amount(new BigDecimal("8592.13"))
+                        .build())
+                    .description("Transfer from bank account Y to bank account Z")
                     .build())
                 .build();
 
@@ -74,30 +75,37 @@ public class Application {
                 .request(req)
                 .call();
 
-            if (res.createTransferResponse().isPresent()) {
+            if (res.transferTransactionResponse().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.expenses.models.errors.SDKError e) {
+        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                | Type                                                                                                                                     | Required                                                                                                                                 | Description                                                                                                                              |
-| ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                                | [io.codat.sync.expenses.models.operations.CreateTransferTransactionRequest](../../models/operations/CreateTransferTransactionRequest.md) | :heavy_check_mark:                                                                                                                       | The request object to use for the request.                                                                                               |
-
+| Parameter                                                                                       | Type                                                                                            | Required                                                                                        | Description                                                                                     |
+| ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `request`                                                                                       | [CreateTransferTransactionRequest](../../models/operations/CreateTransferTransactionRequest.md) | :heavy_check_mark:                                                                              | The request object to use for the request.                                                      |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.expenses.models.operations.CreateTransferTransactionResponse>](../../models/operations/CreateTransferTransactionResponse.md)**
+**[CreateTransferTransactionResponse](../../models/operations/CreateTransferTransactionResponse.md)**
+
 ### Errors
 
-| Error Object           | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models/errors/SDKError | 4xx-5xx                | */*                    |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |

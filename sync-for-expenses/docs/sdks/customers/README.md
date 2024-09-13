@@ -3,7 +3,7 @@
 
 ## Overview
 
-Customers
+Get, create, and update customers.
 
 ### Available Operations
 
@@ -31,31 +31,20 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.components.*;
-import io.codat.sync.expenses.models.components.AccountingAddress;
-import io.codat.sync.expenses.models.components.AccountingAddressType;
 import io.codat.sync.expenses.models.components.Contact;
 import io.codat.sync.expenses.models.components.Customer;
 import io.codat.sync.expenses.models.components.CustomerStatus;
-import io.codat.sync.expenses.models.components.Items;
-import io.codat.sync.expenses.models.components.Metadata;
 import io.codat.sync.expenses.models.components.Phone;
 import io.codat.sync.expenses.models.components.PhoneNumberType;
-import io.codat.sync.expenses.models.components.Security;
-import io.codat.sync.expenses.models.components.SupplementalData;
-import io.codat.sync.expenses.models.operations.*;
+import io.codat.sync.expenses.models.errors.SDKError;
 import io.codat.sync.expenses.models.operations.CreateCustomerRequest;
 import io.codat.sync.expenses.models.operations.CreateCustomerResponse;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
+import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncExpenses sdk = CodatSyncExpenses.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -66,36 +55,20 @@ public class Application {
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .customer(Customer.builder()
                     .status(CustomerStatus.ACTIVE)
-                    .addresses(java.util.List.of(
-                        AccountingAddress.builder()
-                            .type(AccountingAddressType.BILLING)
-                            .build()))
-                    .contactName("<value>")
-                    .contacts(java.util.List.of(
+                    .contacts(List.of(
                         Contact.builder()
-                            .status(CustomerStatus.UNKNOWN)
+                            .status(CustomerStatus.ACTIVE)
                             .modifiedDate("2022-10-23T00:00:00Z")
+                            .phone(List.of(
+                                Phone.builder()
+                                    .type(PhoneNumberType.MOBILE)
+                                    .number("+44 25691 154789")
+                                    .build()))
                             .build()))
-                    .customerName("<value>")
                     .defaultCurrency("GBP")
-                    .emailAddress("Annie.Zieme95@hotmail.com")
-                    .id("<id>")
-                    .metadata(Metadata.builder()
-                        .isDeleted(false)
-                        .build())
                     .modifiedDate("2022-10-23T00:00:00Z")
-                    .phone("513-277-8855")
-                    .registrationNumber("<value>")
                     .sourceModifiedDate("2022-10-23T00:00:00Z")
-                    .supplementalData(SupplementalData.builder()
-                        .content(java.util.Map.ofEntries(
-                            entry("key", java.util.Map.ofEntries(
-                                entry("key", "<value>")))))
-                        .build())
-                    .taxNumber("<value>")
                     .build())
-                .allowSyncOnPushComplete(false)
-                .timeoutInMinutes(752438)
                 .build();
 
             CreateCustomerResponse res = sdk.customers().create()
@@ -105,30 +78,38 @@ public class Application {
             if (res.createCustomerResponse().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.expenses.models.errors.SDKError e) {
+        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                          | Type                                                                                                               | Required                                                                                                           | Description                                                                                                        |
-| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                          | [io.codat.sync.expenses.models.operations.CreateCustomerRequest](../../models/operations/CreateCustomerRequest.md) | :heavy_check_mark:                                                                                                 | The request object to use for the request.                                                                         |
-
+| Parameter                                                                 | Type                                                                      | Required                                                                  | Description                                                               |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `request`                                                                 | [CreateCustomerRequest](../../models/operations/CreateCustomerRequest.md) | :heavy_check_mark:                                                        | The request object to use for the request.                                |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.expenses.models.operations.CreateCustomerResponse>](../../models/operations/CreateCustomerResponse.md)**
+**[CreateCustomerResponse](../../models/operations/CreateCustomerResponse.md)**
+
 ### Errors
 
-| Error Object           | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models/errors/SDKError | 4xx-5xx                | */*                    |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## get
 
@@ -147,21 +128,14 @@ Before using this endpoint, you must have [retrieved data for the company](https
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.components.*;
-import io.codat.sync.expenses.models.components.Security;
-import io.codat.sync.expenses.models.operations.*;
+import io.codat.sync.expenses.models.errors.SDKError;
 import io.codat.sync.expenses.models.operations.GetCustomerRequest;
 import io.codat.sync.expenses.models.operations.GetCustomerResponse;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncExpenses sdk = CodatSyncExpenses.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -179,30 +153,38 @@ public class Application {
             if (res.customer().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.expenses.models.errors.SDKError e) {
+        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                    | Type                                                                                                         | Required                                                                                                     | Description                                                                                                  |
-| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                    | [io.codat.sync.expenses.models.operations.GetCustomerRequest](../../models/operations/GetCustomerRequest.md) | :heavy_check_mark:                                                                                           | The request object to use for the request.                                                                   |
-
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `request`                                                           | [GetCustomerRequest](../../models/operations/GetCustomerRequest.md) | :heavy_check_mark:                                                  | The request object to use for the request.                          |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.expenses.models.operations.GetCustomerResponse>](../../models/operations/GetCustomerResponse.md)**
+**[GetCustomerResponse](../../models/operations/GetCustomerResponse.md)**
+
 ### Errors
 
-| Error Object           | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models/errors/SDKError | 4xx-5xx                | */*                    |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 401,402,403,404,409,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## list
 
@@ -219,21 +201,14 @@ Before using this endpoint, you must have [retrieved data for the company](https
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.components.*;
-import io.codat.sync.expenses.models.components.Security;
-import io.codat.sync.expenses.models.operations.*;
+import io.codat.sync.expenses.models.errors.SDKError;
 import io.codat.sync.expenses.models.operations.ListCustomersRequest;
 import io.codat.sync.expenses.models.operations.ListCustomersResponse;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncExpenses sdk = CodatSyncExpenses.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -244,7 +219,7 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("<value>")
+                .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
             ListCustomersResponse res = sdk.customers().list()
@@ -254,30 +229,38 @@ public class Application {
             if (res.customers().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.expenses.models.errors.SDKError e) {
+        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                        | Type                                                                                                             | Required                                                                                                         | Description                                                                                                      |
-| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                        | [io.codat.sync.expenses.models.operations.ListCustomersRequest](../../models/operations/ListCustomersRequest.md) | :heavy_check_mark:                                                                                               | The request object to use for the request.                                                                       |
-
+| Parameter                                                               | Type                                                                    | Required                                                                | Description                                                             |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `request`                                                               | [ListCustomersRequest](../../models/operations/ListCustomersRequest.md) | :heavy_check_mark:                                                      | The request object to use for the request.                              |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.expenses.models.operations.ListCustomersResponse>](../../models/operations/ListCustomersResponse.md)**
+**[ListCustomersResponse](../../models/operations/ListCustomersResponse.md)**
+
 ### Errors
 
-| Error Object           | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models/errors/SDKError | 4xx-5xx                | */*                    |
+| Error Object                        | Status Code                         | Content Type                        |
+| ----------------------------------- | ----------------------------------- | ----------------------------------- |
+| models/errors/ErrorMessage          | 400,401,402,403,404,409,429,500,503 | application/json                    |
+| models/errors/SDKError              | 4xx-5xx                             | \*\/*                               |
+
 
 ## update
 
@@ -298,31 +281,20 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.components.*;
-import io.codat.sync.expenses.models.components.AccountingAddress;
-import io.codat.sync.expenses.models.components.AccountingAddressType;
 import io.codat.sync.expenses.models.components.Contact;
 import io.codat.sync.expenses.models.components.Customer;
 import io.codat.sync.expenses.models.components.CustomerStatus;
-import io.codat.sync.expenses.models.components.Items;
-import io.codat.sync.expenses.models.components.Metadata;
 import io.codat.sync.expenses.models.components.Phone;
 import io.codat.sync.expenses.models.components.PhoneNumberType;
-import io.codat.sync.expenses.models.components.Security;
-import io.codat.sync.expenses.models.components.SupplementalData;
-import io.codat.sync.expenses.models.operations.*;
+import io.codat.sync.expenses.models.errors.SDKError;
 import io.codat.sync.expenses.models.operations.UpdateCustomerRequest;
 import io.codat.sync.expenses.models.operations.UpdateCustomerResponse;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
+import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncExpenses sdk = CodatSyncExpenses.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -334,37 +306,20 @@ public class Application {
                 .customerId("<value>")
                 .customer(Customer.builder()
                     .status(CustomerStatus.ARCHIVED)
-                    .addresses(java.util.List.of(
-                        AccountingAddress.builder()
-                            .type(AccountingAddressType.BILLING)
-                            .build()))
-                    .contactName("<value>")
-                    .contacts(java.util.List.of(
+                    .contacts(List.of(
                         Contact.builder()
-                            .status(CustomerStatus.ARCHIVED)
+                            .status(CustomerStatus.UNKNOWN)
                             .modifiedDate("2022-10-23T00:00:00Z")
+                            .phone(List.of(
+                                Phone.builder()
+                                    .type(PhoneNumberType.LANDLINE)
+                                    .number("01224 658 999")
+                                    .build()))
                             .build()))
-                    .customerName("<value>")
-                    .defaultCurrency("EUR")
-                    .emailAddress("Lizzie.Paucek@gmail.com")
-                    .id("<id>")
-                    .metadata(Metadata.builder()
-                        .isDeleted(false)
-                        .build())
+                    .defaultCurrency("USD")
                     .modifiedDate("2022-10-23T00:00:00Z")
-                    .phone("1-228-543-3723")
-                    .registrationNumber("<value>")
                     .sourceModifiedDate("2022-10-23T00:00:00Z")
-                    .supplementalData(SupplementalData.builder()
-                        .content(java.util.Map.ofEntries(
-                            entry("key", java.util.Map.ofEntries(
-                                entry("key", "<value>")))))
-                        .build())
-                    .taxNumber("<value>")
                     .build())
-                .allowSyncOnPushComplete(false)
-                .forceUpdate(false)
-                .timeoutInMinutes(644713)
                 .build();
 
             UpdateCustomerResponse res = sdk.customers().update()
@@ -374,27 +329,34 @@ public class Application {
             if (res.updateCustomerResponse().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.expenses.models.errors.SDKError e) {
+        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                          | Type                                                                                                               | Required                                                                                                           | Description                                                                                                        |
-| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                          | [io.codat.sync.expenses.models.operations.UpdateCustomerRequest](../../models/operations/UpdateCustomerRequest.md) | :heavy_check_mark:                                                                                                 | The request object to use for the request.                                                                         |
-
+| Parameter                                                                 | Type                                                                      | Required                                                                  | Description                                                               |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `request`                                                                 | [UpdateCustomerRequest](../../models/operations/UpdateCustomerRequest.md) | :heavy_check_mark:                                                        | The request object to use for the request.                                |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.expenses.models.operations.UpdateCustomerResponse>](../../models/operations/UpdateCustomerResponse.md)**
+**[UpdateCustomerResponse](../../models/operations/UpdateCustomerResponse.md)**
+
 ### Errors
 
-| Error Object           | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models/errors/SDKError | 4xx-5xx                | */*                    |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |

@@ -5,4 +5,4 @@
 
 | Field                                          | Type                                           | Required                                       | Description                                    |
 | ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
-| `syncId`                                       | *Optional<? extends String>*                   | :heavy_minus_sign:                             | Unique identifier for the update expense sync. |
+| `syncId`                                       | *Optional<String>*                             | :heavy_minus_sign:                             | Unique identifier for the update expense sync. |

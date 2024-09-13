@@ -3,17 +3,16 @@
 
 ## Overview
 
-Manage mapping options and sync configuration.
+View and manage mapping configuration and defaults for expense transactions.
 
 ### Available Operations
 
 * [get](#get) - Get company configuration
-* [getMappingOptions](#getmappingoptions) - Mapping options
 * [set](#set) - Set company configuration
 
 ## get
 
-Gets a companies expense sync configuration
+Gets a company's expense sync configuration
 
 ### Example Usage
 
@@ -21,21 +20,14 @@ Gets a companies expense sync configuration
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.components.*;
-import io.codat.sync.expenses.models.components.Security;
-import io.codat.sync.expenses.models.operations.*;
+import io.codat.sync.expenses.models.errors.SDKError;
 import io.codat.sync.expenses.models.operations.GetCompanyConfigurationRequest;
 import io.codat.sync.expenses.models.operations.GetCompanyConfigurationResponse;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncExpenses sdk = CodatSyncExpenses.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -52,100 +44,42 @@ public class Application {
             if (res.companyConfiguration().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.expenses.models.errors.SDKError e) {
+        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                            | Type                                                                                                                                 | Required                                                                                                                             | Description                                                                                                                          |
-| ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                            | [io.codat.sync.expenses.models.operations.GetCompanyConfigurationRequest](../../models/operations/GetCompanyConfigurationRequest.md) | :heavy_check_mark:                                                                                                                   | The request object to use for the request.                                                                                           |
-
-
-### Response
-
-**[Optional<? extends io.codat.sync.expenses.models.operations.GetCompanyConfigurationResponse>](../../models/operations/GetCompanyConfigurationResponse.md)**
-### Errors
-
-| Error Object           | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models/errors/SDKError | 4xx-5xx                | */*                    |
-
-## getMappingOptions
-
-Gets the expense mapping options for a companies accounting software
-
-### Example Usage
-
-```java
-package hello.world;
-
-import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.components.*;
-import io.codat.sync.expenses.models.components.Security;
-import io.codat.sync.expenses.models.operations.*;
-import io.codat.sync.expenses.models.operations.GetMappingOptionsRequest;
-import io.codat.sync.expenses.models.operations.GetMappingOptionsResponse;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
-
-public class Application {
-
-    public static void main(String[] args) {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
-
-            GetMappingOptionsRequest req = GetMappingOptionsRequest.builder()
-                .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
-                .build();
-
-            GetMappingOptionsResponse res = sdk.configuration().getMappingOptions()
-                .request(req)
-                .call();
-
-            if (res.mappingOptions().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.SDKError e) {
-            // handle exception
-        } catch (Exception e) {
-            // handle exception
-        }
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                                                                                | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                | [io.codat.sync.expenses.models.operations.GetMappingOptionsRequest](../../models/operations/GetMappingOptionsRequest.md) | :heavy_check_mark:                                                                                                       | The request object to use for the request.                                                                               |
-
+| Parameter                                                                                   | Type                                                                                        | Required                                                                                    | Description                                                                                 |
+| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `request`                                                                                   | [GetCompanyConfigurationRequest](../../models/operations/GetCompanyConfigurationRequest.md) | :heavy_check_mark:                                                                          | The request object to use for the request.                                                  |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.expenses.models.operations.GetMappingOptionsResponse>](../../models/operations/GetMappingOptionsResponse.md)**
+**[GetCompanyConfigurationResponse](../../models/operations/GetCompanyConfigurationResponse.md)**
+
 ### Errors
 
-| Error Object           | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models/errors/SDKError | 4xx-5xx                | */*                    |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## set
 
-Sets a companies expense sync configuration
+Sets a company's expense sync configuration
 
 ### Example Usage
 
@@ -153,25 +87,18 @@ Sets a companies expense sync configuration
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.components.*;
-import io.codat.sync.expenses.models.components.BankAccount;
+import io.codat.sync.expenses.models.components.BankAccountDetails;
 import io.codat.sync.expenses.models.components.CompanyConfiguration;
 import io.codat.sync.expenses.models.components.CustomerDetails;
-import io.codat.sync.expenses.models.components.Security;
 import io.codat.sync.expenses.models.components.SupplierDetails;
-import io.codat.sync.expenses.models.operations.*;
+import io.codat.sync.expenses.models.errors.SDKError;
 import io.codat.sync.expenses.models.operations.SetCompanyConfigurationRequest;
 import io.codat.sync.expenses.models.operations.SetCompanyConfigurationResponse;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncExpenses sdk = CodatSyncExpenses.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -180,15 +107,13 @@ public class Application {
             SetCompanyConfigurationRequest req = SetCompanyConfigurationRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .companyConfiguration(CompanyConfiguration.builder()
-                    .bankAccount(BankAccount.builder()
-                            .id("32")
-                            .build())
+                    .bankAccount(BankAccountDetails.builder()
+                        .id("32")
+                        .build())
                     .customer(CustomerDetails.builder()
-                            .id("<id>")
-                            .build())
+                        .build())
                     .supplier(SupplierDetails.builder()
-                            .id("<id>")
-                            .build())
+                        .build())
                     .build())
                 .build();
 
@@ -199,27 +124,34 @@ public class Application {
             if (res.companyConfiguration().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.expenses.models.errors.SDKError e) {
+        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                            | Type                                                                                                                                 | Required                                                                                                                             | Description                                                                                                                          |
-| ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                            | [io.codat.sync.expenses.models.operations.SetCompanyConfigurationRequest](../../models/operations/SetCompanyConfigurationRequest.md) | :heavy_check_mark:                                                                                                                   | The request object to use for the request.                                                                                           |
-
+| Parameter                                                                                   | Type                                                                                        | Required                                                                                    | Description                                                                                 |
+| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `request`                                                                                   | [SetCompanyConfigurationRequest](../../models/operations/SetCompanyConfigurationRequest.md) | :heavy_check_mark:                                                                          | The request object to use for the request.                                                  |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.expenses.models.operations.SetCompanyConfigurationResponse>](../../models/operations/SetCompanyConfigurationResponse.md)**
+**[SetCompanyConfigurationResponse](../../models/operations/SetCompanyConfigurationResponse.md)**
+
 ### Errors
 
-| Error Object           | Status Code            | Content Type           |
-| ---------------------- | ---------------------- | ---------------------- |
-| models/errors/SDKError | 4xx-5xx                | */*                    |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
