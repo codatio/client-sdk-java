@@ -20,19 +20,14 @@ Configure bank feeds for a company.
 package hello.world;
 
 import io.codat.bank_feeds.CodatBankFeeds;
-import io.codat.bank_feeds.models.components.*;
-import io.codat.bank_feeds.models.components.Security;
-import io.codat.bank_feeds.models.operations.*;
+import io.codat.bank_feeds.models.errors.SDKError;
 import io.codat.bank_feeds.models.operations.GetConfigurationRequest;
 import io.codat.bank_feeds.models.operations.GetConfigurationResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatBankFeeds sdk = CodatBankFeeds.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -49,30 +44,38 @@ public class Application {
             if (res.configuration().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.bank_feeds.models.errors.SDKError e) {
+        } catch (io.codat.bank_feeds.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                           | Type                                                                                                                | Required                                                                                                            | Description                                                                                                         |
-| ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                           | [io.codat.bank_feeds.models.operations.GetConfigurationRequest](../../models/operations/GetConfigurationRequest.md) | :heavy_check_mark:                                                                                                  | The request object to use for the request.                                                                          |
-
+| Parameter                                                                     | Type                                                                          | Required                                                                      | Description                                                                   |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `request`                                                                     | [GetConfigurationRequest](../../models/operations/GetConfigurationRequest.md) | :heavy_check_mark:                                                            | The request object to use for the request.                                    |
 
 ### Response
 
-**[Optional<? extends io.codat.bank_feeds.models.operations.GetConfigurationResponse>](../../models/operations/GetConfigurationResponse.md)**
+**[GetConfigurationResponse](../../models/operations/GetConfigurationResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## set
 
@@ -84,28 +87,15 @@ public class Application {
 package hello.world;
 
 import io.codat.bank_feeds.CodatBankFeeds;
-import io.codat.bank_feeds.models.components.*;
-import io.codat.bank_feeds.models.components.BankAccountOption;
 import io.codat.bank_feeds.models.components.Configuration;
-import io.codat.bank_feeds.models.components.ConfigurationContactRef;
-import io.codat.bank_feeds.models.components.ConfigurationCustomer;
-import io.codat.bank_feeds.models.components.ConfigurationSchedule;
-import io.codat.bank_feeds.models.components.ConfigurationSupplier;
-import io.codat.bank_feeds.models.components.Security;
-import io.codat.bank_feeds.models.components.SyncAsBankFeeds;
-import io.codat.bank_feeds.models.components.SyncAsExpenses;
-import io.codat.bank_feeds.models.components.SyncConfiguration;
-import io.codat.bank_feeds.models.operations.*;
+import io.codat.bank_feeds.models.errors.SDKError;
 import io.codat.bank_feeds.models.operations.SetConfigurationRequest;
 import io.codat.bank_feeds.models.operations.SetConfigurationResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatBankFeeds sdk = CodatBankFeeds.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -114,46 +104,7 @@ public class Application {
             SetConfigurationRequest req = SetConfigurationRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .configuration(Configuration.builder()
-                    .accountingSoftwareCompanyName("<value>")
                     .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
-                    .configuration(SyncConfiguration.builder()
-                        .syncAsBankFeeds(SyncAsBankFeeds.builder()
-                            .bankAccountOptions(java.util.List.of(
-                                BankAccountOption.builder()
-                                    .build()))
-                            .enableSync(false)
-                            .selectedBankAccountId("<value>")
-                            .build())
-                        .syncAsExpenses(SyncAsExpenses.builder()
-                            .bankAccountOptions(java.util.List.of(
-                                BankAccountOption.builder()
-                                    .build()))
-                            .customer(ConfigurationCustomer.builder()
-                                .customerOptions(java.util.List.of(
-                                    ConfigurationContactRef.builder()
-                                        .build()))
-                                .selectedCustomerId("<value>")
-                                .build())
-                            .enableSync(false)
-                            .selectedBankAccountId("<value>")
-                            .supplier(ConfigurationSupplier.builder()
-                                .selectedSupplierId("<value>")
-                                .supplierOptions(java.util.List.of(
-                                    ConfigurationContactRef.builder()
-                                        .build()))
-                                .build())
-                            .build())
-                        .build())
-                    .configured(false)
-                    .enabled(false)
-                    .schedule(ConfigurationSchedule.builder()
-                        .frequencyOptions(java.util.List.of(
-                            "<value>"))
-                        .selectedFrequency("<value>")
-                        .startDate("<value>")
-                        .syncHourUtc(255863L)
-                        .timeZoneIanaId("<value>")
-                        .build())
                     .build())
                 .build();
 
@@ -164,27 +115,34 @@ public class Application {
             if (res.configuration().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.bank_feeds.models.errors.SDKError e) {
+        } catch (io.codat.bank_feeds.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                           | Type                                                                                                                | Required                                                                                                            | Description                                                                                                         |
-| ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                           | [io.codat.bank_feeds.models.operations.SetConfigurationRequest](../../models/operations/SetConfigurationRequest.md) | :heavy_check_mark:                                                                                                  | The request object to use for the request.                                                                          |
-
+| Parameter                                                                     | Type                                                                          | Required                                                                      | Description                                                                   |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `request`                                                                     | [SetConfigurationRequest](../../models/operations/SetConfigurationRequest.md) | :heavy_check_mark:                                                            | The request object to use for the request.                                    |
 
 ### Response
 
-**[Optional<? extends io.codat.bank_feeds.models.operations.SetConfigurationResponse>](../../models/operations/SetConfigurationResponse.md)**
+**[SetConfigurationResponse](../../models/operations/SetConfigurationResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |

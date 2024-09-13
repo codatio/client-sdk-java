@@ -3,7 +3,7 @@
 
 ## Overview
 
-Source accounts act as a bridge to bank accounts in accounting software.
+Provide and manage lists of source bank accounts.
 
 ### Available Operations
 
@@ -20,7 +20,7 @@ The _Create Source Account_ endpoint allows you to create a representation of a 
 
 #### Account mapping variability
 
-The method of mapping the source account to the target account varies depending on the accounting package your company uses.
+The method of mapping the source account to the target account varies depending on the accounting software your company uses.
 
 #### Mapping options:
 
@@ -39,26 +39,28 @@ The method of mapping the source account to the target account varies depending 
 | QuickBooks Online     |             |                  | ✅                          |
 | Sage                  |             |                  | ✅                          |
 
+> ### Versioning
+> If you are integrating the Bank Feeds API with Codat after August 1, 2024, please use the v2 version of the API, as detailed in the schema below. For integrations completed before August 1, 2024, select the v1 version from the schema dropdown below.
+
 ### Example Usage
 
 ```java
 package hello.world;
 
 import io.codat.bank_feeds.CodatBankFeeds;
-import io.codat.bank_feeds.models.components.*;
-import io.codat.bank_feeds.models.components.Security;
-import io.codat.bank_feeds.models.components.SourceAccount;
-import io.codat.bank_feeds.models.operations.*;
+import io.codat.bank_feeds.models.components.AccountInfo;
+import io.codat.bank_feeds.models.components.AccountType;
+import io.codat.bank_feeds.models.components.SourceAccountV2;
+import io.codat.bank_feeds.models.errors.SDKError;
 import io.codat.bank_feeds.models.operations.CreateSourceAccountRequest;
+import io.codat.bank_feeds.models.operations.CreateSourceAccountRequestBody;
 import io.codat.bank_feeds.models.operations.CreateSourceAccountResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
+import java.math.BigDecimal;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatBankFeeds sdk = CodatBankFeeds.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -67,51 +69,60 @@ public class Application {
             CreateSourceAccountRequest req = CreateSourceAccountRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .sourceAccount(SourceAccount.builder()
-                    .id("<value>")
+                .requestBody(CreateSourceAccountRequestBody.of(SourceAccountV2.builder()
                     .accountName("<value>")
                     .accountNumber("<value>")
-                    .accountType("<value>")
-                    .balance(4865.89d)
-                    .currency("USD")
-                    .feedStartDate("2022-10-23T00:00:00Z")
+                    .accountType(AccountType.PREPAID_CARD)
+                    .balance(new BigDecimal("4174.58"))
+                    .currency("GBP")
+                    .id("<id>")
+                    .accountInfo(AccountInfo.builder()
+                        .accountOpenDate("2022-10-23")
+                        .build())
+                    .feedStartDate("2022-10-23")
                     .modifiedDate("2022-10-23T00:00:00Z")
-                    .sortCode("<value>")
-                    .status("<value>")
-                    .build())
+                    .build()))
                 .build();
 
             CreateSourceAccountResponse res = sdk.sourceAccounts().create()
                 .request(req)
                 .call();
 
-            if (res.sourceAccount().isPresent()) {
+            if (res.oneOf().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.bank_feeds.models.errors.SDKError e) {
+        } catch (io.codat.bank_feeds.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                 | Type                                                                                                                      | Required                                                                                                                  | Description                                                                                                               |
-| ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                 | [io.codat.bank_feeds.models.operations.CreateSourceAccountRequest](../../models/operations/CreateSourceAccountRequest.md) | :heavy_check_mark:                                                                                                        | The request object to use for the request.                                                                                |
-
+| Parameter                                                                           | Type                                                                                | Required                                                                            | Description                                                                         |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `request`                                                                           | [CreateSourceAccountRequest](../../models/operations/CreateSourceAccountRequest.md) | :heavy_check_mark:                                                                  | The request object to use for the request.                                          |
 
 ### Response
 
-**[Optional<? extends io.codat.bank_feeds.models.operations.CreateSourceAccountResponse>](../../models/operations/CreateSourceAccountResponse.md)**
+**[CreateSourceAccountResponse](../../models/operations/CreateSourceAccountResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## delete
 
@@ -126,26 +137,21 @@ Removing a source account will also remove any mapping between the source bank f
 package hello.world;
 
 import io.codat.bank_feeds.CodatBankFeeds;
-import io.codat.bank_feeds.models.components.*;
-import io.codat.bank_feeds.models.components.Security;
-import io.codat.bank_feeds.models.operations.*;
+import io.codat.bank_feeds.models.errors.SDKError;
 import io.codat.bank_feeds.models.operations.DeleteSourceAccountRequest;
 import io.codat.bank_feeds.models.operations.DeleteSourceAccountResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatBankFeeds sdk = CodatBankFeeds.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                 .build();
 
             DeleteSourceAccountRequest req = DeleteSourceAccountRequest.builder()
-                .accountId("7110701885")
+                .accountId("EILBDVJVNUAGVKRQ")
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .build();
@@ -155,30 +161,38 @@ public class Application {
                 .call();
 
             // handle response
-        } catch (io.codat.bank_feeds.models.errors.SDKError e) {
+        } catch (io.codat.bank_feeds.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                 | Type                                                                                                                      | Required                                                                                                                  | Description                                                                                                               |
-| ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                 | [io.codat.bank_feeds.models.operations.DeleteSourceAccountRequest](../../models/operations/DeleteSourceAccountRequest.md) | :heavy_check_mark:                                                                                                        | The request object to use for the request.                                                                                |
-
+| Parameter                                                                           | Type                                                                                | Required                                                                            | Description                                                                         |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `request`                                                                           | [DeleteSourceAccountRequest](../../models/operations/DeleteSourceAccountRequest.md) | :heavy_check_mark:                                                                  | The request object to use for the request.                                          |
 
 ### Response
 
-**[Optional<? extends io.codat.bank_feeds.models.operations.DeleteSourceAccountResponse>](../../models/operations/DeleteSourceAccountResponse.md)**
+**[DeleteSourceAccountResponse](../../models/operations/DeleteSourceAccountResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## deleteCredentials
 
@@ -192,19 +206,14 @@ In cases where multiple credential sets have been generated, a single API call t
 package hello.world;
 
 import io.codat.bank_feeds.CodatBankFeeds;
-import io.codat.bank_feeds.models.components.*;
-import io.codat.bank_feeds.models.components.Security;
-import io.codat.bank_feeds.models.operations.*;
+import io.codat.bank_feeds.models.errors.SDKError;
 import io.codat.bank_feeds.models.operations.DeleteBankFeedCredentialsRequest;
 import io.codat.bank_feeds.models.operations.DeleteBankFeedCredentialsResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatBankFeeds sdk = CodatBankFeeds.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -220,30 +229,38 @@ public class Application {
                 .call();
 
             // handle response
-        } catch (io.codat.bank_feeds.models.errors.SDKError e) {
+        } catch (io.codat.bank_feeds.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                             | Type                                                                                                                                  | Required                                                                                                                              | Description                                                                                                                           |
-| ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                             | [io.codat.bank_feeds.models.operations.DeleteBankFeedCredentialsRequest](../../models/operations/DeleteBankFeedCredentialsRequest.md) | :heavy_check_mark:                                                                                                                    | The request object to use for the request.                                                                                            |
-
+| Parameter                                                                                       | Type                                                                                            | Required                                                                                        | Description                                                                                     |
+| ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `request`                                                                                       | [DeleteBankFeedCredentialsRequest](../../models/operations/DeleteBankFeedCredentialsRequest.md) | :heavy_check_mark:                                                                              | The request object to use for the request.                                                      |
 
 ### Response
 
-**[Optional<? extends io.codat.bank_feeds.models.operations.DeleteBankFeedCredentialsResponse>](../../models/operations/DeleteBankFeedCredentialsResponse.md)**
+**[DeleteBankFeedCredentialsResponse](../../models/operations/DeleteBankFeedCredentialsResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## generateCredentials
 
@@ -258,19 +275,14 @@ The old credentials will still be valid until the revoke credentials endpoint is
 package hello.world;
 
 import io.codat.bank_feeds.CodatBankFeeds;
-import io.codat.bank_feeds.models.components.*;
-import io.codat.bank_feeds.models.components.Security;
-import io.codat.bank_feeds.models.operations.*;
+import io.codat.bank_feeds.models.errors.SDKError;
 import io.codat.bank_feeds.models.operations.GenerateCredentialsRequest;
 import io.codat.bank_feeds.models.operations.GenerateCredentialsResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatBankFeeds sdk = CodatBankFeeds.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -289,30 +301,38 @@ public class Application {
             if (res.bankAccountCredentials().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.bank_feeds.models.errors.SDKError e) {
+        } catch (io.codat.bank_feeds.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                 | Type                                                                                                                      | Required                                                                                                                  | Description                                                                                                               |
-| ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                 | [io.codat.bank_feeds.models.operations.GenerateCredentialsRequest](../../models/operations/GenerateCredentialsRequest.md) | :heavy_check_mark:                                                                                                        | The request object to use for the request.                                                                                |
-
+| Parameter                                                                           | Type                                                                                | Required                                                                            | Description                                                                         |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `request`                                                                           | [GenerateCredentialsRequest](../../models/operations/GenerateCredentialsRequest.md) | :heavy_check_mark:                                                                  | The request object to use for the request.                                          |
 
 ### Response
 
-**[Optional<? extends io.codat.bank_feeds.models.operations.GenerateCredentialsResponse>](../../models/operations/GenerateCredentialsResponse.md)**
+**[GenerateCredentialsResponse](../../models/operations/GenerateCredentialsResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## list
 
@@ -320,6 +340,8 @@ public class Application {
 
 [source accounts](https://docs.codat.io/bank-feeds-api#/schemas/BankFeedAccount) are the bank's bank account within Codat's domain from which transactions are synced into the accounting platform.
 
+> ### Versioning
+> If you are integrating the Bank Feeds API with Codat after August 1, 2024, please use the v2 version of the API, as detailed in the schema below. For integrations completed before August 1, 2024, select the v1 version from the schema dropdown below.
 
 ### Example Usage
 
@@ -327,19 +349,14 @@ public class Application {
 package hello.world;
 
 import io.codat.bank_feeds.CodatBankFeeds;
-import io.codat.bank_feeds.models.components.*;
-import io.codat.bank_feeds.models.components.Security;
-import io.codat.bank_feeds.models.operations.*;
+import io.codat.bank_feeds.models.errors.SDKError;
 import io.codat.bank_feeds.models.operations.ListSourceAccountsRequest;
 import io.codat.bank_feeds.models.operations.ListSourceAccountsResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatBankFeeds sdk = CodatBankFeeds.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -357,35 +374,47 @@ public class Application {
             if (res.sourceAccounts().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.bank_feeds.models.errors.SDKError e) {
+        } catch (io.codat.bank_feeds.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                               | Type                                                                                                                    | Required                                                                                                                | Description                                                                                                             |
-| ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                               | [io.codat.bank_feeds.models.operations.ListSourceAccountsRequest](../../models/operations/ListSourceAccountsRequest.md) | :heavy_check_mark:                                                                                                      | The request object to use for the request.                                                                              |
-
+| Parameter                                                                         | Type                                                                              | Required                                                                          | Description                                                                       |
+| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `request`                                                                         | [ListSourceAccountsRequest](../../models/operations/ListSourceAccountsRequest.md) | :heavy_check_mark:                                                                | The request object to use for the request.                                        |
 
 ### Response
 
-**[Optional<? extends io.codat.bank_feeds.models.operations.ListSourceAccountsResponse>](../../models/operations/ListSourceAccountsResponse.md)**
+**[ListSourceAccountsResponse](../../models/operations/ListSourceAccountsResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## update
 
 ﻿The _Update source account_ endpoint updates a single source account for a single data connection connected to a single company.
 
+### Tips and pitfalls
+
+* This endpoint only updates the `accountName` field.
+* Updates made here apply exclusively to source accounts and will not affect target accounts in the accounting software.
 
 ### Example Usage
 
@@ -393,40 +422,29 @@ public class Application {
 package hello.world;
 
 import io.codat.bank_feeds.CodatBankFeeds;
-import io.codat.bank_feeds.models.components.*;
-import io.codat.bank_feeds.models.components.Security;
 import io.codat.bank_feeds.models.components.SourceAccount;
-import io.codat.bank_feeds.models.operations.*;
+import io.codat.bank_feeds.models.errors.SDKError;
 import io.codat.bank_feeds.models.operations.UpdateSourceAccountRequest;
 import io.codat.bank_feeds.models.operations.UpdateSourceAccountResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatBankFeeds sdk = CodatBankFeeds.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                 .build();
 
             UpdateSourceAccountRequest req = UpdateSourceAccountRequest.builder()
-                .accountId("EILBDVJVNUAGVKRQ")
+                .accountId("7110701885")
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .sourceAccount(SourceAccount.builder()
-                    .id("<value>")
-                    .accountName("<value>")
-                    .accountNumber("<value>")
-                    .accountType("<value>")
-                    .balance(245.55d)
-                    .currency("USD")
+                    .id("<id>")
+                    .currency("EUR")
                     .feedStartDate("2022-10-23T00:00:00Z")
                     .modifiedDate("2022-10-23T00:00:00Z")
-                    .sortCode("<value>")
-                    .status("<value>")
                     .build())
                 .build();
 
@@ -437,27 +455,34 @@ public class Application {
             if (res.sourceAccount().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.bank_feeds.models.errors.SDKError e) {
+        } catch (io.codat.bank_feeds.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                 | Type                                                                                                                      | Required                                                                                                                  | Description                                                                                                               |
-| ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                 | [io.codat.bank_feeds.models.operations.UpdateSourceAccountRequest](../../models/operations/UpdateSourceAccountRequest.md) | :heavy_check_mark:                                                                                                        | The request object to use for the request.                                                                                |
-
+| Parameter                                                                           | Type                                                                                | Required                                                                            | Description                                                                         |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `request`                                                                           | [UpdateSourceAccountRequest](../../models/operations/UpdateSourceAccountRequest.md) | :heavy_check_mark:                                                                  | The request object to use for the request.                                          |
 
 ### Response
 
-**[Optional<? extends io.codat.bank_feeds.models.operations.UpdateSourceAccountResponse>](../../models/operations/UpdateSourceAccountResponse.md)**
+**[UpdateSourceAccountResponse](../../models/operations/UpdateSourceAccountResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
