@@ -15,7 +15,7 @@ Initiate and monitor Create, Update, and Delete operations.
 
 This is the generic documentation for creation and updating of data. See the equivalent endpoint for a given data type for more specific information. 
 
-Before pushing data into accounting software, it is often necessary to collect some details from the user as to how they would like the data to be inserted. This includes names and amounts on transactional entities, but also factors such as categorisation of entities, which is often handled differently between different accounting packages. A good example of this is specifying where on the balance sheet/profit and loss reports the user would like a newly-created nominal account to appear.
+Before pushing data into accounting software, it is often necessary to collect some details from the user as to how they would like the data to be inserted. This includes names and amounts on transactional entities, but also factors such as categorisation of entities, which is often handled differently between different accounting software. A good example of this is specifying where on the balance sheet/profit and loss reports the user would like a newly-created nominal account to appear.
 
 Codat tries not to limit users to pushing to a very limited number of standard categories, so we have implemented "options" endpoints, which allow us to expose to our clients the fields which are required to be pushed for a specific linked company, and the options which may be selected for each field.
 
@@ -30,22 +30,16 @@ Codat tries not to limit users to pushing to a very limited number of standard c
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.operations.*;
+import io.codat.platform.models.errors.SDKError;
 import io.codat.platform.models.operations.GetCreateUpdateModelOptionsByDataTypeRequest;
 import io.codat.platform.models.operations.GetCreateUpdateModelOptionsByDataTypeResponse;
-import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.SchemaDataType;
 import io.codat.platform.models.shared.Security;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
@@ -68,31 +62,36 @@ public class Application {
             }
         } catch (io.codat.platform.models.errors.ErrorMessage e) {
             // handle exception
-        } catch (io.codat.platform.models.errors.SDKError e) {
+            throw e;
+        } catch (SDKError e) {
             // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                                   | Type                                                                                                                                                        | Required                                                                                                                                                    | Description                                                                                                                                                 |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                                                   | [io.codat.platform.models.operations.GetCreateUpdateModelOptionsByDataTypeRequest](../../models/operations/GetCreateUpdateModelOptionsByDataTypeRequest.md) | :heavy_check_mark:                                                                                                                                          | The request object to use for the request.                                                                                                                  |
-
+| Parameter                                                                                                               | Type                                                                                                                    | Required                                                                                                                | Description                                                                                                             |
+| ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `request`                                                                                                               | [GetCreateUpdateModelOptionsByDataTypeRequest](../../models/operations/GetCreateUpdateModelOptionsByDataTypeRequest.md) | :heavy_check_mark:                                                                                                      | The request object to use for the request.                                                                              |
 
 ### Response
 
-**[Optional<? extends io.codat.platform.models.operations.GetCreateUpdateModelOptionsByDataTypeResponse>](../../models/operations/GetCreateUpdateModelOptionsByDataTypeResponse.md)**
+**[GetCreateUpdateModelOptionsByDataTypeResponse](../../models/operations/GetCreateUpdateModelOptionsByDataTypeResponse.md)**
+
 ### Errors
 
-| Error Object                                 | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| io.codat.platform.models.errors.ErrorMessage | 401,402,403,404,429,500,503                  | application/json                             |
-| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## getOperation
 
@@ -104,21 +103,15 @@ Retrieve push operation.
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.operations.*;
+import io.codat.platform.models.errors.SDKError;
 import io.codat.platform.models.operations.GetPushOperationRequest;
 import io.codat.platform.models.operations.GetPushOperationResponse;
-import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
@@ -140,31 +133,36 @@ public class Application {
             }
         } catch (io.codat.platform.models.errors.ErrorMessage e) {
             // handle exception
-        } catch (io.codat.platform.models.errors.SDKError e) {
+            throw e;
+        } catch (SDKError e) {
             // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                         | Type                                                                                                              | Required                                                                                                          | Description                                                                                                       |
-| ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                         | [io.codat.platform.models.operations.GetPushOperationRequest](../../models/operations/GetPushOperationRequest.md) | :heavy_check_mark:                                                                                                | The request object to use for the request.                                                                        |
-
+| Parameter                                                                     | Type                                                                          | Required                                                                      | Description                                                                   |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `request`                                                                     | [GetPushOperationRequest](../../models/operations/GetPushOperationRequest.md) | :heavy_check_mark:                                                            | The request object to use for the request.                                    |
 
 ### Response
 
-**[Optional<? extends io.codat.platform.models.operations.GetPushOperationResponse>](../../models/operations/GetPushOperationResponse.md)**
+**[GetPushOperationResponse](../../models/operations/GetPushOperationResponse.md)**
+
 ### Errors
 
-| Error Object                                 | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| io.codat.platform.models.errors.ErrorMessage | 401,402,403,404,429,500,503                  | application/json                             |
-| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## listOperations
 
@@ -176,21 +174,15 @@ List push operation records.
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.operations.*;
+import io.codat.platform.models.errors.SDKError;
 import io.codat.platform.models.operations.GetCompanyPushHistoryRequest;
 import io.codat.platform.models.operations.GetCompanyPushHistoryResponse;
-import io.codat.platform.models.shared.*;
 import io.codat.platform.models.shared.Security;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
@@ -203,7 +195,7 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("<value>")
+                .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
             GetCompanyPushHistoryResponse res = sdk.pushData().listOperations()
@@ -215,28 +207,32 @@ public class Application {
             }
         } catch (io.codat.platform.models.errors.ErrorMessage e) {
             // handle exception
-        } catch (io.codat.platform.models.errors.SDKError e) {
+            throw e;
+        } catch (SDKError e) {
             // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                   | Type                                                                                                                        | Required                                                                                                                    | Description                                                                                                                 |
-| --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                   | [io.codat.platform.models.operations.GetCompanyPushHistoryRequest](../../models/operations/GetCompanyPushHistoryRequest.md) | :heavy_check_mark:                                                                                                          | The request object to use for the request.                                                                                  |
-
+| Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `request`                                                                               | [GetCompanyPushHistoryRequest](../../models/operations/GetCompanyPushHistoryRequest.md) | :heavy_check_mark:                                                                      | The request object to use for the request.                                              |
 
 ### Response
 
-**[Optional<? extends io.codat.platform.models.operations.GetCompanyPushHistoryResponse>](../../models/operations/GetCompanyPushHistoryResponse.md)**
+**[GetCompanyPushHistoryResponse](../../models/operations/GetCompanyPushHistoryResponse.md)**
+
 ### Errors
 
-| Error Object                                 | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| io.codat.platform.models.errors.ErrorMessage | 400,401,402,403,404,429,500,503              | application/json                             |
-| models/errors/SDKError                       | 4xx-5xx                                      | */*                                          |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |

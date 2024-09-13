@@ -7,4 +7,4 @@ The group template used to create a group.
 
 | Field                          | Type                           | Required                       | Description                    | Example                        |
 | ------------------------------ | ------------------------------ | ------------------------------ | ------------------------------ | ------------------------------ |
-| `name`                         | *Optional<? extends String>*   | :heavy_minus_sign:             | Descriptive name of the group. | Invoice finance team           |
+| `name`                         | *Optional<String>*             | :heavy_minus_sign:             | Descriptive name of the group. | Invoice finance team           |
