@@ -3,7 +3,7 @@
 
 ## Overview
 
-Transactions represent debits and credits from a source account.
+Create new bank account transactions for a company's connections, and see previous operations.
 
 ### Available Operations
 
@@ -30,22 +30,18 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.bank_feeds.CodatBankFeeds;
-import io.codat.bank_feeds.models.components.*;
-import io.codat.bank_feeds.models.components.BankTransactionType;
 import io.codat.bank_feeds.models.components.BankTransactions;
 import io.codat.bank_feeds.models.components.CreateBankTransactions;
-import io.codat.bank_feeds.models.components.Security;
-import io.codat.bank_feeds.models.operations.*;
+import io.codat.bank_feeds.models.errors.SDKError;
 import io.codat.bank_feeds.models.operations.CreateBankTransactionsRequest;
 import io.codat.bank_feeds.models.operations.CreateBankTransactionsResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
+import java.math.BigDecimal;
+import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatBankFeeds sdk = CodatBankFeeds.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -56,21 +52,19 @@ public class Application {
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .createBankTransactions(CreateBankTransactions.builder()
-                    .accountId("7110701885")
-                    .transactions(java.util.List.of(
+                    .accountId("Checking 0202")
+                    .transactions(List.of(
                         BankTransactions.builder()
-                            .amount(999.99d)
-                            .balance(-999.99d)
-                            .counterparty("ACME INC")
+                            .amount(new BigDecimal("999.99"))
                             .date("2022-10-23T00:00:00Z")
-                            .description("Debit for Payment Id sdp-1-57379a43-c4b8-49f5-bd7c-699189ee7a60")
                             .id("716422529")
+                            .balance(new BigDecimal("-999.99"))
+                            .counterparty("ACME INC")
+                            .description("Debit for Payment Id sdp-1-57379a43-c4b8-49f5-bd7c-699189ee7a60")
                             .reconciled(false)
                             .reference("reference for transaction")
                             .build()))
                     .build())
-                .allowSyncOnPushComplete(false)
-                .timeoutInMinutes(859213)
                 .build();
 
             CreateBankTransactionsResponse res = sdk.transactions().create()
@@ -80,30 +74,38 @@ public class Application {
             if (res.createBankTransactionsResponse().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.bank_feeds.models.errors.SDKError e) {
+        } catch (io.codat.bank_feeds.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                       | Type                                                                                                                            | Required                                                                                                                        | Description                                                                                                                     |
-| ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                       | [io.codat.bank_feeds.models.operations.CreateBankTransactionsRequest](../../models/operations/CreateBankTransactionsRequest.md) | :heavy_check_mark:                                                                                                              | The request object to use for the request.                                                                                      |
-
+| Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `request`                                                                                 | [CreateBankTransactionsRequest](../../models/operations/CreateBankTransactionsRequest.md) | :heavy_check_mark:                                                                        | The request object to use for the request.                                                |
 
 ### Response
 
-**[Optional<? extends io.codat.bank_feeds.models.operations.CreateBankTransactionsResponse>](../../models/operations/CreateBankTransactionsResponse.md)**
+**[CreateBankTransactionsResponse](../../models/operations/CreateBankTransactionsResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## getCreateOperation
 
@@ -115,19 +117,14 @@ Retrieve push operation.
 package hello.world;
 
 import io.codat.bank_feeds.CodatBankFeeds;
-import io.codat.bank_feeds.models.components.*;
-import io.codat.bank_feeds.models.components.Security;
-import io.codat.bank_feeds.models.operations.*;
+import io.codat.bank_feeds.models.errors.SDKError;
 import io.codat.bank_feeds.models.operations.GetCreateOperationRequest;
 import io.codat.bank_feeds.models.operations.GetCreateOperationResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatBankFeeds sdk = CodatBankFeeds.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -145,30 +142,38 @@ public class Application {
             if (res.pushOperation().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.bank_feeds.models.errors.SDKError e) {
+        } catch (io.codat.bank_feeds.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                               | Type                                                                                                                    | Required                                                                                                                | Description                                                                                                             |
-| ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                               | [io.codat.bank_feeds.models.operations.GetCreateOperationRequest](../../models/operations/GetCreateOperationRequest.md) | :heavy_check_mark:                                                                                                      | The request object to use for the request.                                                                              |
-
+| Parameter                                                                         | Type                                                                              | Required                                                                          | Description                                                                       |
+| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `request`                                                                         | [GetCreateOperationRequest](../../models/operations/GetCreateOperationRequest.md) | :heavy_check_mark:                                                                | The request object to use for the request.                                        |
 
 ### Response
 
-**[Optional<? extends io.codat.bank_feeds.models.operations.GetCreateOperationResponse>](../../models/operations/GetCreateOperationResponse.md)**
+**[GetCreateOperationResponse](../../models/operations/GetCreateOperationResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## listCreateOperations
 
@@ -180,19 +185,14 @@ List create operations.
 package hello.world;
 
 import io.codat.bank_feeds.CodatBankFeeds;
-import io.codat.bank_feeds.models.components.*;
-import io.codat.bank_feeds.models.components.Security;
-import io.codat.bank_feeds.models.operations.*;
+import io.codat.bank_feeds.models.errors.SDKError;
 import io.codat.bank_feeds.models.operations.ListCreateOperationsRequest;
 import io.codat.bank_feeds.models.operations.ListCreateOperationsResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatBankFeeds sdk = CodatBankFeeds.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -203,7 +203,7 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("<value>")
+                .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
             ListCreateOperationsResponse res = sdk.transactions().listCreateOperations()
@@ -213,27 +213,34 @@ public class Application {
             if (res.pushOperations().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.bank_feeds.models.errors.SDKError e) {
+        } catch (io.codat.bank_feeds.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                   | Type                                                                                                                        | Required                                                                                                                    | Description                                                                                                                 |
-| --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                   | [io.codat.bank_feeds.models.operations.ListCreateOperationsRequest](../../models/operations/ListCreateOperationsRequest.md) | :heavy_check_mark:                                                                                                          | The request object to use for the request.                                                                                  |
-
+| Parameter                                                                             | Type                                                                                  | Required                                                                              | Description                                                                           |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `request`                                                                             | [ListCreateOperationsRequest](../../models/operations/ListCreateOperationsRequest.md) | :heavy_check_mark:                                                                    | The request object to use for the request.                                            |
 
 ### Response
 
-**[Optional<? extends io.codat.bank_feeds.models.operations.ListCreateOperationsResponse>](../../models/operations/ListCreateOperationsResponse.md)**
+**[ListCreateOperationsResponse](../../models/operations/ListCreateOperationsResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |

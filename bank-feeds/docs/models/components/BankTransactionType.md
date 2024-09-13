@@ -10,7 +10,7 @@ Type of transaction for the bank statement line.
 | `UNKNOWN`      | Unknown        |
 | `CREDIT`       | Credit         |
 | `DEBIT`        | Debit          |
-| `INT_`         | Int            |
+| `INT`          | Int            |
 | `DIV`          | Div            |
 | `FEE`          | Fee            |
 | `SER_CHG`      | SerChg         |

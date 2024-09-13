@@ -7,12 +7,24 @@ sources:
         tags:
             - latest
             - main
+    bank-feeds-source:
+        sourceNamespace: bank-feeds-source
+        sourceRevisionDigest: sha256:4e8af09e166edeb95d268f2c1bb0d9d33401e55f5a50aedebbb6465dd005566f
+        sourceBlobDigest: sha256:24d837ec7ccccb55559e6de16951a64c09874b48e5ca92b7af36ea0b95b0eac2
+        tags:
+            - latest
+            - main
 targets:
     accounting-library:
         source: accounting-source
         sourceNamespace: accounting-source
         sourceRevisionDigest: sha256:6f791384165b22edcf0fbe3821add7a7bcf0857bec12c09218b6a9324bca1203
         sourceBlobDigest: sha256:1196b9f04ffba9bfc30292d059e6e63e93b26fe3f8ca92cab6d58df8de86c4ca
+    bank-feeds-library:
+        source: bank-feeds-source
+        sourceNamespace: bank-feeds-source
+        sourceRevisionDigest: sha256:4e8af09e166edeb95d268f2c1bb0d9d33401e55f5a50aedebbb6465dd005566f
+        sourceBlobDigest: sha256:24d837ec7ccccb55559e6de16951a64c09874b48e5ca92b7af36ea0b95b0eac2
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest

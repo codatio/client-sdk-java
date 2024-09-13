@@ -1,0 +1,79 @@
+# CompanyInformation
+(*companyInformation()*)
+
+## Overview
+
+Get detailed information about a company from the underlying accounting software.
+
+### Available Operations
+
+* [get](#get) - Get company information
+
+## get
+
+Use the *Get company information* endpoint to return information about the company available from the underlying accounting software.
+
+
+
+### Example Usage
+
+```java
+package hello.world;
+
+import io.codat.bank_feeds.CodatBankFeeds;
+import io.codat.bank_feeds.models.errors.SDKError;
+import io.codat.bank_feeds.models.operations.GetCompanyInformationRequest;
+import io.codat.bank_feeds.models.operations.GetCompanyInformationResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws Exception {
+        try {
+            CodatBankFeeds sdk = CodatBankFeeds.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+                .build();
+
+            GetCompanyInformationRequest req = GetCompanyInformationRequest.builder()
+                .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
+                .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
+                .build();
+
+            GetCompanyInformationResponse res = sdk.companyInformation().get()
+                .request(req)
+                .call();
+
+            if (res.companyInformation().isPresent()) {
+                // handle response
+            }
+        } catch (io.codat.bank_feeds.models.errors.ErrorMessage e) {
+            // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
+        } catch (Exception e) {
+            // handle exception
+            throw e;
+        }
+
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `request`                                                                               | [GetCompanyInformationRequest](../../models/operations/GetCompanyInformationRequest.md) | :heavy_check_mark:                                                                      | The request object to use for the request.                                              |
+
+### Response
+
+**[GetCompanyInformationResponse](../../models/operations/GetCompanyInformationResponse.md)**
+
+### Errors
+
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
