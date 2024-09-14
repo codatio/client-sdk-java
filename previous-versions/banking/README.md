@@ -4,13 +4,83 @@
 ﻿Use Codat's API to connect to your SMB customer's banks and pull up-to-date standardized account and transaction data from their bank accounts via our partner providers.
 <!-- End Codat Library Description -->
 
+<!-- Start Summary [summary] -->
+## Summary
+
+Banking API: Codat's standardized API for accessing banking data.
+
+> ### New to Codat?
+>
+> Our Banking API reference is relevant only to our existing clients.
+> Please reach out to your Codat contact so that we can find the right product for you.
+
+Codat's Banking API allows you to access standardised data from over bank accounts via third party providers.
+
+Standardize how you connect to your customers’ bank accounts. Retrieve bank account and bank transaction data in the same way via our partnerships with Plaid and TrueLayer.
+
+<!-- Start Codat Tags Table -->
+## Endpoints
+
+| Endpoints | Description |
+| :- |:- |
+| Accounts | Where payments are made or received, and bank transactions are recorded. |
+| Account balances | Balances for a bank account including end-of-day batch balance or running balances per transaction. |
+| Transactions | An immutable source of up-to-date information on income and expenditure. |
+| Transaction categories | Hierarchical categories associated with a transaction for greater contextual meaning to transaction activity. |
+<!-- End Codat Tags Table -->
+
+[Read more...](https://docs.codat.io/banking-api/overview)
+
+[See our OpenAPI spec](https://github.com/codatio/oas)
+<!-- End Summary [summary] -->
+
+<!-- Start Table of Contents [toc] -->
+## Table of Contents
+
+* [SDK Installation](#sdk-installation)
+* [SDK Example Usage](#sdk-example-usage)
+* [Available Resources and Operations](#available-resources-and-operations)
+* [Retries](#retries)
+* [Error Handling](#error-handling)
+* [Server Selection](#server-selection)
+* [Authentication](#authentication)
+<!-- End Table of Contents [toc] -->
+
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
 
-### Gradle
+### Getting started
 
+JDK 11 or later is required.
+
+The samples below show how a published SDK artifact is used:
+
+Gradle:
 ```groovy
-implementation 'io.codat.banking:openapi:0.1.0'
+implementation 'io.codat:banking:0.2.0'
+```
+
+Maven:
+```xml
+<dependency>
+    <groupId>io.codat</groupId>
+    <artifactId>banking</artifactId>
+    <version>0.2.0</version>
+</dependency>
+```
+
+### How to build
+After cloning the git repository to your file system you can build the SDK artifact from source to the `build` directory by running `./gradlew build` on *nix systems or `gradlew.bat` on Windows systems.
+
+If you wish to build from source and publish the SDK artifact to your local Maven repository (on your filesystem) then use the following command (after cloning the git repo locally):
+
+On *nix:
+```bash
+./gradlew publishToMavenLocal -Pskip.signing
+```
+On Windows:
+```bash
+gradlew.bat publishToMavenLocal -Pskip.signing
 ```
 <!-- End SDK Installation [installation] -->
 
@@ -24,19 +94,14 @@ implementation 'io.codat.banking:openapi:0.1.0'
 package hello.world;
 
 import io.codat.banking.CodatBanking;
-import io.codat.banking.models.components.*;
-import io.codat.banking.models.components.Security;
-import io.codat.banking.models.operations.*;
+import io.codat.banking.models.errors.SDKError;
 import io.codat.banking.models.operations.ListAccountBalancesRequest;
 import io.codat.banking.models.operations.ListAccountBalancesResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatBanking sdk = CodatBanking.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -48,7 +113,7 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("<value>")
+                .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
             ListAccountBalancesResponse res = sdk.accountBalances().list()
@@ -58,11 +123,17 @@ public class Application {
             if (res.accountBalances().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.banking.models.errors.SDKError e) {
+        } catch (io.codat.banking.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
@@ -70,6 +141,9 @@ public class Application {
 
 <!-- Start Available Resources and Operations [operations] -->
 ## Available Resources and Operations
+
+<details open>
+<summary>Available methods</summary>
 
 ### [accountBalances()](docs/sdks/accountbalances/README.md)
 
@@ -79,6 +153,7 @@ public class Application {
 
 * [get](docs/sdks/accounts/README.md#get) - Get account
 * [list](docs/sdks/accounts/README.md#list) - List accounts
+
 
 ### [transactionCategories()](docs/sdks/transactioncategories/README.md)
 
@@ -90,6 +165,8 @@ public class Application {
 * [get](docs/sdks/transactions/README.md#get) - Get bank transaction
 * [list](docs/sdks/transactions/README.md#list) - List transactions
 * [~~listBankTransactions~~](docs/sdks/transactions/README.md#listbanktransactions) - List banking transactions :warning: **Deprecated** Use `list` instead.
+
+</details>
 <!-- End Available Resources and Operations [operations] -->
 
 <!-- Start Retries [retries] -->
@@ -102,22 +179,17 @@ To change the default retry strategy for a single API call, you can provide a `R
 package hello.world;
 
 import io.codat.banking.CodatBanking;
-import io.codat.banking.models.components.*;
-import io.codat.banking.models.components.Security;
-import io.codat.banking.models.operations.*;
+import io.codat.banking.models.errors.SDKError;
 import io.codat.banking.models.operations.ListAccountBalancesRequest;
 import io.codat.banking.models.operations.ListAccountBalancesResponse;
 import io.codat.banking.utils.BackoffStrategy;
 import io.codat.banking.utils.RetryConfig;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
+import java.lang.Exception;
 import java.util.concurrent.TimeUnit;
-import static java.util.Map.entry;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatBanking sdk = CodatBanking.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -129,31 +201,37 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("<value>")
+                .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
             ListAccountBalancesResponse res = sdk.accountBalances().list()
                 .request(req)
                 .retryConfig(RetryConfig.builder()
-                                .backoff(BackoffStrategy.builder()
-                                            .initialInterval(1L, TimeUnit.MILLISECONDS)
-                                            .maxInterval(50L, TimeUnit.MILLISECONDS)
-                                            .maxElapsedTime(1000L, TimeUnit.MILLISECONDS)
-                                            .baseFactor(1.1)
-                                            .jitterFactor(0.15)
-                                            .retryConnectError(false)
-                                            .build())
-                                .build())
+                    .backoff(BackoffStrategy.builder()
+                        .initialInterval(1L, TimeUnit.MILLISECONDS)
+                        .maxInterval(50L, TimeUnit.MILLISECONDS)
+                        .maxElapsedTime(1000L, TimeUnit.MILLISECONDS)
+                        .baseFactor(1.1)
+                        .jitterFactor(0.15)
+                        .retryConnectError(false)
+                        .build())
+                    .build())
                 .call();
 
             if (res.accountBalances().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.banking.models.errors.SDKError e) {
+        } catch (io.codat.banking.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
@@ -163,34 +241,29 @@ If you'd like to override the default retry strategy for all operations that sup
 package hello.world;
 
 import io.codat.banking.CodatBanking;
-import io.codat.banking.models.components.*;
-import io.codat.banking.models.components.Security;
-import io.codat.banking.models.operations.*;
+import io.codat.banking.models.errors.SDKError;
 import io.codat.banking.models.operations.ListAccountBalancesRequest;
 import io.codat.banking.models.operations.ListAccountBalancesResponse;
 import io.codat.banking.utils.BackoffStrategy;
 import io.codat.banking.utils.RetryConfig;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
+import java.lang.Exception;
 import java.util.concurrent.TimeUnit;
-import static java.util.Map.entry;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatBanking sdk = CodatBanking.builder()
                 .retryConfig(RetryConfig.builder()
-                                .backoff(BackoffStrategy.builder()
-                                            .initialInterval(1L, TimeUnit.MILLISECONDS)
-                                            .maxInterval(50L, TimeUnit.MILLISECONDS)
-                                            .maxElapsedTime(1000L, TimeUnit.MILLISECONDS)
-                                            .baseFactor(1.1)
-                                            .jitterFactor(0.15)
-                                            .retryConnectError(false)
-                                            .build())
-                                .build())
+                    .backoff(BackoffStrategy.builder()
+                        .initialInterval(1L, TimeUnit.MILLISECONDS)
+                        .maxInterval(50L, TimeUnit.MILLISECONDS)
+                        .maxElapsedTime(1000L, TimeUnit.MILLISECONDS)
+                        .baseFactor(1.1)
+                        .jitterFactor(0.15)
+                        .retryConnectError(false)
+                        .build())
+                    .build())
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                 .build();
 
@@ -200,7 +273,7 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("<value>")
+                .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
             ListAccountBalancesResponse res = sdk.accountBalances().list()
@@ -210,11 +283,17 @@ public class Application {
             if (res.accountBalances().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.banking.models.errors.SDKError e) {
+        } catch (io.codat.banking.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
@@ -225,9 +304,10 @@ public class Application {
 
 Handling errors in this SDK should largely match your expectations.  All operations return a response object or raise an error.  If Error objects are specified in your OpenAPI Spec, the SDK will throw the appropriate Exception type.
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                        | Status Code                         | Content Type                        |
+| ----------------------------------- | ----------------------------------- | ----------------------------------- |
+| models/errors/ErrorMessage          | 400,401,402,403,404,409,429,500,503 | application/json                    |
+| models/errors/SDKError              | 4xx-5xx                             | \*\/*                               |
 
 ### Example
 
@@ -235,19 +315,14 @@ Handling errors in this SDK should largely match your expectations.  All operati
 package hello.world;
 
 import io.codat.banking.CodatBanking;
-import io.codat.banking.models.components.*;
-import io.codat.banking.models.components.Security;
-import io.codat.banking.models.operations.*;
+import io.codat.banking.models.errors.SDKError;
 import io.codat.banking.models.operations.ListAccountBalancesRequest;
 import io.codat.banking.models.operations.ListAccountBalancesResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatBanking sdk = CodatBanking.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -259,7 +334,7 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("<value>")
+                .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
             ListAccountBalancesResponse res = sdk.accountBalances().list()
@@ -269,11 +344,17 @@ public class Application {
             if (res.accountBalances().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.banking.models.errors.SDKError e) {
+        } catch (io.codat.banking.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
@@ -296,19 +377,14 @@ You can override the default server globally by passing a server index to the `s
 package hello.world;
 
 import io.codat.banking.CodatBanking;
-import io.codat.banking.models.components.*;
-import io.codat.banking.models.components.Security;
-import io.codat.banking.models.operations.*;
+import io.codat.banking.models.errors.SDKError;
 import io.codat.banking.models.operations.ListAccountBalancesRequest;
 import io.codat.banking.models.operations.ListAccountBalancesResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatBanking sdk = CodatBanking.builder()
                 .serverIndex(0)
@@ -321,7 +397,7 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("<value>")
+                .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
             ListAccountBalancesResponse res = sdk.accountBalances().list()
@@ -331,11 +407,17 @@ public class Application {
             if (res.accountBalances().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.banking.models.errors.SDKError e) {
+        } catch (io.codat.banking.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
@@ -348,19 +430,14 @@ The default server can also be overridden globally by passing a URL to the `serv
 package hello.world;
 
 import io.codat.banking.CodatBanking;
-import io.codat.banking.models.components.*;
-import io.codat.banking.models.components.Security;
-import io.codat.banking.models.operations.*;
+import io.codat.banking.models.errors.SDKError;
 import io.codat.banking.models.operations.ListAccountBalancesRequest;
 import io.codat.banking.models.operations.ListAccountBalancesResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatBanking sdk = CodatBanking.builder()
                 .serverURL("https://api.codat.io")
@@ -373,7 +450,7 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("<value>")
+                .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
             ListAccountBalancesResponse res = sdk.accountBalances().list()
@@ -383,11 +460,17 @@ public class Application {
             if (res.accountBalances().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.banking.models.errors.SDKError e) {
+        } catch (io.codat.banking.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
@@ -409,19 +492,14 @@ To authenticate with the API the `authHeader` parameter must be set when initial
 package hello.world;
 
 import io.codat.banking.CodatBanking;
-import io.codat.banking.models.components.*;
-import io.codat.banking.models.components.Security;
-import io.codat.banking.models.operations.*;
+import io.codat.banking.models.errors.SDKError;
 import io.codat.banking.models.operations.ListAccountBalancesRequest;
 import io.codat.banking.models.operations.ListAccountBalancesResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatBanking sdk = CodatBanking.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -433,7 +511,7 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("<value>")
+                .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
             ListAccountBalancesResponse res = sdk.accountBalances().list()
@@ -443,11 +521,17 @@ public class Application {
             if (res.accountBalances().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.banking.models.errors.SDKError e) {
+        } catch (io.codat.banking.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```

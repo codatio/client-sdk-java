@@ -1,54 +1,155 @@
 lockVersion: 2.0.0
 id: dd8aebf9-6f1e-4e8f-81ce-5cdc4c94b9b4
 management:
-  docChecksum: e32088f3dd5bfcb0a9fdce3f963610f9
+  docChecksum: ecf0fa063e2c63f7bc17fa949a59296b
   docVersion: 3.0.0
-  speakeasyVersion: internal
-  generationVersion: 2.268.0
-  releaseVersion: 0.1.0
-  configChecksum: 7381221750d5586b1fba8b6e489e3e82
+  speakeasyVersion: 1.396.9
+  generationVersion: 2.415.7
+  releaseVersion: 0.2.0
+  configChecksum: 9b9ce6c909f18cb349769c86360cf4a7
   repoURL: https://github.com/codatio/client-sdk-java.git
   repoSubDirectory: previous-versions/banking
   published: true
 features:
   java:
-    constsAndDefaults: 0.1.0
-    core: 3.12.4
+    additionalDependencies: 0.1.0
+    constsAndDefaults: 0.1.1
+    core: 3.29.7
+    decimal: 0.0.1
     deprecations: 2.81.1
     examples: 2.81.3
-    globalSecurity: 2.82.2
+    globalSecurity: 2.82.7
+    globalSecurityCallbacks: 0.1.0
+    globalSecurityFlattening: 0.1.0
     globalServerURLs: 2.82.1
-    nameOverrides: 2.81.2
+    nameOverrides: 2.81.3
+    nullables: 0.1.0
     retries: 0.1.1
+    sdkHooks: 0.1.0
 generatedFiles:
-  - src/main/java/io/codat/banking/SecuritySource.java
-  - src/main/java/io/codat/banking/SDKConfiguration.java
-  - src/main/java/io/codat/banking/AccountBalances.java
-  - src/main/java/io/codat/banking/Accounts.java
-  - src/main/java/io/codat/banking/TransactionCategories.java
-  - src/main/java/io/codat/banking/Transactions.java
-  - src/main/java/io/codat/banking/models/operations/ListAccountBalancesRequestBuilder.java
-  - src/main/java/io/codat/banking/models/operations/GetAccountRequestBuilder.java
-  - src/main/java/io/codat/banking/models/operations/ListAccountsRequestBuilder.java
-  - src/main/java/io/codat/banking/models/operations/GetTransactionCategoryRequestBuilder.java
-  - src/main/java/io/codat/banking/models/operations/ListTransactionCategoriesRequestBuilder.java
-  - src/main/java/io/codat/banking/models/operations/GetTransactionRequestBuilder.java
-  - src/main/java/io/codat/banking/models/operations/ListTransactionsRequestBuilder.java
-  - src/main/java/io/codat/banking/models/operations/ListBankTransactionsRequestBuilder.java
-  - src/main/java/io/codat/banking/models/operations/SDKMethodInterfaces.java
-  - src/main/java/io/codat/banking/CodatBanking.java
   - .gitattributes
+  - CONTRIBUTING.md
+  - USAGE.md
   - build.gradle
+  - docs/models/components/Account.md
+  - docs/models/components/AccountBalance.md
+  - docs/models/components/AccountBalanceAmounts.md
+  - docs/models/components/AccountBalances.md
+  - docs/models/components/AccountIdentifierType.md
+  - docs/models/components/AccountIdentifiers.md
+  - docs/models/components/AccountInstitution.md
+  - docs/models/components/AccountType.md
+  - docs/models/components/Accounts.md
+  - docs/models/components/ErrorValidation.md
+  - docs/models/components/ErrorValidationItem.md
+  - docs/models/components/HalRef.md
+  - docs/models/components/Links.md
+  - docs/models/components/Security.md
+  - docs/models/components/Transaction.md
+  - docs/models/components/TransactionCategories.md
+  - docs/models/components/TransactionCategory.md
+  - docs/models/components/TransactionCategoryRef.md
+  - docs/models/components/TransactionCategoryStatus.md
+  - docs/models/components/TransactionCode.md
+  - docs/models/components/Transactions.md
+  - docs/models/errors/ErrorMessage.md
+  - docs/models/operations/GetAccountRequest.md
+  - docs/models/operations/GetAccountResponse.md
+  - docs/models/operations/GetTransactionCategoryRequest.md
+  - docs/models/operations/GetTransactionCategoryResponse.md
+  - docs/models/operations/GetTransactionRequest.md
+  - docs/models/operations/GetTransactionResponse.md
+  - docs/models/operations/ListAccountBalancesRequest.md
+  - docs/models/operations/ListAccountBalancesResponse.md
+  - docs/models/operations/ListAccountsRequest.md
+  - docs/models/operations/ListAccountsResponse.md
+  - docs/models/operations/ListBankTransactionsRequest.md
+  - docs/models/operations/ListBankTransactionsResponse.md
+  - docs/models/operations/ListTransactionCategoriesRequest.md
+  - docs/models/operations/ListTransactionCategoriesResponse.md
+  - docs/models/operations/ListTransactionsRequest.md
+  - docs/models/operations/ListTransactionsResponse.md
+  - docs/sdks/accountbalances/README.md
+  - docs/sdks/accounts/README.md
+  - docs/sdks/codatbanking/README.md
+  - docs/sdks/transactioncategories/README.md
+  - docs/sdks/transactions/README.md
   - gradle/wrapper/gradle-wrapper.jar
   - gradle/wrapper/gradle-wrapper.properties
   - gradlew
   - gradlew.bat
   - settings.gradle
+  - src/main/java/io/codat/banking/AccountBalances.java
+  - src/main/java/io/codat/banking/Accounts.java
+  - src/main/java/io/codat/banking/CodatBanking.java
+  - src/main/java/io/codat/banking/SDKConfiguration.java
+  - src/main/java/io/codat/banking/SecuritySource.java
+  - src/main/java/io/codat/banking/TransactionCategories.java
+  - src/main/java/io/codat/banking/Transactions.java
+  - src/main/java/io/codat/banking/models/components/Account.java
+  - src/main/java/io/codat/banking/models/components/AccountBalance.java
+  - src/main/java/io/codat/banking/models/components/AccountBalanceAmounts.java
+  - src/main/java/io/codat/banking/models/components/AccountBalances.java
+  - src/main/java/io/codat/banking/models/components/AccountIdentifierType.java
+  - src/main/java/io/codat/banking/models/components/AccountIdentifiers.java
+  - src/main/java/io/codat/banking/models/components/AccountInstitution.java
+  - src/main/java/io/codat/banking/models/components/AccountType.java
+  - src/main/java/io/codat/banking/models/components/Accounts.java
+  - src/main/java/io/codat/banking/models/components/ErrorValidation.java
+  - src/main/java/io/codat/banking/models/components/ErrorValidationItem.java
+  - src/main/java/io/codat/banking/models/components/HalRef.java
+  - src/main/java/io/codat/banking/models/components/Links.java
+  - src/main/java/io/codat/banking/models/components/Security.java
+  - src/main/java/io/codat/banking/models/components/Transaction.java
+  - src/main/java/io/codat/banking/models/components/TransactionCategories.java
+  - src/main/java/io/codat/banking/models/components/TransactionCategory.java
+  - src/main/java/io/codat/banking/models/components/TransactionCategoryRef.java
+  - src/main/java/io/codat/banking/models/components/TransactionCategoryStatus.java
+  - src/main/java/io/codat/banking/models/components/TransactionCode.java
+  - src/main/java/io/codat/banking/models/components/Transactions.java
+  - src/main/java/io/codat/banking/models/errors/AuthException.java
+  - src/main/java/io/codat/banking/models/errors/ErrorMessage.java
+  - src/main/java/io/codat/banking/models/errors/SDKError.java
+  - src/main/java/io/codat/banking/models/operations/GetAccountRequest.java
+  - src/main/java/io/codat/banking/models/operations/GetAccountRequestBuilder.java
+  - src/main/java/io/codat/banking/models/operations/GetAccountResponse.java
+  - src/main/java/io/codat/banking/models/operations/GetTransactionCategoryRequest.java
+  - src/main/java/io/codat/banking/models/operations/GetTransactionCategoryRequestBuilder.java
+  - src/main/java/io/codat/banking/models/operations/GetTransactionCategoryResponse.java
+  - src/main/java/io/codat/banking/models/operations/GetTransactionRequest.java
+  - src/main/java/io/codat/banking/models/operations/GetTransactionRequestBuilder.java
+  - src/main/java/io/codat/banking/models/operations/GetTransactionResponse.java
+  - src/main/java/io/codat/banking/models/operations/ListAccountBalancesRequest.java
+  - src/main/java/io/codat/banking/models/operations/ListAccountBalancesRequestBuilder.java
+  - src/main/java/io/codat/banking/models/operations/ListAccountBalancesResponse.java
+  - src/main/java/io/codat/banking/models/operations/ListAccountsRequest.java
+  - src/main/java/io/codat/banking/models/operations/ListAccountsRequestBuilder.java
+  - src/main/java/io/codat/banking/models/operations/ListAccountsResponse.java
+  - src/main/java/io/codat/banking/models/operations/ListBankTransactionsRequest.java
+  - src/main/java/io/codat/banking/models/operations/ListBankTransactionsRequestBuilder.java
+  - src/main/java/io/codat/banking/models/operations/ListBankTransactionsResponse.java
+  - src/main/java/io/codat/banking/models/operations/ListTransactionCategoriesRequest.java
+  - src/main/java/io/codat/banking/models/operations/ListTransactionCategoriesRequestBuilder.java
+  - src/main/java/io/codat/banking/models/operations/ListTransactionCategoriesResponse.java
+  - src/main/java/io/codat/banking/models/operations/ListTransactionsRequest.java
+  - src/main/java/io/codat/banking/models/operations/ListTransactionsRequestBuilder.java
+  - src/main/java/io/codat/banking/models/operations/ListTransactionsResponse.java
+  - src/main/java/io/codat/banking/models/operations/SDKMethodInterfaces.java
   - src/main/java/io/codat/banking/utils/BackoffStrategy.java
+  - src/main/java/io/codat/banking/utils/BigDecimalString.java
+  - src/main/java/io/codat/banking/utils/BigIntegerString.java
+  - src/main/java/io/codat/banking/utils/Deserializers.java
+  - src/main/java/io/codat/banking/utils/EventStream.java
+  - src/main/java/io/codat/banking/utils/EventStreamLineReader.java
+  - src/main/java/io/codat/banking/utils/EventStreamMessage.java
+  - src/main/java/io/codat/banking/utils/EventStreamReader.java
   - src/main/java/io/codat/banking/utils/FormMetadata.java
   - src/main/java/io/codat/banking/utils/HTTPClient.java
   - src/main/java/io/codat/banking/utils/HTTPRequest.java
   - src/main/java/io/codat/banking/utils/HeaderMetadata.java
+  - src/main/java/io/codat/banking/utils/Helpers.java
+  - src/main/java/io/codat/banking/utils/Hook.java
+  - src/main/java/io/codat/banking/utils/Hooks.java
   - src/main/java/io/codat/banking/utils/JSON.java
   - src/main/java/io/codat/banking/utils/LazySingletonValue.java
   - src/main/java/io/codat/banking/utils/Metadata.java
@@ -60,96 +161,405 @@ generatedFiles:
   - src/main/java/io/codat/banking/utils/QueryParamsMetadata.java
   - src/main/java/io/codat/banking/utils/RequestBody.java
   - src/main/java/io/codat/banking/utils/RequestMetadata.java
+  - src/main/java/io/codat/banking/utils/Response.java
   - src/main/java/io/codat/banking/utils/Retries.java
   - src/main/java/io/codat/banking/utils/RetryConfig.java
   - src/main/java/io/codat/banking/utils/Security.java
   - src/main/java/io/codat/banking/utils/SecurityMetadata.java
   - src/main/java/io/codat/banking/utils/SerializedBody.java
   - src/main/java/io/codat/banking/utils/SpeakeasyHTTPClient.java
-  - src/main/java/io/codat/banking/utils/SpeakeasyHTTPSecurityClient.java
   - src/main/java/io/codat/banking/utils/SpeakeasyMetadata.java
+  - src/main/java/io/codat/banking/utils/TypedObject.java
   - src/main/java/io/codat/banking/utils/Types.java
   - src/main/java/io/codat/banking/utils/Utils.java
-  - src/main/java/io/codat/banking/models/errors/SDKError.java
-  - src/main/java/io/codat/banking/models/operations/ListAccountBalancesRequest.java
-  - src/main/java/io/codat/banking/models/operations/ListAccountBalancesResponse.java
-  - src/main/java/io/codat/banking/models/operations/GetAccountRequest.java
-  - src/main/java/io/codat/banking/models/operations/GetAccountResponse.java
-  - src/main/java/io/codat/banking/models/operations/ListAccountsRequest.java
-  - src/main/java/io/codat/banking/models/operations/ListAccountsResponse.java
-  - src/main/java/io/codat/banking/models/operations/GetTransactionCategoryRequest.java
-  - src/main/java/io/codat/banking/models/operations/GetTransactionCategoryResponse.java
-  - src/main/java/io/codat/banking/models/operations/ListTransactionCategoriesRequest.java
-  - src/main/java/io/codat/banking/models/operations/ListTransactionCategoriesResponse.java
-  - src/main/java/io/codat/banking/models/operations/GetTransactionRequest.java
-  - src/main/java/io/codat/banking/models/operations/GetTransactionResponse.java
-  - src/main/java/io/codat/banking/models/operations/ListTransactionsRequest.java
-  - src/main/java/io/codat/banking/models/operations/ListTransactionsResponse.java
-  - src/main/java/io/codat/banking/models/operations/ListBankTransactionsRequest.java
-  - src/main/java/io/codat/banking/models/operations/ListBankTransactionsResponse.java
-  - src/main/java/io/codat/banking/models/components/ErrorMessage.java
-  - src/main/java/io/codat/banking/models/components/ErrorValidation.java
-  - src/main/java/io/codat/banking/models/components/ErrorValidationItem.java
-  - src/main/java/io/codat/banking/models/components/AccountBalances.java
-  - src/main/java/io/codat/banking/models/components/AccountBalance.java
-  - src/main/java/io/codat/banking/models/components/AccountBalanceAmounts.java
-  - src/main/java/io/codat/banking/models/components/Links.java
-  - src/main/java/io/codat/banking/models/components/HalRef.java
-  - src/main/java/io/codat/banking/models/components/Account.java
-  - src/main/java/io/codat/banking/models/components/AccountType.java
-  - src/main/java/io/codat/banking/models/components/AccountInstitution.java
-  - src/main/java/io/codat/banking/models/components/AccountIdentifiers.java
-  - src/main/java/io/codat/banking/models/components/AccountIdentifierType.java
-  - src/main/java/io/codat/banking/models/components/Accounts.java
-  - src/main/java/io/codat/banking/models/components/TransactionCategory.java
-  - src/main/java/io/codat/banking/models/components/TransactionCategoryStatus.java
-  - src/main/java/io/codat/banking/models/components/TransactionCategories.java
-  - src/main/java/io/codat/banking/models/components/Transaction.java
-  - src/main/java/io/codat/banking/models/components/TransactionCategoryRef.java
-  - src/main/java/io/codat/banking/models/components/TransactionCode.java
-  - src/main/java/io/codat/banking/models/components/Transactions.java
-  - src/main/java/io/codat/banking/models/components/Security.java
-  - docs/models/operations/ListAccountBalancesRequest.md
-  - docs/models/operations/ListAccountBalancesResponse.md
-  - docs/models/operations/GetAccountRequest.md
-  - docs/models/operations/GetAccountResponse.md
-  - docs/models/operations/ListAccountsRequest.md
-  - docs/models/operations/ListAccountsResponse.md
-  - docs/models/operations/GetTransactionCategoryRequest.md
-  - docs/models/operations/GetTransactionCategoryResponse.md
-  - docs/models/operations/ListTransactionCategoriesRequest.md
-  - docs/models/operations/ListTransactionCategoriesResponse.md
-  - docs/models/operations/GetTransactionRequest.md
-  - docs/models/operations/GetTransactionResponse.md
-  - docs/models/operations/ListTransactionsRequest.md
-  - docs/models/operations/ListTransactionsResponse.md
-  - docs/models/operations/ListBankTransactionsRequest.md
-  - docs/models/operations/ListBankTransactionsResponse.md
-  - docs/models/components/ErrorMessage.md
-  - docs/models/components/ErrorValidation.md
-  - docs/models/components/ErrorValidationItem.md
-  - docs/models/components/AccountBalances.md
-  - docs/models/components/AccountBalance.md
-  - docs/models/components/AccountBalanceAmounts.md
-  - docs/models/components/Links.md
-  - docs/models/components/HalRef.md
-  - docs/models/components/Account.md
-  - docs/models/components/AccountType.md
-  - docs/models/components/AccountInstitution.md
-  - docs/models/components/AccountIdentifiers.md
-  - docs/models/components/AccountIdentifierType.md
-  - docs/models/components/Accounts.md
-  - docs/models/components/TransactionCategory.md
-  - docs/models/components/TransactionCategoryStatus.md
-  - docs/models/components/TransactionCategories.md
-  - docs/models/components/Transaction.md
-  - docs/models/components/TransactionCategoryRef.md
-  - docs/models/components/TransactionCode.md
-  - docs/models/components/Transactions.md
-  - docs/models/components/Security.md
-  - docs/sdks/codatbanking/README.md
-  - docs/sdks/accountbalances/README.md
-  - docs/sdks/accounts/README.md
-  - docs/sdks/transactioncategories/README.md
-  - docs/sdks/transactions/README.md
-  - USAGE.md
+examples:
+  list-account-balances:
+    "":
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "200":
+          application/json: {"_links": {"current": {"href": "/companies/{id}/data/{dataType}?page=1&pageSize=10"}, "self": {"href": "/companies/{id}/data/{dataType}"}}, "pageNumber": 1, "pageSize": 10, "results": [{"accountId": "<value>", "date": "2022-10-23T00:00:00Z", "modifiedDate": "2022-10-23T00:00:00Z", "sourceModifiedDate": "2022-10-23T00:00:00Z"}], "totalResults": 1}
+        "400": {}
+    Basiq:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "200":
+          application/json: {"_links": {"current": {"href": "/companies/17129e41-5389-4f10-ac06-e0a37e47d177/connections/b4703906-e631-46f1-9acc-7e237acdc64d/data/banking-accountBalances?page=1&pageSize=2"}, "next": {"href": "/companies/17129e41-5389-4f10-ac06-e0a37e47d177/connections/b4703906-e631-46f1-9acc-7e237acdc64d/data/banking-accountBalances?page=2&pageSize=2"}, "self": {"href": "/companies/17129e41-5389-4f10-ac06-e0a37e47d177/connections/b4703906-e631-46f1-9acc-7e237acdc64d/data/banking-accountBalances"}}, "pageNumber": 1, "pageSize": 2, "results": [{"accountId": "4811e776-6187-48d9-afee-635fb0d89d93", "balance": {"current": 11389.85}, "date": "2017-12-31T00:00:00Z", "modifiedDate": "2022-10-28T07:15:07Z", "sourceModifiedDate": "2022-10-23T00:00:00Z"}, {"accountId": "4811e776-6187-48d9-afee-635fb0d89d93", "balance": {"current": 8002.09}, "date": "2018-01-01T00:00:00Z", "modifiedDate": "2022-10-28T07:15:07Z", "sourceModifiedDate": "2022-10-23T00:00:00Z"}], "totalResults": 3103}
+    Plaid:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "200":
+          application/json: {"_links": {"current": {"href": "/companies/efc2d985-cdb3-4724-8be3-c7310f7ead6c/connections/6c44dc44-e1b1-4578-800f-0bdefb658db7/data/banking-accountBalances?page=1&pageSize=2"}, "next": {"href": "/companies/efc2d985-cdb3-4724-8be3-c7310f7ead6c/connections/6c44dc44-e1b1-4578-800f-0bdefb658db7/data/banking-accountBalances?page=2&pageSize=2"}, "self": {"href": "/companies/efc2d985-cdb3-4724-8be3-c7310f7ead6c/connections/6c44dc44-e1b1-4578-800f-0bdefb658db7/data/banking-accountBalances"}}, "pageNumber": 1, "pageSize": 2, "results": [{"accountId": "3opGv6XXNeHPEgNVbQpyCr8MAKQ3noC8Qz1zB", "balance": {"current": 205.78}, "date": "2022-10-13T00:00:00", "modifiedDate": "2022-10-27T10:50:16Z", "sourceModifiedDate": "2022-10-23T00:00:00Z"}, {"accountId": "3opGv6XXNeHPEgNVbQpyCr8MAKQ3noC8Qz1zB", "balance": {"current": 205.78}, "date": "2022-10-14T00:00:00", "modifiedDate": "2022-10-27T10:50:16Z", "sourceModifiedDate": "2022-10-23T00:00:00Z"}], "totalResults": 14}
+    Malformed query:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "400":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "bc997528a9d7abb9161ef45f05d38599", "detailedErrorCode": 0, "error": "Error parsing query - Malformed query.", "service": "ClientsApi", "statusCode": 400}
+    Unresolved property:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "400":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "98457fb9956b7f9b4b2fd4f6e23bb5c8", "detailedErrorCode": 0, "error": "Error parsing query - Could not resolve property isCompleted on Dataset", "service": "PullApi", "statusCode": 400}
+  get-account:
+    Basiq:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+          accountId: "7110701885"
+      responses:
+        "200":
+          application/json: {"balance": {"available": 2932.85, "current": 2932.85}, "currency": "AUD", "holder": "david smith", "id": "4811e776-6187-48d9-afee-635fb0d89d93", "identifiers": {"bankCode": "416-982", "number": "14293919644182", "type": "Account"}, "institution": {"id": "AU00000", "name": "Hooli Bank"}, "modifiedDate": "2022-10-28T07:14:48Z", "name": "Hooli Saver", "sourceModifiedDate": "2022-10-27T13:00:00Z", "type": "Debit"}
+    Plaid:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+          accountId: "13d946f0-c5d5-42bc-b092-97ece17923ab"
+      responses:
+        "200":
+          application/json: {"balance": {"available": 200, "current": 210}, "currency": "CAD", "id": "3opGv6XXNeHPEgNVbQpyCr8MAKQ3noC8Qz1zB", "identifiers": {"bankCode": "00021", "maskedAccountNumber": "1111", "number": "1111222233331111", "type": "Depository"}, "informalName": "Plaid Saving", "institution": {"id": "ins_100533", "name": "American Express (CA)"}, "modifiedDate": "2022-10-27T10:50:16Z", "name": "Plaid Silver Standard 0.1% Interest Saving", "sourceModifiedDate": "2022-10-23T00:00:00Z", "type": "Debit"}
+    Unauthorized:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+          accountId: "7110701885"
+      responses:
+        "401":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "7eb40d6b415d7bcd99ce658268284056", "detailedErrorCode": 0, "error": "Unauthorized", "service": "PublicApi", "statusCode": 401}
+  list-accounts:
+    "":
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "200":
+          application/json: {"_links": {"current": {"href": "/companies/{id}/data/{dataType}?page=1&pageSize=10"}, "self": {"href": "/companies/{id}/data/{dataType}"}}, "pageNumber": 1, "pageSize": 10, "results": [{"currency": "Lilangeni", "id": "<id>", "identifiers": {"type": "Account"}, "modifiedDate": "2022-10-23T00:00:00Z", "name": "<value>", "sourceModifiedDate": "2022-10-23T00:00:00Z", "type": "Debit"}], "totalResults": 1}
+        "400": {}
+    Basiq:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "200":
+          application/json: {"_links": {"current": {"href": "/companies/17129e41-5389-4f10-ac06-e0a37e47d177/connections/b4703906-e631-46f1-9acc-7e237acdc64d/data/banking-accounts?page=1&pageSize=2"}, "next": {"href": "/companies/17129e41-5389-4f10-ac06-e0a37e47d177/connections/b4703906-e631-46f1-9acc-7e237acdc64d/data/banking-accounts?page=2&pageSize=2"}, "self": {"href": "/companies/17129e41-5389-4f10-ac06-e0a37e47d177/connections/b4703906-e631-46f1-9acc-7e237acdc64d/data/banking-accounts"}}, "pageNumber": 1, "pageSize": 2, "results": [{"balance": {"available": 2932.85, "current": 2932.85}, "currency": "AUD", "holder": "david smith", "id": "4811e776-6187-48d9-afee-635fb0d89d93", "identifiers": {"bankCode": "416-982", "number": "14293919644182", "type": "Account"}, "institution": {"id": "AU00000", "name": "Hooli Bank"}, "modifiedDate": "2022-10-28T07:14:48Z", "name": "Hooli Saver", "sourceModifiedDate": "2022-10-27T13:00:00Z", "type": "Debit"}, {"balance": {"available": 6940.31, "current": 6940.31}, "currency": "AUD", "holder": "david smith", "id": "736d90a5-f836-4ae0-a161-1e8056f39701", "identifiers": {"bankCode": "416-982", "number": "14293919644183", "type": "Loan"}, "institution": {"id": "AU00000", "name": "Hooli Bank"}, "modifiedDate": "2022-10-28T07:14:48Z", "name": "Standard Variable Rate Home Loan", "sourceModifiedDate": "2022-10-27T13:00:00Z", "type": "Credit"}], "totalResults": 4}
+    Plaid:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "200":
+          application/json: {"_links": {"current": {"href": "/companies/efc2d985-cdb3-4724-8be3-c7310f7ead6c/connections/6c44dc44-e1b1-4578-800f-0bdefb658db7/data/banking-accounts?page=1&pageSize=2"}, "self": {"href": "/companies/efc2d985-cdb3-4724-8be3-c7310f7ead6c/connections/6c44dc44-e1b1-4578-800f-0bdefb658db7/data/banking-accounts"}}, "pageNumber": 1, "pageSize": 2, "results": [{"balance": {"available": 200, "current": 210}, "currency": "CAD", "id": "3opGv6XXNeHPEgNVbQpyCr8MAKQ3noC8Qz1zB", "identifiers": {"bankCode": "00021", "maskedAccountNumber": "1111", "number": "1111222233331111", "type": "Depository"}, "informalName": "Plaid Saving", "institution": {"id": "ins_100533", "name": "American Express (CA)"}, "modifiedDate": "2022-10-27T10:50:16Z", "name": "Plaid Silver Standard 0.1% Interest Saving", "sourceModifiedDate": "2022-10-23T00:00:00Z", "type": "Debit"}], "totalResults": 1}
+    Malformed query:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "400":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "bc997528a9d7abb9161ef45f05d38599", "detailedErrorCode": 0, "error": "Error parsing query - Malformed query.", "service": "ClientsApi", "statusCode": 400}
+    Unresolved property:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "400":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "98457fb9956b7f9b4b2fd4f6e23bb5c8", "detailedErrorCode": 0, "error": "Error parsing query - Could not resolve property isCompleted on Dataset", "service": "PullApi", "statusCode": 400}
+  get-transaction-category:
+    Basiq:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+          transactionCategoryId: "<value>"
+      responses:
+        "200":
+          application/json: {"hasChildren": false, "id": "bank-fee", "modifiedDate": "2022-10-28T07:14:46", "name": "Bank Fee", "sourceModifiedDate": "2022-10-23T00:00:00Z", "status": "Active"}
+    Plaid:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+          transactionCategoryId: "<value>"
+      responses:
+        "200":
+          application/json: {"hasChildren": true, "id": "BANK_FEES", "modifiedDate": "2022-10-27T10:50:17", "name": "BANK_FEES", "sourceModifiedDate": "2022-10-23T00:00:00Z", "status": "Active"}
+    Unauthorized:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+          transactionCategoryId: "<value>"
+      responses:
+        "401":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "7eb40d6b415d7bcd99ce658268284056", "detailedErrorCode": 0, "error": "Unauthorized", "service": "PublicApi", "statusCode": 401}
+  list-transaction-categories:
+    "":
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "200":
+          application/json: {"_links": {"current": {"href": "/companies/{id}/data/{dataType}?page=1&pageSize=10"}, "self": {"href": "/companies/{id}/data/{dataType}"}}, "pageNumber": 1, "pageSize": 10, "results": [{"hasChildren": true, "id": "auto-and-transport", "modifiedDate": "2022-05-23T16:32:50", "name": "Auto & Transport", "sourceModifiedDate": "2021-04-24T07:59:10", "status": "Active"}], "totalResults": 1}
+        "400": {}
+    Basiq:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "200":
+          application/json: {"_links": {"current": {"href": "/companies/17129e41-5389-4f10-ac06-e0a37e47d177/connections/b4703906-e631-46f1-9acc-7e237acdc64d/data/banking-transactionCategories?page=1&pageSize=2"}, "next": {"href": "/companies/17129e41-5389-4f10-ac06-e0a37e47d177/connections/b4703906-e631-46f1-9acc-7e237acdc64d/data/banking-transactionCategories?page=2&pageSize=2"}, "self": {"href": "/companies/17129e41-5389-4f10-ac06-e0a37e47d177/connections/b4703906-e631-46f1-9acc-7e237acdc64d/data/banking-transactionCategories"}}, "pageNumber": 1, "pageSize": 2, "results": [{"hasChildren": false, "id": "bank-fee", "modifiedDate": "2022-10-28T07:14:46", "name": "Bank Fee", "sourceModifiedDate": "2022-10-23T00:00:00Z", "status": "Active"}, {"hasChildren": false, "id": "cash-withdrawal", "modifiedDate": "2022-10-28T07:14:46", "name": "Cash Withdrawal", "sourceModifiedDate": "2022-10-23T00:00:00Z", "status": "Active"}], "totalResults": 9}
+    Plaid:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "200":
+          application/json: {"_links": {"current": {"href": "/companies/efc2d985-cdb3-4724-8be3-c7310f7ead6c/connections/6c44dc44-e1b1-4578-800f-0bdefb658db7/data/banking-transactionCategories?page=1&pageSize=2"}, "next": {"href": "/companies/efc2d985-cdb3-4724-8be3-c7310f7ead6c/connections/6c44dc44-e1b1-4578-800f-0bdefb658db7/data/banking-transactionCategories?page=2&pageSize=2"}, "self": {"href": "/companies/efc2d985-cdb3-4724-8be3-c7310f7ead6c/connections/6c44dc44-e1b1-4578-800f-0bdefb658db7/data/banking-transactionCategories"}}, "pageNumber": 1, "pageSize": 2, "results": [{"hasChildren": true, "id": "BANK_FEES", "modifiedDate": "2022-10-27T10:50:17", "name": "BANK_FEES", "sourceModifiedDate": "2022-10-23T00:00:00Z", "status": "Active"}, {"hasChildren": false, "id": "BANK_FEES.BANK_FEES_ATM_FEES", "modifiedDate": "2022-10-27T10:50:17", "name": "BANK_FEES_ATM_FEES", "parentId": "BANK_FEES", "sourceModifiedDate": "2022-10-23T00:00:00Z", "status": "Active"}], "totalResults": 120}
+    Malformed query:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "400":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "bc997528a9d7abb9161ef45f05d38599", "detailedErrorCode": 0, "error": "Error parsing query - Malformed query.", "service": "ClientsApi", "statusCode": 400}
+    Unresolved property:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "400":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "98457fb9956b7f9b4b2fd4f6e23bb5c8", "detailedErrorCode": 0, "error": "Error parsing query - Could not resolve property isCompleted on Dataset", "service": "PullApi", "statusCode": 400}
+  get-transaction:
+    Basiq:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+          transactionId: "<value>"
+      responses:
+        "200":
+          application/json: {"accountId": "feb76128-7650-4b02-a323-e1606146be0c", "amount": -14.26, "authorizedDate": "2022-10-23T00:00:00Z", "code": "Unknown", "currency": "AUD", "description": "RENTALCARTOLLPH131865 PARRAMATTA  AU Card xx0399 Value Date: 25/07/2019", "id": "00017a94-c681-448d-ba8d-585a81b4128f", "merchantName": "", "modifiedDate": "2022-10-28T07:15:10Z", "postedDate": "2019-07-31T00:00:00Z", "sourceModifiedDate": "2022-10-23T00:00:00Z", "transactionCategoryRef": {"id": "payment", "name": "Payment"}}
+    Plaid:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+          transactionId: "<value>"
+      responses:
+        "200":
+          application/json: {"accountId": "3opGv6XXNeHPEgNVbQpyCr8MAKQ3noC8Qz1zB", "amount": -25, "authorizedDate": "2021-05-09T00:00:00", "code": "Unknown", "currency": "CAD", "description": "CREDIT CARD 3333 PAYMENT *//", "id": "1514wvMMajumgG7xWA1Bt8o15xP5k3fmeo9Bg_EC6E0DC820E1F9D1A2300BF4A5B80513", "modifiedDate": "2022-10-27T10:50:25Z", "postedDate": "2021-05-10T00:00:00", "sourceModifiedDate": "2022-10-23T00:00:00Z", "transactionCategoryRef": {"id": "TRANSFER_OUT.TRANSFER_OUT_ACCOUNT_TRANSFER", "name": "TRANSFER_OUT_ACCOUNT_TRANSFER"}}
+    Unauthorized:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+          transactionId: "<value>"
+      responses:
+        "401":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "7eb40d6b415d7bcd99ce658268284056", "detailedErrorCode": 0, "error": "Unauthorized", "service": "PublicApi", "statusCode": 401}
+  list-transactions:
+    "":
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "200":
+          application/json: {"_links": {"current": {"href": "/companies/{id}/data/{dataType}?page=1&pageSize=10"}, "self": {"href": "/companies/{id}/data/{dataType}"}}, "pageNumber": 1, "pageSize": 10, "results": [{"accountId": "1703194f-7805-4da8-bac0-2ba5da4a4216", "amount": 5062.39, "authorizedDate": "2021-07-06T00:00:00", "currency": "GBP", "description": "Payments for direct income ce149943-c157-43fc-aac7-42a716b655b6", "id": "0130b5bb-1419-40f6-8a27-7362d0381229", "merchantName": "New Look", "modifiedDate": "2022-05-23T16:32:50Z", "postedDate": "2021-07-06T00:00:00", "sourceModifiedDate": "2021-06-28T10:48:12", "transactionCategoryRef": {"id": "health-and-fitness-sports"}}], "totalResults": 1}
+        "400": {}
+    Basiq:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "200":
+          application/json: {"_links": {"current": {"href": "/companies/17129e41-5389-4f10-ac06-e0a37e47d177/connections/b4703906-e631-46f1-9acc-7e237acdc64d/data/banking-transactions?page=1&pageSize=2"}, "next": {"href": "/companies/17129e41-5389-4f10-ac06-e0a37e47d177/connections/b4703906-e631-46f1-9acc-7e237acdc64d/data/banking-transactions?page=2&pageSize=2"}, "self": {"href": "/companies/17129e41-5389-4f10-ac06-e0a37e47d177/connections/b4703906-e631-46f1-9acc-7e237acdc64d/data/banking-transactions"}}, "pageNumber": 1, "pageSize": 2, "results": [{"accountId": "feb76128-7650-4b02-a323-e1606146be0c", "amount": -14.26, "authorizedDate": "2022-10-23T00:00:00Z", "code": "Unknown", "currency": "AUD", "description": "RENTALCARTOLLPH131865 PARRAMATTA  AU Card xx0399 Value Date: 25/07/2019", "id": "00017a94-c681-448d-ba8d-585a81b4128f", "merchantName": "", "modifiedDate": "2022-10-28T07:15:10Z", "postedDate": "2019-07-31T00:00:00Z", "sourceModifiedDate": "2022-10-23T00:00:00Z", "transactionCategoryRef": {"id": "payment", "name": "Payment"}}, {"accountId": "4811e776-6187-48d9-afee-635fb0d89d93", "amount": 191, "authorizedDate": "2022-10-23T00:00:00Z", "code": "Unknown", "currency": "AUD", "description": "Transfer from xx9263 CommBank app Shop", "id": "0023c431-35c8-41f5-b75e-9239413cde7e", "merchantName": "", "modifiedDate": "2022-10-28T07:15:10Z", "postedDate": "2018-07-31T00:00:00Z", "sourceModifiedDate": "2022-10-23T00:00:00Z", "transactionCategoryRef": {"id": "transfer", "name": "Transfer"}}], "totalResults": 3319}
+    Plaid:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "200":
+          application/json: {"_links": {"current": {"href": "/companies/efc2d985-cdb3-4724-8be3-c7310f7ead6c/connections/6c44dc44-e1b1-4578-800f-0bdefb658db7/data/banking-transactions?page=1&pageSize=2"}, "next": {"href": "/companies/efc2d985-cdb3-4724-8be3-c7310f7ead6c/connections/6c44dc44-e1b1-4578-800f-0bdefb658db7/data/banking-transactions?page=2&pageSize=2"}, "self": {"href": "/companies/efc2d985-cdb3-4724-8be3-c7310f7ead6c/connections/6c44dc44-e1b1-4578-800f-0bdefb658db7/data/banking-transactions"}}, "pageNumber": 1, "pageSize": 2, "results": [{"accountId": "3opGv6XXNeHPEgNVbQpyCr8MAKQ3noC8Qz1zB", "amount": -25, "authorizedDate": "2021-05-09T00:00:00", "code": "Unknown", "currency": "CAD", "description": "CREDIT CARD 3333 PAYMENT *//", "id": "1514wvMMajumgG7xWA1Bt8o15xP5k3fmeo9Bg_EC6E0DC820E1F9D1A2300BF4A5B80513", "modifiedDate": "2022-10-27T10:50:25Z", "postedDate": "2021-05-10T00:00:00", "sourceModifiedDate": "2022-10-23T00:00:00Z", "transactionCategoryRef": {"id": "TRANSFER_OUT.TRANSFER_OUT_ACCOUNT_TRANSFER", "name": "TRANSFER_OUT_ACCOUNT_TRANSFER"}}, {"accountId": "3opGv6XXNeHPEgNVbQpyCr8MAKQ3noC8Qz1zB", "amount": -25, "authorizedDate": "2022-10-01T00:00:00", "code": "Unknown", "currency": "CAD", "description": "CREDIT CARD 3333 PAYMENT *//", "id": "1514wvMMajumgG7xWA1Bt8oDLxlpm3i3zraD7_6DB63D1DACF6F5824C80F8BE2E066DB5", "modifiedDate": "2022-10-27T10:50:25Z", "postedDate": "2022-10-02T00:00:00", "sourceModifiedDate": "2022-10-23T00:00:00Z", "transactionCategoryRef": {"id": "TRANSFER_OUT.TRANSFER_OUT_ACCOUNT_TRANSFER", "name": "TRANSFER_OUT_ACCOUNT_TRANSFER"}}], "totalResults": 49}
+    Malformed query:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "400":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "bc997528a9d7abb9161ef45f05d38599", "detailedErrorCode": 0, "error": "Error parsing query - Malformed query.", "service": "ClientsApi", "statusCode": 400}
+    Unresolved property:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "400":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "98457fb9956b7f9b4b2fd4f6e23bb5c8", "detailedErrorCode": 0, "error": "Error parsing query - Could not resolve property isCompleted on Dataset", "service": "PullApi", "statusCode": 400}
+  list-bank-transactions:
+    "":
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "200":
+          application/json: {"_links": {"current": {"href": "/companies/{id}/data/{dataType}?page=1&pageSize=10"}, "self": {"href": "/companies/{id}/data/{dataType}"}}, "pageNumber": 1, "pageSize": 10, "results": [{"accountId": "1703194f-7805-4da8-bac0-2ba5da4a4216", "amount": 5062.39, "authorizedDate": "2021-07-06T00:00:00", "currency": "GBP", "description": "Payments for direct income ce149943-c157-43fc-aac7-42a716b655b6", "id": "0130b5bb-1419-40f6-8a27-7362d0381229", "merchantName": "New Look", "modifiedDate": "2022-05-23T16:32:50Z", "postedDate": "2021-07-06T00:00:00", "sourceModifiedDate": "2021-06-28T10:48:12", "transactionCategoryRef": {"id": "health-and-fitness-sports"}}], "totalResults": 1}
+        "400": {}
+    Malformed query:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "400":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "bc997528a9d7abb9161ef45f05d38599", "detailedErrorCode": 0, "error": "Error parsing query - Malformed query.", "service": "ClientsApi", "statusCode": 400}
+    Unresolved property:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+        query:
+          page: 1
+          pageSize: 100
+          query: "id=e3334455-1aed-4e71-ab43-6bccf12092ee"
+          orderBy: "-modifiedDate"
+      responses:
+        "400":
+          application/json: {"canBeRetried": "Unknown", "correlationId": "98457fb9956b7f9b4b2fd4f6e23bb5c8", "detailedErrorCode": 0, "error": "Error parsing query - Could not resolve property isCompleted on Dataset", "service": "PullApi", "statusCode": 400}

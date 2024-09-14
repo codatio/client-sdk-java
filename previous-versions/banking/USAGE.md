@@ -3,19 +3,14 @@
 package hello.world;
 
 import io.codat.banking.CodatBanking;
-import io.codat.banking.models.components.*;
-import io.codat.banking.models.components.Security;
-import io.codat.banking.models.operations.*;
+import io.codat.banking.models.errors.SDKError;
 import io.codat.banking.models.operations.ListAccountBalancesRequest;
 import io.codat.banking.models.operations.ListAccountBalancesResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatBanking sdk = CodatBanking.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -27,7 +22,7 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("<value>")
+                .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
             ListAccountBalancesResponse res = sdk.accountBalances().list()
@@ -37,11 +32,17 @@ public class Application {
             if (res.accountBalances().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.banking.models.errors.SDKError e) {
+        } catch (io.codat.banking.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```

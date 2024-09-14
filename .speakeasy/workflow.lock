@@ -1,4 +1,4 @@
-speakeasyVersion: 1.396.8
+speakeasyVersion: 1.396.9
 sources:
     accounting-source:
         sourceNamespace: accounting-source
@@ -11,6 +11,13 @@ sources:
         sourceNamespace: bank-feeds-source
         sourceRevisionDigest: sha256:4e8af09e166edeb95d268f2c1bb0d9d33401e55f5a50aedebbb6465dd005566f
         sourceBlobDigest: sha256:24d837ec7ccccb55559e6de16951a64c09874b48e5ca92b7af36ea0b95b0eac2
+        tags:
+            - latest
+            - main
+    banking-source:
+        sourceNamespace: banking-source
+        sourceRevisionDigest: sha256:ba6aa66d7b50ed4631adca7711ffdf2a76270842ca4be92413d92c5644116692
+        sourceBlobDigest: sha256:78c7d7c24581662bec85176d517f23c35ad9b6e569b1c23ac199b9b50a96063a
         tags:
             - latest
             - main
@@ -67,6 +74,11 @@ targets:
         sourceNamespace: bank-feeds-source
         sourceRevisionDigest: sha256:4e8af09e166edeb95d268f2c1bb0d9d33401e55f5a50aedebbb6465dd005566f
         sourceBlobDigest: sha256:24d837ec7ccccb55559e6de16951a64c09874b48e5ca92b7af36ea0b95b0eac2
+    banking-library:
+        source: banking-source
+        sourceNamespace: banking-source
+        sourceRevisionDigest: sha256:ba6aa66d7b50ed4631adca7711ffdf2a76270842ca4be92413d92c5644116692
+        sourceBlobDigest: sha256:78c7d7c24581662bec85176d517f23c35ad9b6e569b1c23ac199b9b50a96063a
     lending-library:
         source: lending-source
         sourceNamespace: lending-source
@@ -114,6 +126,8 @@ workflow:
         banking-source:
             inputs:
                 - location: https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Banking.yaml
+            registry:
+                location: registry.speakeasyapi.dev/codat/codat/banking-source
         lending-source:
             inputs:
                 - location: https://raw.githubusercontent.com/codatio/oas/main/yaml/Codat-Lending.yaml
