@@ -4,13 +4,80 @@
 Push payroll to accounting platforms.
 <!-- End Codat Library Description -->
 
+<!-- Start Summary [summary] -->
+## Summary
+
+Sync for Payroll: The API for Sync for Payroll. 
+
+Sync for Payroll is an API and a set of supporting tools built to help integrate your customers' payroll data from their HR and payroll platforms into their accounting software and to support its reconciliation.
+
+[Explore product](https://docs.codat.io/payroll/overview) | [See OpenAPI spec](https://github.com/codatio/oas)
+
+---
+
+<!-- Start Codat Tags Table -->
+## Endpoints
+
+| Endpoints | Description |
+| :- |:- |
+| Companies | Create and manage your SMB users' companies. |
+| Connections | Create new and manage existing data connections for a company. |
+| Accounts | Get, create, and update Accounts. |
+| Journal entries | Get, create, and update Journal entries. |
+| Journals | Get, create, and update Journals. |
+| Tracking categories | Get, create, and update Tracking Categories for additional categorization of payroll components. |
+| Company info | View company profile from the source platform. |
+| Manage data | Control how data is retrieved from an integration. |
+<!-- End Codat Tags Table -->
+<!-- End Summary [summary] -->
+
+<!-- Start Table of Contents [toc] -->
+## Table of Contents
+
+* [SDK Installation](#sdk-installation)
+* [SDK Example Usage](#sdk-example-usage)
+* [Available Resources and Operations](#available-resources-and-operations)
+* [Retries](#retries)
+* [Error Handling](#error-handling)
+* [Server Selection](#server-selection)
+* [Authentication](#authentication)
+<!-- End Table of Contents [toc] -->
+
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
 
-### Gradle
+### Getting started
 
+JDK 11 or later is required.
+
+The samples below show how a published SDK artifact is used:
+
+Gradle:
 ```groovy
-implementation 'io.codat.sync.payroll:openapi:0.1.0'
+implementation 'io.codat:sync.payroll:0.2.0'
+```
+
+Maven:
+```xml
+<dependency>
+    <groupId>io.codat</groupId>
+    <artifactId>sync.payroll</artifactId>
+    <version>0.2.0</version>
+</dependency>
+```
+
+### How to build
+After cloning the git repository to your file system you can build the SDK artifact from source to the `build` directory by running `./gradlew build` on *nix systems or `gradlew.bat` on Windows systems.
+
+If you wish to build from source and publish the SDK artifact to your local Maven repository (on your filesystem) then use the following command (after cloning the git repo locally):
+
+On *nix:
+```bash
+./gradlew publishToMavenLocal -Pskip.signing
+```
+On Windows:
+```bash
+gradlew.bat publishToMavenLocal -Pskip.signing
 ```
 <!-- End SDK Installation [installation] -->
 
@@ -24,20 +91,16 @@ implementation 'io.codat.sync.payroll:openapi:0.1.0'
 package hello.world;
 
 import io.codat.sync.payroll.CodatSyncPayroll;
-import io.codat.sync.payroll.models.components.*;
 import io.codat.sync.payroll.models.components.CompanyRequestBody;
-import io.codat.sync.payroll.models.components.Items;
-import io.codat.sync.payroll.models.components.Security;
-import io.codat.sync.payroll.models.operations.*;
+import io.codat.sync.payroll.models.components.GroupReference;
+import io.codat.sync.payroll.models.errors.SDKError;
 import io.codat.sync.payroll.models.operations.CreateCompanyResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
+import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncPayroll sdk = CodatSyncPayroll.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -46,8 +109,8 @@ public class Application {
             CompanyRequestBody req = CompanyRequestBody.builder()
                 .name("Bank of Dave")
                 .description("Requested early access to the new financing scheme.")
-                .groups(java.util.List.of(
-                    Items.builder()
+                .groups(List.of(
+                    GroupReference.builder()
                         .id("60d2fa12-8a04-11ee-b9d1-0242ac120002")
                         .build()))
                 .build();
@@ -59,11 +122,17 @@ public class Application {
             if (res.company().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.payroll.models.errors.SDKError e) {
+        } catch (io.codat.sync.payroll.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
@@ -71,6 +140,17 @@ public class Application {
 
 <!-- Start Available Resources and Operations [operations] -->
 ## Available Resources and Operations
+
+<details open>
+<summary>Available methods</summary>
+
+### [accounts()](docs/sdks/accounts/README.md)
+
+* [create](docs/sdks/accounts/README.md#create) - Create account
+* [get](docs/sdks/accounts/README.md#get) - Get account
+* [getCreateModel](docs/sdks/accounts/README.md#getcreatemodel) - Get create account model
+* [list](docs/sdks/accounts/README.md#list) - List accounts
+
 
 ### [companies()](docs/sdks/companies/README.md)
 
@@ -80,6 +160,10 @@ public class Application {
 * [list](docs/sdks/companies/README.md#list) - List companies
 * [update](docs/sdks/companies/README.md#update) - Update company
 
+### [companyInfo()](docs/sdks/companyinfo/README.md)
+
+* [getAccountingProfile](docs/sdks/companyinfo/README.md#getaccountingprofile) - Get company accounting profile
+
 ### [connections()](docs/sdks/connections/README.md)
 
 * [create](docs/sdks/connections/README.md#create) - Create connection
@@ -87,13 +171,6 @@ public class Application {
 * [get](docs/sdks/connections/README.md#get) - Get connection
 * [list](docs/sdks/connections/README.md#list) - List connections
 * [unlink](docs/sdks/connections/README.md#unlink) - Unlink connection
-
-### [accounts()](docs/sdks/accounts/README.md)
-
-* [create](docs/sdks/accounts/README.md#create) - Create account
-* [get](docs/sdks/accounts/README.md#get) - Get account
-* [getCreateModel](docs/sdks/accounts/README.md#getcreatemodel) - Get create account model
-* [list](docs/sdks/accounts/README.md#list) - List accounts
 
 ### [journalEntries()](docs/sdks/journalentries/README.md)
 
@@ -120,14 +197,12 @@ public class Application {
 * [refreshAllDataTypes](docs/sdks/managedata/README.md#refreshalldatatypes) - Refresh all data
 * [refreshDataType](docs/sdks/managedata/README.md#refreshdatatype) - Refresh data type
 
-### [companyInfo()](docs/sdks/companyinfo/README.md)
-
-* [getAccountingProfile](docs/sdks/companyinfo/README.md#getaccountingprofile) - Get company accounting profile
-
 ### [trackingCategories()](docs/sdks/trackingcategories/README.md)
 
 * [get](docs/sdks/trackingcategories/README.md#get) - Get tracking categories
 * [list](docs/sdks/trackingcategories/README.md#list) - List tracking categories
+
+</details>
 <!-- End Available Resources and Operations [operations] -->
 
 <!-- Start Retries [retries] -->
@@ -140,23 +215,19 @@ To change the default retry strategy for a single API call, you can provide a `R
 package hello.world;
 
 import io.codat.sync.payroll.CodatSyncPayroll;
-import io.codat.sync.payroll.models.components.*;
 import io.codat.sync.payroll.models.components.CompanyRequestBody;
-import io.codat.sync.payroll.models.components.Items;
-import io.codat.sync.payroll.models.components.Security;
-import io.codat.sync.payroll.models.operations.*;
+import io.codat.sync.payroll.models.components.GroupReference;
+import io.codat.sync.payroll.models.errors.SDKError;
 import io.codat.sync.payroll.models.operations.CreateCompanyResponse;
 import io.codat.sync.payroll.utils.BackoffStrategy;
 import io.codat.sync.payroll.utils.RetryConfig;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
+import java.lang.Exception;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
-import static java.util.Map.entry;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncPayroll sdk = CodatSyncPayroll.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -165,8 +236,8 @@ public class Application {
             CompanyRequestBody req = CompanyRequestBody.builder()
                 .name("Bank of Dave")
                 .description("Requested early access to the new financing scheme.")
-                .groups(java.util.List.of(
-                    Items.builder()
+                .groups(List.of(
+                    GroupReference.builder()
                         .id("60d2fa12-8a04-11ee-b9d1-0242ac120002")
                         .build()))
                 .build();
@@ -174,25 +245,31 @@ public class Application {
             CreateCompanyResponse res = sdk.companies().create()
                 .request(req)
                 .retryConfig(RetryConfig.builder()
-                                .backoff(BackoffStrategy.builder()
-                                            .initialInterval(1L, TimeUnit.MILLISECONDS)
-                                            .maxInterval(50L, TimeUnit.MILLISECONDS)
-                                            .maxElapsedTime(1000L, TimeUnit.MILLISECONDS)
-                                            .baseFactor(1.1)
-                                            .jitterFactor(0.15)
-                                            .retryConnectError(false)
-                                            .build())
-                                .build())
+                    .backoff(BackoffStrategy.builder()
+                        .initialInterval(1L, TimeUnit.MILLISECONDS)
+                        .maxInterval(50L, TimeUnit.MILLISECONDS)
+                        .maxElapsedTime(1000L, TimeUnit.MILLISECONDS)
+                        .baseFactor(1.1)
+                        .jitterFactor(0.15)
+                        .retryConnectError(false)
+                        .build())
+                    .build())
                 .call();
 
             if (res.company().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.payroll.models.errors.SDKError e) {
+        } catch (io.codat.sync.payroll.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
@@ -202,43 +279,39 @@ If you'd like to override the default retry strategy for all operations that sup
 package hello.world;
 
 import io.codat.sync.payroll.CodatSyncPayroll;
-import io.codat.sync.payroll.models.components.*;
 import io.codat.sync.payroll.models.components.CompanyRequestBody;
-import io.codat.sync.payroll.models.components.Items;
-import io.codat.sync.payroll.models.components.Security;
-import io.codat.sync.payroll.models.operations.*;
+import io.codat.sync.payroll.models.components.GroupReference;
+import io.codat.sync.payroll.models.errors.SDKError;
 import io.codat.sync.payroll.models.operations.CreateCompanyResponse;
 import io.codat.sync.payroll.utils.BackoffStrategy;
 import io.codat.sync.payroll.utils.RetryConfig;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
+import java.lang.Exception;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
-import static java.util.Map.entry;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncPayroll sdk = CodatSyncPayroll.builder()
                 .retryConfig(RetryConfig.builder()
-                                .backoff(BackoffStrategy.builder()
-                                            .initialInterval(1L, TimeUnit.MILLISECONDS)
-                                            .maxInterval(50L, TimeUnit.MILLISECONDS)
-                                            .maxElapsedTime(1000L, TimeUnit.MILLISECONDS)
-                                            .baseFactor(1.1)
-                                            .jitterFactor(0.15)
-                                            .retryConnectError(false)
-                                            .build())
-                                .build())
+                    .backoff(BackoffStrategy.builder()
+                        .initialInterval(1L, TimeUnit.MILLISECONDS)
+                        .maxInterval(50L, TimeUnit.MILLISECONDS)
+                        .maxElapsedTime(1000L, TimeUnit.MILLISECONDS)
+                        .baseFactor(1.1)
+                        .jitterFactor(0.15)
+                        .retryConnectError(false)
+                        .build())
+                    .build())
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                 .build();
 
             CompanyRequestBody req = CompanyRequestBody.builder()
                 .name("Bank of Dave")
                 .description("Requested early access to the new financing scheme.")
-                .groups(java.util.List.of(
-                    Items.builder()
+                .groups(List.of(
+                    GroupReference.builder()
                         .id("60d2fa12-8a04-11ee-b9d1-0242ac120002")
                         .build()))
                 .build();
@@ -250,11 +323,17 @@ public class Application {
             if (res.company().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.payroll.models.errors.SDKError e) {
+        } catch (io.codat.sync.payroll.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
@@ -265,9 +344,10 @@ public class Application {
 
 Handling errors in this SDK should largely match your expectations.  All operations return a response object or raise an error.  If Error objects are specified in your OpenAPI Spec, the SDK will throw the appropriate Exception type.
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 400,401,402,403,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
 
 ### Example
 
@@ -275,20 +355,16 @@ Handling errors in this SDK should largely match your expectations.  All operati
 package hello.world;
 
 import io.codat.sync.payroll.CodatSyncPayroll;
-import io.codat.sync.payroll.models.components.*;
 import io.codat.sync.payroll.models.components.CompanyRequestBody;
-import io.codat.sync.payroll.models.components.Items;
-import io.codat.sync.payroll.models.components.Security;
-import io.codat.sync.payroll.models.operations.*;
+import io.codat.sync.payroll.models.components.GroupReference;
+import io.codat.sync.payroll.models.errors.SDKError;
 import io.codat.sync.payroll.models.operations.CreateCompanyResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
+import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncPayroll sdk = CodatSyncPayroll.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -297,8 +373,8 @@ public class Application {
             CompanyRequestBody req = CompanyRequestBody.builder()
                 .name("Bank of Dave")
                 .description("Requested early access to the new financing scheme.")
-                .groups(java.util.List.of(
-                    Items.builder()
+                .groups(List.of(
+                    GroupReference.builder()
                         .id("60d2fa12-8a04-11ee-b9d1-0242ac120002")
                         .build()))
                 .build();
@@ -310,11 +386,17 @@ public class Application {
             if (res.company().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.payroll.models.errors.SDKError e) {
+        } catch (io.codat.sync.payroll.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
@@ -337,20 +419,16 @@ You can override the default server globally by passing a server index to the `s
 package hello.world;
 
 import io.codat.sync.payroll.CodatSyncPayroll;
-import io.codat.sync.payroll.models.components.*;
 import io.codat.sync.payroll.models.components.CompanyRequestBody;
-import io.codat.sync.payroll.models.components.Items;
-import io.codat.sync.payroll.models.components.Security;
-import io.codat.sync.payroll.models.operations.*;
+import io.codat.sync.payroll.models.components.GroupReference;
+import io.codat.sync.payroll.models.errors.SDKError;
 import io.codat.sync.payroll.models.operations.CreateCompanyResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
+import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncPayroll sdk = CodatSyncPayroll.builder()
                 .serverIndex(0)
@@ -360,8 +438,8 @@ public class Application {
             CompanyRequestBody req = CompanyRequestBody.builder()
                 .name("Bank of Dave")
                 .description("Requested early access to the new financing scheme.")
-                .groups(java.util.List.of(
-                    Items.builder()
+                .groups(List.of(
+                    GroupReference.builder()
                         .id("60d2fa12-8a04-11ee-b9d1-0242ac120002")
                         .build()))
                 .build();
@@ -373,11 +451,17 @@ public class Application {
             if (res.company().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.payroll.models.errors.SDKError e) {
+        } catch (io.codat.sync.payroll.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
@@ -390,20 +474,16 @@ The default server can also be overridden globally by passing a URL to the `serv
 package hello.world;
 
 import io.codat.sync.payroll.CodatSyncPayroll;
-import io.codat.sync.payroll.models.components.*;
 import io.codat.sync.payroll.models.components.CompanyRequestBody;
-import io.codat.sync.payroll.models.components.Items;
-import io.codat.sync.payroll.models.components.Security;
-import io.codat.sync.payroll.models.operations.*;
+import io.codat.sync.payroll.models.components.GroupReference;
+import io.codat.sync.payroll.models.errors.SDKError;
 import io.codat.sync.payroll.models.operations.CreateCompanyResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
+import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncPayroll sdk = CodatSyncPayroll.builder()
                 .serverURL("https://api.codat.io")
@@ -413,8 +493,8 @@ public class Application {
             CompanyRequestBody req = CompanyRequestBody.builder()
                 .name("Bank of Dave")
                 .description("Requested early access to the new financing scheme.")
-                .groups(java.util.List.of(
-                    Items.builder()
+                .groups(List.of(
+                    GroupReference.builder()
                         .id("60d2fa12-8a04-11ee-b9d1-0242ac120002")
                         .build()))
                 .build();
@@ -426,11 +506,17 @@ public class Application {
             if (res.company().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.payroll.models.errors.SDKError e) {
+        } catch (io.codat.sync.payroll.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
@@ -452,20 +538,16 @@ To authenticate with the API the `authHeader` parameter must be set when initial
 package hello.world;
 
 import io.codat.sync.payroll.CodatSyncPayroll;
-import io.codat.sync.payroll.models.components.*;
 import io.codat.sync.payroll.models.components.CompanyRequestBody;
-import io.codat.sync.payroll.models.components.Items;
-import io.codat.sync.payroll.models.components.Security;
-import io.codat.sync.payroll.models.operations.*;
+import io.codat.sync.payroll.models.components.GroupReference;
+import io.codat.sync.payroll.models.errors.SDKError;
 import io.codat.sync.payroll.models.operations.CreateCompanyResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
+import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncPayroll sdk = CodatSyncPayroll.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -474,8 +556,8 @@ public class Application {
             CompanyRequestBody req = CompanyRequestBody.builder()
                 .name("Bank of Dave")
                 .description("Requested early access to the new financing scheme.")
-                .groups(java.util.List.of(
-                    Items.builder()
+                .groups(List.of(
+                    GroupReference.builder()
                         .id("60d2fa12-8a04-11ee-b9d1-0242ac120002")
                         .build()))
                 .build();
@@ -487,11 +569,17 @@ public class Application {
             if (res.company().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.payroll.models.errors.SDKError e) {
+        } catch (io.codat.sync.payroll.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```

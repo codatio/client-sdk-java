@@ -3,7 +3,7 @@
 
 ## Overview
 
-Journals
+Get, create, and update Journals.
 
 ### Available Operations
 
@@ -31,21 +31,15 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.sync.payroll.CodatSyncPayroll;
-import io.codat.sync.payroll.models.components.*;
 import io.codat.sync.payroll.models.components.JournalPrototype;
-import io.codat.sync.payroll.models.components.JournalStatus;
-import io.codat.sync.payroll.models.components.Security;
-import io.codat.sync.payroll.models.operations.*;
+import io.codat.sync.payroll.models.errors.SDKError;
 import io.codat.sync.payroll.models.operations.CreateJournalRequest;
 import io.codat.sync.payroll.models.operations.CreateJournalResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncPayroll sdk = CodatSyncPayroll.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -54,17 +48,9 @@ public class Application {
             CreateJournalRequest req = CreateJournalRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .allowSyncOnPushComplete(false)
                 .journalPrototype(JournalPrototype.builder()
                     .createdOn("2022-10-23T00:00:00Z")
-                    .hasChildren(false)
-                    .journalCode("<value>")
-                    .name("<value>")
-                    .parentId("<value>")
-                    .status(JournalStatus.ACTIVE)
-                    .type("<value>")
                     .build())
-                .timeoutInMinutes(638424)
                 .build();
 
             CreateJournalResponse res = sdk.journals().create()
@@ -74,30 +60,38 @@ public class Application {
             if (res.createJournalResponse().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.payroll.models.errors.SDKError e) {
+        } catch (io.codat.sync.payroll.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                       | Type                                                                                                            | Required                                                                                                        | Description                                                                                                     |
-| --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                       | [io.codat.sync.payroll.models.operations.CreateJournalRequest](../../models/operations/CreateJournalRequest.md) | :heavy_check_mark:                                                                                              | The request object to use for the request.                                                                      |
-
+| Parameter                                                               | Type                                                                    | Required                                                                | Description                                                             |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `request`                                                               | [CreateJournalRequest](../../models/operations/CreateJournalRequest.md) | :heavy_check_mark:                                                      | The request object to use for the request.                              |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.payroll.models.operations.CreateJournalResponse>](../../models/operations/CreateJournalResponse.md)**
+**[CreateJournalResponse](../../models/operations/CreateJournalResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## get
 
@@ -116,19 +110,14 @@ Before using this endpoint, you must have [retrieved data for the company](https
 package hello.world;
 
 import io.codat.sync.payroll.CodatSyncPayroll;
-import io.codat.sync.payroll.models.components.*;
-import io.codat.sync.payroll.models.components.Security;
-import io.codat.sync.payroll.models.operations.*;
+import io.codat.sync.payroll.models.errors.SDKError;
 import io.codat.sync.payroll.models.operations.GetJournalRequest;
 import io.codat.sync.payroll.models.operations.GetJournalResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncPayroll sdk = CodatSyncPayroll.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -146,30 +135,38 @@ public class Application {
             if (res.journal().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.payroll.models.errors.SDKError e) {
+        } catch (io.codat.sync.payroll.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                 | Type                                                                                                      | Required                                                                                                  | Description                                                                                               |
-| --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                 | [io.codat.sync.payroll.models.operations.GetJournalRequest](../../models/operations/GetJournalRequest.md) | :heavy_check_mark:                                                                                        | The request object to use for the request.                                                                |
-
+| Parameter                                                         | Type                                                              | Required                                                          | Description                                                       |
+| ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `request`                                                         | [GetJournalRequest](../../models/operations/GetJournalRequest.md) | :heavy_check_mark:                                                | The request object to use for the request.                        |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.payroll.models.operations.GetJournalResponse>](../../models/operations/GetJournalResponse.md)**
+**[GetJournalResponse](../../models/operations/GetJournalResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 401,402,403,404,409,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+
 
 ## getCreateModel
 
@@ -190,19 +187,14 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.sync.payroll.CodatSyncPayroll;
-import io.codat.sync.payroll.models.components.*;
-import io.codat.sync.payroll.models.components.Security;
-import io.codat.sync.payroll.models.operations.*;
+import io.codat.sync.payroll.models.errors.SDKError;
 import io.codat.sync.payroll.models.operations.GetCreateJournalModelRequest;
 import io.codat.sync.payroll.models.operations.GetCreateJournalModelResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncPayroll sdk = CodatSyncPayroll.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -220,30 +212,38 @@ public class Application {
             if (res.pushOption().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.payroll.models.errors.SDKError e) {
+        } catch (io.codat.sync.payroll.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                       | Type                                                                                                                            | Required                                                                                                                        | Description                                                                                                                     |
-| ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                       | [io.codat.sync.payroll.models.operations.GetCreateJournalModelRequest](../../models/operations/GetCreateJournalModelRequest.md) | :heavy_check_mark:                                                                                                              | The request object to use for the request.                                                                                      |
-
+| Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `request`                                                                               | [GetCreateJournalModelRequest](../../models/operations/GetCreateJournalModelRequest.md) | :heavy_check_mark:                                                                      | The request object to use for the request.                                              |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.payroll.models.operations.GetCreateJournalModelResponse>](../../models/operations/GetCreateJournalModelResponse.md)**
+**[GetCreateJournalModelResponse](../../models/operations/GetCreateJournalModelResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
+| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+
 
 ## list
 
@@ -260,19 +260,14 @@ Before using this endpoint, you must have [retrieved data for the company](https
 package hello.world;
 
 import io.codat.sync.payroll.CodatSyncPayroll;
-import io.codat.sync.payroll.models.components.*;
-import io.codat.sync.payroll.models.components.Security;
-import io.codat.sync.payroll.models.operations.*;
+import io.codat.sync.payroll.models.errors.SDKError;
 import io.codat.sync.payroll.models.operations.ListJournalsRequest;
 import io.codat.sync.payroll.models.operations.ListJournalsResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncPayroll sdk = CodatSyncPayroll.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -283,7 +278,7 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("<value>")
+                .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
             ListJournalsResponse res = sdk.journals().list()
@@ -293,27 +288,34 @@ public class Application {
             if (res.journals().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.payroll.models.errors.SDKError e) {
+        } catch (io.codat.sync.payroll.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                     | Type                                                                                                          | Required                                                                                                      | Description                                                                                                   |
-| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                     | [io.codat.sync.payroll.models.operations.ListJournalsRequest](../../models/operations/ListJournalsRequest.md) | :heavy_check_mark:                                                                                            | The request object to use for the request.                                                                    |
-
+| Parameter                                                             | Type                                                                  | Required                                                              | Description                                                           |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `request`                                                             | [ListJournalsRequest](../../models/operations/ListJournalsRequest.md) | :heavy_check_mark:                                                    | The request object to use for the request.                            |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.payroll.models.operations.ListJournalsResponse>](../../models/operations/ListJournalsResponse.md)**
+**[ListJournalsResponse](../../models/operations/ListJournalsResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                        | Status Code                         | Content Type                        |
+| ----------------------------------- | ----------------------------------- | ----------------------------------- |
+| models/errors/ErrorMessage          | 400,401,402,403,404,409,429,500,503 | application/json                    |
+| models/errors/SDKError              | 4xx-5xx                             | \*\/*                               |

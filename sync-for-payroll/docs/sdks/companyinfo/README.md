@@ -3,7 +3,7 @@
 
 ## Overview
 
-View company information fetched from the source platform.
+View company profile from the source platform.
 
 ### Available Operations
 
@@ -19,19 +19,14 @@ Gets the latest basic info for a company.
 package hello.world;
 
 import io.codat.sync.payroll.CodatSyncPayroll;
-import io.codat.sync.payroll.models.components.*;
-import io.codat.sync.payroll.models.components.Security;
-import io.codat.sync.payroll.models.operations.*;
+import io.codat.sync.payroll.models.errors.SDKError;
 import io.codat.sync.payroll.models.operations.GetAccountingProfileRequest;
 import io.codat.sync.payroll.models.operations.GetAccountingProfileResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatSyncPayroll sdk = CodatSyncPayroll.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -48,27 +43,34 @@ public class Application {
             if (res.companyInfo().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.sync.payroll.models.errors.SDKError e) {
+        } catch (io.codat.sync.payroll.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                     | Type                                                                                                                          | Required                                                                                                                      | Description                                                                                                                   |
-| ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                                     | [io.codat.sync.payroll.models.operations.GetAccountingProfileRequest](../../models/operations/GetAccountingProfileRequest.md) | :heavy_check_mark:                                                                                                            | The request object to use for the request.                                                                                    |
-
+| Parameter                                                                             | Type                                                                                  | Required                                                                              | Description                                                                           |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `request`                                                                             | [GetAccountingProfileRequest](../../models/operations/GetAccountingProfileRequest.md) | :heavy_check_mark:                                                                    | The request object to use for the request.                                            |
 
 ### Response
 
-**[Optional<? extends io.codat.sync.payroll.models.operations.GetAccountingProfileResponse>](../../models/operations/GetAccountingProfileResponse.md)**
+**[GetAccountingProfileResponse](../../models/operations/GetAccountingProfileResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models/errors/ErrorMessage      | 401,402,403,404,409,429,500,503 | application/json                |
+| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
