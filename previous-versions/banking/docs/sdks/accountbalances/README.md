@@ -24,19 +24,14 @@ Before using this endpoint, you must have [retrieved data for the company](https
 package hello.world;
 
 import io.codat.banking.CodatBanking;
-import io.codat.banking.models.components.*;
-import io.codat.banking.models.components.Security;
-import io.codat.banking.models.operations.*;
+import io.codat.banking.models.errors.SDKError;
 import io.codat.banking.models.operations.ListAccountBalancesRequest;
 import io.codat.banking.models.operations.ListAccountBalancesResponse;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.Optional;
-import static java.util.Map.entry;
+import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         try {
             CodatBanking sdk = CodatBanking.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
@@ -48,7 +43,7 @@ public class Application {
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
-                .query("<value>")
+                .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
             ListAccountBalancesResponse res = sdk.accountBalances().list()
@@ -58,27 +53,34 @@ public class Application {
             if (res.accountBalances().isPresent()) {
                 // handle response
             }
-        } catch (io.codat.banking.models.errors.SDKError e) {
+        } catch (io.codat.banking.models.errors.ErrorMessage e) {
             // handle exception
+            throw e;
+        } catch (SDKError e) {
+            // handle exception
+            throw e;
         } catch (Exception e) {
             // handle exception
+            throw e;
         }
+
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                                              | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            |
-| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `request`                                                                                                              | [io.codat.banking.models.operations.ListAccountBalancesRequest](../../models/operations/ListAccountBalancesRequest.md) | :heavy_check_mark:                                                                                                     | The request object to use for the request.                                                                             |
-
+| Parameter                                                                           | Type                                                                                | Required                                                                            | Description                                                                         |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `request`                                                                           | [ListAccountBalancesRequest](../../models/operations/ListAccountBalancesRequest.md) | :heavy_check_mark:                                                                  | The request object to use for the request.                                          |
 
 ### Response
 
-**[Optional<? extends io.codat.banking.models.operations.ListAccountBalancesResponse>](../../models/operations/ListAccountBalancesResponse.md)**
+**[ListAccountBalancesResponse](../../models/operations/ListAccountBalancesResponse.md)**
+
 ### Errors
 
-| Error Object          | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| models/errorsSDKError | 4xx-5xx               | */*                   |
+| Error Object                        | Status Code                         | Content Type                        |
+| ----------------------------------- | ----------------------------------- | ----------------------------------- |
+| models/errors/ErrorMessage          | 400,401,402,403,404,409,429,500,503 | application/json                    |
+| models/errors/SDKError              | 4xx-5xx                             | \*\/*                               |
