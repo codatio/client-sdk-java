@@ -24,7 +24,7 @@ package hello.world;
 import io.codat.sync.payables.CodatSyncPayables;
 import io.codat.sync.payables.models.components.BillPaymentAccountRef;
 import io.codat.sync.payables.models.components.BillPaymentPrototype;
-import io.codat.sync.payables.models.errors.SDKError;
+import io.codat.sync.payables.models.errors.ErrorMessage;
 import io.codat.sync.payables.models.operations.CreateBillPaymentRequest;
 import io.codat.sync.payables.models.operations.CreateBillPaymentResponse;
 import java.lang.Exception;
@@ -32,13 +32,13 @@ import java.math.BigDecimal;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncPayables sdk = CodatSyncPayables.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            CreateBillPaymentRequest req = CreateBillPaymentRequest.builder()
+        CodatSyncPayables sdk = CodatSyncPayables.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        CreateBillPaymentRequest req = CreateBillPaymentRequest.builder()
                 .billId("9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2")
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
@@ -52,24 +52,13 @@ public class Application {
                     .build())
                 .build();
 
-            CreateBillPaymentResponse res = sdk.billPayments().create()
+        CreateBillPaymentResponse res = sdk.billPayments().create()
                 .request(req)
                 .call();
 
-            if (res.billPayment().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.payables.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.billPayment().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -86,11 +75,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                        | Status Code                         | Content Type                        |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| models/errors/ErrorMessage          | 400,401,402,403,404,409,429,500,503 | application/json                    |
-| models/errors/SDKError              | 4xx-5xx                             | \*\/*                               |
-
+| Error Type                                  | Status Code                                 | Content Type                                |
+| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
+| models/errors/ErrorMessage                  | 400, 401, 402, 403, 404, 409, 429, 500, 503 | application/json                            |
+| models/errors/SDKError                      | 4XX, 5XX                                    | \*/\*                                       |
 
 ## getPaymentOptions
 
@@ -106,44 +94,33 @@ Mapping options are a set of bank accounts used to configure the SMB's payables 
 package hello.world;
 
 import io.codat.sync.payables.CodatSyncPayables;
-import io.codat.sync.payables.models.errors.SDKError;
+import io.codat.sync.payables.models.errors.ErrorMessage;
 import io.codat.sync.payables.models.operations.GetMappingOptionsPaymentsRequest;
 import io.codat.sync.payables.models.operations.GetMappingOptionsPaymentsResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncPayables sdk = CodatSyncPayables.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            GetMappingOptionsPaymentsRequest req = GetMappingOptionsPaymentsRequest.builder()
+        CodatSyncPayables sdk = CodatSyncPayables.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        GetMappingOptionsPaymentsRequest req = GetMappingOptionsPaymentsRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .continuationToken("continuationToken=eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ==")
                 .statusQuery("status=Archived")
                 .build();
 
-            GetMappingOptionsPaymentsResponse res = sdk.billPayments().getPaymentOptions()
+        GetMappingOptionsPaymentsResponse res = sdk.billPayments().getPaymentOptions()
                 .request(req)
                 .call();
 
-            if (res.paymentMappingOptions().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.payables.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.paymentMappingOptions().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -160,7 +137,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |

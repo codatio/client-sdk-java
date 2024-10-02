@@ -80,7 +80,7 @@ public class Supplier {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("sourceModifiedDate")
-    private JsonNullable<? extends One> sourceModifiedDate;
+    private Optional<String> sourceModifiedDate;
 
     /**
      * Status of the supplier.
@@ -105,7 +105,7 @@ public class Supplier {
             @JsonProperty("emailAddress") JsonNullable<String> emailAddress,
             @JsonProperty("id") Optional<String> id,
             @JsonProperty("phone") JsonNullable<String> phone,
-            @JsonProperty("sourceModifiedDate") JsonNullable<? extends One> sourceModifiedDate,
+            @JsonProperty("sourceModifiedDate") Optional<String> sourceModifiedDate,
             @JsonProperty("status") Optional<? extends SupplierStatus> status,
             @JsonProperty("supplierName") Optional<String> supplierName) {
         Utils.checkNotNull(addresses, "addresses");
@@ -131,7 +131,7 @@ public class Supplier {
     }
     
     public Supplier() {
-        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty());
+        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     /**
@@ -192,10 +192,9 @@ public class Supplier {
         return phone;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public JsonNullable<One> sourceModifiedDate() {
-        return (JsonNullable<One>) sourceModifiedDate;
+    public Optional<String> sourceModifiedDate() {
+        return sourceModifiedDate;
     }
 
     /**
@@ -353,13 +352,13 @@ public class Supplier {
         return this;
     }
 
-    public Supplier withSourceModifiedDate(One sourceModifiedDate) {
+    public Supplier withSourceModifiedDate(String sourceModifiedDate) {
         Utils.checkNotNull(sourceModifiedDate, "sourceModifiedDate");
-        this.sourceModifiedDate = JsonNullable.of(sourceModifiedDate);
+        this.sourceModifiedDate = Optional.ofNullable(sourceModifiedDate);
         return this;
     }
 
-    public Supplier withSourceModifiedDate(JsonNullable<? extends One> sourceModifiedDate) {
+    public Supplier withSourceModifiedDate(Optional<String> sourceModifiedDate) {
         Utils.checkNotNull(sourceModifiedDate, "sourceModifiedDate");
         this.sourceModifiedDate = sourceModifiedDate;
         return this;
@@ -469,7 +468,7 @@ public class Supplier {
  
         private JsonNullable<String> phone = JsonNullable.undefined();
  
-        private JsonNullable<? extends One> sourceModifiedDate = JsonNullable.undefined();
+        private Optional<String> sourceModifiedDate = Optional.empty();
  
         private Optional<? extends SupplierStatus> status = Optional.empty();
  
@@ -613,13 +612,13 @@ public class Supplier {
             return this;
         }
 
-        public Builder sourceModifiedDate(One sourceModifiedDate) {
+        public Builder sourceModifiedDate(String sourceModifiedDate) {
             Utils.checkNotNull(sourceModifiedDate, "sourceModifiedDate");
-            this.sourceModifiedDate = JsonNullable.of(sourceModifiedDate);
+            this.sourceModifiedDate = Optional.ofNullable(sourceModifiedDate);
             return this;
         }
 
-        public Builder sourceModifiedDate(JsonNullable<? extends One> sourceModifiedDate) {
+        public Builder sourceModifiedDate(Optional<String> sourceModifiedDate) {
             Utils.checkNotNull(sourceModifiedDate, "sourceModifiedDate");
             this.sourceModifiedDate = sourceModifiedDate;
             return this;

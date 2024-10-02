@@ -19,19 +19,19 @@ public class ListBillAttachmentsRequestBuilder {
         this.sdk = sdk;
     }
 
-    public ListBillAttachmentsRequestBuilder request(io.codat.sync.payables.models.operations.ListBillAttachmentsRequest request) {
+    public ListBillAttachmentsRequestBuilder request(ListBillAttachmentsRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public ListBillAttachmentsRequestBuilder retryConfig(io.codat.sync.payables.utils.RetryConfig retryConfig) {
+    public ListBillAttachmentsRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public ListBillAttachmentsRequestBuilder retryConfig(java.util.Optional<io.codat.sync.payables.utils.RetryConfig> retryConfig) {
+    public ListBillAttachmentsRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

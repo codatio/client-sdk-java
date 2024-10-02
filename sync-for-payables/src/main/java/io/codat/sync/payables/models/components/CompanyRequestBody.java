@@ -14,7 +14,6 @@ import io.codat.sync.payables.utils.Utils;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -29,34 +28,34 @@ public class CompanyRequestBody {
     private Optional<String> description;
 
     /**
-     * Reference to the groups that the company is assigned to.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("groups")
-    private Optional<? extends List<GroupReference>> groups;
-
-    /**
      * Name of company being connected.
      */
     @JsonProperty("name")
     private String name;
 
+    /**
+     * A collection of user-defined key-value pairs that store custom metadata against the company.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("tags")
+    private Optional<? extends Tags> tags;
+
     @JsonCreator
     public CompanyRequestBody(
             @JsonProperty("description") Optional<String> description,
-            @JsonProperty("groups") Optional<? extends List<GroupReference>> groups,
-            @JsonProperty("name") String name) {
+            @JsonProperty("name") String name,
+            @JsonProperty("tags") Optional<? extends Tags> tags) {
         Utils.checkNotNull(description, "description");
-        Utils.checkNotNull(groups, "groups");
         Utils.checkNotNull(name, "name");
+        Utils.checkNotNull(tags, "tags");
         this.description = description;
-        this.groups = groups;
         this.name = name;
+        this.tags = tags;
     }
     
     public CompanyRequestBody(
             String name) {
-        this(Optional.empty(), Optional.empty(), name);
+        this(Optional.empty(), name, Optional.empty());
     }
 
     /**
@@ -68,20 +67,20 @@ public class CompanyRequestBody {
     }
 
     /**
-     * Reference to the groups that the company is assigned to.
-     */
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public Optional<List<GroupReference>> groups() {
-        return (Optional<List<GroupReference>>) groups;
-    }
-
-    /**
      * Name of company being connected.
      */
     @JsonIgnore
     public String name() {
         return name;
+    }
+
+    /**
+     * A collection of user-defined key-value pairs that store custom metadata against the company.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<Tags> tags() {
+        return (Optional<Tags>) tags;
     }
 
     public final static Builder builder() {
@@ -107,29 +106,29 @@ public class CompanyRequestBody {
     }
 
     /**
-     * Reference to the groups that the company is assigned to.
-     */
-    public CompanyRequestBody withGroups(List<GroupReference> groups) {
-        Utils.checkNotNull(groups, "groups");
-        this.groups = Optional.ofNullable(groups);
-        return this;
-    }
-
-    /**
-     * Reference to the groups that the company is assigned to.
-     */
-    public CompanyRequestBody withGroups(Optional<? extends List<GroupReference>> groups) {
-        Utils.checkNotNull(groups, "groups");
-        this.groups = groups;
-        return this;
-    }
-
-    /**
      * Name of company being connected.
      */
     public CompanyRequestBody withName(String name) {
         Utils.checkNotNull(name, "name");
         this.name = name;
+        return this;
+    }
+
+    /**
+     * A collection of user-defined key-value pairs that store custom metadata against the company.
+     */
+    public CompanyRequestBody withTags(Tags tags) {
+        Utils.checkNotNull(tags, "tags");
+        this.tags = Optional.ofNullable(tags);
+        return this;
+    }
+
+    /**
+     * A collection of user-defined key-value pairs that store custom metadata against the company.
+     */
+    public CompanyRequestBody withTags(Optional<? extends Tags> tags) {
+        Utils.checkNotNull(tags, "tags");
+        this.tags = tags;
         return this;
     }
     
@@ -144,33 +143,33 @@ public class CompanyRequestBody {
         CompanyRequestBody other = (CompanyRequestBody) o;
         return 
             Objects.deepEquals(this.description, other.description) &&
-            Objects.deepEquals(this.groups, other.groups) &&
-            Objects.deepEquals(this.name, other.name);
+            Objects.deepEquals(this.name, other.name) &&
+            Objects.deepEquals(this.tags, other.tags);
     }
     
     @Override
     public int hashCode() {
         return Objects.hash(
             description,
-            groups,
-            name);
+            name,
+            tags);
     }
     
     @Override
     public String toString() {
         return Utils.toString(CompanyRequestBody.class,
                 "description", description,
-                "groups", groups,
-                "name", name);
+                "name", name,
+                "tags", tags);
     }
     
     public final static class Builder {
  
         private Optional<String> description = Optional.empty();
  
-        private Optional<? extends List<GroupReference>> groups = Optional.empty();
+        private String name;
  
-        private String name;  
+        private Optional<? extends Tags> tags = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -195,24 +194,6 @@ public class CompanyRequestBody {
         }
 
         /**
-         * Reference to the groups that the company is assigned to.
-         */
-        public Builder groups(List<GroupReference> groups) {
-            Utils.checkNotNull(groups, "groups");
-            this.groups = Optional.ofNullable(groups);
-            return this;
-        }
-
-        /**
-         * Reference to the groups that the company is assigned to.
-         */
-        public Builder groups(Optional<? extends List<GroupReference>> groups) {
-            Utils.checkNotNull(groups, "groups");
-            this.groups = groups;
-            return this;
-        }
-
-        /**
          * Name of company being connected.
          */
         public Builder name(String name) {
@@ -220,12 +201,30 @@ public class CompanyRequestBody {
             this.name = name;
             return this;
         }
+
+        /**
+         * A collection of user-defined key-value pairs that store custom metadata against the company.
+         */
+        public Builder tags(Tags tags) {
+            Utils.checkNotNull(tags, "tags");
+            this.tags = Optional.ofNullable(tags);
+            return this;
+        }
+
+        /**
+         * A collection of user-defined key-value pairs that store custom metadata against the company.
+         */
+        public Builder tags(Optional<? extends Tags> tags) {
+            Utils.checkNotNull(tags, "tags");
+            this.tags = tags;
+            return this;
+        }
         
         public CompanyRequestBody build() {
             return new CompanyRequestBody(
                 description,
-                groups,
-                name);
+                name,
+                tags);
         }
     }
 }

@@ -8,6 +8,7 @@ import io.codat.sync.payables.models.operations.SDKMethodInterfaces.*;
 import io.codat.sync.payables.utils.HTTPClient;
 import io.codat.sync.payables.utils.RetryConfig;
 import io.codat.sync.payables.utils.SpeakeasyHTTPClient;
+import io.codat.sync.payables.utils.Utils;
 import java.lang.String;
 import java.util.Map;
 import java.util.Optional;
@@ -195,7 +196,7 @@ public class CodatSyncPayables {
          * @return The builder instance.
          */
         public Builder serverURL(String serverUrl, Map<String, String> params) {
-            this.sdkConfiguration.serverUrl = io.codat.sync.payables.utils.Utils.templateUrl(serverUrl, params);
+            this.sdkConfiguration.serverUrl = Utils.templateUrl(serverUrl, params);
             return this;
         }
         

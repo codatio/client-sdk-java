@@ -19,19 +19,19 @@ public class CreateBankAccountRequestBuilder {
         this.sdk = sdk;
     }
 
-    public CreateBankAccountRequestBuilder request(io.codat.sync.payables.models.operations.CreateBankAccountRequest request) {
+    public CreateBankAccountRequestBuilder request(CreateBankAccountRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public CreateBankAccountRequestBuilder retryConfig(io.codat.sync.payables.utils.RetryConfig retryConfig) {
+    public CreateBankAccountRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public CreateBankAccountRequestBuilder retryConfig(java.util.Optional<io.codat.sync.payables.utils.RetryConfig> retryConfig) {
+    public CreateBankAccountRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

@@ -19,19 +19,19 @@ public class UpdateCompanyRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UpdateCompanyRequestBuilder request(io.codat.sync.payables.models.operations.UpdateCompanyRequest request) {
+    public UpdateCompanyRequestBuilder request(UpdateCompanyRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public UpdateCompanyRequestBuilder retryConfig(io.codat.sync.payables.utils.RetryConfig retryConfig) {
+    public UpdateCompanyRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public UpdateCompanyRequestBuilder retryConfig(java.util.Optional<io.codat.sync.payables.utils.RetryConfig> retryConfig) {
+    public UpdateCompanyRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

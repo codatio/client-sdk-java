@@ -19,19 +19,19 @@ public class ListConnectionsRequestBuilder {
         this.sdk = sdk;
     }
 
-    public ListConnectionsRequestBuilder request(io.codat.sync.payables.models.operations.ListConnectionsRequest request) {
+    public ListConnectionsRequestBuilder request(ListConnectionsRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public ListConnectionsRequestBuilder retryConfig(io.codat.sync.payables.utils.RetryConfig retryConfig) {
+    public ListConnectionsRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public ListConnectionsRequestBuilder retryConfig(java.util.Optional<io.codat.sync.payables.utils.RetryConfig> retryConfig) {
+    public ListConnectionsRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

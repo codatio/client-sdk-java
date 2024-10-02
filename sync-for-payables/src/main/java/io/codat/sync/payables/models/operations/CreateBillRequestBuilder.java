@@ -19,19 +19,19 @@ public class CreateBillRequestBuilder {
         this.sdk = sdk;
     }
 
-    public CreateBillRequestBuilder request(io.codat.sync.payables.models.operations.CreateBillRequest request) {
+    public CreateBillRequestBuilder request(CreateBillRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public CreateBillRequestBuilder retryConfig(io.codat.sync.payables.utils.RetryConfig retryConfig) {
+    public CreateBillRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public CreateBillRequestBuilder retryConfig(java.util.Optional<io.codat.sync.payables.utils.RetryConfig> retryConfig) {
+    public CreateBillRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

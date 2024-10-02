@@ -25,20 +25,20 @@ package hello.world;
 import io.codat.sync.payables.CodatSyncPayables;
 import io.codat.sync.payables.models.components.SupplierPrototype;
 import io.codat.sync.payables.models.components.SupplierStatus;
-import io.codat.sync.payables.models.errors.SDKError;
+import io.codat.sync.payables.models.errors.ErrorMessage;
 import io.codat.sync.payables.models.operations.CreateSupplierRequest;
 import io.codat.sync.payables.models.operations.CreateSupplierResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncPayables sdk = CodatSyncPayables.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            CreateSupplierRequest req = CreateSupplierRequest.builder()
+        CodatSyncPayables sdk = CodatSyncPayables.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        CreateSupplierRequest req = CreateSupplierRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .supplierPrototype(SupplierPrototype.builder()
@@ -48,24 +48,13 @@ public class Application {
                     .build())
                 .build();
 
-            CreateSupplierResponse res = sdk.suppliers().create()
+        CreateSupplierResponse res = sdk.suppliers().create()
                 .request(req)
                 .call();
 
-            if (res.supplier().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.payables.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.supplier().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -82,11 +71,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## list
 
@@ -104,43 +92,32 @@ For example, to retrieve only active suppliers (i.e. `status=Active`) or supplie
 package hello.world;
 
 import io.codat.sync.payables.CodatSyncPayables;
-import io.codat.sync.payables.models.errors.SDKError;
+import io.codat.sync.payables.models.errors.ErrorMessage;
 import io.codat.sync.payables.models.operations.ListSuppliersRequest;
 import io.codat.sync.payables.models.operations.ListSuppliersResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncPayables sdk = CodatSyncPayables.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            ListSuppliersRequest req = ListSuppliersRequest.builder()
+        CodatSyncPayables sdk = CodatSyncPayables.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        ListSuppliersRequest req = ListSuppliersRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .continuationToken("continuationToken=eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ==")
                 .build();
 
-            ListSuppliersResponse res = sdk.suppliers().list()
+        ListSuppliersResponse res = sdk.suppliers().list()
                 .request(req)
                 .call();
 
-            if (res.suppliers().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.payables.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.suppliers().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -157,7 +134,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                        | Status Code                         | Content Type                        |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| models/errors/ErrorMessage          | 400,401,402,403,404,409,429,500,503 | application/json                    |
-| models/errors/SDKError              | 4xx-5xx                             | \*\/*                               |
+| Error Type                                  | Status Code                                 | Content Type                                |
+| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
+| models/errors/ErrorMessage                  | 400, 401, 402, 403, 404, 409, 429, 500, 503 | application/json                            |
+| models/errors/SDKError                      | 4XX, 5XX                                    | \*/\*                                       |

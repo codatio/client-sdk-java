@@ -19,19 +19,19 @@ public class GetMappingOptionsBillsRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetMappingOptionsBillsRequestBuilder request(io.codat.sync.payables.models.operations.GetMappingOptionsBillsRequest request) {
+    public GetMappingOptionsBillsRequestBuilder request(GetMappingOptionsBillsRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetMappingOptionsBillsRequestBuilder retryConfig(io.codat.sync.payables.utils.RetryConfig retryConfig) {
+    public GetMappingOptionsBillsRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetMappingOptionsBillsRequestBuilder retryConfig(java.util.Optional<io.codat.sync.payables.utils.RetryConfig> retryConfig) {
+    public GetMappingOptionsBillsRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;
