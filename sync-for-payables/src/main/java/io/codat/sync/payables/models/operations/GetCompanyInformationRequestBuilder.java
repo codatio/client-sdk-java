@@ -19,19 +19,19 @@ public class GetCompanyInformationRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetCompanyInformationRequestBuilder request(io.codat.sync.payables.models.operations.GetCompanyInformationRequest request) {
+    public GetCompanyInformationRequestBuilder request(GetCompanyInformationRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetCompanyInformationRequestBuilder retryConfig(io.codat.sync.payables.utils.RetryConfig retryConfig) {
+    public GetCompanyInformationRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetCompanyInformationRequestBuilder retryConfig(java.util.Optional<io.codat.sync.payables.utils.RetryConfig> retryConfig) {
+    public GetCompanyInformationRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

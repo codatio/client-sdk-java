@@ -6,160 +6,161 @@ package io.codat.sync.payables.models.operations;
 
 import io.codat.sync.payables.models.components.CompanyRequestBody;
 import io.codat.sync.payables.utils.Options;
+import java.lang.Exception;
 import java.util.Optional;
 
 public class SDKMethodInterfaces {
 
 
     public interface MethodCallCreateCompany {
-        io.codat.sync.payables.models.operations.CreateCompanyResponse create(
+        CreateCompanyResponse create(
             Optional<? extends CompanyRequestBody> request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDeleteCompany {
-        io.codat.sync.payables.models.operations.DeleteCompanyResponse delete(
+        DeleteCompanyResponse delete(
             DeleteCompanyRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetCompany {
-        io.codat.sync.payables.models.operations.GetCompanyResponse get(
+        GetCompanyResponse get(
             GetCompanyRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListCompanies {
-        io.codat.sync.payables.models.operations.ListCompaniesResponse list(
+        ListCompaniesResponse list(
             ListCompaniesRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUpdateCompany {
-        io.codat.sync.payables.models.operations.UpdateCompanyResponse update(
+        UpdateCompanyResponse update(
             UpdateCompanyRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateConnection {
-        io.codat.sync.payables.models.operations.CreateConnectionResponse create(
+        CreateConnectionResponse create(
             CreateConnectionRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDeleteConnection {
-        io.codat.sync.payables.models.operations.DeleteConnectionResponse delete(
+        DeleteConnectionResponse delete(
             DeleteConnectionRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetConnection {
-        io.codat.sync.payables.models.operations.GetConnectionResponse get(
+        GetConnectionResponse get(
             GetConnectionRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListConnections {
-        io.codat.sync.payables.models.operations.ListConnectionsResponse list(
+        ListConnectionsResponse list(
             ListConnectionsRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUnlinkConnection {
-        io.codat.sync.payables.models.operations.UnlinkConnectionResponse unlink(
+        UnlinkConnectionResponse unlink(
             UnlinkConnectionRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateBill {
-        io.codat.sync.payables.models.operations.CreateBillResponse create(
+        CreateBillResponse create(
             CreateBillRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDownloadBillAttachment {
-        io.codat.sync.payables.models.operations.DownloadBillAttachmentResponse downloadAttachment(
+        DownloadBillAttachmentResponse downloadAttachment(
             DownloadBillAttachmentRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetMappingOptionsBills {
-        io.codat.sync.payables.models.operations.GetMappingOptionsBillsResponse getBillOptions(
+        GetMappingOptionsBillsResponse getBillOptions(
             GetMappingOptionsBillsRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListBills {
-        io.codat.sync.payables.models.operations.ListBillsResponse list(
+        ListBillsResponse list(
             ListBillsRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListBillAttachments {
-        io.codat.sync.payables.models.operations.ListBillAttachmentsResponse listAttachments(
+        ListBillAttachmentsResponse listAttachments(
             ListBillAttachmentsRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUploadBillAttachment {
-        io.codat.sync.payables.models.operations.UploadBillAttachmentResponse uploadAttachment(
+        UploadBillAttachmentResponse uploadAttachment(
             UploadBillAttachmentRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateBankAccount {
-        io.codat.sync.payables.models.operations.CreateBankAccountResponse create(
+        CreateBankAccountResponse create(
             CreateBankAccountRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateBillPayment {
-        io.codat.sync.payables.models.operations.CreateBillPaymentResponse create(
+        CreateBillPaymentResponse create(
             CreateBillPaymentRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetMappingOptionsPayments {
-        io.codat.sync.payables.models.operations.GetMappingOptionsPaymentsResponse getPaymentOptions(
+        GetMappingOptionsPaymentsResponse getPaymentOptions(
             GetMappingOptionsPaymentsRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetCompanyInformation {
-        io.codat.sync.payables.models.operations.GetCompanyInformationResponse get(
+        GetCompanyInformationResponse get(
             GetCompanyInformationRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateSupplier {
-        io.codat.sync.payables.models.operations.CreateSupplierResponse create(
+        CreateSupplierResponse create(
             CreateSupplierRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListSuppliers {
-        io.codat.sync.payables.models.operations.ListSuppliersResponse list(
+        ListSuppliersResponse list(
             ListSuppliersRequest request,
             Optional<Options> options) throws Exception;
     }

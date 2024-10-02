@@ -19,19 +19,19 @@ public class UploadBillAttachmentRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UploadBillAttachmentRequestBuilder request(io.codat.sync.payables.models.operations.UploadBillAttachmentRequest request) {
+    public UploadBillAttachmentRequestBuilder request(UploadBillAttachmentRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public UploadBillAttachmentRequestBuilder retryConfig(io.codat.sync.payables.utils.RetryConfig retryConfig) {
+    public UploadBillAttachmentRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public UploadBillAttachmentRequestBuilder retryConfig(java.util.Optional<io.codat.sync.payables.utils.RetryConfig> retryConfig) {
+    public UploadBillAttachmentRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

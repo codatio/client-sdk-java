@@ -112,7 +112,7 @@ public class Bill {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("sourceModifiedDate")
-    private JsonNullable<? extends One> sourceModifiedDate;
+    private Optional<String> sourceModifiedDate;
 
     /**
      * Current state of the bill. If creating a bill the status must be `Open`.
@@ -143,7 +143,7 @@ public class Bill {
             @JsonProperty("issueDate") String issueDate,
             @JsonProperty("lineItems") JsonNullable<? extends List<BillLineItem>> lineItems,
             @JsonProperty("reference") JsonNullable<String> reference,
-            @JsonProperty("sourceModifiedDate") JsonNullable<? extends One> sourceModifiedDate,
+            @JsonProperty("sourceModifiedDate") Optional<String> sourceModifiedDate,
             @JsonProperty("status") BillStatus status,
             @JsonProperty("supplierRef") SupplierRef supplierRef,
             @JsonProperty("totalAmount") Optional<? extends BigDecimal> totalAmount) {
@@ -179,7 +179,7 @@ public class Bill {
             String issueDate,
             BillStatus status,
             SupplierRef supplierRef) {
-        this(JsonNullable.undefined(), currency, JsonNullable.undefined(), dueDate, Optional.empty(), issueDate, JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), status, supplierRef, Optional.empty());
+        this(JsonNullable.undefined(), currency, JsonNullable.undefined(), dueDate, Optional.empty(), issueDate, JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), status, supplierRef, Optional.empty());
     }
 
     /**
@@ -280,10 +280,9 @@ public class Bill {
         return reference;
     }
 
-    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public JsonNullable<One> sourceModifiedDate() {
-        return (JsonNullable<One>) sourceModifiedDate;
+    public Optional<String> sourceModifiedDate() {
+        return sourceModifiedDate;
     }
 
     /**
@@ -541,13 +540,13 @@ public class Bill {
         return this;
     }
 
-    public Bill withSourceModifiedDate(One sourceModifiedDate) {
+    public Bill withSourceModifiedDate(String sourceModifiedDate) {
         Utils.checkNotNull(sourceModifiedDate, "sourceModifiedDate");
-        this.sourceModifiedDate = JsonNullable.of(sourceModifiedDate);
+        this.sourceModifiedDate = Optional.ofNullable(sourceModifiedDate);
         return this;
     }
 
-    public Bill withSourceModifiedDate(JsonNullable<? extends One> sourceModifiedDate) {
+    public Bill withSourceModifiedDate(Optional<String> sourceModifiedDate) {
         Utils.checkNotNull(sourceModifiedDate, "sourceModifiedDate");
         this.sourceModifiedDate = sourceModifiedDate;
         return this;
@@ -673,7 +672,7 @@ public class Bill {
  
         private JsonNullable<String> reference = JsonNullable.undefined();
  
-        private JsonNullable<? extends One> sourceModifiedDate = JsonNullable.undefined();
+        private Optional<String> sourceModifiedDate = Optional.empty();
  
         private BillStatus status;
  
@@ -911,13 +910,13 @@ public class Bill {
             return this;
         }
 
-        public Builder sourceModifiedDate(One sourceModifiedDate) {
+        public Builder sourceModifiedDate(String sourceModifiedDate) {
             Utils.checkNotNull(sourceModifiedDate, "sourceModifiedDate");
-            this.sourceModifiedDate = JsonNullable.of(sourceModifiedDate);
+            this.sourceModifiedDate = Optional.ofNullable(sourceModifiedDate);
             return this;
         }
 
-        public Builder sourceModifiedDate(JsonNullable<? extends One> sourceModifiedDate) {
+        public Builder sourceModifiedDate(Optional<String> sourceModifiedDate) {
             Utils.checkNotNull(sourceModifiedDate, "sourceModifiedDate");
             this.sourceModifiedDate = sourceModifiedDate;
             return this;

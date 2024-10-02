@@ -29,20 +29,20 @@ import io.codat.sync.payables.CodatSyncPayables;
 import io.codat.sync.payables.models.components.BillPrototype;
 import io.codat.sync.payables.models.components.BillStatus;
 import io.codat.sync.payables.models.components.SupplierRef;
-import io.codat.sync.payables.models.errors.SDKError;
+import io.codat.sync.payables.models.errors.ErrorMessage;
 import io.codat.sync.payables.models.operations.CreateBillRequest;
 import io.codat.sync.payables.models.operations.CreateBillResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncPayables sdk = CodatSyncPayables.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            CreateBillRequest req = CreateBillRequest.builder()
+        CodatSyncPayables sdk = CodatSyncPayables.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        CreateBillRequest req = CreateBillRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .billPrototype(BillPrototype.builder()
@@ -56,24 +56,13 @@ public class Application {
                     .build())
                 .build();
 
-            CreateBillResponse res = sdk.bills().create()
+        CreateBillResponse res = sdk.bills().create()
                 .request(req)
                 .call();
 
-            if (res.bill().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.payables.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.bill().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -90,11 +79,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                        | Status Code                         | Content Type                        |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| models/errors/ErrorMessage          | 400,401,402,403,404,409,429,500,503 | application/json                    |
-| models/errors/SDKError              | 4xx-5xx                             | \*\/*                               |
-
+| Error Type                                  | Status Code                                 | Content Type                                |
+| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
+| models/errors/ErrorMessage                  | 400, 401, 402, 403, 404, 409, 429, 500, 503 | application/json                            |
+| models/errors/SDKError                      | 4XX, 5XX                                    | \*/\*                                       |
 
 ## downloadAttachment
 
@@ -111,44 +99,33 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.sync.payables.CodatSyncPayables;
-import io.codat.sync.payables.models.errors.SDKError;
+import io.codat.sync.payables.models.errors.ErrorMessage;
 import io.codat.sync.payables.models.operations.DownloadBillAttachmentRequest;
 import io.codat.sync.payables.models.operations.DownloadBillAttachmentResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncPayables sdk = CodatSyncPayables.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            DownloadBillAttachmentRequest req = DownloadBillAttachmentRequest.builder()
+        CodatSyncPayables sdk = CodatSyncPayables.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        DownloadBillAttachmentRequest req = DownloadBillAttachmentRequest.builder()
                 .attachmentId("8a210b68-6988-11ed-a1eb-0242ac120002")
-                .billId("13d946f0-c5d5-42bc-b092-97ece17923ab")
+                .billId("EILBDVJVNUAGVKRQ")
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .build();
 
-            DownloadBillAttachmentResponse res = sdk.bills().downloadAttachment()
+        DownloadBillAttachmentResponse res = sdk.bills().downloadAttachment()
                 .request(req)
                 .call();
 
-            if (res.data().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.payables.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.data().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -165,11 +142,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## getBillOptions
 
@@ -185,44 +161,33 @@ Mapping options are a set of accounts and tax rates used to configure the SMB's 
 package hello.world;
 
 import io.codat.sync.payables.CodatSyncPayables;
-import io.codat.sync.payables.models.errors.SDKError;
+import io.codat.sync.payables.models.errors.ErrorMessage;
 import io.codat.sync.payables.models.operations.GetMappingOptionsBillsRequest;
 import io.codat.sync.payables.models.operations.GetMappingOptionsBillsResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncPayables sdk = CodatSyncPayables.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            GetMappingOptionsBillsRequest req = GetMappingOptionsBillsRequest.builder()
+        CodatSyncPayables sdk = CodatSyncPayables.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        GetMappingOptionsBillsRequest req = GetMappingOptionsBillsRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .continuationToken("continuationToken=eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ==")
                 .statusQuery("status=Archived")
                 .build();
 
-            GetMappingOptionsBillsResponse res = sdk.bills().getBillOptions()
+        GetMappingOptionsBillsResponse res = sdk.bills().getBillOptions()
                 .request(req)
                 .call();
 
-            if (res.billMappingOptions().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.payables.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.billMappingOptions().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -239,11 +204,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## list
 
@@ -259,43 +223,32 @@ By default, the endpoint will return all bills with a status of 'Open' & 'Partia
 package hello.world;
 
 import io.codat.sync.payables.CodatSyncPayables;
-import io.codat.sync.payables.models.errors.SDKError;
+import io.codat.sync.payables.models.errors.ErrorMessage;
 import io.codat.sync.payables.models.operations.ListBillsRequest;
 import io.codat.sync.payables.models.operations.ListBillsResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncPayables sdk = CodatSyncPayables.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            ListBillsRequest req = ListBillsRequest.builder()
+        CodatSyncPayables sdk = CodatSyncPayables.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        ListBillsRequest req = ListBillsRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .continuationToken("continuationToken=eyJwYWdlIjoyLCJwYWdlU2l6ZSI6MTAwLCJwYWdlQ291bnQiOjExfQ==")
                 .build();
 
-            ListBillsResponse res = sdk.bills().list()
+        ListBillsResponse res = sdk.bills().list()
                 .request(req)
                 .call();
 
-            if (res.bills().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.payables.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.bills().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -312,11 +265,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                        | Status Code                         | Content Type                        |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| models/errors/ErrorMessage          | 400,401,402,403,404,409,429,500,503 | application/json                    |
-| models/errors/SDKError              | 4xx-5xx                             | \*\/*                               |
-
+| Error Type                                  | Status Code                                 | Content Type                                |
+| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
+| models/errors/ErrorMessage                  | 400, 401, 402, 403, 404, 409, 429, 500, 503 | application/json                            |
+| models/errors/SDKError                      | 4XX, 5XX                                    | \*/\*                                       |
 
 ## listAttachments
 
@@ -330,43 +282,32 @@ The *List bill attachments* endpoint returns a list of attachments available to 
 package hello.world;
 
 import io.codat.sync.payables.CodatSyncPayables;
-import io.codat.sync.payables.models.errors.SDKError;
+import io.codat.sync.payables.models.errors.ErrorMessage;
 import io.codat.sync.payables.models.operations.ListBillAttachmentsRequest;
 import io.codat.sync.payables.models.operations.ListBillAttachmentsResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncPayables sdk = CodatSyncPayables.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            ListBillAttachmentsRequest req = ListBillAttachmentsRequest.builder()
-                .billId("9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2")
+        CodatSyncPayables sdk = CodatSyncPayables.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        ListBillAttachmentsRequest req = ListBillAttachmentsRequest.builder()
+                .billId("EILBDVJVNUAGVKRQ")
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .build();
 
-            ListBillAttachmentsResponse res = sdk.bills().listAttachments()
+        ListBillAttachmentsResponse res = sdk.bills().listAttachments()
                 .request(req)
                 .call();
 
-            if (res.attachment().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.payables.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.attachment().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -383,11 +324,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 401,402,403,404,409,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 401, 402, 403, 404, 409, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## uploadAttachment
 
@@ -401,41 +341,30 @@ The *Upload bill attachment* endpoint uploads an attachment and assigns it again
 package hello.world;
 
 import io.codat.sync.payables.CodatSyncPayables;
-import io.codat.sync.payables.models.errors.SDKError;
+import io.codat.sync.payables.models.errors.ErrorMessage;
 import io.codat.sync.payables.models.operations.UploadBillAttachmentRequest;
 import io.codat.sync.payables.models.operations.UploadBillAttachmentResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncPayables sdk = CodatSyncPayables.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            UploadBillAttachmentRequest req = UploadBillAttachmentRequest.builder()
-                .billId("13d946f0-c5d5-42bc-b092-97ece17923ab")
+        CodatSyncPayables sdk = CodatSyncPayables.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        UploadBillAttachmentRequest req = UploadBillAttachmentRequest.builder()
+                .billId("EILBDVJVNUAGVKRQ")
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .build();
 
-            UploadBillAttachmentResponse res = sdk.bills().uploadAttachment()
+        UploadBillAttachmentResponse res = sdk.bills().uploadAttachment()
                 .request(req)
                 .call();
 
-            // handle response
-        } catch (io.codat.sync.payables.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
-        }
-
+        // handle response
     }
 }
 ```
@@ -452,7 +381,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |

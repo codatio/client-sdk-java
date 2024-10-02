@@ -21,11 +21,14 @@ class SDKConfiguration {
     public HTTPClient defaultClient;
     public String serverUrl;
     public int serverIdx = 0;
-    public String language = "java";
-    public String openapiDocVersion = "3.0.0";
-    public String sdkVersion = "0.4.0";
-    public String genVersion = "2.415.6";
-    public String userAgent = "speakeasy-sdk/java 0.4.0 2.415.6 3.0.0 io.codat.sync.payables";
+    private static final String LANGUAGE = "java";
+    public static final String OPENAPI_DOC_VERSION = "3.0.0";
+    public static final String SDK_VERSION = "1.0.0";
+    public static final String GEN_VERSION = "2.429.0";
+    private static final String BASE_PACKAGE = "io.codat.sync.payables";
+    public static final String USER_AGENT = 
+            String.format("speakeasy-sdk/%s %s %s %s %s", 
+                LANGUAGE, SDK_VERSION, GEN_VERSION, OPENAPI_DOC_VERSION, BASE_PACKAGE);
 
     private Hooks _hooks = createHooks();
 
