@@ -15,6 +15,7 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -127,7 +128,7 @@ public class Company {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("tags")
-    private Optional<? extends CompanyTags> tags;
+    private Optional<? extends Map<String, String>> tags;
 
     @JsonCreator
     public Company(
@@ -140,7 +141,7 @@ public class Company {
             @JsonProperty("name") String name,
             @JsonProperty("products") Optional<? extends List<String>> products,
             @JsonProperty("redirect") String redirect,
-            @JsonProperty("tags") Optional<? extends CompanyTags> tags) {
+            @JsonProperty("tags") Optional<? extends Map<String, String>> tags) {
         Utils.checkNotNull(created, "created");
         Utils.checkNotNull(createdByUserName, "createdByUserName");
         Utils.checkNotNull(dataConnections, "dataConnections");
@@ -282,8 +283,8 @@ public class Company {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<CompanyTags> tags() {
-        return (Optional<CompanyTags>) tags;
+    public Optional<Map<String, String>> tags() {
+        return (Optional<Map<String, String>>) tags;
     }
 
     public final static Builder builder() {
@@ -494,7 +495,7 @@ public class Company {
     /**
      * A collection of user-defined key-value pairs that store custom metadata against the company.
      */
-    public Company withTags(CompanyTags tags) {
+    public Company withTags(Map<String, String> tags) {
         Utils.checkNotNull(tags, "tags");
         this.tags = Optional.ofNullable(tags);
         return this;
@@ -503,7 +504,7 @@ public class Company {
     /**
      * A collection of user-defined key-value pairs that store custom metadata against the company.
      */
-    public Company withTags(Optional<? extends CompanyTags> tags) {
+    public Company withTags(Optional<? extends Map<String, String>> tags) {
         Utils.checkNotNull(tags, "tags");
         this.tags = tags;
         return this;
@@ -581,7 +582,7 @@ public class Company {
  
         private String redirect;
  
-        private Optional<? extends CompanyTags> tags = Optional.empty();  
+        private Optional<? extends Map<String, String>> tags = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -791,7 +792,7 @@ public class Company {
         /**
          * A collection of user-defined key-value pairs that store custom metadata against the company.
          */
-        public Builder tags(CompanyTags tags) {
+        public Builder tags(Map<String, String> tags) {
             Utils.checkNotNull(tags, "tags");
             this.tags = Optional.ofNullable(tags);
             return this;
@@ -800,7 +801,7 @@ public class Company {
         /**
          * A collection of user-defined key-value pairs that store custom metadata against the company.
          */
-        public Builder tags(Optional<? extends CompanyTags> tags) {
+        public Builder tags(Optional<? extends Map<String, String>> tags) {
             Utils.checkNotNull(tags, "tags");
             this.tags = tags;
             return this;

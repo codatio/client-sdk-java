@@ -14,6 +14,7 @@ import io.codat.sync.payables.utils.Utils;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -38,13 +39,13 @@ public class CompanyRequestBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("tags")
-    private Optional<? extends Tags> tags;
+    private Optional<? extends Map<String, String>> tags;
 
     @JsonCreator
     public CompanyRequestBody(
             @JsonProperty("description") Optional<String> description,
             @JsonProperty("name") String name,
-            @JsonProperty("tags") Optional<? extends Tags> tags) {
+            @JsonProperty("tags") Optional<? extends Map<String, String>> tags) {
         Utils.checkNotNull(description, "description");
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(tags, "tags");
@@ -79,8 +80,8 @@ public class CompanyRequestBody {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<Tags> tags() {
-        return (Optional<Tags>) tags;
+    public Optional<Map<String, String>> tags() {
+        return (Optional<Map<String, String>>) tags;
     }
 
     public final static Builder builder() {
@@ -117,7 +118,7 @@ public class CompanyRequestBody {
     /**
      * A collection of user-defined key-value pairs that store custom metadata against the company.
      */
-    public CompanyRequestBody withTags(Tags tags) {
+    public CompanyRequestBody withTags(Map<String, String> tags) {
         Utils.checkNotNull(tags, "tags");
         this.tags = Optional.ofNullable(tags);
         return this;
@@ -126,7 +127,7 @@ public class CompanyRequestBody {
     /**
      * A collection of user-defined key-value pairs that store custom metadata against the company.
      */
-    public CompanyRequestBody withTags(Optional<? extends Tags> tags) {
+    public CompanyRequestBody withTags(Optional<? extends Map<String, String>> tags) {
         Utils.checkNotNull(tags, "tags");
         this.tags = tags;
         return this;
@@ -169,7 +170,7 @@ public class CompanyRequestBody {
  
         private String name;
  
-        private Optional<? extends Tags> tags = Optional.empty();  
+        private Optional<? extends Map<String, String>> tags = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -205,7 +206,7 @@ public class CompanyRequestBody {
         /**
          * A collection of user-defined key-value pairs that store custom metadata against the company.
          */
-        public Builder tags(Tags tags) {
+        public Builder tags(Map<String, String> tags) {
             Utils.checkNotNull(tags, "tags");
             this.tags = Optional.ofNullable(tags);
             return this;
@@ -214,7 +215,7 @@ public class CompanyRequestBody {
         /**
          * A collection of user-defined key-value pairs that store custom metadata against the company.
          */
-        public Builder tags(Optional<? extends Tags> tags) {
+        public Builder tags(Optional<? extends Map<String, String>> tags) {
             Utils.checkNotNull(tags, "tags");
             this.tags = tags;
             return this;

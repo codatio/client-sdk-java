@@ -191,7 +191,7 @@ public class BankAccounts implements
 
         CreateBankAccountResponse _res = _resBuilder.build();
         
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "201")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 BankAccount _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),

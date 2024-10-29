@@ -21,6 +21,16 @@ import java.util.Optional;
  * [Explore product](https://docs.codat.io/payables/bill-pay-kit) | [See OpenAPI spec](https://github.com/codatio/oas)
  * 
  * ---
+ * ## Supported Integrations
+ * 
+ * | Integration                   | Supported |
+ * |-------------------------------|-----------|
+ * | FreeAgent                     | Yes       |
+ * | QuickBooks Online             | Yes       |
+ * | Oracle NetSuite               | Yes       |
+ * | Xero                          | Yes       |
+ * 
+ * ---
  * &lt;!-- Start Codat Tags Table --&gt;
  * ## Endpoints
  * 

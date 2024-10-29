@@ -7,4 +7,4 @@ Reference to the tax rate to which the line item is linked.
 
 | Field                                                          | Type                                                           | Required                                                       | Description                                                    |
 | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- |
-| `id`                                                           | *Optional<String>*                                             | :heavy_minus_sign:                                             | Unique identifier for the tax rate in the accounting software. |
+| `id`                                                           | *Optional\<String>*                                            | :heavy_minus_sign:                                             | Unique identifier for the tax rate in the accounting software. |

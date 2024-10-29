@@ -17,18 +17,10 @@ import java.lang.SuppressWarnings;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class BillPrototype {
-
-    /**
-     * Amount outstanding on the bill.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("amountDue")
-    private JsonNullable<? extends BigDecimal> amountDue;
 
     /**
      * The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
@@ -112,16 +104,8 @@ public class BillPrototype {
     @JsonProperty("supplierRef")
     private SupplierRef supplierRef;
 
-    /**
-     * Amount of the bill, including tax.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("totalAmount")
-    private Optional<? extends BigDecimal> totalAmount;
-
     @JsonCreator
     public BillPrototype(
-            @JsonProperty("amountDue") JsonNullable<? extends BigDecimal> amountDue,
             @JsonProperty("currency") String currency,
             @JsonProperty("currencyRate") JsonNullable<? extends BigDecimal> currencyRate,
             @JsonProperty("dueDate") String dueDate,
@@ -129,9 +113,7 @@ public class BillPrototype {
             @JsonProperty("lineItems") JsonNullable<? extends List<BillLineItem>> lineItems,
             @JsonProperty("reference") JsonNullable<String> reference,
             @JsonProperty("status") BillStatus status,
-            @JsonProperty("supplierRef") SupplierRef supplierRef,
-            @JsonProperty("totalAmount") Optional<? extends BigDecimal> totalAmount) {
-        Utils.checkNotNull(amountDue, "amountDue");
+            @JsonProperty("supplierRef") SupplierRef supplierRef) {
         Utils.checkNotNull(currency, "currency");
         Utils.checkNotNull(currencyRate, "currencyRate");
         Utils.checkNotNull(dueDate, "dueDate");
@@ -140,8 +122,6 @@ public class BillPrototype {
         Utils.checkNotNull(reference, "reference");
         Utils.checkNotNull(status, "status");
         Utils.checkNotNull(supplierRef, "supplierRef");
-        Utils.checkNotNull(totalAmount, "totalAmount");
-        this.amountDue = amountDue;
         this.currency = currency;
         this.currencyRate = currencyRate;
         this.dueDate = dueDate;
@@ -150,7 +130,6 @@ public class BillPrototype {
         this.reference = reference;
         this.status = status;
         this.supplierRef = supplierRef;
-        this.totalAmount = totalAmount;
     }
     
     public BillPrototype(
@@ -159,16 +138,7 @@ public class BillPrototype {
             String issueDate,
             BillStatus status,
             SupplierRef supplierRef) {
-        this(JsonNullable.undefined(), currency, JsonNullable.undefined(), dueDate, issueDate, JsonNullable.undefined(), JsonNullable.undefined(), status, supplierRef, Optional.empty());
-    }
-
-    /**
-     * Amount outstanding on the bill.
-     */
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public JsonNullable<BigDecimal> amountDue() {
-        return (JsonNullable<BigDecimal>) amountDue;
+        this(currency, JsonNullable.undefined(), dueDate, issueDate, JsonNullable.undefined(), JsonNullable.undefined(), status, supplierRef);
     }
 
     /**
@@ -268,43 +238,8 @@ public class BillPrototype {
         return supplierRef;
     }
 
-    /**
-     * Amount of the bill, including tax.
-     */
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public Optional<BigDecimal> totalAmount() {
-        return (Optional<BigDecimal>) totalAmount;
-    }
-
     public final static Builder builder() {
         return new Builder();
-    }
-
-    /**
-     * Amount outstanding on the bill.
-     */
-    public BillPrototype withAmountDue(BigDecimal amountDue) {
-        Utils.checkNotNull(amountDue, "amountDue");
-        this.amountDue = JsonNullable.of(amountDue);
-        return this;
-    }
-
-        /**
-         * Amount outstanding on the bill.
-         */
-    public BillPrototype withAmountDue(double amountDue) {
-        this.amountDue = JsonNullable.of(BigDecimal.valueOf(amountDue));
-        return this;
-    }
-
-    /**
-     * Amount outstanding on the bill.
-     */
-    public BillPrototype withAmountDue(JsonNullable<? extends BigDecimal> amountDue) {
-        Utils.checkNotNull(amountDue, "amountDue");
-        this.amountDue = amountDue;
-        return this;
     }
 
     /**
@@ -506,32 +441,6 @@ public class BillPrototype {
         this.supplierRef = supplierRef;
         return this;
     }
-
-    /**
-     * Amount of the bill, including tax.
-     */
-    public BillPrototype withTotalAmount(BigDecimal totalAmount) {
-        Utils.checkNotNull(totalAmount, "totalAmount");
-        this.totalAmount = Optional.ofNullable(totalAmount);
-        return this;
-    }
-
-        /**
-         * Amount of the bill, including tax.
-         */
-    public BillPrototype withTotalAmount(double totalAmount) {
-        this.totalAmount = Optional.of(BigDecimal.valueOf(totalAmount));
-        return this;
-    }
-
-    /**
-     * Amount of the bill, including tax.
-     */
-    public BillPrototype withTotalAmount(Optional<? extends BigDecimal> totalAmount) {
-        Utils.checkNotNull(totalAmount, "totalAmount");
-        this.totalAmount = totalAmount;
-        return this;
-    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -543,7 +452,6 @@ public class BillPrototype {
         }
         BillPrototype other = (BillPrototype) o;
         return 
-            Objects.deepEquals(this.amountDue, other.amountDue) &&
             Objects.deepEquals(this.currency, other.currency) &&
             Objects.deepEquals(this.currencyRate, other.currencyRate) &&
             Objects.deepEquals(this.dueDate, other.dueDate) &&
@@ -551,14 +459,12 @@ public class BillPrototype {
             Objects.deepEquals(this.lineItems, other.lineItems) &&
             Objects.deepEquals(this.reference, other.reference) &&
             Objects.deepEquals(this.status, other.status) &&
-            Objects.deepEquals(this.supplierRef, other.supplierRef) &&
-            Objects.deepEquals(this.totalAmount, other.totalAmount);
+            Objects.deepEquals(this.supplierRef, other.supplierRef);
     }
     
     @Override
     public int hashCode() {
         return Objects.hash(
-            amountDue,
             currency,
             currencyRate,
             dueDate,
@@ -566,14 +472,12 @@ public class BillPrototype {
             lineItems,
             reference,
             status,
-            supplierRef,
-            totalAmount);
+            supplierRef);
     }
     
     @Override
     public String toString() {
         return Utils.toString(BillPrototype.class,
-                "amountDue", amountDue,
                 "currency", currency,
                 "currencyRate", currencyRate,
                 "dueDate", dueDate,
@@ -581,13 +485,10 @@ public class BillPrototype {
                 "lineItems", lineItems,
                 "reference", reference,
                 "status", status,
-                "supplierRef", supplierRef,
-                "totalAmount", totalAmount);
+                "supplierRef", supplierRef);
     }
     
     public final static class Builder {
- 
-        private JsonNullable<? extends BigDecimal> amountDue = JsonNullable.undefined();
  
         private String currency;
  
@@ -603,38 +504,10 @@ public class BillPrototype {
  
         private BillStatus status;
  
-        private SupplierRef supplierRef;
- 
-        private Optional<? extends BigDecimal> totalAmount = Optional.empty();  
+        private SupplierRef supplierRef;  
         
         private Builder() {
           // force use of static builder() method
-        }
-
-        /**
-         * Amount outstanding on the bill.
-         */
-        public Builder amountDue(BigDecimal amountDue) {
-            Utils.checkNotNull(amountDue, "amountDue");
-            this.amountDue = JsonNullable.of(amountDue);
-            return this;
-        }
-
-        /**
-         * Amount outstanding on the bill.
-         */
-        public Builder amountDue(double amountDue) {
-            this.amountDue = JsonNullable.of(BigDecimal.valueOf(amountDue));
-            return this;
-        }
-
-        /**
-         * Amount outstanding on the bill.
-         */
-        public Builder amountDue(JsonNullable<? extends BigDecimal> amountDue) {
-            Utils.checkNotNull(amountDue, "amountDue");
-            this.amountDue = amountDue;
-            return this;
         }
 
         /**
@@ -836,36 +709,9 @@ public class BillPrototype {
             this.supplierRef = supplierRef;
             return this;
         }
-
-        /**
-         * Amount of the bill, including tax.
-         */
-        public Builder totalAmount(BigDecimal totalAmount) {
-            Utils.checkNotNull(totalAmount, "totalAmount");
-            this.totalAmount = Optional.ofNullable(totalAmount);
-            return this;
-        }
-
-        /**
-         * Amount of the bill, including tax.
-         */
-        public Builder totalAmount(double totalAmount) {
-            this.totalAmount = Optional.of(BigDecimal.valueOf(totalAmount));
-            return this;
-        }
-
-        /**
-         * Amount of the bill, including tax.
-         */
-        public Builder totalAmount(Optional<? extends BigDecimal> totalAmount) {
-            Utils.checkNotNull(totalAmount, "totalAmount");
-            this.totalAmount = totalAmount;
-            return this;
-        }
         
         public BillPrototype build() {
             return new BillPrototype(
-                amountDue,
                 currency,
                 currencyRate,
                 dueDate,
@@ -873,8 +719,7 @@ public class BillPrototype {
                 lineItems,
                 reference,
                 status,
-                supplierRef,
-                totalAmount);
+                supplierRef);
         }
     }
 }

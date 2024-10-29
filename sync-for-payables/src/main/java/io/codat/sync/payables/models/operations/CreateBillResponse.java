@@ -23,7 +23,7 @@ import java.util.Optional;
 public class CreateBillResponse implements Response {
 
     /**
-     * Success
+     * Created
      */
     private Optional<? extends Bill> bill;
 
@@ -66,7 +66,7 @@ public class CreateBillResponse implements Response {
     }
 
     /**
-     * Success
+     * Created
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -103,7 +103,7 @@ public class CreateBillResponse implements Response {
     }
 
     /**
-     * Success
+     * Created
      */
     public CreateBillResponse withBill(Bill bill) {
         Utils.checkNotNull(bill, "bill");
@@ -112,7 +112,7 @@ public class CreateBillResponse implements Response {
     }
 
     /**
-     * Success
+     * Created
      */
     public CreateBillResponse withBill(Optional<? extends Bill> bill) {
         Utils.checkNotNull(bill, "bill");
@@ -196,7 +196,7 @@ public class CreateBillResponse implements Response {
         }
 
         /**
-         * Success
+         * Created
          */
         public Builder bill(Bill bill) {
             Utils.checkNotNull(bill, "bill");
@@ -205,7 +205,7 @@ public class CreateBillResponse implements Response {
         }
 
         /**
-         * Success
+         * Created
          */
         public Builder bill(Optional<? extends Bill> bill) {
             Utils.checkNotNull(bill, "bill");

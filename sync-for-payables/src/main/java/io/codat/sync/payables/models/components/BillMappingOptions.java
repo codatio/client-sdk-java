@@ -33,20 +33,20 @@ public class BillMappingOptions {
     private Optional<? extends Pagination> pagination;
 
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("taxRate")
-    private Optional<? extends List<TaxRateMappingOption>> taxRate;
+    @JsonProperty("taxRates")
+    private Optional<? extends List<TaxRateMappingOption>> taxRates;
 
     @JsonCreator
     public BillMappingOptions(
             @JsonProperty("accounts") Optional<? extends List<AccountMappingOption>> accounts,
             @JsonProperty("pagination") Optional<? extends Pagination> pagination,
-            @JsonProperty("taxRate") Optional<? extends List<TaxRateMappingOption>> taxRate) {
+            @JsonProperty("taxRates") Optional<? extends List<TaxRateMappingOption>> taxRates) {
         Utils.checkNotNull(accounts, "accounts");
         Utils.checkNotNull(pagination, "pagination");
-        Utils.checkNotNull(taxRate, "taxRate");
+        Utils.checkNotNull(taxRates, "taxRates");
         this.accounts = accounts;
         this.pagination = pagination;
-        this.taxRate = taxRate;
+        this.taxRates = taxRates;
     }
     
     public BillMappingOptions() {
@@ -67,8 +67,8 @@ public class BillMappingOptions {
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<TaxRateMappingOption>> taxRate() {
-        return (Optional<List<TaxRateMappingOption>>) taxRate;
+    public Optional<List<TaxRateMappingOption>> taxRates() {
+        return (Optional<List<TaxRateMappingOption>>) taxRates;
     }
 
     public final static Builder builder() {
@@ -99,15 +99,15 @@ public class BillMappingOptions {
         return this;
     }
 
-    public BillMappingOptions withTaxRate(List<TaxRateMappingOption> taxRate) {
-        Utils.checkNotNull(taxRate, "taxRate");
-        this.taxRate = Optional.ofNullable(taxRate);
+    public BillMappingOptions withTaxRates(List<TaxRateMappingOption> taxRates) {
+        Utils.checkNotNull(taxRates, "taxRates");
+        this.taxRates = Optional.ofNullable(taxRates);
         return this;
     }
 
-    public BillMappingOptions withTaxRate(Optional<? extends List<TaxRateMappingOption>> taxRate) {
-        Utils.checkNotNull(taxRate, "taxRate");
-        this.taxRate = taxRate;
+    public BillMappingOptions withTaxRates(Optional<? extends List<TaxRateMappingOption>> taxRates) {
+        Utils.checkNotNull(taxRates, "taxRates");
+        this.taxRates = taxRates;
         return this;
     }
     
@@ -123,7 +123,7 @@ public class BillMappingOptions {
         return 
             Objects.deepEquals(this.accounts, other.accounts) &&
             Objects.deepEquals(this.pagination, other.pagination) &&
-            Objects.deepEquals(this.taxRate, other.taxRate);
+            Objects.deepEquals(this.taxRates, other.taxRates);
     }
     
     @Override
@@ -131,7 +131,7 @@ public class BillMappingOptions {
         return Objects.hash(
             accounts,
             pagination,
-            taxRate);
+            taxRates);
     }
     
     @Override
@@ -139,7 +139,7 @@ public class BillMappingOptions {
         return Utils.toString(BillMappingOptions.class,
                 "accounts", accounts,
                 "pagination", pagination,
-                "taxRate", taxRate);
+                "taxRates", taxRates);
     }
     
     public final static class Builder {
@@ -148,7 +148,7 @@ public class BillMappingOptions {
  
         private Optional<? extends Pagination> pagination = Optional.empty();
  
-        private Optional<? extends List<TaxRateMappingOption>> taxRate = Optional.empty();  
+        private Optional<? extends List<TaxRateMappingOption>> taxRates = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -178,15 +178,15 @@ public class BillMappingOptions {
             return this;
         }
 
-        public Builder taxRate(List<TaxRateMappingOption> taxRate) {
-            Utils.checkNotNull(taxRate, "taxRate");
-            this.taxRate = Optional.ofNullable(taxRate);
+        public Builder taxRates(List<TaxRateMappingOption> taxRates) {
+            Utils.checkNotNull(taxRates, "taxRates");
+            this.taxRates = Optional.ofNullable(taxRates);
             return this;
         }
 
-        public Builder taxRate(Optional<? extends List<TaxRateMappingOption>> taxRate) {
-            Utils.checkNotNull(taxRate, "taxRate");
-            this.taxRate = taxRate;
+        public Builder taxRates(Optional<? extends List<TaxRateMappingOption>> taxRates) {
+            Utils.checkNotNull(taxRates, "taxRates");
+            this.taxRates = taxRates;
             return this;
         }
         
@@ -194,7 +194,7 @@ public class BillMappingOptions {
             return new BillMappingOptions(
                 accounts,
                 pagination,
-                taxRate);
+                taxRates);
         }
     }
 }
