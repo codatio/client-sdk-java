@@ -22,38 +22,27 @@ The embeddable [Connections SDK](https://docs.codat.io/auth-flow/optimize/connec
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.GetConnectionManagementCorsSettingsResponse;
 import io.codat.platform.models.shared.Security;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GetConnectionManagementCorsSettingsResponse res = sdk.connectionManagement().corsSettings().get()
+        GetConnectionManagementCorsSettingsResponse res = sdk.connectionManagement().corsSettings().get()
                 .call();
 
-            if (res.connectionManagementAllowedOrigins().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.connectionManagementAllowedOrigins().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -64,11 +53,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## set
 
@@ -84,43 +72,35 @@ The embeddable [Connections SDK](https://docs.codat.io/auth-flow/optimize/connec
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.SetConnectionManagementCorsSettingsResponse;
 import io.codat.platform.models.shared.ConnectionManagementAllowedOrigins;
 import io.codat.platform.models.shared.Security;
 import java.lang.Exception;
+import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
+            .build();
+
+        ConnectionManagementAllowedOrigins req = ConnectionManagementAllowedOrigins.builder()
+                .allowedOrigins(List.of(
+                    "https://www.bank-of-dave.com"))
                 .build();
 
-            ConnectionManagementAllowedOrigins req = ConnectionManagementAllowedOrigins.builder()
-                .build();
-
-            SetConnectionManagementCorsSettingsResponse res = sdk.connectionManagement().corsSettings().set()
+        SetConnectionManagementCorsSettingsResponse res = sdk.connectionManagement().corsSettings().set()
                 .request(req)
                 .call();
 
-            if (res.connectionManagementAllowedOrigins().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.connectionManagementAllowedOrigins().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -137,7 +117,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |

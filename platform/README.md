@@ -24,7 +24,6 @@ These end points cover creating and managing your companies, data connections, a
 | Companies | Create and manage your SMB users' companies. |
 | Connections | Create new and manage existing data connections for a company. |
 | Connection management | Configure connection management UI and retrieve access tokens for authentication. |
-| Groups | Define and manage sets of companies based on a chosen characteristic. |
 | Webhooks | Create and manage webhooks that listen to Codat's events. |
 | Integrations | Get a list of integrations supported by Codat and their logos. |
 | Refresh data | Initiate data refreshes, view pull status and history. |
@@ -58,7 +57,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'io.codat:platform:0.5.0'
+implementation 'io.codat:platform:1.0.0'
 ```
 
 Maven:
@@ -66,7 +65,7 @@ Maven:
 <dependency>
     <groupId>io.codat</groupId>
     <artifactId>platform</artifactId>
-    <version>0.5.0</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
@@ -95,7 +94,7 @@ gradlew.bat publishToMavenLocal -Pskip.signing
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.CreateApiKeyResponse;
 import io.codat.platform.models.shared.CreateApiKey;
 import io.codat.platform.models.shared.Security;
@@ -103,36 +102,25 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            CreateApiKey req = CreateApiKey.builder()
+        CreateApiKey req = CreateApiKey.builder()
                 .name("azure-invoice-finance-processor")
                 .build();
 
-            CreateApiKeyResponse res = sdk.settings().createApiKey()
+        CreateApiKeyResponse res = sdk.settings().createApiKey()
                 .request(req)
                 .call();
 
-            if (res.apiKeyDetails().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.apiKeyDetails().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -147,10 +135,12 @@ public class Application {
 
 ### [companies()](docs/sdks/companies/README.md)
 
+* [addProduct](docs/sdks/companies/README.md#addproduct) - Add product
 * [create](docs/sdks/companies/README.md#create) - Create company
 * [delete](docs/sdks/companies/README.md#delete) - Delete a company
 * [get](docs/sdks/companies/README.md#get) - Get company
 * [list](docs/sdks/companies/README.md#list) - List companies
+* [removeProduct](docs/sdks/companies/README.md#removeproduct) - Remove product
 * [update](docs/sdks/companies/README.md#update) - Update company
 
 ### [connectionManagement()](docs/sdks/connectionmanagement/README.md)
@@ -177,13 +167,6 @@ public class Application {
 * [getConfiguration](docs/sdks/customdatatype/README.md#getconfiguration) - Get custom data configuration
 * [list](docs/sdks/customdatatype/README.md#list) - List custom data type records
 * [refresh](docs/sdks/customdatatype/README.md#refresh) - Refresh custom data type
-
-### [groups()](docs/sdks/groups/README.md)
-
-* [addCompany](docs/sdks/groups/README.md#addcompany) - Add company
-* [create](docs/sdks/groups/README.md#create) - Create group
-* [list](docs/sdks/groups/README.md#list) - List groups
-* [removeCompany](docs/sdks/groups/README.md#removecompany) - Remove company
 
 ### [integrations()](docs/sdks/integrations/README.md)
 
@@ -222,11 +205,11 @@ public class Application {
 
 ### [webhooks()](docs/sdks/webhooks/README.md)
 
-* [~~create~~](docs/sdks/webhooks/README.md#create) - Create webhook :warning: **Deprecated**
+* [~~create~~](docs/sdks/webhooks/README.md#create) - Create webhook (legacy) :warning: **Deprecated**
 * [createConsumer](docs/sdks/webhooks/README.md#createconsumer) - Create webhook consumer
 * [deleteConsumer](docs/sdks/webhooks/README.md#deleteconsumer) - Delete webhook consumer
-* [~~get~~](docs/sdks/webhooks/README.md#get) - Get webhook :warning: **Deprecated**
-* [~~list~~](docs/sdks/webhooks/README.md#list) - List webhooks :warning: **Deprecated**
+* [~~get~~](docs/sdks/webhooks/README.md#get) - Get webhook (legacy) :warning: **Deprecated**
+* [~~list~~](docs/sdks/webhooks/README.md#list) - List webhooks (legacy) :warning: **Deprecated**
 * [listConsumers](docs/sdks/webhooks/README.md#listconsumers) - List webhook consumers
 
 </details>
@@ -235,12 +218,14 @@ public class Application {
 <!-- Start Error Handling [errors] -->
 ## Error Handling
 
-Handling errors in this SDK should largely match your expectations.  All operations return a response object or raise an error.  If Error objects are specified in your OpenAPI Spec, the SDK will throw the appropriate Exception type.
+Handling errors in this SDK should largely match your expectations. All operations return a response object or raise an exception.
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,409,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+By default, an API error will throw a `models/errors/SDKError` exception. When custom error responses are specified for an operation, the SDK may also throw their associated exception. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `createApiKey` method throws the following exceptions:
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 409, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ### Example
 
@@ -248,7 +233,7 @@ Handling errors in this SDK should largely match your expectations.  All operati
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.CreateApiKeyResponse;
 import io.codat.platform.models.shared.CreateApiKey;
 import io.codat.platform.models.shared.Security;
@@ -256,36 +241,25 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            CreateApiKey req = CreateApiKey.builder()
+        CreateApiKey req = CreateApiKey.builder()
                 .name("azure-invoice-finance-processor")
                 .build();
 
-            CreateApiKeyResponse res = sdk.settings().createApiKey()
+        CreateApiKeyResponse res = sdk.settings().createApiKey()
                 .request(req)
                 .call();
 
-            if (res.apiKeyDetails().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.apiKeyDetails().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -308,7 +282,7 @@ You can override the default server globally by passing a server index to the `s
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.CreateApiKeyResponse;
 import io.codat.platform.models.shared.CreateApiKey;
 import io.codat.platform.models.shared.Security;
@@ -316,37 +290,26 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .serverIndex(0)
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            CreateApiKey req = CreateApiKey.builder()
+        CreateApiKey req = CreateApiKey.builder()
                 .name("azure-invoice-finance-processor")
                 .build();
 
-            CreateApiKeyResponse res = sdk.settings().createApiKey()
+        CreateApiKeyResponse res = sdk.settings().createApiKey()
                 .request(req)
                 .call();
 
-            if (res.apiKeyDetails().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.apiKeyDetails().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -359,7 +322,7 @@ The default server can also be overridden globally by passing a URL to the `serv
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.CreateApiKeyResponse;
 import io.codat.platform.models.shared.CreateApiKey;
 import io.codat.platform.models.shared.Security;
@@ -367,37 +330,26 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .serverURL("https://api.codat.io")
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            CreateApiKey req = CreateApiKey.builder()
+        CreateApiKey req = CreateApiKey.builder()
                 .name("azure-invoice-finance-processor")
                 .build();
 
-            CreateApiKeyResponse res = sdk.settings().createApiKey()
+        CreateApiKeyResponse res = sdk.settings().createApiKey()
                 .request(req)
                 .call();
 
-            if (res.apiKeyDetails().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.apiKeyDetails().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -419,7 +371,7 @@ You can set the security parameters through the `security` builder method when i
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.CreateApiKeyResponse;
 import io.codat.platform.models.shared.CreateApiKey;
 import io.codat.platform.models.shared.Security;
@@ -427,36 +379,25 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            CreateApiKey req = CreateApiKey.builder()
+        CreateApiKey req = CreateApiKey.builder()
                 .name("azure-invoice-finance-processor")
                 .build();
 
-            CreateApiKeyResponse res = sdk.settings().createApiKey()
+        CreateApiKeyResponse res = sdk.settings().createApiKey()
                 .request(req)
                 .call();
 
-            if (res.apiKeyDetails().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.apiKeyDetails().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -472,7 +413,7 @@ To change the default retry strategy for a single API call, you can provide a `R
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.CreateApiKeyResponse;
 import io.codat.platform.models.shared.CreateApiKey;
 import io.codat.platform.models.shared.Security;
@@ -483,19 +424,19 @@ import java.util.concurrent.TimeUnit;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            CreateApiKey req = CreateApiKey.builder()
+        CreateApiKey req = CreateApiKey.builder()
                 .name("azure-invoice-finance-processor")
                 .build();
 
-            CreateApiKeyResponse res = sdk.settings().createApiKey()
+        CreateApiKeyResponse res = sdk.settings().createApiKey()
                 .request(req)
                 .retryConfig(RetryConfig.builder()
                     .backoff(BackoffStrategy.builder()
@@ -509,20 +450,9 @@ public class Application {
                     .build())
                 .call();
 
-            if (res.apiKeyDetails().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.apiKeyDetails().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -532,7 +462,7 @@ If you'd like to override the default retry strategy for all operations that sup
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.CreateApiKeyResponse;
 import io.codat.platform.models.shared.CreateApiKey;
 import io.codat.platform.models.shared.Security;
@@ -543,9 +473,9 @@ import java.util.concurrent.TimeUnit;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .retryConfig(RetryConfig.builder()
                     .backoff(BackoffStrategy.builder()
                         .initialInterval(1L, TimeUnit.MILLISECONDS)
@@ -559,30 +489,19 @@ public class Application {
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            CreateApiKey req = CreateApiKey.builder()
+        CreateApiKey req = CreateApiKey.builder()
                 .name("azure-invoice-finance-processor")
                 .build();
 
-            CreateApiKeyResponse res = sdk.settings().createApiKey()
+        CreateApiKeyResponse res = sdk.settings().createApiKey()
                 .request(req)
                 .call();
 
-            if (res.apiKeyDetails().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.apiKeyDetails().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```

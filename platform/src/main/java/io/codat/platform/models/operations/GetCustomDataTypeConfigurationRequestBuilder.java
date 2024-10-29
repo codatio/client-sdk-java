@@ -19,19 +19,19 @@ public class GetCustomDataTypeConfigurationRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetCustomDataTypeConfigurationRequestBuilder request(io.codat.platform.models.operations.GetCustomDataTypeConfigurationRequest request) {
+    public GetCustomDataTypeConfigurationRequestBuilder request(GetCustomDataTypeConfigurationRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetCustomDataTypeConfigurationRequestBuilder retryConfig(io.codat.platform.utils.RetryConfig retryConfig) {
+    public GetCustomDataTypeConfigurationRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetCustomDataTypeConfigurationRequestBuilder retryConfig(java.util.Optional<io.codat.platform.utils.RetryConfig> retryConfig) {
+    public GetCustomDataTypeConfigurationRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

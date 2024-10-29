@@ -19,8 +19,9 @@ import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
- * ErrorMessage - Bad Request
+ * ErrorMessage - Your API request was not properly authorized.
  */
+@SuppressWarnings("serial")
 public class ErrorMessage extends RuntimeException {
 
     /**

@@ -19,25 +19,25 @@ public class UpdateProfileSyncSettingsRequestBuilder {
         this.sdk = sdk;
     }
                 
-    public UpdateProfileSyncSettingsRequestBuilder request(io.codat.platform.models.operations.UpdateProfileSyncSettingsRequestBody request) {
+    public UpdateProfileSyncSettingsRequestBuilder request(UpdateProfileSyncSettingsRequestBody request) {
         Utils.checkNotNull(request, "request");
         this.request = Optional.of(request);
         return this;
     }
 
-    public UpdateProfileSyncSettingsRequestBuilder request(java.util.Optional<? extends io.codat.platform.models.operations.UpdateProfileSyncSettingsRequestBody> request) {
+    public UpdateProfileSyncSettingsRequestBuilder request(Optional<? extends UpdateProfileSyncSettingsRequestBody> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public UpdateProfileSyncSettingsRequestBuilder retryConfig(io.codat.platform.utils.RetryConfig retryConfig) {
+    public UpdateProfileSyncSettingsRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public UpdateProfileSyncSettingsRequestBuilder retryConfig(java.util.Optional<io.codat.platform.utils.RetryConfig> retryConfig) {
+    public UpdateProfileSyncSettingsRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

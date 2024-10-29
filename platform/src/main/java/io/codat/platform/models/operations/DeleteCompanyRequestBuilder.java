@@ -19,19 +19,19 @@ public class DeleteCompanyRequestBuilder {
         this.sdk = sdk;
     }
 
-    public DeleteCompanyRequestBuilder request(io.codat.platform.models.operations.DeleteCompanyRequest request) {
+    public DeleteCompanyRequestBuilder request(DeleteCompanyRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public DeleteCompanyRequestBuilder retryConfig(io.codat.platform.utils.RetryConfig retryConfig) {
+    public DeleteCompanyRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public DeleteCompanyRequestBuilder retryConfig(java.util.Optional<io.codat.platform.utils.RetryConfig> retryConfig) {
+    public DeleteCompanyRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

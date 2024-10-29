@@ -19,19 +19,19 @@ public class RefreshCompanyDataRequestBuilder {
         this.sdk = sdk;
     }
 
-    public RefreshCompanyDataRequestBuilder request(io.codat.platform.models.operations.RefreshCompanyDataRequest request) {
+    public RefreshCompanyDataRequestBuilder request(RefreshCompanyDataRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public RefreshCompanyDataRequestBuilder retryConfig(io.codat.platform.utils.RetryConfig retryConfig) {
+    public RefreshCompanyDataRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public RefreshCompanyDataRequestBuilder retryConfig(java.util.Optional<io.codat.platform.utils.RetryConfig> retryConfig) {
+    public RefreshCompanyDataRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

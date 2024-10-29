@@ -14,6 +14,8 @@ import io.codat.platform.utils.Utils;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -98,6 +100,13 @@ public class CompanyDetails {
     private String name;
 
     /**
+     * An array of products that are currently enabled for the company.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("products")
+    private Optional<? extends List<String>> products;
+
+    /**
      * The `redirect` [Link URL](https://docs.codat.io/auth-flow/authorize-hosted-link) enabling the customer to start their auth flow journey for the company.
      */
     @JsonProperty("redirect")
@@ -108,7 +117,7 @@ public class CompanyDetails {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("tags")
-    private Optional<? extends Tags> tags;
+    private Optional<? extends Map<String, String>> tags;
 
     @JsonCreator
     public CompanyDetails(
@@ -118,14 +127,16 @@ public class CompanyDetails {
             @JsonProperty("id") String id,
             @JsonProperty("lastSync") Optional<String> lastSync,
             @JsonProperty("name") String name,
+            @JsonProperty("products") Optional<? extends List<String>> products,
             @JsonProperty("redirect") String redirect,
-            @JsonProperty("tags") Optional<? extends Tags> tags) {
+            @JsonProperty("tags") Optional<? extends Map<String, String>> tags) {
         Utils.checkNotNull(created, "created");
         Utils.checkNotNull(createdByUserName, "createdByUserName");
         Utils.checkNotNull(description, "description");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(lastSync, "lastSync");
         Utils.checkNotNull(name, "name");
+        Utils.checkNotNull(products, "products");
         Utils.checkNotNull(redirect, "redirect");
         Utils.checkNotNull(tags, "tags");
         this.created = created;
@@ -134,6 +145,7 @@ public class CompanyDetails {
         this.id = id;
         this.lastSync = lastSync;
         this.name = name;
+        this.products = products;
         this.redirect = redirect;
         this.tags = tags;
     }
@@ -142,7 +154,7 @@ public class CompanyDetails {
             String id,
             String name,
             String redirect) {
-        this(Optional.empty(), JsonNullable.undefined(), Optional.empty(), id, Optional.empty(), name, redirect, Optional.empty());
+        this(Optional.empty(), JsonNullable.undefined(), Optional.empty(), id, Optional.empty(), name, Optional.empty(), redirect, Optional.empty());
     }
 
     /**
@@ -230,6 +242,15 @@ public class CompanyDetails {
     }
 
     /**
+     * An array of products that are currently enabled for the company.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<List<String>> products() {
+        return (Optional<List<String>>) products;
+    }
+
+    /**
      * The `redirect` [Link URL](https://docs.codat.io/auth-flow/authorize-hosted-link) enabling the customer to start their auth flow journey for the company.
      */
     @JsonIgnore
@@ -242,8 +263,8 @@ public class CompanyDetails {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<Tags> tags() {
-        return (Optional<Tags>) tags;
+    public Optional<Map<String, String>> tags() {
+        return (Optional<Map<String, String>>) tags;
     }
 
     public final static Builder builder() {
@@ -413,6 +434,24 @@ public class CompanyDetails {
     }
 
     /**
+     * An array of products that are currently enabled for the company.
+     */
+    public CompanyDetails withProducts(List<String> products) {
+        Utils.checkNotNull(products, "products");
+        this.products = Optional.ofNullable(products);
+        return this;
+    }
+
+    /**
+     * An array of products that are currently enabled for the company.
+     */
+    public CompanyDetails withProducts(Optional<? extends List<String>> products) {
+        Utils.checkNotNull(products, "products");
+        this.products = products;
+        return this;
+    }
+
+    /**
      * The `redirect` [Link URL](https://docs.codat.io/auth-flow/authorize-hosted-link) enabling the customer to start their auth flow journey for the company.
      */
     public CompanyDetails withRedirect(String redirect) {
@@ -424,7 +463,7 @@ public class CompanyDetails {
     /**
      * A collection of user-defined key-value pairs that store custom metadata against the company.
      */
-    public CompanyDetails withTags(Tags tags) {
+    public CompanyDetails withTags(Map<String, String> tags) {
         Utils.checkNotNull(tags, "tags");
         this.tags = Optional.ofNullable(tags);
         return this;
@@ -433,7 +472,7 @@ public class CompanyDetails {
     /**
      * A collection of user-defined key-value pairs that store custom metadata against the company.
      */
-    public CompanyDetails withTags(Optional<? extends Tags> tags) {
+    public CompanyDetails withTags(Optional<? extends Map<String, String>> tags) {
         Utils.checkNotNull(tags, "tags");
         this.tags = tags;
         return this;
@@ -455,6 +494,7 @@ public class CompanyDetails {
             Objects.deepEquals(this.id, other.id) &&
             Objects.deepEquals(this.lastSync, other.lastSync) &&
             Objects.deepEquals(this.name, other.name) &&
+            Objects.deepEquals(this.products, other.products) &&
             Objects.deepEquals(this.redirect, other.redirect) &&
             Objects.deepEquals(this.tags, other.tags);
     }
@@ -468,6 +508,7 @@ public class CompanyDetails {
             id,
             lastSync,
             name,
+            products,
             redirect,
             tags);
     }
@@ -481,6 +522,7 @@ public class CompanyDetails {
                 "id", id,
                 "lastSync", lastSync,
                 "name", name,
+                "products", products,
                 "redirect", redirect,
                 "tags", tags);
     }
@@ -499,9 +541,11 @@ public class CompanyDetails {
  
         private String name;
  
+        private Optional<? extends List<String>> products = Optional.empty();
+ 
         private String redirect;
  
-        private Optional<? extends Tags> tags = Optional.empty();  
+        private Optional<? extends Map<String, String>> tags = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -670,6 +714,24 @@ public class CompanyDetails {
         }
 
         /**
+         * An array of products that are currently enabled for the company.
+         */
+        public Builder products(List<String> products) {
+            Utils.checkNotNull(products, "products");
+            this.products = Optional.ofNullable(products);
+            return this;
+        }
+
+        /**
+         * An array of products that are currently enabled for the company.
+         */
+        public Builder products(Optional<? extends List<String>> products) {
+            Utils.checkNotNull(products, "products");
+            this.products = products;
+            return this;
+        }
+
+        /**
          * The `redirect` [Link URL](https://docs.codat.io/auth-flow/authorize-hosted-link) enabling the customer to start their auth flow journey for the company.
          */
         public Builder redirect(String redirect) {
@@ -681,7 +743,7 @@ public class CompanyDetails {
         /**
          * A collection of user-defined key-value pairs that store custom metadata against the company.
          */
-        public Builder tags(Tags tags) {
+        public Builder tags(Map<String, String> tags) {
             Utils.checkNotNull(tags, "tags");
             this.tags = Optional.ofNullable(tags);
             return this;
@@ -690,7 +752,7 @@ public class CompanyDetails {
         /**
          * A collection of user-defined key-value pairs that store custom metadata against the company.
          */
-        public Builder tags(Optional<? extends Tags> tags) {
+        public Builder tags(Optional<? extends Map<String, String>> tags) {
             Utils.checkNotNull(tags, "tags");
             this.tags = tags;
             return this;
@@ -704,6 +766,7 @@ public class CompanyDetails {
                 id,
                 lastSync,
                 name,
+                products,
                 redirect,
                 tags);
         }

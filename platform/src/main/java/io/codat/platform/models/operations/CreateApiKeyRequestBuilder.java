@@ -20,25 +20,25 @@ public class CreateApiKeyRequestBuilder {
         this.sdk = sdk;
     }
                 
-    public CreateApiKeyRequestBuilder request(io.codat.platform.models.shared.CreateApiKey request) {
+    public CreateApiKeyRequestBuilder request(CreateApiKey request) {
         Utils.checkNotNull(request, "request");
         this.request = Optional.of(request);
         return this;
     }
 
-    public CreateApiKeyRequestBuilder request(java.util.Optional<? extends io.codat.platform.models.shared.CreateApiKey> request) {
+    public CreateApiKeyRequestBuilder request(Optional<? extends CreateApiKey> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public CreateApiKeyRequestBuilder retryConfig(io.codat.platform.utils.RetryConfig retryConfig) {
+    public CreateApiKeyRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public CreateApiKeyRequestBuilder retryConfig(java.util.Optional<io.codat.platform.utils.RetryConfig> retryConfig) {
+    public CreateApiKeyRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

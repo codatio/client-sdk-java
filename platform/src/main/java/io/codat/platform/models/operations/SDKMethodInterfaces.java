@@ -8,341 +8,328 @@ import io.codat.platform.models.shared.CompanyRequestBody;
 import io.codat.platform.models.shared.ConnectionManagementAllowedOrigins;
 import io.codat.platform.models.shared.CreateApiKey;
 import io.codat.platform.models.shared.CreateRule;
-import io.codat.platform.models.shared.GroupPrototype;
 import io.codat.platform.models.shared.Profile;
 import io.codat.platform.models.shared.WebhookConsumerPrototype;
 import io.codat.platform.utils.Options;
+import java.lang.Exception;
 import java.util.Optional;
 
 public class SDKMethodInterfaces {
 
 
     public interface MethodCallCreateApiKey {
-        io.codat.platform.models.operations.CreateApiKeyResponse createApiKey(
+        CreateApiKeyResponse createApiKey(
             Optional<? extends CreateApiKey> request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDeleteApiKey {
-        io.codat.platform.models.operations.DeleteApiKeyResponse deleteApiKey(
+        DeleteApiKeyResponse deleteApiKey(
             DeleteApiKeyRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetProfile {
-        io.codat.platform.models.operations.GetProfileResponse getProfile(
+        GetProfileResponse getProfile(
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetProfileSyncSettings {
-        io.codat.platform.models.operations.GetProfileSyncSettingsResponse getSyncSettings(
+        GetProfileSyncSettingsResponse getSyncSettings(
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListApiKeys {
-        io.codat.platform.models.operations.ListApiKeysResponse listApiKeys(
+        ListApiKeysResponse listApiKeys(
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUpdateProfile {
-        io.codat.platform.models.operations.UpdateProfileResponse updateProfile(
+        UpdateProfileResponse updateProfile(
             Optional<? extends Profile> request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUpdateProfileSyncSettings {
-        io.codat.platform.models.operations.UpdateProfileSyncSettingsResponse updateSyncSettings(
+        UpdateProfileSyncSettingsResponse updateSyncSettings(
             Optional<? extends UpdateProfileSyncSettingsRequestBody> request,
             Optional<Options> options) throws Exception;
     }
 
 
+    public interface MethodCallAddProduct {
+        AddProductResponse addProduct(
+            AddProductRequest request,
+            Optional<Options> options) throws Exception;
+    }
+
+
     public interface MethodCallCreateCompany {
-        io.codat.platform.models.operations.CreateCompanyResponse create(
+        CreateCompanyResponse create(
             Optional<? extends CompanyRequestBody> request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDeleteCompany {
-        io.codat.platform.models.operations.DeleteCompanyResponse delete(
+        DeleteCompanyResponse delete(
             DeleteCompanyRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetCompany {
-        io.codat.platform.models.operations.GetCompanyResponse get(
+        GetCompanyResponse get(
             GetCompanyRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListCompanies {
-        io.codat.platform.models.operations.ListCompaniesResponse list(
+        ListCompaniesResponse list(
             ListCompaniesRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
+    public interface MethodCallRemoveProduct {
+        RemoveProductResponse removeProduct(
+            RemoveProductRequest request,
+            Optional<Options> options) throws Exception;
+    }
+
+
     public interface MethodCallUpdateCompany {
-        io.codat.platform.models.operations.UpdateCompanyResponse update(
+        UpdateCompanyResponse update(
             UpdateCompanyRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetConnectionManagementAccessToken {
-        io.codat.platform.models.operations.GetConnectionManagementAccessTokenResponse getAccessToken(
+        GetConnectionManagementAccessTokenResponse getAccessToken(
             GetConnectionManagementAccessTokenRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetConnectionManagementCorsSettings {
-        io.codat.platform.models.operations.GetConnectionManagementCorsSettingsResponse get(
+        GetConnectionManagementCorsSettingsResponse get(
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallSetConnectionManagementCorsSettings {
-        io.codat.platform.models.operations.SetConnectionManagementCorsSettingsResponse set(
+        SetConnectionManagementCorsSettingsResponse set(
             Optional<? extends ConnectionManagementAllowedOrigins> request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateConnection {
-        io.codat.platform.models.operations.CreateConnectionResponse create(
+        CreateConnectionResponse create(
             CreateConnectionRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDeleteConnection {
-        io.codat.platform.models.operations.DeleteConnectionResponse delete(
+        DeleteConnectionResponse delete(
             DeleteConnectionRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetConnection {
-        io.codat.platform.models.operations.GetConnectionResponse get(
+        GetConnectionResponse get(
             GetConnectionRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListConnections {
-        io.codat.platform.models.operations.ListConnectionsResponse list(
+        ListConnectionsResponse list(
             ListConnectionsRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUnlinkConnection {
-        io.codat.platform.models.operations.UnlinkConnectionResponse unlink(
+        UnlinkConnectionResponse unlink(
             UnlinkConnectionRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUpdateConnectionAuthorization {
-        io.codat.platform.models.operations.UpdateConnectionAuthorizationResponse updateAuthorization(
+        UpdateConnectionAuthorizationResponse updateAuthorization(
             UpdateConnectionAuthorizationRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallConfigureCustomDataType {
-        io.codat.platform.models.operations.ConfigureCustomDataTypeResponse configure(
+        ConfigureCustomDataTypeResponse configure(
             ConfigureCustomDataTypeRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetCustomDataTypeConfiguration {
-        io.codat.platform.models.operations.GetCustomDataTypeConfigurationResponse getConfiguration(
+        GetCustomDataTypeConfigurationResponse getConfiguration(
             GetCustomDataTypeConfigurationRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListCustomDataTypeRecords {
-        io.codat.platform.models.operations.ListCustomDataTypeRecordsResponse list(
+        ListCustomDataTypeRecordsResponse list(
             ListCustomDataTypeRecordsRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallRefreshCustomDataType {
-        io.codat.platform.models.operations.RefreshCustomDataTypeResponse refresh(
+        RefreshCustomDataTypeResponse refresh(
             RefreshCustomDataTypeRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetCreateUpdateModelOptionsByDataType {
-        io.codat.platform.models.operations.GetCreateUpdateModelOptionsByDataTypeResponse getModelOptions(
+        GetCreateUpdateModelOptionsByDataTypeResponse getModelOptions(
             GetCreateUpdateModelOptionsByDataTypeRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetPushOperation {
-        io.codat.platform.models.operations.GetPushOperationResponse getOperation(
+        GetPushOperationResponse getOperation(
             GetPushOperationRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetCompanyPushHistory {
-        io.codat.platform.models.operations.GetCompanyPushHistoryResponse listOperations(
+        GetCompanyPushHistoryResponse listOperations(
             GetCompanyPushHistoryRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallRefreshCompanyData {
-        io.codat.platform.models.operations.RefreshCompanyDataResponse all(
+        RefreshCompanyDataResponse all(
             RefreshCompanyDataRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallRefreshDataType {
-        io.codat.platform.models.operations.RefreshDataTypeResponse byDataType(
+        RefreshDataTypeResponse byDataType(
             RefreshDataTypeRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetCompanyDataStatus {
-        io.codat.platform.models.operations.GetCompanyDataStatusResponse get(
+        GetCompanyDataStatusResponse get(
             GetCompanyDataStatusRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetPullOperation {
-        io.codat.platform.models.operations.GetPullOperationResponse getPullOperation(
+        GetPullOperationResponse getPullOperation(
             GetPullOperationRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListPullOperations {
-        io.codat.platform.models.operations.ListPullOperationsResponse listPullOperations(
+        ListPullOperationsResponse listPullOperations(
             ListPullOperationsRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
-    public interface MethodCallAddCompanyToGroup {
-        io.codat.platform.models.operations.AddCompanyToGroupResponse addCompany(
-            AddCompanyToGroupRequest request,
-            Optional<Options> options) throws Exception;
-    }
-
-
-    public interface MethodCallCreateGroup {
-        io.codat.platform.models.operations.CreateGroupResponse create(
-            Optional<? extends GroupPrototype> request,
-            Optional<Options> options) throws Exception;
-    }
-
-
-    public interface MethodCallListGroups {
-        io.codat.platform.models.operations.ListGroupsResponse list(
-            Optional<Options> options) throws Exception;
-    }
-
-
-    public interface MethodCallRemoveCompanyFromGroup {
-        io.codat.platform.models.operations.RemoveCompanyFromGroupResponse removeCompany(
-            RemoveCompanyFromGroupRequest request,
-            Optional<Options> options) throws Exception;
-    }
-
-
     public interface MethodCallGetIntegration {
-        io.codat.platform.models.operations.GetIntegrationResponse get(
+        GetIntegrationResponse get(
             GetIntegrationRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetIntegrationsBranding {
-        io.codat.platform.models.operations.GetIntegrationsBrandingResponse getBranding(
+        GetIntegrationsBrandingResponse getBranding(
             GetIntegrationsBrandingRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListIntegrations {
-        io.codat.platform.models.operations.ListIntegrationsResponse list(
+        ListIntegrationsResponse list(
             ListIntegrationsRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallConfigureSupplementalData {
-        io.codat.platform.models.operations.ConfigureSupplementalDataResponse configure(
+        ConfigureSupplementalDataResponse configure(
             ConfigureSupplementalDataRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetSupplementalDataConfiguration {
-        io.codat.platform.models.operations.GetSupplementalDataConfigurationResponse getConfiguration(
+        GetSupplementalDataConfigurationResponse getConfiguration(
             GetSupplementalDataConfigurationRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateRule {
-        io.codat.platform.models.operations.CreateRuleResponse create(
+        CreateRuleResponse create(
             Optional<? extends CreateRule> request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateWebhookConsumer {
-        io.codat.platform.models.operations.CreateWebhookConsumerResponse createConsumer(
+        CreateWebhookConsumerResponse createConsumer(
             Optional<? extends WebhookConsumerPrototype> request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDeleteWebhookConsumer {
-        io.codat.platform.models.operations.DeleteWebhookConsumerResponse deleteConsumer(
+        DeleteWebhookConsumerResponse deleteConsumer(
             DeleteWebhookConsumerRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetWebhook {
-        io.codat.platform.models.operations.GetWebhookResponse get(
+        GetWebhookResponse get(
             GetWebhookRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListRules {
-        io.codat.platform.models.operations.ListRulesResponse list(
+        ListRulesResponse list(
             ListRulesRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListWebhookConsumers {
-        io.codat.platform.models.operations.ListWebhookConsumersResponse listConsumers(
+        ListWebhookConsumersResponse listConsumers(
             Optional<Options> options) throws Exception;
     }
 

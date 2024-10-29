@@ -19,19 +19,19 @@ public class ConfigureSupplementalDataRequestBuilder {
         this.sdk = sdk;
     }
 
-    public ConfigureSupplementalDataRequestBuilder request(io.codat.platform.models.operations.ConfigureSupplementalDataRequest request) {
+    public ConfigureSupplementalDataRequestBuilder request(ConfigureSupplementalDataRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public ConfigureSupplementalDataRequestBuilder retryConfig(io.codat.platform.utils.RetryConfig retryConfig) {
+    public ConfigureSupplementalDataRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public ConfigureSupplementalDataRequestBuilder retryConfig(java.util.Optional<io.codat.platform.utils.RetryConfig> retryConfig) {
+    public ConfigureSupplementalDataRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

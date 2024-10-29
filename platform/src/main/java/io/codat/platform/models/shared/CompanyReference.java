@@ -13,6 +13,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.codat.platform.utils.Utils;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -34,27 +36,47 @@ public class CompanyReference {
     private Optional<String> id;
 
     /**
+     * A collection of links for the company.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("links")
+    private Optional<? extends CompanyReferenceLinks> links;
+
+    /**
      * The name of the company
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("name")
     private Optional<String> name;
 
+    /**
+     * A collection of user-defined key-value pairs that store custom metadata against the company.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("tags")
+    private Optional<? extends Map<String, String>> tags;
+
     @JsonCreator
     public CompanyReference(
             @JsonProperty("description") Optional<String> description,
             @JsonProperty("id") Optional<String> id,
-            @JsonProperty("name") Optional<String> name) {
+            @JsonProperty("links") Optional<? extends CompanyReferenceLinks> links,
+            @JsonProperty("name") Optional<String> name,
+            @JsonProperty("tags") Optional<? extends Map<String, String>> tags) {
         Utils.checkNotNull(description, "description");
         Utils.checkNotNull(id, "id");
+        Utils.checkNotNull(links, "links");
         Utils.checkNotNull(name, "name");
+        Utils.checkNotNull(tags, "tags");
         this.description = description;
         this.id = id;
+        this.links = links;
         this.name = name;
+        this.tags = tags;
     }
     
     public CompanyReference() {
-        this(Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     /**
@@ -74,11 +96,29 @@ public class CompanyReference {
     }
 
     /**
+     * A collection of links for the company.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<CompanyReferenceLinks> links() {
+        return (Optional<CompanyReferenceLinks>) links;
+    }
+
+    /**
      * The name of the company
      */
     @JsonIgnore
     public Optional<String> name() {
         return name;
+    }
+
+    /**
+     * A collection of user-defined key-value pairs that store custom metadata against the company.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<Map<String, String>> tags() {
+        return (Optional<Map<String, String>>) tags;
     }
 
     public final static Builder builder() {
@@ -122,6 +162,24 @@ public class CompanyReference {
     }
 
     /**
+     * A collection of links for the company.
+     */
+    public CompanyReference withLinks(CompanyReferenceLinks links) {
+        Utils.checkNotNull(links, "links");
+        this.links = Optional.ofNullable(links);
+        return this;
+    }
+
+    /**
+     * A collection of links for the company.
+     */
+    public CompanyReference withLinks(Optional<? extends CompanyReferenceLinks> links) {
+        Utils.checkNotNull(links, "links");
+        this.links = links;
+        return this;
+    }
+
+    /**
      * The name of the company
      */
     public CompanyReference withName(String name) {
@@ -138,6 +196,24 @@ public class CompanyReference {
         this.name = name;
         return this;
     }
+
+    /**
+     * A collection of user-defined key-value pairs that store custom metadata against the company.
+     */
+    public CompanyReference withTags(Map<String, String> tags) {
+        Utils.checkNotNull(tags, "tags");
+        this.tags = Optional.ofNullable(tags);
+        return this;
+    }
+
+    /**
+     * A collection of user-defined key-value pairs that store custom metadata against the company.
+     */
+    public CompanyReference withTags(Optional<? extends Map<String, String>> tags) {
+        Utils.checkNotNull(tags, "tags");
+        this.tags = tags;
+        return this;
+    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -151,7 +227,9 @@ public class CompanyReference {
         return 
             Objects.deepEquals(this.description, other.description) &&
             Objects.deepEquals(this.id, other.id) &&
-            Objects.deepEquals(this.name, other.name);
+            Objects.deepEquals(this.links, other.links) &&
+            Objects.deepEquals(this.name, other.name) &&
+            Objects.deepEquals(this.tags, other.tags);
     }
     
     @Override
@@ -159,7 +237,9 @@ public class CompanyReference {
         return Objects.hash(
             description,
             id,
-            name);
+            links,
+            name,
+            tags);
     }
     
     @Override
@@ -167,7 +247,9 @@ public class CompanyReference {
         return Utils.toString(CompanyReference.class,
                 "description", description,
                 "id", id,
-                "name", name);
+                "links", links,
+                "name", name,
+                "tags", tags);
     }
     
     public final static class Builder {
@@ -176,7 +258,11 @@ public class CompanyReference {
  
         private Optional<String> id = Optional.empty();
  
-        private Optional<String> name = Optional.empty();  
+        private Optional<? extends CompanyReferenceLinks> links = Optional.empty();
+ 
+        private Optional<String> name = Optional.empty();
+ 
+        private Optional<? extends Map<String, String>> tags = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -219,6 +305,24 @@ public class CompanyReference {
         }
 
         /**
+         * A collection of links for the company.
+         */
+        public Builder links(CompanyReferenceLinks links) {
+            Utils.checkNotNull(links, "links");
+            this.links = Optional.ofNullable(links);
+            return this;
+        }
+
+        /**
+         * A collection of links for the company.
+         */
+        public Builder links(Optional<? extends CompanyReferenceLinks> links) {
+            Utils.checkNotNull(links, "links");
+            this.links = links;
+            return this;
+        }
+
+        /**
          * The name of the company
          */
         public Builder name(String name) {
@@ -235,12 +339,32 @@ public class CompanyReference {
             this.name = name;
             return this;
         }
+
+        /**
+         * A collection of user-defined key-value pairs that store custom metadata against the company.
+         */
+        public Builder tags(Map<String, String> tags) {
+            Utils.checkNotNull(tags, "tags");
+            this.tags = Optional.ofNullable(tags);
+            return this;
+        }
+
+        /**
+         * A collection of user-defined key-value pairs that store custom metadata against the company.
+         */
+        public Builder tags(Optional<? extends Map<String, String>> tags) {
+            Utils.checkNotNull(tags, "tags");
+            this.tags = tags;
+            return this;
+        }
         
         public CompanyReference build() {
             return new CompanyReference(
                 description,
                 id,
-                name);
+                links,
+                name,
+                tags);
         }
     }
 }

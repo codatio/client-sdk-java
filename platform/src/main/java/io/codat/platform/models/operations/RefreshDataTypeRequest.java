@@ -31,7 +31,7 @@ public class RefreshDataTypeRequest {
     private Optional<String> connectionId;
 
     /**
-     * The key of a Codat data type
+     * The key of a Codat data type.
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=dataType")
     private SchemaDataType dataType;
@@ -72,7 +72,7 @@ public class RefreshDataTypeRequest {
     }
 
     /**
-     * The key of a Codat data type
+     * The key of a Codat data type.
      */
     @JsonIgnore
     public SchemaDataType dataType() {
@@ -111,7 +111,7 @@ public class RefreshDataTypeRequest {
     }
 
     /**
-     * The key of a Codat data type
+     * The key of a Codat data type.
      */
     public RefreshDataTypeRequest withDataType(SchemaDataType dataType) {
         Utils.checkNotNull(dataType, "dataType");
@@ -190,7 +190,7 @@ public class RefreshDataTypeRequest {
         }
 
         /**
-         * The key of a Codat data type
+         * The key of a Codat data type.
          */
         public Builder dataType(SchemaDataType dataType) {
             Utils.checkNotNull(dataType, "dataType");

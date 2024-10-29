@@ -7,7 +7,7 @@ package io.codat.platform.models.operations;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.codat.platform.models.errors.ErrorMessage;
+import io.codat.platform.models.shared.ErrorMessage;
 import io.codat.platform.utils.Response;
 import io.codat.platform.utils.Utils;
 import java.io.InputStream;

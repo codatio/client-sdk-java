@@ -19,19 +19,19 @@ public class DeleteWebhookConsumerRequestBuilder {
         this.sdk = sdk;
     }
 
-    public DeleteWebhookConsumerRequestBuilder request(io.codat.platform.models.operations.DeleteWebhookConsumerRequest request) {
+    public DeleteWebhookConsumerRequestBuilder request(DeleteWebhookConsumerRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public DeleteWebhookConsumerRequestBuilder retryConfig(io.codat.platform.utils.RetryConfig retryConfig) {
+    public DeleteWebhookConsumerRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public DeleteWebhookConsumerRequestBuilder retryConfig(java.util.Optional<io.codat.platform.utils.RetryConfig> retryConfig) {
+    public DeleteWebhookConsumerRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

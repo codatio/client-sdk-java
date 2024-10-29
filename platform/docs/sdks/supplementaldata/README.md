@@ -25,47 +25,46 @@ See the *examples* for integration-specific frequently requested properties.
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.ConfigureSupplementalDataRequest;
 import io.codat.platform.models.operations.ConfigureSupplementalDataResponse;
 import io.codat.platform.models.operations.DataType;
 import io.codat.platform.models.shared.Security;
 import io.codat.platform.models.shared.SupplementalDataConfiguration;
+import io.codat.platform.models.shared.SupplementalDataSourceConfiguration;
 import java.lang.Exception;
+import java.util.Map;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            ConfigureSupplementalDataRequest req = ConfigureSupplementalDataRequest.builder()
+        ConfigureSupplementalDataRequest req = ConfigureSupplementalDataRequest.builder()
                 .dataType(DataType.INVOICES)
                 .platformKey("gbol")
                 .supplementalDataConfiguration(SupplementalDataConfiguration.builder()
+                    .supplementalDataConfig(Map.ofEntries(
+                        Map.entry("orders-supplemental-data", SupplementalDataSourceConfiguration.builder()
+                            .dataSource("/orders")
+                            .pullData(Map.ofEntries(
+                                Map.entry("orderNumber", "order_num")))
+                            .pushData(Map.ofEntries(
+                                Map.entry("orderNumber", "order_num")))
+                            .build())))
                     .build())
                 .build();
 
-            ConfigureSupplementalDataResponse res = sdk.supplementalData().configure()
+        ConfigureSupplementalDataResponse res = sdk.supplementalData().configure()
                 .request(req)
                 .call();
 
-            // handle response
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
-        }
-
+        // handle response
     }
 }
 ```
@@ -82,11 +81,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## getConfiguration
 
@@ -100,7 +98,7 @@ The *Get configuration* endpoint returns supplemental data configuration previou
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.GetSupplementalDataConfigurationRequest;
 import io.codat.platform.models.operations.GetSupplementalDataConfigurationResponse;
 import io.codat.platform.models.operations.PathParamDataType;
@@ -109,37 +107,26 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GetSupplementalDataConfigurationRequest req = GetSupplementalDataConfigurationRequest.builder()
+        GetSupplementalDataConfigurationRequest req = GetSupplementalDataConfigurationRequest.builder()
                 .dataType(PathParamDataType.INVOICES)
                 .platformKey("gbol")
                 .build();
 
-            GetSupplementalDataConfigurationResponse res = sdk.supplementalData().getConfiguration()
+        GetSupplementalDataConfigurationResponse res = sdk.supplementalData().getConfiguration()
                 .request(req)
                 .call();
 
-            if (res.supplementalDataConfiguration().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.supplementalDataConfiguration().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -156,7 +143,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |

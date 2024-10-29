@@ -18,13 +18,13 @@ public class ListApiKeysRequestBuilder {
         this.sdk = sdk;
     }
                 
-    public ListApiKeysRequestBuilder retryConfig(io.codat.platform.utils.RetryConfig retryConfig) {
+    public ListApiKeysRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public ListApiKeysRequestBuilder retryConfig(java.util.Optional<io.codat.platform.utils.RetryConfig> retryConfig) {
+    public ListApiKeysRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

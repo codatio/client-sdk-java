@@ -18,13 +18,13 @@ public class ListWebhookConsumersRequestBuilder {
         this.sdk = sdk;
     }
                 
-    public ListWebhookConsumersRequestBuilder retryConfig(io.codat.platform.utils.RetryConfig retryConfig) {
+    public ListWebhookConsumersRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public ListWebhookConsumersRequestBuilder retryConfig(java.util.Optional<io.codat.platform.utils.RetryConfig> retryConfig) {
+    public ListWebhookConsumersRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

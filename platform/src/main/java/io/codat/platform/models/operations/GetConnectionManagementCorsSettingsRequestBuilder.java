@@ -18,13 +18,13 @@ public class GetConnectionManagementCorsSettingsRequestBuilder {
         this.sdk = sdk;
     }
                 
-    public GetConnectionManagementCorsSettingsRequestBuilder retryConfig(io.codat.platform.utils.RetryConfig retryConfig) {
+    public GetConnectionManagementCorsSettingsRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetConnectionManagementCorsSettingsRequestBuilder retryConfig(java.util.Optional<io.codat.platform.utils.RetryConfig> retryConfig) {
+    public GetConnectionManagementCorsSettingsRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

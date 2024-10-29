@@ -32,7 +32,7 @@ public class DataStatus {
      * Available data types
      */
     @JsonProperty("dataType")
-    private DataTypes dataType;
+    private DataStatusDataTypes dataType;
 
     /**
      * In Codat's data model, dates and times are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date and time fields are formatted as strings; for example:
@@ -75,7 +75,7 @@ public class DataStatus {
     @JsonCreator
     public DataStatus(
             @JsonProperty("currentStatus") Status currentStatus,
-            @JsonProperty("dataType") DataTypes dataType,
+            @JsonProperty("dataType") DataStatusDataTypes dataType,
             @JsonProperty("lastSuccessfulSync") String lastSuccessfulSync,
             @JsonProperty("latestSuccessfulSyncId") Optional<String> latestSuccessfulSyncId,
             @JsonProperty("latestSyncId") Optional<String> latestSyncId) {
@@ -93,7 +93,7 @@ public class DataStatus {
     
     public DataStatus(
             Status currentStatus,
-            DataTypes dataType,
+            DataStatusDataTypes dataType,
             String lastSuccessfulSync) {
         this(currentStatus, dataType, lastSuccessfulSync, Optional.empty(), Optional.empty());
     }
@@ -110,7 +110,7 @@ public class DataStatus {
      * Available data types
      */
     @JsonIgnore
-    public DataTypes dataType() {
+    public DataStatusDataTypes dataType() {
         return dataType;
     }
 
@@ -172,7 +172,7 @@ public class DataStatus {
     /**
      * Available data types
      */
-    public DataStatus withDataType(DataTypes dataType) {
+    public DataStatus withDataType(DataStatusDataTypes dataType) {
         Utils.checkNotNull(dataType, "dataType");
         this.dataType = dataType;
         return this;
@@ -282,7 +282,7 @@ public class DataStatus {
  
         private Status currentStatus;
  
-        private DataTypes dataType;
+        private DataStatusDataTypes dataType;
  
         private String lastSuccessfulSync;
  
@@ -306,7 +306,7 @@ public class DataStatus {
         /**
          * Available data types
          */
-        public Builder dataType(DataTypes dataType) {
+        public Builder dataType(DataStatusDataTypes dataType) {
             Utils.checkNotNull(dataType, "dataType");
             this.dataType = dataType;
             return this;

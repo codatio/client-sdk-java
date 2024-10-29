@@ -18,13 +18,13 @@ public class GetProfileRequestBuilder {
         this.sdk = sdk;
     }
                 
-    public GetProfileRequestBuilder retryConfig(io.codat.platform.utils.RetryConfig retryConfig) {
+    public GetProfileRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetProfileRequestBuilder retryConfig(java.util.Optional<io.codat.platform.utils.RetryConfig> retryConfig) {
+    public GetProfileRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

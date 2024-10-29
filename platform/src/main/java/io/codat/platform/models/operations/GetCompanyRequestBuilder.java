@@ -19,19 +19,19 @@ public class GetCompanyRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetCompanyRequestBuilder request(io.codat.platform.models.operations.GetCompanyRequest request) {
+    public GetCompanyRequestBuilder request(GetCompanyRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetCompanyRequestBuilder retryConfig(io.codat.platform.utils.RetryConfig retryConfig) {
+    public GetCompanyRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetCompanyRequestBuilder retryConfig(java.util.Optional<io.codat.platform.utils.RetryConfig> retryConfig) {
+    public GetCompanyRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

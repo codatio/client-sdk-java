@@ -79,3 +79,13 @@ Based on:
 - [java v0.5.0] platform
 ### Releases
 - [Maven Central v0.5.0] https://central.sonatype.com/artifact/io.codat/platform/0.5.0 - platform
+
+## 2024-10-29 19:32:31
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.423.1 (2.442.11) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [java v1.0.0] platform
+### Releases
+- [Maven Central v1.0.0] https://central.sonatype.com/artifact/io.codat/platform/1.0.0 - platform

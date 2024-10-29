@@ -20,25 +20,25 @@ public class CreateWebhookConsumerRequestBuilder {
         this.sdk = sdk;
     }
                 
-    public CreateWebhookConsumerRequestBuilder request(io.codat.platform.models.shared.WebhookConsumerPrototype request) {
+    public CreateWebhookConsumerRequestBuilder request(WebhookConsumerPrototype request) {
         Utils.checkNotNull(request, "request");
         this.request = Optional.of(request);
         return this;
     }
 
-    public CreateWebhookConsumerRequestBuilder request(java.util.Optional<? extends io.codat.platform.models.shared.WebhookConsumerPrototype> request) {
+    public CreateWebhookConsumerRequestBuilder request(Optional<? extends WebhookConsumerPrototype> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public CreateWebhookConsumerRequestBuilder retryConfig(io.codat.platform.utils.RetryConfig retryConfig) {
+    public CreateWebhookConsumerRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public CreateWebhookConsumerRequestBuilder retryConfig(java.util.Optional<io.codat.platform.utils.RetryConfig> retryConfig) {
+    public CreateWebhookConsumerRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

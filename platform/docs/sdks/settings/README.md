@@ -35,7 +35,7 @@ You can [read more](https://docs.codat.io/using-the-api/authentication) about au
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.CreateApiKeyResponse;
 import io.codat.platform.models.shared.CreateApiKey;
 import io.codat.platform.models.shared.Security;
@@ -43,36 +43,25 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            CreateApiKey req = CreateApiKey.builder()
+        CreateApiKey req = CreateApiKey.builder()
                 .name("azure-invoice-finance-processor")
                 .build();
 
-            CreateApiKeyResponse res = sdk.settings().createApiKey()
+        CreateApiKeyResponse res = sdk.settings().createApiKey()
                 .request(req)
                 .call();
 
-            if (res.apiKeyDetails().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.apiKeyDetails().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -89,11 +78,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,409,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 409, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## deleteApiKey
 
@@ -114,7 +102,7 @@ You can [read more](https://docs.codat.io/using-the-api/authentication) about au
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.DeleteApiKeyRequest;
 import io.codat.platform.models.operations.DeleteApiKeyResponse;
 import io.codat.platform.models.shared.Security;
@@ -122,36 +110,25 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            DeleteApiKeyRequest req = DeleteApiKeyRequest.builder()
+        DeleteApiKeyRequest req = DeleteApiKeyRequest.builder()
                 .apiKeyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .build();
 
-            DeleteApiKeyResponse res = sdk.settings().deleteApiKey()
+        DeleteApiKeyResponse res = sdk.settings().deleteApiKey()
                 .request(req)
                 .call();
 
-            if (res.errorMessage().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.errorMessage().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -168,11 +145,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## getProfile
 
@@ -184,38 +160,27 @@ Fetch your Codat profile.
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.GetProfileResponse;
 import io.codat.platform.models.shared.Security;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GetProfileResponse res = sdk.settings().getProfile()
+        GetProfileResponse res = sdk.settings().getProfile()
                 .call();
 
-            if (res.profile().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.profile().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -226,11 +191,10 @@ public class Application {
 
 ### Errors
 
-| Error Object               | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| models/errors/ErrorMessage | 401,402,403,429,500,503    | application/json           |
-| models/errors/SDKError     | 4xx-5xx                    | \*\/*                      |
-
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| models/errors/ErrorMessage   | 401, 402, 403, 429, 500, 503 | application/json             |
+| models/errors/SDKError       | 4XX, 5XX                     | \*/\*                        |
 
 ## getSyncSettings
 
@@ -242,38 +206,27 @@ Retrieve the [sync settings](https://docs.codat.io/knowledge-base/advanced-sync-
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.GetProfileSyncSettingsResponse;
 import io.codat.platform.models.shared.Security;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GetProfileSyncSettingsResponse res = sdk.settings().getSyncSettings()
+        GetProfileSyncSettingsResponse res = sdk.settings().getSyncSettings()
                 .call();
 
-            if (res.syncSettings().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.syncSettings().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -284,11 +237,10 @@ public class Application {
 
 ### Errors
 
-| Error Object               | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| models/errors/ErrorMessage | 401,402,403,429,500,503    | application/json           |
-| models/errors/SDKError     | 4xx-5xx                    | \*\/*                      |
-
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| models/errors/ErrorMessage   | 401, 402, 403, 429, 500, 503 | application/json             |
+| models/errors/SDKError       | 4XX, 5XX                     | \*/\*                        |
 
 ## listApiKeys
 
@@ -304,38 +256,27 @@ You can [read more](https://docs.codat.io/using-the-api/authentication) about au
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.ListApiKeysResponse;
 import io.codat.platform.models.shared.Security;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            ListApiKeysResponse res = sdk.settings().listApiKeys()
+        ListApiKeysResponse res = sdk.settings().listApiKeys()
                 .call();
 
-            if (res.apiKeys().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.apiKeys().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -346,11 +287,10 @@ public class Application {
 
 ### Errors
 
-| Error Object               | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| models/errors/ErrorMessage | 401,402,403,429,500,503    | application/json           |
-| models/errors/SDKError     | 4xx-5xx                    | \*\/*                      |
-
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| models/errors/ErrorMessage   | 401, 402, 403, 429, 500, 503 | application/json             |
+| models/errors/SDKError       | 4XX, 5XX                     | \*/\*                        |
 
 ## updateProfile
 
@@ -362,7 +302,7 @@ Update your Codat profile
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.UpdateProfileResponse;
 import io.codat.platform.models.shared.Profile;
 import io.codat.platform.models.shared.Security;
@@ -371,42 +311,33 @@ import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            Profile req = Profile.builder()
+        Profile req = Profile.builder()
                 .name("Bob's Burgers")
                 .redirectUrl("https://bobs-burgers.{countrySuffix}/{companyId}")
                 .alertAuthHeader("Bearer tXEiHiRK7XCtI8TNHbpGs1LI1pumdb4Cl1QIo7B2")
+                .confirmCompanyName(true)
                 .iconUrl("https://client-images.codat.io/icon/042399f5-d104-4f38-9ce8-cac3524f4e88_3f5623af-d992-4c22-bc08-e58c520a8526.ico")
                 .logoUrl("https://client-images.codat.io/logo/042399f5-d104-4f38-9ce8-cac3524f4e88_5806cb1f-7342-4c0e-a0a8-99bfbc47b0ff.png")
                 .whiteListUrls(List.of(
-                    "https://bobs-burgers.com"))
+                    "https://bobs-burgers.com",
+                    "https://bobs-burgers.co.uk"))
                 .build();
 
-            UpdateProfileResponse res = sdk.settings().updateProfile()
+        UpdateProfileResponse res = sdk.settings().updateProfile()
                 .request(req)
                 .call();
 
-            if (res.profile().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.profile().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -423,11 +354,10 @@ public class Application {
 
 ### Errors
 
-| Error Object               | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| models/errors/ErrorMessage | 401,402,403,429,500,503    | application/json           |
-| models/errors/SDKError     | 4xx-5xx                    | \*\/*                      |
-
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| models/errors/ErrorMessage   | 401, 402, 403, 429, 500, 503 | application/json             |
+| models/errors/SDKError       | 4XX, 5XX                     | \*/\*                        |
 
 ## updateSyncSettings
 
@@ -439,7 +369,7 @@ Update sync settings for all data types.
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.UpdateProfileSyncSettingsRequestBody;
 import io.codat.platform.models.operations.UpdateProfileSyncSettingsResponse;
 import io.codat.platform.models.shared.DataType;
@@ -450,44 +380,34 @@ import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            UpdateProfileSyncSettingsRequestBody req = UpdateProfileSyncSettingsRequestBody.builder()
-                .clientId("ce429104-79f0-4085-a720-e2d40fcc800f")
+        UpdateProfileSyncSettingsRequestBody req = UpdateProfileSyncSettingsRequestBody.builder()
+                .clientId("c4907f05-7024-4fc0-bf55-4785be5c9671")
                 .settings(List.of(
                     SyncSetting.builder()
                         .dataType(DataType.INVOICES)
                         .fetchOnFirstLink(false)
-                        .syncOrder(747860L)
+                        .syncOrder(721380L)
                         .syncSchedule(24L)
+                        .isLocked(true)
                         .monthsToSync(24L)
-                        .syncFromUtc("2022-10-23T00:00:00Z")
+                        .syncFromUtc("2020-01-01T12:00:00.000Z")
                         .syncFromWindow(24L)
                         .build()))
                 .build();
 
-            UpdateProfileSyncSettingsResponse res = sdk.settings().updateSyncSettings()
+        UpdateProfileSyncSettingsResponse res = sdk.settings().updateSyncSettings()
                 .request(req)
                 .call();
 
-            // handle response
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
-        }
-
+        // handle response
     }
 }
 ```
@@ -504,7 +424,7 @@ public class Application {
 
 ### Errors
 
-| Error Object               | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| models/errors/ErrorMessage | 401,402,403,429,500,503    | application/json           |
-| models/errors/SDKError     | 4xx-5xx                    | \*\/*                      |
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| models/errors/ErrorMessage   | 401, 402, 403, 429, 500, 503 | application/json             |
+| models/errors/SDKError       | 4XX, 5XX                     | \*/\*                        |

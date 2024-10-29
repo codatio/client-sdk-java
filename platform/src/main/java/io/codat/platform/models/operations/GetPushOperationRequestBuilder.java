@@ -19,19 +19,19 @@ public class GetPushOperationRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetPushOperationRequestBuilder request(io.codat.platform.models.operations.GetPushOperationRequest request) {
+    public GetPushOperationRequestBuilder request(GetPushOperationRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetPushOperationRequestBuilder retryConfig(io.codat.platform.utils.RetryConfig retryConfig) {
+    public GetPushOperationRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetPushOperationRequestBuilder retryConfig(java.util.Optional<io.codat.platform.utils.RetryConfig> retryConfig) {
+    public GetPushOperationRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;
