@@ -23,7 +23,7 @@ import org.openapitools.jackson.nullable.JsonNullable;
 public class CreateBankAccountResponse implements Response {
 
     /**
-     * Success
+     * Created
      */
     private JsonNullable<? extends BankAccount> bankAccount;
 
@@ -66,7 +66,7 @@ public class CreateBankAccountResponse implements Response {
     }
 
     /**
-     * Success
+     * Created
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -103,7 +103,7 @@ public class CreateBankAccountResponse implements Response {
     }
 
     /**
-     * Success
+     * Created
      */
     public CreateBankAccountResponse withBankAccount(BankAccount bankAccount) {
         Utils.checkNotNull(bankAccount, "bankAccount");
@@ -112,7 +112,7 @@ public class CreateBankAccountResponse implements Response {
     }
 
     /**
-     * Success
+     * Created
      */
     public CreateBankAccountResponse withBankAccount(JsonNullable<? extends BankAccount> bankAccount) {
         Utils.checkNotNull(bankAccount, "bankAccount");
@@ -196,7 +196,7 @@ public class CreateBankAccountResponse implements Response {
         }
 
         /**
-         * Success
+         * Created
          */
         public Builder bankAccount(BankAccount bankAccount) {
             Utils.checkNotNull(bankAccount, "bankAccount");
@@ -205,7 +205,7 @@ public class CreateBankAccountResponse implements Response {
         }
 
         /**
-         * Success
+         * Created
          */
         public Builder bankAccount(JsonNullable<? extends BankAccount> bankAccount) {
             Utils.checkNotNull(bankAccount, "bankAccount");

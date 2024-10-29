@@ -1,4 +1,4 @@
-speakeasyVersion: 1.405.10
+speakeasyVersion: 1.423.1
 sources:
     accounting-source:
         sourceNamespace: accounting-source
@@ -51,8 +51,8 @@ sources:
             - main
     sync-for-payables-source:
         sourceNamespace: sync-for-payables-source
-        sourceRevisionDigest: sha256:e0fc4e3f10a69698af316fea9ae50e22390e846326a54bd7688d1921408df711
-        sourceBlobDigest: sha256:b2999b2b9b935bfc647fe90125f27429ceca251baba134fe2e1b28ee05204eb6
+        sourceRevisionDigest: sha256:779d37cac16c94d4dfa418bfd8c87c6e4c701c055be9298fba7eed6a5943e145
+        sourceBlobDigest: sha256:f16cfaff947469b23c5b6017dd1069909876cdb15b2ab4ed49cbf9c272a1896b
         tags:
             - latest
             - main
@@ -102,8 +102,8 @@ targets:
     sync-for-payables-library:
         source: sync-for-payables-source
         sourceNamespace: sync-for-payables-source
-        sourceRevisionDigest: sha256:e0fc4e3f10a69698af316fea9ae50e22390e846326a54bd7688d1921408df711
-        sourceBlobDigest: sha256:b2999b2b9b935bfc647fe90125f27429ceca251baba134fe2e1b28ee05204eb6
+        sourceRevisionDigest: sha256:779d37cac16c94d4dfa418bfd8c87c6e4c701c055be9298fba7eed6a5943e145
+        sourceBlobDigest: sha256:f16cfaff947469b23c5b6017dd1069909876cdb15b2ab4ed49cbf9c272a1896b
     sync-for-payroll-library:
         source: sync-for-payroll-source
         sourceNamespace: sync-for-payroll-source
@@ -169,6 +169,10 @@ workflow:
                     ossrhPassword: $ossrh_password
                     gpgSecretKey: $java_gpg_secret_key
                     gpgPassPhrase: $java_gpg_passphrase
+            codeSamples:
+                registry:
+                    location: registry.speakeasyapi.dev/codat/codat/accounting-source-code-samples
+                blocking: false
         bank-feeds-library:
             target: java
             source: bank-feeds-source
@@ -179,6 +183,10 @@ workflow:
                     ossrhPassword: $ossrh_password
                     gpgSecretKey: $java_gpg_secret_key
                     gpgPassPhrase: $java_gpg_passphrase
+            codeSamples:
+                registry:
+                    location: registry.speakeasyapi.dev/codat/codat/bank-feeds-source-code-samples
+                blocking: false
         banking-library:
             target: java
             source: banking-source
@@ -189,6 +197,10 @@ workflow:
                     ossrhPassword: $ossrh_password
                     gpgSecretKey: $java_gpg_secret_key
                     gpgPassPhrase: $java_gpg_passphrase
+            codeSamples:
+                registry:
+                    location: registry.speakeasyapi.dev/codat/codat/banking-source-code-samples
+                blocking: false
         lending-library:
             target: java
             source: lending-source
@@ -199,6 +211,10 @@ workflow:
                     ossrhPassword: $ossrh_password
                     gpgSecretKey: $java_gpg_secret_key
                     gpgPassPhrase: $java_gpg_passphrase
+            codeSamples:
+                registry:
+                    location: registry.speakeasyapi.dev/codat/codat/lending-source-code-samples
+                blocking: false
         platform-library:
             target: java
             source: platform-source
@@ -209,6 +225,10 @@ workflow:
                     ossrhPassword: $ossrh_password
                     gpgSecretKey: $java_gpg_secret_key
                     gpgPassPhrase: $java_gpg_passphrase
+            codeSamples:
+                registry:
+                    location: registry.speakeasyapi.dev/codat/codat/platform-source-code-samples
+                blocking: false
         sync-for-commerce-library:
             target: java
             source: sync-for-commerce-source
@@ -219,6 +239,10 @@ workflow:
                     ossrhPassword: $ossrh_password
                     gpgSecretKey: $java_gpg_secret_key
                     gpgPassPhrase: $java_gpg_passphrase
+            codeSamples:
+                registry:
+                    location: registry.speakeasyapi.dev/codat/codat/sync-for-commerce-source-code-samples
+                blocking: false
         sync-for-expenses-library:
             target: java
             source: sync-for-expenses-source
@@ -229,6 +253,10 @@ workflow:
                     ossrhPassword: $ossrh_password
                     gpgSecretKey: $java_gpg_secret_key
                     gpgPassPhrase: $java_gpg_passphrase
+            codeSamples:
+                registry:
+                    location: registry.speakeasyapi.dev/codat/codat/sync-for-expenses-source-code-samples
+                blocking: false
         sync-for-payables-library:
             target: java
             source: sync-for-payables-source
@@ -239,6 +267,10 @@ workflow:
                     ossrhPassword: $ossrh_password
                     gpgSecretKey: $java_gpg_secret_key
                     gpgPassPhrase: $java_gpg_passphrase
+            codeSamples:
+                registry:
+                    location: registry.speakeasyapi.dev/codat/codat/sync-for-payables-source-code-samples
+                blocking: false
         sync-for-payroll-library:
             target: java
             source: sync-for-payroll-source
@@ -249,3 +281,7 @@ workflow:
                     ossrhPassword: $ossrh_password
                     gpgSecretKey: $java_gpg_secret_key
                     gpgPassPhrase: $java_gpg_passphrase
+            codeSamples:
+                registry:
+                    location: registry.speakeasyapi.dev/codat/codat/sync-for-payroll-source-code-samples
+                blocking: false

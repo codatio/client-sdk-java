@@ -51,8 +51,9 @@ public class BillLineItem {
     /**
      * Reference to the tax rate to which the line item is linked.
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("taxRateRef")
-    private BillTaxRateRef taxRateRef;
+    private Optional<? extends BillTaxRateRef> taxRateRef;
 
     /**
      * Total amount of the line, including tax.
@@ -73,7 +74,7 @@ public class BillLineItem {
             @JsonProperty("description") JsonNullable<String> description,
             @JsonProperty("quantity") BigDecimal quantity,
             @JsonProperty("taxAmount") Optional<? extends BigDecimal> taxAmount,
-            @JsonProperty("taxRateRef") BillTaxRateRef taxRateRef,
+            @JsonProperty("taxRateRef") Optional<? extends BillTaxRateRef> taxRateRef,
             @JsonProperty("totalAmount") JsonNullable<? extends BigDecimal> totalAmount,
             @JsonProperty("unitAmount") BigDecimal unitAmount) {
         Utils.checkNotNull(accountRef, "accountRef");
@@ -95,9 +96,8 @@ public class BillLineItem {
     public BillLineItem(
             BillAccountRef accountRef,
             BigDecimal quantity,
-            BillTaxRateRef taxRateRef,
             BigDecimal unitAmount) {
-        this(accountRef, JsonNullable.undefined(), quantity, Optional.empty(), taxRateRef, JsonNullable.undefined(), unitAmount);
+        this(accountRef, JsonNullable.undefined(), quantity, Optional.empty(), Optional.empty(), JsonNullable.undefined(), unitAmount);
     }
 
     /**
@@ -136,9 +136,10 @@ public class BillLineItem {
     /**
      * Reference to the tax rate to which the line item is linked.
      */
+    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public BillTaxRateRef taxRateRef() {
-        return taxRateRef;
+    public Optional<BillTaxRateRef> taxRateRef() {
+        return (Optional<BillTaxRateRef>) taxRateRef;
     }
 
     /**
@@ -236,6 +237,15 @@ public class BillLineItem {
      * Reference to the tax rate to which the line item is linked.
      */
     public BillLineItem withTaxRateRef(BillTaxRateRef taxRateRef) {
+        Utils.checkNotNull(taxRateRef, "taxRateRef");
+        this.taxRateRef = Optional.ofNullable(taxRateRef);
+        return this;
+    }
+
+    /**
+     * Reference to the tax rate to which the line item is linked.
+     */
+    public BillLineItem withTaxRateRef(Optional<? extends BillTaxRateRef> taxRateRef) {
         Utils.checkNotNull(taxRateRef, "taxRateRef");
         this.taxRateRef = taxRateRef;
         return this;
@@ -337,7 +347,7 @@ public class BillLineItem {
  
         private Optional<? extends BigDecimal> taxAmount = Optional.empty();
  
-        private BillTaxRateRef taxRateRef;
+        private Optional<? extends BillTaxRateRef> taxRateRef = Optional.empty();
  
         private JsonNullable<? extends BigDecimal> totalAmount = JsonNullable.undefined();
  
@@ -421,6 +431,15 @@ public class BillLineItem {
          * Reference to the tax rate to which the line item is linked.
          */
         public Builder taxRateRef(BillTaxRateRef taxRateRef) {
+            Utils.checkNotNull(taxRateRef, "taxRateRef");
+            this.taxRateRef = Optional.ofNullable(taxRateRef);
+            return this;
+        }
+
+        /**
+         * Reference to the tax rate to which the line item is linked.
+         */
+        public Builder taxRateRef(Optional<? extends BillTaxRateRef> taxRateRef) {
             Utils.checkNotNull(taxRateRef, "taxRateRef");
             this.taxRateRef = taxRateRef;
             return this;

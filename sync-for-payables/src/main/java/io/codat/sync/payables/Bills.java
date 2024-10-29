@@ -213,7 +213,7 @@ public class Bills implements
 
         CreateBillResponse _res = _resBuilder.build();
         
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "201")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 Bill _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
@@ -1128,7 +1128,7 @@ public class Bills implements
 
         UploadBillAttachmentResponse _res = _resBuilder.build();
         
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "201")) {
             // no content 
             return _res;
         }

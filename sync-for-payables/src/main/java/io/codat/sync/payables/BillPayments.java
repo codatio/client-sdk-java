@@ -195,7 +195,7 @@ public class BillPayments implements
 
         CreateBillPaymentResponse _res = _resBuilder.build();
         
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "201")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 BillPayment _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),

@@ -14,6 +14,16 @@ The bill pay kit is an API and a set of supporting tools designed to integrate a
 [Explore product](https://docs.codat.io/payables/bill-pay-kit) | [See OpenAPI spec](https://github.com/codatio/oas)
 
 ---
+## Supported Integrations
+
+| Integration                   | Supported |
+|-------------------------------|-----------|
+| FreeAgent                     | Yes       |
+| QuickBooks Online             | Yes       |
+| Oracle NetSuite               | Yes       |
+| Xero                          | Yes       |
+
+---
 <!-- Start Codat Tags Table -->
 ## Endpoints
 
@@ -52,7 +62,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'io.codat:sync.payables:1.0.0'
+implementation 'io.codat:sync.payables:2.0.0'
 ```
 
 Maven:
@@ -60,7 +70,7 @@ Maven:
 <dependency>
     <groupId>io.codat</groupId>
     <artifactId>sync.payables</artifactId>
-    <version>1.0.0</version>
+    <version>2.0.0</version>
 </dependency>
 ```
 

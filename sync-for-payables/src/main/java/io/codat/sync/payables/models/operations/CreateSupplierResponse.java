@@ -38,7 +38,7 @@ public class CreateSupplierResponse implements Response {
     private HttpResponse<InputStream> rawResponse;
 
     /**
-     * Success
+     * Created
      */
     private Optional<? extends Supplier> supplier;
 
@@ -90,7 +90,7 @@ public class CreateSupplierResponse implements Response {
     }
 
     /**
-     * Success
+     * Created
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -130,7 +130,7 @@ public class CreateSupplierResponse implements Response {
     }
 
     /**
-     * Success
+     * Created
      */
     public CreateSupplierResponse withSupplier(Supplier supplier) {
         Utils.checkNotNull(supplier, "supplier");
@@ -139,7 +139,7 @@ public class CreateSupplierResponse implements Response {
     }
 
     /**
-     * Success
+     * Created
      */
     public CreateSupplierResponse withSupplier(Optional<? extends Supplier> supplier) {
         Utils.checkNotNull(supplier, "supplier");
@@ -223,7 +223,7 @@ public class CreateSupplierResponse implements Response {
         }
 
         /**
-         * Success
+         * Created
          */
         public Builder supplier(Supplier supplier) {
             Utils.checkNotNull(supplier, "supplier");
@@ -232,7 +232,7 @@ public class CreateSupplierResponse implements Response {
         }
 
         /**
-         * Success
+         * Created
          */
         public Builder supplier(Optional<? extends Supplier> supplier) {
             Utils.checkNotNull(supplier, "supplier");

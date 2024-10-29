@@ -21,6 +21,7 @@ import org.openapitools.jackson.nullable.JsonNullable;
 /**
  * ErrorMessage - Your `query` parameter was not correctly formed
  */
+@SuppressWarnings("serial")
 public class ErrorMessage extends RuntimeException {
 
     /**
