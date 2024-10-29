@@ -32,48 +32,52 @@ A [custom data type](https://docs.codat.io/using-the-api/custom-data) is an addi
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.ConfigureCustomDataTypeRequest;
 import io.codat.platform.models.operations.ConfigureCustomDataTypeResponse;
 import io.codat.platform.models.shared.CustomDataTypeConfiguration;
 import io.codat.platform.models.shared.Security;
 import java.lang.Exception;
+import java.util.List;
+import java.util.Map;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            ConfigureCustomDataTypeRequest req = ConfigureCustomDataTypeRequest.builder()
+        ConfigureCustomDataTypeRequest req = ConfigureCustomDataTypeRequest.builder()
                 .customDataIdentifier("DynamicsPurchaseOrders")
                 .platformKey("gbol")
                 .customDataTypeConfiguration(CustomDataTypeConfiguration.builder()
+                    .dataSource("api/purchaseOrders?$filter=currencyCode eq 'NOK'")
+                    .keyBy(List.of(
+                        "$[*].id"))
+                    .requiredData(Map.ofEntries(
+                        Map.entry("currencyCode", "$[*].currencyCode"),
+                        Map.entry("id", "$[*].id"),
+                        Map.entry("number", "$[*].number"),
+                        Map.entry("orderDate", "$[*].orderDate"),
+                        Map.entry("totalAmountExcludingTax", "$[*].totalAmountExcludingTax"),
+                        Map.entry("totalTaxAmount", "$[*].totalTaxAmount"),
+                        Map.entry("vendorName", "$[*].number")))
+                    .sourceModifiedDate(List.of(
+                        "$[*].lastModifiedDateTime"))
                     .build())
                 .build();
 
-            ConfigureCustomDataTypeResponse res = sdk.customDataType().configure()
+        ConfigureCustomDataTypeResponse res = sdk.customDataType().configure()
                 .request(req)
                 .call();
 
-            if (res.customDataTypeConfiguration().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.customDataTypeConfiguration().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -90,11 +94,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## getConfiguration
 
@@ -108,7 +111,7 @@ A [custom data type](https://docs.codat.io/using-the-api/custom-data) is an addi
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.GetCustomDataTypeConfigurationRequest;
 import io.codat.platform.models.operations.GetCustomDataTypeConfigurationResponse;
 import io.codat.platform.models.shared.Security;
@@ -116,37 +119,26 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GetCustomDataTypeConfigurationRequest req = GetCustomDataTypeConfigurationRequest.builder()
+        GetCustomDataTypeConfigurationRequest req = GetCustomDataTypeConfigurationRequest.builder()
                 .customDataIdentifier("DynamicsPurchaseOrders")
                 .platformKey("gbol")
                 .build();
 
-            GetCustomDataTypeConfigurationResponse res = sdk.customDataType().getConfiguration()
+        GetCustomDataTypeConfigurationResponse res = sdk.customDataType().getConfiguration()
                 .request(req)
                 .call();
 
-            if (res.customDataTypeRecords().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.customDataTypeRecords().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -163,11 +155,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## list
 
@@ -181,7 +172,7 @@ A [custom data type](https://docs.codat.io/using-the-api/custom-data) is an addi
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.ListCustomDataTypeRecordsRequest;
 import io.codat.platform.models.operations.ListCustomDataTypeRecordsResponse;
 import io.codat.platform.models.shared.Security;
@@ -189,15 +180,15 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            ListCustomDataTypeRecordsRequest req = ListCustomDataTypeRecordsRequest.builder()
+        ListCustomDataTypeRecordsRequest req = ListCustomDataTypeRecordsRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .customDataIdentifier("DynamicsPurchaseOrders")
@@ -205,24 +196,13 @@ public class Application {
                 .pageSize(100)
                 .build();
 
-            ListCustomDataTypeRecordsResponse res = sdk.customDataType().list()
+        ListCustomDataTypeRecordsResponse res = sdk.customDataType().list()
                 .request(req)
                 .call();
 
-            if (res.customDataTypeRecords().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.customDataTypeRecords().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -239,11 +219,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                        | Status Code                         | Content Type                        |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| models/errors/ErrorMessage          | 400,401,402,403,404,429,451,500,503 | application/json                    |
-| models/errors/SDKError              | 4xx-5xx                             | \*\/*                               |
-
+| Error Type                                  | Status Code                                 | Content Type                                |
+| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
+| models/errors/ErrorMessage                  | 400, 401, 402, 403, 404, 429, 451, 500, 503 | application/json                            |
+| models/errors/SDKError                      | 4XX, 5XX                                    | \*/\*                                       |
 
 ## refresh
 
@@ -255,7 +234,7 @@ The *Refresh custom data type* endpoint refreshes the specified custom data type
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.RefreshCustomDataTypeRequest;
 import io.codat.platform.models.operations.RefreshCustomDataTypeResponse;
 import io.codat.platform.models.shared.Security;
@@ -263,38 +242,27 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            RefreshCustomDataTypeRequest req = RefreshCustomDataTypeRequest.builder()
+        RefreshCustomDataTypeRequest req = RefreshCustomDataTypeRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .customDataIdentifier("DynamicsPurchaseOrders")
                 .build();
 
-            RefreshCustomDataTypeResponse res = sdk.customDataType().refresh()
+        RefreshCustomDataTypeResponse res = sdk.customDataType().refresh()
                 .request(req)
                 .call();
 
-            if (res.pullOperation().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.pullOperation().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -311,7 +279,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 401,402,403,404,429,451,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 401, 402, 403, 404, 429, 451, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |

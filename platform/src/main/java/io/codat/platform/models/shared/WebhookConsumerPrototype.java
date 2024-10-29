@@ -14,6 +14,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.utils.LazySingletonValue;
 import io.codat.platform.utils.Utils;
 import java.lang.Boolean;
+import java.lang.Deprecated;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
@@ -27,10 +28,19 @@ public class WebhookConsumerPrototype {
 
     /**
      * Unique identifier of the company to indicate company-specific events. The associated webhook consumer will receive events only for the specified ID.
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("companyId")
+    @Deprecated
     private JsonNullable<String> companyId;
+
+    /**
+     * Company tags provide an additional way to filter messages, independent of event types. Company tags are case-sensitive, and only messages from companies with matching tags will be sent to this endpoint. Use the format `tagKey:tagValue`.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("companyTags")
+    private Optional<? extends List<String>> companyTags;
 
     /**
      * Flag that enables or disables the endpoint from receiving events. Disabled when set to `true`.
@@ -56,29 +66,43 @@ public class WebhookConsumerPrototype {
     @JsonCreator
     public WebhookConsumerPrototype(
             @JsonProperty("companyId") JsonNullable<String> companyId,
+            @JsonProperty("companyTags") Optional<? extends List<String>> companyTags,
             @JsonProperty("disabled") JsonNullable<Boolean> disabled,
             @JsonProperty("eventTypes") Optional<? extends List<String>> eventTypes,
             @JsonProperty("url") Optional<String> url) {
         Utils.checkNotNull(companyId, "companyId");
+        Utils.checkNotNull(companyTags, "companyTags");
         Utils.checkNotNull(disabled, "disabled");
         Utils.checkNotNull(eventTypes, "eventTypes");
         Utils.checkNotNull(url, "url");
         this.companyId = companyId;
+        this.companyTags = companyTags;
         this.disabled = disabled;
         this.eventTypes = eventTypes;
         this.url = url;
     }
     
     public WebhookConsumerPrototype() {
-        this(JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty());
+        this(JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(), Optional.empty(), Optional.empty());
     }
 
     /**
      * Unique identifier of the company to indicate company-specific events. The associated webhook consumer will receive events only for the specified ID.
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     @JsonIgnore
     public JsonNullable<String> companyId() {
         return companyId;
+    }
+
+    /**
+     * Company tags provide an additional way to filter messages, independent of event types. Company tags are case-sensitive, and only messages from companies with matching tags will be sent to this endpoint. Use the format `tagKey:tagValue`.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<List<String>> companyTags() {
+        return (Optional<List<String>>) companyTags;
     }
 
     /**
@@ -112,7 +136,9 @@ public class WebhookConsumerPrototype {
 
     /**
      * Unique identifier of the company to indicate company-specific events. The associated webhook consumer will receive events only for the specified ID.
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public WebhookConsumerPrototype withCompanyId(String companyId) {
         Utils.checkNotNull(companyId, "companyId");
         this.companyId = JsonNullable.of(companyId);
@@ -121,10 +147,30 @@ public class WebhookConsumerPrototype {
 
     /**
      * Unique identifier of the company to indicate company-specific events. The associated webhook consumer will receive events only for the specified ID.
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public WebhookConsumerPrototype withCompanyId(JsonNullable<String> companyId) {
         Utils.checkNotNull(companyId, "companyId");
         this.companyId = companyId;
+        return this;
+    }
+
+    /**
+     * Company tags provide an additional way to filter messages, independent of event types. Company tags are case-sensitive, and only messages from companies with matching tags will be sent to this endpoint. Use the format `tagKey:tagValue`.
+     */
+    public WebhookConsumerPrototype withCompanyTags(List<String> companyTags) {
+        Utils.checkNotNull(companyTags, "companyTags");
+        this.companyTags = Optional.ofNullable(companyTags);
+        return this;
+    }
+
+    /**
+     * Company tags provide an additional way to filter messages, independent of event types. Company tags are case-sensitive, and only messages from companies with matching tags will be sent to this endpoint. Use the format `tagKey:tagValue`.
+     */
+    public WebhookConsumerPrototype withCompanyTags(Optional<? extends List<String>> companyTags) {
+        Utils.checkNotNull(companyTags, "companyTags");
+        this.companyTags = companyTags;
         return this;
     }
 
@@ -193,6 +239,7 @@ public class WebhookConsumerPrototype {
         WebhookConsumerPrototype other = (WebhookConsumerPrototype) o;
         return 
             Objects.deepEquals(this.companyId, other.companyId) &&
+            Objects.deepEquals(this.companyTags, other.companyTags) &&
             Objects.deepEquals(this.disabled, other.disabled) &&
             Objects.deepEquals(this.eventTypes, other.eventTypes) &&
             Objects.deepEquals(this.url, other.url);
@@ -202,6 +249,7 @@ public class WebhookConsumerPrototype {
     public int hashCode() {
         return Objects.hash(
             companyId,
+            companyTags,
             disabled,
             eventTypes,
             url);
@@ -211,6 +259,7 @@ public class WebhookConsumerPrototype {
     public String toString() {
         return Utils.toString(WebhookConsumerPrototype.class,
                 "companyId", companyId,
+                "companyTags", companyTags,
                 "disabled", disabled,
                 "eventTypes", eventTypes,
                 "url", url);
@@ -218,7 +267,10 @@ public class WebhookConsumerPrototype {
     
     public final static class Builder {
  
+        @Deprecated
         private JsonNullable<String> companyId = JsonNullable.undefined();
+ 
+        private Optional<? extends List<String>> companyTags = Optional.empty();
  
         private JsonNullable<Boolean> disabled;
  
@@ -232,7 +284,9 @@ public class WebhookConsumerPrototype {
 
         /**
          * Unique identifier of the company to indicate company-specific events. The associated webhook consumer will receive events only for the specified ID.
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
          */
+        @Deprecated
         public Builder companyId(String companyId) {
             Utils.checkNotNull(companyId, "companyId");
             this.companyId = JsonNullable.of(companyId);
@@ -241,10 +295,30 @@ public class WebhookConsumerPrototype {
 
         /**
          * Unique identifier of the company to indicate company-specific events. The associated webhook consumer will receive events only for the specified ID.
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
          */
+        @Deprecated
         public Builder companyId(JsonNullable<String> companyId) {
             Utils.checkNotNull(companyId, "companyId");
             this.companyId = companyId;
+            return this;
+        }
+
+        /**
+         * Company tags provide an additional way to filter messages, independent of event types. Company tags are case-sensitive, and only messages from companies with matching tags will be sent to this endpoint. Use the format `tagKey:tagValue`.
+         */
+        public Builder companyTags(List<String> companyTags) {
+            Utils.checkNotNull(companyTags, "companyTags");
+            this.companyTags = Optional.ofNullable(companyTags);
+            return this;
+        }
+
+        /**
+         * Company tags provide an additional way to filter messages, independent of event types. Company tags are case-sensitive, and only messages from companies with matching tags will be sent to this endpoint. Use the format `tagKey:tagValue`.
+         */
+        public Builder companyTags(Optional<? extends List<String>> companyTags) {
+            Utils.checkNotNull(companyTags, "companyTags");
+            this.companyTags = companyTags;
             return this;
         }
 
@@ -307,6 +381,7 @@ public class WebhookConsumerPrototype {
                 disabled = _SINGLETON_VALUE_Disabled.value();
             }            return new WebhookConsumerPrototype(
                 companyId,
+                companyTags,
                 disabled,
                 eventTypes,
                 url);

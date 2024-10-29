@@ -20,25 +20,25 @@ public class CreateRuleRequestBuilder {
         this.sdk = sdk;
     }
                 
-    public CreateRuleRequestBuilder request(io.codat.platform.models.shared.CreateRule request) {
+    public CreateRuleRequestBuilder request(CreateRule request) {
         Utils.checkNotNull(request, "request");
         this.request = Optional.of(request);
         return this;
     }
 
-    public CreateRuleRequestBuilder request(java.util.Optional<? extends io.codat.platform.models.shared.CreateRule> request) {
+    public CreateRuleRequestBuilder request(Optional<? extends CreateRule> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public CreateRuleRequestBuilder retryConfig(io.codat.platform.utils.RetryConfig retryConfig) {
+    public CreateRuleRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public CreateRuleRequestBuilder retryConfig(java.util.Optional<io.codat.platform.utils.RetryConfig> retryConfig) {
+    public CreateRuleRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

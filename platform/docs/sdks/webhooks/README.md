@@ -7,16 +7,18 @@ Create and manage webhooks that listen to Codat's events.
 
 ### Available Operations
 
-* [~~create~~](#create) - Create webhook :warning: **Deprecated**
+* [~~create~~](#create) - Create webhook (legacy) :warning: **Deprecated**
 * [createConsumer](#createconsumer) - Create webhook consumer
 * [deleteConsumer](#deleteconsumer) - Delete webhook consumer
-* [~~get~~](#get) - Get webhook :warning: **Deprecated**
-* [~~list~~](#list) - List webhooks :warning: **Deprecated**
+* [~~get~~](#get) - Get webhook (legacy) :warning: **Deprecated**
+* [~~list~~](#list) - List webhooks (legacy) :warning: **Deprecated**
 * [listConsumers](#listconsumers) - List webhook consumers
 
 ## ~~create~~
 
-Create a new webhook configuration
+Use the *Create webhooks (legacy)* endpoint to create a rule-based webhook for your client.
+
+**Note:** This endpoint has been deprecated. Please use the [*Create webhook consumer*](https://docs.codat.io/platform-api#/operations/create-webhook-consumer) endpoint to create a webhook moving forward.
 
 > :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
 
@@ -26,7 +28,7 @@ Create a new webhook configuration
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.CreateRuleResponse;
 import io.codat.platform.models.shared.CreateRule;
 import io.codat.platform.models.shared.Security;
@@ -36,42 +38,31 @@ import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            CreateRule req = CreateRule.builder()
+        CreateRule req = CreateRule.builder()
                 .notifiers(WebhookNotifier.builder()
                     .emails(List.of(
                         "info@client.com"))
                     .webhook("https://webhook.client.com")
                     .build())
                 .type("<value>")
-                .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
+                .companyId("39b73b17-cc2e-429e-915d-71654e9dcd1e")
                 .build();
 
-            CreateRuleResponse res = sdk.webhooks().create()
+        CreateRuleResponse res = sdk.webhooks().create()
                 .request(req)
                 .call();
 
-            if (res.webhook().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.webhook().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -88,11 +79,10 @@ public class Application {
 
 ### Errors
 
-| Error Object               | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| models/errors/ErrorMessage | 401,402,403,429,500,503    | application/json           |
-| models/errors/SDKError     | 4xx-5xx                    | \*\/*                      |
-
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| models/errors/ErrorMessage   | 401, 402, 403, 429, 500, 503 | application/json             |
+| models/errors/SDKError       | 4XX, 5XX                     | \*/\*                        |
 
 ## createConsumer
 
@@ -109,7 +99,7 @@ public class Application {
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.CreateWebhookConsumerResponse;
 import io.codat.platform.models.shared.Security;
 import io.codat.platform.models.shared.WebhookConsumerPrototype;
@@ -117,36 +107,24 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
+            .build();
+
+        WebhookConsumerPrototype req = WebhookConsumerPrototype.builder()
                 .build();
 
-            WebhookConsumerPrototype req = WebhookConsumerPrototype.builder()
-                .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
-                .build();
-
-            CreateWebhookConsumerResponse res = sdk.webhooks().createConsumer()
+        CreateWebhookConsumerResponse res = sdk.webhooks().createConsumer()
                 .request(req)
                 .call();
 
-            if (res.webhookConsumer().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.webhookConsumer().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -163,11 +141,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 400,401,402,403,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 400, 401, 402, 403, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## deleteConsumer
 
@@ -181,7 +158,7 @@ public class Application {
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.DeleteWebhookConsumerRequest;
 import io.codat.platform.models.operations.DeleteWebhookConsumerResponse;
 import io.codat.platform.models.shared.Security;
@@ -189,34 +166,23 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            DeleteWebhookConsumerRequest req = DeleteWebhookConsumerRequest.builder()
+        DeleteWebhookConsumerRequest req = DeleteWebhookConsumerRequest.builder()
                 .webhookId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .build();
 
-            DeleteWebhookConsumerResponse res = sdk.webhooks().deleteConsumer()
+        DeleteWebhookConsumerResponse res = sdk.webhooks().deleteConsumer()
                 .request(req)
                 .call();
 
-            // handle response
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
-        }
-
+        // handle response
     }
 }
 ```
@@ -233,15 +199,16 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## ~~get~~
 
-Get a single webhook
+Use the *Get webhook (legacy)* endpoint to retrieve a specific webhook for your client.
+
+**Note:** This endpoint has been deprecated. Please use the [*List webhook consumers*](https://docs.codat.io/platform-api#/operations/list-webhook-consumers) endpoint for listing webhooks moving forward.
 
 > :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
 
@@ -251,7 +218,7 @@ Get a single webhook
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.GetWebhookRequest;
 import io.codat.platform.models.operations.GetWebhookResponse;
 import io.codat.platform.models.shared.Security;
@@ -259,36 +226,25 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GetWebhookRequest req = GetWebhookRequest.builder()
+        GetWebhookRequest req = GetWebhookRequest.builder()
                 .ruleId("7318949f-c008-4936-a8ff-10d7ab563fa6")
                 .build();
 
-            GetWebhookResponse res = sdk.webhooks().get()
+        GetWebhookResponse res = sdk.webhooks().get()
                 .request(req)
                 .call();
 
-            if (res.webhook().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.webhook().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -305,15 +261,16 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## ~~list~~
 
-List webhooks that you are subscribed to.
+Use the *List webhooks (legacy)* endpoint to retrieve all existing rule-based webhooks for your client.
+
+**Note:** This endpoint has been deprecated. Please use the [*List webhook consumers*](https://docs.codat.io/platform-api#/operations/list-webhook-consumers) endpoint for listing webhooks moving forward.
 
 > :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
 
@@ -323,7 +280,7 @@ List webhooks that you are subscribed to.
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.ListRulesRequest;
 import io.codat.platform.models.operations.ListRulesResponse;
 import io.codat.platform.models.shared.Security;
@@ -331,39 +288,28 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            ListRulesRequest req = ListRulesRequest.builder()
+        ListRulesRequest req = ListRulesRequest.builder()
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
                 .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
-            ListRulesResponse res = sdk.webhooks().list()
+        ListRulesResponse res = sdk.webhooks().list()
                 .request(req)
                 .call();
 
-            if (res.webhooks().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.webhooks().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -380,11 +326,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## listConsumers
 
@@ -398,38 +343,27 @@ public class Application {
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.ListWebhookConsumersResponse;
 import io.codat.platform.models.shared.Security;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            ListWebhookConsumersResponse res = sdk.webhooks().listConsumers()
+        ListWebhookConsumersResponse res = sdk.webhooks().listConsumers()
                 .call();
 
-            if (res.webhookConsumers().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.webhookConsumers().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -440,7 +374,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 400,401,402,403,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 400, 401, 402, 403, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |

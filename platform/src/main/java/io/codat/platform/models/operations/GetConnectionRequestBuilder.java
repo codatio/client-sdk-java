@@ -19,19 +19,19 @@ public class GetConnectionRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetConnectionRequestBuilder request(io.codat.platform.models.operations.GetConnectionRequest request) {
+    public GetConnectionRequestBuilder request(GetConnectionRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetConnectionRequestBuilder retryConfig(io.codat.platform.utils.RetryConfig retryConfig) {
+    public GetConnectionRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetConnectionRequestBuilder retryConfig(java.util.Optional<io.codat.platform.utils.RetryConfig> retryConfig) {
+    public GetConnectionRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

@@ -91,7 +91,7 @@ public class CorsSettings implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.platform.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -101,7 +101,7 @@ public class CorsSettings implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -268,7 +268,7 @@ public class CorsSettings implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.platform.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -288,7 +288,7 @@ public class CorsSettings implements
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());

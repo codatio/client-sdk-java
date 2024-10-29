@@ -19,19 +19,19 @@ public class ListRulesRequestBuilder {
         this.sdk = sdk;
     }
 
-    public ListRulesRequestBuilder request(io.codat.platform.models.operations.ListRulesRequest request) {
+    public ListRulesRequestBuilder request(ListRulesRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public ListRulesRequestBuilder retryConfig(io.codat.platform.utils.RetryConfig retryConfig) {
+    public ListRulesRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public ListRulesRequestBuilder retryConfig(java.util.Optional<io.codat.platform.utils.RetryConfig> retryConfig) {
+    public ListRulesRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

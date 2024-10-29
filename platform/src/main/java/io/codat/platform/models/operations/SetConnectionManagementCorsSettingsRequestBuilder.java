@@ -20,25 +20,25 @@ public class SetConnectionManagementCorsSettingsRequestBuilder {
         this.sdk = sdk;
     }
                 
-    public SetConnectionManagementCorsSettingsRequestBuilder request(io.codat.platform.models.shared.ConnectionManagementAllowedOrigins request) {
+    public SetConnectionManagementCorsSettingsRequestBuilder request(ConnectionManagementAllowedOrigins request) {
         Utils.checkNotNull(request, "request");
         this.request = Optional.of(request);
         return this;
     }
 
-    public SetConnectionManagementCorsSettingsRequestBuilder request(java.util.Optional<? extends io.codat.platform.models.shared.ConnectionManagementAllowedOrigins> request) {
+    public SetConnectionManagementCorsSettingsRequestBuilder request(Optional<? extends ConnectionManagementAllowedOrigins> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public SetConnectionManagementCorsSettingsRequestBuilder retryConfig(io.codat.platform.utils.RetryConfig retryConfig) {
+    public SetConnectionManagementCorsSettingsRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public SetConnectionManagementCorsSettingsRequestBuilder retryConfig(java.util.Optional<io.codat.platform.utils.RetryConfig> retryConfig) {
+    public SetConnectionManagementCorsSettingsRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

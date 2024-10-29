@@ -30,7 +30,7 @@ Codat tries not to limit users to pushing to a very limited number of standard c
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.GetCreateUpdateModelOptionsByDataTypeRequest;
 import io.codat.platform.models.operations.GetCreateUpdateModelOptionsByDataTypeResponse;
 import io.codat.platform.models.shared.SchemaDataType;
@@ -39,38 +39,27 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GetCreateUpdateModelOptionsByDataTypeRequest req = GetCreateUpdateModelOptionsByDataTypeRequest.builder()
+        GetCreateUpdateModelOptionsByDataTypeRequest req = GetCreateUpdateModelOptionsByDataTypeRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .dataType(SchemaDataType.INVOICES)
                 .build();
 
-            GetCreateUpdateModelOptionsByDataTypeResponse res = sdk.pushData().getModelOptions()
+        GetCreateUpdateModelOptionsByDataTypeResponse res = sdk.pushData().getModelOptions()
                 .request(req)
                 .call();
 
-            if (res.pushOption().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.pushOption().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -87,15 +76,16 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## getOperation
 
-Retrieve push operation.
+The **Get push operation** endpoint returns a specific [push operation](/using-the-api/push) identified by the `pushOperationKey` that was performed on the company.
+
+Write operations are actions that send requests to Codat, enabling the creation, updating, deletion of records, or uploading attachments in the connected accounting software.
 
 ### Example Usage
 
@@ -103,7 +93,7 @@ Retrieve push operation.
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.GetPushOperationRequest;
 import io.codat.platform.models.operations.GetPushOperationResponse;
 import io.codat.platform.models.shared.Security;
@@ -111,37 +101,26 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GetPushOperationRequest req = GetPushOperationRequest.builder()
+        GetPushOperationRequest req = GetPushOperationRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
-                .pushOperationKey("59acd79e-29d3-4138-91d3-91d4641bf7ed")
+                .pushOperationKey("5ad92d18-1314-44b7-bd71-2a11cd0470da")
                 .build();
 
-            GetPushOperationResponse res = sdk.pushData().getOperation()
+        GetPushOperationResponse res = sdk.pushData().getOperation()
                 .request(req)
                 .call();
 
-            if (res.pushOperation().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.pushOperation().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -158,15 +137,16 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## listOperations
 
-List push operation records.
+The **List push operations** endpoint returns a list of [push operations](/using-the-api/push) performed on the company.
+
+Write operations are actions that send requests to Codat, enabling the creation, updating, deletion of records, or uploading attachments in the connected accounting software.
 
 ### Example Usage
 
@@ -174,7 +154,7 @@ List push operation records.
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.GetCompanyPushHistoryRequest;
 import io.codat.platform.models.operations.GetCompanyPushHistoryResponse;
 import io.codat.platform.models.shared.Security;
@@ -182,15 +162,15 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GetCompanyPushHistoryRequest req = GetCompanyPushHistoryRequest.builder()
+        GetCompanyPushHistoryRequest req = GetCompanyPushHistoryRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .orderBy("-modifiedDate")
                 .page(1)
@@ -198,24 +178,13 @@ public class Application {
                 .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
-            GetCompanyPushHistoryResponse res = sdk.pushData().listOperations()
+        GetCompanyPushHistoryResponse res = sdk.pushData().listOperations()
                 .request(req)
                 .call();
 
-            if (res.pushOperations().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.pushOperations().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -232,7 +201,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |

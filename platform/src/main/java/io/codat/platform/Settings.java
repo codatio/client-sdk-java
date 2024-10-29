@@ -136,7 +136,7 @@ public class Settings implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.platform.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -156,7 +156,7 @@ public class Settings implements
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -340,7 +340,7 @@ public class Settings implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.platform.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -352,7 +352,7 @@ public class Settings implements
         HTTPRequest _req = new HTTPRequest(_url, "DELETE");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -431,9 +431,9 @@ public class Settings implements
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "204")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                ErrorMessage _out = Utils.mapper().readValue(
+                io.codat.platform.models.shared.ErrorMessage _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<ErrorMessage>() {});
+                    new TypeReference<io.codat.platform.models.shared.ErrorMessage>() {});
                 _res.withErrorMessage(Optional.ofNullable(_out));
                 return _res;
             } else {
@@ -505,7 +505,7 @@ public class Settings implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.platform.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -515,7 +515,7 @@ public class Settings implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -668,7 +668,7 @@ public class Settings implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.platform.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -678,7 +678,7 @@ public class Settings implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -843,7 +843,7 @@ public class Settings implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.platform.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -853,7 +853,7 @@ public class Settings implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -1008,7 +1008,7 @@ public class Settings implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.platform.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -1028,7 +1028,7 @@ public class Settings implements
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -1183,7 +1183,7 @@ public class Settings implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.platform.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -1203,7 +1203,7 @@ public class Settings implements
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());

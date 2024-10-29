@@ -21,7 +21,7 @@ Get single integration, by platformKey
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.GetIntegrationRequest;
 import io.codat.platform.models.operations.GetIntegrationResponse;
 import io.codat.platform.models.shared.Security;
@@ -29,36 +29,25 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GetIntegrationRequest req = GetIntegrationRequest.builder()
+        GetIntegrationRequest req = GetIntegrationRequest.builder()
                 .platformKey("gbol")
                 .build();
 
-            GetIntegrationResponse res = sdk.integrations().get()
+        GetIntegrationResponse res = sdk.integrations().get()
                 .request(req)
                 .call();
 
-            if (res.integration().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.integration().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -75,11 +64,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## getBranding
 
@@ -91,7 +79,7 @@ Get branding for platform.
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.GetIntegrationsBrandingRequest;
 import io.codat.platform.models.operations.GetIntegrationsBrandingResponse;
 import io.codat.platform.models.shared.Security;
@@ -99,36 +87,25 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GetIntegrationsBrandingRequest req = GetIntegrationsBrandingRequest.builder()
+        GetIntegrationsBrandingRequest req = GetIntegrationsBrandingRequest.builder()
                 .platformKey("gbol")
                 .build();
 
-            GetIntegrationsBrandingResponse res = sdk.integrations().getBranding()
+        GetIntegrationsBrandingResponse res = sdk.integrations().getBranding()
                 .request(req)
                 .call();
 
-            if (res.branding().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.branding().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -145,11 +122,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## list
 
@@ -161,7 +137,7 @@ List your available integrations
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.ListIntegrationsRequest;
 import io.codat.platform.models.operations.ListIntegrationsResponse;
 import io.codat.platform.models.shared.Security;
@@ -169,39 +145,28 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            ListIntegrationsRequest req = ListIntegrationsRequest.builder()
+        ListIntegrationsRequest req = ListIntegrationsRequest.builder()
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
                 .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
-            ListIntegrationsResponse res = sdk.integrations().list()
+        ListIntegrationsResponse res = sdk.integrations().list()
                 .request(req)
                 .call();
 
-            if (res.integrations().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.integrations().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -218,7 +183,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 400,401,402,403,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 400, 401, 402, 403, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |

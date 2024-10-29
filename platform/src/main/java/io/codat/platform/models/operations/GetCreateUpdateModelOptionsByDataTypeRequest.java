@@ -30,7 +30,7 @@ public class GetCreateUpdateModelOptionsByDataTypeRequest {
     private String connectionId;
 
     /**
-     * The key of a Codat data type
+     * The key of a Codat data type.
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=dataType")
     private SchemaDataType dataType;
@@ -65,7 +65,7 @@ public class GetCreateUpdateModelOptionsByDataTypeRequest {
     }
 
     /**
-     * The key of a Codat data type
+     * The key of a Codat data type.
      */
     @JsonIgnore
     public SchemaDataType dataType() {
@@ -95,7 +95,7 @@ public class GetCreateUpdateModelOptionsByDataTypeRequest {
     }
 
     /**
-     * The key of a Codat data type
+     * The key of a Codat data type.
      */
     public GetCreateUpdateModelOptionsByDataTypeRequest withDataType(SchemaDataType dataType) {
         Utils.checkNotNull(dataType, "dataType");
@@ -165,7 +165,7 @@ public class GetCreateUpdateModelOptionsByDataTypeRequest {
         }
 
         /**
-         * The key of a Codat data type
+         * The key of a Codat data type.
          */
         public Builder dataType(SchemaDataType dataType) {
             Utils.checkNotNull(dataType, "dataType");

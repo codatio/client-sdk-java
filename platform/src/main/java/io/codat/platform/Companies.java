@@ -7,6 +7,9 @@ package io.codat.platform;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.operations.AddProductRequest;
+import io.codat.platform.models.operations.AddProductRequestBuilder;
+import io.codat.platform.models.operations.AddProductResponse;
 import io.codat.platform.models.operations.CreateCompanyRequestBuilder;
 import io.codat.platform.models.operations.CreateCompanyResponse;
 import io.codat.platform.models.operations.DeleteCompanyRequest;
@@ -18,6 +21,9 @@ import io.codat.platform.models.operations.GetCompanyResponse;
 import io.codat.platform.models.operations.ListCompaniesRequest;
 import io.codat.platform.models.operations.ListCompaniesRequestBuilder;
 import io.codat.platform.models.operations.ListCompaniesResponse;
+import io.codat.platform.models.operations.RemoveProductRequest;
+import io.codat.platform.models.operations.RemoveProductRequestBuilder;
+import io.codat.platform.models.operations.RemoveProductResponse;
 import io.codat.platform.models.operations.SDKMethodInterfaces.*;
 import io.codat.platform.models.operations.UpdateCompanyRequest;
 import io.codat.platform.models.operations.UpdateCompanyRequestBuilder;
@@ -53,10 +59,12 @@ import java.util.concurrent.TimeUnit;
  * Create and manage your SMB users' companies.
  */
 public class Companies implements
+            MethodCallAddProduct,
             MethodCallCreateCompany,
             MethodCallDeleteCompany,
             MethodCallGetCompany,
             MethodCallListCompanies,
+            MethodCallRemoveProduct,
             MethodCallUpdateCompany {
 
     private final SDKConfiguration sdkConfiguration;
@@ -64,6 +72,170 @@ public class Companies implements
     Companies(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
+
+
+    /**
+     * Add product
+     * Use the *Add product* endpoint to enable a product for the company specified by `companyId`.
+     * 
+     * &gt; Note: This feature is currently in alpha and available only to participants in the development program.
+     * @return The call builder
+     */
+    public AddProductRequestBuilder addProduct() {
+        return new AddProductRequestBuilder(this);
+    }
+
+    /**
+     * Add product
+     * Use the *Add product* endpoint to enable a product for the company specified by `companyId`.
+     * 
+     * &gt; Note: This feature is currently in alpha and available only to participants in the development program.
+     * @param request The request object containing all of the parameters for the API call.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public AddProductResponse addProduct(
+            AddProductRequest request) throws Exception {
+        return addProduct(request, Optional.empty());
+    }
+    
+    /**
+     * Add product
+     * Use the *Add product* endpoint to enable a product for the company specified by `companyId`.
+     * 
+     * &gt; Note: This feature is currently in alpha and available only to participants in the development program.
+     * @param request The request object containing all of the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public AddProductResponse addProduct(
+            AddProductRequest request,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
+        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _url = Utils.generateURL(
+                AddProductRequest.class,
+                _baseUrl,
+                "/companies/{companyId}/products/{productIdentifier}",
+                request, null);
+        
+        HTTPRequest _req = new HTTPRequest(_url, "PUT");
+        _req.addHeader("Accept", "application/json")
+            .addHeader("user-agent", 
+                SDKConfiguration.USER_AGENT);
+
+        Utils.configureSecurity(_req,  
+                this.sdkConfiguration.securitySource.getSecurity());
+
+        HTTPClient _client = this.sdkConfiguration.defaultClient;
+        HTTPRequest _finalReq = _req;
+        RetryConfig _retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            _retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            _retryConfig = RetryConfig.builder()
+                .backoff(BackoffStrategy.builder()
+                            .initialInterval(500, TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000, TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
+        }
+        List<String> _statusCodes = new ArrayList<>();
+        _statusCodes.add("408");
+        _statusCodes.add("429");
+        _statusCodes.add("5XX");
+        Retries _retries = Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl(
+                                "add-product", 
+                                Optional.of(List.of()), 
+                                sdkConfiguration.securitySource()),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl(
+                                "add-product",
+                                 Optional.of(List.of()),
+                                 sdkConfiguration.securitySource()), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
+            .build();
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl(
+                         "add-product", 
+                         Optional.of(List.of()), 
+                         sdkConfiguration.securitySource()),
+                     _retries.run());
+        String _contentType = _httpRes
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
+        AddProductResponse.Builder _resBuilder = 
+            AddProductResponse
+                .builder()
+                .contentType(_contentType)
+                .statusCode(_httpRes.statusCode())
+                .rawResponse(_httpRes);
+
+        AddProductResponse _res = _resBuilder.build();
+        
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "204")) {
+            // no content 
+            return _res;
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "401", "402", "403", "404", "429", "500", "503")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                ErrorMessage _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<ErrorMessage>() {});
+                throw _out;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        throw new SDKError(
+            _httpRes, 
+            _httpRes.statusCode(), 
+            "Unexpected status code received: " + _httpRes.statusCode(), 
+            Utils.extractByteArrayFromBody(_httpRes));
+    }
+
 
 
     /**
@@ -113,7 +285,7 @@ public class Companies implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.platform.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -133,7 +305,7 @@ public class Companies implements
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -302,7 +474,7 @@ public class Companies implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.platform.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -314,7 +486,7 @@ public class Companies implements
         HTTPRequest _req = new HTTPRequest(_url, "DELETE");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -472,7 +644,7 @@ public class Companies implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.platform.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -484,7 +656,7 @@ public class Companies implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -650,7 +822,7 @@ public class Companies implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.platform.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -660,7 +832,7 @@ public class Companies implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         _req.addQueryParams(Utils.getQueryParams(
                 ListCompaniesRequest.class,
@@ -789,9 +961,172 @@ public class Companies implements
 
 
     /**
+     * Remove product
+     * Use the *Remove product* endpoint to disable a product for the company specified by `companyId`.
+     * 
+     * &gt; Note: This feature is currently in alpha and available only to participants in the development program.
+     * @return The call builder
+     */
+    public RemoveProductRequestBuilder removeProduct() {
+        return new RemoveProductRequestBuilder(this);
+    }
+
+    /**
+     * Remove product
+     * Use the *Remove product* endpoint to disable a product for the company specified by `companyId`.
+     * 
+     * &gt; Note: This feature is currently in alpha and available only to participants in the development program.
+     * @param request The request object containing all of the parameters for the API call.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public RemoveProductResponse removeProduct(
+            RemoveProductRequest request) throws Exception {
+        return removeProduct(request, Optional.empty());
+    }
+    
+    /**
+     * Remove product
+     * Use the *Remove product* endpoint to disable a product for the company specified by `companyId`.
+     * 
+     * &gt; Note: This feature is currently in alpha and available only to participants in the development program.
+     * @param request The request object containing all of the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public RemoveProductResponse removeProduct(
+            RemoveProductRequest request,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
+        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _url = Utils.generateURL(
+                RemoveProductRequest.class,
+                _baseUrl,
+                "/companies/{companyId}/products/{productIdentifier}",
+                request, null);
+        
+        HTTPRequest _req = new HTTPRequest(_url, "DELETE");
+        _req.addHeader("Accept", "application/json")
+            .addHeader("user-agent", 
+                SDKConfiguration.USER_AGENT);
+
+        Utils.configureSecurity(_req,  
+                this.sdkConfiguration.securitySource.getSecurity());
+
+        HTTPClient _client = this.sdkConfiguration.defaultClient;
+        HTTPRequest _finalReq = _req;
+        RetryConfig _retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            _retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            _retryConfig = RetryConfig.builder()
+                .backoff(BackoffStrategy.builder()
+                            .initialInterval(500, TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000, TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
+        }
+        List<String> _statusCodes = new ArrayList<>();
+        _statusCodes.add("408");
+        _statusCodes.add("429");
+        _statusCodes.add("5XX");
+        Retries _retries = Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl(
+                                "remove-product", 
+                                Optional.of(List.of()), 
+                                sdkConfiguration.securitySource()),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl(
+                                "remove-product",
+                                 Optional.of(List.of()),
+                                 sdkConfiguration.securitySource()), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
+            .build();
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl(
+                         "remove-product", 
+                         Optional.of(List.of()), 
+                         sdkConfiguration.securitySource()),
+                     _retries.run());
+        String _contentType = _httpRes
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
+        RemoveProductResponse.Builder _resBuilder = 
+            RemoveProductResponse
+                .builder()
+                .contentType(_contentType)
+                .statusCode(_httpRes.statusCode())
+                .rawResponse(_httpRes);
+
+        RemoveProductResponse _res = _resBuilder.build();
+        
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "204")) {
+            // no content 
+            return _res;
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "401", "402", "403", "404", "429", "500", "503")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                ErrorMessage _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<ErrorMessage>() {});
+                throw _out;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        throw new SDKError(
+            _httpRes, 
+            _httpRes.statusCode(), 
+            "Unexpected status code received: " + _httpRes.statusCode(), 
+            Utils.extractByteArrayFromBody(_httpRes));
+    }
+
+
+
+    /**
      * Update company
      * ﻿Use the *Update company* endpoint to update both the name and description of the company. 
-     * If you use [groups](https://docs.codat.io/platform-api#/schemas/Group) to manage a set of companies, use the [Add company](https://docs.codat.io/platform-api#/operations/add-company-to-group) or [Remove company](https://docs.codat.io/platform-api#/operations/remove-company-from-group) endpoints to add or remove a company from a group.
      * 
      * A [company](https://docs.codat.io/platform-api#/schemas/Company) represents a business sharing access to their data.
      * Each company can have multiple [connections](https://docs.codat.io/platform-api#/schemas/Connection) to different data sources, such as one connection to Xero for accounting data, two connections to Plaid for two bank accounts, and a connection to Zettle for POS data.
@@ -804,7 +1139,6 @@ public class Companies implements
     /**
      * Update company
      * ﻿Use the *Update company* endpoint to update both the name and description of the company. 
-     * If you use [groups](https://docs.codat.io/platform-api#/schemas/Group) to manage a set of companies, use the [Add company](https://docs.codat.io/platform-api#/operations/add-company-to-group) or [Remove company](https://docs.codat.io/platform-api#/operations/remove-company-from-group) endpoints to add or remove a company from a group.
      * 
      * A [company](https://docs.codat.io/platform-api#/schemas/Company) represents a business sharing access to their data.
      * Each company can have multiple [connections](https://docs.codat.io/platform-api#/schemas/Connection) to different data sources, such as one connection to Xero for accounting data, two connections to Plaid for two bank accounts, and a connection to Zettle for POS data.
@@ -820,7 +1154,6 @@ public class Companies implements
     /**
      * Update company
      * ﻿Use the *Update company* endpoint to update both the name and description of the company. 
-     * If you use [groups](https://docs.codat.io/platform-api#/schemas/Group) to manage a set of companies, use the [Add company](https://docs.codat.io/platform-api#/operations/add-company-to-group) or [Remove company](https://docs.codat.io/platform-api#/operations/remove-company-from-group) endpoints to add or remove a company from a group.
      * 
      * A [company](https://docs.codat.io/platform-api#/schemas/Company) represents a business sharing access to their data.
      * Each company can have multiple [connections](https://docs.codat.io/platform-api#/schemas/Connection) to different data sources, such as one connection to Xero for accounting data, two connections to Plaid for two bank accounts, and a connection to Zettle for POS data.
@@ -834,7 +1167,7 @@ public class Companies implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.platform.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -856,7 +1189,7 @@ public class Companies implements
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());

@@ -8,6 +8,7 @@ import io.codat.platform.models.operations.SDKMethodInterfaces.*;
 import io.codat.platform.utils.HTTPClient;
 import io.codat.platform.utils.RetryConfig;
 import io.codat.platform.utils.SpeakeasyHTTPClient;
+import io.codat.platform.utils.Utils;
 import java.lang.String;
 import java.util.Map;
 import java.util.Optional;
@@ -29,7 +30,6 @@ import java.util.Optional;
  * | Companies | Create and manage your SMB users' companies. |
  * | Connections | Create new and manage existing data connections for a company. |
  * | Connection management | Configure connection management UI and retrieve access tokens for authentication. |
- * | Groups | Define and manage sets of companies based on a chosen characteristic. |
  * | Webhooks | Create and manage webhooks that listen to Codat's events. |
  * | Integrations | Get a list of integrations supported by Codat and their logos. |
  * | Refresh data | Initiate data refreshes, view pull status and history. |
@@ -86,11 +86,6 @@ public class CodatPlatform {
      * Initiate data refreshes, view pull status and history.
      */
     private final RefreshData refreshData;
-
-    /**
-     * Define and manage sets of companies based on a chosen characteristic.
-     */
-    private final Groups groups;
 
     /**
      * Get a list of integrations supported by Codat and their logos.
@@ -154,13 +149,6 @@ public class CodatPlatform {
      */
     public RefreshData refreshData() {
         return refreshData;
-    }
-
-    /**
-     * Define and manage sets of companies based on a chosen characteristic.
-     */
-    public Groups groups() {
-        return groups;
     }
 
     /**
@@ -247,7 +235,7 @@ public class CodatPlatform {
          * @return The builder instance.
          */
         public Builder serverURL(String serverUrl, Map<String, String> params) {
-            this.sdkConfiguration.serverUrl = io.codat.platform.utils.Utils.templateUrl(serverUrl, params);
+            this.sdkConfiguration.serverUrl = Utils.templateUrl(serverUrl, params);
             return this;
         }
         
@@ -317,7 +305,6 @@ public class CodatPlatform {
         this.customDataType = new CustomDataType(sdkConfiguration);
         this.pushData = new PushData(sdkConfiguration);
         this.refreshData = new RefreshData(sdkConfiguration);
-        this.groups = new Groups(sdkConfiguration);
         this.integrations = new Integrations(sdkConfiguration);
         this.supplementalData = new SupplementalData(sdkConfiguration);
         this.webhooks = new Webhooks(sdkConfiguration);

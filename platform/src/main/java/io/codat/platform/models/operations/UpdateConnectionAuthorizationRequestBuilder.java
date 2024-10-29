@@ -19,19 +19,19 @@ public class UpdateConnectionAuthorizationRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UpdateConnectionAuthorizationRequestBuilder request(io.codat.platform.models.operations.UpdateConnectionAuthorizationRequest request) {
+    public UpdateConnectionAuthorizationRequestBuilder request(UpdateConnectionAuthorizationRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public UpdateConnectionAuthorizationRequestBuilder retryConfig(io.codat.platform.utils.RetryConfig retryConfig) {
+    public UpdateConnectionAuthorizationRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public UpdateConnectionAuthorizationRequestBuilder retryConfig(java.util.Optional<io.codat.platform.utils.RetryConfig> retryConfig) {
+    public UpdateConnectionAuthorizationRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

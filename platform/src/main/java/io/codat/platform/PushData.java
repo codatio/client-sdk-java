@@ -118,7 +118,7 @@ public class PushData implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.platform.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -130,7 +130,7 @@ public class PushData implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -255,7 +255,9 @@ public class PushData implements
 
     /**
      * Get push operation
-     * Retrieve push operation.
+     * The **Get push operation** endpoint returns a specific [push operation](/using-the-api/push) identified by the `pushOperationKey` that was performed on the company.
+     * 
+     * Write operations are actions that send requests to Codat, enabling the creation, updating, deletion of records, or uploading attachments in the connected accounting software.
      * @return The call builder
      */
     public GetPushOperationRequestBuilder getOperation() {
@@ -264,7 +266,9 @@ public class PushData implements
 
     /**
      * Get push operation
-     * Retrieve push operation.
+     * The **Get push operation** endpoint returns a specific [push operation](/using-the-api/push) identified by the `pushOperationKey` that was performed on the company.
+     * 
+     * Write operations are actions that send requests to Codat, enabling the creation, updating, deletion of records, or uploading attachments in the connected accounting software.
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
@@ -276,7 +280,9 @@ public class PushData implements
     
     /**
      * Get push operation
-     * Retrieve push operation.
+     * The **Get push operation** endpoint returns a specific [push operation](/using-the-api/push) identified by the `pushOperationKey` that was performed on the company.
+     * 
+     * Write operations are actions that send requests to Codat, enabling the creation, updating, deletion of records, or uploading attachments in the connected accounting software.
      * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
@@ -287,7 +293,7 @@ public class PushData implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.platform.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -299,7 +305,7 @@ public class PushData implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -424,7 +430,9 @@ public class PushData implements
 
     /**
      * List push operations
-     * List push operation records.
+     * The **List push operations** endpoint returns a list of [push operations](/using-the-api/push) performed on the company.
+     * 
+     * Write operations are actions that send requests to Codat, enabling the creation, updating, deletion of records, or uploading attachments in the connected accounting software.
      * @return The call builder
      */
     public GetCompanyPushHistoryRequestBuilder listOperations() {
@@ -433,7 +441,9 @@ public class PushData implements
 
     /**
      * List push operations
-     * List push operation records.
+     * The **List push operations** endpoint returns a list of [push operations](/using-the-api/push) performed on the company.
+     * 
+     * Write operations are actions that send requests to Codat, enabling the creation, updating, deletion of records, or uploading attachments in the connected accounting software.
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
@@ -445,7 +455,9 @@ public class PushData implements
     
     /**
      * List push operations
-     * List push operation records.
+     * The **List push operations** endpoint returns a list of [push operations](/using-the-api/push) performed on the company.
+     * 
+     * Write operations are actions that send requests to Codat, enabling the creation, updating, deletion of records, or uploading attachments in the connected accounting software.
      * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
@@ -456,7 +468,7 @@ public class PushData implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.platform.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -468,7 +480,7 @@ public class PushData implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         _req.addQueryParams(Utils.getQueryParams(
                 GetCompanyPushHistoryRequest.class,

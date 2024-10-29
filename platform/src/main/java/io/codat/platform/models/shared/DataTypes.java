@@ -4,65 +4,308 @@
 
 package io.codat.platform.models.shared;
 
-import com.fasterxml.jackson.annotation.JsonValue;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.codat.platform.utils.Utils;
+import java.lang.Boolean;
+import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.Objects;
+import java.util.Optional;
 
-/**
- * DataTypes - Available data types
- */
-public enum DataTypes {
-    ACCOUNT_TRANSACTIONS("accountTransactions"),
-    BALANCE_SHEET("balanceSheet"),
-    BANK_ACCOUNTS("bankAccounts"),
-    BANK_TRANSACTIONS("bankTransactions"),
-    BILL_CREDIT_NOTES("billCreditNotes"),
-    BILL_PAYMENTS("billPayments"),
-    BILLS("bills"),
-    CASH_FLOW_STATEMENT("cashFlowStatement"),
-    CHART_OF_ACCOUNTS("chartOfAccounts"),
-    COMPANY("company"),
-    CREDIT_NOTES("creditNotes"),
-    CUSTOMERS("customers"),
-    DIRECT_COSTS("directCosts"),
-    DIRECT_INCOMES("directIncomes"),
-    INVOICES("invoices"),
-    ITEM_RECEIPTS("itemReceipts"),
-    ITEMS("items"),
-    JOURNAL_ENTRIES("journalEntries"),
-    JOURNALS("journals"),
-    PAYMENT_METHODS("paymentMethods"),
-    PAYMENTS("payments"),
-    PROFIT_AND_LOSS("profitAndLoss"),
-    PURCHASE_ORDERS("purchaseOrders"),
-    SALES_ORDERS("salesOrders"),
-    SUPPLIERS("suppliers"),
-    TAX_RATES("taxRates"),
-    TRACKING_CATEGORIES("trackingCategories"),
-    TRANSFERS("transfers"),
-    BANKING_ACCOUNT_BALANCES("banking-accountBalances"),
-    BANKING_ACCOUNTS("banking-accounts"),
-    BANKING_TRANSACTION_CATEGORIES("banking-transactionCategories"),
-    BANKING_TRANSACTIONS("banking-transactions"),
-    COMMERCE_COMPANY_INFO("commerce-companyInfo"),
-    COMMERCE_CUSTOMERS("commerce-customers"),
-    COMMERCE_DISPUTES("commerce-disputes"),
-    COMMERCE_LOCATIONS("commerce-locations"),
-    COMMERCE_ORDERS("commerce-orders"),
-    COMMERCE_PAYMENT_METHODS("commerce-paymentMethods"),
-    COMMERCE_PAYMENTS("commerce-payments"),
-    COMMERCE_PRODUCT_CATEGORIES("commerce-productCategories"),
-    COMMERCE_PRODUCTS("commerce-products"),
-    COMMERCE_TAX_COMPONENTS("commerce-taxComponents"),
-    COMMERCE_TRANSACTIONS("commerce-transactions");
 
-    @JsonValue
-    private final String value;
+public class DataTypes {
 
-    private DataTypes(String value) {
-        this.value = value;
+    /**
+     * Unique identifier for a company's data connection.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("connectionId")
+    private Optional<String> connectionId;
+
+    /**
+     * Available data types
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("dataType")
+    private Optional<? extends DataType> dataType;
+
+    /**
+     * `True` if records have been created, updated or deleted in Codat's cache.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("recordsModified")
+    private Optional<Boolean> recordsModified;
+
+    /**
+     * The current status of the dataset.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("status")
+    private Optional<? extends Status> status;
+
+    @JsonCreator
+    public DataTypes(
+            @JsonProperty("connectionId") Optional<String> connectionId,
+            @JsonProperty("dataType") Optional<? extends DataType> dataType,
+            @JsonProperty("recordsModified") Optional<Boolean> recordsModified,
+            @JsonProperty("status") Optional<? extends Status> status) {
+        Utils.checkNotNull(connectionId, "connectionId");
+        Utils.checkNotNull(dataType, "dataType");
+        Utils.checkNotNull(recordsModified, "recordsModified");
+        Utils.checkNotNull(status, "status");
+        this.connectionId = connectionId;
+        this.dataType = dataType;
+        this.recordsModified = recordsModified;
+        this.status = status;
     }
     
-    public String value() {
-        return value;
+    public DataTypes() {
+        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Unique identifier for a company's data connection.
+     */
+    @JsonIgnore
+    public Optional<String> connectionId() {
+        return connectionId;
+    }
+
+    /**
+     * Available data types
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<DataType> dataType() {
+        return (Optional<DataType>) dataType;
+    }
+
+    /**
+     * `True` if records have been created, updated or deleted in Codat's cache.
+     */
+    @JsonIgnore
+    public Optional<Boolean> recordsModified() {
+        return recordsModified;
+    }
+
+    /**
+     * The current status of the dataset.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<Status> status() {
+        return (Optional<Status>) status;
+    }
+
+    public final static Builder builder() {
+        return new Builder();
+    }
+
+    /**
+     * Unique identifier for a company's data connection.
+     */
+    public DataTypes withConnectionId(String connectionId) {
+        Utils.checkNotNull(connectionId, "connectionId");
+        this.connectionId = Optional.ofNullable(connectionId);
+        return this;
+    }
+
+    /**
+     * Unique identifier for a company's data connection.
+     */
+    public DataTypes withConnectionId(Optional<String> connectionId) {
+        Utils.checkNotNull(connectionId, "connectionId");
+        this.connectionId = connectionId;
+        return this;
+    }
+
+    /**
+     * Available data types
+     */
+    public DataTypes withDataType(DataType dataType) {
+        Utils.checkNotNull(dataType, "dataType");
+        this.dataType = Optional.ofNullable(dataType);
+        return this;
+    }
+
+    /**
+     * Available data types
+     */
+    public DataTypes withDataType(Optional<? extends DataType> dataType) {
+        Utils.checkNotNull(dataType, "dataType");
+        this.dataType = dataType;
+        return this;
+    }
+
+    /**
+     * `True` if records have been created, updated or deleted in Codat's cache.
+     */
+    public DataTypes withRecordsModified(boolean recordsModified) {
+        Utils.checkNotNull(recordsModified, "recordsModified");
+        this.recordsModified = Optional.ofNullable(recordsModified);
+        return this;
+    }
+
+    /**
+     * `True` if records have been created, updated or deleted in Codat's cache.
+     */
+    public DataTypes withRecordsModified(Optional<Boolean> recordsModified) {
+        Utils.checkNotNull(recordsModified, "recordsModified");
+        this.recordsModified = recordsModified;
+        return this;
+    }
+
+    /**
+     * The current status of the dataset.
+     */
+    public DataTypes withStatus(Status status) {
+        Utils.checkNotNull(status, "status");
+        this.status = Optional.ofNullable(status);
+        return this;
+    }
+
+    /**
+     * The current status of the dataset.
+     */
+    public DataTypes withStatus(Optional<? extends Status> status) {
+        Utils.checkNotNull(status, "status");
+        this.status = status;
+        return this;
+    }
+    
+    @Override
+    public boolean equals(java.lang.Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        DataTypes other = (DataTypes) o;
+        return 
+            Objects.deepEquals(this.connectionId, other.connectionId) &&
+            Objects.deepEquals(this.dataType, other.dataType) &&
+            Objects.deepEquals(this.recordsModified, other.recordsModified) &&
+            Objects.deepEquals(this.status, other.status);
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            connectionId,
+            dataType,
+            recordsModified,
+            status);
+    }
+    
+    @Override
+    public String toString() {
+        return Utils.toString(DataTypes.class,
+                "connectionId", connectionId,
+                "dataType", dataType,
+                "recordsModified", recordsModified,
+                "status", status);
+    }
+    
+    public final static class Builder {
+ 
+        private Optional<String> connectionId = Optional.empty();
+ 
+        private Optional<? extends DataType> dataType = Optional.empty();
+ 
+        private Optional<Boolean> recordsModified = Optional.empty();
+ 
+        private Optional<? extends Status> status = Optional.empty();  
+        
+        private Builder() {
+          // force use of static builder() method
+        }
+
+        /**
+         * Unique identifier for a company's data connection.
+         */
+        public Builder connectionId(String connectionId) {
+            Utils.checkNotNull(connectionId, "connectionId");
+            this.connectionId = Optional.ofNullable(connectionId);
+            return this;
+        }
+
+        /**
+         * Unique identifier for a company's data connection.
+         */
+        public Builder connectionId(Optional<String> connectionId) {
+            Utils.checkNotNull(connectionId, "connectionId");
+            this.connectionId = connectionId;
+            return this;
+        }
+
+        /**
+         * Available data types
+         */
+        public Builder dataType(DataType dataType) {
+            Utils.checkNotNull(dataType, "dataType");
+            this.dataType = Optional.ofNullable(dataType);
+            return this;
+        }
+
+        /**
+         * Available data types
+         */
+        public Builder dataType(Optional<? extends DataType> dataType) {
+            Utils.checkNotNull(dataType, "dataType");
+            this.dataType = dataType;
+            return this;
+        }
+
+        /**
+         * `True` if records have been created, updated or deleted in Codat's cache.
+         */
+        public Builder recordsModified(boolean recordsModified) {
+            Utils.checkNotNull(recordsModified, "recordsModified");
+            this.recordsModified = Optional.ofNullable(recordsModified);
+            return this;
+        }
+
+        /**
+         * `True` if records have been created, updated or deleted in Codat's cache.
+         */
+        public Builder recordsModified(Optional<Boolean> recordsModified) {
+            Utils.checkNotNull(recordsModified, "recordsModified");
+            this.recordsModified = recordsModified;
+            return this;
+        }
+
+        /**
+         * The current status of the dataset.
+         */
+        public Builder status(Status status) {
+            Utils.checkNotNull(status, "status");
+            this.status = Optional.ofNullable(status);
+            return this;
+        }
+
+        /**
+         * The current status of the dataset.
+         */
+        public Builder status(Optional<? extends Status> status) {
+            Utils.checkNotNull(status, "status");
+            this.status = status;
+            return this;
+        }
+        
+        public DataTypes build() {
+            return new DataTypes(
+                connectionId,
+                dataType,
+                recordsModified,
+                status);
+        }
     }
 }
+

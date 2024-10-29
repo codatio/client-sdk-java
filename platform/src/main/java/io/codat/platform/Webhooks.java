@@ -73,8 +73,10 @@ public class Webhooks implements
 
 
     /**
-     * Create webhook
-     * Create a new webhook configuration
+     * Create webhook (legacy)
+     * Use the *Create webhooks (legacy)* endpoint to create a rule-based webhook for your client.
+     * 
+     * **Note:** This endpoint has been deprecated. Please use the [*Create webhook consumer*](https://docs.codat.io/platform-api#/operations/create-webhook-consumer) endpoint to create a webhook moving forward.
      * @return The call builder
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
@@ -84,8 +86,10 @@ public class Webhooks implements
     }
 
     /**
-     * Create webhook
-     * Create a new webhook configuration
+     * Create webhook (legacy)
+     * Use the *Create webhooks (legacy)* endpoint to create a rule-based webhook for your client.
+     * 
+     * **Note:** This endpoint has been deprecated. Please use the [*Create webhook consumer*](https://docs.codat.io/platform-api#/operations/create-webhook-consumer) endpoint to create a webhook moving forward.
      * @return The response from the API call
      * @throws Exception if the API call fails
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -96,8 +100,10 @@ public class Webhooks implements
     }
     
     /**
-     * Create webhook
-     * Create a new webhook configuration
+     * Create webhook (legacy)
+     * Use the *Create webhooks (legacy)* endpoint to create a rule-based webhook for your client.
+     * 
+     * **Note:** This endpoint has been deprecated. Please use the [*Create webhook consumer*](https://docs.codat.io/platform-api#/operations/create-webhook-consumer) endpoint to create a webhook moving forward.
      * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
@@ -110,7 +116,7 @@ public class Webhooks implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.platform.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -130,7 +136,7 @@ public class Webhooks implements
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -300,7 +306,7 @@ public class Webhooks implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.platform.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -320,7 +326,7 @@ public class Webhooks implements
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -483,7 +489,7 @@ public class Webhooks implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.platform.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -495,7 +501,7 @@ public class Webhooks implements
         HTTPRequest _req = new HTTPRequest(_url, "DELETE");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -608,8 +614,10 @@ public class Webhooks implements
 
 
     /**
-     * Get webhook
-     * Get a single webhook
+     * Get webhook (legacy)
+     * Use the *Get webhook (legacy)* endpoint to retrieve a specific webhook for your client.
+     * 
+     * **Note:** This endpoint has been deprecated. Please use the [*List webhook consumers*](https://docs.codat.io/platform-api#/operations/list-webhook-consumers) endpoint for listing webhooks moving forward.
      * @return The call builder
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
@@ -619,8 +627,10 @@ public class Webhooks implements
     }
 
     /**
-     * Get webhook
-     * Get a single webhook
+     * Get webhook (legacy)
+     * Use the *Get webhook (legacy)* endpoint to retrieve a specific webhook for your client.
+     * 
+     * **Note:** This endpoint has been deprecated. Please use the [*List webhook consumers*](https://docs.codat.io/platform-api#/operations/list-webhook-consumers) endpoint for listing webhooks moving forward.
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
@@ -633,8 +643,10 @@ public class Webhooks implements
     }
     
     /**
-     * Get webhook
-     * Get a single webhook
+     * Get webhook (legacy)
+     * Use the *Get webhook (legacy)* endpoint to retrieve a specific webhook for your client.
+     * 
+     * **Note:** This endpoint has been deprecated. Please use the [*List webhook consumers*](https://docs.codat.io/platform-api#/operations/list-webhook-consumers) endpoint for listing webhooks moving forward.
      * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
@@ -647,7 +659,7 @@ public class Webhooks implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.platform.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -659,7 +671,7 @@ public class Webhooks implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -783,8 +795,10 @@ public class Webhooks implements
 
 
     /**
-     * List webhooks
-     * List webhooks that you are subscribed to.
+     * List webhooks (legacy)
+     * Use the *List webhooks (legacy)* endpoint to retrieve all existing rule-based webhooks for your client.
+     * 
+     * **Note:** This endpoint has been deprecated. Please use the [*List webhook consumers*](https://docs.codat.io/platform-api#/operations/list-webhook-consumers) endpoint for listing webhooks moving forward.
      * @return The call builder
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
@@ -794,8 +808,10 @@ public class Webhooks implements
     }
 
     /**
-     * List webhooks
-     * List webhooks that you are subscribed to.
+     * List webhooks (legacy)
+     * Use the *List webhooks (legacy)* endpoint to retrieve all existing rule-based webhooks for your client.
+     * 
+     * **Note:** This endpoint has been deprecated. Please use the [*List webhook consumers*](https://docs.codat.io/platform-api#/operations/list-webhook-consumers) endpoint for listing webhooks moving forward.
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
@@ -808,8 +824,10 @@ public class Webhooks implements
     }
     
     /**
-     * List webhooks
-     * List webhooks that you are subscribed to.
+     * List webhooks (legacy)
+     * Use the *List webhooks (legacy)* endpoint to retrieve all existing rule-based webhooks for your client.
+     * 
+     * **Note:** This endpoint has been deprecated. Please use the [*List webhook consumers*](https://docs.codat.io/platform-api#/operations/list-webhook-consumers) endpoint for listing webhooks moving forward.
      * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
@@ -822,7 +840,7 @@ public class Webhooks implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.platform.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -832,7 +850,7 @@ public class Webhooks implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         _req.addQueryParams(Utils.getQueryParams(
                 ListRulesRequest.class,
@@ -996,7 +1014,7 @@ public class Webhooks implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.platform.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -1006,7 +1024,7 @@ public class Webhooks implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());

@@ -19,19 +19,19 @@ public class GetConnectionManagementAccessTokenRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetConnectionManagementAccessTokenRequestBuilder request(io.codat.platform.models.operations.GetConnectionManagementAccessTokenRequest request) {
+    public GetConnectionManagementAccessTokenRequestBuilder request(GetConnectionManagementAccessTokenRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetConnectionManagementAccessTokenRequestBuilder retryConfig(io.codat.platform.utils.RetryConfig retryConfig) {
+    public GetConnectionManagementAccessTokenRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetConnectionManagementAccessTokenRequestBuilder retryConfig(java.util.Optional<io.codat.platform.utils.RetryConfig> retryConfig) {
+    public GetConnectionManagementAccessTokenRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

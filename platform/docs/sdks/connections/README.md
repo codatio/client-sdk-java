@@ -26,7 +26,7 @@ Use the [List Integrations](https://docs.codat.io/platform-api#/operations/list-
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.CreateConnectionRequest;
 import io.codat.platform.models.operations.CreateConnectionRequestBody;
 import io.codat.platform.models.operations.CreateConnectionResponse;
@@ -35,39 +35,28 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            CreateConnectionRequest req = CreateConnectionRequest.builder()
+        CreateConnectionRequest req = CreateConnectionRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .requestBody(CreateConnectionRequestBody.builder()
                     .platformKey("gbol")
                     .build())
                 .build();
 
-            CreateConnectionResponse res = sdk.connections().create()
+        CreateConnectionResponse res = sdk.connections().create()
                 .request(req)
                 .call();
 
-            if (res.connection().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.connection().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -84,11 +73,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## delete
 
@@ -101,7 +89,7 @@ This operation is not reversible. The end user would need to reauthorize a new d
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.DeleteConnectionRequest;
 import io.codat.platform.models.operations.DeleteConnectionResponse;
 import io.codat.platform.models.shared.Security;
@@ -109,35 +97,24 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            DeleteConnectionRequest req = DeleteConnectionRequest.builder()
+        DeleteConnectionRequest req = DeleteConnectionRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .build();
 
-            DeleteConnectionResponse res = sdk.connections().delete()
+        DeleteConnectionResponse res = sdk.connections().delete()
                 .request(req)
                 .call();
 
-            // handle response
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
-        }
-
+        // handle response
     }
 }
 ```
@@ -154,11 +131,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## get
 
@@ -170,7 +146,7 @@ public class Application {
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.GetConnectionRequest;
 import io.codat.platform.models.operations.GetConnectionResponse;
 import io.codat.platform.models.shared.Security;
@@ -178,37 +154,26 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GetConnectionRequest req = GetConnectionRequest.builder()
+        GetConnectionRequest req = GetConnectionRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .build();
 
-            GetConnectionResponse res = sdk.connections().get()
+        GetConnectionResponse res = sdk.connections().get()
                 .request(req)
                 .call();
 
-            if (res.connection().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.connection().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -225,11 +190,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## list
 
@@ -241,7 +205,7 @@ public class Application {
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.ListConnectionsRequest;
 import io.codat.platform.models.operations.ListConnectionsResponse;
 import io.codat.platform.models.shared.Security;
@@ -249,15 +213,15 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            ListConnectionsRequest req = ListConnectionsRequest.builder()
+        ListConnectionsRequest req = ListConnectionsRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .orderBy("-modifiedDate")
                 .page(1)
@@ -265,24 +229,13 @@ public class Application {
                 .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
-            ListConnectionsResponse res = sdk.connections().list()
+        ListConnectionsResponse res = sdk.connections().list()
                 .request(req)
                 .call();
 
-            if (res.connections().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.connections().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -299,11 +252,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## unlink
 
@@ -315,7 +267,7 @@ public class Application {
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.UnlinkConnectionRequest;
 import io.codat.platform.models.operations.UnlinkConnectionResponse;
 import io.codat.platform.models.shared.Security;
@@ -323,37 +275,26 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            UnlinkConnectionRequest req = UnlinkConnectionRequest.builder()
+        UnlinkConnectionRequest req = UnlinkConnectionRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .build();
 
-            UnlinkConnectionResponse res = sdk.connections().unlink()
+        UnlinkConnectionResponse res = sdk.connections().unlink()
                 .request(req)
                 .call();
 
-            if (res.connection().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.connection().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -370,11 +311,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## updateAuthorization
 
@@ -386,7 +326,7 @@ Update data connection's authorization.
 package hello.world;
 
 import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.SDKError;
+import io.codat.platform.models.errors.ErrorMessage;
 import io.codat.platform.models.operations.UpdateConnectionAuthorizationRequest;
 import io.codat.platform.models.operations.UpdateConnectionAuthorizationResponse;
 import io.codat.platform.models.shared.Security;
@@ -394,37 +334,26 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatPlatform sdk = CodatPlatform.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            UpdateConnectionAuthorizationRequest req = UpdateConnectionAuthorizationRequest.builder()
+        UpdateConnectionAuthorizationRequest req = UpdateConnectionAuthorizationRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .build();
 
-            UpdateConnectionAuthorizationResponse res = sdk.connections().updateAuthorization()
+        UpdateConnectionAuthorizationResponse res = sdk.connections().updateAuthorization()
                 .request(req)
                 .call();
 
-            if (res.connection().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.platform.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.connection().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -441,7 +370,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |

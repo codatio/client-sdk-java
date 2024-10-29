@@ -19,19 +19,19 @@ public class GetIntegrationsBrandingRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetIntegrationsBrandingRequestBuilder request(io.codat.platform.models.operations.GetIntegrationsBrandingRequest request) {
+    public GetIntegrationsBrandingRequestBuilder request(GetIntegrationsBrandingRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetIntegrationsBrandingRequestBuilder retryConfig(io.codat.platform.utils.RetryConfig retryConfig) {
+    public GetIntegrationsBrandingRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetIntegrationsBrandingRequestBuilder retryConfig(java.util.Optional<io.codat.platform.utils.RetryConfig> retryConfig) {
+    public GetIntegrationsBrandingRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

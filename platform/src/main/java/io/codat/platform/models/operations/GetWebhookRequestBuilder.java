@@ -19,19 +19,19 @@ public class GetWebhookRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetWebhookRequestBuilder request(io.codat.platform.models.operations.GetWebhookRequest request) {
+    public GetWebhookRequestBuilder request(GetWebhookRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetWebhookRequestBuilder retryConfig(io.codat.platform.utils.RetryConfig retryConfig) {
+    public GetWebhookRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetWebhookRequestBuilder retryConfig(java.util.Optional<io.codat.platform.utils.RetryConfig> retryConfig) {
+    public GetWebhookRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;
