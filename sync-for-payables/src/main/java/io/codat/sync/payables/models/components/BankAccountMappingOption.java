@@ -38,7 +38,7 @@ public class BankAccountMappingOption {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("accountType")
-    private Optional<? extends AccountType> accountType;
+    private Optional<? extends BankAccountType> accountType;
 
     /**
      * The bank account's base currency.
@@ -92,7 +92,7 @@ public class BankAccountMappingOption {
     @JsonCreator
     public BankAccountMappingOption(
             @JsonProperty("accountNumber") JsonNullable<String> accountNumber,
-            @JsonProperty("accountType") Optional<? extends AccountType> accountType,
+            @JsonProperty("accountType") Optional<? extends BankAccountType> accountType,
             @JsonProperty("currency") JsonNullable<String> currency,
             @JsonProperty("id") Optional<String> id,
             @JsonProperty("name") JsonNullable<String> name,
@@ -142,8 +142,8 @@ public class BankAccountMappingOption {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<AccountType> accountType() {
-        return (Optional<AccountType>) accountType;
+    public Optional<BankAccountType> accountType() {
+        return (Optional<BankAccountType>) accountType;
     }
 
     /**
@@ -236,7 +236,7 @@ public class BankAccountMappingOption {
      * For Credit accounts, positive balances are liabilities, and positive transactions **reduce** liabilities.  
      * For Debit accounts, positive balances are assets, and positive transactions **increase** assets.
      */
-    public BankAccountMappingOption withAccountType(AccountType accountType) {
+    public BankAccountMappingOption withAccountType(BankAccountType accountType) {
         Utils.checkNotNull(accountType, "accountType");
         this.accountType = Optional.ofNullable(accountType);
         return this;
@@ -247,7 +247,7 @@ public class BankAccountMappingOption {
      * For Credit accounts, positive balances are liabilities, and positive transactions **reduce** liabilities.  
      * For Debit accounts, positive balances are assets, and positive transactions **increase** assets.
      */
-    public BankAccountMappingOption withAccountType(Optional<? extends AccountType> accountType) {
+    public BankAccountMappingOption withAccountType(Optional<? extends BankAccountType> accountType) {
         Utils.checkNotNull(accountType, "accountType");
         this.accountType = accountType;
         return this;
@@ -432,7 +432,7 @@ public class BankAccountMappingOption {
  
         private JsonNullable<String> accountNumber = JsonNullable.undefined();
  
-        private Optional<? extends AccountType> accountType = Optional.empty();
+        private Optional<? extends BankAccountType> accountType = Optional.empty();
  
         private JsonNullable<String> currency = JsonNullable.undefined();
  
@@ -481,7 +481,7 @@ public class BankAccountMappingOption {
          * For Credit accounts, positive balances are liabilities, and positive transactions **reduce** liabilities.  
          * For Debit accounts, positive balances are assets, and positive transactions **increase** assets.
          */
-        public Builder accountType(AccountType accountType) {
+        public Builder accountType(BankAccountType accountType) {
             Utils.checkNotNull(accountType, "accountType");
             this.accountType = Optional.ofNullable(accountType);
             return this;
@@ -492,7 +492,7 @@ public class BankAccountMappingOption {
          * For Credit accounts, positive balances are liabilities, and positive transactions **reduce** liabilities.  
          * For Debit accounts, positive balances are assets, and positive transactions **increase** assets.
          */
-        public Builder accountType(Optional<? extends AccountType> accountType) {
+        public Builder accountType(Optional<? extends BankAccountType> accountType) {
             Utils.checkNotNull(accountType, "accountType");
             this.accountType = accountType;
             return this;

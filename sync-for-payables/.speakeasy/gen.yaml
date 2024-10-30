@@ -11,7 +11,7 @@ generation:
     oAuth2ClientCredentialsEnabled: false
   telemetryEnabled: true
 java:
-  version: 2.0.0
+  version: 3.0.0
   additionalDependencies: []
   additionalPlugins: []
   artifactID: sync.payables

@@ -1,4 +1,4 @@
-speakeasyVersion: 1.423.1
+speakeasyVersion: 1.423.3
 sources:
     accounting-source:
         sourceNamespace: accounting-source
@@ -51,8 +51,8 @@ sources:
             - main
     sync-for-payables-source:
         sourceNamespace: sync-for-payables-source
-        sourceRevisionDigest: sha256:779d37cac16c94d4dfa418bfd8c87c6e4c701c055be9298fba7eed6a5943e145
-        sourceBlobDigest: sha256:f16cfaff947469b23c5b6017dd1069909876cdb15b2ab4ed49cbf9c272a1896b
+        sourceRevisionDigest: sha256:57c05de30b96f1efc4952dda7371aa0b982442e1bd7c4e304fb9413b7c94e715
+        sourceBlobDigest: sha256:1ffa6da669abbf5bb7fef62b991e1c237af95f876b930288b8ab14994e0ab0b5
         tags:
             - latest
             - main
@@ -102,8 +102,8 @@ targets:
     sync-for-payables-library:
         source: sync-for-payables-source
         sourceNamespace: sync-for-payables-source
-        sourceRevisionDigest: sha256:779d37cac16c94d4dfa418bfd8c87c6e4c701c055be9298fba7eed6a5943e145
-        sourceBlobDigest: sha256:f16cfaff947469b23c5b6017dd1069909876cdb15b2ab4ed49cbf9c272a1896b
+        sourceRevisionDigest: sha256:57c05de30b96f1efc4952dda7371aa0b982442e1bd7c4e304fb9413b7c94e715
+        sourceBlobDigest: sha256:1ffa6da669abbf5bb7fef62b991e1c237af95f876b930288b8ab14994e0ab0b5
     sync-for-payroll-library:
         source: sync-for-payroll-source
         sourceNamespace: sync-for-payroll-source
