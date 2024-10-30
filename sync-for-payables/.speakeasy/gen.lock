@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 18757ebf-96ad-433f-80e1-10950345f2fe
 management:
-  docChecksum: fbf8f2528e5a3e33fc271641da46c916
+  docChecksum: 16c2aba5060738f14671556b6526c400
   docVersion: 3.0.0
-  speakeasyVersion: 1.423.1
+  speakeasyVersion: 1.423.3
   generationVersion: 2.442.11
-  releaseVersion: 2.0.0
-  configChecksum: 132d3e0e4d9ee1b15fc5b94ac1856058
+  releaseVersion: 3.0.0
+  configChecksum: 9521bc2d0a62f4454590ebbed600f9c8
   repoURL: https://github.com/codatio/client-sdk-java.git
   repoSubDirectory: sync-for-payables
   published: true
@@ -36,7 +36,6 @@ generatedFiles:
   - build.gradle
   - docs/models/components/AccountMappingOption.md
   - docs/models/components/AccountStatus.md
-  - docs/models/components/AccountType.md
   - docs/models/components/Address.md
   - docs/models/components/AddressType.md
   - docs/models/components/Attachment.md
@@ -163,7 +162,6 @@ generatedFiles:
   - src/main/java/io/codat/sync/payables/Suppliers.java
   - src/main/java/io/codat/sync/payables/models/components/AccountMappingOption.java
   - src/main/java/io/codat/sync/payables/models/components/AccountStatus.java
-  - src/main/java/io/codat/sync/payables/models/components/AccountType.java
   - src/main/java/io/codat/sync/payables/models/components/Address.java
   - src/main/java/io/codat/sync/payables/models/components/AddressType.java
   - src/main/java/io/codat/sync/payables/models/components/Attachment.java

@@ -36,7 +36,7 @@ public class BankAccountPrototype {
      * For Debit accounts, positive balances are assets, and positive transactions **increase** assets.
      */
     @JsonProperty("accountType")
-    private AccountType accountType;
+    private BankAccountType accountType;
 
     /**
      * The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
@@ -77,7 +77,7 @@ public class BankAccountPrototype {
     @JsonCreator
     public BankAccountPrototype(
             @JsonProperty("accountNumber") Optional<String> accountNumber,
-            @JsonProperty("accountType") AccountType accountType,
+            @JsonProperty("accountType") BankAccountType accountType,
             @JsonProperty("currency") String currency,
             @JsonProperty("name") Optional<String> name,
             @JsonProperty("nominalCode") JsonNullable<String> nominalCode,
@@ -97,7 +97,7 @@ public class BankAccountPrototype {
     }
     
     public BankAccountPrototype(
-            AccountType accountType,
+            BankAccountType accountType,
             String currency) {
         this(Optional.empty(), accountType, currency, Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined());
     }
@@ -119,7 +119,7 @@ public class BankAccountPrototype {
      * For Debit accounts, positive balances are assets, and positive transactions **increase** assets.
      */
     @JsonIgnore
-    public AccountType accountType() {
+    public BankAccountType accountType() {
         return accountType;
     }
 
@@ -197,7 +197,7 @@ public class BankAccountPrototype {
      * For Credit accounts, positive balances are liabilities, and positive transactions **reduce** liabilities.  
      * For Debit accounts, positive balances are assets, and positive transactions **increase** assets.
      */
-    public BankAccountPrototype withAccountType(AccountType accountType) {
+    public BankAccountPrototype withAccountType(BankAccountType accountType) {
         Utils.checkNotNull(accountType, "accountType");
         this.accountType = accountType;
         return this;
@@ -322,7 +322,7 @@ public class BankAccountPrototype {
  
         private Optional<String> accountNumber = Optional.empty();
  
-        private AccountType accountType;
+        private BankAccountType accountType;
  
         private String currency;
  
@@ -365,7 +365,7 @@ public class BankAccountPrototype {
          * For Credit accounts, positive balances are liabilities, and positive transactions **reduce** liabilities.  
          * For Debit accounts, positive balances are assets, and positive transactions **increase** assets.
          */
-        public Builder accountType(AccountType accountType) {
+        public Builder accountType(BankAccountType accountType) {
             Utils.checkNotNull(accountType, "accountType");
             this.accountType = accountType;
             return this;

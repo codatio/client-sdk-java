@@ -21,8 +21,8 @@ The *Create bank account* endpoint creates a new [bank account](https://docs.cod
 package hello.world;
 
 import io.codat.sync.payables.CodatSyncPayables;
-import io.codat.sync.payables.models.components.AccountType;
 import io.codat.sync.payables.models.components.BankAccountPrototype;
+import io.codat.sync.payables.models.components.BankAccountType;
 import io.codat.sync.payables.models.errors.ErrorMessage;
 import io.codat.sync.payables.models.operations.CreateBankAccountRequest;
 import io.codat.sync.payables.models.operations.CreateBankAccountResponse;
@@ -41,7 +41,7 @@ public class Application {
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .bankAccountPrototype(BankAccountPrototype.builder()
                     .accountNumber("<value>")
-                    .accountType(AccountType.CREDIT)
+                    .accountType(BankAccountType.CREDIT)
                     .currency("USD")
                     .name("<value>")
                     .build())
