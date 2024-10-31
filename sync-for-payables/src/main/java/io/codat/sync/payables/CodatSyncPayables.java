@@ -69,14 +69,14 @@ public class CodatSyncPayables {
     private final Connections connections;
 
     /**
-     * Get, create, and update Bills.
-     */
-    private final Bills bills;
-
-    /**
      * Create a bank account for a given company's connection.
      */
     private final BankAccounts bankAccounts;
+
+    /**
+     * Get, create, and update Bills.
+     */
+    private final Bills bills;
 
     /**
      * Get, create, and update Bill payments.
@@ -108,17 +108,17 @@ public class CodatSyncPayables {
     }
 
     /**
-     * Get, create, and update Bills.
-     */
-    public Bills bills() {
-        return bills;
-    }
-
-    /**
      * Create a bank account for a given company's connection.
      */
     public BankAccounts bankAccounts() {
         return bankAccounts;
+    }
+
+    /**
+     * Get, create, and update Bills.
+     */
+    public Bills bills() {
+        return bills;
     }
 
     /**
@@ -271,8 +271,8 @@ public class CodatSyncPayables {
         this.sdkConfiguration = sdkConfiguration;
         this.companies = new Companies(sdkConfiguration);
         this.connections = new Connections(sdkConfiguration);
-        this.bills = new Bills(sdkConfiguration);
         this.bankAccounts = new BankAccounts(sdkConfiguration);
+        this.bills = new Bills(sdkConfiguration);
         this.billPayments = new BillPayments(sdkConfiguration);
         this.companyInformation = new CompanyInformation(sdkConfiguration);
         this.suppliers = new Suppliers(sdkConfiguration);

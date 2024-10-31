@@ -7,17 +7,25 @@ package io.codat.sync.payables.models.operations;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.codat.sync.payables.models.components.Attachment;
 import io.codat.sync.payables.utils.Response;
 import io.codat.sync.payables.utils.Utils;
 import java.io.InputStream;
 import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
 import java.util.Objects;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class UploadBillAttachmentResponse implements Response {
+
+    /**
+     * Created
+     */
+    private JsonNullable<? extends Attachment> attachment;
 
     /**
      * HTTP response content type for this operation
@@ -36,15 +44,34 @@ public class UploadBillAttachmentResponse implements Response {
 
     @JsonCreator
     public UploadBillAttachmentResponse(
+            JsonNullable<? extends Attachment> attachment,
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse) {
+        Utils.checkNotNull(attachment, "attachment");
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
+        this.attachment = attachment;
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
+    }
+    
+    public UploadBillAttachmentResponse(
+            String contentType,
+            int statusCode,
+            HttpResponse<InputStream> rawResponse) {
+        this(JsonNullable.undefined(), contentType, statusCode, rawResponse);
+    }
+
+    /**
+     * Created
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<Attachment> attachment() {
+        return (JsonNullable<Attachment>) attachment;
     }
 
     /**
@@ -73,6 +100,24 @@ public class UploadBillAttachmentResponse implements Response {
 
     public final static Builder builder() {
         return new Builder();
+    }
+
+    /**
+     * Created
+     */
+    public UploadBillAttachmentResponse withAttachment(Attachment attachment) {
+        Utils.checkNotNull(attachment, "attachment");
+        this.attachment = JsonNullable.of(attachment);
+        return this;
+    }
+
+    /**
+     * Created
+     */
+    public UploadBillAttachmentResponse withAttachment(JsonNullable<? extends Attachment> attachment) {
+        Utils.checkNotNull(attachment, "attachment");
+        this.attachment = attachment;
+        return this;
     }
 
     /**
@@ -112,6 +157,7 @@ public class UploadBillAttachmentResponse implements Response {
         }
         UploadBillAttachmentResponse other = (UploadBillAttachmentResponse) o;
         return 
+            Objects.deepEquals(this.attachment, other.attachment) &&
             Objects.deepEquals(this.contentType, other.contentType) &&
             Objects.deepEquals(this.statusCode, other.statusCode) &&
             Objects.deepEquals(this.rawResponse, other.rawResponse);
@@ -120,6 +166,7 @@ public class UploadBillAttachmentResponse implements Response {
     @Override
     public int hashCode() {
         return Objects.hash(
+            attachment,
             contentType,
             statusCode,
             rawResponse);
@@ -128,12 +175,15 @@ public class UploadBillAttachmentResponse implements Response {
     @Override
     public String toString() {
         return Utils.toString(UploadBillAttachmentResponse.class,
+                "attachment", attachment,
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse);
     }
     
     public final static class Builder {
+ 
+        private JsonNullable<? extends Attachment> attachment = JsonNullable.undefined();
  
         private String contentType;
  
@@ -143,6 +193,24 @@ public class UploadBillAttachmentResponse implements Response {
         
         private Builder() {
           // force use of static builder() method
+        }
+
+        /**
+         * Created
+         */
+        public Builder attachment(Attachment attachment) {
+            Utils.checkNotNull(attachment, "attachment");
+            this.attachment = JsonNullable.of(attachment);
+            return this;
+        }
+
+        /**
+         * Created
+         */
+        public Builder attachment(JsonNullable<? extends Attachment> attachment) {
+            Utils.checkNotNull(attachment, "attachment");
+            this.attachment = attachment;
+            return this;
         }
 
         /**
@@ -174,6 +242,7 @@ public class UploadBillAttachmentResponse implements Response {
         
         public UploadBillAttachmentResponse build() {
             return new UploadBillAttachmentResponse(
+                attachment,
                 contentType,
                 statusCode,
                 rawResponse);

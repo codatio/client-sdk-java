@@ -860,7 +860,7 @@ public class Bills implements
         String _url = Utils.generateURL(
                 ListBillAttachmentsRequest.class,
                 _baseUrl,
-                "/companies/{companyId}/connections/{connectionId}/bills/{billId}/attachments",
+                "/companies/{companyId}/connections/{connectionId}/payables/bills/{billId}/attachments",
                 request, null);
         
         HTTPRequest _req = new HTTPRequest(_url, "GET");
@@ -945,10 +945,10 @@ public class Bills implements
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                Attachment _out = Utils.mapper().readValue(
+                List<Attachment> _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<Attachment>() {});
-                _res.withAttachment(JsonNullable.of(_out));
+                    new TypeReference<List<Attachment>>() {});
+                _res.withAttachments(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
@@ -1129,8 +1129,19 @@ public class Bills implements
         UploadBillAttachmentResponse _res = _resBuilder.build();
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "201")) {
-            // no content 
-            return _res;
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                Attachment _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<Attachment>() {});
+                _res.withAttachment(JsonNullable.of(_out));
+                return _res;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "402", "403", "404", "429", "500", "503")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 18757ebf-96ad-433f-80e1-10950345f2fe
 management:
-  docChecksum: 16c2aba5060738f14671556b6526c400
+  docChecksum: c0f4a56a46c488781ea9be7def894f8c
   docVersion: 3.0.0
-  speakeasyVersion: 1.423.3
-  generationVersion: 2.442.11
-  releaseVersion: 3.0.0
-  configChecksum: 9521bc2d0a62f4454590ebbed600f9c8
+  speakeasyVersion: 1.423.5
+  generationVersion: 2.445.1
+  releaseVersion: 4.0.0
+  configChecksum: 0d7af15455983e0b6530d6cf34cf6862
   repoURL: https://github.com/codatio/client-sdk-java.git
   repoSubDirectory: sync-for-payables
   published: true
@@ -782,6 +782,15 @@ examples:
       responses:
         "401":
           application/json: {"canBeRetried": "Unknown", "correlationId": "7eb40d6b415d7bcd99ce658268284056", "detailedErrorCode": 0, "error": "Unauthorized", "service": "PublicApi", "statusCode": 401}
+    Attachments:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+          billId: "EILBDVJVNUAGVKRQ"
+      responses:
+        "200":
+          application/json: [{"contentType": "image/png", "dateCreated": "2022-10-23T00:00:00.000Z", "fileSize": 100, "id": "422f093f-e556-4bf3-91c0-93af70c3e850", "includeWhenSent": true, "name": "receipt.png", "sourceModifiedDate": "2022-05-26T10:34:10Z"}, {"contentType": "image/png", "dateCreated": "2022-10-24T00:00:00.000Z", "fileSize": 98, "id": "20cfd269-2f0f-44ef-a28c-7b5f725cf1aa", "includeWhenSent": true, "name": "another_receipt.png", "sourceModifiedDate": "2022-05-27T12:38:10Z"}]
   upload-bill-attachment:
     Malformed query:
       parameters:
@@ -792,6 +801,15 @@ examples:
       responses:
         "400":
           application/json: {"canBeRetried": "Unknown", "correlationId": "bc997528a9d7abb9161ef45f05d38599", "detailedErrorCode": 0, "error": "Error processing request - not valid.", "service": "PublicApi", "statusCode": 400}
+    Attachment metadata:
+      parameters:
+        path:
+          companyId: "8a210b68-6988-11ed-a1eb-0242ac120002"
+          connectionId: "2e9d2c44-f675-40ba-8049-353bfcb5e171"
+          billId: "EILBDVJVNUAGVKRQ"
+      responses:
+        "201":
+          application/json: {"contentType": "image/png", "dateCreated": "2022-10-23T00:00:00.000Z", "fileSize": 100, "id": "422f093f-e556-4bf3-91c0-93af70c3e850", "includeWhenSent": true, "name": "receipt.png", "sourceModifiedDate": "2022-05-26T10:34:10Z"}
   create-bank-account:
     Bank account example:
       parameters:

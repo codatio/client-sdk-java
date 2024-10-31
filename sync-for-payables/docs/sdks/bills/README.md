@@ -305,7 +305,7 @@ public class Application {
                 .request(req)
                 .call();
 
-        if (res.attachment().isPresent()) {
+        if (res.attachments().isPresent()) {
             // handle response
         }
     }
@@ -364,7 +364,9 @@ public class Application {
                 .request(req)
                 .call();
 
-        // handle response
+        if (res.attachment().isPresent()) {
+            // handle response
+        }
     }
 }
 ```
