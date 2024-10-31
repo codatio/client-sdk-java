@@ -82,6 +82,13 @@ public class SDKMethodInterfaces {
     }
 
 
+    public interface MethodCallCreateBankAccount {
+        CreateBankAccountResponse create(
+            CreateBankAccountRequest request,
+            Optional<Options> options) throws Exception;
+    }
+
+
     public interface MethodCallCreateBill {
         CreateBillResponse create(
             CreateBillRequest request,
@@ -120,13 +127,6 @@ public class SDKMethodInterfaces {
     public interface MethodCallUploadBillAttachment {
         UploadBillAttachmentResponse uploadAttachment(
             UploadBillAttachmentRequest request,
-            Optional<Options> options) throws Exception;
-    }
-
-
-    public interface MethodCallCreateBankAccount {
-        CreateBankAccountResponse create(
-            CreateBankAccountRequest request,
             Optional<Options> options) throws Exception;
     }
 

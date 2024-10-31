@@ -16,16 +16,12 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.List;
 import java.util.Objects;
-import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.Optional;
 
 
 public class ListBillAttachmentsResponse implements Response {
-
-    /**
-     * Success
-     */
-    private JsonNullable<? extends Attachment> attachment;
 
     /**
      * HTTP response content type for this operation
@@ -42,36 +38,32 @@ public class ListBillAttachmentsResponse implements Response {
      */
     private HttpResponse<InputStream> rawResponse;
 
+    /**
+     * Success
+     */
+    private Optional<? extends List<Attachment>> attachments;
+
     @JsonCreator
     public ListBillAttachmentsResponse(
-            JsonNullable<? extends Attachment> attachment,
             String contentType,
             int statusCode,
-            HttpResponse<InputStream> rawResponse) {
-        Utils.checkNotNull(attachment, "attachment");
+            HttpResponse<InputStream> rawResponse,
+            Optional<? extends List<Attachment>> attachments) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        this.attachment = attachment;
+        Utils.checkNotNull(attachments, "attachments");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
+        this.attachments = attachments;
     }
     
     public ListBillAttachmentsResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse) {
-        this(JsonNullable.undefined(), contentType, statusCode, rawResponse);
-    }
-
-    /**
-     * Success
-     */
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public JsonNullable<Attachment> attachment() {
-        return (JsonNullable<Attachment>) attachment;
+        this(contentType, statusCode, rawResponse, Optional.empty());
     }
 
     /**
@@ -98,26 +90,17 @@ public class ListBillAttachmentsResponse implements Response {
         return rawResponse;
     }
 
+    /**
+     * Success
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<List<Attachment>> attachments() {
+        return (Optional<List<Attachment>>) attachments;
+    }
+
     public final static Builder builder() {
         return new Builder();
-    }
-
-    /**
-     * Success
-     */
-    public ListBillAttachmentsResponse withAttachment(Attachment attachment) {
-        Utils.checkNotNull(attachment, "attachment");
-        this.attachment = JsonNullable.of(attachment);
-        return this;
-    }
-
-    /**
-     * Success
-     */
-    public ListBillAttachmentsResponse withAttachment(JsonNullable<? extends Attachment> attachment) {
-        Utils.checkNotNull(attachment, "attachment");
-        this.attachment = attachment;
-        return this;
     }
 
     /**
@@ -146,6 +129,24 @@ public class ListBillAttachmentsResponse implements Response {
         this.rawResponse = rawResponse;
         return this;
     }
+
+    /**
+     * Success
+     */
+    public ListBillAttachmentsResponse withAttachments(List<Attachment> attachments) {
+        Utils.checkNotNull(attachments, "attachments");
+        this.attachments = Optional.ofNullable(attachments);
+        return this;
+    }
+
+    /**
+     * Success
+     */
+    public ListBillAttachmentsResponse withAttachments(Optional<? extends List<Attachment>> attachments) {
+        Utils.checkNotNull(attachments, "attachments");
+        this.attachments = attachments;
+        return this;
+    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -157,60 +158,42 @@ public class ListBillAttachmentsResponse implements Response {
         }
         ListBillAttachmentsResponse other = (ListBillAttachmentsResponse) o;
         return 
-            Objects.deepEquals(this.attachment, other.attachment) &&
             Objects.deepEquals(this.contentType, other.contentType) &&
             Objects.deepEquals(this.statusCode, other.statusCode) &&
-            Objects.deepEquals(this.rawResponse, other.rawResponse);
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.attachments, other.attachments);
     }
     
     @Override
     public int hashCode() {
         return Objects.hash(
-            attachment,
             contentType,
             statusCode,
-            rawResponse);
+            rawResponse,
+            attachments);
     }
     
     @Override
     public String toString() {
         return Utils.toString(ListBillAttachmentsResponse.class,
-                "attachment", attachment,
                 "contentType", contentType,
                 "statusCode", statusCode,
-                "rawResponse", rawResponse);
+                "rawResponse", rawResponse,
+                "attachments", attachments);
     }
     
     public final static class Builder {
- 
-        private JsonNullable<? extends Attachment> attachment = JsonNullable.undefined();
  
         private String contentType;
  
         private Integer statusCode;
  
-        private HttpResponse<InputStream> rawResponse;  
+        private HttpResponse<InputStream> rawResponse;
+ 
+        private Optional<? extends List<Attachment>> attachments = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
-        }
-
-        /**
-         * Success
-         */
-        public Builder attachment(Attachment attachment) {
-            Utils.checkNotNull(attachment, "attachment");
-            this.attachment = JsonNullable.of(attachment);
-            return this;
-        }
-
-        /**
-         * Success
-         */
-        public Builder attachment(JsonNullable<? extends Attachment> attachment) {
-            Utils.checkNotNull(attachment, "attachment");
-            this.attachment = attachment;
-            return this;
         }
 
         /**
@@ -239,13 +222,31 @@ public class ListBillAttachmentsResponse implements Response {
             this.rawResponse = rawResponse;
             return this;
         }
+
+        /**
+         * Success
+         */
+        public Builder attachments(List<Attachment> attachments) {
+            Utils.checkNotNull(attachments, "attachments");
+            this.attachments = Optional.ofNullable(attachments);
+            return this;
+        }
+
+        /**
+         * Success
+         */
+        public Builder attachments(Optional<? extends List<Attachment>> attachments) {
+            Utils.checkNotNull(attachments, "attachments");
+            this.attachments = attachments;
+            return this;
+        }
         
         public ListBillAttachmentsResponse build() {
             return new ListBillAttachmentsResponse(
-                attachment,
                 contentType,
                 statusCode,
-                rawResponse);
+                rawResponse,
+                attachments);
         }
     }
 }
