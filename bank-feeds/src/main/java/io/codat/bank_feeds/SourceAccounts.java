@@ -7,7 +7,6 @@ package io.codat.bank_feeds;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.bank_feeds.models.components.BankAccountCredentials;
 import io.codat.bank_feeds.models.components.SourceAccount;
-import io.codat.bank_feeds.models.components.SourceAccountV2;
 import io.codat.bank_feeds.models.errors.ErrorMessage;
 import io.codat.bank_feeds.models.errors.SDKError;
 import io.codat.bank_feeds.models.operations.CreateSourceAccountRequest;
@@ -26,6 +25,7 @@ import io.codat.bank_feeds.models.operations.GenerateCredentialsResponse;
 import io.codat.bank_feeds.models.operations.ListSourceAccountsRequest;
 import io.codat.bank_feeds.models.operations.ListSourceAccountsRequestBuilder;
 import io.codat.bank_feeds.models.operations.ListSourceAccountsResponse;
+import io.codat.bank_feeds.models.operations.ListSourceAccountsResponseBody;
 import io.codat.bank_feeds.models.operations.SDKMethodInterfaces.*;
 import io.codat.bank_feeds.models.operations.UpdateSourceAccountRequest;
 import io.codat.bank_feeds.models.operations.UpdateSourceAccountRequestBuilder;
@@ -179,7 +179,7 @@ public class SourceAccounts implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.bank_feeds.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -201,7 +201,7 @@ public class SourceAccounts implements
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -367,7 +367,7 @@ public class SourceAccounts implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.bank_feeds.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -379,7 +379,7 @@ public class SourceAccounts implements
         HTTPRequest _req = new HTTPRequest(_url, "DELETE");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -531,7 +531,7 @@ public class SourceAccounts implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.bank_feeds.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -543,7 +543,7 @@ public class SourceAccounts implements
         HTTPRequest _req = new HTTPRequest(_url, "DELETE");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -657,10 +657,13 @@ public class SourceAccounts implements
 
     /**
      * Generate source account credentials
-     * ﻿The _Generate Bank Account Credentials_ endpoint can be used to generate credentials for QuickBooks Online to use for authentication of the Bank Feed in their portal, each time this is used a new set of credentials will be generated.
+     * ﻿The _Generate bank account credentials_ endpoint can be used to generate credentials for QuickBooks Online to authenticate the Bank Feed in the QBO portal. Each time this endpoint is called, a new set of credentials will be generated.
      * 
      * The old credentials will still be valid until the revoke credentials endpoint is used, which will revoke all credentials associated to the data connection.
      * 
+     * &gt; **For QuickBooks Online only**
+     * &gt;
+     * &gt; Only call this endpoint when onboarding SMBs that use  QuickBooks Online.
      * @return The call builder
      */
     public GenerateCredentialsRequestBuilder generateCredentials() {
@@ -669,10 +672,13 @@ public class SourceAccounts implements
 
     /**
      * Generate source account credentials
-     * ﻿The _Generate Bank Account Credentials_ endpoint can be used to generate credentials for QuickBooks Online to use for authentication of the Bank Feed in their portal, each time this is used a new set of credentials will be generated.
+     * ﻿The _Generate bank account credentials_ endpoint can be used to generate credentials for QuickBooks Online to authenticate the Bank Feed in the QBO portal. Each time this endpoint is called, a new set of credentials will be generated.
      * 
      * The old credentials will still be valid until the revoke credentials endpoint is used, which will revoke all credentials associated to the data connection.
      * 
+     * &gt; **For QuickBooks Online only**
+     * &gt;
+     * &gt; Only call this endpoint when onboarding SMBs that use  QuickBooks Online.
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
@@ -684,10 +690,13 @@ public class SourceAccounts implements
     
     /**
      * Generate source account credentials
-     * ﻿The _Generate Bank Account Credentials_ endpoint can be used to generate credentials for QuickBooks Online to use for authentication of the Bank Feed in their portal, each time this is used a new set of credentials will be generated.
+     * ﻿The _Generate bank account credentials_ endpoint can be used to generate credentials for QuickBooks Online to authenticate the Bank Feed in the QBO portal. Each time this endpoint is called, a new set of credentials will be generated.
      * 
      * The old credentials will still be valid until the revoke credentials endpoint is used, which will revoke all credentials associated to the data connection.
      * 
+     * &gt; **For QuickBooks Online only**
+     * &gt;
+     * &gt; Only call this endpoint when onboarding SMBs that use  QuickBooks Online.
      * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
@@ -698,7 +707,7 @@ public class SourceAccounts implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.bank_feeds.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -723,7 +732,7 @@ public class SourceAccounts implements
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -850,7 +859,7 @@ public class SourceAccounts implements
      * List source accounts
      * ﻿The _List source accounts_ endpoint returns a list of [source accounts](https://docs.codat.io/bank-feeds-api#/schemas/BankFeedAccount) for a given company's connection.
      * 
-     * [source accounts](https://docs.codat.io/bank-feeds-api#/schemas/BankFeedAccount) are the bank's bank account within Codat's domain from which transactions are synced into the accounting platform.
+     * [Source accounts](https://docs.codat.io/bank-feeds-api#/schemas/BankFeedAccount) are the bank's bank account within Codat's domain from which transactions are synced into the accounting platform.
      * 
      * &gt; ### Versioning
      * &gt; If you are integrating the Bank Feeds API with Codat after August 1, 2024, please use the v2 version of the API, as detailed in the schema below. For integrations completed before August 1, 2024, select the v1 version from the schema dropdown below.
@@ -864,7 +873,7 @@ public class SourceAccounts implements
      * List source accounts
      * ﻿The _List source accounts_ endpoint returns a list of [source accounts](https://docs.codat.io/bank-feeds-api#/schemas/BankFeedAccount) for a given company's connection.
      * 
-     * [source accounts](https://docs.codat.io/bank-feeds-api#/schemas/BankFeedAccount) are the bank's bank account within Codat's domain from which transactions are synced into the accounting platform.
+     * [Source accounts](https://docs.codat.io/bank-feeds-api#/schemas/BankFeedAccount) are the bank's bank account within Codat's domain from which transactions are synced into the accounting platform.
      * 
      * &gt; ### Versioning
      * &gt; If you are integrating the Bank Feeds API with Codat after August 1, 2024, please use the v2 version of the API, as detailed in the schema below. For integrations completed before August 1, 2024, select the v1 version from the schema dropdown below.
@@ -881,7 +890,7 @@ public class SourceAccounts implements
      * List source accounts
      * ﻿The _List source accounts_ endpoint returns a list of [source accounts](https://docs.codat.io/bank-feeds-api#/schemas/BankFeedAccount) for a given company's connection.
      * 
-     * [source accounts](https://docs.codat.io/bank-feeds-api#/schemas/BankFeedAccount) are the bank's bank account within Codat's domain from which transactions are synced into the accounting platform.
+     * [Source accounts](https://docs.codat.io/bank-feeds-api#/schemas/BankFeedAccount) are the bank's bank account within Codat's domain from which transactions are synced into the accounting platform.
      * 
      * &gt; ### Versioning
      * &gt; If you are integrating the Bank Feeds API with Codat after August 1, 2024, please use the v2 version of the API, as detailed in the schema below. For integrations completed before August 1, 2024, select the v1 version from the schema dropdown below.
@@ -895,7 +904,7 @@ public class SourceAccounts implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.bank_feeds.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -907,7 +916,7 @@ public class SourceAccounts implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -986,10 +995,10 @@ public class SourceAccounts implements
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                List<SourceAccountV2> _out = Utils.mapper().readValue(
+                ListSourceAccountsResponseBody _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<List<SourceAccountV2>>() {});
-                _res.withSourceAccounts(Optional.ofNullable(_out));
+                    new TypeReference<ListSourceAccountsResponseBody>() {});
+                _res.withOneOf(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(
@@ -1079,7 +1088,7 @@ public class SourceAccounts implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.bank_feeds.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -1101,7 +1110,7 @@ public class SourceAccounts implements
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());

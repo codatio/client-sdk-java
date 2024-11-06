@@ -19,41 +19,30 @@ Use the _Get last successful sync_ endpoint to obtain the status information for
 package hello.world;
 
 import io.codat.bank_feeds.CodatBankFeeds;
-import io.codat.bank_feeds.models.errors.SDKError;
+import io.codat.bank_feeds.models.errors.ErrorMessage;
 import io.codat.bank_feeds.models.operations.GetLastSuccessfulRequest;
 import io.codat.bank_feeds.models.operations.GetLastSuccessfulResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatBankFeeds sdk = CodatBankFeeds.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            GetLastSuccessfulRequest req = GetLastSuccessfulRequest.builder()
+        CodatBankFeeds sdk = CodatBankFeeds.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        GetLastSuccessfulRequest req = GetLastSuccessfulRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .build();
 
-            GetLastSuccessfulResponse res = sdk.sync().getLastSuccessfulSync()
+        GetLastSuccessfulResponse res = sdk.sync().getLastSuccessfulSync()
                 .request(req)
                 .call();
 
-            if (res.companySyncStatus().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.bank_feeds.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.companySyncStatus().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -70,7 +59,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |

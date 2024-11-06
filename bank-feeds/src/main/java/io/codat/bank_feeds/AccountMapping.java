@@ -59,11 +59,13 @@ public class AccountMapping implements
      * Create bank feed account mapping
      * ﻿The *Create bank account mapping* endpoint creates a new mapping between a source bank account and a potential account in the accounting software (target account).
      * 
-     * A bank feed account mapping is a specified link between the source account (provided by the Codat user) and the target account (the end users account in the underlying platform).
+     * A bank feed account mapping is a specified link between the source account (provided by the Codat user) and the target account (the end user's account in the underlying software).
      * 
-     * To find valid target account options, first call list bank feed account mappings.
+     * To find valid target account options, first call the [List bank feed account mappings](https://docs.codat.io//bank-feeds-api#/operations/get-bank-account-mapping) endpoint.
      * 
-     * This endpoint is only needed if building an account management UI.
+     * &gt; **For custom builds only**
+     * &gt;
+     * &gt; Only use this endpoint if you are building your own account management UI.
      * @return The call builder
      */
     public CreateBankAccountMappingRequestBuilder create() {
@@ -74,11 +76,13 @@ public class AccountMapping implements
      * Create bank feed account mapping
      * ﻿The *Create bank account mapping* endpoint creates a new mapping between a source bank account and a potential account in the accounting software (target account).
      * 
-     * A bank feed account mapping is a specified link between the source account (provided by the Codat user) and the target account (the end users account in the underlying platform).
+     * A bank feed account mapping is a specified link between the source account (provided by the Codat user) and the target account (the end user's account in the underlying software).
      * 
-     * To find valid target account options, first call list bank feed account mappings.
+     * To find valid target account options, first call the [List bank feed account mappings](https://docs.codat.io//bank-feeds-api#/operations/get-bank-account-mapping) endpoint.
      * 
-     * This endpoint is only needed if building an account management UI.
+     * &gt; **For custom builds only**
+     * &gt;
+     * &gt; Only use this endpoint if you are building your own account management UI.
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
@@ -92,11 +96,13 @@ public class AccountMapping implements
      * Create bank feed account mapping
      * ﻿The *Create bank account mapping* endpoint creates a new mapping between a source bank account and a potential account in the accounting software (target account).
      * 
-     * A bank feed account mapping is a specified link between the source account (provided by the Codat user) and the target account (the end users account in the underlying platform).
+     * A bank feed account mapping is a specified link between the source account (provided by the Codat user) and the target account (the end user's account in the underlying software).
      * 
-     * To find valid target account options, first call list bank feed account mappings.
+     * To find valid target account options, first call the [List bank feed account mappings](https://docs.codat.io//bank-feeds-api#/operations/get-bank-account-mapping) endpoint.
      * 
-     * This endpoint is only needed if building an account management UI.
+     * &gt; **For custom builds only**
+     * &gt;
+     * &gt; Only use this endpoint if you are building your own account management UI.
      * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
@@ -107,7 +113,7 @@ public class AccountMapping implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.bank_feeds.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -129,7 +135,7 @@ public class AccountMapping implements
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -253,12 +259,14 @@ public class AccountMapping implements
 
 
     /**
-     * List bank feed account mappings
-     * ﻿The *List bank account mappings* endpoint returns information about a source bank account and any current or potential target mapping accounts.
+     * List bank feed accounts
+     * ﻿The *List bank accounts* endpoint returns information about a source bank account and any current or potential target mapping accounts.
      * 
-     * A bank feed account mapping is a specified link between the source account (provided by the Codat user) and the target account (the end users account in the underlying platform).
+     * A bank feed account mapping is a specified link between the source account (provided by the Codat user) and the target account (the end user's account in the underlying software).
      * 
-     * This endpoint is only needed if building an account management UI.
+     * &gt; **For custom builds only**
+     * &gt; 
+     * &gt; Only use this endpoint if you are building your own account management UI.
      * @return The call builder
      */
     public GetBankAccountMappingRequestBuilder get() {
@@ -266,12 +274,14 @@ public class AccountMapping implements
     }
 
     /**
-     * List bank feed account mappings
-     * ﻿The *List bank account mappings* endpoint returns information about a source bank account and any current or potential target mapping accounts.
+     * List bank feed accounts
+     * ﻿The *List bank accounts* endpoint returns information about a source bank account and any current or potential target mapping accounts.
      * 
-     * A bank feed account mapping is a specified link between the source account (provided by the Codat user) and the target account (the end users account in the underlying platform).
+     * A bank feed account mapping is a specified link between the source account (provided by the Codat user) and the target account (the end user's account in the underlying software).
      * 
-     * This endpoint is only needed if building an account management UI.
+     * &gt; **For custom builds only**
+     * &gt; 
+     * &gt; Only use this endpoint if you are building your own account management UI.
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
@@ -282,12 +292,14 @@ public class AccountMapping implements
     }
     
     /**
-     * List bank feed account mappings
-     * ﻿The *List bank account mappings* endpoint returns information about a source bank account and any current or potential target mapping accounts.
+     * List bank feed accounts
+     * ﻿The *List bank accounts* endpoint returns information about a source bank account and any current or potential target mapping accounts.
      * 
-     * A bank feed account mapping is a specified link between the source account (provided by the Codat user) and the target account (the end users account in the underlying platform).
+     * A bank feed account mapping is a specified link between the source account (provided by the Codat user) and the target account (the end user's account in the underlying software).
      * 
-     * This endpoint is only needed if building an account management UI.
+     * &gt; **For custom builds only**
+     * &gt; 
+     * &gt; Only use this endpoint if you are building your own account management UI.
      * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
@@ -298,7 +310,7 @@ public class AccountMapping implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.bank_feeds.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -310,7 +322,7 @@ public class AccountMapping implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -389,10 +401,10 @@ public class AccountMapping implements
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                BankFeedMapping _out = Utils.mapper().readValue(
+                List<BankFeedMapping> _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<BankFeedMapping>() {});
-                _res.withBankFeedMapping(Optional.ofNullable(_out));
+                    new TypeReference<List<BankFeedMapping>>() {});
+                _res.withBankFeedMappings(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(

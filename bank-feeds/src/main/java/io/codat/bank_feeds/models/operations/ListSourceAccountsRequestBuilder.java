@@ -19,19 +19,19 @@ public class ListSourceAccountsRequestBuilder {
         this.sdk = sdk;
     }
 
-    public ListSourceAccountsRequestBuilder request(io.codat.bank_feeds.models.operations.ListSourceAccountsRequest request) {
+    public ListSourceAccountsRequestBuilder request(ListSourceAccountsRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public ListSourceAccountsRequestBuilder retryConfig(io.codat.bank_feeds.utils.RetryConfig retryConfig) {
+    public ListSourceAccountsRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public ListSourceAccountsRequestBuilder retryConfig(java.util.Optional<io.codat.bank_feeds.utils.RetryConfig> retryConfig) {
+    public ListSourceAccountsRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

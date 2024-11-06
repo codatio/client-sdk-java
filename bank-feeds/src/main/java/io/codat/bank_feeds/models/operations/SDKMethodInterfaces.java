@@ -6,202 +6,203 @@ package io.codat.bank_feeds.models.operations;
 
 import io.codat.bank_feeds.models.components.CompanyRequestBody;
 import io.codat.bank_feeds.utils.Options;
+import java.lang.Exception;
 import java.util.Optional;
 
 public class SDKMethodInterfaces {
 
 
     public interface MethodCallCreateCompany {
-        io.codat.bank_feeds.models.operations.CreateCompanyResponse create(
+        CreateCompanyResponse create(
             Optional<? extends CompanyRequestBody> request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDeleteCompany {
-        io.codat.bank_feeds.models.operations.DeleteCompanyResponse delete(
+        DeleteCompanyResponse delete(
             DeleteCompanyRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetCompany {
-        io.codat.bank_feeds.models.operations.GetCompanyResponse get(
+        GetCompanyResponse get(
             GetCompanyRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListCompanies {
-        io.codat.bank_feeds.models.operations.ListCompaniesResponse list(
+        ListCompaniesResponse list(
             ListCompaniesRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUpdateCompany {
-        io.codat.bank_feeds.models.operations.UpdateCompanyResponse update(
+        UpdateCompanyResponse update(
             UpdateCompanyRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateConnection {
-        io.codat.bank_feeds.models.operations.CreateConnectionResponse create(
+        CreateConnectionResponse create(
             CreateConnectionRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDeleteConnection {
-        io.codat.bank_feeds.models.operations.DeleteConnectionResponse delete(
+        DeleteConnectionResponse delete(
             DeleteConnectionRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetConnection {
-        io.codat.bank_feeds.models.operations.GetConnectionResponse get(
+        GetConnectionResponse get(
             GetConnectionRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListConnections {
-        io.codat.bank_feeds.models.operations.ListConnectionsResponse list(
+        ListConnectionsResponse list(
             ListConnectionsRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUnlinkConnection {
-        io.codat.bank_feeds.models.operations.UnlinkConnectionResponse unlink(
+        UnlinkConnectionResponse unlink(
             UnlinkConnectionRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateBankAccountMapping {
-        io.codat.bank_feeds.models.operations.CreateBankAccountMappingResponse create(
+        CreateBankAccountMappingResponse create(
             CreateBankAccountMappingRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetBankAccountMapping {
-        io.codat.bank_feeds.models.operations.GetBankAccountMappingResponse get(
+        GetBankAccountMappingResponse get(
             GetBankAccountMappingRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetCompanyInformation {
-        io.codat.bank_feeds.models.operations.GetCompanyInformationResponse get(
+        GetCompanyInformationResponse get(
             GetCompanyInformationRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateSourceAccount {
-        io.codat.bank_feeds.models.operations.CreateSourceAccountResponse create(
+        CreateSourceAccountResponse create(
             CreateSourceAccountRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDeleteSourceAccount {
-        io.codat.bank_feeds.models.operations.DeleteSourceAccountResponse delete(
+        DeleteSourceAccountResponse delete(
             DeleteSourceAccountRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDeleteBankFeedCredentials {
-        io.codat.bank_feeds.models.operations.DeleteBankFeedCredentialsResponse deleteCredentials(
+        DeleteBankFeedCredentialsResponse deleteCredentials(
             DeleteBankFeedCredentialsRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGenerateCredentials {
-        io.codat.bank_feeds.models.operations.GenerateCredentialsResponse generateCredentials(
+        GenerateCredentialsResponse generateCredentials(
             GenerateCredentialsRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListSourceAccounts {
-        io.codat.bank_feeds.models.operations.ListSourceAccountsResponse list(
+        ListSourceAccountsResponse list(
             ListSourceAccountsRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUpdateSourceAccount {
-        io.codat.bank_feeds.models.operations.UpdateSourceAccountResponse update(
+        UpdateSourceAccountResponse update(
             UpdateSourceAccountRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateBankAccount {
-        io.codat.bank_feeds.models.operations.CreateBankAccountResponse create(
+        CreateBankAccountResponse create(
             CreateBankAccountRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetCreateBankAccountsModel {
-        io.codat.bank_feeds.models.operations.GetCreateBankAccountsModelResponse getCreateModel(
+        GetCreateBankAccountsModelResponse getCreateModel(
             GetCreateBankAccountsModelRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListBankAccounts {
-        io.codat.bank_feeds.models.operations.ListBankAccountsResponse list(
+        ListBankAccountsResponse list(
             ListBankAccountsRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateBankTransactions {
-        io.codat.bank_feeds.models.operations.CreateBankTransactionsResponse create(
+        CreateBankTransactionsResponse create(
             CreateBankTransactionsRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetCreateOperation {
-        io.codat.bank_feeds.models.operations.GetCreateOperationResponse getCreateOperation(
+        GetCreateOperationResponse getCreateOperation(
             GetCreateOperationRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListCreateOperations {
-        io.codat.bank_feeds.models.operations.ListCreateOperationsResponse listCreateOperations(
+        ListCreateOperationsResponse listCreateOperations(
             ListCreateOperationsRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetConfiguration {
-        io.codat.bank_feeds.models.operations.GetConfigurationResponse get(
+        GetConfigurationResponse get(
             GetConfigurationRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallSetConfiguration {
-        io.codat.bank_feeds.models.operations.SetConfigurationResponse set(
+        SetConfigurationResponse set(
             SetConfigurationRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetLastSuccessful {
-        io.codat.bank_feeds.models.operations.GetLastSuccessfulResponse getLastSuccessfulSync(
+        GetLastSuccessfulResponse getLastSuccessfulSync(
             GetLastSuccessfulRequest request,
             Optional<Options> options) throws Exception;
     }

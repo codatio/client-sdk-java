@@ -8,17 +8,19 @@ Extra functionality for building an account management UI.
 ### Available Operations
 
 * [create](#create) - Create bank feed account mapping
-* [get](#get) - List bank feed account mappings
+* [get](#get) - List bank feed accounts
 
 ## create
 
 ﻿The *Create bank account mapping* endpoint creates a new mapping between a source bank account and a potential account in the accounting software (target account).
 
-A bank feed account mapping is a specified link between the source account (provided by the Codat user) and the target account (the end users account in the underlying platform).
+A bank feed account mapping is a specified link between the source account (provided by the Codat user) and the target account (the end user's account in the underlying software).
 
-To find valid target account options, first call list bank feed account mappings.
+To find valid target account options, first call the [List bank feed account mappings](https://docs.codat.io//bank-feeds-api#/operations/get-bank-account-mapping) endpoint.
 
-This endpoint is only needed if building an account management UI.
+> **For custom builds only**
+>
+> Only use this endpoint if you are building your own account management UI.
 
 ### Example Usage
 
@@ -27,45 +29,35 @@ package hello.world;
 
 import io.codat.bank_feeds.CodatBankFeeds;
 import io.codat.bank_feeds.models.components.BankFeedAccountMapping;
-import io.codat.bank_feeds.models.errors.SDKError;
+import io.codat.bank_feeds.models.errors.ErrorMessage;
 import io.codat.bank_feeds.models.operations.CreateBankAccountMappingRequest;
 import io.codat.bank_feeds.models.operations.CreateBankAccountMappingResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatBankFeeds sdk = CodatBankFeeds.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            CreateBankAccountMappingRequest req = CreateBankAccountMappingRequest.builder()
+        CodatBankFeeds sdk = CodatBankFeeds.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        CreateBankAccountMappingRequest req = CreateBankAccountMappingRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .bankFeedAccountMapping(BankFeedAccountMapping.builder()
-                    .sourceAccountId("<value>")
+                    .sourceAccountId("<id>")
+                    .targetAccountId("account-081")
                     .build())
                 .build();
 
-            CreateBankAccountMappingResponse res = sdk.accountMapping().create()
+        CreateBankAccountMappingResponse res = sdk.accountMapping().create()
                 .request(req)
                 .call();
 
-            if (res.bankFeedAccountMappingResponse().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.bank_feeds.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.bankFeedAccountMappingResponse().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -82,19 +74,20 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## get
 
-﻿The *List bank account mappings* endpoint returns information about a source bank account and any current or potential target mapping accounts.
+﻿The *List bank accounts* endpoint returns information about a source bank account and any current or potential target mapping accounts.
 
-A bank feed account mapping is a specified link between the source account (provided by the Codat user) and the target account (the end users account in the underlying platform).
+A bank feed account mapping is a specified link between the source account (provided by the Codat user) and the target account (the end user's account in the underlying software).
 
-This endpoint is only needed if building an account management UI.
+> **For custom builds only**
+> 
+> Only use this endpoint if you are building your own account management UI.
 
 ### Example Usage
 
@@ -102,42 +95,31 @@ This endpoint is only needed if building an account management UI.
 package hello.world;
 
 import io.codat.bank_feeds.CodatBankFeeds;
-import io.codat.bank_feeds.models.errors.SDKError;
+import io.codat.bank_feeds.models.errors.ErrorMessage;
 import io.codat.bank_feeds.models.operations.GetBankAccountMappingRequest;
 import io.codat.bank_feeds.models.operations.GetBankAccountMappingResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatBankFeeds sdk = CodatBankFeeds.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            GetBankAccountMappingRequest req = GetBankAccountMappingRequest.builder()
+        CodatBankFeeds sdk = CodatBankFeeds.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        GetBankAccountMappingRequest req = GetBankAccountMappingRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .build();
 
-            GetBankAccountMappingResponse res = sdk.accountMapping().get()
+        GetBankAccountMappingResponse res = sdk.accountMapping().get()
                 .request(req)
                 .call();
 
-            if (res.bankFeedMapping().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.bank_feeds.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.bankFeedMappings().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -154,7 +136,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |

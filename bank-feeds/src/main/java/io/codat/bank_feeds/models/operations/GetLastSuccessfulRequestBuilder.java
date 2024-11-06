@@ -19,19 +19,19 @@ public class GetLastSuccessfulRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetLastSuccessfulRequestBuilder request(io.codat.bank_feeds.models.operations.GetLastSuccessfulRequest request) {
+    public GetLastSuccessfulRequestBuilder request(GetLastSuccessfulRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetLastSuccessfulRequestBuilder retryConfig(io.codat.bank_feeds.utils.RetryConfig retryConfig) {
+    public GetLastSuccessfulRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetLastSuccessfulRequestBuilder retryConfig(java.util.Optional<io.codat.bank_feeds.utils.RetryConfig> retryConfig) {
+    public GetLastSuccessfulRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

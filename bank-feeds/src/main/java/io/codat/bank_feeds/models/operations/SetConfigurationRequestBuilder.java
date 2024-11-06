@@ -19,19 +19,19 @@ public class SetConfigurationRequestBuilder {
         this.sdk = sdk;
     }
 
-    public SetConfigurationRequestBuilder request(io.codat.bank_feeds.models.operations.SetConfigurationRequest request) {
+    public SetConfigurationRequestBuilder request(SetConfigurationRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public SetConfigurationRequestBuilder retryConfig(io.codat.bank_feeds.utils.RetryConfig retryConfig) {
+    public SetConfigurationRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public SetConfigurationRequestBuilder retryConfig(java.util.Optional<io.codat.bank_feeds.utils.RetryConfig> retryConfig) {
+    public SetConfigurationRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;
