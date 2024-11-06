@@ -61,7 +61,7 @@ public class ExcelReports implements
      * 
      * The downloadable Excel file is returned in the response. You can save it to your local machine.
      * 
-     * You can [learn more](https://docs.codat.io/lending/excel/overview) about valid Excel report types.
+     * You can [learn more](https://docs.codat.io/lending/features/excel-download-overview#feature-components) about valid Excel report types.
      * @return The call builder
      */
     public DownloadExcelReportRequestBuilder download() {
@@ -74,7 +74,7 @@ public class ExcelReports implements
      * 
      * The downloadable Excel file is returned in the response. You can save it to your local machine.
      * 
-     * You can [learn more](https://docs.codat.io/lending/excel/overview) about valid Excel report types.
+     * You can [learn more](https://docs.codat.io/lending/features/excel-download-overview#feature-components) about valid Excel report types.
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
@@ -90,7 +90,7 @@ public class ExcelReports implements
      * 
      * The downloadable Excel file is returned in the response. You can save it to your local machine.
      * 
-     * You can [learn more](https://docs.codat.io/lending/excel/overview) about valid Excel report types.
+     * You can [learn more](https://docs.codat.io/lending/features/excel-download-overview#feature-components) about valid Excel report types.
      * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
@@ -101,7 +101,7 @@ public class ExcelReports implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.lending.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -113,7 +113,7 @@ public class ExcelReports implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/octet-stream")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         _req.addQueryParams(Utils.getQueryParams(
                 DownloadExcelReportRequest.class,
@@ -247,12 +247,12 @@ public class ExcelReports implements
      * 
      * | reportType                                                                           | Description                                                                                                                                   |
      * |--------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-     * | [audit](https://docs.codat.io/lending/excel/audit-report)                            | Identifies inaccurate or out-of-date accounts, helping you to make decisions with confidence.                                                   || [audit](https://docs.codat.io/lending/excel/audit-report)                            | Identify inaccurate or out-of-date accounts, helping you to make decisions with confidence.                                                   |
-     * | [enhancedCashFlow](https://docs.codat.io/lending/excel/enhanced-invoices-report)     | Provides a fully categorized list of bank transactions for a company, allowing lenders to accurately forecast a company's cash flow.  |
-     * | [enhancedFinancials](https://docs.codat.io/lending/excel/enhanced-financials-report) | Supports decision-making using fully categorized financial statements to allow lenders to automate their underwriting processes.                |
-     * | [enhancedInvoices](https://docs.codat.io/lending/excel/enhanced-invoices-report)     | Helps verify that payments have been made against historic invoices. Great for invoice finance lenders.                                       |
+     * | `audit`                          | Identifies inaccurate or out-of-date accounts, helping you to make decisions with confidence.                                                   || [audit](https://docs.codat.io/lending/excel/audit-report)                            | Identify inaccurate or out-of-date accounts, helping you to make decisions with confidence.                                                   |
+     * | `enhancedCashFlow`    | Provides a fully categorized list of bank transactions for a company, allowing lenders to accurately forecast a company's cash flow.  |
+     * | `enhancedFinancials` | Supports decision-making using fully categorized financial statements to allow lenders to automate their underwriting processes.                |
+     * | `enhancedInvoices`     | Helps verify that payments have been made against historic invoices. Great for invoice finance lenders.                                       |
      * 
-     * [Learn more](https://docs.codat.io/lending/excel/overview) about valid Excel report types.
+     * [Learn more](https://docs.codat.io/lending/features/excel-download-overview#feature-components) about valid Excel report types.
      * 
      * 
      * 
@@ -272,12 +272,12 @@ public class ExcelReports implements
      * 
      * | reportType                                                                           | Description                                                                                                                                   |
      * |--------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-     * | [audit](https://docs.codat.io/lending/excel/audit-report)                            | Identifies inaccurate or out-of-date accounts, helping you to make decisions with confidence.                                                   || [audit](https://docs.codat.io/lending/excel/audit-report)                            | Identify inaccurate or out-of-date accounts, helping you to make decisions with confidence.                                                   |
-     * | [enhancedCashFlow](https://docs.codat.io/lending/excel/enhanced-invoices-report)     | Provides a fully categorized list of bank transactions for a company, allowing lenders to accurately forecast a company's cash flow.  |
-     * | [enhancedFinancials](https://docs.codat.io/lending/excel/enhanced-financials-report) | Supports decision-making using fully categorized financial statements to allow lenders to automate their underwriting processes.                |
-     * | [enhancedInvoices](https://docs.codat.io/lending/excel/enhanced-invoices-report)     | Helps verify that payments have been made against historic invoices. Great for invoice finance lenders.                                       |
+     * | `audit`                          | Identifies inaccurate or out-of-date accounts, helping you to make decisions with confidence.                                                   || [audit](https://docs.codat.io/lending/excel/audit-report)                            | Identify inaccurate or out-of-date accounts, helping you to make decisions with confidence.                                                   |
+     * | `enhancedCashFlow`    | Provides a fully categorized list of bank transactions for a company, allowing lenders to accurately forecast a company's cash flow.  |
+     * | `enhancedFinancials` | Supports decision-making using fully categorized financial statements to allow lenders to automate their underwriting processes.                |
+     * | `enhancedInvoices`     | Helps verify that payments have been made against historic invoices. Great for invoice finance lenders.                                       |
      * 
-     * [Learn more](https://docs.codat.io/lending/excel/overview) about valid Excel report types.
+     * [Learn more](https://docs.codat.io/lending/features/excel-download-overview#feature-components) about valid Excel report types.
      * 
      * 
      * 
@@ -300,12 +300,12 @@ public class ExcelReports implements
      * 
      * | reportType                                                                           | Description                                                                                                                                   |
      * |--------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-     * | [audit](https://docs.codat.io/lending/excel/audit-report)                            | Identifies inaccurate or out-of-date accounts, helping you to make decisions with confidence.                                                   || [audit](https://docs.codat.io/lending/excel/audit-report)                            | Identify inaccurate or out-of-date accounts, helping you to make decisions with confidence.                                                   |
-     * | [enhancedCashFlow](https://docs.codat.io/lending/excel/enhanced-invoices-report)     | Provides a fully categorized list of bank transactions for a company, allowing lenders to accurately forecast a company's cash flow.  |
-     * | [enhancedFinancials](https://docs.codat.io/lending/excel/enhanced-financials-report) | Supports decision-making using fully categorized financial statements to allow lenders to automate their underwriting processes.                |
-     * | [enhancedInvoices](https://docs.codat.io/lending/excel/enhanced-invoices-report)     | Helps verify that payments have been made against historic invoices. Great for invoice finance lenders.                                       |
+     * | `audit`                          | Identifies inaccurate or out-of-date accounts, helping you to make decisions with confidence.                                                   || [audit](https://docs.codat.io/lending/excel/audit-report)                            | Identify inaccurate or out-of-date accounts, helping you to make decisions with confidence.                                                   |
+     * | `enhancedCashFlow`    | Provides a fully categorized list of bank transactions for a company, allowing lenders to accurately forecast a company's cash flow.  |
+     * | `enhancedFinancials` | Supports decision-making using fully categorized financial statements to allow lenders to automate their underwriting processes.                |
+     * | `enhancedInvoices`     | Helps verify that payments have been made against historic invoices. Great for invoice finance lenders.                                       |
      * 
-     * [Learn more](https://docs.codat.io/lending/excel/overview) about valid Excel report types.
+     * [Learn more](https://docs.codat.io/lending/features/excel-download-overview#feature-components) about valid Excel report types.
      * 
      * 
      * 
@@ -319,7 +319,7 @@ public class ExcelReports implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.lending.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -331,7 +331,7 @@ public class ExcelReports implements
         HTTPRequest _req = new HTTPRequest(_url, "POST");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         _req.addQueryParams(Utils.getQueryParams(
                 GenerateExcelReportRequest.class,
@@ -505,7 +505,7 @@ public class ExcelReports implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.lending.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -517,7 +517,7 @@ public class ExcelReports implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         _req.addQueryParams(Utils.getQueryParams(
                 GetExcelReportGenerationStatusRequest.class,

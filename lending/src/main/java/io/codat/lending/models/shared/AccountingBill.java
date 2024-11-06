@@ -27,8 +27,6 @@ import org.openapitools.jackson.nullable.JsonNullable;
  * &gt;
  * &gt; See [Invoices](https://docs.codat.io/lending-api#/schemas/Invoice) for the accounts receivable equivalent of bills.
  * 
- * View the coverage for bills in the &lt;a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=bills" target="_blank"&gt;Data coverage explorer&lt;/a&gt;.
- * 
  * ## Overview
  * 
  * In Codat, a bill contains details of:

@@ -18,9 +18,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * AccountingCashFlowStatement - &gt; View the coverage for cash flow statement in the &lt;a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=cashFlowStatement" target="_blank"&gt;Data coverage explorer&lt;/a&gt;.
- * 
- * &gt; **Operating activities only**  
+ * AccountingCashFlowStatement - &gt; **Operating activities only**  
  * &gt; 
  * &gt; Currently, the cash flow statement shows cash that flows into and out of the company from operating activities *only*. Operating activities generate cash from the sale of goods or services.
  * 

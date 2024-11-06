@@ -19,19 +19,19 @@ public class ListFilesRequestBuilder {
         this.sdk = sdk;
     }
 
-    public ListFilesRequestBuilder request(io.codat.lending.models.operations.ListFilesRequest request) {
+    public ListFilesRequestBuilder request(ListFilesRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public ListFilesRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public ListFilesRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public ListFilesRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public ListFilesRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

@@ -19,19 +19,19 @@ public class GetCategorizedBalanceSheetStatementRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetCategorizedBalanceSheetStatementRequestBuilder request(io.codat.lending.models.operations.GetCategorizedBalanceSheetStatementRequest request) {
+    public GetCategorizedBalanceSheetStatementRequestBuilder request(GetCategorizedBalanceSheetStatementRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetCategorizedBalanceSheetStatementRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public GetCategorizedBalanceSheetStatementRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetCategorizedBalanceSheetStatementRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public GetCategorizedBalanceSheetStatementRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

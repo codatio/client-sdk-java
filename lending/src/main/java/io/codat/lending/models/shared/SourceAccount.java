@@ -15,33 +15,43 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
+/**
+ * SourceAccount - The target bank account in a supported accounting software for ingestion into a bank feed.
+ */
 
-public class EnhancedCashFlowTransaction {
-
-    /**
-     * An account reference containing the account id and name.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("accountRef")
-    private Optional<? extends AccountRef> accountRef;
+public class SourceAccount {
 
     /**
-     * The bank transaction amount.
+     * The bank account name.
      */
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("amount")
-    private Optional<? extends BigDecimal> amount;
+    @JsonProperty("accountName")
+    private JsonNullable<String> accountName;
 
     /**
-     * An array of counterparty names involved in the transaction.
+     * The account number.
      */
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("counterpartyNames")
-    private Optional<? extends List<String>> counterpartyNames;
+    @JsonProperty("accountNumber")
+    private JsonNullable<String> accountNumber;
+
+    /**
+     * The type of bank account e.g. Credit.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("accountType")
+    private JsonNullable<String> accountType;
+
+    /**
+     * The latest balance for the bank account.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("balance")
+    private JsonNullable<? extends BigDecimal> balance;
 
     /**
      * The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
@@ -78,22 +88,14 @@ public class EnhancedCashFlowTransaction {
      * &gt; Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
      */
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("date")
-    private Optional<String> date;
+    @JsonProperty("feedStartDate")
+    private Optional<String> feedStartDate;
 
     /**
-     * The description of the bank transaction.
+     * Unique ID for the bank account.
      */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("description")
-    private Optional<String> description;
-
-    /**
-     * The unique identifier of the bank transaction.
-     */
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("id")
-    private Optional<String> id;
+    private String id;
 
     /**
      * In Codat's data model, dates and times are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date and time fields are formatted as strings; for example:
@@ -121,89 +123,89 @@ public class EnhancedCashFlowTransaction {
     private Optional<String> modifiedDate;
 
     /**
-     * Returns the payment processor responsible for the transaction.
+     * The sort code.
      */
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("platformName")
-    private Optional<String> platformName;
+    @JsonProperty("sortCode")
+    private JsonNullable<String> sortCode;
 
     /**
-     * A source reference containing the `sourceType` object "Banking".
+     * Status of the source account.
      */
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("sourceRef")
-    private Optional<? extends SourceRef> sourceRef;
-
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("transactionCategory")
-    private Optional<? extends TransactionCategory> transactionCategory;
+    @JsonProperty("status")
+    private JsonNullable<? extends SourceAccountStatus> status;
 
     @JsonCreator
-    public EnhancedCashFlowTransaction(
-            @JsonProperty("accountRef") Optional<? extends AccountRef> accountRef,
-            @JsonProperty("amount") Optional<? extends BigDecimal> amount,
-            @JsonProperty("counterpartyNames") Optional<? extends List<String>> counterpartyNames,
+    public SourceAccount(
+            @JsonProperty("accountName") JsonNullable<String> accountName,
+            @JsonProperty("accountNumber") JsonNullable<String> accountNumber,
+            @JsonProperty("accountType") JsonNullable<String> accountType,
+            @JsonProperty("balance") JsonNullable<? extends BigDecimal> balance,
             @JsonProperty("currency") Optional<String> currency,
-            @JsonProperty("date") Optional<String> date,
-            @JsonProperty("description") Optional<String> description,
-            @JsonProperty("id") Optional<String> id,
+            @JsonProperty("feedStartDate") Optional<String> feedStartDate,
+            @JsonProperty("id") String id,
             @JsonProperty("modifiedDate") Optional<String> modifiedDate,
-            @JsonProperty("platformName") Optional<String> platformName,
-            @JsonProperty("sourceRef") Optional<? extends SourceRef> sourceRef,
-            @JsonProperty("transactionCategory") Optional<? extends TransactionCategory> transactionCategory) {
-        Utils.checkNotNull(accountRef, "accountRef");
-        Utils.checkNotNull(amount, "amount");
-        Utils.checkNotNull(counterpartyNames, "counterpartyNames");
+            @JsonProperty("sortCode") JsonNullable<String> sortCode,
+            @JsonProperty("status") JsonNullable<? extends SourceAccountStatus> status) {
+        Utils.checkNotNull(accountName, "accountName");
+        Utils.checkNotNull(accountNumber, "accountNumber");
+        Utils.checkNotNull(accountType, "accountType");
+        Utils.checkNotNull(balance, "balance");
         Utils.checkNotNull(currency, "currency");
-        Utils.checkNotNull(date, "date");
-        Utils.checkNotNull(description, "description");
+        Utils.checkNotNull(feedStartDate, "feedStartDate");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(modifiedDate, "modifiedDate");
-        Utils.checkNotNull(platformName, "platformName");
-        Utils.checkNotNull(sourceRef, "sourceRef");
-        Utils.checkNotNull(transactionCategory, "transactionCategory");
-        this.accountRef = accountRef;
-        this.amount = amount;
-        this.counterpartyNames = counterpartyNames;
+        Utils.checkNotNull(sortCode, "sortCode");
+        Utils.checkNotNull(status, "status");
+        this.accountName = accountName;
+        this.accountNumber = accountNumber;
+        this.accountType = accountType;
+        this.balance = balance;
         this.currency = currency;
-        this.date = date;
-        this.description = description;
+        this.feedStartDate = feedStartDate;
         this.id = id;
         this.modifiedDate = modifiedDate;
-        this.platformName = platformName;
-        this.sourceRef = sourceRef;
-        this.transactionCategory = transactionCategory;
+        this.sortCode = sortCode;
+        this.status = status;
     }
     
-    public EnhancedCashFlowTransaction() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+    public SourceAccount(
+            String id) {
+        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), id, Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
-     * An account reference containing the account id and name.
+     * The bank account name.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<AccountRef> accountRef() {
-        return (Optional<AccountRef>) accountRef;
+    public JsonNullable<String> accountName() {
+        return accountName;
     }
 
     /**
-     * The bank transaction amount.
+     * The account number.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<BigDecimal> amount() {
-        return (Optional<BigDecimal>) amount;
+    public JsonNullable<String> accountNumber() {
+        return accountNumber;
     }
 
     /**
-     * An array of counterparty names involved in the transaction.
+     * The type of bank account e.g. Credit.
+     */
+    @JsonIgnore
+    public JsonNullable<String> accountType() {
+        return accountType;
+    }
+
+    /**
+     * The latest balance for the bank account.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<String>> counterpartyNames() {
-        return (Optional<List<String>>) counterpartyNames;
+    public JsonNullable<BigDecimal> balance() {
+        return (JsonNullable<BigDecimal>) balance;
     }
 
     /**
@@ -242,23 +244,15 @@ public class EnhancedCashFlowTransaction {
      * &gt; Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
      */
     @JsonIgnore
-    public Optional<String> date() {
-        return date;
+    public Optional<String> feedStartDate() {
+        return feedStartDate;
     }
 
     /**
-     * The description of the bank transaction.
+     * Unique ID for the bank account.
      */
     @JsonIgnore
-    public Optional<String> description() {
-        return description;
-    }
-
-    /**
-     * The unique identifier of the bank transaction.
-     */
-    @JsonIgnore
-    public Optional<String> id() {
+    public String id() {
         return id;
     }
 
@@ -289,26 +283,20 @@ public class EnhancedCashFlowTransaction {
     }
 
     /**
-     * Returns the payment processor responsible for the transaction.
+     * The sort code.
      */
     @JsonIgnore
-    public Optional<String> platformName() {
-        return platformName;
+    public JsonNullable<String> sortCode() {
+        return sortCode;
     }
 
     /**
-     * A source reference containing the `sourceType` object "Banking".
+     * Status of the source account.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<SourceRef> sourceRef() {
-        return (Optional<SourceRef>) sourceRef;
-    }
-
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public Optional<TransactionCategory> transactionCategory() {
-        return (Optional<TransactionCategory>) transactionCategory;
+    public JsonNullable<SourceAccountStatus> status() {
+        return (JsonNullable<SourceAccountStatus>) status;
     }
 
     public final static Builder builder() {
@@ -316,64 +304,82 @@ public class EnhancedCashFlowTransaction {
     }
 
     /**
-     * An account reference containing the account id and name.
+     * The bank account name.
      */
-    public EnhancedCashFlowTransaction withAccountRef(AccountRef accountRef) {
-        Utils.checkNotNull(accountRef, "accountRef");
-        this.accountRef = Optional.ofNullable(accountRef);
+    public SourceAccount withAccountName(String accountName) {
+        Utils.checkNotNull(accountName, "accountName");
+        this.accountName = JsonNullable.of(accountName);
         return this;
     }
 
     /**
-     * An account reference containing the account id and name.
+     * The bank account name.
      */
-    public EnhancedCashFlowTransaction withAccountRef(Optional<? extends AccountRef> accountRef) {
-        Utils.checkNotNull(accountRef, "accountRef");
-        this.accountRef = accountRef;
+    public SourceAccount withAccountName(JsonNullable<String> accountName) {
+        Utils.checkNotNull(accountName, "accountName");
+        this.accountName = accountName;
         return this;
     }
 
     /**
-     * The bank transaction amount.
+     * The account number.
      */
-    public EnhancedCashFlowTransaction withAmount(BigDecimal amount) {
-        Utils.checkNotNull(amount, "amount");
-        this.amount = Optional.ofNullable(amount);
+    public SourceAccount withAccountNumber(String accountNumber) {
+        Utils.checkNotNull(accountNumber, "accountNumber");
+        this.accountNumber = JsonNullable.of(accountNumber);
+        return this;
+    }
+
+    /**
+     * The account number.
+     */
+    public SourceAccount withAccountNumber(JsonNullable<String> accountNumber) {
+        Utils.checkNotNull(accountNumber, "accountNumber");
+        this.accountNumber = accountNumber;
+        return this;
+    }
+
+    /**
+     * The type of bank account e.g. Credit.
+     */
+    public SourceAccount withAccountType(String accountType) {
+        Utils.checkNotNull(accountType, "accountType");
+        this.accountType = JsonNullable.of(accountType);
+        return this;
+    }
+
+    /**
+     * The type of bank account e.g. Credit.
+     */
+    public SourceAccount withAccountType(JsonNullable<String> accountType) {
+        Utils.checkNotNull(accountType, "accountType");
+        this.accountType = accountType;
+        return this;
+    }
+
+    /**
+     * The latest balance for the bank account.
+     */
+    public SourceAccount withBalance(BigDecimal balance) {
+        Utils.checkNotNull(balance, "balance");
+        this.balance = JsonNullable.of(balance);
         return this;
     }
 
         /**
-         * The bank transaction amount.
+         * The latest balance for the bank account.
          */
-    public EnhancedCashFlowTransaction withAmount(double amount) {
-        this.amount = Optional.of(BigDecimal.valueOf(amount));
+    public SourceAccount withBalance(double balance) {
+        this.balance = JsonNullable.of(BigDecimal.valueOf(balance));
         return this;
     }
 
     /**
-     * The bank transaction amount.
+     * The latest balance for the bank account.
      */
-    public EnhancedCashFlowTransaction withAmount(Optional<? extends BigDecimal> amount) {
-        Utils.checkNotNull(amount, "amount");
-        this.amount = amount;
-        return this;
-    }
-
-    /**
-     * An array of counterparty names involved in the transaction.
-     */
-    public EnhancedCashFlowTransaction withCounterpartyNames(List<String> counterpartyNames) {
-        Utils.checkNotNull(counterpartyNames, "counterpartyNames");
-        this.counterpartyNames = Optional.ofNullable(counterpartyNames);
-        return this;
-    }
-
-    /**
-     * An array of counterparty names involved in the transaction.
-     */
-    public EnhancedCashFlowTransaction withCounterpartyNames(Optional<? extends List<String>> counterpartyNames) {
-        Utils.checkNotNull(counterpartyNames, "counterpartyNames");
-        this.counterpartyNames = counterpartyNames;
+    public SourceAccount withBalance(JsonNullable<? extends BigDecimal> balance) {
+        Utils.checkNotNull(balance, "balance");
+        this.balance = balance;
         return this;
     }
 
@@ -386,7 +392,7 @@ public class EnhancedCashFlowTransaction {
      * 
      * There are only a very small number of edge cases where this currency code is returned by the Codat system.
      */
-    public EnhancedCashFlowTransaction withCurrency(String currency) {
+    public SourceAccount withCurrency(String currency) {
         Utils.checkNotNull(currency, "currency");
         this.currency = Optional.ofNullable(currency);
         return this;
@@ -401,7 +407,7 @@ public class EnhancedCashFlowTransaction {
      * 
      * There are only a very small number of edge cases where this currency code is returned by the Codat system.
      */
-    public EnhancedCashFlowTransaction withCurrency(Optional<String> currency) {
+    public SourceAccount withCurrency(Optional<String> currency) {
         Utils.checkNotNull(currency, "currency");
         this.currency = currency;
         return this;
@@ -428,9 +434,9 @@ public class EnhancedCashFlowTransaction {
      * &gt; Not all dates from Codat will contain information about time zones.  
      * &gt; Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
      */
-    public EnhancedCashFlowTransaction withDate(String date) {
-        Utils.checkNotNull(date, "date");
-        this.date = Optional.ofNullable(date);
+    public SourceAccount withFeedStartDate(String feedStartDate) {
+        Utils.checkNotNull(feedStartDate, "feedStartDate");
+        this.feedStartDate = Optional.ofNullable(feedStartDate);
         return this;
     }
 
@@ -455,43 +461,16 @@ public class EnhancedCashFlowTransaction {
      * &gt; Not all dates from Codat will contain information about time zones.  
      * &gt; Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
      */
-    public EnhancedCashFlowTransaction withDate(Optional<String> date) {
-        Utils.checkNotNull(date, "date");
-        this.date = date;
+    public SourceAccount withFeedStartDate(Optional<String> feedStartDate) {
+        Utils.checkNotNull(feedStartDate, "feedStartDate");
+        this.feedStartDate = feedStartDate;
         return this;
     }
 
     /**
-     * The description of the bank transaction.
+     * Unique ID for the bank account.
      */
-    public EnhancedCashFlowTransaction withDescription(String description) {
-        Utils.checkNotNull(description, "description");
-        this.description = Optional.ofNullable(description);
-        return this;
-    }
-
-    /**
-     * The description of the bank transaction.
-     */
-    public EnhancedCashFlowTransaction withDescription(Optional<String> description) {
-        Utils.checkNotNull(description, "description");
-        this.description = description;
-        return this;
-    }
-
-    /**
-     * The unique identifier of the bank transaction.
-     */
-    public EnhancedCashFlowTransaction withId(String id) {
-        Utils.checkNotNull(id, "id");
-        this.id = Optional.ofNullable(id);
-        return this;
-    }
-
-    /**
-     * The unique identifier of the bank transaction.
-     */
-    public EnhancedCashFlowTransaction withId(Optional<String> id) {
+    public SourceAccount withId(String id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
         return this;
@@ -518,7 +497,7 @@ public class EnhancedCashFlowTransaction {
      * &gt; Not all dates from Codat will contain information about time zones.  
      * &gt; Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
      */
-    public EnhancedCashFlowTransaction withModifiedDate(String modifiedDate) {
+    public SourceAccount withModifiedDate(String modifiedDate) {
         Utils.checkNotNull(modifiedDate, "modifiedDate");
         this.modifiedDate = Optional.ofNullable(modifiedDate);
         return this;
@@ -545,57 +524,45 @@ public class EnhancedCashFlowTransaction {
      * &gt; Not all dates from Codat will contain information about time zones.  
      * &gt; Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
      */
-    public EnhancedCashFlowTransaction withModifiedDate(Optional<String> modifiedDate) {
+    public SourceAccount withModifiedDate(Optional<String> modifiedDate) {
         Utils.checkNotNull(modifiedDate, "modifiedDate");
         this.modifiedDate = modifiedDate;
         return this;
     }
 
     /**
-     * Returns the payment processor responsible for the transaction.
+     * The sort code.
      */
-    public EnhancedCashFlowTransaction withPlatformName(String platformName) {
-        Utils.checkNotNull(platformName, "platformName");
-        this.platformName = Optional.ofNullable(platformName);
+    public SourceAccount withSortCode(String sortCode) {
+        Utils.checkNotNull(sortCode, "sortCode");
+        this.sortCode = JsonNullable.of(sortCode);
         return this;
     }
 
     /**
-     * Returns the payment processor responsible for the transaction.
+     * The sort code.
      */
-    public EnhancedCashFlowTransaction withPlatformName(Optional<String> platformName) {
-        Utils.checkNotNull(platformName, "platformName");
-        this.platformName = platformName;
+    public SourceAccount withSortCode(JsonNullable<String> sortCode) {
+        Utils.checkNotNull(sortCode, "sortCode");
+        this.sortCode = sortCode;
         return this;
     }
 
     /**
-     * A source reference containing the `sourceType` object "Banking".
+     * Status of the source account.
      */
-    public EnhancedCashFlowTransaction withSourceRef(SourceRef sourceRef) {
-        Utils.checkNotNull(sourceRef, "sourceRef");
-        this.sourceRef = Optional.ofNullable(sourceRef);
+    public SourceAccount withStatus(SourceAccountStatus status) {
+        Utils.checkNotNull(status, "status");
+        this.status = JsonNullable.of(status);
         return this;
     }
 
     /**
-     * A source reference containing the `sourceType` object "Banking".
+     * Status of the source account.
      */
-    public EnhancedCashFlowTransaction withSourceRef(Optional<? extends SourceRef> sourceRef) {
-        Utils.checkNotNull(sourceRef, "sourceRef");
-        this.sourceRef = sourceRef;
-        return this;
-    }
-
-    public EnhancedCashFlowTransaction withTransactionCategory(TransactionCategory transactionCategory) {
-        Utils.checkNotNull(transactionCategory, "transactionCategory");
-        this.transactionCategory = Optional.ofNullable(transactionCategory);
-        return this;
-    }
-
-    public EnhancedCashFlowTransaction withTransactionCategory(Optional<? extends TransactionCategory> transactionCategory) {
-        Utils.checkNotNull(transactionCategory, "transactionCategory");
-        this.transactionCategory = transactionCategory;
+    public SourceAccount withStatus(JsonNullable<? extends SourceAccountStatus> status) {
+        Utils.checkNotNull(status, "status");
+        this.status = status;
         return this;
     }
     
@@ -607,140 +574,153 @@ public class EnhancedCashFlowTransaction {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EnhancedCashFlowTransaction other = (EnhancedCashFlowTransaction) o;
+        SourceAccount other = (SourceAccount) o;
         return 
-            Objects.deepEquals(this.accountRef, other.accountRef) &&
-            Objects.deepEquals(this.amount, other.amount) &&
-            Objects.deepEquals(this.counterpartyNames, other.counterpartyNames) &&
+            Objects.deepEquals(this.accountName, other.accountName) &&
+            Objects.deepEquals(this.accountNumber, other.accountNumber) &&
+            Objects.deepEquals(this.accountType, other.accountType) &&
+            Objects.deepEquals(this.balance, other.balance) &&
             Objects.deepEquals(this.currency, other.currency) &&
-            Objects.deepEquals(this.date, other.date) &&
-            Objects.deepEquals(this.description, other.description) &&
+            Objects.deepEquals(this.feedStartDate, other.feedStartDate) &&
             Objects.deepEquals(this.id, other.id) &&
             Objects.deepEquals(this.modifiedDate, other.modifiedDate) &&
-            Objects.deepEquals(this.platformName, other.platformName) &&
-            Objects.deepEquals(this.sourceRef, other.sourceRef) &&
-            Objects.deepEquals(this.transactionCategory, other.transactionCategory);
+            Objects.deepEquals(this.sortCode, other.sortCode) &&
+            Objects.deepEquals(this.status, other.status);
     }
     
     @Override
     public int hashCode() {
         return Objects.hash(
-            accountRef,
-            amount,
-            counterpartyNames,
+            accountName,
+            accountNumber,
+            accountType,
+            balance,
             currency,
-            date,
-            description,
+            feedStartDate,
             id,
             modifiedDate,
-            platformName,
-            sourceRef,
-            transactionCategory);
+            sortCode,
+            status);
     }
     
     @Override
     public String toString() {
-        return Utils.toString(EnhancedCashFlowTransaction.class,
-                "accountRef", accountRef,
-                "amount", amount,
-                "counterpartyNames", counterpartyNames,
+        return Utils.toString(SourceAccount.class,
+                "accountName", accountName,
+                "accountNumber", accountNumber,
+                "accountType", accountType,
+                "balance", balance,
                 "currency", currency,
-                "date", date,
-                "description", description,
+                "feedStartDate", feedStartDate,
                 "id", id,
                 "modifiedDate", modifiedDate,
-                "platformName", platformName,
-                "sourceRef", sourceRef,
-                "transactionCategory", transactionCategory);
+                "sortCode", sortCode,
+                "status", status);
     }
     
     public final static class Builder {
  
-        private Optional<? extends AccountRef> accountRef = Optional.empty();
+        private JsonNullable<String> accountName = JsonNullable.undefined();
  
-        private Optional<? extends BigDecimal> amount = Optional.empty();
+        private JsonNullable<String> accountNumber = JsonNullable.undefined();
  
-        private Optional<? extends List<String>> counterpartyNames = Optional.empty();
+        private JsonNullable<String> accountType = JsonNullable.undefined();
+ 
+        private JsonNullable<? extends BigDecimal> balance = JsonNullable.undefined();
  
         private Optional<String> currency = Optional.empty();
  
-        private Optional<String> date = Optional.empty();
+        private Optional<String> feedStartDate = Optional.empty();
  
-        private Optional<String> description = Optional.empty();
- 
-        private Optional<String> id = Optional.empty();
+        private String id;
  
         private Optional<String> modifiedDate = Optional.empty();
  
-        private Optional<String> platformName = Optional.empty();
+        private JsonNullable<String> sortCode = JsonNullable.undefined();
  
-        private Optional<? extends SourceRef> sourceRef = Optional.empty();
- 
-        private Optional<? extends TransactionCategory> transactionCategory = Optional.empty();  
+        private JsonNullable<? extends SourceAccountStatus> status = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
         }
 
         /**
-         * An account reference containing the account id and name.
+         * The bank account name.
          */
-        public Builder accountRef(AccountRef accountRef) {
-            Utils.checkNotNull(accountRef, "accountRef");
-            this.accountRef = Optional.ofNullable(accountRef);
+        public Builder accountName(String accountName) {
+            Utils.checkNotNull(accountName, "accountName");
+            this.accountName = JsonNullable.of(accountName);
             return this;
         }
 
         /**
-         * An account reference containing the account id and name.
+         * The bank account name.
          */
-        public Builder accountRef(Optional<? extends AccountRef> accountRef) {
-            Utils.checkNotNull(accountRef, "accountRef");
-            this.accountRef = accountRef;
+        public Builder accountName(JsonNullable<String> accountName) {
+            Utils.checkNotNull(accountName, "accountName");
+            this.accountName = accountName;
             return this;
         }
 
         /**
-         * The bank transaction amount.
+         * The account number.
          */
-        public Builder amount(BigDecimal amount) {
-            Utils.checkNotNull(amount, "amount");
-            this.amount = Optional.ofNullable(amount);
+        public Builder accountNumber(String accountNumber) {
+            Utils.checkNotNull(accountNumber, "accountNumber");
+            this.accountNumber = JsonNullable.of(accountNumber);
             return this;
         }
 
         /**
-         * The bank transaction amount.
+         * The account number.
          */
-        public Builder amount(double amount) {
-            this.amount = Optional.of(BigDecimal.valueOf(amount));
+        public Builder accountNumber(JsonNullable<String> accountNumber) {
+            Utils.checkNotNull(accountNumber, "accountNumber");
+            this.accountNumber = accountNumber;
             return this;
         }
 
         /**
-         * The bank transaction amount.
+         * The type of bank account e.g. Credit.
          */
-        public Builder amount(Optional<? extends BigDecimal> amount) {
-            Utils.checkNotNull(amount, "amount");
-            this.amount = amount;
+        public Builder accountType(String accountType) {
+            Utils.checkNotNull(accountType, "accountType");
+            this.accountType = JsonNullable.of(accountType);
             return this;
         }
 
         /**
-         * An array of counterparty names involved in the transaction.
+         * The type of bank account e.g. Credit.
          */
-        public Builder counterpartyNames(List<String> counterpartyNames) {
-            Utils.checkNotNull(counterpartyNames, "counterpartyNames");
-            this.counterpartyNames = Optional.ofNullable(counterpartyNames);
+        public Builder accountType(JsonNullable<String> accountType) {
+            Utils.checkNotNull(accountType, "accountType");
+            this.accountType = accountType;
             return this;
         }
 
         /**
-         * An array of counterparty names involved in the transaction.
+         * The latest balance for the bank account.
          */
-        public Builder counterpartyNames(Optional<? extends List<String>> counterpartyNames) {
-            Utils.checkNotNull(counterpartyNames, "counterpartyNames");
-            this.counterpartyNames = counterpartyNames;
+        public Builder balance(BigDecimal balance) {
+            Utils.checkNotNull(balance, "balance");
+            this.balance = JsonNullable.of(balance);
+            return this;
+        }
+
+        /**
+         * The latest balance for the bank account.
+         */
+        public Builder balance(double balance) {
+            this.balance = JsonNullable.of(BigDecimal.valueOf(balance));
+            return this;
+        }
+
+        /**
+         * The latest balance for the bank account.
+         */
+        public Builder balance(JsonNullable<? extends BigDecimal> balance) {
+            Utils.checkNotNull(balance, "balance");
+            this.balance = balance;
             return this;
         }
 
@@ -795,9 +775,9 @@ public class EnhancedCashFlowTransaction {
          * &gt; Not all dates from Codat will contain information about time zones.  
          * &gt; Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
          */
-        public Builder date(String date) {
-            Utils.checkNotNull(date, "date");
-            this.date = Optional.ofNullable(date);
+        public Builder feedStartDate(String feedStartDate) {
+            Utils.checkNotNull(feedStartDate, "feedStartDate");
+            this.feedStartDate = Optional.ofNullable(feedStartDate);
             return this;
         }
 
@@ -822,43 +802,16 @@ public class EnhancedCashFlowTransaction {
          * &gt; Not all dates from Codat will contain information about time zones.  
          * &gt; Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
          */
-        public Builder date(Optional<String> date) {
-            Utils.checkNotNull(date, "date");
-            this.date = date;
+        public Builder feedStartDate(Optional<String> feedStartDate) {
+            Utils.checkNotNull(feedStartDate, "feedStartDate");
+            this.feedStartDate = feedStartDate;
             return this;
         }
 
         /**
-         * The description of the bank transaction.
-         */
-        public Builder description(String description) {
-            Utils.checkNotNull(description, "description");
-            this.description = Optional.ofNullable(description);
-            return this;
-        }
-
-        /**
-         * The description of the bank transaction.
-         */
-        public Builder description(Optional<String> description) {
-            Utils.checkNotNull(description, "description");
-            this.description = description;
-            return this;
-        }
-
-        /**
-         * The unique identifier of the bank transaction.
+         * Unique ID for the bank account.
          */
         public Builder id(String id) {
-            Utils.checkNotNull(id, "id");
-            this.id = Optional.ofNullable(id);
-            return this;
-        }
-
-        /**
-         * The unique identifier of the bank transaction.
-         */
-        public Builder id(Optional<String> id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
@@ -919,66 +872,53 @@ public class EnhancedCashFlowTransaction {
         }
 
         /**
-         * Returns the payment processor responsible for the transaction.
+         * The sort code.
          */
-        public Builder platformName(String platformName) {
-            Utils.checkNotNull(platformName, "platformName");
-            this.platformName = Optional.ofNullable(platformName);
+        public Builder sortCode(String sortCode) {
+            Utils.checkNotNull(sortCode, "sortCode");
+            this.sortCode = JsonNullable.of(sortCode);
             return this;
         }
 
         /**
-         * Returns the payment processor responsible for the transaction.
+         * The sort code.
          */
-        public Builder platformName(Optional<String> platformName) {
-            Utils.checkNotNull(platformName, "platformName");
-            this.platformName = platformName;
+        public Builder sortCode(JsonNullable<String> sortCode) {
+            Utils.checkNotNull(sortCode, "sortCode");
+            this.sortCode = sortCode;
             return this;
         }
 
         /**
-         * A source reference containing the `sourceType` object "Banking".
+         * Status of the source account.
          */
-        public Builder sourceRef(SourceRef sourceRef) {
-            Utils.checkNotNull(sourceRef, "sourceRef");
-            this.sourceRef = Optional.ofNullable(sourceRef);
+        public Builder status(SourceAccountStatus status) {
+            Utils.checkNotNull(status, "status");
+            this.status = JsonNullable.of(status);
             return this;
         }
 
         /**
-         * A source reference containing the `sourceType` object "Banking".
+         * Status of the source account.
          */
-        public Builder sourceRef(Optional<? extends SourceRef> sourceRef) {
-            Utils.checkNotNull(sourceRef, "sourceRef");
-            this.sourceRef = sourceRef;
-            return this;
-        }
-
-        public Builder transactionCategory(TransactionCategory transactionCategory) {
-            Utils.checkNotNull(transactionCategory, "transactionCategory");
-            this.transactionCategory = Optional.ofNullable(transactionCategory);
-            return this;
-        }
-
-        public Builder transactionCategory(Optional<? extends TransactionCategory> transactionCategory) {
-            Utils.checkNotNull(transactionCategory, "transactionCategory");
-            this.transactionCategory = transactionCategory;
+        public Builder status(JsonNullable<? extends SourceAccountStatus> status) {
+            Utils.checkNotNull(status, "status");
+            this.status = status;
             return this;
         }
         
-        public EnhancedCashFlowTransaction build() {
-            return new EnhancedCashFlowTransaction(
-                accountRef,
-                amount,
-                counterpartyNames,
+        public SourceAccount build() {
+            return new SourceAccount(
+                accountName,
+                accountNumber,
+                accountType,
+                balance,
                 currency,
-                date,
-                description,
+                feedStartDate,
                 id,
                 modifiedDate,
-                platformName,
-                sourceRef,
-                transactionCategory);
+                sortCode,
+                status);
         }
     }
 }

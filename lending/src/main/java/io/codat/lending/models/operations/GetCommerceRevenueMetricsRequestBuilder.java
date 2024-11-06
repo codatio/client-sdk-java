@@ -19,19 +19,19 @@ public class GetCommerceRevenueMetricsRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetCommerceRevenueMetricsRequestBuilder request(io.codat.lending.models.operations.GetCommerceRevenueMetricsRequest request) {
+    public GetCommerceRevenueMetricsRequestBuilder request(GetCommerceRevenueMetricsRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetCommerceRevenueMetricsRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public GetCommerceRevenueMetricsRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetCommerceRevenueMetricsRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public GetCommerceRevenueMetricsRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

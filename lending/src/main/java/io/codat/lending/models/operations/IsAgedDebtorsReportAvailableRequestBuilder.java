@@ -19,19 +19,19 @@ public class IsAgedDebtorsReportAvailableRequestBuilder {
         this.sdk = sdk;
     }
 
-    public IsAgedDebtorsReportAvailableRequestBuilder request(io.codat.lending.models.operations.IsAgedDebtorsReportAvailableRequest request) {
+    public IsAgedDebtorsReportAvailableRequestBuilder request(IsAgedDebtorsReportAvailableRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public IsAgedDebtorsReportAvailableRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public IsAgedDebtorsReportAvailableRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public IsAgedDebtorsReportAvailableRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public IsAgedDebtorsReportAvailableRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

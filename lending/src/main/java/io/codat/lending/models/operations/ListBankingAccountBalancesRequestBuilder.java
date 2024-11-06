@@ -19,19 +19,19 @@ public class ListBankingAccountBalancesRequestBuilder {
         this.sdk = sdk;
     }
 
-    public ListBankingAccountBalancesRequestBuilder request(io.codat.lending.models.operations.ListBankingAccountBalancesRequest request) {
+    public ListBankingAccountBalancesRequestBuilder request(ListBankingAccountBalancesRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public ListBankingAccountBalancesRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public ListBankingAccountBalancesRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public ListBankingAccountBalancesRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public ListBankingAccountBalancesRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

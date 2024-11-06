@@ -19,19 +19,19 @@ public class DownloadAccountingDirectIncomeAttachmentRequestBuilder {
         this.sdk = sdk;
     }
 
-    public DownloadAccountingDirectIncomeAttachmentRequestBuilder request(io.codat.lending.models.operations.DownloadAccountingDirectIncomeAttachmentRequest request) {
+    public DownloadAccountingDirectIncomeAttachmentRequestBuilder request(DownloadAccountingDirectIncomeAttachmentRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public DownloadAccountingDirectIncomeAttachmentRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public DownloadAccountingDirectIncomeAttachmentRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public DownloadAccountingDirectIncomeAttachmentRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public DownloadAccountingDirectIncomeAttachmentRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

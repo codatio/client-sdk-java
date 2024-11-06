@@ -28,7 +28,7 @@ public class WebLink {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("type")
-    private Optional<? extends Type> type;
+    private Optional<? extends WebLinkType> type;
 
     /**
      * The full URL for the weblink.
@@ -39,7 +39,7 @@ public class WebLink {
 
     @JsonCreator
     public WebLink(
-            @JsonProperty("type") Optional<? extends Type> type,
+            @JsonProperty("type") Optional<? extends WebLinkType> type,
             @JsonProperty("url") Optional<String> url) {
         Utils.checkNotNull(type, "type");
         Utils.checkNotNull(url, "url");
@@ -56,8 +56,8 @@ public class WebLink {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<Type> type() {
-        return (Optional<Type>) type;
+    public Optional<WebLinkType> type() {
+        return (Optional<WebLinkType>) type;
     }
 
     /**
@@ -75,7 +75,7 @@ public class WebLink {
     /**
      * The type of the weblink.
      */
-    public WebLink withType(Type type) {
+    public WebLink withType(WebLinkType type) {
         Utils.checkNotNull(type, "type");
         this.type = Optional.ofNullable(type);
         return this;
@@ -84,7 +84,7 @@ public class WebLink {
     /**
      * The type of the weblink.
      */
-    public WebLink withType(Optional<? extends Type> type) {
+    public WebLink withType(Optional<? extends WebLinkType> type) {
         Utils.checkNotNull(type, "type");
         this.type = type;
         return this;
@@ -138,7 +138,7 @@ public class WebLink {
     
     public final static class Builder {
  
-        private Optional<? extends Type> type = Optional.empty();
+        private Optional<? extends WebLinkType> type = Optional.empty();
  
         private Optional<String> url = Optional.empty();  
         
@@ -149,7 +149,7 @@ public class WebLink {
         /**
          * The type of the weblink.
          */
-        public Builder type(Type type) {
+        public Builder type(WebLinkType type) {
             Utils.checkNotNull(type, "type");
             this.type = Optional.ofNullable(type);
             return this;
@@ -158,7 +158,7 @@ public class WebLink {
         /**
          * The type of the weblink.
          */
-        public Builder type(Optional<? extends Type> type) {
+        public Builder type(Optional<? extends WebLinkType> type) {
             Utils.checkNotNull(type, "type");
             this.type = type;
             return this;

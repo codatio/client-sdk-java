@@ -27,8 +27,6 @@ import java.util.Optional;
  * - Average transaction value  
  * - Returns  
  * - Payouts
- * 
- * Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&amp;dataType=commerce-transactions) for this data type.
  */
 
 public class CommerceTransaction {

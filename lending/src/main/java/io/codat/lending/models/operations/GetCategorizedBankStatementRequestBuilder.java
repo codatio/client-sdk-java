@@ -19,19 +19,19 @@ public class GetCategorizedBankStatementRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetCategorizedBankStatementRequestBuilder request(io.codat.lending.models.operations.GetCategorizedBankStatementRequest request) {
+    public GetCategorizedBankStatementRequestBuilder request(GetCategorizedBankStatementRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetCategorizedBankStatementRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public GetCategorizedBankStatementRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetCategorizedBankStatementRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public GetCategorizedBankStatementRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

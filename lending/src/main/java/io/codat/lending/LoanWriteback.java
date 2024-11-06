@@ -9,6 +9,7 @@ import io.codat.lending.models.operations.SDKMethodInterfaces.*;
 public class LoanWriteback {
 
     private final SDKConfiguration sdkConfiguration;
+    private final SourceAccounts sourceAccounts;
     private final BankAccounts bankAccounts;
     private final BankTransactions bankTransactions;
     private final CodatLendingLoanWritebackAccounts accounts;
@@ -20,6 +21,7 @@ public class LoanWriteback {
 
     LoanWriteback(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+        this.sourceAccounts = new SourceAccounts(this.sdkConfiguration);
         this.bankAccounts = new BankAccounts(this.sdkConfiguration);
         this.bankTransactions = new BankTransactions(this.sdkConfiguration);
         this.accounts = new CodatLendingLoanWritebackAccounts(this.sdkConfiguration);
@@ -28,6 +30,10 @@ public class LoanWriteback {
         this.suppliers = new CodatLendingSuppliers(this.sdkConfiguration);
         this.transfers = new Transfers(this.sdkConfiguration);
         this.createOperations = new CreateOperations(this.sdkConfiguration);
+    }
+
+    public final SourceAccounts sourceAccounts() {
+        return sourceAccounts;
     }
 
     public final BankAccounts bankAccounts() {

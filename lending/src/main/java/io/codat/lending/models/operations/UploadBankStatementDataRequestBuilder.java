@@ -19,19 +19,19 @@ public class UploadBankStatementDataRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UploadBankStatementDataRequestBuilder request(io.codat.lending.models.operations.UploadBankStatementDataRequest request) {
+    public UploadBankStatementDataRequestBuilder request(UploadBankStatementDataRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public UploadBankStatementDataRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public UploadBankStatementDataRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public UploadBankStatementDataRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public UploadBankStatementDataRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

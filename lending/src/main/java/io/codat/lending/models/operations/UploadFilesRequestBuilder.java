@@ -19,19 +19,19 @@ public class UploadFilesRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UploadFilesRequestBuilder request(io.codat.lending.models.operations.UploadFilesRequest request) {
+    public UploadFilesRequestBuilder request(UploadFilesRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public UploadFilesRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public UploadFilesRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public UploadFilesRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public UploadFilesRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

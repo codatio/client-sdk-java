@@ -19,19 +19,19 @@ public class GetCreateUpdateSuppliersModelRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetCreateUpdateSuppliersModelRequestBuilder request(io.codat.lending.models.operations.GetCreateUpdateSuppliersModelRequest request) {
+    public GetCreateUpdateSuppliersModelRequestBuilder request(GetCreateUpdateSuppliersModelRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetCreateUpdateSuppliersModelRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public GetCreateUpdateSuppliersModelRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetCreateUpdateSuppliersModelRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public GetCreateUpdateSuppliersModelRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

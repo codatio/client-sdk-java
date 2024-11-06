@@ -7,8 +7,8 @@ For example, if a bill is generated from a purchase order, this property allows 
 
 ## Fields
 
-| Field                                                         | Type                                                          | Required                                                      | Description                                                   |
-| ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- |
-| `dataType`                                                    | [Optional<ZeroDataType>](../../models/shared/ZeroDataType.md) | :heavy_minus_sign:                                            | Allowed name of the 'dataType'.                               |
-| `id`                                                          | *Optional<String>*                                            | :heavy_minus_sign:                                            | 'id' of the underlying record.                                |
-| `lineNumber`                                                  | *Optional<String>*                                            | :heavy_minus_sign:                                            | Line number of the underlying record.                         |
+| Field                                                          | Type                                                           | Required                                                       | Description                                                    |
+| -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- |
+| `dataType`                                                     | [Optional\<ZeroDataType>](../../models/shared/ZeroDataType.md) | :heavy_minus_sign:                                             | Allowed name of the 'dataType'.                                |
+| `id`                                                           | *Optional\<String>*                                            | :heavy_minus_sign:                                             | 'id' of the underlying record.                                 |
+| `lineNumber`                                                   | *Optional\<String>*                                            | :heavy_minus_sign:                                             | Line number of the underlying record.                          |

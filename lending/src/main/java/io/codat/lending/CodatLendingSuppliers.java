@@ -62,8 +62,6 @@ public class CodatLendingSuppliers implements
      * 
      * Required data may vary by integration. To see what data to post, first call [Get create/update supplier model](https://docs.codat.io/lending-api#/operations/get-create-update-suppliers-model).
      * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=suppliers) for integrations that support creating an account.
-     * 
      * @return The call builder
      */
     public CreateSupplierRequestBuilder create() {
@@ -79,8 +77,6 @@ public class CodatLendingSuppliers implements
      * **Integration-specific behaviour**
      * 
      * Required data may vary by integration. To see what data to post, first call [Get create/update supplier model](https://docs.codat.io/lending-api#/operations/get-create-update-suppliers-model).
-     * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=suppliers) for integrations that support creating an account.
      * 
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
@@ -101,8 +97,6 @@ public class CodatLendingSuppliers implements
      * 
      * Required data may vary by integration. To see what data to post, first call [Get create/update supplier model](https://docs.codat.io/lending-api#/operations/get-create-update-suppliers-model).
      * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=suppliers) for integrations that support creating an account.
-     * 
      * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
@@ -113,7 +107,7 @@ public class CodatLendingSuppliers implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.lending.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -135,7 +129,7 @@ public class CodatLendingSuppliers implements
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         _req.addQueryParams(Utils.getQueryParams(
                 CreateSupplierRequest.class,
@@ -273,8 +267,6 @@ public class CodatLendingSuppliers implements
      * 
      * See the *response examples* for integration-specific indicative models.
      * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=suppliers) for integrations that support creating and updating a supplier.
-     * 
      * @return The call builder
      */
     public GetCreateUpdateSuppliersModelRequestBuilder getCreateUpdateModel() {
@@ -290,8 +282,6 @@ public class CodatLendingSuppliers implements
      * **Integration-specific behaviour**
      * 
      * See the *response examples* for integration-specific indicative models.
-     * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=suppliers) for integrations that support creating and updating a supplier.
      * 
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
@@ -312,8 +302,6 @@ public class CodatLendingSuppliers implements
      * 
      * See the *response examples* for integration-specific indicative models.
      * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=suppliers) for integrations that support creating and updating a supplier.
-     * 
      * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
@@ -324,7 +312,7 @@ public class CodatLendingSuppliers implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.lending.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -336,7 +324,7 @@ public class CodatLendingSuppliers implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());

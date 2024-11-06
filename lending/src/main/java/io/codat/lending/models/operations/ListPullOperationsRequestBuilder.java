@@ -19,19 +19,19 @@ public class ListPullOperationsRequestBuilder {
         this.sdk = sdk;
     }
 
-    public ListPullOperationsRequestBuilder request(io.codat.lending.models.operations.ListPullOperationsRequest request) {
+    public ListPullOperationsRequestBuilder request(ListPullOperationsRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public ListPullOperationsRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public ListPullOperationsRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public ListPullOperationsRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public ListPullOperationsRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

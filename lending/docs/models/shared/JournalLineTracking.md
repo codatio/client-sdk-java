@@ -5,6 +5,6 @@ List of record refs associated with the tracking information for the line (eg to
 
 ## Fields
 
-| Field                                                               | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `recordRefs`                                                        | List<[TrackingRecordRef](../../models/shared/TrackingRecordRef.md)> | :heavy_minus_sign:                                                  | N/A                                                                 |
+| Field                                                                | Type                                                                 | Required                                                             | Description                                                          |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `recordRefs`                                                         | List\<[TrackingRecordRef](../../models/shared/TrackingRecordRef.md)> | :heavy_minus_sign:                                                   | N/A                                                                  |

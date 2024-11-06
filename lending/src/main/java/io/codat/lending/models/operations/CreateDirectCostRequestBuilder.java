@@ -19,19 +19,19 @@ public class CreateDirectCostRequestBuilder {
         this.sdk = sdk;
     }
 
-    public CreateDirectCostRequestBuilder request(io.codat.lending.models.operations.CreateDirectCostRequest request) {
+    public CreateDirectCostRequestBuilder request(CreateDirectCostRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public CreateDirectCostRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public CreateDirectCostRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public CreateDirectCostRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public CreateDirectCostRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

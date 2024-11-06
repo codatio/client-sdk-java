@@ -19,19 +19,19 @@ public class ListCommerceDisputesRequestBuilder {
         this.sdk = sdk;
     }
 
-    public ListCommerceDisputesRequestBuilder request(io.codat.lending.models.operations.ListCommerceDisputesRequest request) {
+    public ListCommerceDisputesRequestBuilder request(ListCommerceDisputesRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public ListCommerceDisputesRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public ListCommerceDisputesRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public ListCommerceDisputesRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public ListCommerceDisputesRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

@@ -18,8 +18,6 @@ The *Create supplier* endpoint creates a new [supplier](https://docs.codat.io/le
 
 Required data may vary by integration. To see what data to post, first call [Get create/update supplier model](https://docs.codat.io/lending-api#/operations/get-create-update-suppliers-model).
 
-Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=suppliers) for integrations that support creating an account.
-
 
 ### Example Usage
 
@@ -27,53 +25,77 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.CreateSupplierRequest;
 import io.codat.lending.models.operations.CreateSupplierResponse;
+import io.codat.lending.models.shared.AccountingAddress;
+import io.codat.lending.models.shared.AccountingAddressType;
 import io.codat.lending.models.shared.AccountingSupplier;
+import io.codat.lending.models.shared.Metadata;
 import io.codat.lending.models.shared.Security;
+import io.codat.lending.models.shared.SupplementalData;
 import io.codat.lending.models.shared.SupplierStatus;
 import java.lang.Exception;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            CreateSupplierRequest req = CreateSupplierRequest.builder()
+        CreateSupplierRequest req = CreateSupplierRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .accountingSupplier(AccountingSupplier.builder()
                     .status(SupplierStatus.ACTIVE)
+                    .addresses(List.of(
+                        AccountingAddress.builder()
+                            .type(AccountingAddressType.BILLING)
+                            .city("Bakersfield")
+                            .country("USA")
+                            .line1("Unit 51")
+                            .line2("Bakersfield Industrial Estate")
+                            .region("California")
+                            .build()))
+                    .contactName("Kelly's Industrial Supplies")
+                    .defaultCurrency("string")
+                    .emailAddress("sales@kellysupplies.com")
+                    .id("C520FFD4-F6F6-4FC2-A6D2-5D7088B2B14F")
+                    .metadata(Metadata.builder()
+                        .isDeleted(true)
+                        .build())
                     .modifiedDate("2022-10-23T00:00:00Z")
-                    .phone("(877) 492-8687")
+                    .phone("07999 999999")
+                    .registrationNumber("string")
                     .sourceModifiedDate("2022-10-23T00:00:00Z")
+                    .supplementalData(SupplementalData.builder()
+                        .content(Map.ofEntries(
+                            Map.entry("property1", Map.ofEntries(
+                                Map.entry("property1", Optional.empty()),
+                                Map.entry("property2", Optional.empty()))),
+                            Map.entry("property2", Map.ofEntries(
+                                Map.entry("property1", Optional.empty()),
+                                Map.entry("property2", Optional.empty())))))
+                        .build())
+                    .supplierName("Kelly's Industrial Supplies")
+                    .taxNumber("string")
                     .build())
                 .build();
 
-            CreateSupplierResponse res = sdk.loanWriteback().suppliers().create()
+        CreateSupplierResponse res = sdk.loanWriteback().suppliers().create()
                 .request(req)
                 .call();
 
-            if (res.accountingCreateSupplierResponse().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.accountingCreateSupplierResponse().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -90,11 +112,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## getCreateUpdateModel
 
@@ -106,8 +127,6 @@ The *Get create/update supplier model* endpoint returns the expected data for th
 
 See the *response examples* for integration-specific indicative models.
 
-Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=suppliers) for integrations that support creating and updating a supplier.
-
 
 ### Example Usage
 
@@ -115,7 +134,7 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.GetCreateUpdateSuppliersModelRequest;
 import io.codat.lending.models.operations.GetCreateUpdateSuppliersModelResponse;
 import io.codat.lending.models.shared.Security;
@@ -123,37 +142,26 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GetCreateUpdateSuppliersModelRequest req = GetCreateUpdateSuppliersModelRequest.builder()
+        GetCreateUpdateSuppliersModelRequest req = GetCreateUpdateSuppliersModelRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .build();
 
-            GetCreateUpdateSuppliersModelResponse res = sdk.loanWriteback().suppliers().getCreateUpdateModel()
+        GetCreateUpdateSuppliersModelResponse res = sdk.loanWriteback().suppliers().getCreateUpdateModel()
                 .request(req)
                 .call();
 
-            if (res.pushOption().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.pushOption().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -170,7 +178,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |

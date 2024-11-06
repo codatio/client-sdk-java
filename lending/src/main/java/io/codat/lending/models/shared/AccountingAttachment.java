@@ -37,8 +37,6 @@ import org.openapitools.jackson.nullable.JsonNullable;
  * | NetSuite          | 100 MB    | BMP, CSV, XLS, XLSX, JSON, PDF, PJPG, PJPEG, PNG, TXT, SVG, TIF, TIFF,   DOC, DOCX, ZIP                                                                      |
  * | Dynamics 365 Business Central          | 350 MB    | Dynamics do not explicitly outline which file types are supported but they do state &lt;a className="external" href="https://learn.microsoft.com/en-gb/dynamics365/business-central/ui-how-add-link-to-record#to-attach-a-file-to-a-purchase-invoice" target="_blank"&gt;here&lt;/a&gt; that "You can attach any type of file, such as text, image, or video files".                                                                   |
  * 
- * View the coverage for each integration in the &lt;a className="external" href="https://knowledge.codat.io/supported-features/accounting" target="_blank"&gt;Data coverage explorer&lt;/a&gt;.
- * 
  */
 
 public class AccountingAttachment {
