@@ -69,8 +69,6 @@ public class Transactions implements
      * 
      * Required data may vary by integration. To see what data to post, first call [Get create bank transaction model](https://docs.codat.io/bank-feeds-api#/operations/get-create-bankTransactions-model).
      * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=bankTransactions) for integrations that support creating a bank account transactions.
-     * 
      * @return The call builder
      */
     public CreateBankTransactionsRequestBuilder create() {
@@ -86,8 +84,6 @@ public class Transactions implements
      * **Integration-specific behaviour**
      * 
      * Required data may vary by integration. To see what data to post, first call [Get create bank transaction model](https://docs.codat.io/bank-feeds-api#/operations/get-create-bankTransactions-model).
-     * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=bankTransactions) for integrations that support creating a bank account transactions.
      * 
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
@@ -108,8 +104,6 @@ public class Transactions implements
      * 
      * Required data may vary by integration. To see what data to post, first call [Get create bank transaction model](https://docs.codat.io/bank-feeds-api#/operations/get-create-bankTransactions-model).
      * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=bankTransactions) for integrations that support creating a bank account transactions.
-     * 
      * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
@@ -120,7 +114,7 @@ public class Transactions implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.bank_feeds.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -142,7 +136,7 @@ public class Transactions implements
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         _req.addQueryParams(Utils.getQueryParams(
                 CreateBankTransactionsRequest.class,
@@ -272,7 +266,11 @@ public class Transactions implements
 
     /**
      * Get create operation
-     * Retrieve push operation.
+     * The **Get create operation** endpoint returns a specific [write operation](/using-the-api/push) identified by the `pushOperationKey` that was performed on the company.
+     * 
+     * Write operations are actions that send requests to Codat, enabling the creation, updating, deletion of records, or uploading attachments in the connected accounting software.
+     * 
+     * For bank feeds, your push operations will only relate to the `bankTransactions` data type.
      * @return The call builder
      */
     public GetCreateOperationRequestBuilder getCreateOperation() {
@@ -281,7 +279,11 @@ public class Transactions implements
 
     /**
      * Get create operation
-     * Retrieve push operation.
+     * The **Get create operation** endpoint returns a specific [write operation](/using-the-api/push) identified by the `pushOperationKey` that was performed on the company.
+     * 
+     * Write operations are actions that send requests to Codat, enabling the creation, updating, deletion of records, or uploading attachments in the connected accounting software.
+     * 
+     * For bank feeds, your push operations will only relate to the `bankTransactions` data type.
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
@@ -293,7 +295,11 @@ public class Transactions implements
     
     /**
      * Get create operation
-     * Retrieve push operation.
+     * The **Get create operation** endpoint returns a specific [write operation](/using-the-api/push) identified by the `pushOperationKey` that was performed on the company.
+     * 
+     * Write operations are actions that send requests to Codat, enabling the creation, updating, deletion of records, or uploading attachments in the connected accounting software.
+     * 
+     * For bank feeds, your push operations will only relate to the `bankTransactions` data type.
      * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
@@ -304,7 +310,7 @@ public class Transactions implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.bank_feeds.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -316,7 +322,7 @@ public class Transactions implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -441,7 +447,11 @@ public class Transactions implements
 
     /**
      * List create operations
-     * List create operations.
+     * The **List create operations** endpoint returns a list of [write operations](/using-the-api/push) performed on the company.
+     * 
+     * Write operations are actions that send requests to Codat, enabling the creation, updating, deletion of records, or uploading attachments in the connected accounting software. 
+     * 
+     * For bank feeds, use this endpoint to view write operations related to the `bankTransactions` data type.
      * @return The call builder
      */
     public ListCreateOperationsRequestBuilder listCreateOperations() {
@@ -450,7 +460,11 @@ public class Transactions implements
 
     /**
      * List create operations
-     * List create operations.
+     * The **List create operations** endpoint returns a list of [write operations](/using-the-api/push) performed on the company.
+     * 
+     * Write operations are actions that send requests to Codat, enabling the creation, updating, deletion of records, or uploading attachments in the connected accounting software. 
+     * 
+     * For bank feeds, use this endpoint to view write operations related to the `bankTransactions` data type.
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
@@ -462,7 +476,11 @@ public class Transactions implements
     
     /**
      * List create operations
-     * List create operations.
+     * The **List create operations** endpoint returns a list of [write operations](/using-the-api/push) performed on the company.
+     * 
+     * Write operations are actions that send requests to Codat, enabling the creation, updating, deletion of records, or uploading attachments in the connected accounting software. 
+     * 
+     * For bank feeds, use this endpoint to view write operations related to the `bankTransactions` data type.
      * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
@@ -473,7 +491,7 @@ public class Transactions implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.bank_feeds.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -485,7 +503,7 @@ public class Transactions implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         _req.addQueryParams(Utils.getQueryParams(
                 ListCreateOperationsRequest.class,

@@ -19,19 +19,19 @@ public class DeleteBankFeedCredentialsRequestBuilder {
         this.sdk = sdk;
     }
 
-    public DeleteBankFeedCredentialsRequestBuilder request(io.codat.bank_feeds.models.operations.DeleteBankFeedCredentialsRequest request) {
+    public DeleteBankFeedCredentialsRequestBuilder request(DeleteBankFeedCredentialsRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public DeleteBankFeedCredentialsRequestBuilder retryConfig(io.codat.bank_feeds.utils.RetryConfig retryConfig) {
+    public DeleteBankFeedCredentialsRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public DeleteBankFeedCredentialsRequestBuilder retryConfig(java.util.Optional<io.codat.bank_feeds.utils.RetryConfig> retryConfig) {
+    public DeleteBankFeedCredentialsRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

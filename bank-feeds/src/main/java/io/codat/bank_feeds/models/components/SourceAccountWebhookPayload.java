@@ -34,6 +34,10 @@ public class SourceAccountWebhookPayload {
     @JsonProperty("connectionId")
     private Optional<String> connectionId;
 
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("referenceCompany")
+    private Optional<? extends CompanyReference> referenceCompany;
+
     /**
      * The target bank account in a supported accounting software for ingestion into a bank feed.
      */
@@ -45,17 +49,20 @@ public class SourceAccountWebhookPayload {
     public SourceAccountWebhookPayload(
             @JsonProperty("companyId") Optional<String> companyId,
             @JsonProperty("connectionId") Optional<String> connectionId,
+            @JsonProperty("referenceCompany") Optional<? extends CompanyReference> referenceCompany,
             @JsonProperty("sourceAccount") Optional<? extends SourceAccount> sourceAccount) {
         Utils.checkNotNull(companyId, "companyId");
         Utils.checkNotNull(connectionId, "connectionId");
+        Utils.checkNotNull(referenceCompany, "referenceCompany");
         Utils.checkNotNull(sourceAccount, "sourceAccount");
         this.companyId = companyId;
         this.connectionId = connectionId;
+        this.referenceCompany = referenceCompany;
         this.sourceAccount = sourceAccount;
     }
     
     public SourceAccountWebhookPayload() {
-        this(Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     /**
@@ -72,6 +79,12 @@ public class SourceAccountWebhookPayload {
     @JsonIgnore
     public Optional<String> connectionId() {
         return connectionId;
+    }
+
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<CompanyReference> referenceCompany() {
+        return (Optional<CompanyReference>) referenceCompany;
     }
 
     /**
@@ -123,6 +136,18 @@ public class SourceAccountWebhookPayload {
         return this;
     }
 
+    public SourceAccountWebhookPayload withReferenceCompany(CompanyReference referenceCompany) {
+        Utils.checkNotNull(referenceCompany, "referenceCompany");
+        this.referenceCompany = Optional.ofNullable(referenceCompany);
+        return this;
+    }
+
+    public SourceAccountWebhookPayload withReferenceCompany(Optional<? extends CompanyReference> referenceCompany) {
+        Utils.checkNotNull(referenceCompany, "referenceCompany");
+        this.referenceCompany = referenceCompany;
+        return this;
+    }
+
     /**
      * The target bank account in a supported accounting software for ingestion into a bank feed.
      */
@@ -153,6 +178,7 @@ public class SourceAccountWebhookPayload {
         return 
             Objects.deepEquals(this.companyId, other.companyId) &&
             Objects.deepEquals(this.connectionId, other.connectionId) &&
+            Objects.deepEquals(this.referenceCompany, other.referenceCompany) &&
             Objects.deepEquals(this.sourceAccount, other.sourceAccount);
     }
     
@@ -161,6 +187,7 @@ public class SourceAccountWebhookPayload {
         return Objects.hash(
             companyId,
             connectionId,
+            referenceCompany,
             sourceAccount);
     }
     
@@ -169,6 +196,7 @@ public class SourceAccountWebhookPayload {
         return Utils.toString(SourceAccountWebhookPayload.class,
                 "companyId", companyId,
                 "connectionId", connectionId,
+                "referenceCompany", referenceCompany,
                 "sourceAccount", sourceAccount);
     }
     
@@ -177,6 +205,8 @@ public class SourceAccountWebhookPayload {
         private Optional<String> companyId = Optional.empty();
  
         private Optional<String> connectionId = Optional.empty();
+ 
+        private Optional<? extends CompanyReference> referenceCompany = Optional.empty();
  
         private Optional<? extends SourceAccount> sourceAccount = Optional.empty();  
         
@@ -220,6 +250,18 @@ public class SourceAccountWebhookPayload {
             return this;
         }
 
+        public Builder referenceCompany(CompanyReference referenceCompany) {
+            Utils.checkNotNull(referenceCompany, "referenceCompany");
+            this.referenceCompany = Optional.ofNullable(referenceCompany);
+            return this;
+        }
+
+        public Builder referenceCompany(Optional<? extends CompanyReference> referenceCompany) {
+            Utils.checkNotNull(referenceCompany, "referenceCompany");
+            this.referenceCompany = referenceCompany;
+            return this;
+        }
+
         /**
          * The target bank account in a supported accounting software for ingestion into a bank feed.
          */
@@ -242,6 +284,7 @@ public class SourceAccountWebhookPayload {
             return new SourceAccountWebhookPayload(
                 companyId,
                 connectionId,
+                referenceCompany,
                 sourceAccount);
         }
     }

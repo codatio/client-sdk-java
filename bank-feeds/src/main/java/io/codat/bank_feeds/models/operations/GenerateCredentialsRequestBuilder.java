@@ -19,19 +19,19 @@ public class GenerateCredentialsRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GenerateCredentialsRequestBuilder request(io.codat.bank_feeds.models.operations.GenerateCredentialsRequest request) {
+    public GenerateCredentialsRequestBuilder request(GenerateCredentialsRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GenerateCredentialsRequestBuilder retryConfig(io.codat.bank_feeds.utils.RetryConfig retryConfig) {
+    public GenerateCredentialsRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GenerateCredentialsRequestBuilder retryConfig(java.util.Optional<io.codat.bank_feeds.utils.RetryConfig> retryConfig) {
+    public GenerateCredentialsRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

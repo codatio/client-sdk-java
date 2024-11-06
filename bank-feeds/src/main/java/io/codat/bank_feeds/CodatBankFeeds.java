@@ -8,6 +8,7 @@ import io.codat.bank_feeds.models.operations.SDKMethodInterfaces.*;
 import io.codat.bank_feeds.utils.HTTPClient;
 import io.codat.bank_feeds.utils.RetryConfig;
 import io.codat.bank_feeds.utils.SpeakeasyHTTPClient;
+import io.codat.bank_feeds.utils.Utils;
 import java.lang.String;
 import java.util.Map;
 import java.util.Optional;
@@ -218,7 +219,7 @@ public class CodatBankFeeds {
          * @return The builder instance.
          */
         public Builder serverURL(String serverUrl, Map<String, String> params) {
-            this.sdkConfiguration.serverUrl = io.codat.bank_feeds.utils.Utils.templateUrl(serverUrl, params);
+            this.sdkConfiguration.serverUrl = Utils.templateUrl(serverUrl, params);
             return this;
         }
         

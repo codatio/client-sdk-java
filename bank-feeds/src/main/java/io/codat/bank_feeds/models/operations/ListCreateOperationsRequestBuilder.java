@@ -19,19 +19,19 @@ public class ListCreateOperationsRequestBuilder {
         this.sdk = sdk;
     }
 
-    public ListCreateOperationsRequestBuilder request(io.codat.bank_feeds.models.operations.ListCreateOperationsRequest request) {
+    public ListCreateOperationsRequestBuilder request(ListCreateOperationsRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public ListCreateOperationsRequestBuilder retryConfig(io.codat.bank_feeds.utils.RetryConfig retryConfig) {
+    public ListCreateOperationsRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public ListCreateOperationsRequestBuilder retryConfig(java.util.Optional<io.codat.bank_feeds.utils.RetryConfig> retryConfig) {
+    public ListCreateOperationsRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

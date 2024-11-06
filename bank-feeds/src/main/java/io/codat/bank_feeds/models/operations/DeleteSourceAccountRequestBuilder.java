@@ -19,19 +19,19 @@ public class DeleteSourceAccountRequestBuilder {
         this.sdk = sdk;
     }
 
-    public DeleteSourceAccountRequestBuilder request(io.codat.bank_feeds.models.operations.DeleteSourceAccountRequest request) {
+    public DeleteSourceAccountRequestBuilder request(DeleteSourceAccountRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public DeleteSourceAccountRequestBuilder retryConfig(io.codat.bank_feeds.utils.RetryConfig retryConfig) {
+    public DeleteSourceAccountRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public DeleteSourceAccountRequestBuilder retryConfig(java.util.Optional<io.codat.bank_feeds.utils.RetryConfig> retryConfig) {
+    public DeleteSourceAccountRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

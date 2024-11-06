@@ -50,8 +50,11 @@ package hello.world;
 import io.codat.bank_feeds.CodatBankFeeds;
 import io.codat.bank_feeds.models.components.AccountInfo;
 import io.codat.bank_feeds.models.components.AccountType;
+import io.codat.bank_feeds.models.components.RoutingInfo;
 import io.codat.bank_feeds.models.components.SourceAccountV2;
-import io.codat.bank_feeds.models.errors.SDKError;
+import io.codat.bank_feeds.models.components.SourceAccountV2Status;
+import io.codat.bank_feeds.models.components.Type;
+import io.codat.bank_feeds.models.errors.ErrorMessage;
 import io.codat.bank_feeds.models.operations.CreateSourceAccountRequest;
 import io.codat.bank_feeds.models.operations.CreateSourceAccountRequestBody;
 import io.codat.bank_feeds.models.operations.CreateSourceAccountResponse;
@@ -60,48 +63,45 @@ import java.math.BigDecimal;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatBankFeeds sdk = CodatBankFeeds.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            CreateSourceAccountRequest req = CreateSourceAccountRequest.builder()
+        CodatBankFeeds sdk = CodatBankFeeds.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        CreateSourceAccountRequest req = CreateSourceAccountRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .requestBody(CreateSourceAccountRequestBody.of(SourceAccountV2.builder()
                     .accountName("<value>")
                     .accountNumber("<value>")
-                    .accountType(AccountType.PREPAID_CARD)
-                    .balance(new BigDecimal("4174.58"))
+                    .accountType(AccountType.LOAN)
+                    .balance(new BigDecimal("1343.65"))
                     .currency("GBP")
                     .id("<id>")
                     .accountInfo(AccountInfo.builder()
-                        .accountOpenDate("2022-10-23")
+                        .accountOpenDate("2023-05-23T00:00:00Z")
+                        .availableBalance(new BigDecimal("400"))
+                        .description("account description 2")
+                        .nickname("account 1290")
                         .build())
-                    .feedStartDate("2022-10-23")
-                    .modifiedDate("2022-10-23T00:00:00Z")
+                    .feedStartDate("2024-05-01T00:00:00Z")
+                    .modifiedDate("2024-08-02T00:00:00.000Z")
+                    .routingInfo(RoutingInfo.builder()
+                        .bankCode("21001088")
+                        .type(Type.BANKCODE)
+                        .build())
+                    .status(SourceAccountV2Status.PENDING)
                     .build()))
                 .build();
 
-            CreateSourceAccountResponse res = sdk.sourceAccounts().create()
+        CreateSourceAccountResponse res = sdk.sourceAccounts().create()
                 .request(req)
                 .call();
 
-            if (res.oneOf().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.bank_feeds.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.oneOf().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -118,11 +118,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## delete
 
@@ -137,41 +136,30 @@ Removing a source account will also remove any mapping between the source bank f
 package hello.world;
 
 import io.codat.bank_feeds.CodatBankFeeds;
-import io.codat.bank_feeds.models.errors.SDKError;
+import io.codat.bank_feeds.models.errors.ErrorMessage;
 import io.codat.bank_feeds.models.operations.DeleteSourceAccountRequest;
 import io.codat.bank_feeds.models.operations.DeleteSourceAccountResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatBankFeeds sdk = CodatBankFeeds.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            DeleteSourceAccountRequest req = DeleteSourceAccountRequest.builder()
-                .accountId("EILBDVJVNUAGVKRQ")
+        CodatBankFeeds sdk = CodatBankFeeds.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        DeleteSourceAccountRequest req = DeleteSourceAccountRequest.builder()
+                .accountId("7110701885")
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .build();
 
-            DeleteSourceAccountResponse res = sdk.sourceAccounts().delete()
+        DeleteSourceAccountResponse res = sdk.sourceAccounts().delete()
                 .request(req)
                 .call();
 
-            // handle response
-        } catch (io.codat.bank_feeds.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
-        }
-
+        // handle response
     }
 }
 ```
@@ -188,11 +176,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## deleteCredentials
 
@@ -206,40 +193,29 @@ In cases where multiple credential sets have been generated, a single API call t
 package hello.world;
 
 import io.codat.bank_feeds.CodatBankFeeds;
-import io.codat.bank_feeds.models.errors.SDKError;
+import io.codat.bank_feeds.models.errors.ErrorMessage;
 import io.codat.bank_feeds.models.operations.DeleteBankFeedCredentialsRequest;
 import io.codat.bank_feeds.models.operations.DeleteBankFeedCredentialsResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatBankFeeds sdk = CodatBankFeeds.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            DeleteBankFeedCredentialsRequest req = DeleteBankFeedCredentialsRequest.builder()
+        CodatBankFeeds sdk = CodatBankFeeds.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        DeleteBankFeedCredentialsRequest req = DeleteBankFeedCredentialsRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .build();
 
-            DeleteBankFeedCredentialsResponse res = sdk.sourceAccounts().deleteCredentials()
+        DeleteBankFeedCredentialsResponse res = sdk.sourceAccounts().deleteCredentials()
                 .request(req)
                 .call();
 
-            // handle response
-        } catch (io.codat.bank_feeds.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
-        }
-
+        // handle response
     }
 }
 ```
@@ -256,18 +232,20 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## generateCredentials
 
-﻿The _Generate Bank Account Credentials_ endpoint can be used to generate credentials for QuickBooks Online to use for authentication of the Bank Feed in their portal, each time this is used a new set of credentials will be generated.
+﻿The _Generate bank account credentials_ endpoint can be used to generate credentials for QuickBooks Online to authenticate the Bank Feed in the QBO portal. Each time this endpoint is called, a new set of credentials will be generated.
 
 The old credentials will still be valid until the revoke credentials endpoint is used, which will revoke all credentials associated to the data connection.
 
+> **For QuickBooks Online only**
+>
+> Only call this endpoint when onboarding SMBs that use  QuickBooks Online.
 
 ### Example Usage
 
@@ -275,43 +253,33 @@ The old credentials will still be valid until the revoke credentials endpoint is
 package hello.world;
 
 import io.codat.bank_feeds.CodatBankFeeds;
-import io.codat.bank_feeds.models.errors.SDKError;
+import io.codat.bank_feeds.models.errors.ErrorMessage;
 import io.codat.bank_feeds.models.operations.GenerateCredentialsRequest;
 import io.codat.bank_feeds.models.operations.GenerateCredentialsResponse;
 import java.lang.Exception;
+import java.nio.charset.StandardCharsets;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatBankFeeds sdk = CodatBankFeeds.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            GenerateCredentialsRequest req = GenerateCredentialsRequest.builder()
-                .requestBody("0xeDCfFBde9E".getBytes())
+        CodatBankFeeds sdk = CodatBankFeeds.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        GenerateCredentialsRequest req = GenerateCredentialsRequest.builder()
+                .requestBody("0xeCFd9fD7b9".getBytes(StandardCharsets.UTF_8))
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .build();
 
-            GenerateCredentialsResponse res = sdk.sourceAccounts().generateCredentials()
+        GenerateCredentialsResponse res = sdk.sourceAccounts().generateCredentials()
                 .request(req)
                 .call();
 
-            if (res.bankAccountCredentials().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.bank_feeds.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.bankAccountCredentials().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -328,17 +296,16 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## list
 
 ﻿The _List source accounts_ endpoint returns a list of [source accounts](https://docs.codat.io/bank-feeds-api#/schemas/BankFeedAccount) for a given company's connection.
 
-[source accounts](https://docs.codat.io/bank-feeds-api#/schemas/BankFeedAccount) are the bank's bank account within Codat's domain from which transactions are synced into the accounting platform.
+[Source accounts](https://docs.codat.io/bank-feeds-api#/schemas/BankFeedAccount) are the bank's bank account within Codat's domain from which transactions are synced into the accounting platform.
 
 > ### Versioning
 > If you are integrating the Bank Feeds API with Codat after August 1, 2024, please use the v2 version of the API, as detailed in the schema below. For integrations completed before August 1, 2024, select the v1 version from the schema dropdown below.
@@ -349,42 +316,31 @@ public class Application {
 package hello.world;
 
 import io.codat.bank_feeds.CodatBankFeeds;
-import io.codat.bank_feeds.models.errors.SDKError;
+import io.codat.bank_feeds.models.errors.ErrorMessage;
 import io.codat.bank_feeds.models.operations.ListSourceAccountsRequest;
 import io.codat.bank_feeds.models.operations.ListSourceAccountsResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatBankFeeds sdk = CodatBankFeeds.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            ListSourceAccountsRequest req = ListSourceAccountsRequest.builder()
+        CodatBankFeeds sdk = CodatBankFeeds.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        ListSourceAccountsRequest req = ListSourceAccountsRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .build();
 
-            ListSourceAccountsResponse res = sdk.sourceAccounts().list()
+        ListSourceAccountsResponse res = sdk.sourceAccounts().list()
                 .request(req)
                 .call();
 
-            if (res.sourceAccounts().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.bank_feeds.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.oneOf().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -401,11 +357,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## update
 
@@ -423,49 +378,46 @@ package hello.world;
 
 import io.codat.bank_feeds.CodatBankFeeds;
 import io.codat.bank_feeds.models.components.SourceAccount;
-import io.codat.bank_feeds.models.errors.SDKError;
+import io.codat.bank_feeds.models.components.Status;
+import io.codat.bank_feeds.models.errors.ErrorMessage;
 import io.codat.bank_feeds.models.operations.UpdateSourceAccountRequest;
 import io.codat.bank_feeds.models.operations.UpdateSourceAccountResponse;
 import java.lang.Exception;
+import java.math.BigDecimal;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatBankFeeds sdk = CodatBankFeeds.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            UpdateSourceAccountRequest req = UpdateSourceAccountRequest.builder()
+        CodatBankFeeds sdk = CodatBankFeeds.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        UpdateSourceAccountRequest req = UpdateSourceAccountRequest.builder()
                 .accountId("7110701885")
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .sourceAccount(SourceAccount.builder()
                     .id("<id>")
-                    .currency("EUR")
+                    .accountName("account-081")
+                    .accountNumber("12345670")
+                    .accountType("Credit")
+                    .balance(new BigDecimal("99.99"))
+                    .currency("GBP")
                     .feedStartDate("2022-10-23T00:00:00Z")
-                    .modifiedDate("2022-10-23T00:00:00Z")
+                    .modifiedDate("2023-01-09T14:14:14.1057478Z")
+                    .sortCode("123456")
+                    .status(Status.PENDING)
                     .build())
                 .build();
 
-            UpdateSourceAccountResponse res = sdk.sourceAccounts().update()
+        UpdateSourceAccountResponse res = sdk.sourceAccounts().update()
                 .request(req)
                 .call();
 
-            if (res.sourceAccount().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.bank_feeds.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.sourceAccount().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -482,7 +434,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |

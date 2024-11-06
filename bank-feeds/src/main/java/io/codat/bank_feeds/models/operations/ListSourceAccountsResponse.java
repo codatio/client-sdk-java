@@ -7,7 +7,6 @@ package io.codat.bank_feeds.models.operations;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.codat.bank_feeds.models.components.SourceAccountV2;
 import io.codat.bank_feeds.utils.Response;
 import io.codat.bank_feeds.utils.Utils;
 import java.io.InputStream;
@@ -16,7 +15,6 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -41,22 +39,22 @@ public class ListSourceAccountsResponse implements Response {
     /**
      * Success
      */
-    private Optional<? extends List<SourceAccountV2>> sourceAccounts;
+    private Optional<? extends ListSourceAccountsResponseBody> oneOf;
 
     @JsonCreator
     public ListSourceAccountsResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends List<SourceAccountV2>> sourceAccounts) {
+            Optional<? extends ListSourceAccountsResponseBody> oneOf) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(sourceAccounts, "sourceAccounts");
+        Utils.checkNotNull(oneOf, "oneOf");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.sourceAccounts = sourceAccounts;
+        this.oneOf = oneOf;
     }
     
     public ListSourceAccountsResponse(
@@ -95,8 +93,8 @@ public class ListSourceAccountsResponse implements Response {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<SourceAccountV2>> sourceAccounts() {
-        return (Optional<List<SourceAccountV2>>) sourceAccounts;
+    public Optional<ListSourceAccountsResponseBody> oneOf() {
+        return (Optional<ListSourceAccountsResponseBody>) oneOf;
     }
 
     public final static Builder builder() {
@@ -133,18 +131,18 @@ public class ListSourceAccountsResponse implements Response {
     /**
      * Success
      */
-    public ListSourceAccountsResponse withSourceAccounts(List<SourceAccountV2> sourceAccounts) {
-        Utils.checkNotNull(sourceAccounts, "sourceAccounts");
-        this.sourceAccounts = Optional.ofNullable(sourceAccounts);
+    public ListSourceAccountsResponse withOneOf(ListSourceAccountsResponseBody oneOf) {
+        Utils.checkNotNull(oneOf, "oneOf");
+        this.oneOf = Optional.ofNullable(oneOf);
         return this;
     }
 
     /**
      * Success
      */
-    public ListSourceAccountsResponse withSourceAccounts(Optional<? extends List<SourceAccountV2>> sourceAccounts) {
-        Utils.checkNotNull(sourceAccounts, "sourceAccounts");
-        this.sourceAccounts = sourceAccounts;
+    public ListSourceAccountsResponse withOneOf(Optional<? extends ListSourceAccountsResponseBody> oneOf) {
+        Utils.checkNotNull(oneOf, "oneOf");
+        this.oneOf = oneOf;
         return this;
     }
     
@@ -161,7 +159,7 @@ public class ListSourceAccountsResponse implements Response {
             Objects.deepEquals(this.contentType, other.contentType) &&
             Objects.deepEquals(this.statusCode, other.statusCode) &&
             Objects.deepEquals(this.rawResponse, other.rawResponse) &&
-            Objects.deepEquals(this.sourceAccounts, other.sourceAccounts);
+            Objects.deepEquals(this.oneOf, other.oneOf);
     }
     
     @Override
@@ -170,7 +168,7 @@ public class ListSourceAccountsResponse implements Response {
             contentType,
             statusCode,
             rawResponse,
-            sourceAccounts);
+            oneOf);
     }
     
     @Override
@@ -179,7 +177,7 @@ public class ListSourceAccountsResponse implements Response {
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "sourceAccounts", sourceAccounts);
+                "oneOf", oneOf);
     }
     
     public final static class Builder {
@@ -190,7 +188,7 @@ public class ListSourceAccountsResponse implements Response {
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends List<SourceAccountV2>> sourceAccounts = Optional.empty();  
+        private Optional<? extends ListSourceAccountsResponseBody> oneOf = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -226,18 +224,18 @@ public class ListSourceAccountsResponse implements Response {
         /**
          * Success
          */
-        public Builder sourceAccounts(List<SourceAccountV2> sourceAccounts) {
-            Utils.checkNotNull(sourceAccounts, "sourceAccounts");
-            this.sourceAccounts = Optional.ofNullable(sourceAccounts);
+        public Builder oneOf(ListSourceAccountsResponseBody oneOf) {
+            Utils.checkNotNull(oneOf, "oneOf");
+            this.oneOf = Optional.ofNullable(oneOf);
             return this;
         }
 
         /**
          * Success
          */
-        public Builder sourceAccounts(Optional<? extends List<SourceAccountV2>> sourceAccounts) {
-            Utils.checkNotNull(sourceAccounts, "sourceAccounts");
-            this.sourceAccounts = sourceAccounts;
+        public Builder oneOf(Optional<? extends ListSourceAccountsResponseBody> oneOf) {
+            Utils.checkNotNull(oneOf, "oneOf");
+            this.oneOf = oneOf;
             return this;
         }
         
@@ -246,7 +244,7 @@ public class ListSourceAccountsResponse implements Response {
                 contentType,
                 statusCode,
                 rawResponse,
-                sourceAccounts);
+                oneOf);
         }
     }
 }

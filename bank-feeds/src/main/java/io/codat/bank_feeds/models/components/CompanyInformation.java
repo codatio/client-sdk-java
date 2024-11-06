@@ -14,6 +14,8 @@ import io.codat.bank_feeds.utils.Utils;
 import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -39,14 +41,21 @@ public class CompanyInformation {
     private Optional<String> companyName;
 
     /**
-     * Boolean showing if the organisation has multicurrency enabled
+     * Array of enabled currencies for the linked company.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("currencies")
+    private JsonNullable<? extends List<String>> currencies;
+
+    /**
+     * Boolean showing if the organisation has multicurrency enabled.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("multicurrencyEnabled")
-    private JsonNullable<Boolean> multicurrencyEnabled;
+    private Optional<Boolean> multicurrencyEnabled;
 
     /**
-     * Accounting software subscription type such as Trial, Demo, Standard
+     * Accounting software subscription type such as Trial, Demo, Standard.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("planType")
@@ -56,20 +65,23 @@ public class CompanyInformation {
     public CompanyInformation(
             @JsonProperty("baseCurrency") Optional<String> baseCurrency,
             @JsonProperty("companyName") Optional<String> companyName,
-            @JsonProperty("multicurrencyEnabled") JsonNullable<Boolean> multicurrencyEnabled,
+            @JsonProperty("currencies") JsonNullable<? extends List<String>> currencies,
+            @JsonProperty("multicurrencyEnabled") Optional<Boolean> multicurrencyEnabled,
             @JsonProperty("planType") JsonNullable<String> planType) {
         Utils.checkNotNull(baseCurrency, "baseCurrency");
         Utils.checkNotNull(companyName, "companyName");
+        Utils.checkNotNull(currencies, "currencies");
         Utils.checkNotNull(multicurrencyEnabled, "multicurrencyEnabled");
         Utils.checkNotNull(planType, "planType");
         this.baseCurrency = baseCurrency;
         this.companyName = companyName;
+        this.currencies = currencies;
         this.multicurrencyEnabled = multicurrencyEnabled;
         this.planType = planType;
     }
     
     public CompanyInformation() {
-        this(Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(Optional.empty(), Optional.empty(), JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined());
     }
 
     /**
@@ -89,15 +101,24 @@ public class CompanyInformation {
     }
 
     /**
-     * Boolean showing if the organisation has multicurrency enabled
+     * Array of enabled currencies for the linked company.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<List<String>> currencies() {
+        return (JsonNullable<List<String>>) currencies;
+    }
+
+    /**
+     * Boolean showing if the organisation has multicurrency enabled.
      */
     @JsonIgnore
-    public JsonNullable<Boolean> multicurrencyEnabled() {
+    public Optional<Boolean> multicurrencyEnabled() {
         return multicurrencyEnabled;
     }
 
     /**
-     * Accounting software subscription type such as Trial, Demo, Standard
+     * Accounting software subscription type such as Trial, Demo, Standard.
      */
     @JsonIgnore
     public JsonNullable<String> planType() {
@@ -145,25 +166,43 @@ public class CompanyInformation {
     }
 
     /**
-     * Boolean showing if the organisation has multicurrency enabled
+     * Array of enabled currencies for the linked company.
      */
-    public CompanyInformation withMulticurrencyEnabled(boolean multicurrencyEnabled) {
-        Utils.checkNotNull(multicurrencyEnabled, "multicurrencyEnabled");
-        this.multicurrencyEnabled = JsonNullable.of(multicurrencyEnabled);
+    public CompanyInformation withCurrencies(List<String> currencies) {
+        Utils.checkNotNull(currencies, "currencies");
+        this.currencies = JsonNullable.of(currencies);
         return this;
     }
 
     /**
-     * Boolean showing if the organisation has multicurrency enabled
+     * Array of enabled currencies for the linked company.
      */
-    public CompanyInformation withMulticurrencyEnabled(JsonNullable<Boolean> multicurrencyEnabled) {
+    public CompanyInformation withCurrencies(JsonNullable<? extends List<String>> currencies) {
+        Utils.checkNotNull(currencies, "currencies");
+        this.currencies = currencies;
+        return this;
+    }
+
+    /**
+     * Boolean showing if the organisation has multicurrency enabled.
+     */
+    public CompanyInformation withMulticurrencyEnabled(boolean multicurrencyEnabled) {
+        Utils.checkNotNull(multicurrencyEnabled, "multicurrencyEnabled");
+        this.multicurrencyEnabled = Optional.ofNullable(multicurrencyEnabled);
+        return this;
+    }
+
+    /**
+     * Boolean showing if the organisation has multicurrency enabled.
+     */
+    public CompanyInformation withMulticurrencyEnabled(Optional<Boolean> multicurrencyEnabled) {
         Utils.checkNotNull(multicurrencyEnabled, "multicurrencyEnabled");
         this.multicurrencyEnabled = multicurrencyEnabled;
         return this;
     }
 
     /**
-     * Accounting software subscription type such as Trial, Demo, Standard
+     * Accounting software subscription type such as Trial, Demo, Standard.
      */
     public CompanyInformation withPlanType(String planType) {
         Utils.checkNotNull(planType, "planType");
@@ -172,7 +211,7 @@ public class CompanyInformation {
     }
 
     /**
-     * Accounting software subscription type such as Trial, Demo, Standard
+     * Accounting software subscription type such as Trial, Demo, Standard.
      */
     public CompanyInformation withPlanType(JsonNullable<String> planType) {
         Utils.checkNotNull(planType, "planType");
@@ -192,6 +231,7 @@ public class CompanyInformation {
         return 
             Objects.deepEquals(this.baseCurrency, other.baseCurrency) &&
             Objects.deepEquals(this.companyName, other.companyName) &&
+            Objects.deepEquals(this.currencies, other.currencies) &&
             Objects.deepEquals(this.multicurrencyEnabled, other.multicurrencyEnabled) &&
             Objects.deepEquals(this.planType, other.planType);
     }
@@ -201,6 +241,7 @@ public class CompanyInformation {
         return Objects.hash(
             baseCurrency,
             companyName,
+            currencies,
             multicurrencyEnabled,
             planType);
     }
@@ -210,6 +251,7 @@ public class CompanyInformation {
         return Utils.toString(CompanyInformation.class,
                 "baseCurrency", baseCurrency,
                 "companyName", companyName,
+                "currencies", currencies,
                 "multicurrencyEnabled", multicurrencyEnabled,
                 "planType", planType);
     }
@@ -220,7 +262,9 @@ public class CompanyInformation {
  
         private Optional<String> companyName = Optional.empty();
  
-        private JsonNullable<Boolean> multicurrencyEnabled = JsonNullable.undefined();
+        private JsonNullable<? extends List<String>> currencies = JsonNullable.undefined();
+ 
+        private Optional<Boolean> multicurrencyEnabled = Optional.empty();
  
         private JsonNullable<String> planType = JsonNullable.undefined();  
         
@@ -265,25 +309,43 @@ public class CompanyInformation {
         }
 
         /**
-         * Boolean showing if the organisation has multicurrency enabled
+         * Array of enabled currencies for the linked company.
          */
-        public Builder multicurrencyEnabled(boolean multicurrencyEnabled) {
-            Utils.checkNotNull(multicurrencyEnabled, "multicurrencyEnabled");
-            this.multicurrencyEnabled = JsonNullable.of(multicurrencyEnabled);
+        public Builder currencies(List<String> currencies) {
+            Utils.checkNotNull(currencies, "currencies");
+            this.currencies = JsonNullable.of(currencies);
             return this;
         }
 
         /**
-         * Boolean showing if the organisation has multicurrency enabled
+         * Array of enabled currencies for the linked company.
          */
-        public Builder multicurrencyEnabled(JsonNullable<Boolean> multicurrencyEnabled) {
+        public Builder currencies(JsonNullable<? extends List<String>> currencies) {
+            Utils.checkNotNull(currencies, "currencies");
+            this.currencies = currencies;
+            return this;
+        }
+
+        /**
+         * Boolean showing if the organisation has multicurrency enabled.
+         */
+        public Builder multicurrencyEnabled(boolean multicurrencyEnabled) {
+            Utils.checkNotNull(multicurrencyEnabled, "multicurrencyEnabled");
+            this.multicurrencyEnabled = Optional.ofNullable(multicurrencyEnabled);
+            return this;
+        }
+
+        /**
+         * Boolean showing if the organisation has multicurrency enabled.
+         */
+        public Builder multicurrencyEnabled(Optional<Boolean> multicurrencyEnabled) {
             Utils.checkNotNull(multicurrencyEnabled, "multicurrencyEnabled");
             this.multicurrencyEnabled = multicurrencyEnabled;
             return this;
         }
 
         /**
-         * Accounting software subscription type such as Trial, Demo, Standard
+         * Accounting software subscription type such as Trial, Demo, Standard.
          */
         public Builder planType(String planType) {
             Utils.checkNotNull(planType, "planType");
@@ -292,7 +354,7 @@ public class CompanyInformation {
         }
 
         /**
-         * Accounting software subscription type such as Trial, Demo, Standard
+         * Accounting software subscription type such as Trial, Demo, Standard.
          */
         public Builder planType(JsonNullable<String> planType) {
             Utils.checkNotNull(planType, "planType");
@@ -304,6 +366,7 @@ public class CompanyInformation {
             return new CompanyInformation(
                 baseCurrency,
                 companyName,
+                currencies,
                 multicurrencyEnabled,
                 planType);
         }

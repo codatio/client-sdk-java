@@ -19,19 +19,19 @@ public class GetBankAccountMappingRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetBankAccountMappingRequestBuilder request(io.codat.bank_feeds.models.operations.GetBankAccountMappingRequest request) {
+    public GetBankAccountMappingRequestBuilder request(GetBankAccountMappingRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetBankAccountMappingRequestBuilder retryConfig(io.codat.bank_feeds.utils.RetryConfig retryConfig) {
+    public GetBankAccountMappingRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetBankAccountMappingRequestBuilder retryConfig(java.util.Optional<io.codat.bank_feeds.utils.RetryConfig> retryConfig) {
+    public GetBankAccountMappingRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

@@ -17,9 +17,6 @@ import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-/**
- * BankFeedAccountMappingResponse - The result from POSTing a Bank Account mapping.
- */
 
 public class BankFeedAccountMappingResponse {
 
@@ -27,15 +24,8 @@ public class BankFeedAccountMappingResponse {
      * Error returned during the post request
      */
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("Error")
+    @JsonProperty("error")
     private JsonNullable<String> error;
-
-    /**
-     * Status of the POST request.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("Status")
-    private JsonNullable<String> status;
 
     /**
      * Unique ID for the source account.
@@ -43,6 +33,13 @@ public class BankFeedAccountMappingResponse {
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("sourceAccountId")
     private Optional<String> sourceAccountId;
+
+    /**
+     * Status of the POST request.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("status")
+    private JsonNullable<String> status;
 
     /**
      * Unique ID for the target account.
@@ -53,22 +50,22 @@ public class BankFeedAccountMappingResponse {
 
     @JsonCreator
     public BankFeedAccountMappingResponse(
-            @JsonProperty("Error") JsonNullable<String> error,
-            @JsonProperty("Status") JsonNullable<String> status,
+            @JsonProperty("error") JsonNullable<String> error,
             @JsonProperty("sourceAccountId") Optional<String> sourceAccountId,
+            @JsonProperty("status") JsonNullable<String> status,
             @JsonProperty("targetAccountId") JsonNullable<String> targetAccountId) {
         Utils.checkNotNull(error, "error");
-        Utils.checkNotNull(status, "status");
         Utils.checkNotNull(sourceAccountId, "sourceAccountId");
+        Utils.checkNotNull(status, "status");
         Utils.checkNotNull(targetAccountId, "targetAccountId");
         this.error = error;
-        this.status = status;
         this.sourceAccountId = sourceAccountId;
+        this.status = status;
         this.targetAccountId = targetAccountId;
     }
     
     public BankFeedAccountMappingResponse() {
-        this(JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined());
+        this(JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
@@ -80,19 +77,19 @@ public class BankFeedAccountMappingResponse {
     }
 
     /**
-     * Status of the POST request.
-     */
-    @JsonIgnore
-    public JsonNullable<String> status() {
-        return status;
-    }
-
-    /**
      * Unique ID for the source account.
      */
     @JsonIgnore
     public Optional<String> sourceAccountId() {
         return sourceAccountId;
+    }
+
+    /**
+     * Status of the POST request.
+     */
+    @JsonIgnore
+    public JsonNullable<String> status() {
+        return status;
     }
 
     /**
@@ -126,24 +123,6 @@ public class BankFeedAccountMappingResponse {
     }
 
     /**
-     * Status of the POST request.
-     */
-    public BankFeedAccountMappingResponse withStatus(String status) {
-        Utils.checkNotNull(status, "status");
-        this.status = JsonNullable.of(status);
-        return this;
-    }
-
-    /**
-     * Status of the POST request.
-     */
-    public BankFeedAccountMappingResponse withStatus(JsonNullable<String> status) {
-        Utils.checkNotNull(status, "status");
-        this.status = status;
-        return this;
-    }
-
-    /**
      * Unique ID for the source account.
      */
     public BankFeedAccountMappingResponse withSourceAccountId(String sourceAccountId) {
@@ -158,6 +137,24 @@ public class BankFeedAccountMappingResponse {
     public BankFeedAccountMappingResponse withSourceAccountId(Optional<String> sourceAccountId) {
         Utils.checkNotNull(sourceAccountId, "sourceAccountId");
         this.sourceAccountId = sourceAccountId;
+        return this;
+    }
+
+    /**
+     * Status of the POST request.
+     */
+    public BankFeedAccountMappingResponse withStatus(String status) {
+        Utils.checkNotNull(status, "status");
+        this.status = JsonNullable.of(status);
+        return this;
+    }
+
+    /**
+     * Status of the POST request.
+     */
+    public BankFeedAccountMappingResponse withStatus(JsonNullable<String> status) {
+        Utils.checkNotNull(status, "status");
+        this.status = status;
         return this;
     }
 
@@ -190,8 +187,8 @@ public class BankFeedAccountMappingResponse {
         BankFeedAccountMappingResponse other = (BankFeedAccountMappingResponse) o;
         return 
             Objects.deepEquals(this.error, other.error) &&
-            Objects.deepEquals(this.status, other.status) &&
             Objects.deepEquals(this.sourceAccountId, other.sourceAccountId) &&
+            Objects.deepEquals(this.status, other.status) &&
             Objects.deepEquals(this.targetAccountId, other.targetAccountId);
     }
     
@@ -199,8 +196,8 @@ public class BankFeedAccountMappingResponse {
     public int hashCode() {
         return Objects.hash(
             error,
-            status,
             sourceAccountId,
+            status,
             targetAccountId);
     }
     
@@ -208,8 +205,8 @@ public class BankFeedAccountMappingResponse {
     public String toString() {
         return Utils.toString(BankFeedAccountMappingResponse.class,
                 "error", error,
-                "status", status,
                 "sourceAccountId", sourceAccountId,
+                "status", status,
                 "targetAccountId", targetAccountId);
     }
     
@@ -217,9 +214,9 @@ public class BankFeedAccountMappingResponse {
  
         private JsonNullable<String> error = JsonNullable.undefined();
  
-        private JsonNullable<String> status = JsonNullable.undefined();
- 
         private Optional<String> sourceAccountId = Optional.empty();
+ 
+        private JsonNullable<String> status = JsonNullable.undefined();
  
         private JsonNullable<String> targetAccountId = JsonNullable.undefined();  
         
@@ -246,24 +243,6 @@ public class BankFeedAccountMappingResponse {
         }
 
         /**
-         * Status of the POST request.
-         */
-        public Builder status(String status) {
-            Utils.checkNotNull(status, "status");
-            this.status = JsonNullable.of(status);
-            return this;
-        }
-
-        /**
-         * Status of the POST request.
-         */
-        public Builder status(JsonNullable<String> status) {
-            Utils.checkNotNull(status, "status");
-            this.status = status;
-            return this;
-        }
-
-        /**
          * Unique ID for the source account.
          */
         public Builder sourceAccountId(String sourceAccountId) {
@@ -278,6 +257,24 @@ public class BankFeedAccountMappingResponse {
         public Builder sourceAccountId(Optional<String> sourceAccountId) {
             Utils.checkNotNull(sourceAccountId, "sourceAccountId");
             this.sourceAccountId = sourceAccountId;
+            return this;
+        }
+
+        /**
+         * Status of the POST request.
+         */
+        public Builder status(String status) {
+            Utils.checkNotNull(status, "status");
+            this.status = JsonNullable.of(status);
+            return this;
+        }
+
+        /**
+         * Status of the POST request.
+         */
+        public Builder status(JsonNullable<String> status) {
+            Utils.checkNotNull(status, "status");
+            this.status = status;
             return this;
         }
 
@@ -302,8 +299,8 @@ public class BankFeedAccountMappingResponse {
         public BankFeedAccountMappingResponse build() {
             return new BankFeedAccountMappingResponse(
                 error,
-                status,
                 sourceAccountId,
+                status,
                 targetAccountId);
         }
     }

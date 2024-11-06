@@ -16,16 +16,12 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 
 public class GetBankAccountMappingResponse implements Response {
-
-    /**
-     * Success
-     */
-    private Optional<? extends BankFeedMapping> bankFeedMapping;
 
     /**
      * HTTP response content type for this operation
@@ -42,36 +38,32 @@ public class GetBankAccountMappingResponse implements Response {
      */
     private HttpResponse<InputStream> rawResponse;
 
+    /**
+     * Success
+     */
+    private Optional<? extends List<BankFeedMapping>> bankFeedMappings;
+
     @JsonCreator
     public GetBankAccountMappingResponse(
-            Optional<? extends BankFeedMapping> bankFeedMapping,
             String contentType,
             int statusCode,
-            HttpResponse<InputStream> rawResponse) {
-        Utils.checkNotNull(bankFeedMapping, "bankFeedMapping");
+            HttpResponse<InputStream> rawResponse,
+            Optional<? extends List<BankFeedMapping>> bankFeedMappings) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        this.bankFeedMapping = bankFeedMapping;
+        Utils.checkNotNull(bankFeedMappings, "bankFeedMappings");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
+        this.bankFeedMappings = bankFeedMappings;
     }
     
     public GetBankAccountMappingResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse) {
-        this(Optional.empty(), contentType, statusCode, rawResponse);
-    }
-
-    /**
-     * Success
-     */
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public Optional<BankFeedMapping> bankFeedMapping() {
-        return (Optional<BankFeedMapping>) bankFeedMapping;
+        this(contentType, statusCode, rawResponse, Optional.empty());
     }
 
     /**
@@ -98,26 +90,17 @@ public class GetBankAccountMappingResponse implements Response {
         return rawResponse;
     }
 
+    /**
+     * Success
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<List<BankFeedMapping>> bankFeedMappings() {
+        return (Optional<List<BankFeedMapping>>) bankFeedMappings;
+    }
+
     public final static Builder builder() {
         return new Builder();
-    }
-
-    /**
-     * Success
-     */
-    public GetBankAccountMappingResponse withBankFeedMapping(BankFeedMapping bankFeedMapping) {
-        Utils.checkNotNull(bankFeedMapping, "bankFeedMapping");
-        this.bankFeedMapping = Optional.ofNullable(bankFeedMapping);
-        return this;
-    }
-
-    /**
-     * Success
-     */
-    public GetBankAccountMappingResponse withBankFeedMapping(Optional<? extends BankFeedMapping> bankFeedMapping) {
-        Utils.checkNotNull(bankFeedMapping, "bankFeedMapping");
-        this.bankFeedMapping = bankFeedMapping;
-        return this;
     }
 
     /**
@@ -146,6 +129,24 @@ public class GetBankAccountMappingResponse implements Response {
         this.rawResponse = rawResponse;
         return this;
     }
+
+    /**
+     * Success
+     */
+    public GetBankAccountMappingResponse withBankFeedMappings(List<BankFeedMapping> bankFeedMappings) {
+        Utils.checkNotNull(bankFeedMappings, "bankFeedMappings");
+        this.bankFeedMappings = Optional.ofNullable(bankFeedMappings);
+        return this;
+    }
+
+    /**
+     * Success
+     */
+    public GetBankAccountMappingResponse withBankFeedMappings(Optional<? extends List<BankFeedMapping>> bankFeedMappings) {
+        Utils.checkNotNull(bankFeedMappings, "bankFeedMappings");
+        this.bankFeedMappings = bankFeedMappings;
+        return this;
+    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -157,60 +158,42 @@ public class GetBankAccountMappingResponse implements Response {
         }
         GetBankAccountMappingResponse other = (GetBankAccountMappingResponse) o;
         return 
-            Objects.deepEquals(this.bankFeedMapping, other.bankFeedMapping) &&
             Objects.deepEquals(this.contentType, other.contentType) &&
             Objects.deepEquals(this.statusCode, other.statusCode) &&
-            Objects.deepEquals(this.rawResponse, other.rawResponse);
+            Objects.deepEquals(this.rawResponse, other.rawResponse) &&
+            Objects.deepEquals(this.bankFeedMappings, other.bankFeedMappings);
     }
     
     @Override
     public int hashCode() {
         return Objects.hash(
-            bankFeedMapping,
             contentType,
             statusCode,
-            rawResponse);
+            rawResponse,
+            bankFeedMappings);
     }
     
     @Override
     public String toString() {
         return Utils.toString(GetBankAccountMappingResponse.class,
-                "bankFeedMapping", bankFeedMapping,
                 "contentType", contentType,
                 "statusCode", statusCode,
-                "rawResponse", rawResponse);
+                "rawResponse", rawResponse,
+                "bankFeedMappings", bankFeedMappings);
     }
     
     public final static class Builder {
- 
-        private Optional<? extends BankFeedMapping> bankFeedMapping = Optional.empty();
  
         private String contentType;
  
         private Integer statusCode;
  
-        private HttpResponse<InputStream> rawResponse;  
+        private HttpResponse<InputStream> rawResponse;
+ 
+        private Optional<? extends List<BankFeedMapping>> bankFeedMappings = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
-        }
-
-        /**
-         * Success
-         */
-        public Builder bankFeedMapping(BankFeedMapping bankFeedMapping) {
-            Utils.checkNotNull(bankFeedMapping, "bankFeedMapping");
-            this.bankFeedMapping = Optional.ofNullable(bankFeedMapping);
-            return this;
-        }
-
-        /**
-         * Success
-         */
-        public Builder bankFeedMapping(Optional<? extends BankFeedMapping> bankFeedMapping) {
-            Utils.checkNotNull(bankFeedMapping, "bankFeedMapping");
-            this.bankFeedMapping = bankFeedMapping;
-            return this;
         }
 
         /**
@@ -239,13 +222,31 @@ public class GetBankAccountMappingResponse implements Response {
             this.rawResponse = rawResponse;
             return this;
         }
+
+        /**
+         * Success
+         */
+        public Builder bankFeedMappings(List<BankFeedMapping> bankFeedMappings) {
+            Utils.checkNotNull(bankFeedMappings, "bankFeedMappings");
+            this.bankFeedMappings = Optional.ofNullable(bankFeedMappings);
+            return this;
+        }
+
+        /**
+         * Success
+         */
+        public Builder bankFeedMappings(Optional<? extends List<BankFeedMapping>> bankFeedMappings) {
+            Utils.checkNotNull(bankFeedMappings, "bankFeedMappings");
+            this.bankFeedMappings = bankFeedMappings;
+            return this;
+        }
         
         public GetBankAccountMappingResponse build() {
             return new GetBankAccountMappingResponse(
-                bankFeedMapping,
                 contentType,
                 statusCode,
-                rawResponse);
+                rawResponse,
+                bankFeedMappings);
         }
     }
 }

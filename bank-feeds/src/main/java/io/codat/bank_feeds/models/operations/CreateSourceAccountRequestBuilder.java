@@ -19,19 +19,19 @@ public class CreateSourceAccountRequestBuilder {
         this.sdk = sdk;
     }
 
-    public CreateSourceAccountRequestBuilder request(io.codat.bank_feeds.models.operations.CreateSourceAccountRequest request) {
+    public CreateSourceAccountRequestBuilder request(CreateSourceAccountRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public CreateSourceAccountRequestBuilder retryConfig(io.codat.bank_feeds.utils.RetryConfig retryConfig) {
+    public CreateSourceAccountRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public CreateSourceAccountRequestBuilder retryConfig(java.util.Optional<io.codat.bank_feeds.utils.RetryConfig> retryConfig) {
+    public CreateSourceAccountRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

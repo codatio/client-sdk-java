@@ -85,8 +85,8 @@ public class CreateSourceAccountRequestBody {
 
         public _Deserializer() {
             super(CreateSourceAccountRequestBody.class, false,
-                  TypeReferenceWithShape.of(new TypeReference<io.codat.bank_feeds.models.components.SourceAccountV2>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<io.codat.bank_feeds.models.components.SourceAccount>() {}, JsonShape.DEFAULT));
+                  TypeReferenceWithShape.of(new TypeReference<SourceAccountV2>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<SourceAccount>() {}, JsonShape.DEFAULT));
         }
     }
     

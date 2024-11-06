@@ -7,6 +7,6 @@ It is referenced as a configured dynamic key value pair that is unique to the ac
 
 ## Fields
 
-| Field                              | Type                               | Required                           | Description                        |
-| ---------------------------------- | ---------------------------------- | ---------------------------------- | ---------------------------------- |
-| `content`                          | Map<String, Map<String, *Object*>> | :heavy_minus_sign:                 | N/A                                |
+| Field                                 | Type                                  | Required                              | Description                           |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| `content`                             | Map\<String, Map\\<String, *Object*>> | :heavy_minus_sign:                    | N/A                                   |
