@@ -19,19 +19,19 @@ public class GetAccountingProfitAndLossRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetAccountingProfitAndLossRequestBuilder request(io.codat.lending.models.operations.GetAccountingProfitAndLossRequest request) {
+    public GetAccountingProfitAndLossRequestBuilder request(GetAccountingProfitAndLossRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetAccountingProfitAndLossRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public GetAccountingProfitAndLossRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetAccountingProfitAndLossRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public GetAccountingProfitAndLossRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

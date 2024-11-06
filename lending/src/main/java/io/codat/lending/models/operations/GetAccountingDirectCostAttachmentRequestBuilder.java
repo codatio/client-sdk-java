@@ -19,19 +19,19 @@ public class GetAccountingDirectCostAttachmentRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetAccountingDirectCostAttachmentRequestBuilder request(io.codat.lending.models.operations.GetAccountingDirectCostAttachmentRequest request) {
+    public GetAccountingDirectCostAttachmentRequestBuilder request(GetAccountingDirectCostAttachmentRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetAccountingDirectCostAttachmentRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public GetAccountingDirectCostAttachmentRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetAccountingDirectCostAttachmentRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public GetAccountingDirectCostAttachmentRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

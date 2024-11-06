@@ -19,19 +19,19 @@ public class GetAccountingBalanceSheetRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetAccountingBalanceSheetRequestBuilder request(io.codat.lending.models.operations.GetAccountingBalanceSheetRequest request) {
+    public GetAccountingBalanceSheetRequestBuilder request(GetAccountingBalanceSheetRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetAccountingBalanceSheetRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public GetAccountingBalanceSheetRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetAccountingBalanceSheetRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public GetAccountingBalanceSheetRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

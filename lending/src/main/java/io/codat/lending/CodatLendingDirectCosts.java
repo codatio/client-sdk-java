@@ -70,8 +70,6 @@ public class CodatLendingDirectCosts implements
      * 
      * [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are purchases of items that are paid off at the point of the purchase.
      * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=directCosts) for integrations that support downloading a direct cost attachment.
-     * 
      * @return The call builder
      */
     public DownloadAccountingDirectCostAttachmentRequestBuilder downloadAttachment() {
@@ -83,8 +81,6 @@ public class CodatLendingDirectCosts implements
      * The *Download direct cost attachment* endpoint downloads a specific attachment for a given `directCostId` and `attachmentId`.
      * 
      * [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are purchases of items that are paid off at the point of the purchase.
-     * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=directCosts) for integrations that support downloading a direct cost attachment.
      * 
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
@@ -101,8 +97,6 @@ public class CodatLendingDirectCosts implements
      * 
      * [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are purchases of items that are paid off at the point of the purchase.
      * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=directCosts) for integrations that support downloading a direct cost attachment.
-     * 
      * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
@@ -113,7 +107,7 @@ public class CodatLendingDirectCosts implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.lending.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -125,7 +119,7 @@ public class CodatLendingDirectCosts implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/octet-stream")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -253,8 +247,6 @@ public class CodatLendingDirectCosts implements
      * 
      * [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are purchases of items that are paid off at the point of the purchase.
      * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=directCosts) for integrations that support getting a specific direct cost.
-     * 
      * Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
      * 
      * @return The call builder
@@ -268,8 +260,6 @@ public class CodatLendingDirectCosts implements
      * The *Get direct cost* endpoint returns a single direct cost for a given directCostId.
      * 
      * [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are purchases of items that are paid off at the point of the purchase.
-     * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=directCosts) for integrations that support getting a specific direct cost.
      * 
      * Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
      * 
@@ -288,8 +278,6 @@ public class CodatLendingDirectCosts implements
      * 
      * [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are purchases of items that are paid off at the point of the purchase.
      * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=directCosts) for integrations that support getting a specific direct cost.
-     * 
      * Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
      * 
      * @param request The request object containing all of the parameters for the API call.
@@ -302,7 +290,7 @@ public class CodatLendingDirectCosts implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.lending.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -314,7 +302,7 @@ public class CodatLendingDirectCosts implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -442,9 +430,6 @@ public class CodatLendingDirectCosts implements
      * The *Get direct cost attachment* endpoint returns a specific attachment for a given `directCostId` and `attachmentId`.
      * 
      * [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are purchases of items that are paid off at the point of the purchase.
-     * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=directCosts) for integrations that support getting a direct cost attachment.
-     * 
      * @return The call builder
      */
     public GetAccountingDirectCostAttachmentRequestBuilder getAttachment() {
@@ -456,9 +441,6 @@ public class CodatLendingDirectCosts implements
      * The *Get direct cost attachment* endpoint returns a specific attachment for a given `directCostId` and `attachmentId`.
      * 
      * [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are purchases of items that are paid off at the point of the purchase.
-     * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=directCosts) for integrations that support getting a direct cost attachment.
-     * 
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
@@ -473,9 +455,6 @@ public class CodatLendingDirectCosts implements
      * The *Get direct cost attachment* endpoint returns a specific attachment for a given `directCostId` and `attachmentId`.
      * 
      * [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are purchases of items that are paid off at the point of the purchase.
-     * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=directCosts) for integrations that support getting a direct cost attachment.
-     * 
      * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
@@ -486,7 +465,7 @@ public class CodatLendingDirectCosts implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.lending.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -498,7 +477,7 @@ public class CodatLendingDirectCosts implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -670,7 +649,7 @@ public class CodatLendingDirectCosts implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.lending.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -682,7 +661,7 @@ public class CodatLendingDirectCosts implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         _req.addQueryParams(Utils.getQueryParams(
                 ListAccountingDirectCostsRequest.class,
@@ -816,8 +795,6 @@ public class CodatLendingDirectCosts implements
      * 
      * [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are purchases of items that are paid off at the point of the purchase.
      * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=directCosts) for integrations that support listing direct cost attachments.
-     * 
      * @return The call builder
      */
     public ListAccountingDirectCostAttachmentsRequestBuilder listAttachments() {
@@ -829,8 +806,6 @@ public class CodatLendingDirectCosts implements
      * The *List direct cost attachments* endpoint returns a list of attachments available to download for given `directCostId`.
      * 
      * [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are purchases of items that are paid off at the point of the purchase.
-     * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=directCosts) for integrations that support listing direct cost attachments.
      * 
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
@@ -847,8 +822,6 @@ public class CodatLendingDirectCosts implements
      * 
      * [Direct costs](https://docs.codat.io/lending-api#/schemas/DirectCost) are purchases of items that are paid off at the point of the purchase.
      * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=directCosts) for integrations that support listing direct cost attachments.
-     * 
      * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
@@ -859,7 +832,7 @@ public class CodatLendingDirectCosts implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.lending.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -871,7 +844,7 @@ public class CodatLendingDirectCosts implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());

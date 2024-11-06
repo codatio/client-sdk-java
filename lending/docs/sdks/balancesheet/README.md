@@ -18,7 +18,7 @@ Gets the latest balance sheet for a company.
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.GetAccountingBalanceSheetRequest;
 import io.codat.lending.models.operations.GetAccountingBalanceSheetResponse;
 import io.codat.lending.models.shared.Security;
@@ -26,39 +26,28 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GetAccountingBalanceSheetRequest req = GetAccountingBalanceSheetRequest.builder()
+        GetAccountingBalanceSheetRequest req = GetAccountingBalanceSheetRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .periodLength(4)
                 .periodsToCompare(20)
                 .startMonth("2022-10-23T00:00:00Z")
                 .build();
 
-            GetAccountingBalanceSheetResponse res = sdk.financialStatements().balanceSheet().get()
+        GetAccountingBalanceSheetResponse res = sdk.financialStatements().balanceSheet().get()
                 .request(req)
                 .call();
 
-            if (res.accountingBalanceSheet().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.accountingBalanceSheet().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -75,17 +64,16 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 401,402,403,404,409,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 401, 402, 403, 404, 409, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## getCategorizedAccounts
 
 The *Get categorized balance sheet statement* endpoint returns a list of categorized accounts that appear on a company’s Balance Sheet along with a balance per financial statement date.
 
-Codat suggests a category for each account automatically, but you can [change it](https://docs.codat.io/lending/enhanced-financials/overview#categorize-accounts) to a more suitable one.
+Codat suggests a category for each account automatically, but you can [change it](https://docs.codat.io/lending/features/financial-statements-overview#recategorizing-accounts) to a more suitable one.
 
 ### Example Usage
 
@@ -93,7 +81,7 @@ Codat suggests a category for each account automatically, but you can [change it
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.GetCategorizedBalanceSheetStatementRequest;
 import io.codat.lending.models.operations.GetCategorizedBalanceSheetStatementResponse;
 import io.codat.lending.models.shared.Security;
@@ -101,37 +89,26 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GetCategorizedBalanceSheetStatementRequest req = GetCategorizedBalanceSheetStatementRequest.builder()
+        GetCategorizedBalanceSheetStatementRequest req = GetCategorizedBalanceSheetStatementRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .reportDate("29-09-2020")
                 .build();
 
-            GetCategorizedBalanceSheetStatementResponse res = sdk.financialStatements().balanceSheet().getCategorizedAccounts()
+        GetCategorizedBalanceSheetStatementResponse res = sdk.financialStatements().balanceSheet().getCategorizedAccounts()
                 .request(req)
                 .call();
 
-            if (res.enhancedFinancialReport().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.enhancedFinancialReport().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -148,7 +125,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |

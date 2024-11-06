@@ -21,9 +21,7 @@ import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
- * AccountingCompanyInfo - &gt; View the coverage for company profile in the &lt;a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=cashFlowStatement" target="_blank"&gt;Data coverage explorer&lt;/a&gt;.
- * 
- * Company info provides standard details about a linked company such as their address, phone number, and company registration.
+ * AccountingCompanyInfo - Company info provides standard details about a linked company such as their address, phone number, and company registration.
  * 
  * &gt; **Company information or companies?**
  * &gt; 

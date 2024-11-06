@@ -21,8 +21,6 @@ import java.util.Optional;
  * CommerceLocation - The Location datatype holds information on the geographic location at which stocks of products may be held, as referenced in the Products data type.
  * 
  * A Location also holds information on geographic locations where orders were placed, as referenced in the Orders data type.
- * 
- * Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&amp;dataType=commerce-locations) for this data type.
  */
 
 public class CommerceLocation {

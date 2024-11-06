@@ -69,9 +69,6 @@ public class Customers implements
      * The *Download customer attachment* endpoint downloads a specific attachment for a given `customerId` and `attachmentId`.
      * 
      * [Customers](https://docs.codat.io/lending-api#/schemas/Customer) are people or organizations that buy goods or services from the SMB.
-     * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=customers) for integrations that support downloading a customer attachment.
-     * 
      * @return The call builder
      */
     public DownloadAccountingCustomerAttachmentRequestBuilder downloadAttachment() {
@@ -83,9 +80,6 @@ public class Customers implements
      * The *Download customer attachment* endpoint downloads a specific attachment for a given `customerId` and `attachmentId`.
      * 
      * [Customers](https://docs.codat.io/lending-api#/schemas/Customer) are people or organizations that buy goods or services from the SMB.
-     * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=customers) for integrations that support downloading a customer attachment.
-     * 
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
@@ -100,9 +94,6 @@ public class Customers implements
      * The *Download customer attachment* endpoint downloads a specific attachment for a given `customerId` and `attachmentId`.
      * 
      * [Customers](https://docs.codat.io/lending-api#/schemas/Customer) are people or organizations that buy goods or services from the SMB.
-     * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=customers) for integrations that support downloading a customer attachment.
-     * 
      * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
@@ -113,7 +104,7 @@ public class Customers implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.lending.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -125,7 +116,7 @@ public class Customers implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/octet-stream")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -253,8 +244,6 @@ public class Customers implements
      * 
      * [Customers](https://docs.codat.io/lending-api#/schemas/Customer) are people or organizations that buy goods or services from the SMB.
      * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=customers) for integrations that support getting a specific customer.
-     * 
      * Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
      * 
      * @return The call builder
@@ -268,8 +257,6 @@ public class Customers implements
      * The *Get customer* endpoint returns a single customer for a given customerId.
      * 
      * [Customers](https://docs.codat.io/lending-api#/schemas/Customer) are people or organizations that buy goods or services from the SMB.
-     * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=customers) for integrations that support getting a specific customer.
      * 
      * Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
      * 
@@ -288,8 +275,6 @@ public class Customers implements
      * 
      * [Customers](https://docs.codat.io/lending-api#/schemas/Customer) are people or organizations that buy goods or services from the SMB.
      * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=customers) for integrations that support getting a specific customer.
-     * 
      * Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
      * 
      * @param request The request object containing all of the parameters for the API call.
@@ -302,7 +287,7 @@ public class Customers implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.lending.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -314,7 +299,7 @@ public class Customers implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -443,8 +428,6 @@ public class Customers implements
      * 
      * [Customers](https://docs.codat.io/lending-api#/schemas/Customer) are people or organizations that buy goods or services from the SMB.
      * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=customers) for integrations that support getting a customer attachment.
-     * 
      * @return The call builder
      */
     public GetAccountingCustomerAttachmentRequestBuilder getAttachment() {
@@ -456,8 +439,6 @@ public class Customers implements
      * The *Get customer attachment* endpoint returns a specific attachment for a given `customerId` and `attachmentId`.
      * 
      * [Customers](https://docs.codat.io/lending-api#/schemas/Customer) are people or organizations that buy goods or services from the SMB.
-     * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=customers) for integrations that support getting a customer attachment.
      * 
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
@@ -474,8 +455,6 @@ public class Customers implements
      * 
      * [Customers](https://docs.codat.io/lending-api#/schemas/Customer) are people or organizations that buy goods or services from the SMB.
      * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=customers) for integrations that support getting a customer attachment.
-     * 
      * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
@@ -486,7 +465,7 @@ public class Customers implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.lending.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -498,7 +477,7 @@ public class Customers implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -670,7 +649,7 @@ public class Customers implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.lending.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -682,7 +661,7 @@ public class Customers implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         _req.addQueryParams(Utils.getQueryParams(
                 ListAccountingCustomersRequest.class,
@@ -815,9 +794,6 @@ public class Customers implements
      * The *List customer attachments* endpoint returns a list of attachments avialable to download for given `customerId`.
      * 
      * [Customers](https://docs.codat.io/lending-api#/schemas/Customer) are people or organizations that buy goods or services from the SMB.
-     * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=customers) for integrations that support listing customer attachments.
-     * 
      * @return The call builder
      */
     public ListAccountingCustomerAttachmentsRequestBuilder listAttachments() {
@@ -829,9 +805,6 @@ public class Customers implements
      * The *List customer attachments* endpoint returns a list of attachments avialable to download for given `customerId`.
      * 
      * [Customers](https://docs.codat.io/lending-api#/schemas/Customer) are people or organizations that buy goods or services from the SMB.
-     * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=customers) for integrations that support listing customer attachments.
-     * 
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
@@ -846,9 +819,6 @@ public class Customers implements
      * The *List customer attachments* endpoint returns a list of attachments avialable to download for given `customerId`.
      * 
      * [Customers](https://docs.codat.io/lending-api#/schemas/Customer) are people or organizations that buy goods or services from the SMB.
-     * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=customers) for integrations that support listing customer attachments.
-     * 
      * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
@@ -859,7 +829,7 @@ public class Customers implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.lending.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -871,7 +841,7 @@ public class Customers implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());

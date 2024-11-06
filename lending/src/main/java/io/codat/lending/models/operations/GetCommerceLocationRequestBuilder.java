@@ -19,19 +19,19 @@ public class GetCommerceLocationRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetCommerceLocationRequestBuilder request(io.codat.lending.models.operations.GetCommerceLocationRequest request) {
+    public GetCommerceLocationRequestBuilder request(GetCommerceLocationRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetCommerceLocationRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public GetCommerceLocationRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetCommerceLocationRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public GetCommerceLocationRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

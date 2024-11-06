@@ -19,19 +19,19 @@ public class UnlinkConnectionRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UnlinkConnectionRequestBuilder request(io.codat.lending.models.operations.UnlinkConnectionRequest request) {
+    public UnlinkConnectionRequestBuilder request(UnlinkConnectionRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public UnlinkConnectionRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public UnlinkConnectionRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public UnlinkConnectionRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public UnlinkConnectionRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

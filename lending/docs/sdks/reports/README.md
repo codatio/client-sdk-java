@@ -20,7 +20,7 @@ Returns aged creditors report for company that shows the total balance owed by a
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.GetAccountingAgedCreditorsReportRequest;
 import io.codat.lending.models.operations.GetAccountingAgedCreditorsReportResponse;
 import io.codat.lending.models.shared.Security;
@@ -29,39 +29,28 @@ import java.time.LocalDate;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GetAccountingAgedCreditorsReportRequest req = GetAccountingAgedCreditorsReportRequest.builder()
+        GetAccountingAgedCreditorsReportRequest req = GetAccountingAgedCreditorsReportRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .numberOfPeriods(12)
                 .periodLengthDays(30)
                 .reportDate(LocalDate.parse("2022-12-31"))
                 .build();
 
-            GetAccountingAgedCreditorsReportResponse res = sdk.accountsReceivable().reports().getAgedCreditors()
+        GetAccountingAgedCreditorsReportResponse res = sdk.accountsReceivable().reports().getAgedCreditors()
                 .request(req)
                 .call();
 
-            if (res.accountingAgedCreditorReport().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.accountingAgedCreditorReport().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -78,11 +67,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## getAgedDebtors
 
@@ -94,7 +82,7 @@ Returns aged debtors report for company that shows the total outstanding balance
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.GetAccountingAgedDebtorsReportRequest;
 import io.codat.lending.models.operations.GetAccountingAgedDebtorsReportResponse;
 import io.codat.lending.models.shared.Security;
@@ -103,39 +91,28 @@ import java.time.LocalDate;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GetAccountingAgedDebtorsReportRequest req = GetAccountingAgedDebtorsReportRequest.builder()
+        GetAccountingAgedDebtorsReportRequest req = GetAccountingAgedDebtorsReportRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .numberOfPeriods(12)
                 .periodLengthDays(30)
                 .reportDate(LocalDate.parse("2022-12-31"))
                 .build();
 
-            GetAccountingAgedDebtorsReportResponse res = sdk.accountsReceivable().reports().getAgedDebtors()
+        GetAccountingAgedDebtorsReportResponse res = sdk.accountsReceivable().reports().getAgedDebtors()
                 .request(req)
                 .call();
 
-            if (res.accountingAgedDebtorReport().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.accountingAgedDebtorReport().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -152,11 +129,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## isAgedCreditorsAvailable
 
@@ -168,7 +144,7 @@ Indicates whether the aged creditor report is available for the company.
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.IsAgedCreditorsReportAvailableRequest;
 import io.codat.lending.models.operations.IsAgedCreditorsReportAvailableResponse;
 import io.codat.lending.models.shared.Security;
@@ -176,36 +152,25 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            IsAgedCreditorsReportAvailableRequest req = IsAgedCreditorsReportAvailableRequest.builder()
+        IsAgedCreditorsReportAvailableRequest req = IsAgedCreditorsReportAvailableRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .build();
 
-            IsAgedCreditorsReportAvailableResponse res = sdk.accountsReceivable().reports().isAgedCreditorsAvailable()
+        IsAgedCreditorsReportAvailableResponse res = sdk.accountsReceivable().reports().isAgedCreditorsAvailable()
                 .request(req)
                 .call();
 
-            if (res.boolean_().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.boolean_().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -222,11 +187,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## isAgedDebtorsAvailable
 
@@ -238,7 +202,7 @@ Indicates whether the aged debtors report is available for the company.
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.IsAgedDebtorsReportAvailableRequest;
 import io.codat.lending.models.operations.IsAgedDebtorsReportAvailableResponse;
 import io.codat.lending.models.shared.Security;
@@ -246,36 +210,25 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            IsAgedDebtorsReportAvailableRequest req = IsAgedDebtorsReportAvailableRequest.builder()
+        IsAgedDebtorsReportAvailableRequest req = IsAgedDebtorsReportAvailableRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .build();
 
-            IsAgedDebtorsReportAvailableResponse res = sdk.accountsReceivable().reports().isAgedDebtorsAvailable()
+        IsAgedDebtorsReportAvailableResponse res = sdk.accountsReceivable().reports().isAgedDebtorsAvailable()
                 .request(req)
                 .call();
 
-            if (res.boolean_().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.boolean_().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -292,7 +245,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |

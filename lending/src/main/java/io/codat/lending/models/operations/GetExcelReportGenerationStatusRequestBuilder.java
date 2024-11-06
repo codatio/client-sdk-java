@@ -19,19 +19,19 @@ public class GetExcelReportGenerationStatusRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetExcelReportGenerationStatusRequestBuilder request(io.codat.lending.models.operations.GetExcelReportGenerationStatusRequest request) {
+    public GetExcelReportGenerationStatusRequestBuilder request(GetExcelReportGenerationStatusRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetExcelReportGenerationStatusRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public GetExcelReportGenerationStatusRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetExcelReportGenerationStatusRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public GetExcelReportGenerationStatusRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

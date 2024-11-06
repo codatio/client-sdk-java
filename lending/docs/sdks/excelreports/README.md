@@ -17,7 +17,7 @@ Download reports in Excel format.
 
 The downloadable Excel file is returned in the response. You can save it to your local machine.
 
-You can [learn more](https://docs.codat.io/lending/excel/overview) about valid Excel report types.
+You can [learn more](https://docs.codat.io/lending/features/excel-download-overview#feature-components) about valid Excel report types.
 
 ### Example Usage
 
@@ -25,7 +25,7 @@ You can [learn more](https://docs.codat.io/lending/excel/overview) about valid E
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.DownloadExcelReportRequest;
 import io.codat.lending.models.operations.DownloadExcelReportResponse;
 import io.codat.lending.models.shared.ExcelReportTypes;
@@ -34,37 +34,26 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            DownloadExcelReportRequest req = DownloadExcelReportRequest.builder()
+        DownloadExcelReportRequest req = DownloadExcelReportRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .reportType(ExcelReportTypes.ENHANCED_FINANCIALS)
                 .build();
 
-            DownloadExcelReportResponse res = sdk.excelReports().download()
+        DownloadExcelReportResponse res = sdk.excelReports().download()
                 .request(req)
                 .call();
 
-            if (res.body().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.body().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -81,11 +70,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## generate
 
@@ -97,12 +85,12 @@ In response, the endpoint returns the [status](https://docs.codat.io/lending-api
 
 | reportType                                                                           | Description                                                                                                                                   |
 |--------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| [audit](https://docs.codat.io/lending/excel/audit-report)                            | Identifies inaccurate or out-of-date accounts, helping you to make decisions with confidence.                                                   || [audit](https://docs.codat.io/lending/excel/audit-report)                            | Identify inaccurate or out-of-date accounts, helping you to make decisions with confidence.                                                   |
-| [enhancedCashFlow](https://docs.codat.io/lending/excel/enhanced-invoices-report)     | Provides a fully categorized list of bank transactions for a company, allowing lenders to accurately forecast a company's cash flow.  |
-| [enhancedFinancials](https://docs.codat.io/lending/excel/enhanced-financials-report) | Supports decision-making using fully categorized financial statements to allow lenders to automate their underwriting processes.                |
-| [enhancedInvoices](https://docs.codat.io/lending/excel/enhanced-invoices-report)     | Helps verify that payments have been made against historic invoices. Great for invoice finance lenders.                                       |
+| `audit`                          | Identifies inaccurate or out-of-date accounts, helping you to make decisions with confidence.                                                   || [audit](https://docs.codat.io/lending/excel/audit-report)                            | Identify inaccurate or out-of-date accounts, helping you to make decisions with confidence.                                                   |
+| `enhancedCashFlow`    | Provides a fully categorized list of bank transactions for a company, allowing lenders to accurately forecast a company's cash flow.  |
+| `enhancedFinancials` | Supports decision-making using fully categorized financial statements to allow lenders to automate their underwriting processes.                |
+| `enhancedInvoices`     | Helps verify that payments have been made against historic invoices. Great for invoice finance lenders.                                       |
 
-[Learn more](https://docs.codat.io/lending/excel/overview) about valid Excel report types.
+[Learn more](https://docs.codat.io/lending/features/excel-download-overview#feature-components) about valid Excel report types.
 
 
 
@@ -113,7 +101,7 @@ In response, the endpoint returns the [status](https://docs.codat.io/lending-api
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.GenerateExcelReportRequest;
 import io.codat.lending.models.operations.GenerateExcelReportResponse;
 import io.codat.lending.models.shared.ExcelReportTypes;
@@ -122,37 +110,26 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GenerateExcelReportRequest req = GenerateExcelReportRequest.builder()
+        GenerateExcelReportRequest req = GenerateExcelReportRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .reportType(ExcelReportTypes.ENHANCED_INVOICES)
                 .build();
 
-            GenerateExcelReportResponse res = sdk.excelReports().generate()
+        GenerateExcelReportResponse res = sdk.excelReports().generate()
                 .request(req)
                 .call();
 
-            if (res.excelStatus().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.excelStatus().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -169,11 +146,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## getStatus
 
@@ -189,7 +165,7 @@ When the report generation completes successfully, the `inProgress` property wil
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.GetExcelReportGenerationStatusRequest;
 import io.codat.lending.models.operations.GetExcelReportGenerationStatusResponse;
 import io.codat.lending.models.shared.ExcelReportTypes;
@@ -198,37 +174,26 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GetExcelReportGenerationStatusRequest req = GetExcelReportGenerationStatusRequest.builder()
+        GetExcelReportGenerationStatusRequest req = GetExcelReportGenerationStatusRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .reportType(ExcelReportTypes.ENHANCED_CASH_FLOW)
                 .build();
 
-            GetExcelReportGenerationStatusResponse res = sdk.excelReports().getStatus()
+        GetExcelReportGenerationStatusResponse res = sdk.excelReports().getStatus()
                 .request(req)
                 .call();
 
-            if (res.excelStatus().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.excelStatus().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -245,7 +210,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |

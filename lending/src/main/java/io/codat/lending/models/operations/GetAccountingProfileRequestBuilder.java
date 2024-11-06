@@ -19,19 +19,19 @@ public class GetAccountingProfileRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetAccountingProfileRequestBuilder request(io.codat.lending.models.operations.GetAccountingProfileRequest request) {
+    public GetAccountingProfileRequestBuilder request(GetAccountingProfileRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetAccountingProfileRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public GetAccountingProfileRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetAccountingProfileRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public GetAccountingProfileRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

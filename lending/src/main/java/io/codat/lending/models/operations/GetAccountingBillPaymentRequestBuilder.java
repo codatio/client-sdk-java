@@ -19,19 +19,19 @@ public class GetAccountingBillPaymentRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetAccountingBillPaymentRequestBuilder request(io.codat.lending.models.operations.GetAccountingBillPaymentRequest request) {
+    public GetAccountingBillPaymentRequestBuilder request(GetAccountingBillPaymentRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetAccountingBillPaymentRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public GetAccountingBillPaymentRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetAccountingBillPaymentRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public GetAccountingBillPaymentRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

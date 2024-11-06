@@ -19,19 +19,19 @@ public class ListAccountingJournalEntriesRequestBuilder {
         this.sdk = sdk;
     }
 
-    public ListAccountingJournalEntriesRequestBuilder request(io.codat.lending.models.operations.ListAccountingJournalEntriesRequest request) {
+    public ListAccountingJournalEntriesRequestBuilder request(ListAccountingJournalEntriesRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public ListAccountingJournalEntriesRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public ListAccountingJournalEntriesRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public ListAccountingJournalEntriesRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public ListAccountingJournalEntriesRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

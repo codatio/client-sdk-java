@@ -19,19 +19,19 @@ public class GetDataIntegrityStatusRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetDataIntegrityStatusRequestBuilder request(io.codat.lending.models.operations.GetDataIntegrityStatusRequest request) {
+    public GetDataIntegrityStatusRequestBuilder request(GetDataIntegrityStatusRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetDataIntegrityStatusRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public GetDataIntegrityStatusRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetDataIntegrityStatusRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public GetDataIntegrityStatusRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

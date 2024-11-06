@@ -19,19 +19,19 @@ public class ListDataIntegrityDetailsRequestBuilder {
         this.sdk = sdk;
     }
 
-    public ListDataIntegrityDetailsRequestBuilder request(io.codat.lending.models.operations.ListDataIntegrityDetailsRequest request) {
+    public ListDataIntegrityDetailsRequestBuilder request(ListDataIntegrityDetailsRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public ListDataIntegrityDetailsRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public ListDataIntegrityDetailsRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public ListDataIntegrityDetailsRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public ListDataIntegrityDetailsRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

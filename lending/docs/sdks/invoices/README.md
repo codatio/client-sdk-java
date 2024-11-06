@@ -19,8 +19,6 @@ The *Download invoice attachment* endpoint downloads a specific attachment for a
 
 [Invoices](https://docs.codat.io/lending-api#/schemas/Invoice) are itemized records of goods sold or services provided to a customer.
 
-Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=invoices) for integrations that support downloading an invoice attachment.
-
 
 ### Example Usage
 
@@ -28,7 +26,7 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.DownloadAccountingInvoiceAttachmentRequest;
 import io.codat.lending.models.operations.DownloadAccountingInvoiceAttachmentResponse;
 import io.codat.lending.models.shared.Security;
@@ -36,39 +34,28 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            DownloadAccountingInvoiceAttachmentRequest req = DownloadAccountingInvoiceAttachmentRequest.builder()
+        DownloadAccountingInvoiceAttachmentRequest req = DownloadAccountingInvoiceAttachmentRequest.builder()
                 .attachmentId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .invoiceId("<value>")
+                .invoiceId("EILBDVJVNUAGVKRQ")
                 .build();
 
-            DownloadAccountingInvoiceAttachmentResponse res = sdk.accountsReceivable().invoices().downloadAttachment()
+        DownloadAccountingInvoiceAttachmentResponse res = sdk.accountsReceivable().invoices().downloadAttachment()
                 .request(req)
                 .call();
 
-            if (res.data().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.data().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -85,11 +72,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## downloadPdf
 
@@ -101,7 +87,7 @@ public class Application {
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.DownloadAccountingInvoicePdfRequest;
 import io.codat.lending.models.operations.DownloadAccountingInvoicePdfResponse;
 import io.codat.lending.models.shared.Security;
@@ -109,37 +95,26 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            DownloadAccountingInvoicePdfRequest req = DownloadAccountingInvoicePdfRequest.builder()
+        DownloadAccountingInvoicePdfRequest req = DownloadAccountingInvoicePdfRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
-                .invoiceId("<value>")
+                .invoiceId("13d946f0-c5d5-42bc-b092-97ece17923ab")
                 .build();
 
-            DownloadAccountingInvoicePdfResponse res = sdk.accountsReceivable().invoices().downloadPdf()
+        DownloadAccountingInvoicePdfResponse res = sdk.accountsReceivable().invoices().downloadPdf()
                 .request(req)
                 .call();
 
-            if (res.data().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.data().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -156,19 +131,16 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 401,402,403,404,409,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 401, 402, 403, 404, 409, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## get
 
 The *Get invoice* endpoint returns a single invoice for a given invoiceId.
 
 [Invoices](https://docs.codat.io/lending-api#/schemas/Invoice) are itemized records of goods sold or services provided to a customer.
-
-Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=invoices) for integrations that support getting a specific invoice.
 
 Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
 
@@ -183,7 +155,7 @@ To access the `paymentAllocations` property, ensure that the `payments` data typ
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.GetAccountingInvoiceRequest;
 import io.codat.lending.models.operations.GetAccountingInvoiceResponse;
 import io.codat.lending.models.shared.Security;
@@ -191,37 +163,26 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GetAccountingInvoiceRequest req = GetAccountingInvoiceRequest.builder()
+        GetAccountingInvoiceRequest req = GetAccountingInvoiceRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
-                .invoiceId("<value>")
+                .invoiceId("7110701885")
                 .build();
 
-            GetAccountingInvoiceResponse res = sdk.accountsReceivable().invoices().get()
+        GetAccountingInvoiceResponse res = sdk.accountsReceivable().invoices().get()
                 .request(req)
                 .call();
 
-            if (res.accountingInvoice().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.accountingInvoice().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -238,19 +199,16 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 401,402,403,404,409,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 401, 402, 403, 404, 409, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## getAttachment
 
 The *Get invoice attachment* endpoint returns a specific attachment for a given `invoiceId` and `attachmentId`.
 
 [Invoices](https://docs.codat.io/lending-api#/schemas/Invoice) are itemized records of goods sold or services provided to a customer.
-
-Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=invoices) for integrations that support getting an invoice attachment.
 
 
 ### Example Usage
@@ -259,7 +217,7 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.GetAccountingInvoiceAttachmentRequest;
 import io.codat.lending.models.operations.GetAccountingInvoiceAttachmentResponse;
 import io.codat.lending.models.shared.Security;
@@ -267,39 +225,28 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GetAccountingInvoiceAttachmentRequest req = GetAccountingInvoiceAttachmentRequest.builder()
+        GetAccountingInvoiceAttachmentRequest req = GetAccountingInvoiceAttachmentRequest.builder()
                 .attachmentId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .invoiceId("<value>")
+                .invoiceId("EILBDVJVNUAGVKRQ")
                 .build();
 
-            GetAccountingInvoiceAttachmentResponse res = sdk.accountsReceivable().invoices().getAttachment()
+        GetAccountingInvoiceAttachmentResponse res = sdk.accountsReceivable().invoices().getAttachment()
                 .request(req)
                 .call();
 
-            if (res.accountingAttachment().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.accountingAttachment().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -316,11 +263,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## list
 
@@ -348,7 +294,7 @@ To access the `paymentAllocations` property, ensure that the `payments` data typ
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.ListAccountingInvoicesRequest;
 import io.codat.lending.models.operations.ListAccountingInvoicesResponse;
 import io.codat.lending.models.shared.Security;
@@ -356,15 +302,15 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            ListAccountingInvoicesRequest req = ListAccountingInvoicesRequest.builder()
+        ListAccountingInvoicesRequest req = ListAccountingInvoicesRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .orderBy("-modifiedDate")
                 .page(1)
@@ -372,24 +318,13 @@ public class Application {
                 .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
-            ListAccountingInvoicesResponse res = sdk.accountsReceivable().invoices().list()
+        ListAccountingInvoicesResponse res = sdk.accountsReceivable().invoices().list()
                 .request(req)
                 .call();
 
-            if (res.accountingInvoices().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.accountingInvoices().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -406,11 +341,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                        | Status Code                         | Content Type                        |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| models/errors/ErrorMessage          | 400,401,402,403,404,409,429,500,503 | application/json                    |
-| models/errors/SDKError              | 4xx-5xx                             | \*\/*                               |
-
+| Error Type                                  | Status Code                                 | Content Type                                |
+| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
+| models/errors/ErrorMessage                  | 400, 401, 402, 403, 404, 409, 429, 500, 503 | application/json                            |
+| models/errors/SDKError                      | 4XX, 5XX                                    | \*/\*                                       |
 
 ## listAttachments
 
@@ -418,16 +352,13 @@ The *List invoice attachments* endpoint returns a list of attachments available 
 
 [Invoices](https://docs.codat.io/lending-api#/schemas/Invoice) are itemized records of goods sold or services provided to a customer.
 
-Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=invoices) for integrations that support listing invoice attachments.
-
-
 ### Example Usage
 
 ```java
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.ListAccountingInvoiceAttachmentsRequest;
 import io.codat.lending.models.operations.ListAccountingInvoiceAttachmentsResponse;
 import io.codat.lending.models.shared.Security;
@@ -435,38 +366,27 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            ListAccountingInvoiceAttachmentsRequest req = ListAccountingInvoiceAttachmentsRequest.builder()
+        ListAccountingInvoiceAttachmentsRequest req = ListAccountingInvoiceAttachmentsRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .invoiceId("<value>")
+                .invoiceId("EILBDVJVNUAGVKRQ")
                 .build();
 
-            ListAccountingInvoiceAttachmentsResponse res = sdk.accountsReceivable().invoices().listAttachments()
+        ListAccountingInvoiceAttachmentsResponse res = sdk.accountsReceivable().invoices().listAttachments()
                 .request(req)
                 .call();
 
-            if (res.attachments().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.attachments().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -483,11 +403,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 401,402,403,404,409,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 401, 402, 403, 404, 409, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## listReconciled
 
@@ -499,7 +418,7 @@ Gets a list of invoices linked to the corresponding banking transaction
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.ListReconciledInvoicesRequest;
 import io.codat.lending.models.operations.ListReconciledInvoicesResponse;
 import io.codat.lending.models.shared.Security;
@@ -507,39 +426,28 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            ListReconciledInvoicesRequest req = ListReconciledInvoicesRequest.builder()
+        ListReconciledInvoicesRequest req = ListReconciledInvoicesRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .page(1)
                 .pageSize(100)
                 .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
-            ListReconciledInvoicesResponse res = sdk.accountsReceivable().invoices().listReconciled()
+        ListReconciledInvoicesResponse res = sdk.accountsReceivable().invoices().listReconciled()
                 .request(req)
                 .call();
 
-            if (res.enhancedInvoicesReport().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.enhancedInvoicesReport().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -556,7 +464,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |

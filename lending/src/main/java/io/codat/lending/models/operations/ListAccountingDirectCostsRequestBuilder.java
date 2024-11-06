@@ -19,19 +19,19 @@ public class ListAccountingDirectCostsRequestBuilder {
         this.sdk = sdk;
     }
 
-    public ListAccountingDirectCostsRequestBuilder request(io.codat.lending.models.operations.ListAccountingDirectCostsRequest request) {
+    public ListAccountingDirectCostsRequestBuilder request(ListAccountingDirectCostsRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public ListAccountingDirectCostsRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public ListAccountingDirectCostsRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public ListAccountingDirectCostsRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public ListAccountingDirectCostsRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

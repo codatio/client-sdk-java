@@ -8,6 +8,7 @@ import io.codat.lending.models.operations.SDKMethodInterfaces.*;
 import io.codat.lending.utils.HTTPClient;
 import io.codat.lending.utils.RetryConfig;
 import io.codat.lending.utils.SpeakeasyHTTPClient;
+import io.codat.lending.utils.Utils;
 import java.lang.String;
 import java.util.Map;
 import java.util.Optional;
@@ -64,6 +65,8 @@ public class CodatLending {
      */
     private final Connections connections;
 
+    private final LoanWriteback loanWriteback;
+
     /**
      * Retrieve banking data from linked bank accounts.
      */
@@ -94,11 +97,14 @@ public class CodatLending {
      */
     private final FileUpload fileUpload;
 
-    private final LoanWriteback loanWriteback;
-
     private final FinancialStatements financialStatements;
 
     private final ManageData manageData;
+
+    /**
+     * Endpoints to manage generation of reports
+     */
+    private final ManageReports manageReports;
 
     /**
      * Debt and other liabilities.
@@ -127,6 +133,10 @@ public class CodatLending {
      */
     public Connections connections() {
         return connections;
+    }
+
+    public LoanWriteback loanWriteback() {
+        return loanWriteback;
     }
 
     /**
@@ -177,16 +187,19 @@ public class CodatLending {
         return fileUpload;
     }
 
-    public LoanWriteback loanWriteback() {
-        return loanWriteback;
-    }
-
     public FinancialStatements financialStatements() {
         return financialStatements;
     }
 
     public ManageData manageData() {
         return manageData;
+    }
+
+    /**
+     * Endpoints to manage generation of reports
+     */
+    public ManageReports manageReports() {
+        return manageReports;
     }
 
     /**
@@ -273,7 +286,7 @@ public class CodatLending {
          * @return The builder instance.
          */
         public Builder serverURL(String serverUrl, Map<String, String> params) {
-            this.sdkConfiguration.serverUrl = io.codat.lending.utils.Utils.templateUrl(serverUrl, params);
+            this.sdkConfiguration.serverUrl = Utils.templateUrl(serverUrl, params);
             return this;
         }
         
@@ -338,6 +351,7 @@ public class CodatLending {
         this.sdkConfiguration = sdkConfiguration;
         this.companies = new Companies(sdkConfiguration);
         this.connections = new Connections(sdkConfiguration);
+        this.loanWriteback = new LoanWriteback(sdkConfiguration);
         this.bankStatements = new BankStatements(sdkConfiguration);
         this.transactions = new Transactions(sdkConfiguration);
         this.accountingBankData = new CodatLendingAccountingBankData(sdkConfiguration);
@@ -347,9 +361,9 @@ public class CodatLending {
         this.companyInfo = new CompanyInfo(sdkConfiguration);
         this.accountsReceivable = new AccountsReceivable(sdkConfiguration);
         this.fileUpload = new FileUpload(sdkConfiguration);
-        this.loanWriteback = new LoanWriteback(sdkConfiguration);
         this.financialStatements = new FinancialStatements(sdkConfiguration);
         this.manageData = new ManageData(sdkConfiguration);
+        this.manageReports = new ManageReports(sdkConfiguration);
         this.liabilities = new Liabilities(sdkConfiguration);
         this.dataIntegrity = new DataIntegrity(sdkConfiguration);
         this.excelReports = new ExcelReports(sdkConfiguration);

@@ -19,19 +19,19 @@ public class GenerateExcelReportRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GenerateExcelReportRequestBuilder request(io.codat.lending.models.operations.GenerateExcelReportRequest request) {
+    public GenerateExcelReportRequestBuilder request(GenerateExcelReportRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GenerateExcelReportRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public GenerateExcelReportRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GenerateExcelReportRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public GenerateExcelReportRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

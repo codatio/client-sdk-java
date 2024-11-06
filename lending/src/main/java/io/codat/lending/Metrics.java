@@ -66,7 +66,7 @@ public class Metrics implements
      * - __Retention rate__: the ratio of existing customers within the specified period compared to the total customers at the end of the previous period represented as a percentage.
      * - __Repeat rate__: the ratio of existing customers to total customers over the specified period represented as a percentage.
      * 
-     * Learn more about the formulas used to calculate customer retention metrics [here](https://docs.codat.io/lending/commerce-metrics/overview#what-metrics-are-available).
+     * [Learn more](https://docs.codat.io/lending/features/sales-overview#metrics) about the formulas used to calculate customer retention metrics.
      * 
      * #### Response structure
      * 
@@ -103,7 +103,7 @@ public class Metrics implements
      * - __Retention rate__: the ratio of existing customers within the specified period compared to the total customers at the end of the previous period represented as a percentage.
      * - __Repeat rate__: the ratio of existing customers to total customers over the specified period represented as a percentage.
      * 
-     * Learn more about the formulas used to calculate customer retention metrics [here](https://docs.codat.io/lending/commerce-metrics/overview#what-metrics-are-available).
+     * [Learn more](https://docs.codat.io/lending/features/sales-overview#metrics) about the formulas used to calculate customer retention metrics.
      * 
      * #### Response structure
      * 
@@ -143,7 +143,7 @@ public class Metrics implements
      * - __Retention rate__: the ratio of existing customers within the specified period compared to the total customers at the end of the previous period represented as a percentage.
      * - __Repeat rate__: the ratio of existing customers to total customers over the specified period represented as a percentage.
      * 
-     * Learn more about the formulas used to calculate customer retention metrics [here](https://docs.codat.io/lending/commerce-metrics/overview#what-metrics-are-available).
+     * [Learn more](https://docs.codat.io/lending/features/sales-overview#metrics) about the formulas used to calculate customer retention metrics.
      * 
      * #### Response structure
      * 
@@ -170,7 +170,7 @@ public class Metrics implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.lending.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -182,7 +182,7 @@ public class Metrics implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         _req.addQueryParams(Utils.getQueryParams(
                 GetCommerceCustomerRetentionMetricsRequest.class,
@@ -316,9 +316,7 @@ public class Metrics implements
      * 
      * This detail helps you assess a merchant's health and advise them on performance improvement strategies. It also provides you with key insights you need to assess the credit risk of a company.
      * 
-     * Learn more about the formulas used to calculate the lifetime value metrics [here](https://docs.codat.io/lending/commerce-metrics/overview#what-metrics-are-available).
-     * 
-     * Refer to the [commerce reporting structure](https://docs.codat.io/lending/commerce-metrics/reporting-structure) page for more detail on commerce reports in Lending.
+     * [Learn more](https://docs.codat.io/lending/features/sales-overview#metrics) about the formulas used to calculate the lifetime value metrics.
      * 
      * #### Response structure
      * 
@@ -347,9 +345,7 @@ public class Metrics implements
      * 
      * This detail helps you assess a merchant's health and advise them on performance improvement strategies. It also provides you with key insights you need to assess the credit risk of a company.
      * 
-     * Learn more about the formulas used to calculate the lifetime value metrics [here](https://docs.codat.io/lending/commerce-metrics/overview#what-metrics-are-available).
-     * 
-     * Refer to the [commerce reporting structure](https://docs.codat.io/lending/commerce-metrics/reporting-structure) page for more detail on commerce reports in Lending.
+     * [Learn more](https://docs.codat.io/lending/features/sales-overview#metrics) about the formulas used to calculate the lifetime value metrics.
      * 
      * #### Response structure
      * 
@@ -381,9 +377,7 @@ public class Metrics implements
      * 
      * This detail helps you assess a merchant's health and advise them on performance improvement strategies. It also provides you with key insights you need to assess the credit risk of a company.
      * 
-     * Learn more about the formulas used to calculate the lifetime value metrics [here](https://docs.codat.io/lending/commerce-metrics/overview#what-metrics-are-available).
-     * 
-     * Refer to the [commerce reporting structure](https://docs.codat.io/lending/commerce-metrics/reporting-structure) page for more detail on commerce reports in Lending.
+     * [Learn more](https://docs.codat.io/lending/features/sales-overview#metrics) about the formulas used to calculate the lifetime value metrics.
      * 
      * #### Response structure
      * 
@@ -410,7 +404,7 @@ public class Metrics implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.lending.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -422,7 +416,7 @@ public class Metrics implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         _req.addQueryParams(Utils.getQueryParams(
                 GetCommerceLifetimeValueMetricsRequest.class,
@@ -556,9 +550,7 @@ public class Metrics implements
      * 
      * This detail helps you assess a merchant's health and advise them on performance improvement strategies. It also provides you with key insights you need to assess the credit risk of a company. 
      * 
-     * Learn more about the formulas used to calculate the revenue metrics [here](https://docs.codat.io/lending/commerce-metrics/overview#what-metrics-are-available).
-     * 
-     * Refer to the [commerce reporting structure](https://docs.codat.io/lending/commerce-metrics/reporting-structure) page for more details on commerce reports in Lending.
+     * [Learn more](https://docs.codat.io/lending/features/sales-overview#metrics) about the formulas used to calculate the revenue metrics.
      * 
      * #### Response structure
      * 
@@ -588,9 +580,7 @@ public class Metrics implements
      * 
      * This detail helps you assess a merchant's health and advise them on performance improvement strategies. It also provides you with key insights you need to assess the credit risk of a company. 
      * 
-     * Learn more about the formulas used to calculate the revenue metrics [here](https://docs.codat.io/lending/commerce-metrics/overview#what-metrics-are-available).
-     * 
-     * Refer to the [commerce reporting structure](https://docs.codat.io/lending/commerce-metrics/reporting-structure) page for more details on commerce reports in Lending.
+     * [Learn more](https://docs.codat.io/lending/features/sales-overview#metrics) about the formulas used to calculate the revenue metrics.
      * 
      * #### Response structure
      * 
@@ -623,9 +613,7 @@ public class Metrics implements
      * 
      * This detail helps you assess a merchant's health and advise them on performance improvement strategies. It also provides you with key insights you need to assess the credit risk of a company. 
      * 
-     * Learn more about the formulas used to calculate the revenue metrics [here](https://docs.codat.io/lending/commerce-metrics/overview#what-metrics-are-available).
-     * 
-     * Refer to the [commerce reporting structure](https://docs.codat.io/lending/commerce-metrics/reporting-structure) page for more details on commerce reports in Lending.
+     * [Learn more](https://docs.codat.io/lending/features/sales-overview#metrics) about the formulas used to calculate the revenue metrics.
      * 
      * #### Response structure
      * 
@@ -653,7 +641,7 @@ public class Metrics implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.lending.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -665,7 +653,7 @@ public class Metrics implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         _req.addQueryParams(Utils.getQueryParams(
                 GetCommerceRevenueMetricsRequest.class,

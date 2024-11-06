@@ -56,8 +56,6 @@ public class Locations implements
      * 
      * [Locations](https://docs.codat.io/lending-api#/schemas/Location) hold information on the geographic location at which stocks of [products](https://docs.codat.io/lending-api#/schemas/Product) may be held or where [orders](https://docs.codat.io/lending-api#/schemas/Order) were placed.
      * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&amp;dataType=commerce-locations) for integrations that support getting a specific location.
-     * 
      * Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
      * 
      * @return The call builder
@@ -71,8 +69,6 @@ public class Locations implements
      * The *Get location* endpoint returns a single location for a given locationId.
      * 
      * [Locations](https://docs.codat.io/lending-api#/schemas/Location) hold information on the geographic location at which stocks of [products](https://docs.codat.io/lending-api#/schemas/Product) may be held or where [orders](https://docs.codat.io/lending-api#/schemas/Order) were placed.
-     * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&amp;dataType=commerce-locations) for integrations that support getting a specific location.
      * 
      * Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
      * 
@@ -91,8 +87,6 @@ public class Locations implements
      * 
      * [Locations](https://docs.codat.io/lending-api#/schemas/Location) hold information on the geographic location at which stocks of [products](https://docs.codat.io/lending-api#/schemas/Product) may be held or where [orders](https://docs.codat.io/lending-api#/schemas/Order) were placed.
      * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&amp;dataType=commerce-locations) for integrations that support getting a specific location.
-     * 
      * Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
      * 
      * @param request The request object containing all of the parameters for the API call.
@@ -105,7 +99,7 @@ public class Locations implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.lending.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -117,7 +111,7 @@ public class Locations implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -289,7 +283,7 @@ public class Locations implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.lending.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -301,7 +295,7 @@ public class Locations implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());

@@ -24,8 +24,6 @@ import java.util.Optional;
  * Refunds are recorded as separate, negative payments. Note that a refund can only occur in relation to a payment that has been completed (i.e. has a status of `Paid`). When a customer cancels an order _before_ a payment has been completed, the payment shows as `Cancelled`.
  * 
  * You can use data from the Payments endpoints to calculate key metrics, such as gross sales and monthly recurring revenue (MRR).
- * 
- * Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&amp;dataType=commerce-payments) for this data type.
  */
 
 public class CommercePayment {

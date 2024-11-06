@@ -19,19 +19,19 @@ public class GetAccountingAgedDebtorsReportRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetAccountingAgedDebtorsReportRequestBuilder request(io.codat.lending.models.operations.GetAccountingAgedDebtorsReportRequest request) {
+    public GetAccountingAgedDebtorsReportRequestBuilder request(GetAccountingAgedDebtorsReportRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetAccountingAgedDebtorsReportRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public GetAccountingAgedDebtorsReportRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetAccountingAgedDebtorsReportRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public GetAccountingAgedDebtorsReportRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

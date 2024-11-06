@@ -19,19 +19,19 @@ public class CreateAccountRequestBuilder {
         this.sdk = sdk;
     }
 
-    public CreateAccountRequestBuilder request(io.codat.lending.models.operations.CreateAccountRequest request) {
+    public CreateAccountRequestBuilder request(CreateAccountRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public CreateAccountRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public CreateAccountRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public CreateAccountRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public CreateAccountRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

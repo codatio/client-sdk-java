@@ -19,19 +19,19 @@ public class GetCreateOperationRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetCreateOperationRequestBuilder request(io.codat.lending.models.operations.GetCreateOperationRequest request) {
+    public GetCreateOperationRequestBuilder request(GetCreateOperationRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetCreateOperationRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public GetCreateOperationRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetCreateOperationRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public GetCreateOperationRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

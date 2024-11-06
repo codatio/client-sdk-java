@@ -19,19 +19,19 @@ public class DownloadExcelReportRequestBuilder {
         this.sdk = sdk;
     }
 
-    public DownloadExcelReportRequestBuilder request(io.codat.lending.models.operations.DownloadExcelReportRequest request) {
+    public DownloadExcelReportRequestBuilder request(DownloadExcelReportRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public DownloadExcelReportRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public DownloadExcelReportRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public DownloadExcelReportRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public DownloadExcelReportRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

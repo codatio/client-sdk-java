@@ -8,12 +8,22 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
 
 /**
- * Type - The type of the weblink.
+ * Type - The type of routing number.
  */
 public enum Type {
-    WEBSITE("Website"),
-    SOCIAL("Social"),
-    UNKNOWN("Unknown");
+    RTN("rtn"),
+    ABA("aba"),
+    SWIFT("swift"),
+    BSB("bsb"),
+    IBAN("iban"),
+    NZ2("nz2"),
+    TRNO("trno"),
+    SORTCODE("sortcode"),
+    BLZ("blz"),
+    IFSC("ifsc"),
+    BANKCODE("bankcode"),
+    APCA("apca"),
+    CLABE("clabe");
 
     @JsonValue
     private final String value;

@@ -74,7 +74,7 @@ public class Accounts {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("sourceRef")
-    private Optional<? extends SourceRef> sourceRef;
+    private Optional<? extends ReportSourceReference> sourceRef;
 
     @JsonCreator
     public Accounts(
@@ -84,7 +84,7 @@ public class Accounts {
             @JsonProperty("currency") Optional<String> currency,
             @JsonProperty("currentBalance") Optional<? extends BigDecimal> currentBalance,
             @JsonProperty("platformName") Optional<String> platformName,
-            @JsonProperty("sourceRef") Optional<? extends SourceRef> sourceRef) {
+            @JsonProperty("sourceRef") Optional<? extends ReportSourceReference> sourceRef) {
         Utils.checkNotNull(accountName, "accountName");
         Utils.checkNotNull(accountProvider, "accountProvider");
         Utils.checkNotNull(accountType, "accountType");
@@ -165,8 +165,8 @@ public class Accounts {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<SourceRef> sourceRef() {
-        return (Optional<SourceRef>) sourceRef;
+    public Optional<ReportSourceReference> sourceRef() {
+        return (Optional<ReportSourceReference>) sourceRef;
     }
 
     public final static Builder builder() {
@@ -304,7 +304,7 @@ public class Accounts {
     /**
      * A source reference containing the `sourceType` object "Banking".
      */
-    public Accounts withSourceRef(SourceRef sourceRef) {
+    public Accounts withSourceRef(ReportSourceReference sourceRef) {
         Utils.checkNotNull(sourceRef, "sourceRef");
         this.sourceRef = Optional.ofNullable(sourceRef);
         return this;
@@ -313,7 +313,7 @@ public class Accounts {
     /**
      * A source reference containing the `sourceType` object "Banking".
      */
-    public Accounts withSourceRef(Optional<? extends SourceRef> sourceRef) {
+    public Accounts withSourceRef(Optional<? extends ReportSourceReference> sourceRef) {
         Utils.checkNotNull(sourceRef, "sourceRef");
         this.sourceRef = sourceRef;
         return this;
@@ -376,7 +376,7 @@ public class Accounts {
  
         private Optional<String> platformName = Optional.empty();
  
-        private Optional<? extends SourceRef> sourceRef = Optional.empty();  
+        private Optional<? extends ReportSourceReference> sourceRef = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -513,7 +513,7 @@ public class Accounts {
         /**
          * A source reference containing the `sourceType` object "Banking".
          */
-        public Builder sourceRef(SourceRef sourceRef) {
+        public Builder sourceRef(ReportSourceReference sourceRef) {
             Utils.checkNotNull(sourceRef, "sourceRef");
             this.sourceRef = Optional.ofNullable(sourceRef);
             return this;
@@ -522,7 +522,7 @@ public class Accounts {
         /**
          * A source reference containing the `sourceType` object "Banking".
          */
-        public Builder sourceRef(Optional<? extends SourceRef> sourceRef) {
+        public Builder sourceRef(Optional<? extends ReportSourceReference> sourceRef) {
             Utils.checkNotNull(sourceRef, "sourceRef");
             this.sourceRef = sourceRef;
             return this;

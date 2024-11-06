@@ -70,8 +70,6 @@ public class Suppliers implements
      * 
      * [Suppliers](https://docs.codat.io/lending-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.
      * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=suppliers) for integrations that support downloading a supplier attachment.
-     * 
      * @return The call builder
      */
     public DownloadAccountingSupplierAttachmentRequestBuilder downloadAttachment() {
@@ -83,8 +81,6 @@ public class Suppliers implements
      * The *Download supplier attachment* endpoint downloads a specific attachment for a given `supplierId` and `attachmentId`.
      * 
      * [Suppliers](https://docs.codat.io/lending-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.
-     * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=suppliers) for integrations that support downloading a supplier attachment.
      * 
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
@@ -101,8 +97,6 @@ public class Suppliers implements
      * 
      * [Suppliers](https://docs.codat.io/lending-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.
      * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=suppliers) for integrations that support downloading a supplier attachment.
-     * 
      * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
@@ -113,7 +107,7 @@ public class Suppliers implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.lending.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -125,7 +119,7 @@ public class Suppliers implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/octet-stream")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -253,8 +247,6 @@ public class Suppliers implements
      * 
      * [Suppliers](https://docs.codat.io/lending-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.
      * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=suppliers) for integrations that support getting a specific supplier.
-     * 
      * Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
      * 
      * @return The call builder
@@ -268,8 +260,6 @@ public class Suppliers implements
      * The *Get supplier* endpoint returns a single supplier for a given supplierId.
      * 
      * [Suppliers](https://docs.codat.io/lending-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.
-     * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=suppliers) for integrations that support getting a specific supplier.
      * 
      * Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
      * 
@@ -288,8 +278,6 @@ public class Suppliers implements
      * 
      * [Suppliers](https://docs.codat.io/lending-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.
      * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=suppliers) for integrations that support getting a specific supplier.
-     * 
      * Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
      * 
      * @param request The request object containing all of the parameters for the API call.
@@ -302,7 +290,7 @@ public class Suppliers implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.lending.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -314,7 +302,7 @@ public class Suppliers implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -443,8 +431,6 @@ public class Suppliers implements
      * 
      * [Suppliers](https://docs.codat.io/lending-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.
      * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=suppliers) for integrations that support getting a supplier attachment.
-     * 
      * @return The call builder
      */
     public GetAccountingSupplierAttachmentRequestBuilder getAttachment() {
@@ -456,8 +442,6 @@ public class Suppliers implements
      * The *Get supplier attachment* endpoint returns a specific attachment for a given `supplierId` and `attachmentId`.
      * 
      * [Suppliers](https://docs.codat.io/lending-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.
-     * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=suppliers) for integrations that support getting a supplier attachment.
      * 
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
@@ -474,8 +458,6 @@ public class Suppliers implements
      * 
      * [Suppliers](https://docs.codat.io/lending-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.
      * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=suppliers) for integrations that support getting a supplier attachment.
-     * 
      * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
@@ -486,7 +468,7 @@ public class Suppliers implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.lending.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -498,7 +480,7 @@ public class Suppliers implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -670,7 +652,7 @@ public class Suppliers implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.lending.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -682,7 +664,7 @@ public class Suppliers implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         _req.addQueryParams(Utils.getQueryParams(
                 ListAccountingSuppliersRequest.class,
@@ -816,8 +798,6 @@ public class Suppliers implements
      * 
      * [Suppliers](https://docs.codat.io/lending-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.
      * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=suppliers) for integrations that support listing supplier attachments.
-     * 
      * @return The call builder
      */
     public ListAccountingSupplierAttachmentsRequestBuilder listAttachments() {
@@ -829,8 +809,6 @@ public class Suppliers implements
      * The *List supplier attachments* endpoint returns a list of attachments available to download for given `supplierId`.
      * 
      * [Suppliers](https://docs.codat.io/lending-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.
-     * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=suppliers) for integrations that support listing supplier attachments.
      * 
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
@@ -847,8 +825,6 @@ public class Suppliers implements
      * 
      * [Suppliers](https://docs.codat.io/lending-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.
      * 
-     * Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=suppliers) for integrations that support listing supplier attachments.
-     * 
      * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
@@ -859,7 +835,7 @@ public class Suppliers implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.lending.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -871,7 +847,7 @@ public class Suppliers implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());

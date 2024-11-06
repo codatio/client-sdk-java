@@ -26,8 +26,6 @@ import java.util.Optional;
  * - They've been the victim of online fraud.  
  * 
  * You can use data from the Disputes endpoints to calculate key metrics, such as the number of chargebacks.
- * 
- * Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&amp;dataType=commerce-disputes) for this data type.
  */
 
 public class CommerceDispute {

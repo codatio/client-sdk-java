@@ -25,7 +25,7 @@ A session is a one-time process that enables you to upload bank statements to Co
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.EndBankStatementUploadSessionRequest;
 import io.codat.lending.models.operations.EndBankStatementUploadSessionResponse;
 import io.codat.lending.models.shared.Security;
@@ -33,36 +33,25 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            EndBankStatementUploadSessionRequest req = EndBankStatementUploadSessionRequest.builder()
+        EndBankStatementUploadSessionRequest req = EndBankStatementUploadSessionRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .datasetId("d58db2ab-edef-4881-8b6b-a7e79d33244c")
+                .datasetId("d8baee81-bb77-4d34-bcc3-0ef7526e0bde")
                 .build();
 
-            EndBankStatementUploadSessionResponse res = sdk.bankStatements().endUploadSession()
+        EndBankStatementUploadSessionResponse res = sdk.bankStatements().endUploadSession()
                 .request(req)
                 .call();
 
-            // handle response
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
-        }
-
+        // handle response
     }
 }
 ```
@@ -79,11 +68,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## getUploadConfiguration
 
@@ -99,7 +87,7 @@ When you use the [*Upload data*](https://docs.codat.io/lending-api#/operations/u
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.GetBankStatementUploadConfigurationRequest;
 import io.codat.lending.models.operations.GetBankStatementUploadConfigurationResponse;
 import io.codat.lending.models.shared.Security;
@@ -107,37 +95,26 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GetBankStatementUploadConfigurationRequest req = GetBankStatementUploadConfigurationRequest.builder()
+        GetBankStatementUploadConfigurationRequest req = GetBankStatementUploadConfigurationRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .build();
 
-            GetBankStatementUploadConfigurationResponse res = sdk.bankStatements().getUploadConfiguration()
+        GetBankStatementUploadConfigurationResponse res = sdk.bankStatements().getUploadConfiguration()
                 .request(req)
                 .call();
 
-            if (res.bankStatementUploadConfiguration().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.bankStatementUploadConfiguration().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -154,11 +131,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## setUploadConfiguration
 
@@ -174,7 +150,7 @@ Each data connection can only have one configuration for each company and extern
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.SetBankStatementUploadConfigurationRequest;
 import io.codat.lending.models.operations.SetBankStatementUploadConfigurationResponse;
 import io.codat.lending.models.shared.Security;
@@ -182,37 +158,26 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            SetBankStatementUploadConfigurationRequest req = SetBankStatementUploadConfigurationRequest.builder()
+        SetBankStatementUploadConfigurationRequest req = SetBankStatementUploadConfigurationRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .build();
 
-            SetBankStatementUploadConfigurationResponse res = sdk.bankStatements().setUploadConfiguration()
+        SetBankStatementUploadConfigurationResponse res = sdk.bankStatements().setUploadConfiguration()
                 .request(req)
                 .call();
 
-            if (res.bankStatementUploadConfiguration().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.bankStatementUploadConfiguration().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -229,11 +194,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## startUploadSession
 
@@ -249,7 +213,7 @@ You can only have one active session per data type at a time. You can complete o
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.StartBankStatementUploadSessionRequest;
 import io.codat.lending.models.operations.StartBankStatementUploadSessionResponse;
 import io.codat.lending.models.shared.Security;
@@ -257,37 +221,26 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            StartBankStatementUploadSessionRequest req = StartBankStatementUploadSessionRequest.builder()
+        StartBankStatementUploadSessionRequest req = StartBankStatementUploadSessionRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .build();
 
-            StartBankStatementUploadSessionResponse res = sdk.bankStatements().startUploadSession()
+        StartBankStatementUploadSessionResponse res = sdk.bankStatements().startUploadSession()
                 .request(req)
                 .call();
 
-            if (res.pullOperation().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.pullOperation().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -304,11 +257,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## uploadBankStatementData
 
@@ -322,7 +274,7 @@ Make sure you created configuration for the account using the [*Set upload confi
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.UploadBankStatementDataRequest;
 import io.codat.lending.models.operations.UploadBankStatementDataRequestBody;
 import io.codat.lending.models.operations.UploadBankStatementDataResponse;
@@ -337,19 +289,19 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            UploadBankStatementDataRequest req = UploadBankStatementDataRequest.builder()
+        UploadBankStatementDataRequest req = UploadBankStatementDataRequest.builder()
                 .requestBody(UploadBankStatementDataRequestBody.of(BankingAccount.builder()
                     .balance(AccountBalanceAmounts.builder()
                         .build())
-                    .currency("Lek")
+                    .currency("Philippine Peso")
                     .id("<id>")
                     .identifiers(AccountIdentifiers.builder()
                         .type(AccountIdentifierType.INVESTMENT)
@@ -357,31 +309,20 @@ public class Application {
                     .institution(AccountInstitution.builder()
                         .build())
                     .name("<value>")
-                    .type(AccountingBankAccountType.DEBIT)
+                    .type(AccountingBankAccountType.UNKNOWN)
                     .modifiedDate("2022-10-23T00:00:00Z")
                     .sourceModifiedDate("2022-10-23T00:00:00Z")
                     .build()))
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .datasetId("fc5ae435-9bde-4eba-bc3a-22596ededc80")
+                .datasetId("e39deaca-29ee-4c0f-8c9b-4b58f7a91429")
                 .build();
 
-            UploadBankStatementDataResponse res = sdk.bankStatements().uploadBankStatementData()
+        UploadBankStatementDataResponse res = sdk.bankStatements().uploadBankStatementData()
                 .request(req)
                 .call();
 
-            // handle response
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
-        }
-
+        // handle response
     }
 }
 ```
@@ -398,7 +339,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |

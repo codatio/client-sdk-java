@@ -19,19 +19,19 @@ public class ListBankingTransactionCategoriesRequestBuilder {
         this.sdk = sdk;
     }
 
-    public ListBankingTransactionCategoriesRequestBuilder request(io.codat.lending.models.operations.ListBankingTransactionCategoriesRequest request) {
+    public ListBankingTransactionCategoriesRequestBuilder request(ListBankingTransactionCategoriesRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public ListBankingTransactionCategoriesRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public ListBankingTransactionCategoriesRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public ListBankingTransactionCategoriesRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public ListBankingTransactionCategoriesRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

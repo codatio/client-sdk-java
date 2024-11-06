@@ -21,7 +21,7 @@ The _Get categorized bank statement_ endpoint provides a fully categorized list 
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.GetCategorizedBankStatementRequest;
 import io.codat.lending.models.operations.GetCategorizedBankStatementResponse;
 import io.codat.lending.models.shared.Security;
@@ -29,39 +29,28 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GetCategorizedBankStatementRequest req = GetCategorizedBankStatementRequest.builder()
+        GetCategorizedBankStatementRequest req = GetCategorizedBankStatementRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .page(1)
                 .pageSize(100)
                 .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
-            GetCategorizedBankStatementResponse res = sdk.banking().categorizedStatement().get()
+        GetCategorizedBankStatementResponse res = sdk.banking().categorizedStatement().get()
                 .request(req)
                 .call();
 
-            if (res.enhancedCashFlowTransactions().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.enhancedCashFlowTransactions().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -78,7 +67,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |

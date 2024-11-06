@@ -19,19 +19,19 @@ public class GetCategorizedProfitAndLossStatementRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetCategorizedProfitAndLossStatementRequestBuilder request(io.codat.lending.models.operations.GetCategorizedProfitAndLossStatementRequest request) {
+    public GetCategorizedProfitAndLossStatementRequestBuilder request(GetCategorizedProfitAndLossStatementRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetCategorizedProfitAndLossStatementRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public GetCategorizedProfitAndLossStatementRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetCategorizedProfitAndLossStatementRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public GetCategorizedProfitAndLossStatementRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

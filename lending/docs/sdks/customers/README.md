@@ -17,16 +17,13 @@ The *Download customer attachment* endpoint downloads a specific attachment for 
 
 [Customers](https://docs.codat.io/lending-api#/schemas/Customer) are people or organizations that buy goods or services from the SMB.
 
-Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=customers) for integrations that support downloading a customer attachment.
-
-
 ### Example Usage
 
 ```java
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.DownloadAccountingCustomerAttachmentRequest;
 import io.codat.lending.models.operations.DownloadAccountingCustomerAttachmentResponse;
 import io.codat.lending.models.shared.Security;
@@ -34,39 +31,28 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            DownloadAccountingCustomerAttachmentRequest req = DownloadAccountingCustomerAttachmentRequest.builder()
+        DownloadAccountingCustomerAttachmentRequest req = DownloadAccountingCustomerAttachmentRequest.builder()
                 .attachmentId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .customerId("<value>")
+                .customerId("EILBDVJVNUAGVKRQ")
                 .build();
 
-            DownloadAccountingCustomerAttachmentResponse res = sdk.accountsReceivable().customers().downloadAttachment()
+        DownloadAccountingCustomerAttachmentResponse res = sdk.accountsReceivable().customers().downloadAttachment()
                 .request(req)
                 .call();
 
-            if (res.data().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.data().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -83,19 +69,16 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## get
 
 The *Get customer* endpoint returns a single customer for a given customerId.
 
 [Customers](https://docs.codat.io/lending-api#/schemas/Customer) are people or organizations that buy goods or services from the SMB.
-
-Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=customers) for integrations that support getting a specific customer.
 
 Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/lending-api#/operations/refresh-company-data).
 
@@ -106,7 +89,7 @@ Before using this endpoint, you must have [retrieved data for the company](https
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.GetAccountingCustomerRequest;
 import io.codat.lending.models.operations.GetAccountingCustomerResponse;
 import io.codat.lending.models.shared.Security;
@@ -114,37 +97,26 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GetAccountingCustomerRequest req = GetAccountingCustomerRequest.builder()
+        GetAccountingCustomerRequest req = GetAccountingCustomerRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
-                .customerId("<value>")
+                .customerId("7110701885")
                 .build();
 
-            GetAccountingCustomerResponse res = sdk.accountsReceivable().customers().get()
+        GetAccountingCustomerResponse res = sdk.accountsReceivable().customers().get()
                 .request(req)
                 .call();
 
-            if (res.accountingCustomer().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.accountingCustomer().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -161,19 +133,16 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 401,402,403,404,409,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 401, 402, 403, 404, 409, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## getAttachment
 
 The *Get customer attachment* endpoint returns a specific attachment for a given `customerId` and `attachmentId`.
 
 [Customers](https://docs.codat.io/lending-api#/schemas/Customer) are people or organizations that buy goods or services from the SMB.
-
-Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=customers) for integrations that support getting a customer attachment.
 
 
 ### Example Usage
@@ -182,7 +151,7 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.GetAccountingCustomerAttachmentRequest;
 import io.codat.lending.models.operations.GetAccountingCustomerAttachmentResponse;
 import io.codat.lending.models.shared.Security;
@@ -190,39 +159,28 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GetAccountingCustomerAttachmentRequest req = GetAccountingCustomerAttachmentRequest.builder()
+        GetAccountingCustomerAttachmentRequest req = GetAccountingCustomerAttachmentRequest.builder()
                 .attachmentId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .customerId("<value>")
+                .customerId("EILBDVJVNUAGVKRQ")
                 .build();
 
-            GetAccountingCustomerAttachmentResponse res = sdk.accountsReceivable().customers().getAttachment()
+        GetAccountingCustomerAttachmentResponse res = sdk.accountsReceivable().customers().getAttachment()
                 .request(req)
                 .call();
 
-            if (res.accountingAttachment().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.accountingAttachment().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -239,11 +197,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## list
 
@@ -260,7 +217,7 @@ Before using this endpoint, you must have [retrieved data for the company](https
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.ListAccountingCustomersRequest;
 import io.codat.lending.models.operations.ListAccountingCustomersResponse;
 import io.codat.lending.models.shared.Security;
@@ -268,15 +225,15 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            ListAccountingCustomersRequest req = ListAccountingCustomersRequest.builder()
+        ListAccountingCustomersRequest req = ListAccountingCustomersRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .orderBy("-modifiedDate")
                 .page(1)
@@ -284,24 +241,13 @@ public class Application {
                 .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
-            ListAccountingCustomersResponse res = sdk.accountsReceivable().customers().list()
+        ListAccountingCustomersResponse res = sdk.accountsReceivable().customers().list()
                 .request(req)
                 .call();
 
-            if (res.accountingCustomers().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.accountingCustomers().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -318,11 +264,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                        | Status Code                         | Content Type                        |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| models/errors/ErrorMessage          | 400,401,402,403,404,409,429,500,503 | application/json                    |
-| models/errors/SDKError              | 4xx-5xx                             | \*\/*                               |
-
+| Error Type                                  | Status Code                                 | Content Type                                |
+| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
+| models/errors/ErrorMessage                  | 400, 401, 402, 403, 404, 409, 429, 500, 503 | application/json                            |
+| models/errors/SDKError                      | 4XX, 5XX                                    | \*/\*                                       |
 
 ## listAttachments
 
@@ -330,16 +275,13 @@ The *List customer attachments* endpoint returns a list of attachments avialable
 
 [Customers](https://docs.codat.io/lending-api#/schemas/Customer) are people or organizations that buy goods or services from the SMB.
 
-Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=customers) for integrations that support listing customer attachments.
-
-
 ### Example Usage
 
 ```java
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.ListAccountingCustomerAttachmentsRequest;
 import io.codat.lending.models.operations.ListAccountingCustomerAttachmentsResponse;
 import io.codat.lending.models.shared.Security;
@@ -347,38 +289,27 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            ListAccountingCustomerAttachmentsRequest req = ListAccountingCustomerAttachmentsRequest.builder()
+        ListAccountingCustomerAttachmentsRequest req = ListAccountingCustomerAttachmentsRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .customerId("<value>")
+                .customerId("EILBDVJVNUAGVKRQ")
                 .build();
 
-            ListAccountingCustomerAttachmentsResponse res = sdk.accountsReceivable().customers().listAttachments()
+        ListAccountingCustomerAttachmentsResponse res = sdk.accountsReceivable().customers().listAttachments()
                 .request(req)
                 .call();
 
-            if (res.attachments().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.attachments().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -395,7 +326,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 401,402,403,404,409,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 401, 402, 403, 404, 409, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |

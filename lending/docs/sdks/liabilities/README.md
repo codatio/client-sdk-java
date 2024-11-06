@@ -27,7 +27,7 @@ Make sure you have [synced a company](https://docs.codat.io/lending-api#/operati
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.GenerateLoanSummaryRequest;
 import io.codat.lending.models.operations.GenerateLoanSummaryResponse;
 import io.codat.lending.models.operations.SourceType;
@@ -36,35 +36,24 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GenerateLoanSummaryRequest req = GenerateLoanSummaryRequest.builder()
+        GenerateLoanSummaryRequest req = GenerateLoanSummaryRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .sourceType(SourceType.ACCOUNTING)
                 .build();
 
-            GenerateLoanSummaryResponse res = sdk.liabilities().generateLoanSummary()
+        GenerateLoanSummaryResponse res = sdk.liabilities().generateLoanSummary()
                 .request(req)
                 .call();
 
-            // handle response
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
-        }
-
+        // handle response
     }
 }
 ```
@@ -81,11 +70,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## generateLoanTransactions
 
@@ -102,7 +90,7 @@ Make sure you have [synced a company](https://docs.codat.io/lending-api#/operati
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.GenerateLoanTransactionsRequest;
 import io.codat.lending.models.operations.GenerateLoanTransactionsResponse;
 import io.codat.lending.models.operations.QueryParamSourceType;
@@ -111,35 +99,24 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GenerateLoanTransactionsRequest req = GenerateLoanTransactionsRequest.builder()
+        GenerateLoanTransactionsRequest req = GenerateLoanTransactionsRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .sourceType(QueryParamSourceType.ACCOUNTING)
                 .build();
 
-            GenerateLoanTransactionsResponse res = sdk.liabilities().generateLoanTransactions()
+        GenerateLoanTransactionsResponse res = sdk.liabilities().generateLoanTransactions()
                 .request(req)
                 .call();
 
-            // handle response
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
-        }
-
+        // handle response
     }
 }
 ```
@@ -156,11 +133,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## getLoanSummary
 
@@ -177,7 +153,7 @@ Make sure you have [synced a company](https://docs.codat.io/lending-api#/operati
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.GetLoanSummaryQueryParamSourceType;
 import io.codat.lending.models.operations.GetLoanSummaryRequest;
 import io.codat.lending.models.operations.GetLoanSummaryResponse;
@@ -186,37 +162,26 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GetLoanSummaryRequest req = GetLoanSummaryRequest.builder()
+        GetLoanSummaryRequest req = GetLoanSummaryRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .sourceType(GetLoanSummaryQueryParamSourceType.BANKING)
                 .build();
 
-            GetLoanSummaryResponse res = sdk.liabilities().getLoanSummary()
+        GetLoanSummaryResponse res = sdk.liabilities().getLoanSummary()
                 .request(req)
                 .call();
 
-            if (res.loanSummary().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.loanSummary().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -233,11 +198,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## listLoanTransactions
 
@@ -254,7 +218,7 @@ Make sure you have [synced a company](https://docs.codat.io/lending-api#/operati
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.ListLoanTransactionsQueryParamSourceType;
 import io.codat.lending.models.operations.ListLoanTransactionsRequest;
 import io.codat.lending.models.operations.ListLoanTransactionsResponse;
@@ -263,37 +227,26 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            ListLoanTransactionsRequest req = ListLoanTransactionsRequest.builder()
+        ListLoanTransactionsRequest req = ListLoanTransactionsRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .sourceType(ListLoanTransactionsQueryParamSourceType.COMMERCE)
                 .build();
 
-            ListLoanTransactionsResponse res = sdk.liabilities().listLoanTransactions()
+        ListLoanTransactionsResponse res = sdk.liabilities().listLoanTransactions()
                 .request(req)
                 .call();
 
-            if (res.loanTransactions().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.loanTransactions().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -310,7 +263,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |

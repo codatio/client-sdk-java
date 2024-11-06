@@ -19,19 +19,19 @@ public class GetDataIntegritySummariesRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetDataIntegritySummariesRequestBuilder request(io.codat.lending.models.operations.GetDataIntegritySummariesRequest request) {
+    public GetDataIntegritySummariesRequestBuilder request(GetDataIntegritySummariesRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetDataIntegritySummariesRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public GetDataIntegritySummariesRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetDataIntegritySummariesRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public GetDataIntegritySummariesRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;
