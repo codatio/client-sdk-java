@@ -19,19 +19,19 @@ public class StartBankStatementUploadSessionRequestBuilder {
         this.sdk = sdk;
     }
 
-    public StartBankStatementUploadSessionRequestBuilder request(io.codat.lending.models.operations.StartBankStatementUploadSessionRequest request) {
+    public StartBankStatementUploadSessionRequestBuilder request(StartBankStatementUploadSessionRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public StartBankStatementUploadSessionRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public StartBankStatementUploadSessionRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public StartBankStatementUploadSessionRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public StartBankStatementUploadSessionRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

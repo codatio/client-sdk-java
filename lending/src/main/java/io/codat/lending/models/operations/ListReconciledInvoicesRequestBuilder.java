@@ -19,19 +19,19 @@ public class ListReconciledInvoicesRequestBuilder {
         this.sdk = sdk;
     }
 
-    public ListReconciledInvoicesRequestBuilder request(io.codat.lending.models.operations.ListReconciledInvoicesRequest request) {
+    public ListReconciledInvoicesRequestBuilder request(ListReconciledInvoicesRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public ListReconciledInvoicesRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public ListReconciledInvoicesRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public ListReconciledInvoicesRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public ListReconciledInvoicesRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

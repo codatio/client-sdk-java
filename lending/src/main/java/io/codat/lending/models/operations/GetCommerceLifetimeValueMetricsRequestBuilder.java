@@ -19,19 +19,19 @@ public class GetCommerceLifetimeValueMetricsRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetCommerceLifetimeValueMetricsRequestBuilder request(io.codat.lending.models.operations.GetCommerceLifetimeValueMetricsRequest request) {
+    public GetCommerceLifetimeValueMetricsRequestBuilder request(GetCommerceLifetimeValueMetricsRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetCommerceLifetimeValueMetricsRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public GetCommerceLifetimeValueMetricsRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetCommerceLifetimeValueMetricsRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public GetCommerceLifetimeValueMetricsRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

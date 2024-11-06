@@ -27,8 +27,6 @@ import org.openapitools.jackson.nullable.JsonNullable;
  * &gt;
  * &gt; See [Bills](https://docs.codat.io/lending-api#/schemas/Bill) for the accounts payable equivalent of bills.
  * 
- * View the coverage for invoices in the &lt;a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=invoices" target="_blank"&gt;Data coverage explorer&lt;/a&gt;.
- * 
  * ## Overview
  * 
  * An invoice is an itemized record of goods sold or services provided to a [customer](https://docs.codat.io/lending-api#/schemas/Customer).

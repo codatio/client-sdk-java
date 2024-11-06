@@ -19,19 +19,19 @@ public class GetAccountingCashFlowStatementRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetAccountingCashFlowStatementRequestBuilder request(io.codat.lending.models.operations.GetAccountingCashFlowStatementRequest request) {
+    public GetAccountingCashFlowStatementRequestBuilder request(GetAccountingCashFlowStatementRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetAccountingCashFlowStatementRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public GetAccountingCashFlowStatementRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetAccountingCashFlowStatementRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public GetAccountingCashFlowStatementRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

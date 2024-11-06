@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.codat.lending.utils.Utils;
-import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
@@ -21,13 +20,6 @@ import java.util.Optional;
 
 
 public class LoanTransactions {
-
-    /**
-     * If there are no errors, an empty array is returned.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("errors")
-    private Optional<? extends List<Object>> errors;
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("reportInfo")
@@ -42,28 +34,16 @@ public class LoanTransactions {
 
     @JsonCreator
     public LoanTransactions(
-            @JsonProperty("errors") Optional<? extends List<Object>> errors,
             @JsonProperty("reportInfo") Optional<? extends LoanTransactionsReportInfo> reportInfo,
             @JsonProperty("reportItems") Optional<? extends List<ReportItems>> reportItems) {
-        Utils.checkNotNull(errors, "errors");
         Utils.checkNotNull(reportInfo, "reportInfo");
         Utils.checkNotNull(reportItems, "reportItems");
-        this.errors = errors;
         this.reportInfo = reportInfo;
         this.reportItems = reportItems;
     }
     
     public LoanTransactions() {
-        this(Optional.empty(), Optional.empty(), Optional.empty());
-    }
-
-    /**
-     * If there are no errors, an empty array is returned.
-     */
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public Optional<List<Object>> errors() {
-        return (Optional<List<Object>>) errors;
+        this(Optional.empty(), Optional.empty());
     }
 
     @SuppressWarnings("unchecked")
@@ -83,24 +63,6 @@ public class LoanTransactions {
 
     public final static Builder builder() {
         return new Builder();
-    }
-
-    /**
-     * If there are no errors, an empty array is returned.
-     */
-    public LoanTransactions withErrors(List<Object> errors) {
-        Utils.checkNotNull(errors, "errors");
-        this.errors = Optional.ofNullable(errors);
-        return this;
-    }
-
-    /**
-     * If there are no errors, an empty array is returned.
-     */
-    public LoanTransactions withErrors(Optional<? extends List<Object>> errors) {
-        Utils.checkNotNull(errors, "errors");
-        this.errors = errors;
-        return this;
     }
 
     public LoanTransactions withReportInfo(LoanTransactionsReportInfo reportInfo) {
@@ -143,7 +105,6 @@ public class LoanTransactions {
         }
         LoanTransactions other = (LoanTransactions) o;
         return 
-            Objects.deepEquals(this.errors, other.errors) &&
             Objects.deepEquals(this.reportInfo, other.reportInfo) &&
             Objects.deepEquals(this.reportItems, other.reportItems);
     }
@@ -151,7 +112,6 @@ public class LoanTransactions {
     @Override
     public int hashCode() {
         return Objects.hash(
-            errors,
             reportInfo,
             reportItems);
     }
@@ -159,14 +119,11 @@ public class LoanTransactions {
     @Override
     public String toString() {
         return Utils.toString(LoanTransactions.class,
-                "errors", errors,
                 "reportInfo", reportInfo,
                 "reportItems", reportItems);
     }
     
     public final static class Builder {
- 
-        private Optional<? extends List<Object>> errors = Optional.empty();
  
         private Optional<? extends LoanTransactionsReportInfo> reportInfo = Optional.empty();
  
@@ -174,24 +131,6 @@ public class LoanTransactions {
         
         private Builder() {
           // force use of static builder() method
-        }
-
-        /**
-         * If there are no errors, an empty array is returned.
-         */
-        public Builder errors(List<Object> errors) {
-            Utils.checkNotNull(errors, "errors");
-            this.errors = Optional.ofNullable(errors);
-            return this;
-        }
-
-        /**
-         * If there are no errors, an empty array is returned.
-         */
-        public Builder errors(Optional<? extends List<Object>> errors) {
-            Utils.checkNotNull(errors, "errors");
-            this.errors = errors;
-            return this;
         }
 
         public Builder reportInfo(LoanTransactionsReportInfo reportInfo) {
@@ -226,7 +165,6 @@ public class LoanTransactions {
         
         public LoanTransactions build() {
             return new LoanTransactions(
-                errors,
                 reportInfo,
                 reportItems);
         }

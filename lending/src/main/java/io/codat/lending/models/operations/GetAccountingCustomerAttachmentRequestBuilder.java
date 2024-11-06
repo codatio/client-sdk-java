@@ -19,19 +19,19 @@ public class GetAccountingCustomerAttachmentRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetAccountingCustomerAttachmentRequestBuilder request(io.codat.lending.models.operations.GetAccountingCustomerAttachmentRequest request) {
+    public GetAccountingCustomerAttachmentRequestBuilder request(GetAccountingCustomerAttachmentRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetAccountingCustomerAttachmentRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public GetAccountingCustomerAttachmentRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetAccountingCustomerAttachmentRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public GetAccountingCustomerAttachmentRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

@@ -26,11 +26,11 @@ public class EnhancedCashFlowItem {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("transactions")
-    private Optional<? extends List<EnhancedCashFlowTransaction>> transactions;
+    private Optional<? extends List<CashFlowTransaction>> transactions;
 
     @JsonCreator
     public EnhancedCashFlowItem(
-            @JsonProperty("transactions") Optional<? extends List<EnhancedCashFlowTransaction>> transactions) {
+            @JsonProperty("transactions") Optional<? extends List<CashFlowTransaction>> transactions) {
         Utils.checkNotNull(transactions, "transactions");
         this.transactions = transactions;
     }
@@ -44,8 +44,8 @@ public class EnhancedCashFlowItem {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<EnhancedCashFlowTransaction>> transactions() {
-        return (Optional<List<EnhancedCashFlowTransaction>>) transactions;
+    public Optional<List<CashFlowTransaction>> transactions() {
+        return (Optional<List<CashFlowTransaction>>) transactions;
     }
 
     public final static Builder builder() {
@@ -55,7 +55,7 @@ public class EnhancedCashFlowItem {
     /**
      * An array of transaction data.
      */
-    public EnhancedCashFlowItem withTransactions(List<EnhancedCashFlowTransaction> transactions) {
+    public EnhancedCashFlowItem withTransactions(List<CashFlowTransaction> transactions) {
         Utils.checkNotNull(transactions, "transactions");
         this.transactions = Optional.ofNullable(transactions);
         return this;
@@ -64,7 +64,7 @@ public class EnhancedCashFlowItem {
     /**
      * An array of transaction data.
      */
-    public EnhancedCashFlowItem withTransactions(Optional<? extends List<EnhancedCashFlowTransaction>> transactions) {
+    public EnhancedCashFlowItem withTransactions(Optional<? extends List<CashFlowTransaction>> transactions) {
         Utils.checkNotNull(transactions, "transactions");
         this.transactions = transactions;
         return this;
@@ -97,7 +97,7 @@ public class EnhancedCashFlowItem {
     
     public final static class Builder {
  
-        private Optional<? extends List<EnhancedCashFlowTransaction>> transactions = Optional.empty();  
+        private Optional<? extends List<CashFlowTransaction>> transactions = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -106,7 +106,7 @@ public class EnhancedCashFlowItem {
         /**
          * An array of transaction data.
          */
-        public Builder transactions(List<EnhancedCashFlowTransaction> transactions) {
+        public Builder transactions(List<CashFlowTransaction> transactions) {
             Utils.checkNotNull(transactions, "transactions");
             this.transactions = Optional.ofNullable(transactions);
             return this;
@@ -115,7 +115,7 @@ public class EnhancedCashFlowItem {
         /**
          * An array of transaction data.
          */
-        public Builder transactions(Optional<? extends List<EnhancedCashFlowTransaction>> transactions) {
+        public Builder transactions(Optional<? extends List<CashFlowTransaction>> transactions) {
             Utils.checkNotNull(transactions, "transactions");
             this.transactions = transactions;
             return this;

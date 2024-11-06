@@ -19,19 +19,19 @@ public class CreateTransferRequestBuilder {
         this.sdk = sdk;
     }
 
-    public CreateTransferRequestBuilder request(io.codat.lending.models.operations.CreateTransferRequest request) {
+    public CreateTransferRequestBuilder request(CreateTransferRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public CreateTransferRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public CreateTransferRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public CreateTransferRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public CreateTransferRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

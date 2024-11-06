@@ -14,34 +14,40 @@ import io.codat.lending.utils.Utils;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Objects;
-import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class AccountCategoriesUpdatedWebhookData {
 
     /**
-     * The date on which the company's account categories were last modified in Codat.
+     * In Codat's data model, dates are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date fields are formatted as strings; for example:
+     * ```
+     * 2020-10-08
+     * ```
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("modifiedDate")
-    private Optional<String> modifiedDate;
+    private JsonNullable<String> modifiedDate;
 
     @JsonCreator
     public AccountCategoriesUpdatedWebhookData(
-            @JsonProperty("modifiedDate") Optional<String> modifiedDate) {
+            @JsonProperty("modifiedDate") JsonNullable<String> modifiedDate) {
         Utils.checkNotNull(modifiedDate, "modifiedDate");
         this.modifiedDate = modifiedDate;
     }
     
     public AccountCategoriesUpdatedWebhookData() {
-        this(Optional.empty());
+        this(JsonNullable.undefined());
     }
 
     /**
-     * The date on which the company's account categories were last modified in Codat.
+     * In Codat's data model, dates are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date fields are formatted as strings; for example:
+     * ```
+     * 2020-10-08
+     * ```
      */
     @JsonIgnore
-    public Optional<String> modifiedDate() {
+    public JsonNullable<String> modifiedDate() {
         return modifiedDate;
     }
 
@@ -50,18 +56,24 @@ public class AccountCategoriesUpdatedWebhookData {
     }
 
     /**
-     * The date on which the company's account categories were last modified in Codat.
+     * In Codat's data model, dates are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date fields are formatted as strings; for example:
+     * ```
+     * 2020-10-08
+     * ```
      */
     public AccountCategoriesUpdatedWebhookData withModifiedDate(String modifiedDate) {
         Utils.checkNotNull(modifiedDate, "modifiedDate");
-        this.modifiedDate = Optional.ofNullable(modifiedDate);
+        this.modifiedDate = JsonNullable.of(modifiedDate);
         return this;
     }
 
     /**
-     * The date on which the company's account categories were last modified in Codat.
+     * In Codat's data model, dates are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date fields are formatted as strings; for example:
+     * ```
+     * 2020-10-08
+     * ```
      */
-    public AccountCategoriesUpdatedWebhookData withModifiedDate(Optional<String> modifiedDate) {
+    public AccountCategoriesUpdatedWebhookData withModifiedDate(JsonNullable<String> modifiedDate) {
         Utils.checkNotNull(modifiedDate, "modifiedDate");
         this.modifiedDate = modifiedDate;
         return this;
@@ -94,25 +106,31 @@ public class AccountCategoriesUpdatedWebhookData {
     
     public final static class Builder {
  
-        private Optional<String> modifiedDate = Optional.empty();  
+        private JsonNullable<String> modifiedDate = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
         }
 
         /**
-         * The date on which the company's account categories were last modified in Codat.
+         * In Codat's data model, dates are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date fields are formatted as strings; for example:
+         * ```
+         * 2020-10-08
+         * ```
          */
         public Builder modifiedDate(String modifiedDate) {
             Utils.checkNotNull(modifiedDate, "modifiedDate");
-            this.modifiedDate = Optional.ofNullable(modifiedDate);
+            this.modifiedDate = JsonNullable.of(modifiedDate);
             return this;
         }
 
         /**
-         * The date on which the company's account categories were last modified in Codat.
+         * In Codat's data model, dates are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date fields are formatted as strings; for example:
+         * ```
+         * 2020-10-08
+         * ```
          */
-        public Builder modifiedDate(Optional<String> modifiedDate) {
+        public Builder modifiedDate(JsonNullable<String> modifiedDate) {
             Utils.checkNotNull(modifiedDate, "modifiedDate");
             this.modifiedDate = modifiedDate;
             return this;

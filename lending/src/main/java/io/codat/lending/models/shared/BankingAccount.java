@@ -20,8 +20,6 @@ import org.openapitools.jackson.nullable.JsonNullable;
 /**
  * BankingAccount - This data type provides a list of all the SMB's bank accounts, with rich data like balances, account numbers, and institutions holding the accounts.
  * 
- * Explore our [data coverage](https://knowledge.codat.io/supported-features/banking?view=tab-by-data-type&amp;dataType=banking-accounts).
- * 
  * Responses are paged, so you should provide `page` and `pageSize` query parameters in your request.
  */
 

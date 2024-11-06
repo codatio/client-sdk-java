@@ -21,9 +21,7 @@ import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
- * AccountingCreditNote - &gt; View the coverage for credit notes in the &lt;a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=creditNotes" target="_blank"&gt;Data coverage explorer&lt;/a&gt;.
- * 
- * ## Overview
+ * AccountingCreditNote - ## Overview
  * 
  * Think of a credit note as a voucher issued to a customer. It is a reduction that can be applied against one or multiple invoices. A credit note can either reduce the amount owed or cancel out an invoice entirely.
  * 

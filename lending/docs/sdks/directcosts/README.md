@@ -18,16 +18,13 @@ The *Create direct cost* endpoint creates a new [direct cost](https://docs.codat
 
 Required data may vary by integration. To see what data to post, first call [Get create direct cost model](https://docs.codat.io/lending-api#/operations/get-create-directCosts-model).
 
-Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=directCosts) for integrations that support creating an account.
-
-
 ### Example Usage
 
 ```java
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.CreateDirectCostRequest;
 import io.codat.lending.models.operations.CreateDirectCostResponse;
 import io.codat.lending.models.shared.AccountingPaymentAllocation;
@@ -46,15 +43,15 @@ import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            CreateDirectCostRequest req = CreateDirectCostRequest.builder()
+        CreateDirectCostRequest req = CreateDirectCostRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .directCostPrototype(DirectCostPrototype.builder()
@@ -63,14 +60,14 @@ public class Application {
                     .lineItems(List.of(
                         DirectCostLineItem.builder()
                             .quantity(new BigDecimal("4174.58"))
-                            .unitAmount(new BigDecimal("2884.08"))
+                            .unitAmount(new BigDecimal("1343.65"))
                             .tracking(Tracking.builder()
                                 .recordRefs(List.of(
                                     TrackingRecordRef.builder()
                                         .dataType(TrackingRecordRefDataType.TRACKING_CATEGORIES)
                                         .build()))
                                 .invoiceTo(RecordRef.builder()
-                                    .dataType("transfer")
+                                    .dataType("journalEntry")
                                     .build())
                                 .build())
                             .build()))
@@ -78,37 +75,26 @@ public class Application {
                         AccountingPaymentAllocation.builder()
                             .allocation(Allocation.builder()
                                 .allocatedOnDate("2022-10-23T00:00:00Z")
-                                .currency("USD")
+                                .currency("EUR")
                                 .build())
                             .payment(PaymentAllocationPayment.builder()
-                                .currency("EUR")
+                                .currency("GBP")
                                 .paidOnDate("2022-10-23T00:00:00Z")
                                 .build())
                             .build()))
-                    .subTotal(new BigDecimal("1697.27"))
-                    .taxAmount(new BigDecimal("3015.1"))
-                    .totalAmount(new BigDecimal("899.64"))
+                    .subTotal(new BigDecimal("899.64"))
+                    .taxAmount(new BigDecimal("7926.20"))
+                    .totalAmount(new BigDecimal("8165.87"))
                     .build())
                 .build();
 
-            CreateDirectCostResponse res = sdk.loanWriteback().directCosts().create()
+        CreateDirectCostResponse res = sdk.loanWriteback().directCosts().create()
                 .request(req)
                 .call();
 
-            if (res.accountingCreateDirectCostResponse().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.accountingCreateDirectCostResponse().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -125,11 +111,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## getCreateModel
 
@@ -141,8 +126,6 @@ The *Get create direct cost model* endpoint returns the expected data for the re
 
 See the *response examples* for integration-specific indicative models.
 
-Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=directCosts) for integrations that support creating a direct cost.
-
 
 ### Example Usage
 
@@ -150,7 +133,7 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.GetCreateDirectCostsModelRequest;
 import io.codat.lending.models.operations.GetCreateDirectCostsModelResponse;
 import io.codat.lending.models.shared.Security;
@@ -158,37 +141,26 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GetCreateDirectCostsModelRequest req = GetCreateDirectCostsModelRequest.builder()
+        GetCreateDirectCostsModelRequest req = GetCreateDirectCostsModelRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .build();
 
-            GetCreateDirectCostsModelResponse res = sdk.loanWriteback().directCosts().getCreateModel()
+        GetCreateDirectCostsModelResponse res = sdk.loanWriteback().directCosts().getCreateModel()
                 .request(req)
                 .call();
 
-            if (res.pushOption().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.pushOption().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -205,7 +177,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |

@@ -18,9 +18,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * AccountingBalanceSheet - &gt; View the coverage for balance sheet in the &lt;a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=balanceSheet" target="_blank"&gt;Data coverage explorer&lt;/a&gt;.
- * 
- * ## Overview
+ * AccountingBalanceSheet - ## Overview
  * 
  * The balance sheet is a snapshot of a company's accounts at a single point in time that provides a statement of the assets, liabilities and equity of an organization. It gives interested parties an idea of the company's financial position, in addition to displaying what the company owns and owes.
  * 

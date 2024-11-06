@@ -19,19 +19,19 @@ public class ListAccountingCustomersRequestBuilder {
         this.sdk = sdk;
     }
 
-    public ListAccountingCustomersRequestBuilder request(io.codat.lending.models.operations.ListAccountingCustomersRequest request) {
+    public ListAccountingCustomersRequestBuilder request(ListAccountingCustomersRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public ListAccountingCustomersRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public ListAccountingCustomersRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public ListAccountingCustomersRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public ListAccountingCustomersRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

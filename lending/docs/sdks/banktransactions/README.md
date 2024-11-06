@@ -18,8 +18,6 @@ The *Create bank account transactions* endpoint creates new [bank account transa
 
 Required data may vary by integration. To see what data to post, first call [Get create bank transaction model](https://docs.codat.io/lending-api#/operations/get-create-bankTransactions-model).
 
-Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions) for integrations that support creating a bank account transactions.
-
 
 ### Example Usage
 
@@ -27,7 +25,7 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.CreateBankTransactionsRequest;
 import io.codat.lending.models.operations.CreateBankTransactionsResponse;
 import io.codat.lending.models.shared.AccountingCreateBankTransactions;
@@ -38,20 +36,20 @@ import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            CreateBankTransactionsRequest req = CreateBankTransactionsRequest.builder()
-                .accountId("<value>")
+        CreateBankTransactionsRequest req = CreateBankTransactionsRequest.builder()
+                .accountId("9wg4lep4ush5cxs79pl8sozmsndbaukll3ind4g7buqbm1h2")
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .accountingCreateBankTransactions(AccountingCreateBankTransactions.builder()
-                    .accountId("7110701885")
+                    .accountId("EILBDVJVNUAGVKRQ")
                     .transactions(List.of(
                         CreateBankAccountTransaction.builder()
                             .date("2022-10-23T00:00:00Z")
@@ -59,24 +57,13 @@ public class Application {
                     .build())
                 .build();
 
-            CreateBankTransactionsResponse res = sdk.loanWriteback().bankTransactions().create()
+        CreateBankTransactionsResponse res = sdk.loanWriteback().bankTransactions().create()
                 .request(req)
                 .call();
 
-            if (res.accountingCreateBankTransactionsResponse().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.accountingCreateBankTransactionsResponse().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -93,11 +80,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## getCreateModel
 
@@ -109,16 +95,13 @@ The *Get create bank account transactions model* endpoint returns the expected d
 
 See the *response examples* for integration-specific indicative models.
 
-Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=bankTransactions) for integrations that support creating an bank transaction.
-
-
 ### Example Usage
 
 ```java
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.GetCreateBankTransactionsModelRequest;
 import io.codat.lending.models.operations.GetCreateBankTransactionsModelResponse;
 import io.codat.lending.models.shared.Security;
@@ -126,38 +109,27 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GetCreateBankTransactionsModelRequest req = GetCreateBankTransactionsModelRequest.builder()
-                .accountId("<value>")
+        GetCreateBankTransactionsModelRequest req = GetCreateBankTransactionsModelRequest.builder()
+                .accountId("13d946f0-c5d5-42bc-b092-97ece17923ab")
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .build();
 
-            GetCreateBankTransactionsModelResponse res = sdk.loanWriteback().bankTransactions().getCreateModel()
+        GetCreateBankTransactionsModelResponse res = sdk.loanWriteback().bankTransactions().getCreateModel()
                 .request(req)
                 .call();
 
-            if (res.pushOption().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.pushOption().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -174,7 +146,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |

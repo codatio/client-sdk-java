@@ -19,19 +19,19 @@ public class GetCommercePaymentRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetCommercePaymentRequestBuilder request(io.codat.lending.models.operations.GetCommercePaymentRequest request) {
+    public GetCommercePaymentRequestBuilder request(GetCommercePaymentRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetCommercePaymentRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public GetCommercePaymentRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetCommercePaymentRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public GetCommercePaymentRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

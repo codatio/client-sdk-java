@@ -19,19 +19,19 @@ public class DownloadAccountingSupplierAttachmentRequestBuilder {
         this.sdk = sdk;
     }
 
-    public DownloadAccountingSupplierAttachmentRequestBuilder request(io.codat.lending.models.operations.DownloadAccountingSupplierAttachmentRequest request) {
+    public DownloadAccountingSupplierAttachmentRequestBuilder request(DownloadAccountingSupplierAttachmentRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public DownloadAccountingSupplierAttachmentRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public DownloadAccountingSupplierAttachmentRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public DownloadAccountingSupplierAttachmentRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public DownloadAccountingSupplierAttachmentRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

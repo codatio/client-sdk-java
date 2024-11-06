@@ -92,9 +92,9 @@ public class UploadBankStatementDataRequestBody {
 
         public _Deserializer() {
             super(UploadBankStatementDataRequestBody.class, false,
-                  TypeReferenceWithShape.of(new TypeReference<java.lang.Object>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<io.codat.lending.models.shared.BankingAccount>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<io.codat.lending.models.shared.BankingTransactions>() {}, JsonShape.DEFAULT));
+                  TypeReferenceWithShape.of(new TypeReference<Object>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<BankingAccount>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<BankingTransactions>() {}, JsonShape.DEFAULT));
         }
     }
     

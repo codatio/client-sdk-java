@@ -20,9 +20,7 @@ import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
- * AccountingTransfer - &gt; View the coverage for transfers in the &lt;a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=transfers" target="_blank"&gt;Data coverage explorer&lt;/a&gt;.
- * 
- * A transfer records the movement of money between two bank accounts, or between a bank account and a nominal account. It is a child data type of [account transactions](https://docs.codat.io/lending-api#/schemas/AccountTransaction).
+ * AccountingTransfer - A transfer records the movement of money between two bank accounts, or between a bank account and a nominal account. It is a child data type of [account transactions](https://docs.codat.io/lending-api#/schemas/AccountTransaction).
  */
 
 public class AccountingTransfer {
@@ -97,6 +95,13 @@ public class AccountingTransfer {
     private Optional<String> sourceModifiedDate;
 
     /**
+     * The status of the transfer in the account
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("status")
+    private JsonNullable<? extends AccountingTransferStatus> status;
+
+    /**
      * Supplemental data is additional data you can include in our standard data types. 
      * 
      * It is referenced as a configured dynamic key value pair that is unique to the accounting software. [Learn more](https://docs.codat.io/using-the-api/supplemental-data/overview) about supplemental data.
@@ -130,6 +135,7 @@ public class AccountingTransfer {
             @JsonProperty("metadata") Optional<? extends Metadata> metadata,
             @JsonProperty("modifiedDate") Optional<String> modifiedDate,
             @JsonProperty("sourceModifiedDate") Optional<String> sourceModifiedDate,
+            @JsonProperty("status") JsonNullable<? extends AccountingTransferStatus> status,
             @JsonProperty("supplementalData") Optional<? extends SupplementalData> supplementalData,
             @JsonProperty("to") Optional<? extends TransferAccount> to,
             @JsonProperty("trackingCategoryRefs") JsonNullable<? extends List<TrackingCategoryRef>> trackingCategoryRefs) {
@@ -142,6 +148,7 @@ public class AccountingTransfer {
         Utils.checkNotNull(metadata, "metadata");
         Utils.checkNotNull(modifiedDate, "modifiedDate");
         Utils.checkNotNull(sourceModifiedDate, "sourceModifiedDate");
+        Utils.checkNotNull(status, "status");
         Utils.checkNotNull(supplementalData, "supplementalData");
         Utils.checkNotNull(to, "to");
         Utils.checkNotNull(trackingCategoryRefs, "trackingCategoryRefs");
@@ -154,13 +161,14 @@ public class AccountingTransfer {
         this.metadata = metadata;
         this.modifiedDate = modifiedDate;
         this.sourceModifiedDate = sourceModifiedDate;
+        this.status = status;
         this.supplementalData = supplementalData;
         this.to = to;
         this.trackingCategoryRefs = trackingCategoryRefs;
     }
     
     public AccountingTransfer() {
-        this(Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined());
+        this(Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), JsonNullable.undefined());
     }
 
     @SuppressWarnings("unchecked")
@@ -243,6 +251,15 @@ public class AccountingTransfer {
     @JsonIgnore
     public Optional<String> sourceModifiedDate() {
         return sourceModifiedDate;
+    }
+
+    /**
+     * The status of the transfer in the account
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<AccountingTransferStatus> status() {
+        return (JsonNullable<AccountingTransferStatus>) status;
     }
 
     /**
@@ -453,6 +470,24 @@ public class AccountingTransfer {
     }
 
     /**
+     * The status of the transfer in the account
+     */
+    public AccountingTransfer withStatus(AccountingTransferStatus status) {
+        Utils.checkNotNull(status, "status");
+        this.status = JsonNullable.of(status);
+        return this;
+    }
+
+    /**
+     * The status of the transfer in the account
+     */
+    public AccountingTransfer withStatus(JsonNullable<? extends AccountingTransferStatus> status) {
+        Utils.checkNotNull(status, "status");
+        this.status = status;
+        return this;
+    }
+
+    /**
      * Supplemental data is additional data you can include in our standard data types. 
      * 
      * It is referenced as a configured dynamic key value pair that is unique to the accounting software. [Learn more](https://docs.codat.io/using-the-api/supplemental-data/overview) about supplemental data.
@@ -529,6 +564,7 @@ public class AccountingTransfer {
             Objects.deepEquals(this.metadata, other.metadata) &&
             Objects.deepEquals(this.modifiedDate, other.modifiedDate) &&
             Objects.deepEquals(this.sourceModifiedDate, other.sourceModifiedDate) &&
+            Objects.deepEquals(this.status, other.status) &&
             Objects.deepEquals(this.supplementalData, other.supplementalData) &&
             Objects.deepEquals(this.to, other.to) &&
             Objects.deepEquals(this.trackingCategoryRefs, other.trackingCategoryRefs);
@@ -546,6 +582,7 @@ public class AccountingTransfer {
             metadata,
             modifiedDate,
             sourceModifiedDate,
+            status,
             supplementalData,
             to,
             trackingCategoryRefs);
@@ -563,6 +600,7 @@ public class AccountingTransfer {
                 "metadata", metadata,
                 "modifiedDate", modifiedDate,
                 "sourceModifiedDate", sourceModifiedDate,
+                "status", status,
                 "supplementalData", supplementalData,
                 "to", to,
                 "trackingCategoryRefs", trackingCategoryRefs);
@@ -587,6 +625,8 @@ public class AccountingTransfer {
         private Optional<String> modifiedDate = Optional.empty();
  
         private Optional<String> sourceModifiedDate = Optional.empty();
+ 
+        private JsonNullable<? extends AccountingTransferStatus> status = JsonNullable.undefined();
  
         private Optional<? extends SupplementalData> supplementalData = Optional.empty();
  
@@ -773,6 +813,24 @@ public class AccountingTransfer {
         }
 
         /**
+         * The status of the transfer in the account
+         */
+        public Builder status(AccountingTransferStatus status) {
+            Utils.checkNotNull(status, "status");
+            this.status = JsonNullable.of(status);
+            return this;
+        }
+
+        /**
+         * The status of the transfer in the account
+         */
+        public Builder status(JsonNullable<? extends AccountingTransferStatus> status) {
+            Utils.checkNotNull(status, "status");
+            this.status = status;
+            return this;
+        }
+
+        /**
          * Supplemental data is additional data you can include in our standard data types. 
          * 
          * It is referenced as a configured dynamic key value pair that is unique to the accounting software. [Learn more](https://docs.codat.io/using-the-api/supplemental-data/overview) about supplemental data.
@@ -841,6 +899,7 @@ public class AccountingTransfer {
                 metadata,
                 modifiedDate,
                 sourceModifiedDate,
+                status,
                 supplementalData,
                 to,
                 trackingCategoryRefs);

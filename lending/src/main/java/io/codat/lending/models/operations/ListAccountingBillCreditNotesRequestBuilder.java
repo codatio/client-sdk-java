@@ -19,19 +19,19 @@ public class ListAccountingBillCreditNotesRequestBuilder {
         this.sdk = sdk;
     }
 
-    public ListAccountingBillCreditNotesRequestBuilder request(io.codat.lending.models.operations.ListAccountingBillCreditNotesRequest request) {
+    public ListAccountingBillCreditNotesRequestBuilder request(ListAccountingBillCreditNotesRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public ListAccountingBillCreditNotesRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public ListAccountingBillCreditNotesRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public ListAccountingBillCreditNotesRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public ListAccountingBillCreditNotesRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

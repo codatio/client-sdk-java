@@ -19,19 +19,19 @@ public class ListCommerceOrdersRequestBuilder {
         this.sdk = sdk;
     }
 
-    public ListCommerceOrdersRequestBuilder request(io.codat.lending.models.operations.ListCommerceOrdersRequest request) {
+    public ListCommerceOrdersRequestBuilder request(ListCommerceOrdersRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public ListCommerceOrdersRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public ListCommerceOrdersRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public ListCommerceOrdersRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public ListCommerceOrdersRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

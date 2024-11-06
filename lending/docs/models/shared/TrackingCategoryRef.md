@@ -10,4 +10,4 @@ References a category against which the item is tracked.
 | Field                                       | Type                                        | Required                                    | Description                                 |
 | ------------------------------------------- | ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
 | `id`                                        | *String*                                    | :heavy_check_mark:                          | Unique identifier to the tracking category. |
-| `name`                                      | *JsonNullable<String>*                      | :heavy_minus_sign:                          | Name of tracking category.                  |
+| `name`                                      | *JsonNullable\<String>*                     | :heavy_minus_sign:                          | Name of tracking category.                  |

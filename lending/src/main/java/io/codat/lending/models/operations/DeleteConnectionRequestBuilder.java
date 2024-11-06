@@ -19,19 +19,19 @@ public class DeleteConnectionRequestBuilder {
         this.sdk = sdk;
     }
 
-    public DeleteConnectionRequestBuilder request(io.codat.lending.models.operations.DeleteConnectionRequest request) {
+    public DeleteConnectionRequestBuilder request(DeleteConnectionRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public DeleteConnectionRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public DeleteConnectionRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public DeleteConnectionRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public DeleteConnectionRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

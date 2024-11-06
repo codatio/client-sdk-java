@@ -19,19 +19,19 @@ public class GetAccountingAccountTransactionRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetAccountingAccountTransactionRequestBuilder request(io.codat.lending.models.operations.GetAccountingAccountTransactionRequest request) {
+    public GetAccountingAccountTransactionRequestBuilder request(GetAccountingAccountTransactionRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetAccountingAccountTransactionRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public GetAccountingAccountTransactionRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetAccountingAccountTransactionRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public GetAccountingAccountTransactionRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

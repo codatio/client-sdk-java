@@ -18,16 +18,13 @@ The *Create payment* endpoint creates a new [payment](https://docs.codat.io/lend
 
 Required data may vary by integration. To see what data to post, first call [Get create payment model](https://docs.codat.io/lending-api#/operations/get-create-payments-model).
 
-Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=payments) for integrations that support creating an account.
-
-
 ### Example Usage
 
 ```java
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.CreatePaymentRequest;
 import io.codat.lending.models.operations.CreatePaymentResponse;
 import io.codat.lending.models.shared.AccountingPayment;
@@ -40,20 +37,20 @@ import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            CreatePaymentRequest req = CreatePaymentRequest.builder()
+        CreatePaymentRequest req = CreatePaymentRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .accountingPayment(AccountingPayment.builder()
                     .date("2022-10-23T00:00:00Z")
-                    .currency("EUR")
+                    .currency("USD")
                     .lines(List.of(
                         PaymentLine.builder()
                             .amount(new BigDecimal("4174.58"))
@@ -62,29 +59,19 @@ public class Application {
                     .modifiedDate("2022-10-23T00:00:00Z")
                     .paymentMethodRef(PaymentMethodRef.builder()
                         .id("<id>")
+                        .name("AliPay")
                         .build())
                     .sourceModifiedDate("2022-10-23T00:00:00Z")
                     .build())
                 .build();
 
-            CreatePaymentResponse res = sdk.loanWriteback().payments().create()
+        CreatePaymentResponse res = sdk.loanWriteback().payments().create()
                 .request(req)
                 .call();
 
-            if (res.accountingCreatePaymentResponse().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.accountingCreatePaymentResponse().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -101,11 +88,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## getCreateModel
 
@@ -117,16 +103,13 @@ The *Get create payment model* endpoint returns the expected data for the reques
 
 See the *response examples* for integration-specific indicative models.
 
-Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=payments) for integrations that support creating a payment.
-
-
 ### Example Usage
 
 ```java
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.GetCreatePaymentModelRequest;
 import io.codat.lending.models.operations.GetCreatePaymentModelResponse;
 import io.codat.lending.models.shared.Security;
@@ -134,37 +117,26 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            GetCreatePaymentModelRequest req = GetCreatePaymentModelRequest.builder()
+        GetCreatePaymentModelRequest req = GetCreatePaymentModelRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .build();
 
-            GetCreatePaymentModelResponse res = sdk.loanWriteback().payments().getCreateModel()
+        GetCreatePaymentModelResponse res = sdk.loanWriteback().payments().getCreateModel()
                 .request(req)
                 .call();
 
-            if (res.pushOption().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.pushOption().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -181,7 +153,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |

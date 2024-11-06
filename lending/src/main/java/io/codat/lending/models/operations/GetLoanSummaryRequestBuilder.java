@@ -19,19 +19,19 @@ public class GetLoanSummaryRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetLoanSummaryRequestBuilder request(io.codat.lending.models.operations.GetLoanSummaryRequest request) {
+    public GetLoanSummaryRequestBuilder request(GetLoanSummaryRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetLoanSummaryRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public GetLoanSummaryRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetLoanSummaryRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public GetLoanSummaryRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

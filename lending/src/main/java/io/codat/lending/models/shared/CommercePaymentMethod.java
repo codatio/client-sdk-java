@@ -19,8 +19,6 @@ import java.util.Optional;
 
 /**
  * CommercePaymentMethod - A Payment Method represents the payment method(s) used to make payments.
- * 
- * Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&amp;dataType=commerce-paymentMethods) for this data type.
  */
 
 public class CommercePaymentMethod {

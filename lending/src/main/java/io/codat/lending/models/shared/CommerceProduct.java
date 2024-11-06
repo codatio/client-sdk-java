@@ -22,8 +22,6 @@ import java.util.Optional;
 /**
  * CommerceProduct - A Product is an item in the company's inventory, and includes information about the price and quantity of all products, and variants thereof, available for sale.
  * 
- * Explore our [data coverage](https://knowledge.codat.io/supported-features/commerce?view=tab-by-data-type&amp;dataType=commerce-products) for this data type.
- * 
  */
 
 public class CommerceProduct {

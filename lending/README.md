@@ -59,7 +59,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'io.codat:lending:1.1.0'
+implementation 'io.codat:lending:1.2.0'
 ```
 
 Maven:
@@ -67,7 +67,7 @@ Maven:
 <dependency>
     <groupId>io.codat</groupId>
     <artifactId>lending</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
 </dependency>
 ```
 
@@ -96,51 +96,34 @@ gradlew.bat publishToMavenLocal -Pskip.signing
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.CreateCompanyResponse;
 import io.codat.lending.models.shared.CompanyRequestBody;
-import io.codat.lending.models.shared.GroupReference;
 import io.codat.lending.models.shared.Security;
 import java.lang.Exception;
-import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            CompanyRequestBody req = CompanyRequestBody.builder()
+        CompanyRequestBody req = CompanyRequestBody.builder()
                 .name("Bank of Dave")
                 .description("Requested early access to the new financing scheme.")
-                .groups(List.of(
-                    GroupReference.builder()
-                        .id("60d2fa12-8a04-11ee-b9d1-0242ac120002")
-                        .build()))
                 .build();
 
-            CreateCompanyResponse res = sdk.companies().create()
+        CreateCompanyResponse res = sdk.companies().create()
                 .request(req)
                 .call();
 
-            if (res.company().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.company().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -372,6 +355,11 @@ public class Application {
 * [create](docs/sdks/codatlendingpayments/README.md#create) - Create payment
 * [getCreateModel](docs/sdks/codatlendingpayments/README.md#getcreatemodel) - Get create payment model
 
+#### [loanWriteback().sourceAccounts()](docs/sdks/sourceaccounts/README.md)
+
+* [create](docs/sdks/sourceaccounts/README.md#create) - Create source account
+* [createMapping](docs/sdks/sourceaccounts/README.md#createmapping) - Create bank feed account mapping
+
 #### [loanWriteback().suppliers()](docs/sdks/codatlendingsuppliers/README.md)
 
 * [create](docs/sdks/codatlendingsuppliers/README.md#create) - Create supplier
@@ -395,6 +383,11 @@ public class Application {
 
 * [allDataTypes](docs/sdks/refresh/README.md#alldatatypes) - Refresh all data
 * [dataType](docs/sdks/refresh/README.md#datatype) - Refresh data type
+
+### [manageReports()](docs/sdks/managereports/README.md)
+
+* [generateReport](docs/sdks/managereports/README.md#generatereport) - Generate report
+* [listReports](docs/sdks/managereports/README.md#listreports) - List reports
 
 ### [sales()](docs/sdks/sales/README.md)
 
@@ -499,37 +492,31 @@ To change the default retry strategy for a single API call, you can provide a `R
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.CreateCompanyResponse;
 import io.codat.lending.models.shared.CompanyRequestBody;
-import io.codat.lending.models.shared.GroupReference;
 import io.codat.lending.models.shared.Security;
 import io.codat.lending.utils.BackoffStrategy;
 import io.codat.lending.utils.RetryConfig;
 import java.lang.Exception;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            CompanyRequestBody req = CompanyRequestBody.builder()
+        CompanyRequestBody req = CompanyRequestBody.builder()
                 .name("Bank of Dave")
                 .description("Requested early access to the new financing scheme.")
-                .groups(List.of(
-                    GroupReference.builder()
-                        .id("60d2fa12-8a04-11ee-b9d1-0242ac120002")
-                        .build()))
                 .build();
 
-            CreateCompanyResponse res = sdk.companies().create()
+        CreateCompanyResponse res = sdk.companies().create()
                 .request(req)
                 .retryConfig(RetryConfig.builder()
                     .backoff(BackoffStrategy.builder()
@@ -543,20 +530,9 @@ public class Application {
                     .build())
                 .call();
 
-            if (res.company().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.company().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -566,22 +542,20 @@ If you'd like to override the default retry strategy for all operations that sup
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.CreateCompanyResponse;
 import io.codat.lending.models.shared.CompanyRequestBody;
-import io.codat.lending.models.shared.GroupReference;
 import io.codat.lending.models.shared.Security;
 import io.codat.lending.utils.BackoffStrategy;
 import io.codat.lending.utils.RetryConfig;
 import java.lang.Exception;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .retryConfig(RetryConfig.builder()
                     .backoff(BackoffStrategy.builder()
                         .initialInterval(1L, TimeUnit.MILLISECONDS)
@@ -595,35 +569,20 @@ public class Application {
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            CompanyRequestBody req = CompanyRequestBody.builder()
+        CompanyRequestBody req = CompanyRequestBody.builder()
                 .name("Bank of Dave")
                 .description("Requested early access to the new financing scheme.")
-                .groups(List.of(
-                    GroupReference.builder()
-                        .id("60d2fa12-8a04-11ee-b9d1-0242ac120002")
-                        .build()))
                 .build();
 
-            CreateCompanyResponse res = sdk.companies().create()
+        CreateCompanyResponse res = sdk.companies().create()
                 .request(req)
                 .call();
 
-            if (res.company().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.company().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -632,12 +591,14 @@ public class Application {
 <!-- Start Error Handling [errors] -->
 ## Error Handling
 
-Handling errors in this SDK should largely match your expectations.  All operations return a response object or raise an error.  If Error objects are specified in your OpenAPI Spec, the SDK will throw the appropriate Exception type.
+Handling errors in this SDK should largely match your expectations. All operations return a response object or raise an exception.
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 400,401,402,403,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+By default, an API error will throw a `models/errors/SDKError` exception. When custom error responses are specified for an operation, the SDK may also throw their associated exception. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `create` method throws the following exceptions:
+
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 400, 401, 402, 403, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ### Example
 
@@ -645,51 +606,34 @@ Handling errors in this SDK should largely match your expectations.  All operati
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.CreateCompanyResponse;
 import io.codat.lending.models.shared.CompanyRequestBody;
-import io.codat.lending.models.shared.GroupReference;
 import io.codat.lending.models.shared.Security;
 import java.lang.Exception;
-import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            CompanyRequestBody req = CompanyRequestBody.builder()
+        CompanyRequestBody req = CompanyRequestBody.builder()
                 .name("Bank of Dave")
                 .description("Requested early access to the new financing scheme.")
-                .groups(List.of(
-                    GroupReference.builder()
-                        .id("60d2fa12-8a04-11ee-b9d1-0242ac120002")
-                        .build()))
                 .build();
 
-            CreateCompanyResponse res = sdk.companies().create()
+        CreateCompanyResponse res = sdk.companies().create()
                 .request(req)
                 .call();
 
-            if (res.company().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.company().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -712,52 +656,35 @@ You can override the default server globally by passing a server index to the `s
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.CreateCompanyResponse;
 import io.codat.lending.models.shared.CompanyRequestBody;
-import io.codat.lending.models.shared.GroupReference;
 import io.codat.lending.models.shared.Security;
 import java.lang.Exception;
-import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .serverIndex(0)
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            CompanyRequestBody req = CompanyRequestBody.builder()
+        CompanyRequestBody req = CompanyRequestBody.builder()
                 .name("Bank of Dave")
                 .description("Requested early access to the new financing scheme.")
-                .groups(List.of(
-                    GroupReference.builder()
-                        .id("60d2fa12-8a04-11ee-b9d1-0242ac120002")
-                        .build()))
                 .build();
 
-            CreateCompanyResponse res = sdk.companies().create()
+        CreateCompanyResponse res = sdk.companies().create()
                 .request(req)
                 .call();
 
-            if (res.company().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.company().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -770,52 +697,35 @@ The default server can also be overridden globally by passing a URL to the `serv
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.CreateCompanyResponse;
 import io.codat.lending.models.shared.CompanyRequestBody;
-import io.codat.lending.models.shared.GroupReference;
 import io.codat.lending.models.shared.Security;
 import java.lang.Exception;
-import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .serverURL("https://api.codat.io")
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            CompanyRequestBody req = CompanyRequestBody.builder()
+        CompanyRequestBody req = CompanyRequestBody.builder()
                 .name("Bank of Dave")
                 .description("Requested early access to the new financing scheme.")
-                .groups(List.of(
-                    GroupReference.builder()
-                        .id("60d2fa12-8a04-11ee-b9d1-0242ac120002")
-                        .build()))
                 .build();
 
-            CreateCompanyResponse res = sdk.companies().create()
+        CreateCompanyResponse res = sdk.companies().create()
                 .request(req)
                 .call();
 
-            if (res.company().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.company().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -837,51 +747,34 @@ You can set the security parameters through the `security` builder method when i
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.SDKError;
+import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.CreateCompanyResponse;
 import io.codat.lending.models.shared.CompanyRequestBody;
-import io.codat.lending.models.shared.GroupReference;
 import io.codat.lending.models.shared.Security;
 import java.lang.Exception;
-import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatLending sdk = CodatLending.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatLending sdk = CodatLending.builder()
                 .security(Security.builder()
                     .authHeader("Basic BASE_64_ENCODED(API_KEY)")
                     .build())
-                .build();
+            .build();
 
-            CompanyRequestBody req = CompanyRequestBody.builder()
+        CompanyRequestBody req = CompanyRequestBody.builder()
                 .name("Bank of Dave")
                 .description("Requested early access to the new financing scheme.")
-                .groups(List.of(
-                    GroupReference.builder()
-                        .id("60d2fa12-8a04-11ee-b9d1-0242ac120002")
-                        .build()))
                 .build();
 
-            CreateCompanyResponse res = sdk.companies().create()
+        CreateCompanyResponse res = sdk.companies().create()
                 .request(req)
                 .call();
 
-            if (res.company().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.lending.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.company().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```

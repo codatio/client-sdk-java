@@ -19,19 +19,19 @@ public class GetAccountingDirectIncomeRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetAccountingDirectIncomeRequestBuilder request(io.codat.lending.models.operations.GetAccountingDirectIncomeRequest request) {
+    public GetAccountingDirectIncomeRequestBuilder request(GetAccountingDirectIncomeRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetAccountingDirectIncomeRequestBuilder retryConfig(io.codat.lending.utils.RetryConfig retryConfig) {
+    public GetAccountingDirectIncomeRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetAccountingDirectIncomeRequestBuilder retryConfig(java.util.Optional<io.codat.lending.utils.RetryConfig> retryConfig) {
+    public GetAccountingDirectIncomeRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

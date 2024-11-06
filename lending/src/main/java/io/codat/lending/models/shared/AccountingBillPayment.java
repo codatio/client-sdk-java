@@ -27,8 +27,6 @@ import org.openapitools.jackson.nullable.JsonNullable;
  * &gt;
  * &gt; See [payments](https://docs.codat.io/lending-api#/schemas/Payment) for the accounts receivable equivalent of Bill payments, which covers [invoices](https://docs.codat.io/lending-api#/schemas/Invoice) and [credit notes](https://docs.codat.io/lending-api#/schemas/CreditNote).
  * 
- * &gt; View the coverage for bill payments in the &lt;a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=billPayments" target="_blank"&gt;Data coverage explorer&lt;/a&gt;.
- * 
  * ## Overview
  * 
  * Bill payments include all accounts payable transaction data ([bills](https://docs.codat.io/lending-api#/schemas/Bill) and [credit notes against bills](https://docs.codat.io/lending-api#/schemas/BillCreditNote)).
