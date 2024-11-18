@@ -59,7 +59,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'io.codat:lending:2.0.0'
+implementation 'io.codat:lending:3.0.0'
 ```
 
 Maven:
@@ -67,7 +67,7 @@ Maven:
 <dependency>
     <groupId>io.codat</groupId>
     <artifactId>lending</artifactId>
-    <version>2.0.0</version>
+    <version>3.0.0</version>
 </dependency>
 ```
 
@@ -595,10 +595,10 @@ Handling errors in this SDK should largely match your expectations. All operatio
 
 By default, an API error will throw a `models/errors/SDKError` exception. When custom error responses are specified for an operation, the SDK may also throw their associated exception. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `create` method throws the following exceptions:
 
-| Error Type                        | Status Code                       | Content Type                      |
-| --------------------------------- | --------------------------------- | --------------------------------- |
-| models/errors/ErrorMessage        | 400, 401, 402, 403, 429, 500, 503 | application/json                  |
-| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
+| Error Type                 | Status Code                       | Content Type     |
+| -------------------------- | --------------------------------- | ---------------- |
+| models/errors/ErrorMessage | 400, 401, 402, 403, 429, 500, 503 | application/json |
+| models/errors/SDKError     | 4XX, 5XX                          | \*/\*            |
 
 ### Example
 
@@ -642,57 +642,9 @@ public class Application {
 <!-- Start Server Selection [server] -->
 ## Server Selection
 
-### Select Server by Index
-
-You can override the default server globally by passing a server index to the `serverIndex` builder method when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the indexes associated with the available servers:
-
-| # | Server | Variables |
-| - | ------ | --------- |
-| 0 | `https://api.codat.io` | None |
-
-#### Example
-
-```java
-package hello.world;
-
-import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.ErrorMessage;
-import io.codat.lending.models.operations.CreateCompanyResponse;
-import io.codat.lending.models.shared.CompanyRequestBody;
-import io.codat.lending.models.shared.Security;
-import java.lang.Exception;
-
-public class Application {
-
-    public static void main(String[] args) throws ErrorMessage, Exception {
-
-        CodatLending sdk = CodatLending.builder()
-                .serverIndex(0)
-                .security(Security.builder()
-                    .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                    .build())
-            .build();
-
-        CompanyRequestBody req = CompanyRequestBody.builder()
-                .name("Bank of Dave")
-                .description("Requested early access to the new financing scheme.")
-                .build();
-
-        CreateCompanyResponse res = sdk.companies().create()
-                .request(req)
-                .call();
-
-        if (res.company().isPresent()) {
-            // handle response
-        }
-    }
-}
-```
-
-
 ### Override Server URL Per-Client
 
-The default server can also be overridden globally by passing a URL to the `serverURL` builder method when initializing the SDK client instance. For example:
+The default server can also be overridden globally using the `.serverURL(String serverUrl)` builder method when initializing the SDK client instance. For example:
 ```java
 package hello.world;
 
@@ -738,9 +690,9 @@ public class Application {
 
 This SDK supports the following security scheme globally:
 
-| Name         | Type         | Scheme       |
-| ------------ | ------------ | ------------ |
-| `authHeader` | apiKey       | API key      |
+| Name         | Type   | Scheme  |
+| ------------ | ------ | ------- |
+| `authHeader` | apiKey | API key |
 
 You can set the security parameters through the `security` builder method when initializing the SDK client instance. For example:
 ```java

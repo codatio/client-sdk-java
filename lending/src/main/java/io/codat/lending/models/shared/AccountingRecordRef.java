@@ -17,12 +17,12 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * RecordRef - Links the current record to the underlying record or data type that created it. 
+ * AccountingRecordRef - Links the current record to the underlying record or data type that created it. 
  * 
  * For example, if a journal entry is generated based on an invoice, this property allows you to connect the journal entry to the underlying invoice in our data model. 
  */
 
-public class RecordRef {
+public class AccountingRecordRef {
 
     /**
      * Allowed name of the 'dataType'.
@@ -39,7 +39,7 @@ public class RecordRef {
     private Optional<String> id;
 
     @JsonCreator
-    public RecordRef(
+    public AccountingRecordRef(
             @JsonProperty("dataType") Optional<String> dataType,
             @JsonProperty("id") Optional<String> id) {
         Utils.checkNotNull(dataType, "dataType");
@@ -48,7 +48,7 @@ public class RecordRef {
         this.id = id;
     }
     
-    public RecordRef() {
+    public AccountingRecordRef() {
         this(Optional.empty(), Optional.empty());
     }
 
@@ -75,7 +75,7 @@ public class RecordRef {
     /**
      * Allowed name of the 'dataType'.
      */
-    public RecordRef withDataType(String dataType) {
+    public AccountingRecordRef withDataType(String dataType) {
         Utils.checkNotNull(dataType, "dataType");
         this.dataType = Optional.ofNullable(dataType);
         return this;
@@ -84,7 +84,7 @@ public class RecordRef {
     /**
      * Allowed name of the 'dataType'.
      */
-    public RecordRef withDataType(Optional<String> dataType) {
+    public AccountingRecordRef withDataType(Optional<String> dataType) {
         Utils.checkNotNull(dataType, "dataType");
         this.dataType = dataType;
         return this;
@@ -93,7 +93,7 @@ public class RecordRef {
     /**
      * 'id' of the underlying record or data type.
      */
-    public RecordRef withId(String id) {
+    public AccountingRecordRef withId(String id) {
         Utils.checkNotNull(id, "id");
         this.id = Optional.ofNullable(id);
         return this;
@@ -102,7 +102,7 @@ public class RecordRef {
     /**
      * 'id' of the underlying record or data type.
      */
-    public RecordRef withId(Optional<String> id) {
+    public AccountingRecordRef withId(Optional<String> id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
         return this;
@@ -116,7 +116,7 @@ public class RecordRef {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        RecordRef other = (RecordRef) o;
+        AccountingRecordRef other = (AccountingRecordRef) o;
         return 
             Objects.deepEquals(this.dataType, other.dataType) &&
             Objects.deepEquals(this.id, other.id);
@@ -131,7 +131,7 @@ public class RecordRef {
     
     @Override
     public String toString() {
-        return Utils.toString(RecordRef.class,
+        return Utils.toString(AccountingRecordRef.class,
                 "dataType", dataType,
                 "id", id);
     }
@@ -182,8 +182,8 @@ public class RecordRef {
             return this;
         }
         
-        public RecordRef build() {
-            return new RecordRef(
+        public AccountingRecordRef build() {
+            return new AccountingRecordRef(
                 dataType,
                 id);
         }

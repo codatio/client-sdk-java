@@ -28,14 +28,14 @@ public class Tracking {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("invoiceTo")
-    private Optional<? extends RecordRef> invoiceTo;
+    private Optional<? extends AccountingRecordRef> invoiceTo;
 
     @JsonProperty("recordRefs")
     private List<TrackingRecordRef> recordRefs;
 
     @JsonCreator
     public Tracking(
-            @JsonProperty("invoiceTo") Optional<? extends RecordRef> invoiceTo,
+            @JsonProperty("invoiceTo") Optional<? extends AccountingRecordRef> invoiceTo,
             @JsonProperty("recordRefs") List<TrackingRecordRef> recordRefs) {
         Utils.checkNotNull(invoiceTo, "invoiceTo");
         Utils.checkNotNull(recordRefs, "recordRefs");
@@ -55,8 +55,8 @@ public class Tracking {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<RecordRef> invoiceTo() {
-        return (Optional<RecordRef>) invoiceTo;
+    public Optional<AccountingRecordRef> invoiceTo() {
+        return (Optional<AccountingRecordRef>) invoiceTo;
     }
 
     @JsonIgnore
@@ -73,7 +73,7 @@ public class Tracking {
      * 
      * For example, if a journal entry is generated based on an invoice, this property allows you to connect the journal entry to the underlying invoice in our data model. 
      */
-    public Tracking withInvoiceTo(RecordRef invoiceTo) {
+    public Tracking withInvoiceTo(AccountingRecordRef invoiceTo) {
         Utils.checkNotNull(invoiceTo, "invoiceTo");
         this.invoiceTo = Optional.ofNullable(invoiceTo);
         return this;
@@ -84,7 +84,7 @@ public class Tracking {
      * 
      * For example, if a journal entry is generated based on an invoice, this property allows you to connect the journal entry to the underlying invoice in our data model. 
      */
-    public Tracking withInvoiceTo(Optional<? extends RecordRef> invoiceTo) {
+    public Tracking withInvoiceTo(Optional<? extends AccountingRecordRef> invoiceTo) {
         Utils.checkNotNull(invoiceTo, "invoiceTo");
         this.invoiceTo = invoiceTo;
         return this;
@@ -126,7 +126,7 @@ public class Tracking {
     
     public final static class Builder {
  
-        private Optional<? extends RecordRef> invoiceTo = Optional.empty();
+        private Optional<? extends AccountingRecordRef> invoiceTo = Optional.empty();
  
         private List<TrackingRecordRef> recordRefs;  
         
@@ -139,7 +139,7 @@ public class Tracking {
          * 
          * For example, if a journal entry is generated based on an invoice, this property allows you to connect the journal entry to the underlying invoice in our data model. 
          */
-        public Builder invoiceTo(RecordRef invoiceTo) {
+        public Builder invoiceTo(AccountingRecordRef invoiceTo) {
             Utils.checkNotNull(invoiceTo, "invoiceTo");
             this.invoiceTo = Optional.ofNullable(invoiceTo);
             return this;
@@ -150,7 +150,7 @@ public class Tracking {
          * 
          * For example, if a journal entry is generated based on an invoice, this property allows you to connect the journal entry to the underlying invoice in our data model. 
          */
-        public Builder invoiceTo(Optional<? extends RecordRef> invoiceTo) {
+        public Builder invoiceTo(Optional<? extends AccountingRecordRef> invoiceTo) {
             Utils.checkNotNull(invoiceTo, "invoiceTo");
             this.invoiceTo = invoiceTo;
             return this;

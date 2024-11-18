@@ -59,7 +59,7 @@ public class AccountingTransfer {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("depositedRecordRefs")
-    private JsonNullable<? extends List<RecordRef>> depositedRecordRefs;
+    private JsonNullable<? extends List<AccountingRecordRef>> depositedRecordRefs;
 
     /**
      * Description of the transfer.
@@ -128,7 +128,7 @@ public class AccountingTransfer {
     public AccountingTransfer(
             @JsonProperty("contactRef") Optional<? extends ContactRef> contactRef,
             @JsonProperty("date") Optional<String> date,
-            @JsonProperty("depositedRecordRefs") JsonNullable<? extends List<RecordRef>> depositedRecordRefs,
+            @JsonProperty("depositedRecordRefs") JsonNullable<? extends List<AccountingRecordRef>> depositedRecordRefs,
             @JsonProperty("description") JsonNullable<String> description,
             @JsonProperty("from") Optional<? extends TransferAccount> from,
             @JsonProperty("id") Optional<String> id,
@@ -208,8 +208,8 @@ public class AccountingTransfer {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public JsonNullable<List<RecordRef>> depositedRecordRefs() {
-        return (JsonNullable<List<RecordRef>>) depositedRecordRefs;
+    public JsonNullable<List<AccountingRecordRef>> depositedRecordRefs() {
+        return (JsonNullable<List<AccountingRecordRef>>) depositedRecordRefs;
     }
 
     /**
@@ -364,7 +364,7 @@ public class AccountingTransfer {
     /**
      * List of selected transactions to associate with the transfer. Use this field to include transactions which are posted to the _undeposited funds_ (or other holding) account within the transfer.
      */
-    public AccountingTransfer withDepositedRecordRefs(List<RecordRef> depositedRecordRefs) {
+    public AccountingTransfer withDepositedRecordRefs(List<AccountingRecordRef> depositedRecordRefs) {
         Utils.checkNotNull(depositedRecordRefs, "depositedRecordRefs");
         this.depositedRecordRefs = JsonNullable.of(depositedRecordRefs);
         return this;
@@ -373,7 +373,7 @@ public class AccountingTransfer {
     /**
      * List of selected transactions to associate with the transfer. Use this field to include transactions which are posted to the _undeposited funds_ (or other holding) account within the transfer.
      */
-    public AccountingTransfer withDepositedRecordRefs(JsonNullable<? extends List<RecordRef>> depositedRecordRefs) {
+    public AccountingTransfer withDepositedRecordRefs(JsonNullable<? extends List<AccountingRecordRef>> depositedRecordRefs) {
         Utils.checkNotNull(depositedRecordRefs, "depositedRecordRefs");
         this.depositedRecordRefs = depositedRecordRefs;
         return this;
@@ -612,7 +612,7 @@ public class AccountingTransfer {
  
         private Optional<String> date = Optional.empty();
  
-        private JsonNullable<? extends List<RecordRef>> depositedRecordRefs = JsonNullable.undefined();
+        private JsonNullable<? extends List<AccountingRecordRef>> depositedRecordRefs = JsonNullable.undefined();
  
         private JsonNullable<String> description = JsonNullable.undefined();
  
@@ -707,7 +707,7 @@ public class AccountingTransfer {
         /**
          * List of selected transactions to associate with the transfer. Use this field to include transactions which are posted to the _undeposited funds_ (or other holding) account within the transfer.
          */
-        public Builder depositedRecordRefs(List<RecordRef> depositedRecordRefs) {
+        public Builder depositedRecordRefs(List<AccountingRecordRef> depositedRecordRefs) {
             Utils.checkNotNull(depositedRecordRefs, "depositedRecordRefs");
             this.depositedRecordRefs = JsonNullable.of(depositedRecordRefs);
             return this;
@@ -716,7 +716,7 @@ public class AccountingTransfer {
         /**
          * List of selected transactions to associate with the transfer. Use this field to include transactions which are posted to the _undeposited funds_ (or other holding) account within the transfer.
          */
-        public Builder depositedRecordRefs(JsonNullable<? extends List<RecordRef>> depositedRecordRefs) {
+        public Builder depositedRecordRefs(JsonNullable<? extends List<AccountingRecordRef>> depositedRecordRefs) {
             Utils.checkNotNull(depositedRecordRefs, "depositedRecordRefs");
             this.depositedRecordRefs = depositedRecordRefs;
             return this;

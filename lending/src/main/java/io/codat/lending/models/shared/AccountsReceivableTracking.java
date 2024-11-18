@@ -54,7 +54,7 @@ public class AccountsReceivableTracking {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("recordRef")
-    private Optional<? extends RecordReference> recordRef;
+    private Optional<? extends AccountingRecordRef> recordRef;
 
     @JsonCreator
     public AccountsReceivableTracking(
@@ -63,7 +63,7 @@ public class AccountsReceivableTracking {
             @JsonProperty("isBilledTo") BilledToType1 isBilledTo,
             @JsonProperty("isRebilledTo") BilledToType1 isRebilledTo,
             @JsonProperty("projectRef") Optional<? extends ProjectRef> projectRef,
-            @JsonProperty("recordRef") Optional<? extends RecordReference> recordRef) {
+            @JsonProperty("recordRef") Optional<? extends AccountingRecordRef> recordRef) {
         Utils.checkNotNull(categoryRefs, "categoryRefs");
         Utils.checkNotNull(customerRef, "customerRef");
         Utils.checkNotNull(isBilledTo, "isBilledTo");
@@ -125,8 +125,8 @@ public class AccountsReceivableTracking {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<RecordReference> recordRef() {
-        return (Optional<RecordReference>) recordRef;
+    public Optional<AccountingRecordRef> recordRef() {
+        return (Optional<AccountingRecordRef>) recordRef;
     }
 
     public final static Builder builder() {
@@ -186,7 +186,7 @@ public class AccountsReceivableTracking {
      * 
      * For example, if a journal entry is generated based on an invoice, this property allows you to connect the journal entry to the underlying invoice in our data model. 
      */
-    public AccountsReceivableTracking withRecordRef(RecordReference recordRef) {
+    public AccountsReceivableTracking withRecordRef(AccountingRecordRef recordRef) {
         Utils.checkNotNull(recordRef, "recordRef");
         this.recordRef = Optional.ofNullable(recordRef);
         return this;
@@ -197,7 +197,7 @@ public class AccountsReceivableTracking {
      * 
      * For example, if a journal entry is generated based on an invoice, this property allows you to connect the journal entry to the underlying invoice in our data model. 
      */
-    public AccountsReceivableTracking withRecordRef(Optional<? extends RecordReference> recordRef) {
+    public AccountsReceivableTracking withRecordRef(Optional<? extends AccountingRecordRef> recordRef) {
         Utils.checkNotNull(recordRef, "recordRef");
         this.recordRef = recordRef;
         return this;
@@ -255,7 +255,7 @@ public class AccountsReceivableTracking {
  
         private Optional<? extends ProjectRef> projectRef = Optional.empty();
  
-        private Optional<? extends RecordReference> recordRef = Optional.empty();  
+        private Optional<? extends AccountingRecordRef> recordRef = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -314,7 +314,7 @@ public class AccountsReceivableTracking {
          * 
          * For example, if a journal entry is generated based on an invoice, this property allows you to connect the journal entry to the underlying invoice in our data model. 
          */
-        public Builder recordRef(RecordReference recordRef) {
+        public Builder recordRef(AccountingRecordRef recordRef) {
             Utils.checkNotNull(recordRef, "recordRef");
             this.recordRef = Optional.ofNullable(recordRef);
             return this;
@@ -325,7 +325,7 @@ public class AccountsReceivableTracking {
          * 
          * For example, if a journal entry is generated based on an invoice, this property allows you to connect the journal entry to the underlying invoice in our data model. 
          */
-        public Builder recordRef(Optional<? extends RecordReference> recordRef) {
+        public Builder recordRef(Optional<? extends AccountingRecordRef> recordRef) {
             Utils.checkNotNull(recordRef, "recordRef");
             this.recordRef = recordRef;
             return this;

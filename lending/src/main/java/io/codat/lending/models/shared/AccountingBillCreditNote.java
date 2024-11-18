@@ -76,7 +76,7 @@ public class AccountingBillCreditNote {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("createdFromRefs")
-    private JsonNullable<? extends List<RecordRef>> createdFromRefs;
+    private JsonNullable<? extends List<AccountingRecordRef>> createdFromRefs;
 
     /**
      * The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
@@ -261,7 +261,7 @@ public class AccountingBillCreditNote {
     public AccountingBillCreditNote(
             @JsonProperty("allocatedOnDate") Optional<String> allocatedOnDate,
             @JsonProperty("billCreditNoteNumber") JsonNullable<String> billCreditNoteNumber,
-            @JsonProperty("createdFromRefs") JsonNullable<? extends List<RecordRef>> createdFromRefs,
+            @JsonProperty("createdFromRefs") JsonNullable<? extends List<AccountingRecordRef>> createdFromRefs,
             @JsonProperty("currency") Optional<String> currency,
             @JsonProperty("currencyRate") JsonNullable<? extends BigDecimal> currencyRate,
             @JsonProperty("discountPercentage") BigDecimal discountPercentage,
@@ -379,8 +379,8 @@ public class AccountingBillCreditNote {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public JsonNullable<List<RecordRef>> createdFromRefs() {
-        return (JsonNullable<List<RecordRef>>) createdFromRefs;
+    public JsonNullable<List<AccountingRecordRef>> createdFromRefs() {
+        return (JsonNullable<List<AccountingRecordRef>>) createdFromRefs;
     }
 
     /**
@@ -675,7 +675,7 @@ public class AccountingBillCreditNote {
     /**
      * An array of records the credit note was created from.
      */
-    public AccountingBillCreditNote withCreatedFromRefs(List<RecordRef> createdFromRefs) {
+    public AccountingBillCreditNote withCreatedFromRefs(List<AccountingRecordRef> createdFromRefs) {
         Utils.checkNotNull(createdFromRefs, "createdFromRefs");
         this.createdFromRefs = JsonNullable.of(createdFromRefs);
         return this;
@@ -684,7 +684,7 @@ public class AccountingBillCreditNote {
     /**
      * An array of records the credit note was created from.
      */
-    public AccountingBillCreditNote withCreatedFromRefs(JsonNullable<? extends List<RecordRef>> createdFromRefs) {
+    public AccountingBillCreditNote withCreatedFromRefs(JsonNullable<? extends List<AccountingRecordRef>> createdFromRefs) {
         Utils.checkNotNull(createdFromRefs, "createdFromRefs");
         this.createdFromRefs = createdFromRefs;
         return this;
@@ -1270,7 +1270,7 @@ public class AccountingBillCreditNote {
  
         private JsonNullable<String> billCreditNoteNumber = JsonNullable.undefined();
  
-        private JsonNullable<? extends List<RecordRef>> createdFromRefs = JsonNullable.undefined();
+        private JsonNullable<? extends List<AccountingRecordRef>> createdFromRefs = JsonNullable.undefined();
  
         private Optional<String> currency = Optional.empty();
  
@@ -1391,7 +1391,7 @@ public class AccountingBillCreditNote {
         /**
          * An array of records the credit note was created from.
          */
-        public Builder createdFromRefs(List<RecordRef> createdFromRefs) {
+        public Builder createdFromRefs(List<AccountingRecordRef> createdFromRefs) {
             Utils.checkNotNull(createdFromRefs, "createdFromRefs");
             this.createdFromRefs = JsonNullable.of(createdFromRefs);
             return this;
@@ -1400,7 +1400,7 @@ public class AccountingBillCreditNote {
         /**
          * An array of records the credit note was created from.
          */
-        public Builder createdFromRefs(JsonNullable<? extends List<RecordRef>> createdFromRefs) {
+        public Builder createdFromRefs(JsonNullable<? extends List<AccountingRecordRef>> createdFromRefs) {
             Utils.checkNotNull(createdFromRefs, "createdFromRefs");
             this.createdFromRefs = createdFromRefs;
             return this;

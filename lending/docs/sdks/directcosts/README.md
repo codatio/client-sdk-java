@@ -28,11 +28,11 @@ import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.CreateDirectCostRequest;
 import io.codat.lending.models.operations.CreateDirectCostResponse;
 import io.codat.lending.models.shared.AccountingPaymentAllocation;
+import io.codat.lending.models.shared.AccountingRecordRef;
 import io.codat.lending.models.shared.Allocation;
 import io.codat.lending.models.shared.DirectCostLineItem;
 import io.codat.lending.models.shared.DirectCostPrototype;
 import io.codat.lending.models.shared.PaymentAllocationPayment;
-import io.codat.lending.models.shared.RecordRef;
 import io.codat.lending.models.shared.Security;
 import io.codat.lending.models.shared.Tracking;
 import io.codat.lending.models.shared.TrackingRecordRef;
@@ -66,7 +66,7 @@ public class Application {
                                     TrackingRecordRef.builder()
                                         .dataType(TrackingRecordRefDataType.TRACKING_CATEGORIES)
                                         .build()))
-                                .invoiceTo(RecordRef.builder()
+                                .invoiceTo(AccountingRecordRef.builder()
                                     .dataType("journalEntry")
                                     .build())
                                 .build())

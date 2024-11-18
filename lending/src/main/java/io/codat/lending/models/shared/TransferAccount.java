@@ -25,11 +25,13 @@ import java.util.Optional;
 public class TransferAccount {
 
     /**
-     * Data types that reference an account, for example bill and invoice line items, use an accountRef that includes the ID and name of the linked account.
+     * Links the current record to the underlying record or data type that created it. 
+     * 
+     * For example, if a journal entry is generated based on an invoice, this property allows you to connect the journal entry to the underlying invoice in our data model. 
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("accountRef")
-    private Optional<? extends AccountRef> accountRef;
+    private Optional<? extends AccountingRecordRef> accountRef;
 
     /**
      * The amount transferred between accounts.
@@ -53,7 +55,7 @@ public class TransferAccount {
 
     @JsonCreator
     public TransferAccount(
-            @JsonProperty("accountRef") Optional<? extends AccountRef> accountRef,
+            @JsonProperty("accountRef") Optional<? extends AccountingRecordRef> accountRef,
             @JsonProperty("amount") Optional<? extends BigDecimal> amount,
             @JsonProperty("currency") Optional<String> currency) {
         Utils.checkNotNull(accountRef, "accountRef");
@@ -69,12 +71,14 @@ public class TransferAccount {
     }
 
     /**
-     * Data types that reference an account, for example bill and invoice line items, use an accountRef that includes the ID and name of the linked account.
+     * Links the current record to the underlying record or data type that created it. 
+     * 
+     * For example, if a journal entry is generated based on an invoice, this property allows you to connect the journal entry to the underlying invoice in our data model. 
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<AccountRef> accountRef() {
-        return (Optional<AccountRef>) accountRef;
+    public Optional<AccountingRecordRef> accountRef() {
+        return (Optional<AccountingRecordRef>) accountRef;
     }
 
     /**
@@ -105,18 +109,22 @@ public class TransferAccount {
     }
 
     /**
-     * Data types that reference an account, for example bill and invoice line items, use an accountRef that includes the ID and name of the linked account.
+     * Links the current record to the underlying record or data type that created it. 
+     * 
+     * For example, if a journal entry is generated based on an invoice, this property allows you to connect the journal entry to the underlying invoice in our data model. 
      */
-    public TransferAccount withAccountRef(AccountRef accountRef) {
+    public TransferAccount withAccountRef(AccountingRecordRef accountRef) {
         Utils.checkNotNull(accountRef, "accountRef");
         this.accountRef = Optional.ofNullable(accountRef);
         return this;
     }
 
     /**
-     * Data types that reference an account, for example bill and invoice line items, use an accountRef that includes the ID and name of the linked account.
+     * Links the current record to the underlying record or data type that created it. 
+     * 
+     * For example, if a journal entry is generated based on an invoice, this property allows you to connect the journal entry to the underlying invoice in our data model. 
      */
-    public TransferAccount withAccountRef(Optional<? extends AccountRef> accountRef) {
+    public TransferAccount withAccountRef(Optional<? extends AccountingRecordRef> accountRef) {
         Utils.checkNotNull(accountRef, "accountRef");
         this.accountRef = accountRef;
         return this;
@@ -211,7 +219,7 @@ public class TransferAccount {
     
     public final static class Builder {
  
-        private Optional<? extends AccountRef> accountRef = Optional.empty();
+        private Optional<? extends AccountingRecordRef> accountRef = Optional.empty();
  
         private Optional<? extends BigDecimal> amount = Optional.empty();
  
@@ -222,18 +230,22 @@ public class TransferAccount {
         }
 
         /**
-         * Data types that reference an account, for example bill and invoice line items, use an accountRef that includes the ID and name of the linked account.
+         * Links the current record to the underlying record or data type that created it. 
+         * 
+         * For example, if a journal entry is generated based on an invoice, this property allows you to connect the journal entry to the underlying invoice in our data model. 
          */
-        public Builder accountRef(AccountRef accountRef) {
+        public Builder accountRef(AccountingRecordRef accountRef) {
             Utils.checkNotNull(accountRef, "accountRef");
             this.accountRef = Optional.ofNullable(accountRef);
             return this;
         }
 
         /**
-         * Data types that reference an account, for example bill and invoice line items, use an accountRef that includes the ID and name of the linked account.
+         * Links the current record to the underlying record or data type that created it. 
+         * 
+         * For example, if a journal entry is generated based on an invoice, this property allows you to connect the journal entry to the underlying invoice in our data model. 
          */
-        public Builder accountRef(Optional<? extends AccountRef> accountRef) {
+        public Builder accountRef(Optional<? extends AccountingRecordRef> accountRef) {
             Utils.checkNotNull(accountRef, "accountRef");
             this.accountRef = accountRef;
             return this;
