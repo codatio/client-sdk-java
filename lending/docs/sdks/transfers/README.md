@@ -27,8 +27,8 @@ import io.codat.lending.CodatLending;
 import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.CreateTransferRequest;
 import io.codat.lending.models.operations.CreateTransferResponse;
+import io.codat.lending.models.shared.AccountingRecordRef;
 import io.codat.lending.models.shared.AccountingTransfer;
-import io.codat.lending.models.shared.RecordRef;
 import io.codat.lending.models.shared.Security;
 import io.codat.lending.models.shared.TransferAccount;
 import java.lang.Exception;
@@ -50,16 +50,22 @@ public class Application {
                 .accountingTransfer(AccountingTransfer.builder()
                     .date("2022-10-23T00:00:00Z")
                     .depositedRecordRefs(List.of(
-                        RecordRef.builder()
+                        AccountingRecordRef.builder()
                             .dataType("accountTransaction")
                             .build()))
                     .from(TransferAccount.builder()
-                        .currency("USD")
+                        .accountRef(AccountingRecordRef.builder()
+                            .dataType("invoice")
+                            .build())
+                        .currency("GBP")
                         .build())
                     .modifiedDate("2022-10-23T00:00:00Z")
                     .sourceModifiedDate("2022-10-23T00:00:00Z")
                     .to(TransferAccount.builder()
-                        .currency("EUR")
+                        .accountRef(AccountingRecordRef.builder()
+                            .dataType("transfer")
+                            .build())
+                        .currency("GBP")
                         .build())
                     .build())
                 .build();
