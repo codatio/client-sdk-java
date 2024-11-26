@@ -8,6 +8,7 @@ import io.codat.sync.commerce.models.operations.SDKMethodInterfaces.*;
 import io.codat.sync.commerce.utils.HTTPClient;
 import io.codat.sync.commerce.utils.RetryConfig;
 import io.codat.sync.commerce.utils.SpeakeasyHTTPClient;
+import io.codat.sync.commerce.utils.Utils;
 import java.lang.String;
 import java.util.Map;
 import java.util.Optional;
@@ -172,7 +173,7 @@ public class CodatSyncCommerce {
          * @return The builder instance.
          */
         public Builder serverURL(String serverUrl, Map<String, String> params) {
-            this.sdkConfiguration.serverUrl = io.codat.sync.commerce.utils.Utils.templateUrl(serverUrl, params);
+            this.sdkConfiguration.serverUrl = Utils.templateUrl(serverUrl, params);
             return this;
         }
         

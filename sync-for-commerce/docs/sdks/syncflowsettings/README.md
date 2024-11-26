@@ -23,41 +23,30 @@ package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
 import io.codat.sync.commerce.models.components.Locale;
-import io.codat.sync.commerce.models.errors.SDKError;
+import io.codat.sync.commerce.models.errors.ErrorMessage;
 import io.codat.sync.commerce.models.operations.GetConfigTextSyncFlowRequest;
 import io.codat.sync.commerce.models.operations.GetConfigTextSyncFlowResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncCommerce sdk = CodatSyncCommerce.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            GetConfigTextSyncFlowRequest req = GetConfigTextSyncFlowRequest.builder()
+        CodatSyncCommerce sdk = CodatSyncCommerce.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        GetConfigTextSyncFlowRequest req = GetConfigTextSyncFlowRequest.builder()
                 .locale(Locale.EN_US)
                 .build();
 
-            GetConfigTextSyncFlowResponse res = sdk.syncFlowSettings().getConfigTextSyncFlow()
+        GetConfigTextSyncFlowResponse res = sdk.syncFlowSettings().getConfigTextSyncFlow()
                 .request(req)
                 .call();
 
-            if (res.localizationInfo().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.localizationInfo().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -74,11 +63,10 @@ public class Application {
 
 ### Errors
 
-| Error Object               | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| models/errors/ErrorMessage | 401,402,403,429,500,503    | application/json           |
-| models/errors/SDKError     | 4xx-5xx                    | \*\/*                      |
-
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| models/errors/ErrorMessage   | 401, 402, 403, 429, 500, 503 | application/json             |
+| models/errors/SDKError       | 4XX, 5XX                     | \*/\*                        |
 
 ## getVisibleAccounts
 
@@ -90,42 +78,31 @@ Return accounts which are visible on sync flow.
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.errors.SDKError;
+import io.codat.sync.commerce.models.errors.ErrorMessage;
 import io.codat.sync.commerce.models.operations.GetVisibleAccountsRequest;
 import io.codat.sync.commerce.models.operations.GetVisibleAccountsResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncCommerce sdk = CodatSyncCommerce.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            GetVisibleAccountsRequest req = GetVisibleAccountsRequest.builder()
-                .clientId("86fe9741-738d-4f2c-8e96-9c3f84156e91")
+        CodatSyncCommerce sdk = CodatSyncCommerce.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        GetVisibleAccountsRequest req = GetVisibleAccountsRequest.builder()
+                .clientId("8f9478fc-e6cf-445e-b122-74136f8fd7ab")
                 .platformKey("gbol")
                 .build();
 
-            GetVisibleAccountsResponse res = sdk.syncFlowSettings().getVisibleAccounts()
+        GetVisibleAccountsResponse res = sdk.syncFlowSettings().getVisibleAccounts()
                 .request(req)
                 .call();
 
-            if (res.visibleAccounts().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.visibleAccounts().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -142,11 +119,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## updateConfigTextSyncFlow
 
@@ -159,41 +135,30 @@ package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
 import io.codat.sync.commerce.models.components.Locale;
-import io.codat.sync.commerce.models.errors.SDKError;
+import io.codat.sync.commerce.models.errors.ErrorMessage;
 import io.codat.sync.commerce.models.operations.UpdateConfigTextSyncFlowRequest;
 import io.codat.sync.commerce.models.operations.UpdateConfigTextSyncFlowResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncCommerce sdk = CodatSyncCommerce.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            UpdateConfigTextSyncFlowRequest req = UpdateConfigTextSyncFlowRequest.builder()
+        CodatSyncCommerce sdk = CodatSyncCommerce.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        UpdateConfigTextSyncFlowRequest req = UpdateConfigTextSyncFlowRequest.builder()
                 .locale(Locale.EN_US)
                 .build();
 
-            UpdateConfigTextSyncFlowResponse res = sdk.syncFlowSettings().updateConfigTextSyncFlow()
+        UpdateConfigTextSyncFlowResponse res = sdk.syncFlowSettings().updateConfigTextSyncFlow()
                 .request(req)
                 .call();
 
-            if (res.localizationInfo().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.localizationInfo().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -210,11 +175,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 400,401,402,403,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 400, 401, 402, 403, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## updateVisibleAccountsSyncFlow
 
@@ -226,41 +190,30 @@ Update which accounts are visible on sync flow.
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.errors.SDKError;
+import io.codat.sync.commerce.models.errors.ErrorMessage;
 import io.codat.sync.commerce.models.operations.UpdateVisibleAccountsSyncFlowRequest;
 import io.codat.sync.commerce.models.operations.UpdateVisibleAccountsSyncFlowResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncCommerce sdk = CodatSyncCommerce.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            UpdateVisibleAccountsSyncFlowRequest req = UpdateVisibleAccountsSyncFlowRequest.builder()
+        CodatSyncCommerce sdk = CodatSyncCommerce.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        UpdateVisibleAccountsSyncFlowRequest req = UpdateVisibleAccountsSyncFlowRequest.builder()
                 .platformKey("gbol")
                 .build();
 
-            UpdateVisibleAccountsSyncFlowResponse res = sdk.syncFlowSettings().updateVisibleAccountsSyncFlow()
+        UpdateVisibleAccountsSyncFlowResponse res = sdk.syncFlowSettings().updateVisibleAccountsSyncFlow()
                 .request(req)
                 .call();
 
-            if (res.visibleAccounts().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.visibleAccounts().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -277,7 +230,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |

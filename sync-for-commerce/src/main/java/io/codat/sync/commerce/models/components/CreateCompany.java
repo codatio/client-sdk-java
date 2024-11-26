@@ -14,7 +14,7 @@ import io.codat.sync.commerce.utils.Utils;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
-import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -29,34 +29,34 @@ public class CreateCompany {
     private Optional<String> description;
 
     /**
-     * Reference to the groups that the company is assigned to.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("groups")
-    private Optional<? extends List<GroupReference>> groups;
-
-    /**
      * Name of company being connected.
      */
     @JsonProperty("name")
     private String name;
 
+    /**
+     * A collection of user-defined key-value pairs that store custom metadata against the company.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("tags")
+    private Optional<? extends Map<String, String>> tags;
+
     @JsonCreator
     public CreateCompany(
             @JsonProperty("description") Optional<String> description,
-            @JsonProperty("groups") Optional<? extends List<GroupReference>> groups,
-            @JsonProperty("name") String name) {
+            @JsonProperty("name") String name,
+            @JsonProperty("tags") Optional<? extends Map<String, String>> tags) {
         Utils.checkNotNull(description, "description");
-        Utils.checkNotNull(groups, "groups");
         Utils.checkNotNull(name, "name");
+        Utils.checkNotNull(tags, "tags");
         this.description = description;
-        this.groups = groups;
         this.name = name;
+        this.tags = tags;
     }
     
     public CreateCompany(
             String name) {
-        this(Optional.empty(), Optional.empty(), name);
+        this(Optional.empty(), name, Optional.empty());
     }
 
     /**
@@ -68,20 +68,20 @@ public class CreateCompany {
     }
 
     /**
-     * Reference to the groups that the company is assigned to.
-     */
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public Optional<List<GroupReference>> groups() {
-        return (Optional<List<GroupReference>>) groups;
-    }
-
-    /**
      * Name of company being connected.
      */
     @JsonIgnore
     public String name() {
         return name;
+    }
+
+    /**
+     * A collection of user-defined key-value pairs that store custom metadata against the company.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<Map<String, String>> tags() {
+        return (Optional<Map<String, String>>) tags;
     }
 
     public final static Builder builder() {
@@ -107,29 +107,29 @@ public class CreateCompany {
     }
 
     /**
-     * Reference to the groups that the company is assigned to.
-     */
-    public CreateCompany withGroups(List<GroupReference> groups) {
-        Utils.checkNotNull(groups, "groups");
-        this.groups = Optional.ofNullable(groups);
-        return this;
-    }
-
-    /**
-     * Reference to the groups that the company is assigned to.
-     */
-    public CreateCompany withGroups(Optional<? extends List<GroupReference>> groups) {
-        Utils.checkNotNull(groups, "groups");
-        this.groups = groups;
-        return this;
-    }
-
-    /**
      * Name of company being connected.
      */
     public CreateCompany withName(String name) {
         Utils.checkNotNull(name, "name");
         this.name = name;
+        return this;
+    }
+
+    /**
+     * A collection of user-defined key-value pairs that store custom metadata against the company.
+     */
+    public CreateCompany withTags(Map<String, String> tags) {
+        Utils.checkNotNull(tags, "tags");
+        this.tags = Optional.ofNullable(tags);
+        return this;
+    }
+
+    /**
+     * A collection of user-defined key-value pairs that store custom metadata against the company.
+     */
+    public CreateCompany withTags(Optional<? extends Map<String, String>> tags) {
+        Utils.checkNotNull(tags, "tags");
+        this.tags = tags;
         return this;
     }
     
@@ -144,33 +144,33 @@ public class CreateCompany {
         CreateCompany other = (CreateCompany) o;
         return 
             Objects.deepEquals(this.description, other.description) &&
-            Objects.deepEquals(this.groups, other.groups) &&
-            Objects.deepEquals(this.name, other.name);
+            Objects.deepEquals(this.name, other.name) &&
+            Objects.deepEquals(this.tags, other.tags);
     }
     
     @Override
     public int hashCode() {
         return Objects.hash(
             description,
-            groups,
-            name);
+            name,
+            tags);
     }
     
     @Override
     public String toString() {
         return Utils.toString(CreateCompany.class,
                 "description", description,
-                "groups", groups,
-                "name", name);
+                "name", name,
+                "tags", tags);
     }
     
     public final static class Builder {
  
         private Optional<String> description = Optional.empty();
  
-        private Optional<? extends List<GroupReference>> groups = Optional.empty();
+        private String name;
  
-        private String name;  
+        private Optional<? extends Map<String, String>> tags = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -195,24 +195,6 @@ public class CreateCompany {
         }
 
         /**
-         * Reference to the groups that the company is assigned to.
-         */
-        public Builder groups(List<GroupReference> groups) {
-            Utils.checkNotNull(groups, "groups");
-            this.groups = Optional.ofNullable(groups);
-            return this;
-        }
-
-        /**
-         * Reference to the groups that the company is assigned to.
-         */
-        public Builder groups(Optional<? extends List<GroupReference>> groups) {
-            Utils.checkNotNull(groups, "groups");
-            this.groups = groups;
-            return this;
-        }
-
-        /**
          * Name of company being connected.
          */
         public Builder name(String name) {
@@ -220,12 +202,30 @@ public class CreateCompany {
             this.name = name;
             return this;
         }
+
+        /**
+         * A collection of user-defined key-value pairs that store custom metadata against the company.
+         */
+        public Builder tags(Map<String, String> tags) {
+            Utils.checkNotNull(tags, "tags");
+            this.tags = Optional.ofNullable(tags);
+            return this;
+        }
+
+        /**
+         * A collection of user-defined key-value pairs that store custom metadata against the company.
+         */
+        public Builder tags(Optional<? extends Map<String, String>> tags) {
+            Utils.checkNotNull(tags, "tags");
+            this.tags = tags;
+            return this;
+        }
         
         public CreateCompany build() {
             return new CreateCompany(
                 description,
-                groups,
-                name);
+                name,
+                tags);
         }
     }
 }

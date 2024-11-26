@@ -25,42 +25,31 @@ Get the sync status for a specified sync
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.errors.SDKError;
+import io.codat.sync.commerce.models.errors.ErrorMessage;
 import io.codat.sync.commerce.models.operations.GetSyncByIdRequest;
 import io.codat.sync.commerce.models.operations.GetSyncByIdResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncCommerce sdk = CodatSyncCommerce.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            GetSyncByIdRequest req = GetSyncByIdRequest.builder()
+        CodatSyncCommerce sdk = CodatSyncCommerce.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        GetSyncByIdRequest req = GetSyncByIdRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .syncId("6fb40d5e-b13e-11ed-afa1-0242ac120002")
                 .build();
 
-            GetSyncByIdResponse res = sdk.sync().get()
+        GetSyncByIdResponse res = sdk.sync().get()
                 .request(req)
                 .call();
 
-            if (res.companySyncStatus().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.companySyncStatus().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -77,11 +66,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## getLastSuccessfulSync
 
@@ -93,41 +81,30 @@ Gets the status of the last successful sync
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.errors.SDKError;
+import io.codat.sync.commerce.models.errors.ErrorMessage;
 import io.codat.sync.commerce.models.operations.GetLastSuccessfulSyncRequest;
 import io.codat.sync.commerce.models.operations.GetLastSuccessfulSyncResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncCommerce sdk = CodatSyncCommerce.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            GetLastSuccessfulSyncRequest req = GetLastSuccessfulSyncRequest.builder()
+        CodatSyncCommerce sdk = CodatSyncCommerce.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        GetLastSuccessfulSyncRequest req = GetLastSuccessfulSyncRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .build();
 
-            GetLastSuccessfulSyncResponse res = sdk.sync().getLastSuccessfulSync()
+        GetLastSuccessfulSyncResponse res = sdk.sync().getLastSuccessfulSync()
                 .request(req)
                 .call();
 
-            if (res.companySyncStatus().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.companySyncStatus().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -144,11 +121,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## getLatestSync
 
@@ -160,41 +136,30 @@ Gets the latest sync status
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.errors.SDKError;
+import io.codat.sync.commerce.models.errors.ErrorMessage;
 import io.codat.sync.commerce.models.operations.GetLatestSyncRequest;
 import io.codat.sync.commerce.models.operations.GetLatestSyncResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncCommerce sdk = CodatSyncCommerce.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            GetLatestSyncRequest req = GetLatestSyncRequest.builder()
+        CodatSyncCommerce sdk = CodatSyncCommerce.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        GetLatestSyncRequest req = GetLatestSyncRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .build();
 
-            GetLatestSyncResponse res = sdk.sync().getLatestSync()
+        GetLatestSyncResponse res = sdk.sync().getLatestSync()
                 .request(req)
                 .call();
 
-            if (res.companySyncStatus().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.companySyncStatus().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -211,11 +176,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## getStatus
 
@@ -227,41 +191,30 @@ Gets a list of sync statuses.
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.errors.SDKError;
+import io.codat.sync.commerce.models.errors.ErrorMessage;
 import io.codat.sync.commerce.models.operations.GetSyncStatusRequest;
 import io.codat.sync.commerce.models.operations.GetSyncStatusResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncCommerce sdk = CodatSyncCommerce.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            GetSyncStatusRequest req = GetSyncStatusRequest.builder()
+        CodatSyncCommerce sdk = CodatSyncCommerce.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        GetSyncStatusRequest req = GetSyncStatusRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .build();
 
-            GetSyncStatusResponse res = sdk.sync().getStatus()
+        GetSyncStatusResponse res = sdk.sync().getStatus()
                 .request(req)
                 .call();
 
-            if (res.syncStatus().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.syncStatus().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -278,11 +231,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## list
 
@@ -294,41 +246,30 @@ Gets a list of sync statuses
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.errors.SDKError;
+import io.codat.sync.commerce.models.errors.ErrorMessage;
 import io.codat.sync.commerce.models.operations.ListSyncsRequest;
 import io.codat.sync.commerce.models.operations.ListSyncsResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncCommerce sdk = CodatSyncCommerce.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            ListSyncsRequest req = ListSyncsRequest.builder()
+        CodatSyncCommerce sdk = CodatSyncCommerce.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        ListSyncsRequest req = ListSyncsRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .build();
 
-            ListSyncsResponse res = sdk.sync().list()
+        ListSyncsResponse res = sdk.sync().list()
                 .request(req)
                 .call();
 
-            if (res.classes().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.classes().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -345,11 +286,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## request
 
@@ -362,44 +302,33 @@ package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
 import io.codat.sync.commerce.models.components.SyncToLatestArgs;
-import io.codat.sync.commerce.models.errors.SDKError;
+import io.codat.sync.commerce.models.errors.ErrorMessage;
 import io.codat.sync.commerce.models.operations.RequestSyncRequest;
 import io.codat.sync.commerce.models.operations.RequestSyncResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncCommerce sdk = CodatSyncCommerce.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            RequestSyncRequest req = RequestSyncRequest.builder()
+        CodatSyncCommerce sdk = CodatSyncCommerce.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        RequestSyncRequest req = RequestSyncRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .syncToLatestArgs(SyncToLatestArgs.builder()
                     .syncTo("2022-10-23T00:00:00Z")
                     .build())
                 .build();
 
-            RequestSyncResponse res = sdk.sync().request()
+        RequestSyncResponse res = sdk.sync().request()
                 .request(req)
                 .call();
 
-            if (res.syncSummary().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.syncSummary().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -416,11 +345,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## requestForDateRange
 
@@ -434,20 +362,20 @@ package hello.world;
 import io.codat.sync.commerce.CodatSyncCommerce;
 import io.codat.sync.commerce.models.components.DateRange;
 import io.codat.sync.commerce.models.components.SyncRange;
-import io.codat.sync.commerce.models.errors.SDKError;
+import io.codat.sync.commerce.models.errors.ErrorMessage;
 import io.codat.sync.commerce.models.operations.RequestSyncForDateRangeRequest;
 import io.codat.sync.commerce.models.operations.RequestSyncForDateRangeResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncCommerce sdk = CodatSyncCommerce.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            RequestSyncForDateRangeRequest req = RequestSyncForDateRangeRequest.builder()
+        CodatSyncCommerce sdk = CodatSyncCommerce.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        RequestSyncForDateRangeRequest req = RequestSyncForDateRangeRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .syncRange(SyncRange.builder()
                     .dateRange(DateRange.builder()
@@ -457,24 +385,13 @@ public class Application {
                     .build())
                 .build();
 
-            RequestSyncForDateRangeResponse res = sdk.sync().requestForDateRange()
+        RequestSyncForDateRangeResponse res = sdk.sync().requestForDateRange()
                 .request(req)
                 .call();
 
-            if (res.syncSummary().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.syncSummary().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -491,7 +408,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |

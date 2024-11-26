@@ -19,19 +19,19 @@ public class UpdateVisibleAccountsSyncFlowRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UpdateVisibleAccountsSyncFlowRequestBuilder request(io.codat.sync.commerce.models.operations.UpdateVisibleAccountsSyncFlowRequest request) {
+    public UpdateVisibleAccountsSyncFlowRequestBuilder request(UpdateVisibleAccountsSyncFlowRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public UpdateVisibleAccountsSyncFlowRequestBuilder retryConfig(io.codat.sync.commerce.utils.RetryConfig retryConfig) {
+    public UpdateVisibleAccountsSyncFlowRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public UpdateVisibleAccountsSyncFlowRequestBuilder retryConfig(java.util.Optional<io.codat.sync.commerce.utils.RetryConfig> retryConfig) {
+    public UpdateVisibleAccountsSyncFlowRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

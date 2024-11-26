@@ -19,19 +19,19 @@ public class GetConfigTextSyncFlowRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetConfigTextSyncFlowRequestBuilder request(io.codat.sync.commerce.models.operations.GetConfigTextSyncFlowRequest request) {
+    public GetConfigTextSyncFlowRequestBuilder request(GetConfigTextSyncFlowRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetConfigTextSyncFlowRequestBuilder retryConfig(io.codat.sync.commerce.utils.RetryConfig retryConfig) {
+    public GetConfigTextSyncFlowRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetConfigTextSyncFlowRequestBuilder retryConfig(java.util.Optional<io.codat.sync.commerce.utils.RetryConfig> retryConfig) {
+    public GetConfigTextSyncFlowRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

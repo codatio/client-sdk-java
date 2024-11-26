@@ -19,19 +19,19 @@ public class RequestSyncRequestBuilder {
         this.sdk = sdk;
     }
 
-    public RequestSyncRequestBuilder request(io.codat.sync.commerce.models.operations.RequestSyncRequest request) {
+    public RequestSyncRequestBuilder request(RequestSyncRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public RequestSyncRequestBuilder retryConfig(io.codat.sync.commerce.utils.RetryConfig retryConfig) {
+    public RequestSyncRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public RequestSyncRequestBuilder retryConfig(java.util.Optional<io.codat.sync.commerce.utils.RetryConfig> retryConfig) {
+    public RequestSyncRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

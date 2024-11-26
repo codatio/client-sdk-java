@@ -20,41 +20,30 @@ Retrieve Integration branding assets.
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.errors.SDKError;
+import io.codat.sync.commerce.models.errors.ErrorMessage;
 import io.codat.sync.commerce.models.operations.GetIntegrationBrandingRequest;
 import io.codat.sync.commerce.models.operations.GetIntegrationBrandingResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncCommerce sdk = CodatSyncCommerce.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            GetIntegrationBrandingRequest req = GetIntegrationBrandingRequest.builder()
+        CodatSyncCommerce sdk = CodatSyncCommerce.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        GetIntegrationBrandingRequest req = GetIntegrationBrandingRequest.builder()
                 .platformKey("gbol")
                 .build();
 
-            GetIntegrationBrandingResponse res = sdk.integrations().getBranding()
+        GetIntegrationBrandingResponse res = sdk.integrations().getBranding()
                 .request(req)
                 .call();
 
-            if (res.branding().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.branding().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -71,11 +60,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## list
 
@@ -87,44 +75,33 @@ Retrieve a list of available integrations support by data type and state of rele
 package hello.world;
 
 import io.codat.sync.commerce.CodatSyncCommerce;
-import io.codat.sync.commerce.models.errors.SDKError;
+import io.codat.sync.commerce.models.errors.ErrorMessage;
 import io.codat.sync.commerce.models.operations.ListIntegrationsRequest;
 import io.codat.sync.commerce.models.operations.ListIntegrationsResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncCommerce sdk = CodatSyncCommerce.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            ListIntegrationsRequest req = ListIntegrationsRequest.builder()
+        CodatSyncCommerce sdk = CodatSyncCommerce.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        ListIntegrationsRequest req = ListIntegrationsRequest.builder()
                 .orderBy("-modifiedDate")
                 .page(1)
                 .pageSize(100)
                 .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
-            ListIntegrationsResponse res = sdk.integrations().list()
+        ListIntegrationsResponse res = sdk.integrations().list()
                 .request(req)
                 .call();
 
-            if (res.integrations().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.commerce.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.integrations().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -141,7 +118,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 400,401,402,403,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 400, 401, 402, 403, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |

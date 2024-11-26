@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.codat.sync.commerce.utils.Utils;
-import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
@@ -19,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
  * Connection - ﻿A connection represents a [company's](https://docs.codat.io/sync-for-sync-for-commerce-api#/schemas/Company) connection to a data source and allows you to synchronize data (pull and/or push) with that source.
@@ -36,12 +36,8 @@ import java.util.Optional;
 public class Connection {
 
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("additionalProperties")
-    private Optional<? extends Object> additionalProperties;
-
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("connectionInfo")
-    private Optional<? extends Map<String, String>> connectionInfo;
+    private JsonNullable<? extends Map<String, String>> connectionInfo;
 
     /**
      * In Codat's data model, dates and times are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date and time fields are formatted as strings; for example:
@@ -69,7 +65,7 @@ public class Connection {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("dataConnectionErrors")
-    private Optional<? extends List<DataConnectionError>> dataConnectionErrors;
+    private JsonNullable<? extends List<DataConnectionError>> dataConnectionErrors;
 
     /**
      * Unique identifier for a company's data connection.
@@ -146,10 +142,9 @@ public class Connection {
 
     @JsonCreator
     public Connection(
-            @JsonProperty("additionalProperties") Optional<? extends Object> additionalProperties,
-            @JsonProperty("connectionInfo") Optional<? extends Map<String, String>> connectionInfo,
+            @JsonProperty("connectionInfo") JsonNullable<? extends Map<String, String>> connectionInfo,
             @JsonProperty("created") String created,
-            @JsonProperty("dataConnectionErrors") Optional<? extends List<DataConnectionError>> dataConnectionErrors,
+            @JsonProperty("dataConnectionErrors") JsonNullable<? extends List<DataConnectionError>> dataConnectionErrors,
             @JsonProperty("id") String id,
             @JsonProperty("integrationId") String integrationId,
             @JsonProperty("integrationKey") String integrationKey,
@@ -159,7 +154,6 @@ public class Connection {
             @JsonProperty("sourceId") String sourceId,
             @JsonProperty("sourceType") SourceType sourceType,
             @JsonProperty("status") DataConnectionStatus status) {
-        Utils.checkNotNull(additionalProperties, "additionalProperties");
         Utils.checkNotNull(connectionInfo, "connectionInfo");
         Utils.checkNotNull(created, "created");
         Utils.checkNotNull(dataConnectionErrors, "dataConnectionErrors");
@@ -172,7 +166,6 @@ public class Connection {
         Utils.checkNotNull(sourceId, "sourceId");
         Utils.checkNotNull(sourceType, "sourceType");
         Utils.checkNotNull(status, "status");
-        this.additionalProperties = additionalProperties;
         this.connectionInfo = connectionInfo;
         this.created = created;
         this.dataConnectionErrors = dataConnectionErrors;
@@ -197,19 +190,13 @@ public class Connection {
             String sourceId,
             SourceType sourceType,
             DataConnectionStatus status) {
-        this(Optional.empty(), Optional.empty(), created, Optional.empty(), id, integrationId, integrationKey, Optional.empty(), linkUrl, platformName, sourceId, sourceType, status);
+        this(JsonNullable.undefined(), created, JsonNullable.undefined(), id, integrationId, integrationKey, Optional.empty(), linkUrl, platformName, sourceId, sourceType, status);
     }
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<Object> additionalProperties() {
-        return (Optional<Object>) additionalProperties;
-    }
-
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public Optional<Map<String, String>> connectionInfo() {
-        return (Optional<Map<String, String>>) connectionInfo;
+    public JsonNullable<Map<String, String>> connectionInfo() {
+        return (JsonNullable<Map<String, String>>) connectionInfo;
     }
 
     /**
@@ -240,8 +227,8 @@ public class Connection {
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<DataConnectionError>> dataConnectionErrors() {
-        return (Optional<List<DataConnectionError>>) dataConnectionErrors;
+    public JsonNullable<List<DataConnectionError>> dataConnectionErrors() {
+        return (JsonNullable<List<DataConnectionError>>) dataConnectionErrors;
     }
 
     /**
@@ -338,25 +325,13 @@ public class Connection {
         return new Builder();
     }
 
-    public Connection withAdditionalProperties(Object additionalProperties) {
-        Utils.checkNotNull(additionalProperties, "additionalProperties");
-        this.additionalProperties = Optional.ofNullable(additionalProperties);
-        return this;
-    }
-
-    public Connection withAdditionalProperties(Optional<? extends Object> additionalProperties) {
-        Utils.checkNotNull(additionalProperties, "additionalProperties");
-        this.additionalProperties = additionalProperties;
-        return this;
-    }
-
     public Connection withConnectionInfo(Map<String, String> connectionInfo) {
         Utils.checkNotNull(connectionInfo, "connectionInfo");
-        this.connectionInfo = Optional.ofNullable(connectionInfo);
+        this.connectionInfo = JsonNullable.of(connectionInfo);
         return this;
     }
 
-    public Connection withConnectionInfo(Optional<? extends Map<String, String>> connectionInfo) {
+    public Connection withConnectionInfo(JsonNullable<? extends Map<String, String>> connectionInfo) {
         Utils.checkNotNull(connectionInfo, "connectionInfo");
         this.connectionInfo = connectionInfo;
         return this;
@@ -391,11 +366,11 @@ public class Connection {
 
     public Connection withDataConnectionErrors(List<DataConnectionError> dataConnectionErrors) {
         Utils.checkNotNull(dataConnectionErrors, "dataConnectionErrors");
-        this.dataConnectionErrors = Optional.ofNullable(dataConnectionErrors);
+        this.dataConnectionErrors = JsonNullable.of(dataConnectionErrors);
         return this;
     }
 
-    public Connection withDataConnectionErrors(Optional<? extends List<DataConnectionError>> dataConnectionErrors) {
+    public Connection withDataConnectionErrors(JsonNullable<? extends List<DataConnectionError>> dataConnectionErrors) {
         Utils.checkNotNull(dataConnectionErrors, "dataConnectionErrors");
         this.dataConnectionErrors = dataConnectionErrors;
         return this;
@@ -537,7 +512,6 @@ public class Connection {
         }
         Connection other = (Connection) o;
         return 
-            Objects.deepEquals(this.additionalProperties, other.additionalProperties) &&
             Objects.deepEquals(this.connectionInfo, other.connectionInfo) &&
             Objects.deepEquals(this.created, other.created) &&
             Objects.deepEquals(this.dataConnectionErrors, other.dataConnectionErrors) &&
@@ -555,7 +529,6 @@ public class Connection {
     @Override
     public int hashCode() {
         return Objects.hash(
-            additionalProperties,
             connectionInfo,
             created,
             dataConnectionErrors,
@@ -573,7 +546,6 @@ public class Connection {
     @Override
     public String toString() {
         return Utils.toString(Connection.class,
-                "additionalProperties", additionalProperties,
                 "connectionInfo", connectionInfo,
                 "created", created,
                 "dataConnectionErrors", dataConnectionErrors,
@@ -590,13 +562,11 @@ public class Connection {
     
     public final static class Builder {
  
-        private Optional<? extends Object> additionalProperties = Optional.empty();
- 
-        private Optional<? extends Map<String, String>> connectionInfo = Optional.empty();
+        private JsonNullable<? extends Map<String, String>> connectionInfo = JsonNullable.undefined();
  
         private String created;
  
-        private Optional<? extends List<DataConnectionError>> dataConnectionErrors = Optional.empty();
+        private JsonNullable<? extends List<DataConnectionError>> dataConnectionErrors = JsonNullable.undefined();
  
         private String id;
  
@@ -620,25 +590,13 @@ public class Connection {
           // force use of static builder() method
         }
 
-        public Builder additionalProperties(Object additionalProperties) {
-            Utils.checkNotNull(additionalProperties, "additionalProperties");
-            this.additionalProperties = Optional.ofNullable(additionalProperties);
-            return this;
-        }
-
-        public Builder additionalProperties(Optional<? extends Object> additionalProperties) {
-            Utils.checkNotNull(additionalProperties, "additionalProperties");
-            this.additionalProperties = additionalProperties;
-            return this;
-        }
-
         public Builder connectionInfo(Map<String, String> connectionInfo) {
             Utils.checkNotNull(connectionInfo, "connectionInfo");
-            this.connectionInfo = Optional.ofNullable(connectionInfo);
+            this.connectionInfo = JsonNullable.of(connectionInfo);
             return this;
         }
 
-        public Builder connectionInfo(Optional<? extends Map<String, String>> connectionInfo) {
+        public Builder connectionInfo(JsonNullable<? extends Map<String, String>> connectionInfo) {
             Utils.checkNotNull(connectionInfo, "connectionInfo");
             this.connectionInfo = connectionInfo;
             return this;
@@ -673,11 +631,11 @@ public class Connection {
 
         public Builder dataConnectionErrors(List<DataConnectionError> dataConnectionErrors) {
             Utils.checkNotNull(dataConnectionErrors, "dataConnectionErrors");
-            this.dataConnectionErrors = Optional.ofNullable(dataConnectionErrors);
+            this.dataConnectionErrors = JsonNullable.of(dataConnectionErrors);
             return this;
         }
 
-        public Builder dataConnectionErrors(Optional<? extends List<DataConnectionError>> dataConnectionErrors) {
+        public Builder dataConnectionErrors(JsonNullable<? extends List<DataConnectionError>> dataConnectionErrors) {
             Utils.checkNotNull(dataConnectionErrors, "dataConnectionErrors");
             this.dataConnectionErrors = dataConnectionErrors;
             return this;
@@ -811,7 +769,6 @@ public class Connection {
         
         public Connection build() {
             return new Connection(
-                additionalProperties,
                 connectionInfo,
                 created,
                 dataConnectionErrors,
