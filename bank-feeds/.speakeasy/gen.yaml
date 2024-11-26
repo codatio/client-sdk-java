@@ -12,7 +12,7 @@ generation:
     oAuth2PasswordEnabled: false
   telemetryEnabled: true
 java:
-  version: 1.0.0
+  version: 2.0.0
   additionalDependencies: []
   additionalPlugins: []
   artifactID: bank-feeds
@@ -21,6 +21,7 @@ java:
   companyEmail: support@codat.io
   companyName: Codat
   companyURL: https://www.codat.io/
+  defaultErrorName: SDKError
   description: Set up bank feeds from accounts in your application to supported accounting platforms.
   flattenGlobalSecurity: true
   githubURL: github.com/codatio/client-sdk-java/bank-feeds

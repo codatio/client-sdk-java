@@ -66,6 +66,27 @@ public class AccountMapping implements
      * &gt; **For custom builds only**
      * &gt;
      * &gt; Only use this endpoint if you are building your own account management UI.
+     * 
+     * #### Account mapping variability
+     * 
+     * The method of mapping the source account to the target account varies depending on the accounting software your company uses.
+     * 
+     * #### Mapping options:
+     * 
+     * 1. **API Mapping**: Integrate the mapping journey directly into your application for a seamless user experience.
+     * 2. **Codat UI Mapping**: If you prefer a quicker setup, you can utilize Codat's provided user interface for mapping.
+     * 3. **Accounting Platform Mapping**: For some accounting software, the mapping process must be conducted within the software itself.
+     * 
+     * ### Integration-specific behaviour
+     * 
+     * | Bank Feed Integration | API Mapping | Codat UI Mapping | Accounting Platform Mapping |
+     * | --------------------- | ----------- | ---------------- | --------------------------- |
+     * | Xero                  | ✅          | ✅               |                             |
+     * | FreeAgent             | ✅          | ✅               |                             |
+     * | Oracle NetSuite       | ✅          | ✅               |                             |
+     * | Exact Online (NL)     | ✅          | ✅               |                             |
+     * | QuickBooks Online     |             |                  | ✅                          |
+     * | Sage                  |             |                  | ✅                          |
      * @return The call builder
      */
     public CreateBankAccountMappingRequestBuilder create() {
@@ -83,6 +104,27 @@ public class AccountMapping implements
      * &gt; **For custom builds only**
      * &gt;
      * &gt; Only use this endpoint if you are building your own account management UI.
+     * 
+     * #### Account mapping variability
+     * 
+     * The method of mapping the source account to the target account varies depending on the accounting software your company uses.
+     * 
+     * #### Mapping options:
+     * 
+     * 1. **API Mapping**: Integrate the mapping journey directly into your application for a seamless user experience.
+     * 2. **Codat UI Mapping**: If you prefer a quicker setup, you can utilize Codat's provided user interface for mapping.
+     * 3. **Accounting Platform Mapping**: For some accounting software, the mapping process must be conducted within the software itself.
+     * 
+     * ### Integration-specific behaviour
+     * 
+     * | Bank Feed Integration | API Mapping | Codat UI Mapping | Accounting Platform Mapping |
+     * | --------------------- | ----------- | ---------------- | --------------------------- |
+     * | Xero                  | ✅          | ✅               |                             |
+     * | FreeAgent             | ✅          | ✅               |                             |
+     * | Oracle NetSuite       | ✅          | ✅               |                             |
+     * | Exact Online (NL)     | ✅          | ✅               |                             |
+     * | QuickBooks Online     |             |                  | ✅                          |
+     * | Sage                  |             |                  | ✅                          |
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
@@ -103,6 +145,27 @@ public class AccountMapping implements
      * &gt; **For custom builds only**
      * &gt;
      * &gt; Only use this endpoint if you are building your own account management UI.
+     * 
+     * #### Account mapping variability
+     * 
+     * The method of mapping the source account to the target account varies depending on the accounting software your company uses.
+     * 
+     * #### Mapping options:
+     * 
+     * 1. **API Mapping**: Integrate the mapping journey directly into your application for a seamless user experience.
+     * 2. **Codat UI Mapping**: If you prefer a quicker setup, you can utilize Codat's provided user interface for mapping.
+     * 3. **Accounting Platform Mapping**: For some accounting software, the mapping process must be conducted within the software itself.
+     * 
+     * ### Integration-specific behaviour
+     * 
+     * | Bank Feed Integration | API Mapping | Codat UI Mapping | Accounting Platform Mapping |
+     * | --------------------- | ----------- | ---------------- | --------------------------- |
+     * | Xero                  | ✅          | ✅               |                             |
+     * | FreeAgent             | ✅          | ✅               |                             |
+     * | Oracle NetSuite       | ✅          | ✅               |                             |
+     * | Exact Online (NL)     | ✅          | ✅               |                             |
+     * | QuickBooks Online     |             |                  | ✅                          |
+     * | Sage                  |             |                  | ✅                          |
      * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
      * @return The response from the API call

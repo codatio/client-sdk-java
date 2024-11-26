@@ -6,6 +6,7 @@ package io.codat.bank_feeds;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.bank_feeds.models.components.Company;
+import io.codat.bank_feeds.models.components.CompanyAccessToken;
 import io.codat.bank_feeds.models.components.CompanyRequestBody;
 import io.codat.bank_feeds.models.errors.ErrorMessage;
 import io.codat.bank_feeds.models.errors.SDKError;
@@ -14,6 +15,9 @@ import io.codat.bank_feeds.models.operations.CreateCompanyResponse;
 import io.codat.bank_feeds.models.operations.DeleteCompanyRequest;
 import io.codat.bank_feeds.models.operations.DeleteCompanyRequestBuilder;
 import io.codat.bank_feeds.models.operations.DeleteCompanyResponse;
+import io.codat.bank_feeds.models.operations.GetCompanyAccessTokenRequest;
+import io.codat.bank_feeds.models.operations.GetCompanyAccessTokenRequestBuilder;
+import io.codat.bank_feeds.models.operations.GetCompanyAccessTokenResponse;
 import io.codat.bank_feeds.models.operations.GetCompanyRequest;
 import io.codat.bank_feeds.models.operations.GetCompanyRequestBuilder;
 import io.codat.bank_feeds.models.operations.GetCompanyResponse;
@@ -56,6 +60,7 @@ public class Companies implements
             MethodCallCreateCompany,
             MethodCallDeleteCompany,
             MethodCallGetCompany,
+            MethodCallGetCompanyAccessToken,
             MethodCallListCompanies,
             MethodCallUpdateCompany {
 
@@ -567,6 +572,178 @@ public class Companies implements
                     Utils.toUtf8AndClose(_httpRes.body()),
                     new TypeReference<Company>() {});
                 _res.withCompany(Optional.ofNullable(_out));
+                return _res;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "401", "402", "403", "404", "429", "500", "503")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                ErrorMessage _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<ErrorMessage>() {});
+                throw _out;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        throw new SDKError(
+            _httpRes, 
+            _httpRes.statusCode(), 
+            "Unexpected status code received: " + _httpRes.statusCode(), 
+            Utils.extractByteArrayFromBody(_httpRes));
+    }
+
+
+
+    /**
+     * Get company access token
+     * Use the _Get company access token_ endpoint to return an access token for the specified company ID to use in Codat's embedded UI products.
+     * 
+     * @return The call builder
+     */
+    public GetCompanyAccessTokenRequestBuilder getAccessToken() {
+        return new GetCompanyAccessTokenRequestBuilder(this);
+    }
+
+    /**
+     * Get company access token
+     * Use the _Get company access token_ endpoint to return an access token for the specified company ID to use in Codat's embedded UI products.
+     * 
+     * @param request The request object containing all of the parameters for the API call.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public GetCompanyAccessTokenResponse getAccessToken(
+            GetCompanyAccessTokenRequest request) throws Exception {
+        return getAccessToken(request, Optional.empty());
+    }
+    
+    /**
+     * Get company access token
+     * Use the _Get company access token_ endpoint to return an access token for the specified company ID to use in Codat's embedded UI products.
+     * 
+     * @param request The request object containing all of the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public GetCompanyAccessTokenResponse getAccessToken(
+            GetCompanyAccessTokenRequest request,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
+        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _url = Utils.generateURL(
+                GetCompanyAccessTokenRequest.class,
+                _baseUrl,
+                "/companies/{companyId}/accessToken",
+                request, null);
+        
+        HTTPRequest _req = new HTTPRequest(_url, "GET");
+        _req.addHeader("Accept", "application/json")
+            .addHeader("user-agent", 
+                SDKConfiguration.USER_AGENT);
+
+        Utils.configureSecurity(_req,  
+                this.sdkConfiguration.securitySource.getSecurity());
+
+        HTTPClient _client = this.sdkConfiguration.defaultClient;
+        HTTPRequest _finalReq = _req;
+        RetryConfig _retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            _retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            _retryConfig = RetryConfig.builder()
+                .backoff(BackoffStrategy.builder()
+                            .initialInterval(500, TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000, TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
+        }
+        List<String> _statusCodes = new ArrayList<>();
+        _statusCodes.add("408");
+        _statusCodes.add("429");
+        _statusCodes.add("5XX");
+        Retries _retries = Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl(
+                                "get-company-access-token", 
+                                Optional.of(List.of()), 
+                                sdkConfiguration.securitySource()),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl(
+                                "get-company-access-token",
+                                 Optional.of(List.of()),
+                                 sdkConfiguration.securitySource()), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
+            .build();
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl(
+                         "get-company-access-token", 
+                         Optional.of(List.of()), 
+                         sdkConfiguration.securitySource()),
+                     _retries.run());
+        String _contentType = _httpRes
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
+        GetCompanyAccessTokenResponse.Builder _resBuilder = 
+            GetCompanyAccessTokenResponse
+                .builder()
+                .contentType(_contentType)
+                .statusCode(_httpRes.statusCode())
+                .rawResponse(_httpRes);
+
+        GetCompanyAccessTokenResponse _res = _resBuilder.build();
+        
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                CompanyAccessToken _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<CompanyAccessToken>() {});
+                _res.withCompanyAccessToken(Optional.ofNullable(_out));
                 return _res;
             } else {
                 throw new SDKError(

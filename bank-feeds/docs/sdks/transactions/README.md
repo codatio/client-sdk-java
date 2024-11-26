@@ -8,6 +8,7 @@ Create new bank account transactions for a company's connections, and see previo
 ### Available Operations
 
 * [create](#create) - Create bank transactions
+* [getCreateModel](#getcreatemodel) - Get create bank transactions model
 * [getCreateOperation](#getcreateoperation) - Get create operation
 * [listCreateOperations](#listcreateoperations) - List create operations
 
@@ -19,8 +20,8 @@ Create new bank account transactions for a company's connections, and see previo
 
 **Integration-specific behaviour**
 
-Required data may vary by integration. To see what data to post, first call [Get create bank transaction model](https://docs.codat.io/bank-feeds-api#/operations/get-create-bankTransactions-model).
-
+The required properties may vary based on the integration. For detailed requirements specific to each accounting software, refer to the API reference examples.
+Alternatively, you can view the [Get create bank transaction model](https://docs.codat.io/bank-feeds-api#/operations/get-create-bank-transactions-model) for more information.
 
 ### Example Usage
 
@@ -54,11 +55,11 @@ public class Application {
                     .transactions(List.of(
                         BankTransactions.builder()
                             .amount(new BigDecimal("999.99"))
-                            .date("2022-10-23T00:00:00Z")
-                            .id("716422529")
                             .balance(new BigDecimal("-999.99"))
                             .counterparty("ACME INC")
+                            .date("2022-10-23T00:00:00Z")
                             .description("Debit for Payment Id sdp-1-57379a43-c4b8-49f5-bd7c-699189ee7a60")
+                            .id("716422529")
                             .reconciled(false)
                             .reference("reference for transaction")
                             .build()))
@@ -92,6 +93,69 @@ public class Application {
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
 | models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
+
+## getCreateModel
+
+The *Get create bank account transactions model* endpoint returns the expected data for the request payload when creating [bank account transactions](https://docs.codat.io/bank-feeds-api#/schemas/BankTransactions) for a given company and integration.
+
+[Bank account transactions](https://docs.codat.io/bank-feeds-api#/schemas/BankTransactions) are records of money that has moved in and out of an SMB's bank account.
+
+**Integration-specific behaviour**
+
+See the *response examples* for integration-specific indicative models.
+
+### Example Usage
+
+```java
+package hello.world;
+
+import io.codat.bank_feeds.CodatBankFeeds;
+import io.codat.bank_feeds.models.errors.ErrorMessage;
+import io.codat.bank_feeds.models.operations.GetCreateBankTransactionsModelRequest;
+import io.codat.bank_feeds.models.operations.GetCreateBankTransactionsModelResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatBankFeeds sdk = CodatBankFeeds.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        GetCreateBankTransactionsModelRequest req = GetCreateBankTransactionsModelRequest.builder()
+                .accountId("13d946f0-c5d5-42bc-b092-97ece17923ab")
+                .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
+                .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
+                .build();
+
+        GetCreateBankTransactionsModelResponse res = sdk.transactions().getCreateModel()
+                .request(req)
+                .call();
+
+        if (res.pushOption().isPresent()) {
+            // handle response
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                 | Type                                                                                                      | Required                                                                                                  | Description                                                                                               |
+| --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `request`                                                                                                 | [GetCreateBankTransactionsModelRequest](../../models/operations/GetCreateBankTransactionsModelRequest.md) | :heavy_check_mark:                                                                                        | The request object to use for the request.                                                                |
+
+### Response
+
+**[GetCreateBankTransactionsModelResponse](../../models/operations/GetCreateBankTransactionsModelResponse.md)**
+
+### Errors
+
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## getCreateOperation
 

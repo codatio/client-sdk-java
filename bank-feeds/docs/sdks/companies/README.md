@@ -10,6 +10,7 @@ Create and manage your SMB users' companies.
 * [create](#create) - Create company
 * [delete](#delete) - Delete a company
 * [get](#get) - Get company
+* [getAccessToken](#getaccesstoken) - Get company access token
 * [list](#list) - List companies
 * [update](#update) - Update company
 
@@ -182,6 +183,62 @@ public class Application {
 ### Response
 
 **[GetCompanyResponse](../../models/operations/GetCompanyResponse.md)**
+
+### Errors
+
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
+
+## getAccessToken
+
+Use the _Get company access token_ endpoint to return an access token for the specified company ID to use in Codat's embedded UI products.
+
+
+### Example Usage
+
+```java
+package hello.world;
+
+import io.codat.bank_feeds.CodatBankFeeds;
+import io.codat.bank_feeds.models.errors.ErrorMessage;
+import io.codat.bank_feeds.models.operations.GetCompanyAccessTokenRequest;
+import io.codat.bank_feeds.models.operations.GetCompanyAccessTokenResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatBankFeeds sdk = CodatBankFeeds.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        GetCompanyAccessTokenRequest req = GetCompanyAccessTokenRequest.builder()
+                .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
+                .build();
+
+        GetCompanyAccessTokenResponse res = sdk.companies().getAccessToken()
+                .request(req)
+                .call();
+
+        if (res.companyAccessToken().isPresent()) {
+            // handle response
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `request`                                                                               | [GetCompanyAccessTokenRequest](../../models/operations/GetCompanyAccessTokenRequest.md) | :heavy_check_mark:                                                                      | The request object to use for the request.                                              |
+
+### Response
+
+**[GetCompanyAccessTokenResponse](../../models/operations/GetCompanyAccessTokenResponse.md)**
 
 ### Errors
 
