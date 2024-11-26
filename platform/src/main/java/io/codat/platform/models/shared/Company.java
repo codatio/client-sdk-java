@@ -123,6 +123,17 @@ public class Company {
     @JsonProperty("redirect")
     private String redirect;
 
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("referenceParentCompany")
+    private Optional<? extends CompanyReference> referenceParentCompany;
+
+    /**
+     * A list of subsidiary companies owned or controlled by this entity. Empty if the company has no children.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("referenceSubsidiaryCompanies")
+    private Optional<? extends List<CompanyReference>> referenceSubsidiaryCompanies;
+
     /**
      * A collection of user-defined key-value pairs that store custom metadata against the company.
      */
@@ -141,6 +152,8 @@ public class Company {
             @JsonProperty("name") String name,
             @JsonProperty("products") Optional<? extends List<String>> products,
             @JsonProperty("redirect") String redirect,
+            @JsonProperty("referenceParentCompany") Optional<? extends CompanyReference> referenceParentCompany,
+            @JsonProperty("referenceSubsidiaryCompanies") Optional<? extends List<CompanyReference>> referenceSubsidiaryCompanies,
             @JsonProperty("tags") Optional<? extends Map<String, String>> tags) {
         Utils.checkNotNull(created, "created");
         Utils.checkNotNull(createdByUserName, "createdByUserName");
@@ -151,6 +164,8 @@ public class Company {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(products, "products");
         Utils.checkNotNull(redirect, "redirect");
+        Utils.checkNotNull(referenceParentCompany, "referenceParentCompany");
+        Utils.checkNotNull(referenceSubsidiaryCompanies, "referenceSubsidiaryCompanies");
         Utils.checkNotNull(tags, "tags");
         this.created = created;
         this.createdByUserName = createdByUserName;
@@ -161,6 +176,8 @@ public class Company {
         this.name = name;
         this.products = products;
         this.redirect = redirect;
+        this.referenceParentCompany = referenceParentCompany;
+        this.referenceSubsidiaryCompanies = referenceSubsidiaryCompanies;
         this.tags = tags;
     }
     
@@ -168,7 +185,7 @@ public class Company {
             String id,
             String name,
             String redirect) {
-        this(Optional.empty(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), id, Optional.empty(), name, Optional.empty(), redirect, Optional.empty());
+        this(Optional.empty(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), id, Optional.empty(), name, Optional.empty(), redirect, Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     /**
@@ -276,6 +293,21 @@ public class Company {
     @JsonIgnore
     public String redirect() {
         return redirect;
+    }
+
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<CompanyReference> referenceParentCompany() {
+        return (Optional<CompanyReference>) referenceParentCompany;
+    }
+
+    /**
+     * A list of subsidiary companies owned or controlled by this entity. Empty if the company has no children.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<List<CompanyReference>> referenceSubsidiaryCompanies() {
+        return (Optional<List<CompanyReference>>) referenceSubsidiaryCompanies;
     }
 
     /**
@@ -492,6 +524,36 @@ public class Company {
         return this;
     }
 
+    public Company withReferenceParentCompany(CompanyReference referenceParentCompany) {
+        Utils.checkNotNull(referenceParentCompany, "referenceParentCompany");
+        this.referenceParentCompany = Optional.ofNullable(referenceParentCompany);
+        return this;
+    }
+
+    public Company withReferenceParentCompany(Optional<? extends CompanyReference> referenceParentCompany) {
+        Utils.checkNotNull(referenceParentCompany, "referenceParentCompany");
+        this.referenceParentCompany = referenceParentCompany;
+        return this;
+    }
+
+    /**
+     * A list of subsidiary companies owned or controlled by this entity. Empty if the company has no children.
+     */
+    public Company withReferenceSubsidiaryCompanies(List<CompanyReference> referenceSubsidiaryCompanies) {
+        Utils.checkNotNull(referenceSubsidiaryCompanies, "referenceSubsidiaryCompanies");
+        this.referenceSubsidiaryCompanies = Optional.ofNullable(referenceSubsidiaryCompanies);
+        return this;
+    }
+
+    /**
+     * A list of subsidiary companies owned or controlled by this entity. Empty if the company has no children.
+     */
+    public Company withReferenceSubsidiaryCompanies(Optional<? extends List<CompanyReference>> referenceSubsidiaryCompanies) {
+        Utils.checkNotNull(referenceSubsidiaryCompanies, "referenceSubsidiaryCompanies");
+        this.referenceSubsidiaryCompanies = referenceSubsidiaryCompanies;
+        return this;
+    }
+
     /**
      * A collection of user-defined key-value pairs that store custom metadata against the company.
      */
@@ -529,6 +591,8 @@ public class Company {
             Objects.deepEquals(this.name, other.name) &&
             Objects.deepEquals(this.products, other.products) &&
             Objects.deepEquals(this.redirect, other.redirect) &&
+            Objects.deepEquals(this.referenceParentCompany, other.referenceParentCompany) &&
+            Objects.deepEquals(this.referenceSubsidiaryCompanies, other.referenceSubsidiaryCompanies) &&
             Objects.deepEquals(this.tags, other.tags);
     }
     
@@ -544,6 +608,8 @@ public class Company {
             name,
             products,
             redirect,
+            referenceParentCompany,
+            referenceSubsidiaryCompanies,
             tags);
     }
     
@@ -559,6 +625,8 @@ public class Company {
                 "name", name,
                 "products", products,
                 "redirect", redirect,
+                "referenceParentCompany", referenceParentCompany,
+                "referenceSubsidiaryCompanies", referenceSubsidiaryCompanies,
                 "tags", tags);
     }
     
@@ -581,6 +649,10 @@ public class Company {
         private Optional<? extends List<String>> products = Optional.empty();
  
         private String redirect;
+ 
+        private Optional<? extends CompanyReference> referenceParentCompany = Optional.empty();
+ 
+        private Optional<? extends List<CompanyReference>> referenceSubsidiaryCompanies = Optional.empty();
  
         private Optional<? extends Map<String, String>> tags = Optional.empty();  
         
@@ -789,6 +861,36 @@ public class Company {
             return this;
         }
 
+        public Builder referenceParentCompany(CompanyReference referenceParentCompany) {
+            Utils.checkNotNull(referenceParentCompany, "referenceParentCompany");
+            this.referenceParentCompany = Optional.ofNullable(referenceParentCompany);
+            return this;
+        }
+
+        public Builder referenceParentCompany(Optional<? extends CompanyReference> referenceParentCompany) {
+            Utils.checkNotNull(referenceParentCompany, "referenceParentCompany");
+            this.referenceParentCompany = referenceParentCompany;
+            return this;
+        }
+
+        /**
+         * A list of subsidiary companies owned or controlled by this entity. Empty if the company has no children.
+         */
+        public Builder referenceSubsidiaryCompanies(List<CompanyReference> referenceSubsidiaryCompanies) {
+            Utils.checkNotNull(referenceSubsidiaryCompanies, "referenceSubsidiaryCompanies");
+            this.referenceSubsidiaryCompanies = Optional.ofNullable(referenceSubsidiaryCompanies);
+            return this;
+        }
+
+        /**
+         * A list of subsidiary companies owned or controlled by this entity. Empty if the company has no children.
+         */
+        public Builder referenceSubsidiaryCompanies(Optional<? extends List<CompanyReference>> referenceSubsidiaryCompanies) {
+            Utils.checkNotNull(referenceSubsidiaryCompanies, "referenceSubsidiaryCompanies");
+            this.referenceSubsidiaryCompanies = referenceSubsidiaryCompanies;
+            return this;
+        }
+
         /**
          * A collection of user-defined key-value pairs that store custom metadata against the company.
          */
@@ -818,6 +920,8 @@ public class Company {
                 name,
                 products,
                 redirect,
+                referenceParentCompany,
+                referenceSubsidiaryCompanies,
                 tags);
         }
     }

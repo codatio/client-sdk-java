@@ -57,7 +57,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'io.codat:platform:1.0.0'
+implementation 'io.codat:platform:2.0.0'
 ```
 
 Maven:
@@ -65,7 +65,7 @@ Maven:
 <dependency>
     <groupId>io.codat</groupId>
     <artifactId>platform</artifactId>
-    <version>1.0.0</version>
+    <version>2.0.0</version>
 </dependency>
 ```
 
@@ -139,6 +139,7 @@ public class Application {
 * [create](docs/sdks/companies/README.md#create) - Create company
 * [delete](docs/sdks/companies/README.md#delete) - Delete a company
 * [get](docs/sdks/companies/README.md#get) - Get company
+* [getAccessToken](docs/sdks/companies/README.md#getaccesstoken) - Get company access token
 * [list](docs/sdks/companies/README.md#list) - List companies
 * [removeProduct](docs/sdks/companies/README.md#removeproduct) - Remove product
 * [update](docs/sdks/companies/README.md#update) - Update company
@@ -222,10 +223,10 @@ Handling errors in this SDK should largely match your expectations. All operatio
 
 By default, an API error will throw a `models/errors/SDKError` exception. When custom error responses are specified for an operation, the SDK may also throw their associated exception. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `createApiKey` method throws the following exceptions:
 
-| Error Type                             | Status Code                            | Content Type                           |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| models/errors/ErrorMessage             | 400, 401, 402, 403, 409, 429, 500, 503 | application/json                       |
-| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
+| Error Type                 | Status Code                            | Content Type     |
+| -------------------------- | -------------------------------------- | ---------------- |
+| models/errors/ErrorMessage | 400, 401, 402, 403, 409, 429, 500, 503 | application/json |
+| models/errors/SDKError     | 4XX, 5XX                               | \*/\*            |
 
 ### Example
 
@@ -268,56 +269,9 @@ public class Application {
 <!-- Start Server Selection [server] -->
 ## Server Selection
 
-### Select Server by Index
-
-You can override the default server globally by passing a server index to the `serverIndex` builder method when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the indexes associated with the available servers:
-
-| # | Server | Variables |
-| - | ------ | --------- |
-| 0 | `https://api.codat.io` | None |
-
-#### Example
-
-```java
-package hello.world;
-
-import io.codat.platform.CodatPlatform;
-import io.codat.platform.models.errors.ErrorMessage;
-import io.codat.platform.models.operations.CreateApiKeyResponse;
-import io.codat.platform.models.shared.CreateApiKey;
-import io.codat.platform.models.shared.Security;
-import java.lang.Exception;
-
-public class Application {
-
-    public static void main(String[] args) throws ErrorMessage, Exception {
-
-        CodatPlatform sdk = CodatPlatform.builder()
-                .serverIndex(0)
-                .security(Security.builder()
-                    .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                    .build())
-            .build();
-
-        CreateApiKey req = CreateApiKey.builder()
-                .name("azure-invoice-finance-processor")
-                .build();
-
-        CreateApiKeyResponse res = sdk.settings().createApiKey()
-                .request(req)
-                .call();
-
-        if (res.apiKeyDetails().isPresent()) {
-            // handle response
-        }
-    }
-}
-```
-
-
 ### Override Server URL Per-Client
 
-The default server can also be overridden globally by passing a URL to the `serverURL` builder method when initializing the SDK client instance. For example:
+The default server can also be overridden globally using the `.serverURL(String serverUrl)` builder method when initializing the SDK client instance. For example:
 ```java
 package hello.world;
 
@@ -362,9 +316,9 @@ public class Application {
 
 This SDK supports the following security scheme globally:
 
-| Name         | Type         | Scheme       |
-| ------------ | ------------ | ------------ |
-| `authHeader` | apiKey       | API key      |
+| Name         | Type   | Scheme  |
+| ------------ | ------ | ------- |
+| `authHeader` | apiKey | API key |
 
 You can set the security parameters through the `security` builder method when initializing the SDK client instance. For example:
 ```java

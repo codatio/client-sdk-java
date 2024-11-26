@@ -91,6 +91,13 @@ public class SDKMethodInterfaces {
     }
 
 
+    public interface MethodCallGetCompanyAccessToken {
+        GetCompanyAccessTokenResponse getAccessToken(
+            GetCompanyAccessTokenRequest request,
+            Optional<Options> options) throws Exception;
+    }
+
+
     public interface MethodCallListCompanies {
         ListCompaniesResponse list(
             ListCompaniesRequest request,
