@@ -118,7 +118,7 @@ public class Reimbursements implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.sync.expenses.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -140,7 +140,7 @@ public class Reimbursements implements
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -273,7 +273,6 @@ public class Reimbursements implements
      * | Integration           | Supported |
      * |-----------------------|-----------|
      * | FreeAgent             | Yes       |
-     * | QuickBooks Desktop    | Yes       |
      * | QuickBooks Online     | Yes       |
      * | Oracle NetSuite       | Yes       |
      * @return The call builder
@@ -292,7 +291,6 @@ public class Reimbursements implements
      * | Integration           | Supported |
      * |-----------------------|-----------|
      * | FreeAgent             | Yes       |
-     * | QuickBooks Desktop    | Yes       |
      * | QuickBooks Online     | Yes       |
      * | Oracle NetSuite       | Yes       |
      * @param request The request object containing all of the parameters for the API call.
@@ -314,7 +312,6 @@ public class Reimbursements implements
      * | Integration           | Supported |
      * |-----------------------|-----------|
      * | FreeAgent             | Yes       |
-     * | QuickBooks Desktop    | Yes       |
      * | QuickBooks Online     | Yes       |
      * | Oracle NetSuite       | Yes       |
      * @param request The request object containing all of the parameters for the API call.
@@ -327,7 +324,7 @@ public class Reimbursements implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.sync.expenses.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -349,7 +346,7 @@ public class Reimbursements implements
         _req.setBody(Optional.ofNullable(_serializedRequestBody));
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());

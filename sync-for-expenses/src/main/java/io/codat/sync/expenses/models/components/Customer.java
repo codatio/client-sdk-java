@@ -20,9 +20,7 @@ import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
- * Customer - &gt; View the coverage for customers in the &lt;a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=customers" target="_blank"&gt;Data coverage explorer&lt;/a&gt;.
- * 
- * ## Overview
+ * Customer - ## Overview
  * 
  * A customer is a person or organisation that buys goods or services. From the Customers endpoints, you can retrieve a [list of all the customers of a company](https://api.codat.io/swagger/index.html#/Customers/get_companies__companyId__data_customers).
  * 
@@ -37,7 +35,7 @@ public class Customer {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("addresses")
-    private JsonNullable<? extends List<AccountingAddress>> addresses;
+    private JsonNullable<? extends List<Items>> addresses;
 
     /**
      * Name of the main contact for the identified customer.
@@ -137,7 +135,7 @@ public class Customer {
 
     @JsonCreator
     public Customer(
-            @JsonProperty("addresses") JsonNullable<? extends List<AccountingAddress>> addresses,
+            @JsonProperty("addresses") JsonNullable<? extends List<Items>> addresses,
             @JsonProperty("contactName") JsonNullable<String> contactName,
             @JsonProperty("contacts") JsonNullable<? extends List<Contact>> contacts,
             @JsonProperty("customerName") JsonNullable<String> customerName,
@@ -194,8 +192,8 @@ public class Customer {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public JsonNullable<List<AccountingAddress>> addresses() {
-        return (JsonNullable<List<AccountingAddress>>) addresses;
+    public JsonNullable<List<Items>> addresses() {
+        return (JsonNullable<List<Items>>) addresses;
     }
 
     /**
@@ -319,7 +317,7 @@ public class Customer {
     /**
      * An array of Addresses.
      */
-    public Customer withAddresses(List<AccountingAddress> addresses) {
+    public Customer withAddresses(List<Items> addresses) {
         Utils.checkNotNull(addresses, "addresses");
         this.addresses = JsonNullable.of(addresses);
         return this;
@@ -328,7 +326,7 @@ public class Customer {
     /**
      * An array of Addresses.
      */
-    public Customer withAddresses(JsonNullable<? extends List<AccountingAddress>> addresses) {
+    public Customer withAddresses(JsonNullable<? extends List<Items>> addresses) {
         Utils.checkNotNull(addresses, "addresses");
         this.addresses = addresses;
         return this;
@@ -644,7 +642,7 @@ public class Customer {
     
     public final static class Builder {
  
-        private JsonNullable<? extends List<AccountingAddress>> addresses = JsonNullable.undefined();
+        private JsonNullable<? extends List<Items>> addresses = JsonNullable.undefined();
  
         private JsonNullable<String> contactName = JsonNullable.undefined();
  
@@ -681,7 +679,7 @@ public class Customer {
         /**
          * An array of Addresses.
          */
-        public Builder addresses(List<AccountingAddress> addresses) {
+        public Builder addresses(List<Items> addresses) {
             Utils.checkNotNull(addresses, "addresses");
             this.addresses = JsonNullable.of(addresses);
             return this;
@@ -690,7 +688,7 @@ public class Customer {
         /**
          * An array of Addresses.
          */
-        public Builder addresses(JsonNullable<? extends List<AccountingAddress>> addresses) {
+        public Builder addresses(JsonNullable<? extends List<Items>> addresses) {
             Utils.checkNotNull(addresses, "addresses");
             this.addresses = addresses;
             return this;

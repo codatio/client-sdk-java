@@ -19,41 +19,30 @@ Gets the mapping options (accounts, trackingCategories and taxRates) for a compa
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.GetMappingOptionsRequest;
 import io.codat.sync.expenses.models.operations.GetMappingOptionsResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            GetMappingOptionsRequest req = GetMappingOptionsRequest.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        GetMappingOptionsRequest req = GetMappingOptionsRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .build();
 
-            GetMappingOptionsResponse res = sdk.mappingOptions().getMappingOptions()
+        GetMappingOptionsResponse res = sdk.mappingOptions().getMappingOptions()
                 .request(req)
                 .call();
 
-            if (res.mappingOptions().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.mappingOptions().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -70,7 +59,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |

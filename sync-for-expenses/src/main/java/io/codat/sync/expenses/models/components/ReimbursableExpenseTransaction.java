@@ -23,6 +23,10 @@ import org.openapitools.jackson.nullable.JsonNullable;
 
 public class ReimbursableExpenseTransaction {
 
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("apAccountRef")
+    private JsonNullable<? extends ApAccountRef> apAccountRef;
+
     @JsonProperty("contactRef")
     private ReimbursementContactRef contactRef;
 
@@ -147,6 +151,7 @@ public class ReimbursableExpenseTransaction {
 
     @JsonCreator
     public ReimbursableExpenseTransaction(
+            @JsonProperty("apAccountRef") JsonNullable<? extends ApAccountRef> apAccountRef,
             @JsonProperty("contactRef") ReimbursementContactRef contactRef,
             @JsonProperty("currency") String currency,
             @JsonProperty("currencyRate") JsonNullable<? extends BigDecimal> currencyRate,
@@ -156,6 +161,7 @@ public class ReimbursableExpenseTransaction {
             @JsonProperty("lines") Optional<? extends List<ReimbursableExpenseTransactionLine>> lines,
             @JsonProperty("notes") Optional<String> notes,
             @JsonProperty("reference") JsonNullable<String> reference) {
+        Utils.checkNotNull(apAccountRef, "apAccountRef");
         Utils.checkNotNull(contactRef, "contactRef");
         Utils.checkNotNull(currency, "currency");
         Utils.checkNotNull(currencyRate, "currencyRate");
@@ -165,6 +171,7 @@ public class ReimbursableExpenseTransaction {
         Utils.checkNotNull(lines, "lines");
         Utils.checkNotNull(notes, "notes");
         Utils.checkNotNull(reference, "reference");
+        this.apAccountRef = apAccountRef;
         this.contactRef = contactRef;
         this.currency = currency;
         this.currencyRate = currencyRate;
@@ -182,7 +189,13 @@ public class ReimbursableExpenseTransaction {
             String dueDate,
             String id,
             String issueDate) {
-        this(contactRef, currency, JsonNullable.undefined(), dueDate, id, issueDate, Optional.empty(), Optional.empty(), JsonNullable.undefined());
+        this(JsonNullable.undefined(), contactRef, currency, JsonNullable.undefined(), dueDate, id, issueDate, Optional.empty(), Optional.empty(), JsonNullable.undefined());
+    }
+
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public JsonNullable<ApAccountRef> apAccountRef() {
+        return (JsonNullable<ApAccountRef>) apAccountRef;
     }
 
     @JsonIgnore
@@ -325,6 +338,18 @@ public class ReimbursableExpenseTransaction {
 
     public final static Builder builder() {
         return new Builder();
+    }
+
+    public ReimbursableExpenseTransaction withApAccountRef(ApAccountRef apAccountRef) {
+        Utils.checkNotNull(apAccountRef, "apAccountRef");
+        this.apAccountRef = JsonNullable.of(apAccountRef);
+        return this;
+    }
+
+    public ReimbursableExpenseTransaction withApAccountRef(JsonNullable<? extends ApAccountRef> apAccountRef) {
+        Utils.checkNotNull(apAccountRef, "apAccountRef");
+        this.apAccountRef = apAccountRef;
+        return this;
     }
 
     public ReimbursableExpenseTransaction withContactRef(ReimbursementContactRef contactRef) {
@@ -588,6 +613,7 @@ public class ReimbursableExpenseTransaction {
         }
         ReimbursableExpenseTransaction other = (ReimbursableExpenseTransaction) o;
         return 
+            Objects.deepEquals(this.apAccountRef, other.apAccountRef) &&
             Objects.deepEquals(this.contactRef, other.contactRef) &&
             Objects.deepEquals(this.currency, other.currency) &&
             Objects.deepEquals(this.currencyRate, other.currencyRate) &&
@@ -602,6 +628,7 @@ public class ReimbursableExpenseTransaction {
     @Override
     public int hashCode() {
         return Objects.hash(
+            apAccountRef,
             contactRef,
             currency,
             currencyRate,
@@ -616,6 +643,7 @@ public class ReimbursableExpenseTransaction {
     @Override
     public String toString() {
         return Utils.toString(ReimbursableExpenseTransaction.class,
+                "apAccountRef", apAccountRef,
                 "contactRef", contactRef,
                 "currency", currency,
                 "currencyRate", currencyRate,
@@ -628,6 +656,8 @@ public class ReimbursableExpenseTransaction {
     }
     
     public final static class Builder {
+ 
+        private JsonNullable<? extends ApAccountRef> apAccountRef = JsonNullable.undefined();
  
         private ReimbursementContactRef contactRef;
  
@@ -649,6 +679,18 @@ public class ReimbursableExpenseTransaction {
         
         private Builder() {
           // force use of static builder() method
+        }
+
+        public Builder apAccountRef(ApAccountRef apAccountRef) {
+            Utils.checkNotNull(apAccountRef, "apAccountRef");
+            this.apAccountRef = JsonNullable.of(apAccountRef);
+            return this;
+        }
+
+        public Builder apAccountRef(JsonNullable<? extends ApAccountRef> apAccountRef) {
+            Utils.checkNotNull(apAccountRef, "apAccountRef");
+            this.apAccountRef = apAccountRef;
+            return this;
         }
 
         public Builder contactRef(ReimbursementContactRef contactRef) {
@@ -904,6 +946,7 @@ public class ReimbursableExpenseTransaction {
         
         public ReimbursableExpenseTransaction build() {
             return new ReimbursableExpenseTransaction(
+                apAccountRef,
                 contactRef,
                 currency,
                 currencyRate,

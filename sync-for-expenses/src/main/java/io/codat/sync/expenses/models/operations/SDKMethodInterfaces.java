@@ -6,328 +6,336 @@ package io.codat.sync.expenses.models.operations;
 
 import io.codat.sync.expenses.models.components.CompanyRequestBody;
 import io.codat.sync.expenses.utils.Options;
+import java.lang.Exception;
 import java.util.Optional;
 
 public class SDKMethodInterfaces {
 
 
     public interface MethodCallCreateCompany {
-        io.codat.sync.expenses.models.operations.CreateCompanyResponse create(
+        CreateCompanyResponse create(
             Optional<? extends CompanyRequestBody> request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDeleteCompany {
-        io.codat.sync.expenses.models.operations.DeleteCompanyResponse delete(
+        DeleteCompanyResponse delete(
             DeleteCompanyRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetCompany {
-        io.codat.sync.expenses.models.operations.GetCompanyResponse get(
+        GetCompanyResponse get(
             GetCompanyRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListCompanies {
-        io.codat.sync.expenses.models.operations.ListCompaniesResponse list(
+        ListCompaniesResponse list(
             ListCompaniesRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUpdateCompany {
-        io.codat.sync.expenses.models.operations.UpdateCompanyResponse update(
+        UpdateCompanyResponse update(
             UpdateCompanyRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateConnection {
-        io.codat.sync.expenses.models.operations.CreateConnectionResponse create(
+        CreateConnectionResponse create(
             CreateConnectionRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreatePartnerExpenseConnection {
-        io.codat.sync.expenses.models.operations.CreatePartnerExpenseConnectionResponse createPartnerExpenseConnection(
+        CreatePartnerExpenseConnectionResponse createPartnerExpenseConnection(
             CreatePartnerExpenseConnectionRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallDeleteConnection {
-        io.codat.sync.expenses.models.operations.DeleteConnectionResponse delete(
+        DeleteConnectionResponse delete(
             DeleteConnectionRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetConnection {
-        io.codat.sync.expenses.models.operations.GetConnectionResponse get(
+        GetConnectionResponse get(
             GetConnectionRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListConnections {
-        io.codat.sync.expenses.models.operations.ListConnectionsResponse list(
+        ListConnectionsResponse list(
             ListConnectionsRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUnlinkConnection {
-        io.codat.sync.expenses.models.operations.UnlinkConnectionResponse unlink(
+        UnlinkConnectionResponse unlink(
             UnlinkConnectionRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateBankAccount {
-        io.codat.sync.expenses.models.operations.CreateBankAccountResponse create(
+        CreateBankAccountResponse create(
             CreateBankAccountRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetCreateBankAccountsModel {
-        io.codat.sync.expenses.models.operations.GetCreateBankAccountsModelResponse getCreateModel(
+        GetCreateBankAccountsModelResponse getCreateModel(
             GetCreateBankAccountsModelRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateAccount {
-        io.codat.sync.expenses.models.operations.CreateAccountResponse create(
+        CreateAccountResponse create(
             CreateAccountRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetCreateChartOfAccountsModel {
-        io.codat.sync.expenses.models.operations.GetCreateChartOfAccountsModelResponse getCreateModel(
+        GetCreateChartOfAccountsModelResponse getCreateModel(
             GetCreateChartOfAccountsModelRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateCustomer {
-        io.codat.sync.expenses.models.operations.CreateCustomerResponse create(
+        CreateCustomerResponse create(
             CreateCustomerRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetCustomer {
-        io.codat.sync.expenses.models.operations.GetCustomerResponse get(
+        GetCustomerResponse get(
             GetCustomerRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListCustomers {
-        io.codat.sync.expenses.models.operations.ListCustomersResponse list(
+        ListCustomersResponse list(
             ListCustomersRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUpdateCustomer {
-        io.codat.sync.expenses.models.operations.UpdateCustomerResponse update(
+        UpdateCustomerResponse update(
             UpdateCustomerRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateSupplier {
-        io.codat.sync.expenses.models.operations.CreateSupplierResponse create(
+        CreateSupplierResponse create(
             CreateSupplierRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetSupplier {
-        io.codat.sync.expenses.models.operations.GetSupplierResponse get(
+        GetSupplierResponse get(
             GetSupplierRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListSuppliers {
-        io.codat.sync.expenses.models.operations.ListSuppliersResponse list(
+        ListSuppliersResponse list(
             ListSuppliersRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUpdateSupplier {
-        io.codat.sync.expenses.models.operations.UpdateSupplierResponse update(
+        UpdateSupplierResponse update(
             UpdateSupplierRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetDataStatus {
-        io.codat.sync.expenses.models.operations.GetDataStatusResponse get(
+        GetDataStatusResponse get(
             GetDataStatusRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetPullOperation {
-        io.codat.sync.expenses.models.operations.GetPullOperationResponse getPullOperation(
+        GetPullOperationResponse getPullOperation(
             GetPullOperationRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListPullOperations {
-        io.codat.sync.expenses.models.operations.ListPullOperationsResponse listPullOperations(
+        ListPullOperationsResponse listPullOperations(
             ListPullOperationsRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallRefreshAllDataTypes {
-        io.codat.sync.expenses.models.operations.RefreshAllDataTypesResponse refreshAllDataTypes(
+        RefreshAllDataTypesResponse refreshAllDataTypes(
             RefreshAllDataTypesRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallRefreshDataType {
-        io.codat.sync.expenses.models.operations.RefreshDataTypeResponse refreshDataType(
+        RefreshDataTypeResponse refreshDataType(
             RefreshDataTypeRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
+    public interface MethodCallGetCompanyInfo {
+        GetCompanyInfoResponse get(
+            GetCompanyInfoRequest request,
+            Optional<Options> options) throws Exception;
+    }
+
+
     public interface MethodCallGetPushOperation {
-        io.codat.sync.expenses.models.operations.GetPushOperationResponse get(
+        GetPushOperationResponse get(
             GetPushOperationRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListPushOperations {
-        io.codat.sync.expenses.models.operations.ListPushOperationsResponse list(
+        ListPushOperationsResponse list(
             ListPushOperationsRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateAdjustmentTransaction {
-        io.codat.sync.expenses.models.operations.CreateAdjustmentTransactionResponse create(
+        CreateAdjustmentTransactionResponse create(
             CreateAdjustmentTransactionRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetCompanyConfiguration {
-        io.codat.sync.expenses.models.operations.GetCompanyConfigurationResponse get(
+        GetCompanyConfigurationResponse get(
             GetCompanyConfigurationRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallSetCompanyConfiguration {
-        io.codat.sync.expenses.models.operations.SetCompanyConfigurationResponse set(
+        SetCompanyConfigurationResponse set(
             SetCompanyConfigurationRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateExpenseTransaction {
-        io.codat.sync.expenses.models.operations.CreateExpenseTransactionResponse create(
+        CreateExpenseTransactionResponse create(
             CreateExpenseTransactionRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUpdateExpenseTransaction {
-        io.codat.sync.expenses.models.operations.UpdateExpenseTransactionResponse update(
+        UpdateExpenseTransactionResponse update(
             UpdateExpenseTransactionRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetMappingOptions {
-        io.codat.sync.expenses.models.operations.GetMappingOptionsResponse getMappingOptions(
+        GetMappingOptionsResponse getMappingOptions(
             GetMappingOptionsRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateReimbursableExpenseTransaction {
-        io.codat.sync.expenses.models.operations.CreateReimbursableExpenseTransactionResponse create(
+        CreateReimbursableExpenseTransactionResponse create(
             CreateReimbursableExpenseTransactionRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUpdateReimbursableExpenseTransaction {
-        io.codat.sync.expenses.models.operations.UpdateReimbursableExpenseTransactionResponse update(
+        UpdateReimbursableExpenseTransactionResponse update(
             UpdateReimbursableExpenseTransactionRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetSyncById {
-        io.codat.sync.expenses.models.operations.GetSyncByIdResponse get(
+        GetSyncByIdResponse get(
             GetSyncByIdRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetLastSuccessfulSync {
-        io.codat.sync.expenses.models.operations.GetLastSuccessfulSyncResponse getLastSuccessfulSync(
+        GetLastSuccessfulSyncResponse getLastSuccessfulSync(
             GetLastSuccessfulSyncRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetLatestSync {
-        io.codat.sync.expenses.models.operations.GetLatestSyncResponse getLatestSync(
+        GetLatestSyncResponse getLatestSync(
             GetLatestSyncRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListSyncs {
-        io.codat.sync.expenses.models.operations.ListSyncsResponse list(
+        ListSyncsResponse list(
             ListSyncsRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetSyncTransaction {
-        io.codat.sync.expenses.models.operations.GetSyncTransactionResponse get(
+        GetSyncTransactionResponse get(
             GetSyncTransactionRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallListSyncTransactions {
-        io.codat.sync.expenses.models.operations.ListSyncTransactionsResponse list(
+        ListSyncTransactionsResponse list(
             ListSyncTransactionsRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallUploadExpenseAttachment {
-        io.codat.sync.expenses.models.operations.UploadExpenseAttachmentResponse upload(
+        UploadExpenseAttachmentResponse upload(
             UploadExpenseAttachmentRequest request,
             Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallCreateTransferTransaction {
-        io.codat.sync.expenses.models.operations.CreateTransferTransactionResponse create(
+        CreateTransferTransactionResponse create(
             CreateTransferTransactionRequest request,
             Optional<Options> options) throws Exception;
     }

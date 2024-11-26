@@ -18,7 +18,7 @@ Create new and manage existing data connections for a company.
 
 ﻿Creates a connection for the company by providing a valid `platformKey`. 
 
-Use the [List Integrations](https://docs.codat.io/sync-for-expenses-api#/operations/list-integrations) endpoint to access valid platform keys. 
+Use the [List Integrations](https://docs.codat.io/platform-api#/operations/list-integrations) endpoint to access valid platform keys. 
 
 ### Example Usage
 
@@ -26,7 +26,7 @@ Use the [List Integrations](https://docs.codat.io/sync-for-expenses-api#/operati
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.CreateConnectionRequest;
 import io.codat.sync.expenses.models.operations.CreateConnectionRequestBody;
 import io.codat.sync.expenses.models.operations.CreateConnectionResponse;
@@ -34,37 +34,26 @@ import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            CreateConnectionRequest req = CreateConnectionRequest.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        CreateConnectionRequest req = CreateConnectionRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .requestBody(CreateConnectionRequestBody.builder()
                     .platformKey("gbol")
                     .build())
                 .build();
 
-            CreateConnectionResponse res = sdk.connections().create()
+        CreateConnectionResponse res = sdk.connections().create()
                 .request(req)
                 .call();
 
-            if (res.connection().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.connection().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -81,11 +70,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## createPartnerExpenseConnection
 
@@ -97,41 +85,30 @@ Creates a partner expense data connection
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.CreatePartnerExpenseConnectionRequest;
 import io.codat.sync.expenses.models.operations.CreatePartnerExpenseConnectionResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            CreatePartnerExpenseConnectionRequest req = CreatePartnerExpenseConnectionRequest.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        CreatePartnerExpenseConnectionRequest req = CreatePartnerExpenseConnectionRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .build();
 
-            CreatePartnerExpenseConnectionResponse res = sdk.connections().createPartnerExpenseConnection()
+        CreatePartnerExpenseConnectionResponse res = sdk.connections().createPartnerExpenseConnection()
                 .request(req)
                 .call();
 
-            if (res.connection().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.connection().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -148,11 +125,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## delete
 
@@ -165,40 +141,29 @@ This operation is not reversible. The end user would need to reauthorize a new d
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.DeleteConnectionRequest;
 import io.codat.sync.expenses.models.operations.DeleteConnectionResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            DeleteConnectionRequest req = DeleteConnectionRequest.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        DeleteConnectionRequest req = DeleteConnectionRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .build();
 
-            DeleteConnectionResponse res = sdk.connections().delete()
+        DeleteConnectionResponse res = sdk.connections().delete()
                 .request(req)
                 .call();
 
-            // handle response
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
-        }
-
+        // handle response
     }
 }
 ```
@@ -215,11 +180,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## get
 
@@ -231,42 +195,31 @@ public class Application {
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.GetConnectionRequest;
 import io.codat.sync.expenses.models.operations.GetConnectionResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            GetConnectionRequest req = GetConnectionRequest.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        GetConnectionRequest req = GetConnectionRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .build();
 
-            GetConnectionResponse res = sdk.connections().get()
+        GetConnectionResponse res = sdk.connections().get()
                 .request(req)
                 .call();
 
-            if (res.connection().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.connection().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -283,11 +236,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## list
 
@@ -299,20 +251,20 @@ public class Application {
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.ListConnectionsRequest;
 import io.codat.sync.expenses.models.operations.ListConnectionsResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            ListConnectionsRequest req = ListConnectionsRequest.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        ListConnectionsRequest req = ListConnectionsRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .orderBy("-modifiedDate")
                 .page(1)
@@ -320,24 +272,13 @@ public class Application {
                 .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
-            ListConnectionsResponse res = sdk.connections().list()
+        ListConnectionsResponse res = sdk.connections().list()
                 .request(req)
                 .call();
 
-            if (res.connections().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.connections().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -354,11 +295,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## unlink
 
@@ -370,42 +310,31 @@ public class Application {
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.UnlinkConnectionRequest;
 import io.codat.sync.expenses.models.operations.UnlinkConnectionResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            UnlinkConnectionRequest req = UnlinkConnectionRequest.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        UnlinkConnectionRequest req = UnlinkConnectionRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .build();
 
-            UnlinkConnectionResponse res = sdk.connections().unlink()
+        UnlinkConnectionResponse res = sdk.connections().unlink()
                 .request(req)
                 .call();
 
-            if (res.connection().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.connection().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -422,7 +351,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |

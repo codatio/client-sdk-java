@@ -23,41 +23,30 @@ Get the state of each data type for a company
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.GetDataStatusRequest;
 import io.codat.sync.expenses.models.operations.GetDataStatusResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            GetDataStatusRequest req = GetDataStatusRequest.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        GetDataStatusRequest req = GetDataStatusRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .build();
 
-            GetDataStatusResponse res = sdk.manageData().get()
+        GetDataStatusResponse res = sdk.manageData().get()
                 .request(req)
                 .call();
 
-            if (res.dataStatuses().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.dataStatuses().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -74,11 +63,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## getPullOperation
 
@@ -90,42 +78,31 @@ Retrieve information about a single dataset or pull operation.
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.GetPullOperationRequest;
 import io.codat.sync.expenses.models.operations.GetPullOperationResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+            .build();
 
-            GetPullOperationRequest req = GetPullOperationRequest.builder()
+        GetPullOperationRequest req = GetPullOperationRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
-                .datasetId("7911a54a-c808-4f4b-b87e-b195f52b4da5")
+                .datasetId("71a4c0fb-8e15-45bd-958d-330b4e6e9f07")
                 .build();
 
-            GetPullOperationResponse res = sdk.manageData().getPullOperation()
+        GetPullOperationResponse res = sdk.manageData().getPullOperation()
                 .request(req)
                 .call();
 
-            if (res.pullOperation().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.pullOperation().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -142,11 +119,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## listPullOperations
 
@@ -158,20 +134,20 @@ Gets the pull operation history (datasets) for a given company.
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.ListPullOperationsRequest;
 import io.codat.sync.expenses.models.operations.ListPullOperationsResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            ListPullOperationsRequest req = ListPullOperationsRequest.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        ListPullOperationsRequest req = ListPullOperationsRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .orderBy("-modifiedDate")
                 .page(1)
@@ -179,24 +155,13 @@ public class Application {
                 .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
-            ListPullOperationsResponse res = sdk.manageData().listPullOperations()
+        ListPullOperationsResponse res = sdk.manageData().listPullOperations()
                 .request(req)
                 .call();
 
-            if (res.pullOperations().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.pullOperations().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -213,11 +178,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## refreshAllDataTypes
 
@@ -233,39 +197,28 @@ This is an asynchronous operation, and will bring updated data into Codat from t
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.RefreshAllDataTypesRequest;
 import io.codat.sync.expenses.models.operations.RefreshAllDataTypesResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            RefreshAllDataTypesRequest req = RefreshAllDataTypesRequest.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        RefreshAllDataTypesRequest req = RefreshAllDataTypesRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .build();
 
-            RefreshAllDataTypesResponse res = sdk.manageData().refreshAllDataTypes()
+        RefreshAllDataTypesResponse res = sdk.manageData().refreshAllDataTypes()
                 .request(req)
                 .call();
 
-            // handle response
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
-        }
-
+        // handle response
     }
 }
 ```
@@ -282,11 +235,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## refreshDataType
 
@@ -301,42 +253,31 @@ package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
 import io.codat.sync.expenses.models.components.SchemaDataType;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.RefreshDataTypeRequest;
 import io.codat.sync.expenses.models.operations.RefreshDataTypeResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            RefreshDataTypeRequest req = RefreshDataTypeRequest.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        RefreshDataTypeRequest req = RefreshDataTypeRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .dataType(SchemaDataType.INVOICES)
                 .build();
 
-            RefreshDataTypeResponse res = sdk.manageData().refreshDataType()
+        RefreshDataTypeResponse res = sdk.manageData().refreshDataType()
                 .request(req)
                 .call();
 
-            if (res.pullOperation().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.pullOperation().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -353,7 +294,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |

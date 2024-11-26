@@ -22,42 +22,31 @@ Get the sync status for a specified sync
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.GetSyncByIdRequest;
 import io.codat.sync.expenses.models.operations.GetSyncByIdResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            GetSyncByIdRequest req = GetSyncByIdRequest.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        GetSyncByIdRequest req = GetSyncByIdRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .syncId("6fb40d5e-b13e-11ed-afa1-0242ac120002")
                 .build();
 
-            GetSyncByIdResponse res = sdk.sync().get()
+        GetSyncByIdResponse res = sdk.sync().get()
                 .request(req)
                 .call();
 
-            if (res.companySyncStatus().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.companySyncStatus().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -74,11 +63,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## getLastSuccessfulSync
 
@@ -90,41 +78,30 @@ Gets the status of the last successful sync
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.GetLastSuccessfulSyncRequest;
 import io.codat.sync.expenses.models.operations.GetLastSuccessfulSyncResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            GetLastSuccessfulSyncRequest req = GetLastSuccessfulSyncRequest.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        GetLastSuccessfulSyncRequest req = GetLastSuccessfulSyncRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .build();
 
-            GetLastSuccessfulSyncResponse res = sdk.sync().getLastSuccessfulSync()
+        GetLastSuccessfulSyncResponse res = sdk.sync().getLastSuccessfulSync()
                 .request(req)
                 .call();
 
-            if (res.companySyncStatus().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.companySyncStatus().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -141,11 +118,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## getLatestSync
 
@@ -157,41 +133,30 @@ Gets the latest sync status
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.GetLatestSyncRequest;
 import io.codat.sync.expenses.models.operations.GetLatestSyncResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            GetLatestSyncRequest req = GetLatestSyncRequest.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        GetLatestSyncRequest req = GetLatestSyncRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .build();
 
-            GetLatestSyncResponse res = sdk.sync().getLatestSync()
+        GetLatestSyncResponse res = sdk.sync().getLatestSync()
                 .request(req)
                 .call();
 
-            if (res.companySyncStatus().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.companySyncStatus().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -208,11 +173,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## list
 
@@ -224,41 +188,30 @@ Gets a list of sync statuses
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.ListSyncsRequest;
 import io.codat.sync.expenses.models.operations.ListSyncsResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            ListSyncsRequest req = ListSyncsRequest.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        ListSyncsRequest req = ListSyncsRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .build();
 
-            ListSyncsResponse res = sdk.sync().list()
+        ListSyncsResponse res = sdk.sync().list()
                 .request(req)
                 .call();
 
-            if (res.classes().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.classes().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -275,7 +228,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |

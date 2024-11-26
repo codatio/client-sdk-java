@@ -21,9 +21,7 @@ import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
- * UpdateCustomerResponseAccountingCustomer - &gt; View the coverage for customers in the &lt;a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=customers" target="_blank"&gt;Data coverage explorer&lt;/a&gt;.
- * 
- * ## Overview
+ * UpdateCustomerResponseAccountingCustomer - ## Overview
  * 
  * A customer is a person or organisation that buys goods or services. From the Customers endpoints, you can retrieve a [list of all the customers of a company](https://api.codat.io/swagger/index.html#/Customers/get_companies__companyId__data_customers).
  * 
@@ -39,7 +37,7 @@ public class UpdateCustomerResponseAccountingCustomer {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("addresses")
-    private JsonNullable<? extends List<UpdateCustomerResponseAccountingAddress>> addresses;
+    private JsonNullable<? extends List<Items>> addresses;
 
     /**
      * Name of the main contact for the identified customer.
@@ -139,7 +137,7 @@ public class UpdateCustomerResponseAccountingCustomer {
 
     @JsonCreator
     public UpdateCustomerResponseAccountingCustomer(
-            @JsonProperty("addresses") JsonNullable<? extends List<UpdateCustomerResponseAccountingAddress>> addresses,
+            @JsonProperty("addresses") JsonNullable<? extends List<Items>> addresses,
             @JsonProperty("contactName") JsonNullable<String> contactName,
             @JsonProperty("contacts") JsonNullable<? extends List<Contact>> contacts,
             @JsonProperty("customerName") JsonNullable<String> customerName,
@@ -196,8 +194,8 @@ public class UpdateCustomerResponseAccountingCustomer {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public JsonNullable<List<UpdateCustomerResponseAccountingAddress>> addresses() {
-        return (JsonNullable<List<UpdateCustomerResponseAccountingAddress>>) addresses;
+    public JsonNullable<List<Items>> addresses() {
+        return (JsonNullable<List<Items>>) addresses;
     }
 
     /**
@@ -321,7 +319,7 @@ public class UpdateCustomerResponseAccountingCustomer {
     /**
      * An array of Addresses.
      */
-    public UpdateCustomerResponseAccountingCustomer withAddresses(List<UpdateCustomerResponseAccountingAddress> addresses) {
+    public UpdateCustomerResponseAccountingCustomer withAddresses(List<Items> addresses) {
         Utils.checkNotNull(addresses, "addresses");
         this.addresses = JsonNullable.of(addresses);
         return this;
@@ -330,7 +328,7 @@ public class UpdateCustomerResponseAccountingCustomer {
     /**
      * An array of Addresses.
      */
-    public UpdateCustomerResponseAccountingCustomer withAddresses(JsonNullable<? extends List<UpdateCustomerResponseAccountingAddress>> addresses) {
+    public UpdateCustomerResponseAccountingCustomer withAddresses(JsonNullable<? extends List<Items>> addresses) {
         Utils.checkNotNull(addresses, "addresses");
         this.addresses = addresses;
         return this;
@@ -646,7 +644,7 @@ public class UpdateCustomerResponseAccountingCustomer {
     
     public final static class Builder {
  
-        private JsonNullable<? extends List<UpdateCustomerResponseAccountingAddress>> addresses = JsonNullable.undefined();
+        private JsonNullable<? extends List<Items>> addresses = JsonNullable.undefined();
  
         private JsonNullable<String> contactName = JsonNullable.undefined();
  
@@ -683,7 +681,7 @@ public class UpdateCustomerResponseAccountingCustomer {
         /**
          * An array of Addresses.
          */
-        public Builder addresses(List<UpdateCustomerResponseAccountingAddress> addresses) {
+        public Builder addresses(List<Items> addresses) {
             Utils.checkNotNull(addresses, "addresses");
             this.addresses = JsonNullable.of(addresses);
             return this;
@@ -692,7 +690,7 @@ public class UpdateCustomerResponseAccountingCustomer {
         /**
          * An array of Addresses.
          */
-        public Builder addresses(JsonNullable<? extends List<UpdateCustomerResponseAccountingAddress>> addresses) {
+        public Builder addresses(JsonNullable<? extends List<Items>> addresses) {
             Utils.checkNotNull(addresses, "addresses");
             this.addresses = addresses;
             return this;

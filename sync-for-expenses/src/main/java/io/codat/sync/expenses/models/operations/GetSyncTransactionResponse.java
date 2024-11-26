@@ -7,7 +7,7 @@ package io.codat.sync.expenses.models.operations;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.codat.sync.expenses.models.components.Transaction;
+import io.codat.sync.expenses.models.components.SchemaTransaction;
 import io.codat.sync.expenses.utils.Response;
 import io.codat.sync.expenses.utils.Utils;
 import java.io.InputStream;
@@ -41,14 +41,14 @@ public class GetSyncTransactionResponse implements Response {
     /**
      * Success
      */
-    private Optional<? extends List<Transaction>> transactionResponse;
+    private Optional<? extends List<SchemaTransaction>> transactionResponse;
 
     @JsonCreator
     public GetSyncTransactionResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends List<Transaction>> transactionResponse) {
+            Optional<? extends List<SchemaTransaction>> transactionResponse) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -95,8 +95,8 @@ public class GetSyncTransactionResponse implements Response {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<Transaction>> transactionResponse() {
-        return (Optional<List<Transaction>>) transactionResponse;
+    public Optional<List<SchemaTransaction>> transactionResponse() {
+        return (Optional<List<SchemaTransaction>>) transactionResponse;
     }
 
     public final static Builder builder() {
@@ -133,7 +133,7 @@ public class GetSyncTransactionResponse implements Response {
     /**
      * Success
      */
-    public GetSyncTransactionResponse withTransactionResponse(List<Transaction> transactionResponse) {
+    public GetSyncTransactionResponse withTransactionResponse(List<SchemaTransaction> transactionResponse) {
         Utils.checkNotNull(transactionResponse, "transactionResponse");
         this.transactionResponse = Optional.ofNullable(transactionResponse);
         return this;
@@ -142,7 +142,7 @@ public class GetSyncTransactionResponse implements Response {
     /**
      * Success
      */
-    public GetSyncTransactionResponse withTransactionResponse(Optional<? extends List<Transaction>> transactionResponse) {
+    public GetSyncTransactionResponse withTransactionResponse(Optional<? extends List<SchemaTransaction>> transactionResponse) {
         Utils.checkNotNull(transactionResponse, "transactionResponse");
         this.transactionResponse = transactionResponse;
         return this;
@@ -190,7 +190,7 @@ public class GetSyncTransactionResponse implements Response {
  
         private HttpResponse<InputStream> rawResponse;
  
-        private Optional<? extends List<Transaction>> transactionResponse = Optional.empty();  
+        private Optional<? extends List<SchemaTransaction>> transactionResponse = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -226,7 +226,7 @@ public class GetSyncTransactionResponse implements Response {
         /**
          * Success
          */
-        public Builder transactionResponse(List<Transaction> transactionResponse) {
+        public Builder transactionResponse(List<SchemaTransaction> transactionResponse) {
             Utils.checkNotNull(transactionResponse, "transactionResponse");
             this.transactionResponse = Optional.ofNullable(transactionResponse);
             return this;
@@ -235,7 +235,7 @@ public class GetSyncTransactionResponse implements Response {
         /**
          * Success
          */
-        public Builder transactionResponse(Optional<? extends List<Transaction>> transactionResponse) {
+        public Builder transactionResponse(Optional<? extends List<SchemaTransaction>> transactionResponse) {
             Utils.checkNotNull(transactionResponse, "transactionResponse");
             this.transactionResponse = transactionResponse;
             return this;

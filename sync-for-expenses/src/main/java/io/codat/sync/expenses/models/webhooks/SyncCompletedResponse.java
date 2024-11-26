@@ -17,7 +17,7 @@ import java.net.http.HttpResponse;
 import java.util.Objects;
 
 
-public class SyncCompleteResponse implements Response {
+public class SyncCompletedResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -35,7 +35,7 @@ public class SyncCompleteResponse implements Response {
     private HttpResponse<InputStream> rawResponse;
 
     @JsonCreator
-    public SyncCompleteResponse(
+    public SyncCompletedResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse) {
@@ -78,7 +78,7 @@ public class SyncCompleteResponse implements Response {
     /**
      * HTTP response content type for this operation
      */
-    public SyncCompleteResponse withContentType(String contentType) {
+    public SyncCompletedResponse withContentType(String contentType) {
         Utils.checkNotNull(contentType, "contentType");
         this.contentType = contentType;
         return this;
@@ -87,7 +87,7 @@ public class SyncCompleteResponse implements Response {
     /**
      * HTTP response status code for this operation
      */
-    public SyncCompleteResponse withStatusCode(int statusCode) {
+    public SyncCompletedResponse withStatusCode(int statusCode) {
         Utils.checkNotNull(statusCode, "statusCode");
         this.statusCode = statusCode;
         return this;
@@ -96,7 +96,7 @@ public class SyncCompleteResponse implements Response {
     /**
      * Raw HTTP response; suitable for custom response parsing
      */
-    public SyncCompleteResponse withRawResponse(HttpResponse<InputStream> rawResponse) {
+    public SyncCompletedResponse withRawResponse(HttpResponse<InputStream> rawResponse) {
         Utils.checkNotNull(rawResponse, "rawResponse");
         this.rawResponse = rawResponse;
         return this;
@@ -110,7 +110,7 @@ public class SyncCompleteResponse implements Response {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        SyncCompleteResponse other = (SyncCompleteResponse) o;
+        SyncCompletedResponse other = (SyncCompletedResponse) o;
         return 
             Objects.deepEquals(this.contentType, other.contentType) &&
             Objects.deepEquals(this.statusCode, other.statusCode) &&
@@ -127,7 +127,7 @@ public class SyncCompleteResponse implements Response {
     
     @Override
     public String toString() {
-        return Utils.toString(SyncCompleteResponse.class,
+        return Utils.toString(SyncCompletedResponse.class,
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse);
@@ -172,8 +172,8 @@ public class SyncCompleteResponse implements Response {
             return this;
         }
         
-        public SyncCompleteResponse build() {
-            return new SyncCompleteResponse(
+        public SyncCompletedResponse build() {
+            return new SyncCompletedResponse(
                 contentType,
                 statusCode,
                 rawResponse);

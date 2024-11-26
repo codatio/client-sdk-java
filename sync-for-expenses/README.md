@@ -63,7 +63,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'io.codat:sync.expenses:0.3.0'
+implementation 'io.codat:sync.expenses:1.0.0'
 ```
 
 Maven:
@@ -71,7 +71,7 @@ Maven:
 <dependency>
     <groupId>io.codat</groupId>
     <artifactId>sync.expenses</artifactId>
-    <version>0.3.0</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
@@ -101,47 +101,30 @@ package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
 import io.codat.sync.expenses.models.components.CompanyRequestBody;
-import io.codat.sync.expenses.models.components.GroupReference;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.CreateCompanyResponse;
 import java.lang.Exception;
-import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            CompanyRequestBody req = CompanyRequestBody.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        CompanyRequestBody req = CompanyRequestBody.builder()
                 .name("Bank of Dave")
                 .description("Requested early access to the new financing scheme.")
-                .groups(List.of(
-                    GroupReference.builder()
-                        .id("60d2fa12-8a04-11ee-b9d1-0242ac120002")
-                        .build()))
                 .build();
 
-            CreateCompanyResponse res = sdk.companies().create()
+        CreateCompanyResponse res = sdk.companies().create()
                 .request(req)
                 .call();
 
-            if (res.company().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.company().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -179,6 +162,10 @@ public class Application {
 * [get](docs/sdks/companies/README.md#get) - Get company
 * [list](docs/sdks/companies/README.md#list) - List companies
 * [update](docs/sdks/companies/README.md#update) - Update company
+
+### [companyInfo()](docs/sdks/companyinfo/README.md)
+
+* [get](docs/sdks/companyinfo/README.md#get) - Get company info
 
 ### [configuration()](docs/sdks/configuration/README.md)
 
@@ -265,33 +252,27 @@ package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
 import io.codat.sync.expenses.models.components.CompanyRequestBody;
-import io.codat.sync.expenses.models.components.GroupReference;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.CreateCompanyResponse;
 import io.codat.sync.expenses.utils.BackoffStrategy;
 import io.codat.sync.expenses.utils.RetryConfig;
 import java.lang.Exception;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            CompanyRequestBody req = CompanyRequestBody.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        CompanyRequestBody req = CompanyRequestBody.builder()
                 .name("Bank of Dave")
                 .description("Requested early access to the new financing scheme.")
-                .groups(List.of(
-                    GroupReference.builder()
-                        .id("60d2fa12-8a04-11ee-b9d1-0242ac120002")
-                        .build()))
                 .build();
 
-            CreateCompanyResponse res = sdk.companies().create()
+        CreateCompanyResponse res = sdk.companies().create()
                 .request(req)
                 .retryConfig(RetryConfig.builder()
                     .backoff(BackoffStrategy.builder()
@@ -305,20 +286,9 @@ public class Application {
                     .build())
                 .call();
 
-            if (res.company().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.company().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -329,20 +299,18 @@ package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
 import io.codat.sync.expenses.models.components.CompanyRequestBody;
-import io.codat.sync.expenses.models.components.GroupReference;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.CreateCompanyResponse;
 import io.codat.sync.expenses.utils.BackoffStrategy;
 import io.codat.sync.expenses.utils.RetryConfig;
 import java.lang.Exception;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
                 .retryConfig(RetryConfig.builder()
                     .backoff(BackoffStrategy.builder()
                         .initialInterval(1L, TimeUnit.MILLISECONDS)
@@ -354,35 +322,20 @@ public class Application {
                         .build())
                     .build())
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+            .build();
 
-            CompanyRequestBody req = CompanyRequestBody.builder()
+        CompanyRequestBody req = CompanyRequestBody.builder()
                 .name("Bank of Dave")
                 .description("Requested early access to the new financing scheme.")
-                .groups(List.of(
-                    GroupReference.builder()
-                        .id("60d2fa12-8a04-11ee-b9d1-0242ac120002")
-                        .build()))
                 .build();
 
-            CreateCompanyResponse res = sdk.companies().create()
+        CreateCompanyResponse res = sdk.companies().create()
                 .request(req)
                 .call();
 
-            if (res.company().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.company().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -391,12 +344,14 @@ public class Application {
 <!-- Start Error Handling [errors] -->
 ## Error Handling
 
-Handling errors in this SDK should largely match your expectations.  All operations return a response object or raise an error.  If Error objects are specified in your OpenAPI Spec, the SDK will throw the appropriate Exception type.
+Handling errors in this SDK should largely match your expectations. All operations return a response object or raise an exception.
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 400,401,402,403,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+By default, an API error will throw a `models/errors/SDKError` exception. When custom error responses are specified for an operation, the SDK may also throw their associated exception. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `create` method throws the following exceptions:
+
+| Error Type                 | Status Code                       | Content Type     |
+| -------------------------- | --------------------------------- | ---------------- |
+| models/errors/ErrorMessage | 400, 401, 402, 403, 429, 500, 503 | application/json |
+| models/errors/SDKError     | 4XX, 5XX                          | \*/\*            |
 
 ### Example
 
@@ -405,47 +360,30 @@ package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
 import io.codat.sync.expenses.models.components.CompanyRequestBody;
-import io.codat.sync.expenses.models.components.GroupReference;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.CreateCompanyResponse;
 import java.lang.Exception;
-import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            CompanyRequestBody req = CompanyRequestBody.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        CompanyRequestBody req = CompanyRequestBody.builder()
                 .name("Bank of Dave")
                 .description("Requested early access to the new financing scheme.")
-                .groups(List.of(
-                    GroupReference.builder()
-                        .id("60d2fa12-8a04-11ee-b9d1-0242ac120002")
-                        .build()))
                 .build();
 
-            CreateCompanyResponse res = sdk.companies().create()
+        CreateCompanyResponse res = sdk.companies().create()
                 .request(req)
                 .call();
 
-            if (res.company().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.company().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -454,118 +392,39 @@ public class Application {
 <!-- Start Server Selection [server] -->
 ## Server Selection
 
-### Select Server by Index
-
-You can override the default server globally by passing a server index to the `serverIndex` builder method when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the indexes associated with the available servers:
-
-| # | Server | Variables |
-| - | ------ | --------- |
-| 0 | `https://api.codat.io` | None |
-
-#### Example
-
-```java
-package hello.world;
-
-import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.components.CompanyRequestBody;
-import io.codat.sync.expenses.models.components.GroupReference;
-import io.codat.sync.expenses.models.errors.SDKError;
-import io.codat.sync.expenses.models.operations.CreateCompanyResponse;
-import java.lang.Exception;
-import java.util.List;
-
-public class Application {
-
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .serverIndex(0)
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
-
-            CompanyRequestBody req = CompanyRequestBody.builder()
-                .name("Bank of Dave")
-                .description("Requested early access to the new financing scheme.")
-                .groups(List.of(
-                    GroupReference.builder()
-                        .id("60d2fa12-8a04-11ee-b9d1-0242ac120002")
-                        .build()))
-                .build();
-
-            CreateCompanyResponse res = sdk.companies().create()
-                .request(req)
-                .call();
-
-            if (res.company().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
-        }
-
-    }
-}
-```
-
-
 ### Override Server URL Per-Client
 
-The default server can also be overridden globally by passing a URL to the `serverURL` builder method when initializing the SDK client instance. For example:
+The default server can also be overridden globally using the `.serverURL(String serverUrl)` builder method when initializing the SDK client instance. For example:
 ```java
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
 import io.codat.sync.expenses.models.components.CompanyRequestBody;
-import io.codat.sync.expenses.models.components.GroupReference;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.CreateCompanyResponse;
 import java.lang.Exception;
-import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
                 .serverURL("https://api.codat.io")
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+            .build();
 
-            CompanyRequestBody req = CompanyRequestBody.builder()
+        CompanyRequestBody req = CompanyRequestBody.builder()
                 .name("Bank of Dave")
                 .description("Requested early access to the new financing scheme.")
-                .groups(List.of(
-                    GroupReference.builder()
-                        .id("60d2fa12-8a04-11ee-b9d1-0242ac120002")
-                        .build()))
                 .build();
 
-            CreateCompanyResponse res = sdk.companies().create()
+        CreateCompanyResponse res = sdk.companies().create()
                 .request(req)
                 .call();
 
-            if (res.company().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.company().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -578,9 +437,9 @@ public class Application {
 
 This SDK supports the following security scheme globally:
 
-| Name         | Type         | Scheme       |
-| ------------ | ------------ | ------------ |
-| `authHeader` | apiKey       | API key      |
+| Name         | Type   | Scheme  |
+| ------------ | ------ | ------- |
+| `authHeader` | apiKey | API key |
 
 To authenticate with the API the `authHeader` parameter must be set when initializing the SDK client instance. For example:
 ```java
@@ -588,47 +447,30 @@ package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
 import io.codat.sync.expenses.models.components.CompanyRequestBody;
-import io.codat.sync.expenses.models.components.GroupReference;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.CreateCompanyResponse;
 import java.lang.Exception;
-import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            CompanyRequestBody req = CompanyRequestBody.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        CompanyRequestBody req = CompanyRequestBody.builder()
                 .name("Bank of Dave")
                 .description("Requested early access to the new financing scheme.")
-                .groups(List.of(
-                    GroupReference.builder()
-                        .id("60d2fa12-8a04-11ee-b9d1-0242ac120002")
-                        .build()))
                 .build();
 
-            CreateCompanyResponse res = sdk.companies().create()
+        CreateCompanyResponse res = sdk.companies().create()
                 .request(req)
                 .call();
 
-            if (res.company().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.company().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```

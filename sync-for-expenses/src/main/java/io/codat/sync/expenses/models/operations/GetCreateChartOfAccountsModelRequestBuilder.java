@@ -19,19 +19,19 @@ public class GetCreateChartOfAccountsModelRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetCreateChartOfAccountsModelRequestBuilder request(io.codat.sync.expenses.models.operations.GetCreateChartOfAccountsModelRequest request) {
+    public GetCreateChartOfAccountsModelRequestBuilder request(GetCreateChartOfAccountsModelRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetCreateChartOfAccountsModelRequestBuilder retryConfig(io.codat.sync.expenses.utils.RetryConfig retryConfig) {
+    public GetCreateChartOfAccountsModelRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetCreateChartOfAccountsModelRequestBuilder retryConfig(java.util.Optional<io.codat.sync.expenses.utils.RetryConfig> retryConfig) {
+    public GetCreateChartOfAccountsModelRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

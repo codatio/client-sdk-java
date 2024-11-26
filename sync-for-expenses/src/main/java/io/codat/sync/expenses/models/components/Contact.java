@@ -70,7 +70,7 @@ public class Contact {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("phone")
-    private JsonNullable<? extends List<Phone>> phone;
+    private JsonNullable<? extends List<PhoneNumberItems>> phone;
 
     /**
      * Status of customer.
@@ -84,7 +84,7 @@ public class Contact {
             @JsonProperty("email") JsonNullable<String> email,
             @JsonProperty("modifiedDate") Optional<String> modifiedDate,
             @JsonProperty("name") JsonNullable<String> name,
-            @JsonProperty("phone") JsonNullable<? extends List<Phone>> phone,
+            @JsonProperty("phone") JsonNullable<? extends List<PhoneNumberItems>> phone,
             @JsonProperty("status") CustomerStatus status) {
         Utils.checkNotNull(address, "address");
         Utils.checkNotNull(email, "email");
@@ -158,8 +158,8 @@ public class Contact {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public JsonNullable<List<Phone>> phone() {
-        return (JsonNullable<List<Phone>>) phone;
+    public JsonNullable<List<PhoneNumberItems>> phone() {
+        return (JsonNullable<List<PhoneNumberItems>>) phone;
     }
 
     /**
@@ -279,7 +279,7 @@ public class Contact {
     /**
      * An array of Phone numbers.
      */
-    public Contact withPhone(List<Phone> phone) {
+    public Contact withPhone(List<PhoneNumberItems> phone) {
         Utils.checkNotNull(phone, "phone");
         this.phone = JsonNullable.of(phone);
         return this;
@@ -288,7 +288,7 @@ public class Contact {
     /**
      * An array of Phone numbers.
      */
-    public Contact withPhone(JsonNullable<? extends List<Phone>> phone) {
+    public Contact withPhone(JsonNullable<? extends List<PhoneNumberItems>> phone) {
         Utils.checkNotNull(phone, "phone");
         this.phone = phone;
         return this;
@@ -353,7 +353,7 @@ public class Contact {
  
         private JsonNullable<String> name = JsonNullable.undefined();
  
-        private JsonNullable<? extends List<Phone>> phone = JsonNullable.undefined();
+        private JsonNullable<? extends List<PhoneNumberItems>> phone = JsonNullable.undefined();
  
         private CustomerStatus status;  
         
@@ -466,7 +466,7 @@ public class Contact {
         /**
          * An array of Phone numbers.
          */
-        public Builder phone(List<Phone> phone) {
+        public Builder phone(List<PhoneNumberItems> phone) {
             Utils.checkNotNull(phone, "phone");
             this.phone = JsonNullable.of(phone);
             return this;
@@ -475,7 +475,7 @@ public class Contact {
         /**
          * An array of Phone numbers.
          */
-        public Builder phone(JsonNullable<? extends List<Phone>> phone) {
+        public Builder phone(JsonNullable<? extends List<PhoneNumberItems>> phone) {
             Utils.checkNotNull(phone, "phone");
             this.phone = phone;
             return this;

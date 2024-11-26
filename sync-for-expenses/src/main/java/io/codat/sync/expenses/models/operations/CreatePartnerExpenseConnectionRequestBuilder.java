@@ -19,19 +19,19 @@ public class CreatePartnerExpenseConnectionRequestBuilder {
         this.sdk = sdk;
     }
 
-    public CreatePartnerExpenseConnectionRequestBuilder request(io.codat.sync.expenses.models.operations.CreatePartnerExpenseConnectionRequest request) {
+    public CreatePartnerExpenseConnectionRequestBuilder request(CreatePartnerExpenseConnectionRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public CreatePartnerExpenseConnectionRequestBuilder retryConfig(io.codat.sync.expenses.utils.RetryConfig retryConfig) {
+    public CreatePartnerExpenseConnectionRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public CreatePartnerExpenseConnectionRequestBuilder retryConfig(java.util.Optional<io.codat.sync.expenses.utils.RetryConfig> retryConfig) {
+    public CreatePartnerExpenseConnectionRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

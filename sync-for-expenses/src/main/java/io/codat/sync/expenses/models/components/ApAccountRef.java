@@ -17,28 +17,28 @@ import java.util.Objects;
 import java.util.Optional;
 
 
-public class GroupReference {
+public class ApAccountRef {
 
     /**
-     * Unique identifier for the group.
+     * Unique identifier for the Accounts Payable account associated with the transaction. The `apAccountRef` object is currently supported only for QuickBooks Desktop.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("id")
     private Optional<String> id;
 
     @JsonCreator
-    public GroupReference(
+    public ApAccountRef(
             @JsonProperty("id") Optional<String> id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
     }
     
-    public GroupReference() {
+    public ApAccountRef() {
         this(Optional.empty());
     }
 
     /**
-     * Unique identifier for the group.
+     * Unique identifier for the Accounts Payable account associated with the transaction. The `apAccountRef` object is currently supported only for QuickBooks Desktop.
      */
     @JsonIgnore
     public Optional<String> id() {
@@ -50,18 +50,18 @@ public class GroupReference {
     }
 
     /**
-     * Unique identifier for the group.
+     * Unique identifier for the Accounts Payable account associated with the transaction. The `apAccountRef` object is currently supported only for QuickBooks Desktop.
      */
-    public GroupReference withId(String id) {
+    public ApAccountRef withId(String id) {
         Utils.checkNotNull(id, "id");
         this.id = Optional.ofNullable(id);
         return this;
     }
 
     /**
-     * Unique identifier for the group.
+     * Unique identifier for the Accounts Payable account associated with the transaction. The `apAccountRef` object is currently supported only for QuickBooks Desktop.
      */
-    public GroupReference withId(Optional<String> id) {
+    public ApAccountRef withId(Optional<String> id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
         return this;
@@ -75,7 +75,7 @@ public class GroupReference {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        GroupReference other = (GroupReference) o;
+        ApAccountRef other = (ApAccountRef) o;
         return 
             Objects.deepEquals(this.id, other.id);
     }
@@ -88,7 +88,7 @@ public class GroupReference {
     
     @Override
     public String toString() {
-        return Utils.toString(GroupReference.class,
+        return Utils.toString(ApAccountRef.class,
                 "id", id);
     }
     
@@ -101,7 +101,7 @@ public class GroupReference {
         }
 
         /**
-         * Unique identifier for the group.
+         * Unique identifier for the Accounts Payable account associated with the transaction. The `apAccountRef` object is currently supported only for QuickBooks Desktop.
          */
         public Builder id(String id) {
             Utils.checkNotNull(id, "id");
@@ -110,7 +110,7 @@ public class GroupReference {
         }
 
         /**
-         * Unique identifier for the group.
+         * Unique identifier for the Accounts Payable account associated with the transaction. The `apAccountRef` object is currently supported only for QuickBooks Desktop.
          */
         public Builder id(Optional<String> id) {
             Utils.checkNotNull(id, "id");
@@ -118,8 +118,8 @@ public class GroupReference {
             return this;
         }
         
-        public GroupReference build() {
-            return new GroupReference(
+        public ApAccountRef build() {
+            return new ApAccountRef(
                 id);
         }
     }

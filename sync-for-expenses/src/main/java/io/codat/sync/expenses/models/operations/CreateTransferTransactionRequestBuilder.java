@@ -19,19 +19,19 @@ public class CreateTransferTransactionRequestBuilder {
         this.sdk = sdk;
     }
 
-    public CreateTransferTransactionRequestBuilder request(io.codat.sync.expenses.models.operations.CreateTransferTransactionRequest request) {
+    public CreateTransferTransactionRequestBuilder request(CreateTransferTransactionRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public CreateTransferTransactionRequestBuilder retryConfig(io.codat.sync.expenses.utils.RetryConfig retryConfig) {
+    public CreateTransferTransactionRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public CreateTransferTransactionRequestBuilder retryConfig(java.util.Optional<io.codat.sync.expenses.utils.RetryConfig> retryConfig) {
+    public CreateTransferTransactionRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

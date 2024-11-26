@@ -19,19 +19,19 @@ public class UpdateExpenseTransactionRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UpdateExpenseTransactionRequestBuilder request(io.codat.sync.expenses.models.operations.UpdateExpenseTransactionRequest request) {
+    public UpdateExpenseTransactionRequestBuilder request(UpdateExpenseTransactionRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public UpdateExpenseTransactionRequestBuilder retryConfig(io.codat.sync.expenses.utils.RetryConfig retryConfig) {
+    public UpdateExpenseTransactionRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public UpdateExpenseTransactionRequestBuilder retryConfig(java.util.Optional<io.codat.sync.expenses.utils.RetryConfig> retryConfig) {
+    public UpdateExpenseTransactionRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

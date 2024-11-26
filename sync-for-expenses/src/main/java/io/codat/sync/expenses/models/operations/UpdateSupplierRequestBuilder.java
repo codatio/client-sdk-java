@@ -19,19 +19,19 @@ public class UpdateSupplierRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UpdateSupplierRequestBuilder request(io.codat.sync.expenses.models.operations.UpdateSupplierRequest request) {
+    public UpdateSupplierRequestBuilder request(UpdateSupplierRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public UpdateSupplierRequestBuilder retryConfig(io.codat.sync.expenses.utils.RetryConfig retryConfig) {
+    public UpdateSupplierRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public UpdateSupplierRequestBuilder retryConfig(java.util.Optional<io.codat.sync.expenses.utils.RetryConfig> retryConfig) {
+    public UpdateSupplierRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

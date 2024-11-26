@@ -5,7 +5,7 @@
 package io.codat.sync.expenses;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import io.codat.sync.expenses.models.components.Transaction;
+import io.codat.sync.expenses.models.components.SchemaTransaction;
 import io.codat.sync.expenses.models.components.Transactions;
 import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.errors.SDKError;
@@ -86,7 +86,7 @@ public class TransactionStatus implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.sync.expenses.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -98,7 +98,7 @@ public class TransactionStatus implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
@@ -177,9 +177,9 @@ public class TransactionStatus implements
         
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
-                List<Transaction> _out = Utils.mapper().readValue(
+                List<SchemaTransaction> _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
-                    new TypeReference<List<Transaction>>() {});
+                    new TypeReference<List<SchemaTransaction>>() {});
                 _res.withTransactionResponse(Optional.ofNullable(_out));
                 return _res;
             } else {
@@ -255,7 +255,7 @@ public class TransactionStatus implements
             Optional<Options> options) throws Exception {
 
         if (options.isPresent()) {
-          options.get().validate(Arrays.asList(io.codat.sync.expenses.utils.Options.Option.RETRY_CONFIG));
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
         }
         String _baseUrl = this.sdkConfiguration.serverUrl;
         String _url = Utils.generateURL(
@@ -267,7 +267,7 @@ public class TransactionStatus implements
         HTTPRequest _req = new HTTPRequest(_url, "GET");
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
-                this.sdkConfiguration.userAgent);
+                SDKConfiguration.USER_AGENT);
 
         _req.addQueryParams(Utils.getQueryParams(
                 ListSyncTransactionsRequest.class,

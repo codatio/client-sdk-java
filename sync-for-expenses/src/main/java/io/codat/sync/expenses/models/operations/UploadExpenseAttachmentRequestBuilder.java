@@ -19,19 +19,19 @@ public class UploadExpenseAttachmentRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UploadExpenseAttachmentRequestBuilder request(io.codat.sync.expenses.models.operations.UploadExpenseAttachmentRequest request) {
+    public UploadExpenseAttachmentRequestBuilder request(UploadExpenseAttachmentRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public UploadExpenseAttachmentRequestBuilder retryConfig(io.codat.sync.expenses.utils.RetryConfig retryConfig) {
+    public UploadExpenseAttachmentRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public UploadExpenseAttachmentRequestBuilder retryConfig(java.util.Optional<io.codat.sync.expenses.utils.RetryConfig> retryConfig) {
+    public UploadExpenseAttachmentRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

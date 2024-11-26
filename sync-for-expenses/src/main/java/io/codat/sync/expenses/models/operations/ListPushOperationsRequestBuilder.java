@@ -19,19 +19,19 @@ public class ListPushOperationsRequestBuilder {
         this.sdk = sdk;
     }
 
-    public ListPushOperationsRequestBuilder request(io.codat.sync.expenses.models.operations.ListPushOperationsRequest request) {
+    public ListPushOperationsRequestBuilder request(ListPushOperationsRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public ListPushOperationsRequestBuilder retryConfig(io.codat.sync.expenses.utils.RetryConfig retryConfig) {
+    public ListPushOperationsRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public ListPushOperationsRequestBuilder retryConfig(java.util.Optional<io.codat.sync.expenses.utils.RetryConfig> retryConfig) {
+    public ListPushOperationsRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;
