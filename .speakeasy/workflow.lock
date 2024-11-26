@@ -38,11 +38,12 @@ sources:
             - 3.0.0
     sync-for-commerce-source:
         sourceNamespace: sync-for-commerce-source
-        sourceRevisionDigest: sha256:cb5d21b0772d51cab179e51e610a8a801e4535bf1beb0deef33f63bd8ca7a5cc
-        sourceBlobDigest: sha256:ab64a148f650a63d3411abb1686ffdcc252ddb1525415957d2dcd7e818882594
+        sourceRevisionDigest: sha256:b22044a8400718ba7c9f62b38f3f03283dc875ed6e02b09d1ca5ec74dc73bd75
+        sourceBlobDigest: sha256:1d1592cd53dae647bff1e58e43cb64f19f9da714cfc6f6198c43659b89b05369
         tags:
             - latest
-            - main
+            - speakeasy-sdk-regen-1732634990
+            - "1.1"
     sync-for-expenses-source:
         sourceNamespace: sync-for-expenses-source
         sourceRevisionDigest: sha256:b5eb22d9cecae898f800d1dd163828079b3e370e151cb6dbf02122f0c8cff9cc
@@ -97,8 +98,10 @@ targets:
     sync-for-commerce-library:
         source: sync-for-commerce-source
         sourceNamespace: sync-for-commerce-source
-        sourceRevisionDigest: sha256:cb5d21b0772d51cab179e51e610a8a801e4535bf1beb0deef33f63bd8ca7a5cc
-        sourceBlobDigest: sha256:ab64a148f650a63d3411abb1686ffdcc252ddb1525415957d2dcd7e818882594
+        sourceRevisionDigest: sha256:b22044a8400718ba7c9f62b38f3f03283dc875ed6e02b09d1ca5ec74dc73bd75
+        sourceBlobDigest: sha256:1d1592cd53dae647bff1e58e43cb64f19f9da714cfc6f6198c43659b89b05369
+        codeSamplesNamespace: sync-for-commerce-source-code-samples
+        codeSamplesRevisionDigest: sha256:9585369e2425a7d083d28a5844d961da338e095f44c9d9668063cc8259f0ca1a
     sync-for-expenses-library:
         source: sync-for-expenses-source
         sourceNamespace: sync-for-expenses-source

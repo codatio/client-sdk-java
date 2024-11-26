@@ -19,8 +19,9 @@ import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
- * ErrorMessage - Your `query` parameter was not correctly formed
+ * ErrorMessage - Your API request was not properly authorized.
  */
+@SuppressWarnings("serial")
 public class ErrorMessage extends RuntimeException {
 
     /**

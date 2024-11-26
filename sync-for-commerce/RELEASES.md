@@ -19,3 +19,13 @@ Based on:
 - [java v0.2.0] sync-for-commerce
 ### Releases
 - [Maven Central v0.2.0] https://central.sonatype.com/artifact/io.codat.sync/commerce/0.2.0 - sync-for-commerce
+
+## 2024-11-26 15:29:44
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.446.1 (2.462.1) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [java v0.3.0] sync-for-commerce
+### Releases
+- [Maven Central v0.3.0] https://central.sonatype.com/artifact/io.codat.sync/commerce/0.3.0 - sync-for-commerce

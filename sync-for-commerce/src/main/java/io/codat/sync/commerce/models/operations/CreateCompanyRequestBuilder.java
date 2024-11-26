@@ -20,25 +20,25 @@ public class CreateCompanyRequestBuilder {
         this.sdk = sdk;
     }
                 
-    public CreateCompanyRequestBuilder request(io.codat.sync.commerce.models.components.CreateCompany request) {
+    public CreateCompanyRequestBuilder request(CreateCompany request) {
         Utils.checkNotNull(request, "request");
         this.request = Optional.of(request);
         return this;
     }
 
-    public CreateCompanyRequestBuilder request(java.util.Optional<? extends io.codat.sync.commerce.models.components.CreateCompany> request) {
+    public CreateCompanyRequestBuilder request(Optional<? extends CreateCompany> request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public CreateCompanyRequestBuilder retryConfig(io.codat.sync.commerce.utils.RetryConfig retryConfig) {
+    public CreateCompanyRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public CreateCompanyRequestBuilder retryConfig(java.util.Optional<io.codat.sync.commerce.utils.RetryConfig> retryConfig) {
+    public CreateCompanyRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

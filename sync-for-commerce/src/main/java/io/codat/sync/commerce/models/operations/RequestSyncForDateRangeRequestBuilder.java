@@ -19,19 +19,19 @@ public class RequestSyncForDateRangeRequestBuilder {
         this.sdk = sdk;
     }
 
-    public RequestSyncForDateRangeRequestBuilder request(io.codat.sync.commerce.models.operations.RequestSyncForDateRangeRequest request) {
+    public RequestSyncForDateRangeRequestBuilder request(RequestSyncForDateRangeRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public RequestSyncForDateRangeRequestBuilder retryConfig(io.codat.sync.commerce.utils.RetryConfig retryConfig) {
+    public RequestSyncForDateRangeRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public RequestSyncForDateRangeRequestBuilder retryConfig(java.util.Optional<io.codat.sync.commerce.utils.RetryConfig> retryConfig) {
+    public RequestSyncForDateRangeRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

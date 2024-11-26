@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: ceb26af7-1fbd-4c3d-943d-832f8df5d4a3
 management:
-  docChecksum: 5b17c461a98ac32ecaa078bd4f1f644d
+  docChecksum: 4dd3691e8d9cbb167c6a1a7bffed41b8
   docVersion: "1.1"
-  speakeasyVersion: 1.396.7
-  generationVersion: 2.415.6
-  releaseVersion: 0.2.0
-  configChecksum: 79349a11f55bb5f43e7809c3e304628b
+  speakeasyVersion: 1.446.1
+  generationVersion: 2.462.1
+  releaseVersion: 0.3.0
+  configChecksum: 0f87352a567b56e1bcf6f58ee364c94f
   repoURL: https://github.com/codatio/client-sdk-java.git
   repoSubDirectory: sync-for-commerce
   published: true
@@ -14,7 +14,7 @@ features:
   java:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.1
-    core: 3.29.7
+    core: 3.32.2
     deprecations: 2.81.1
     examples: 2.81.3
     globalSecurity: 2.82.7
@@ -25,6 +25,7 @@ features:
     nullables: 0.1.0
     retries: 0.1.1
     sdkHooks: 0.1.0
+    serverEventsSentinels: 0.2.0
     webhooks: 1.0.0
 generatedFiles:
   - .gitattributes
@@ -40,11 +41,15 @@ generatedFiles:
   - docs/models/components/CommerceConfiguration.md
   - docs/models/components/Companies.md
   - docs/models/components/Company.md
+  - docs/models/components/CompanyReference.md
+  - docs/models/components/CompanyReferenceLinks.md
   - docs/models/components/CompanySyncStatus.md
   - docs/models/components/Configuration.md
   - docs/models/components/ConfigurationMapSettings.md
   - docs/models/components/ConfigurationOption.md
   - docs/models/components/Connection.md
+  - docs/models/components/ConnectionWebhook.md
+  - docs/models/components/ConnectionWebhookPayload.md
   - docs/models/components/Connections.md
   - docs/models/components/CreateCompany.md
   - docs/models/components/DataConnectionError.md
@@ -59,7 +64,6 @@ generatedFiles:
   - docs/models/components/FeatureType.md
   - docs/models/components/FeesConfiguration.md
   - docs/models/components/FeesSupplier.md
-  - docs/models/components/GroupReference.md
   - docs/models/components/Grouping.md
   - docs/models/components/GroupingLevels.md
   - docs/models/components/GroupingPeriod.md
@@ -91,7 +95,6 @@ generatedFiles:
   - docs/models/components/SyncStatus.md
   - docs/models/components/SyncSummary.md
   - docs/models/components/SyncToLatestArgs.md
-  - docs/models/components/Tags.md
   - docs/models/components/TaxRateAmount.md
   - docs/models/components/TaxRateMapping.md
   - docs/models/components/UpdateConnection.md
@@ -141,6 +144,7 @@ generatedFiles:
   - docs/models/operations/UpdateConnectionResponse.md
   - docs/models/operations/UpdateVisibleAccountsSyncFlowRequest.md
   - docs/models/operations/UpdateVisibleAccountsSyncFlowResponse.md
+  - docs/models/webhooks/ConnectionDeletedResponse.md
   - docs/models/webhooks/SyncConnectionDeletedResponse.md
   - docs/sdks/advancedcontrols/README.md
   - docs/sdks/codatsynccommerce/README.md
@@ -170,11 +174,15 @@ generatedFiles:
   - src/main/java/io/codat/sync/commerce/models/components/CommerceConfiguration.java
   - src/main/java/io/codat/sync/commerce/models/components/Companies.java
   - src/main/java/io/codat/sync/commerce/models/components/Company.java
+  - src/main/java/io/codat/sync/commerce/models/components/CompanyReference.java
+  - src/main/java/io/codat/sync/commerce/models/components/CompanyReferenceLinks.java
   - src/main/java/io/codat/sync/commerce/models/components/CompanySyncStatus.java
   - src/main/java/io/codat/sync/commerce/models/components/Configuration.java
   - src/main/java/io/codat/sync/commerce/models/components/ConfigurationMapSettings.java
   - src/main/java/io/codat/sync/commerce/models/components/ConfigurationOption.java
   - src/main/java/io/codat/sync/commerce/models/components/Connection.java
+  - src/main/java/io/codat/sync/commerce/models/components/ConnectionWebhook.java
+  - src/main/java/io/codat/sync/commerce/models/components/ConnectionWebhookPayload.java
   - src/main/java/io/codat/sync/commerce/models/components/Connections.java
   - src/main/java/io/codat/sync/commerce/models/components/CreateCompany.java
   - src/main/java/io/codat/sync/commerce/models/components/DataConnectionError.java
@@ -189,7 +197,6 @@ generatedFiles:
   - src/main/java/io/codat/sync/commerce/models/components/FeatureType.java
   - src/main/java/io/codat/sync/commerce/models/components/FeesConfiguration.java
   - src/main/java/io/codat/sync/commerce/models/components/FeesSupplier.java
-  - src/main/java/io/codat/sync/commerce/models/components/GroupReference.java
   - src/main/java/io/codat/sync/commerce/models/components/Grouping.java
   - src/main/java/io/codat/sync/commerce/models/components/GroupingLevels.java
   - src/main/java/io/codat/sync/commerce/models/components/GroupingPeriod.java
@@ -221,7 +228,6 @@ generatedFiles:
   - src/main/java/io/codat/sync/commerce/models/components/SyncStatus.java
   - src/main/java/io/codat/sync/commerce/models/components/SyncSummary.java
   - src/main/java/io/codat/sync/commerce/models/components/SyncToLatestArgs.java
-  - src/main/java/io/codat/sync/commerce/models/components/Tags.java
   - src/main/java/io/codat/sync/commerce/models/components/TaxRateAmount.java
   - src/main/java/io/codat/sync/commerce/models/components/TaxRateMapping.java
   - src/main/java/io/codat/sync/commerce/models/components/UpdateConnection.java
@@ -296,6 +302,7 @@ generatedFiles:
   - src/main/java/io/codat/sync/commerce/models/operations/UpdateVisibleAccountsSyncFlowRequest.java
   - src/main/java/io/codat/sync/commerce/models/operations/UpdateVisibleAccountsSyncFlowRequestBuilder.java
   - src/main/java/io/codat/sync/commerce/models/operations/UpdateVisibleAccountsSyncFlowResponse.java
+  - src/main/java/io/codat/sync/commerce/models/webhooks/ConnectionDeletedResponse.java
   - src/main/java/io/codat/sync/commerce/models/webhooks/SyncConnectionDeletedResponse.java
   - src/main/java/io/codat/sync/commerce/utils/BackoffStrategy.java
   - src/main/java/io/codat/sync/commerce/utils/BigDecimalString.java
@@ -319,6 +326,7 @@ generatedFiles:
   - src/main/java/io/codat/sync/commerce/utils/OneOfDeserializer.java
   - src/main/java/io/codat/sync/commerce/utils/Options.java
   - src/main/java/io/codat/sync/commerce/utils/PathParamsMetadata.java
+  - src/main/java/io/codat/sync/commerce/utils/QueryParameter.java
   - src/main/java/io/codat/sync/commerce/utils/QueryParameters.java
   - src/main/java/io/codat/sync/commerce/utils/QueryParamsMetadata.java
   - src/main/java/io/codat/sync/commerce/utils/RequestBody.java
@@ -333,6 +341,7 @@ generatedFiles:
   - src/main/java/io/codat/sync/commerce/utils/SpeakeasyMetadata.java
   - src/main/java/io/codat/sync/commerce/utils/TypedObject.java
   - src/main/java/io/codat/sync/commerce/utils/Types.java
+  - src/main/java/io/codat/sync/commerce/utils/Utf8UrlEncoder.java
   - src/main/java/io/codat/sync/commerce/utils/Utils.java
 examples:
   get-config-text-sync-flow:
@@ -383,14 +392,14 @@ examples:
   create-company:
     "":
       requestBody:
-        application/json: {"description": "Requested early access to the new financing scheme.", "groups": [], "name": "string"}
+        application/json: {"description": "Requested early access to the new financing scheme.", "name": "string"}
       responses:
         "200":
-          application/json: {"created": "2022-01-01T12:00:00.000Z", "createdByUserName": "string", "dataConnections": [{"created": "2022-10-27T09:53:29Z", "dataConnectionErrors": [], "id": "ee2eb431-c0fa-4dc9-93fa-d29781c12bcd", "integrationId": "bf083d72-62c7-493e-aec9-81b4dbba7e2c", "integrationKey": "dfxm", "lastSync": "2022-10-27T10:22:43.6464237Z", "linkUrl": "https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start", "platformName": "Basiq", "sourceId": "bdd831ce-eebd-4896-89a7-20e5ee8989ee", "sourceType": "Banking", "status": "Linked"}], "description": "Requested early access to the new financing scheme.", "id": "0498e921-9b53-4396-a412-4f2f5983b0a2", "lastSync": "2022-01-01T12:00:00.000Z", "name": "string", "redirect": "https://link.codat.io/company/27628208-459c-46a2-a705-5641ce25f739"}
+          application/json: {"created": "2022-01-01T12:00:00.000Z", "createdByUserName": "string", "dataConnections": [{"created": "2022-10-27T09:53:29Z", "id": "ee2eb431-c0fa-4dc9-93fa-d29781c12bcd", "integrationId": "bf083d72-62c7-493e-aec9-81b4dbba7e2c", "integrationKey": "dfxm", "lastSync": "2022-10-27T10:22:43.6464237Z", "linkUrl": "https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start", "platformName": "Basiq", "sourceId": "bdd831ce-eebd-4896-89a7-20e5ee8989ee", "sourceType": "Banking", "status": "Linked"}], "description": "Requested early access to the new financing scheme.", "id": "0498e921-9b53-4396-a412-4f2f5983b0a2", "lastSync": "2022-01-01T12:00:00.000Z", "name": "string", "redirect": "https://link.codat.io/company/27628208-459c-46a2-a705-5641ce25f739", "tags": {"region": "us", "uid": "f6b0c253-16c7-4da1-a0c5-9c871e9c9d6c"}}
         "400": {}
     Malformed query:
       requestBody:
-        application/json: {"description": "Requested early access to the new financing scheme.", "groups": [], "name": "Bank of Dave"}
+        application/json: {"description": "Requested early access to the new financing scheme.", "name": "Bank of Dave"}
       responses:
         "400":
           application/json: {"canBeRetried": "Unknown", "correlationId": "bc997528a9d7abb9161ef45f05d38599", "detailedErrorCode": 0, "error": "Error processing request - not valid.", "service": "PublicApi", "statusCode": 400}
@@ -496,7 +505,7 @@ examples:
           orderBy: "-modifiedDate"
       responses:
         "200":
-          application/json: {"_links": {"current": {"href": "string"}, "next": {"href": "string"}, "previous": {"href": "string"}, "self": {"href": "string"}}, "pageNumber": 0, "pageSize": 0, "results": [{"created": "2022-10-27T09:53:29Z", "dataConnectionErrors": [], "id": "ee2eb431-c0fa-4dc9-93fa-d29781c12bcd", "integrationId": "bf083d72-62c7-493e-aec9-81b4dbba7e2c", "integrationKey": "dfxm", "lastSync": "2022-10-27T10:22:43.6464237Z", "linkUrl": "https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start", "platformName": "Basiq", "sourceId": "bdd831ce-eebd-4896-89a7-20e5ee8989ee", "sourceType": "Banking", "status": "Linked"}], "totalResults": 0}
+          application/json: {"_links": {"current": {"href": "string"}, "next": {"href": "string"}, "previous": {"href": "string"}, "self": {"href": "string"}}, "pageNumber": 0, "pageSize": 0, "results": [{"created": "2022-10-27T09:53:29Z", "id": "ee2eb431-c0fa-4dc9-93fa-d29781c12bcd", "integrationId": "bf083d72-62c7-493e-aec9-81b4dbba7e2c", "integrationKey": "dfxm", "lastSync": "2022-10-27T10:22:43.6464237Z", "linkUrl": "https://link-api.codat.io/companies/86bd88cb-44ab-4dfb-b32f-87b19b14287f/connections/ee2eb431-c0fa-4dc9-93fa-d29781c12bcd/start", "platformName": "Basiq", "sourceId": "bdd831ce-eebd-4896-89a7-20e5ee8989ee", "sourceType": "Banking", "status": "Linked"}], "totalResults": 0}
     Malformed query:
       parameters:
         path:
@@ -640,3 +649,4 @@ examples:
       responses:
         "400":
           application/json: {"canBeRetried": "Unknown", "correlationId": "98457fb9956b7f9b4b2fd4f6e23bb5c8", "detailedErrorCode": 0, "error": "Error parsing query - Could not resolve property isCompleted on Dataset", "service": "PullApi", "statusCode": 400}
+generatedTests: {}

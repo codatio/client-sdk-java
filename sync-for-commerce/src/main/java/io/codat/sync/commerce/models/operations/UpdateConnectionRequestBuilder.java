@@ -19,19 +19,19 @@ public class UpdateConnectionRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UpdateConnectionRequestBuilder request(io.codat.sync.commerce.models.operations.UpdateConnectionRequest request) {
+    public UpdateConnectionRequestBuilder request(UpdateConnectionRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public UpdateConnectionRequestBuilder retryConfig(io.codat.sync.commerce.utils.RetryConfig retryConfig) {
+    public UpdateConnectionRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public UpdateConnectionRequestBuilder retryConfig(java.util.Optional<io.codat.sync.commerce.utils.RetryConfig> retryConfig) {
+    public UpdateConnectionRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

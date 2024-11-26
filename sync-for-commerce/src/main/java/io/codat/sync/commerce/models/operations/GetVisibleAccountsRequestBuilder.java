@@ -19,19 +19,19 @@ public class GetVisibleAccountsRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetVisibleAccountsRequestBuilder request(io.codat.sync.commerce.models.operations.GetVisibleAccountsRequest request) {
+    public GetVisibleAccountsRequestBuilder request(GetVisibleAccountsRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetVisibleAccountsRequestBuilder retryConfig(io.codat.sync.commerce.utils.RetryConfig retryConfig) {
+    public GetVisibleAccountsRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetVisibleAccountsRequestBuilder retryConfig(java.util.Optional<io.codat.sync.commerce.utils.RetryConfig> retryConfig) {
+    public GetVisibleAccountsRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;
