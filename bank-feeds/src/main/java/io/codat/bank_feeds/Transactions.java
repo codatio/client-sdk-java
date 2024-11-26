@@ -7,11 +7,15 @@ package io.codat.bank_feeds;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.codat.bank_feeds.models.components.PushOperation;
 import io.codat.bank_feeds.models.components.PushOperations;
+import io.codat.bank_feeds.models.components.PushOption;
 import io.codat.bank_feeds.models.errors.ErrorMessage;
 import io.codat.bank_feeds.models.errors.SDKError;
 import io.codat.bank_feeds.models.operations.CreateBankTransactionsRequest;
 import io.codat.bank_feeds.models.operations.CreateBankTransactionsRequestBuilder;
 import io.codat.bank_feeds.models.operations.CreateBankTransactionsResponse;
+import io.codat.bank_feeds.models.operations.GetCreateBankTransactionsModelRequest;
+import io.codat.bank_feeds.models.operations.GetCreateBankTransactionsModelRequestBuilder;
+import io.codat.bank_feeds.models.operations.GetCreateBankTransactionsModelResponse;
 import io.codat.bank_feeds.models.operations.GetCreateOperationRequest;
 import io.codat.bank_feeds.models.operations.GetCreateOperationRequestBuilder;
 import io.codat.bank_feeds.models.operations.GetCreateOperationResponse;
@@ -49,6 +53,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class Transactions implements
             MethodCallCreateBankTransactions,
+            MethodCallGetCreateBankTransactionsModel,
             MethodCallGetCreateOperation,
             MethodCallListCreateOperations {
 
@@ -67,8 +72,8 @@ public class Transactions implements
      * 
      * **Integration-specific behaviour**
      * 
-     * Required data may vary by integration. To see what data to post, first call [Get create bank transaction model](https://docs.codat.io/bank-feeds-api#/operations/get-create-bankTransactions-model).
-     * 
+     * The required properties may vary based on the integration. For detailed requirements specific to each accounting software, refer to the API reference examples.
+     * Alternatively, you can view the [Get create bank transaction model](https://docs.codat.io/bank-feeds-api#/operations/get-create-bank-transactions-model) for more information.
      * @return The call builder
      */
     public CreateBankTransactionsRequestBuilder create() {
@@ -83,8 +88,8 @@ public class Transactions implements
      * 
      * **Integration-specific behaviour**
      * 
-     * Required data may vary by integration. To see what data to post, first call [Get create bank transaction model](https://docs.codat.io/bank-feeds-api#/operations/get-create-bankTransactions-model).
-     * 
+     * The required properties may vary based on the integration. For detailed requirements specific to each accounting software, refer to the API reference examples.
+     * Alternatively, you can view the [Get create bank transaction model](https://docs.codat.io/bank-feeds-api#/operations/get-create-bank-transactions-model) for more information.
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
@@ -102,8 +107,8 @@ public class Transactions implements
      * 
      * **Integration-specific behaviour**
      * 
-     * Required data may vary by integration. To see what data to post, first call [Get create bank transaction model](https://docs.codat.io/bank-feeds-api#/operations/get-create-bankTransactions-model).
-     * 
+     * The required properties may vary based on the integration. For detailed requirements specific to each accounting software, refer to the API reference examples.
+     * Alternatively, you can view the [Get create bank transaction model](https://docs.codat.io/bank-feeds-api#/operations/get-create-bank-transactions-model) for more information.
      * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
@@ -234,6 +239,193 @@ public class Transactions implements
             }
         }
         if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "401", "402", "403", "404", "429", "500", "503")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                ErrorMessage _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<ErrorMessage>() {});
+                throw _out;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "4XX", "5XX")) {
+            // no content 
+            throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "API error occurred", 
+                    Utils.extractByteArrayFromBody(_httpRes));
+        }
+        throw new SDKError(
+            _httpRes, 
+            _httpRes.statusCode(), 
+            "Unexpected status code received: " + _httpRes.statusCode(), 
+            Utils.extractByteArrayFromBody(_httpRes));
+    }
+
+
+
+    /**
+     * Get create bank transactions model
+     * The *Get create bank account transactions model* endpoint returns the expected data for the request payload when creating [bank account transactions](https://docs.codat.io/bank-feeds-api#/schemas/BankTransactions) for a given company and integration.
+     * 
+     * [Bank account transactions](https://docs.codat.io/bank-feeds-api#/schemas/BankTransactions) are records of money that has moved in and out of an SMB's bank account.
+     * 
+     * **Integration-specific behaviour**
+     * 
+     * See the *response examples* for integration-specific indicative models.
+     * @return The call builder
+     */
+    public GetCreateBankTransactionsModelRequestBuilder getCreateModel() {
+        return new GetCreateBankTransactionsModelRequestBuilder(this);
+    }
+
+    /**
+     * Get create bank transactions model
+     * The *Get create bank account transactions model* endpoint returns the expected data for the request payload when creating [bank account transactions](https://docs.codat.io/bank-feeds-api#/schemas/BankTransactions) for a given company and integration.
+     * 
+     * [Bank account transactions](https://docs.codat.io/bank-feeds-api#/schemas/BankTransactions) are records of money that has moved in and out of an SMB's bank account.
+     * 
+     * **Integration-specific behaviour**
+     * 
+     * See the *response examples* for integration-specific indicative models.
+     * @param request The request object containing all of the parameters for the API call.
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public GetCreateBankTransactionsModelResponse getCreateModel(
+            GetCreateBankTransactionsModelRequest request) throws Exception {
+        return getCreateModel(request, Optional.empty());
+    }
+    
+    /**
+     * Get create bank transactions model
+     * The *Get create bank account transactions model* endpoint returns the expected data for the request payload when creating [bank account transactions](https://docs.codat.io/bank-feeds-api#/schemas/BankTransactions) for a given company and integration.
+     * 
+     * [Bank account transactions](https://docs.codat.io/bank-feeds-api#/schemas/BankTransactions) are records of money that has moved in and out of an SMB's bank account.
+     * 
+     * **Integration-specific behaviour**
+     * 
+     * See the *response examples* for integration-specific indicative models.
+     * @param request The request object containing all of the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call
+     * @throws Exception if the API call fails
+     */
+    public GetCreateBankTransactionsModelResponse getCreateModel(
+            GetCreateBankTransactionsModelRequest request,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
+        String _baseUrl = this.sdkConfiguration.serverUrl;
+        String _url = Utils.generateURL(
+                GetCreateBankTransactionsModelRequest.class,
+                _baseUrl,
+                "/companies/{companyId}/connections/{connectionId}/options/bankAccounts/{accountId}/bankTransactions",
+                request, null);
+        
+        HTTPRequest _req = new HTTPRequest(_url, "GET");
+        _req.addHeader("Accept", "application/json")
+            .addHeader("user-agent", 
+                SDKConfiguration.USER_AGENT);
+
+        Utils.configureSecurity(_req,  
+                this.sdkConfiguration.securitySource.getSecurity());
+
+        HTTPClient _client = this.sdkConfiguration.defaultClient;
+        HTTPRequest _finalReq = _req;
+        RetryConfig _retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            _retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            _retryConfig = RetryConfig.builder()
+                .backoff(BackoffStrategy.builder()
+                            .initialInterval(500, TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000, TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
+        }
+        List<String> _statusCodes = new ArrayList<>();
+        _statusCodes.add("408");
+        _statusCodes.add("429");
+        _statusCodes.add("5XX");
+        Retries _retries = Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl(
+                                "get-create-bank-transactions-model", 
+                                Optional.of(List.of()), 
+                                sdkConfiguration.securitySource()),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl(
+                                "get-create-bank-transactions-model",
+                                 Optional.of(List.of()),
+                                 sdkConfiguration.securitySource()), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
+            .build();
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl(
+                         "get-create-bank-transactions-model", 
+                         Optional.of(List.of()), 
+                         sdkConfiguration.securitySource()),
+                     _retries.run());
+        String _contentType = _httpRes
+            .headers()
+            .firstValue("Content-Type")
+            .orElse("application/octet-stream");
+        GetCreateBankTransactionsModelResponse.Builder _resBuilder = 
+            GetCreateBankTransactionsModelResponse
+                .builder()
+                .contentType(_contentType)
+                .statusCode(_httpRes.statusCode())
+                .rawResponse(_httpRes);
+
+        GetCreateBankTransactionsModelResponse _res = _resBuilder.build();
+        
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
+            if (Utils.contentTypeMatches(_contentType, "application/json")) {
+                PushOption _out = Utils.mapper().readValue(
+                    Utils.toUtf8AndClose(_httpRes.body()),
+                    new TypeReference<PushOption>() {});
+                _res.withPushOption(Optional.ofNullable(_out));
+                return _res;
+            } else {
+                throw new SDKError(
+                    _httpRes, 
+                    _httpRes.statusCode(), 
+                    "Unexpected content-type received: " + _contentType, 
+                    Utils.extractByteArrayFromBody(_httpRes));
+            }
+        }
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "401", "402", "403", "404", "429", "500", "503")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 ErrorMessage _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),

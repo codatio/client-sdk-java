@@ -26,8 +26,9 @@ public class BankTransactions {
     /**
      * The amount transacted in the bank transaction.
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("amount")
-    private BigDecimal amount;
+    private Optional<? extends BigDecimal> amount;
 
     /**
      * The remaining balance in the account with ID `accountId`. This field is optional for QuickBooks Online but is required for Xero, Sage, NetSuite, Exact, and FreeAgent.
@@ -64,8 +65,9 @@ public class BankTransactions {
      * &gt; Not all dates from Codat will contain information about time zones.  
      * &gt; Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("date")
-    private String date;
+    private Optional<String> date;
 
     /**
      * Description of the bank transaction.
@@ -77,8 +79,9 @@ public class BankTransactions {
     /**
      * Identifier for the bank account transaction, unique for the company in the accounting software.
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("id")
-    private String id;
+    private Optional<String> id;
 
     /**
      * `True` if the bank transaction has been [reconciled](https://www.xero.com/uk/guides/what-is-bank-reconciliation/) in the accounting software.
@@ -103,12 +106,12 @@ public class BankTransactions {
 
     @JsonCreator
     public BankTransactions(
-            @JsonProperty("amount") BigDecimal amount,
+            @JsonProperty("amount") Optional<? extends BigDecimal> amount,
             @JsonProperty("balance") Optional<? extends BigDecimal> balance,
             @JsonProperty("counterparty") JsonNullable<String> counterparty,
-            @JsonProperty("date") String date,
+            @JsonProperty("date") Optional<String> date,
             @JsonProperty("description") JsonNullable<String> description,
-            @JsonProperty("id") String id,
+            @JsonProperty("id") Optional<String> id,
             @JsonProperty("reconciled") JsonNullable<Boolean> reconciled,
             @JsonProperty("reference") JsonNullable<String> reference,
             @JsonProperty("transactionType") JsonNullable<? extends BankTransactionType> transactionType) {
@@ -132,19 +135,17 @@ public class BankTransactions {
         this.transactionType = transactionType;
     }
     
-    public BankTransactions(
-            BigDecimal amount,
-            String date,
-            String id) {
-        this(amount, Optional.empty(), JsonNullable.undefined(), date, JsonNullable.undefined(), id, JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+    public BankTransactions() {
+        this(Optional.empty(), Optional.empty(), JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     /**
      * The amount transacted in the bank transaction.
      */
+    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public BigDecimal amount() {
-        return amount;
+    public Optional<BigDecimal> amount() {
+        return (Optional<BigDecimal>) amount;
     }
 
     /**
@@ -186,7 +187,7 @@ public class BankTransactions {
      * &gt; Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
      */
     @JsonIgnore
-    public String date() {
+    public Optional<String> date() {
         return date;
     }
 
@@ -202,7 +203,7 @@ public class BankTransactions {
      * Identifier for the bank account transaction, unique for the company in the accounting software.
      */
     @JsonIgnore
-    public String id() {
+    public Optional<String> id() {
         return id;
     }
 
@@ -235,18 +236,27 @@ public class BankTransactions {
         return new Builder();
     }
 
+    /**
+     * The amount transacted in the bank transaction.
+     */
+    public BankTransactions withAmount(BigDecimal amount) {
+        Utils.checkNotNull(amount, "amount");
+        this.amount = Optional.ofNullable(amount);
+        return this;
+    }
+
         /**
          * The amount transacted in the bank transaction.
          */
     public BankTransactions withAmount(double amount) {
-        this.amount = BigDecimal.valueOf(amount);
+        this.amount = Optional.of(BigDecimal.valueOf(amount));
         return this;
     }
 
     /**
      * The amount transacted in the bank transaction.
      */
-    public BankTransactions withAmount(BigDecimal amount) {
+    public BankTransactions withAmount(Optional<? extends BigDecimal> amount) {
         Utils.checkNotNull(amount, "amount");
         this.amount = amount;
         return this;
@@ -319,6 +329,33 @@ public class BankTransactions {
      */
     public BankTransactions withDate(String date) {
         Utils.checkNotNull(date, "date");
+        this.date = Optional.ofNullable(date);
+        return this;
+    }
+
+    /**
+     * In Codat's data model, dates and times are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date and time fields are formatted as strings; for example:
+     * 
+     * ```
+     * 2020-10-08T22:40:50Z
+     * 2021-01-01T00:00:00
+     * ```
+     * 
+     * 
+     * 
+     * When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
+     * 
+     * - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
+     * - Unqualified local time: `2021-11-15T01:00:00`
+     * - UTC time offsets: `2021-11-15T01:00:00-05:00`
+     * 
+     * &gt; Time zones
+     * &gt; 
+     * &gt; Not all dates from Codat will contain information about time zones.  
+     * &gt; Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
+     */
+    public BankTransactions withDate(Optional<String> date) {
+        Utils.checkNotNull(date, "date");
         this.date = date;
         return this;
     }
@@ -345,6 +382,15 @@ public class BankTransactions {
      * Identifier for the bank account transaction, unique for the company in the accounting software.
      */
     public BankTransactions withId(String id) {
+        Utils.checkNotNull(id, "id");
+        this.id = Optional.ofNullable(id);
+        return this;
+    }
+
+    /**
+     * Identifier for the bank account transaction, unique for the company in the accounting software.
+     */
+    public BankTransactions withId(Optional<String> id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
         return this;
@@ -455,17 +501,17 @@ public class BankTransactions {
     
     public final static class Builder {
  
-        private BigDecimal amount;
+        private Optional<? extends BigDecimal> amount = Optional.empty();
  
         private Optional<? extends BigDecimal> balance = Optional.empty();
  
         private JsonNullable<String> counterparty = JsonNullable.undefined();
  
-        private String date;
+        private Optional<String> date = Optional.empty();
  
         private JsonNullable<String> description = JsonNullable.undefined();
  
-        private String id;
+        private Optional<String> id = Optional.empty();
  
         private JsonNullable<Boolean> reconciled = JsonNullable.undefined();
  
@@ -480,15 +526,24 @@ public class BankTransactions {
         /**
          * The amount transacted in the bank transaction.
          */
-        public Builder amount(double amount) {
-            this.amount = BigDecimal.valueOf(amount);
+        public Builder amount(BigDecimal amount) {
+            Utils.checkNotNull(amount, "amount");
+            this.amount = Optional.ofNullable(amount);
             return this;
         }
 
         /**
          * The amount transacted in the bank transaction.
          */
-        public Builder amount(BigDecimal amount) {
+        public Builder amount(double amount) {
+            this.amount = Optional.of(BigDecimal.valueOf(amount));
+            return this;
+        }
+
+        /**
+         * The amount transacted in the bank transaction.
+         */
+        public Builder amount(Optional<? extends BigDecimal> amount) {
             Utils.checkNotNull(amount, "amount");
             this.amount = amount;
             return this;
@@ -561,6 +616,33 @@ public class BankTransactions {
          */
         public Builder date(String date) {
             Utils.checkNotNull(date, "date");
+            this.date = Optional.ofNullable(date);
+            return this;
+        }
+
+        /**
+         * In Codat's data model, dates and times are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date and time fields are formatted as strings; for example:
+         * 
+         * ```
+         * 2020-10-08T22:40:50Z
+         * 2021-01-01T00:00:00
+         * ```
+         * 
+         * 
+         * 
+         * When syncing data that contains `DateTime` fields from Codat, make sure you support the following cases when reading time information:
+         * 
+         * - Coordinated Universal Time (UTC): `2021-11-15T06:00:00Z`
+         * - Unqualified local time: `2021-11-15T01:00:00`
+         * - UTC time offsets: `2021-11-15T01:00:00-05:00`
+         * 
+         * &gt; Time zones
+         * &gt; 
+         * &gt; Not all dates from Codat will contain information about time zones.  
+         * &gt; Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
+         */
+        public Builder date(Optional<String> date) {
+            Utils.checkNotNull(date, "date");
             this.date = date;
             return this;
         }
@@ -587,6 +669,15 @@ public class BankTransactions {
          * Identifier for the bank account transaction, unique for the company in the accounting software.
          */
         public Builder id(String id) {
+            Utils.checkNotNull(id, "id");
+            this.id = Optional.ofNullable(id);
+            return this;
+        }
+
+        /**
+         * Identifier for the bank account transaction, unique for the company in the accounting software.
+         */
+        public Builder id(Optional<String> id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;

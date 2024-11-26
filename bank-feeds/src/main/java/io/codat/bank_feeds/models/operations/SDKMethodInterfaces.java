@@ -33,6 +33,13 @@ public class SDKMethodInterfaces {
     }
 
 
+    public interface MethodCallGetCompanyAccessToken {
+        GetCompanyAccessTokenResponse getAccessToken(
+            GetCompanyAccessTokenRequest request,
+            Optional<Options> options) throws Exception;
+    }
+
+
     public interface MethodCallListCompanies {
         ListCompaniesResponse list(
             ListCompaniesRequest request,
@@ -110,6 +117,13 @@ public class SDKMethodInterfaces {
     }
 
 
+    public interface MethodCallCreateBatchSourceAccount {
+        CreateBatchSourceAccountResponse createBatch(
+            CreateBatchSourceAccountRequest request,
+            Optional<Options> options) throws Exception;
+    }
+
+
     public interface MethodCallDeleteSourceAccount {
         DeleteSourceAccountResponse delete(
             DeleteSourceAccountRequest request,
@@ -169,6 +183,13 @@ public class SDKMethodInterfaces {
     public interface MethodCallCreateBankTransactions {
         CreateBankTransactionsResponse create(
             CreateBankTransactionsRequest request,
+            Optional<Options> options) throws Exception;
+    }
+
+
+    public interface MethodCallGetCreateBankTransactionsModel {
+        GetCreateBankTransactionsModelResponse getCreateModel(
+            GetCreateBankTransactionsModelRequest request,
             Optional<Options> options) throws Exception;
     }
 

@@ -51,7 +51,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'io.codat:bank-feeds:1.0.0'
+implementation 'io.codat:bank-feeds:2.0.0'
 ```
 
 Maven:
@@ -59,7 +59,7 @@ Maven:
 <dependency>
     <groupId>io.codat</groupId>
     <artifactId>bank-feeds</artifactId>
-    <version>1.0.0</version>
+    <version>2.0.0</version>
 </dependency>
 ```
 
@@ -141,6 +141,7 @@ public class Application {
 * [create](docs/sdks/companies/README.md#create) - Create company
 * [delete](docs/sdks/companies/README.md#delete) - Delete a company
 * [get](docs/sdks/companies/README.md#get) - Get company
+* [getAccessToken](docs/sdks/companies/README.md#getaccesstoken) - Get company access token
 * [list](docs/sdks/companies/README.md#list) - List companies
 * [update](docs/sdks/companies/README.md#update) - Update company
 
@@ -163,7 +164,8 @@ public class Application {
 
 ### [sourceAccounts()](docs/sdks/sourceaccounts/README.md)
 
-* [create](docs/sdks/sourceaccounts/README.md#create) - Create source account
+* [create](docs/sdks/sourceaccounts/README.md#create) - Create single source account
+* [createBatch](docs/sdks/sourceaccounts/README.md#createbatch) - Create source accounts
 * [delete](docs/sdks/sourceaccounts/README.md#delete) - Delete source account
 * [deleteCredentials](docs/sdks/sourceaccounts/README.md#deletecredentials) - Delete all source account credentials
 * [generateCredentials](docs/sdks/sourceaccounts/README.md#generatecredentials) - Generate source account credentials
@@ -177,6 +179,7 @@ public class Application {
 ### [transactions()](docs/sdks/transactions/README.md)
 
 * [create](docs/sdks/transactions/README.md#create) - Create bank transactions
+* [getCreateModel](docs/sdks/transactions/README.md#getcreatemodel) - Get create bank transactions model
 * [getCreateOperation](docs/sdks/transactions/README.md#getcreateoperation) - Get create operation
 * [listCreateOperations](docs/sdks/transactions/README.md#listcreateoperations) - List create operations
 
@@ -290,10 +293,10 @@ Handling errors in this SDK should largely match your expectations. All operatio
 
 By default, an API error will throw a `models/errors/SDKError` exception. When custom error responses are specified for an operation, the SDK may also throw their associated exception. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `create` method throws the following exceptions:
 
-| Error Type                        | Status Code                       | Content Type                      |
-| --------------------------------- | --------------------------------- | --------------------------------- |
-| models/errors/ErrorMessage        | 400, 401, 402, 403, 429, 500, 503 | application/json                  |
-| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
+| Error Type                 | Status Code                       | Content Type     |
+| -------------------------- | --------------------------------- | ---------------- |
+| models/errors/ErrorMessage | 400, 401, 402, 403, 429, 500, 503 | application/json |
+| models/errors/SDKError     | 4XX, 5XX                          | \*/\*            |
 
 ### Example
 
@@ -334,54 +337,9 @@ public class Application {
 <!-- Start Server Selection [server] -->
 ## Server Selection
 
-### Select Server by Index
-
-You can override the default server globally by passing a server index to the `serverIndex` builder method when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the indexes associated with the available servers:
-
-| # | Server | Variables |
-| - | ------ | --------- |
-| 0 | `https://api.codat.io` | None |
-
-#### Example
-
-```java
-package hello.world;
-
-import io.codat.bank_feeds.CodatBankFeeds;
-import io.codat.bank_feeds.models.components.CompanyRequestBody;
-import io.codat.bank_feeds.models.errors.ErrorMessage;
-import io.codat.bank_feeds.models.operations.CreateCompanyResponse;
-import java.lang.Exception;
-
-public class Application {
-
-    public static void main(String[] args) throws ErrorMessage, Exception {
-
-        CodatBankFeeds sdk = CodatBankFeeds.builder()
-                .serverIndex(0)
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-            .build();
-
-        CompanyRequestBody req = CompanyRequestBody.builder()
-                .name("Bank of Dave")
-                .description("Requested early access to the new financing scheme.")
-                .build();
-
-        CreateCompanyResponse res = sdk.companies().create()
-                .request(req)
-                .call();
-
-        if (res.company().isPresent()) {
-            // handle response
-        }
-    }
-}
-```
-
-
 ### Override Server URL Per-Client
 
-The default server can also be overridden globally by passing a URL to the `serverURL` builder method when initializing the SDK client instance. For example:
+The default server can also be overridden globally using the `.serverURL(String serverUrl)` builder method when initializing the SDK client instance. For example:
 ```java
 package hello.world;
 
@@ -424,9 +382,9 @@ public class Application {
 
 This SDK supports the following security scheme globally:
 
-| Name         | Type         | Scheme       |
-| ------------ | ------------ | ------------ |
-| `authHeader` | apiKey       | API key      |
+| Name         | Type   | Scheme  |
+| ------------ | ------ | ------- |
+| `authHeader` | apiKey | API key |
 
 To authenticate with the API the `authHeader` parameter must be set when initializing the SDK client instance. For example:
 ```java
