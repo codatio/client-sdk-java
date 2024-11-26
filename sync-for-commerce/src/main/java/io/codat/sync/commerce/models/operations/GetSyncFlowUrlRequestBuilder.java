@@ -19,19 +19,19 @@ public class GetSyncFlowUrlRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetSyncFlowUrlRequestBuilder request(io.codat.sync.commerce.models.operations.GetSyncFlowUrlRequest request) {
+    public GetSyncFlowUrlRequestBuilder request(GetSyncFlowUrlRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetSyncFlowUrlRequestBuilder retryConfig(io.codat.sync.commerce.utils.RetryConfig retryConfig) {
+    public GetSyncFlowUrlRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetSyncFlowUrlRequestBuilder retryConfig(java.util.Optional<io.codat.sync.commerce.utils.RetryConfig> retryConfig) {
+    public GetSyncFlowUrlRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

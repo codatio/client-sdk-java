@@ -5,5 +5,5 @@
 
 | Field                                  | Type                                   | Required                               | Description                            |
 | -------------------------------------- | -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| `groupByOptions`                       | List<*String*>                         | :heavy_minus_sign:                     | Options for grouping on invoice lines. |
-| `selectedGroupByOptions`               | List<*String*>                         | :heavy_minus_sign:                     | Invoice line level selection.          |
+| `groupByOptions`                       | List\<*String*>                        | :heavy_minus_sign:                     | Options for grouping on invoice lines. |
+| `selectedGroupByOptions`               | List\<*String*>                        | :heavy_minus_sign:                     | Invoice line level selection.          |
