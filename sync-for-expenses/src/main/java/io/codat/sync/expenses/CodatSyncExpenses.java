@@ -8,6 +8,7 @@ import io.codat.sync.expenses.models.operations.SDKMethodInterfaces.*;
 import io.codat.sync.expenses.utils.HTTPClient;
 import io.codat.sync.expenses.utils.RetryConfig;
 import io.codat.sync.expenses.utils.SpeakeasyHTTPClient;
+import io.codat.sync.expenses.utils.Utils;
 import java.lang.String;
 import java.util.Map;
 import java.util.Optional;
@@ -89,6 +90,11 @@ public class CodatSyncExpenses {
      * Control and monitor the retrieval of data from an integration.
      */
     private final ManageData manageData;
+
+    /**
+     * View the company information of your customers' linked accounting software.
+     */
+    private final CompanyInfo companyInfo;
 
     /**
      * View historic push operations.
@@ -187,6 +193,13 @@ public class CodatSyncExpenses {
      */
     public ManageData manageData() {
         return manageData;
+    }
+
+    /**
+     * View the company information of your customers' linked accounting software.
+     */
+    public CompanyInfo companyInfo() {
+        return companyInfo;
     }
 
     /**
@@ -323,7 +336,7 @@ public class CodatSyncExpenses {
          * @return The builder instance.
          */
         public Builder serverURL(String serverUrl, Map<String, String> params) {
-            this.sdkConfiguration.serverUrl = io.codat.sync.expenses.utils.Utils.templateUrl(serverUrl, params);
+            this.sdkConfiguration.serverUrl = Utils.templateUrl(serverUrl, params);
             return this;
         }
         
@@ -393,6 +406,7 @@ public class CodatSyncExpenses {
         this.customers = new Customers(sdkConfiguration);
         this.suppliers = new Suppliers(sdkConfiguration);
         this.manageData = new ManageData(sdkConfiguration);
+        this.companyInfo = new CompanyInfo(sdkConfiguration);
         this.pushOperations = new PushOperations(sdkConfiguration);
         this.adjustments = new Adjustments(sdkConfiguration);
         this.configuration = new Configuration(sdkConfiguration);

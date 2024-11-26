@@ -73,6 +73,13 @@ public class AccountMappingInfo {
     private JsonNullable<String> nominalCode;
 
     /**
+     * Supported endpoints for the account.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("validFor")
+    private Optional<? extends List<ValidFor>> validFor;
+
+    /**
      * Supported transaction types for the account.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -88,6 +95,7 @@ public class AccountMappingInfo {
             @JsonProperty("isBankAccount") Optional<Boolean> isBankAccount,
             @JsonProperty("name") Optional<String> name,
             @JsonProperty("nominalCode") JsonNullable<String> nominalCode,
+            @JsonProperty("validFor") Optional<? extends List<ValidFor>> validFor,
             @JsonProperty("validTransactionTypes") Optional<? extends List<ValidTransactionTypes>> validTransactionTypes) {
         Utils.checkNotNull(accountType, "accountType");
         Utils.checkNotNull(currency, "currency");
@@ -96,6 +104,7 @@ public class AccountMappingInfo {
         Utils.checkNotNull(isBankAccount, "isBankAccount");
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(nominalCode, "nominalCode");
+        Utils.checkNotNull(validFor, "validFor");
         Utils.checkNotNull(validTransactionTypes, "validTransactionTypes");
         this.accountType = accountType;
         this.currency = currency;
@@ -104,11 +113,12 @@ public class AccountMappingInfo {
         this.isBankAccount = isBankAccount;
         this.name = name;
         this.nominalCode = nominalCode;
+        this.validFor = validFor;
         this.validTransactionTypes = validTransactionTypes;
     }
     
     public AccountMappingInfo() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), Optional.empty(), Optional.empty());
     }
 
     /**
@@ -166,6 +176,15 @@ public class AccountMappingInfo {
     @JsonIgnore
     public JsonNullable<String> nominalCode() {
         return nominalCode;
+    }
+
+    /**
+     * Supported endpoints for the account.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<List<ValidFor>> validFor() {
+        return (Optional<List<ValidFor>>) validFor;
     }
 
     /**
@@ -308,6 +327,24 @@ public class AccountMappingInfo {
     }
 
     /**
+     * Supported endpoints for the account.
+     */
+    public AccountMappingInfo withValidFor(List<ValidFor> validFor) {
+        Utils.checkNotNull(validFor, "validFor");
+        this.validFor = Optional.ofNullable(validFor);
+        return this;
+    }
+
+    /**
+     * Supported endpoints for the account.
+     */
+    public AccountMappingInfo withValidFor(Optional<? extends List<ValidFor>> validFor) {
+        Utils.checkNotNull(validFor, "validFor");
+        this.validFor = validFor;
+        return this;
+    }
+
+    /**
      * Supported transaction types for the account.
      */
     public AccountMappingInfo withValidTransactionTypes(List<ValidTransactionTypes> validTransactionTypes) {
@@ -342,6 +379,7 @@ public class AccountMappingInfo {
             Objects.deepEquals(this.isBankAccount, other.isBankAccount) &&
             Objects.deepEquals(this.name, other.name) &&
             Objects.deepEquals(this.nominalCode, other.nominalCode) &&
+            Objects.deepEquals(this.validFor, other.validFor) &&
             Objects.deepEquals(this.validTransactionTypes, other.validTransactionTypes);
     }
     
@@ -355,6 +393,7 @@ public class AccountMappingInfo {
             isBankAccount,
             name,
             nominalCode,
+            validFor,
             validTransactionTypes);
     }
     
@@ -368,6 +407,7 @@ public class AccountMappingInfo {
                 "isBankAccount", isBankAccount,
                 "name", name,
                 "nominalCode", nominalCode,
+                "validFor", validFor,
                 "validTransactionTypes", validTransactionTypes);
     }
     
@@ -386,6 +426,8 @@ public class AccountMappingInfo {
         private Optional<String> name = Optional.empty();
  
         private JsonNullable<String> nominalCode = JsonNullable.undefined();
+ 
+        private Optional<? extends List<ValidFor>> validFor = Optional.empty();
  
         private Optional<? extends List<ValidTransactionTypes>> validTransactionTypes = Optional.empty();  
         
@@ -520,6 +562,24 @@ public class AccountMappingInfo {
         }
 
         /**
+         * Supported endpoints for the account.
+         */
+        public Builder validFor(List<ValidFor> validFor) {
+            Utils.checkNotNull(validFor, "validFor");
+            this.validFor = Optional.ofNullable(validFor);
+            return this;
+        }
+
+        /**
+         * Supported endpoints for the account.
+         */
+        public Builder validFor(Optional<? extends List<ValidFor>> validFor) {
+            Utils.checkNotNull(validFor, "validFor");
+            this.validFor = validFor;
+            return this;
+        }
+
+        /**
          * Supported transaction types for the account.
          */
         public Builder validTransactionTypes(List<ValidTransactionTypes> validTransactionTypes) {
@@ -546,6 +606,7 @@ public class AccountMappingInfo {
                 isBankAccount,
                 name,
                 nominalCode,
+                validFor,
                 validTransactionTypes);
         }
     }

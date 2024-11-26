@@ -22,8 +22,6 @@ The *Create supplier* endpoint creates a new [supplier](https://docs.codat.io/sy
 
 Required data may vary by integration. To see what data to post, first call [Get create/update supplier model](https://docs.codat.io/sync-for-expenses-api#/operations/get-create-update-suppliers-model).
 
-Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=suppliers) for integrations that support creating an account.
-
 
 ### Example Usage
 
@@ -31,50 +29,74 @@ Check out our [coverage explorer](https://knowledge.codat.io/supported-features/
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
+import io.codat.sync.expenses.models.components.AccountingAddressType;
+import io.codat.sync.expenses.models.components.Items;
+import io.codat.sync.expenses.models.components.Metadata;
+import io.codat.sync.expenses.models.components.SupplementalData;
 import io.codat.sync.expenses.models.components.Supplier;
 import io.codat.sync.expenses.models.components.SupplierStatus;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.CreateSupplierRequest;
 import io.codat.sync.expenses.models.operations.CreateSupplierResponse;
 import java.lang.Exception;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            CreateSupplierRequest req = CreateSupplierRequest.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        CreateSupplierRequest req = CreateSupplierRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .supplier(Supplier.builder()
                     .status(SupplierStatus.ACTIVE)
+                    .addresses(List.of(
+                        Items.builder()
+                            .type(AccountingAddressType.BILLING)
+                            .city("Bakersfield")
+                            .country("USA")
+                            .line1("Unit 51")
+                            .line2("Bakersfield Industrial Estate")
+                            .region("California")
+                            .build()))
+                    .contactName("Kelly's Industrial Supplies")
+                    .defaultCurrency("string")
+                    .emailAddress("sales@kellysupplies.com")
+                    .id("C520FFD4-F6F6-4FC2-A6D2-5D7088B2B14F")
+                    .metadata(Metadata.builder()
+                        .isDeleted(true)
+                        .build())
                     .modifiedDate("2022-10-23T00:00:00Z")
-                    .phone("(877) 492-8687")
+                    .phone("07999 999999")
+                    .registrationNumber("string")
                     .sourceModifiedDate("2022-10-23T00:00:00Z")
+                    .supplementalData(SupplementalData.builder()
+                        .content(Map.ofEntries(
+                            Map.entry("property1", Map.ofEntries(
+                                Map.entry("property1", Optional.empty()),
+                                Map.entry("property2", Optional.empty()))),
+                            Map.entry("property2", Map.ofEntries(
+                                Map.entry("property1", Optional.empty()),
+                                Map.entry("property2", Optional.empty())))))
+                        .build())
+                    .supplierName("Kelly's Industrial Supplies")
+                    .taxNumber("string")
                     .build())
                 .build();
 
-            CreateSupplierResponse res = sdk.suppliers().create()
+        CreateSupplierResponse res = sdk.suppliers().create()
                 .request(req)
                 .call();
 
-            if (res.createSupplierResponse().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.createSupplierResponse().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -91,19 +113,16 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## get
 
 The *Get supplier* endpoint returns a single supplier for a given supplierId.
 
 [Suppliers](https://docs.codat.io/sync-for-expenses-api#/schemas/Supplier) are people or organizations that provide something, such as a product or service.
-
-Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=suppliers) for integrations that support getting a specific supplier.
 
 Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/sync-for-expenses-api#/operations/refresh-company-data).
 
@@ -114,42 +133,31 @@ Before using this endpoint, you must have [retrieved data for the company](https
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.GetSupplierRequest;
 import io.codat.sync.expenses.models.operations.GetSupplierResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+            .build();
 
-            GetSupplierRequest req = GetSupplierRequest.builder()
+        GetSupplierRequest req = GetSupplierRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
-                .supplierId("13d946f0-c5d5-42bc-b092-97ece17923ab")
+                .supplierId("7110701885")
                 .build();
 
-            GetSupplierResponse res = sdk.suppliers().get()
+        GetSupplierResponse res = sdk.suppliers().get()
                 .request(req)
                 .call();
 
-            if (res.supplier().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.supplier().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -166,11 +174,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 401,402,403,404,409,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 401, 402, 403, 404, 409, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## list
 
@@ -187,20 +194,20 @@ Before using this endpoint, you must have [retrieved data for the company](https
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.ListSuppliersRequest;
 import io.codat.sync.expenses.models.operations.ListSuppliersResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            ListSuppliersRequest req = ListSuppliersRequest.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        ListSuppliersRequest req = ListSuppliersRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .orderBy("-modifiedDate")
                 .page(1)
@@ -208,24 +215,13 @@ public class Application {
                 .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
-            ListSuppliersResponse res = sdk.suppliers().list()
+        ListSuppliersResponse res = sdk.suppliers().list()
                 .request(req)
                 .call();
 
-            if (res.suppliers().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.suppliers().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -242,11 +238,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                        | Status Code                         | Content Type                        |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| models/errors/ErrorMessage          | 400,401,402,403,404,409,429,500,503 | application/json                    |
-| models/errors/SDKError              | 4xx-5xx                             | \*\/*                               |
-
+| Error Type                                  | Status Code                                 | Content Type                                |
+| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
+| models/errors/ErrorMessage                  | 400, 401, 402, 403, 404, 409, 429, 500, 503 | application/json                            |
+| models/errors/SDKError                      | 4XX, 5XX                                    | \*/\*                                       |
 
 ## update
 
@@ -258,60 +253,81 @@ The *Update supplier* endpoint updates an existing [supplier](https://docs.codat
 
 Required data may vary by integration. To see what data to post, first call [Get create/update supplier model](https://docs.codat.io/sync-for-expenses-api#/operations/get-create-update-suppliers-model).
 
-Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=suppliers) for integrations that support creating an account.
-
-
 ### Example Usage
 
 ```java
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
+import io.codat.sync.expenses.models.components.AccountingAddressType;
+import io.codat.sync.expenses.models.components.Items;
+import io.codat.sync.expenses.models.components.Metadata;
+import io.codat.sync.expenses.models.components.SupplementalData;
 import io.codat.sync.expenses.models.components.Supplier;
 import io.codat.sync.expenses.models.components.SupplierStatus;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.UpdateSupplierRequest;
 import io.codat.sync.expenses.models.operations.UpdateSupplierResponse;
 import java.lang.Exception;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            UpdateSupplierRequest req = UpdateSupplierRequest.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        UpdateSupplierRequest req = UpdateSupplierRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .supplierId("13d946f0-c5d5-42bc-b092-97ece17923ab")
+                .supplierId("EILBDVJVNUAGVKRQ")
                 .supplier(Supplier.builder()
                     .status(SupplierStatus.ACTIVE)
+                    .addresses(List.of(
+                        Items.builder()
+                            .type(AccountingAddressType.BILLING)
+                            .city("Bakersfield")
+                            .country("USA")
+                            .line1("Unit 51")
+                            .line2("Bakersfield Industrial Estate")
+                            .region("California")
+                            .build()))
+                    .contactName("Kelly's Industrial Supplies")
+                    .defaultCurrency("string")
+                    .emailAddress("sales@kellysupplies.com")
+                    .id("C520FFD4-F6F6-4FC2-A6D2-5D7088B2B14F")
+                    .metadata(Metadata.builder()
+                        .isDeleted(true)
+                        .build())
                     .modifiedDate("2022-10-23T00:00:00Z")
-                    .phone("01224 658 999")
+                    .phone("07999 999999")
+                    .registrationNumber("string")
                     .sourceModifiedDate("2022-10-23T00:00:00Z")
+                    .supplementalData(SupplementalData.builder()
+                        .content(Map.ofEntries(
+                            Map.entry("property1", Map.ofEntries(
+                                Map.entry("property1", Optional.empty()),
+                                Map.entry("property2", Optional.empty()))),
+                            Map.entry("property2", Map.ofEntries(
+                                Map.entry("property1", Optional.empty()),
+                                Map.entry("property2", Optional.empty())))))
+                        .build())
+                    .supplierName("Kelly's Industrial Supplies")
+                    .taxNumber("string")
                     .build())
                 .build();
 
-            UpdateSupplierResponse res = sdk.suppliers().update()
+        UpdateSupplierResponse res = sdk.suppliers().update()
                 .request(req)
                 .call();
 
-            if (res.updateSupplierResponse().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.updateSupplierResponse().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -328,7 +344,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |

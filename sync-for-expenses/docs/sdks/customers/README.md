@@ -22,9 +22,6 @@ The *Create customer* endpoint creates a new [customer](https://docs.codat.io/sy
 
 Required data may vary by integration. To see what data to post, first call [Get create/update customer model](https://docs.codat.io/sync-for-expenses-api#/operations/get-create-update-customers-model).
 
-Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=customers) for integrations that support creating an account.
-
-
 ### Example Usage
 
 ```java
@@ -34,9 +31,9 @@ import io.codat.sync.expenses.CodatSyncExpenses;
 import io.codat.sync.expenses.models.components.Contact;
 import io.codat.sync.expenses.models.components.Customer;
 import io.codat.sync.expenses.models.components.CustomerStatus;
-import io.codat.sync.expenses.models.components.Phone;
+import io.codat.sync.expenses.models.components.PhoneNumberItems;
 import io.codat.sync.expenses.models.components.PhoneNumberType;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.CreateCustomerRequest;
 import io.codat.sync.expenses.models.operations.CreateCustomerResponse;
 import java.lang.Exception;
@@ -44,13 +41,13 @@ import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            CreateCustomerRequest req = CreateCustomerRequest.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        CreateCustomerRequest req = CreateCustomerRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .customer(Customer.builder()
@@ -60,35 +57,24 @@ public class Application {
                             .status(CustomerStatus.ACTIVE)
                             .modifiedDate("2022-10-23T00:00:00Z")
                             .phone(List.of(
-                                Phone.builder()
-                                    .type(PhoneNumberType.MOBILE)
+                                PhoneNumberItems.builder()
+                                    .type(PhoneNumberType.PRIMARY)
                                     .number("+44 25691 154789")
                                     .build()))
                             .build()))
-                    .defaultCurrency("GBP")
+                    .defaultCurrency("EUR")
                     .modifiedDate("2022-10-23T00:00:00Z")
                     .sourceModifiedDate("2022-10-23T00:00:00Z")
                     .build())
                 .build();
 
-            CreateCustomerResponse res = sdk.customers().create()
+        CreateCustomerResponse res = sdk.customers().create()
                 .request(req)
                 .call();
 
-            if (res.createCustomerResponse().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.createCustomerResponse().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -105,19 +91,16 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## get
 
 The *Get customer* endpoint returns a single customer for a given customerId.
 
 [Customers](https://docs.codat.io/sync-for-expenses-api#/schemas/Customer) are people or organizations that buy goods or services from the SMB.
-
-Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=customers) for integrations that support getting a specific customer.
 
 Before using this endpoint, you must have [retrieved data for the company](https://docs.codat.io/sync-for-expenses-api#/operations/refresh-company-data).
 
@@ -128,42 +111,31 @@ Before using this endpoint, you must have [retrieved data for the company](https
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.GetCustomerRequest;
 import io.codat.sync.expenses.models.operations.GetCustomerResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+            .build();
 
-            GetCustomerRequest req = GetCustomerRequest.builder()
+        GetCustomerRequest req = GetCustomerRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
-                .customerId("<value>")
+                .customerId("7110701885")
                 .build();
 
-            GetCustomerResponse res = sdk.customers().get()
+        GetCustomerResponse res = sdk.customers().get()
                 .request(req)
                 .call();
 
-            if (res.customer().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.customer().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -180,11 +152,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 401,402,403,404,409,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 401, 402, 403, 404, 409, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## list
 
@@ -201,20 +172,20 @@ Before using this endpoint, you must have [retrieved data for the company](https
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.ListCustomersRequest;
 import io.codat.sync.expenses.models.operations.ListCustomersResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            ListCustomersRequest req = ListCustomersRequest.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        ListCustomersRequest req = ListCustomersRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .orderBy("-modifiedDate")
                 .page(1)
@@ -222,24 +193,13 @@ public class Application {
                 .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
-            ListCustomersResponse res = sdk.customers().list()
+        ListCustomersResponse res = sdk.customers().list()
                 .request(req)
                 .call();
 
-            if (res.customers().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.customers().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -256,11 +216,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                        | Status Code                         | Content Type                        |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| models/errors/ErrorMessage          | 400,401,402,403,404,409,429,500,503 | application/json                    |
-| models/errors/SDKError              | 4xx-5xx                             | \*\/*                               |
-
+| Error Type                                  | Status Code                                 | Content Type                                |
+| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
+| models/errors/ErrorMessage                  | 400, 401, 402, 403, 404, 409, 429, 500, 503 | application/json                            |
+| models/errors/SDKError                      | 4XX, 5XX                                    | \*/\*                                       |
 
 ## update
 
@@ -272,9 +231,6 @@ The *Update customer* endpoint updates an existing [customer](https://docs.codat
 
 Required data may vary by integration. To see what data to post, first call [Get create/update customer model](https://docs.codat.io/sync-for-expenses-api#/operations/get-create-update-customers-model).
 
-Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=customers) for integrations that support creating an account.
-
-
 ### Example Usage
 
 ```java
@@ -284,9 +240,9 @@ import io.codat.sync.expenses.CodatSyncExpenses;
 import io.codat.sync.expenses.models.components.Contact;
 import io.codat.sync.expenses.models.components.Customer;
 import io.codat.sync.expenses.models.components.CustomerStatus;
-import io.codat.sync.expenses.models.components.Phone;
+import io.codat.sync.expenses.models.components.PhoneNumberItems;
 import io.codat.sync.expenses.models.components.PhoneNumberType;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.UpdateCustomerRequest;
 import io.codat.sync.expenses.models.operations.UpdateCustomerResponse;
 import java.lang.Exception;
@@ -294,52 +250,41 @@ import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            UpdateCustomerRequest req = UpdateCustomerRequest.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        UpdateCustomerRequest req = UpdateCustomerRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .customerId("<value>")
+                .customerId("EILBDVJVNUAGVKRQ")
                 .customer(Customer.builder()
-                    .status(CustomerStatus.ARCHIVED)
+                    .status(CustomerStatus.ACTIVE)
                     .contacts(List.of(
                         Contact.builder()
-                            .status(CustomerStatus.UNKNOWN)
+                            .status(CustomerStatus.ACTIVE)
                             .modifiedDate("2022-10-23T00:00:00Z")
                             .phone(List.of(
-                                Phone.builder()
-                                    .type(PhoneNumberType.LANDLINE)
-                                    .number("01224 658 999")
+                                PhoneNumberItems.builder()
+                                    .type(PhoneNumberType.FAX)
+                                    .number("(877) 492-8687")
                                     .build()))
                             .build()))
-                    .defaultCurrency("USD")
+                    .defaultCurrency("EUR")
                     .modifiedDate("2022-10-23T00:00:00Z")
                     .sourceModifiedDate("2022-10-23T00:00:00Z")
                     .build())
                 .build();
 
-            UpdateCustomerResponse res = sdk.customers().update()
+        UpdateCustomerResponse res = sdk.customers().update()
                 .request(req)
                 .call();
 
-            if (res.updateCustomerResponse().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.updateCustomerResponse().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -356,7 +301,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |

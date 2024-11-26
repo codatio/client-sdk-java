@@ -20,41 +20,30 @@ Gets a company's expense sync configuration
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.GetCompanyConfigurationRequest;
 import io.codat.sync.expenses.models.operations.GetCompanyConfigurationResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            GetCompanyConfigurationRequest req = GetCompanyConfigurationRequest.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        GetCompanyConfigurationRequest req = GetCompanyConfigurationRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .build();
 
-            GetCompanyConfigurationResponse res = sdk.configuration().get()
+        GetCompanyConfigurationResponse res = sdk.configuration().get()
                 .request(req)
                 .call();
 
-            if (res.companyConfiguration().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.companyConfiguration().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -71,11 +60,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## set
 
@@ -91,20 +79,20 @@ import io.codat.sync.expenses.models.components.BankAccountDetails;
 import io.codat.sync.expenses.models.components.CompanyConfiguration;
 import io.codat.sync.expenses.models.components.CustomerDetails;
 import io.codat.sync.expenses.models.components.SupplierDetails;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.SetCompanyConfigurationRequest;
 import io.codat.sync.expenses.models.operations.SetCompanyConfigurationResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            SetCompanyConfigurationRequest req = SetCompanyConfigurationRequest.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        SetCompanyConfigurationRequest req = SetCompanyConfigurationRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .companyConfiguration(CompanyConfiguration.builder()
                     .bankAccount(BankAccountDetails.builder()
@@ -117,24 +105,13 @@ public class Application {
                     .build())
                 .build();
 
-            SetCompanyConfigurationResponse res = sdk.configuration().set()
+        SetCompanyConfigurationResponse res = sdk.configuration().set()
                 .request(req)
                 .call();
 
-            if (res.companyConfiguration().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.companyConfiguration().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -151,7 +128,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |

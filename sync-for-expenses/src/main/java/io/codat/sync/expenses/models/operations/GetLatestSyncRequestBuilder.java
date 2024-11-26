@@ -19,19 +19,19 @@ public class GetLatestSyncRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetLatestSyncRequestBuilder request(io.codat.sync.expenses.models.operations.GetLatestSyncRequest request) {
+    public GetLatestSyncRequestBuilder request(GetLatestSyncRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetLatestSyncRequestBuilder retryConfig(io.codat.sync.expenses.utils.RetryConfig retryConfig) {
+    public GetLatestSyncRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetLatestSyncRequestBuilder retryConfig(java.util.Optional<io.codat.sync.expenses.utils.RetryConfig> retryConfig) {
+    public GetLatestSyncRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

@@ -25,9 +25,7 @@ import org.openapitools.jackson.nullable.JsonNullable;
  * &gt; 
  * &gt; This datatype was originally used for accessing bank account data both in accounting integrations and open banking aggregators. 
  * &gt; 
- * &gt; To view bank account data through the Banking API, please refer to the new datatype [here](https://docs.codat.io/sync-for-expenses-api#/schemas/Account)
- * 
- * &gt; View the coverage for bank accounts in the &lt;a className="external" href="https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&amp;dataType=bankAccounts" target="_blank"&gt;Data coverage explorer&lt;/a&gt;.
+ * &gt; To view bank account data through the Banking API, please refer to the new [Banking: Account](https://docs.codat.io/sync-for-expenses-api#/schemas/Account) data type.
  * 
  * ## Overview
  * 

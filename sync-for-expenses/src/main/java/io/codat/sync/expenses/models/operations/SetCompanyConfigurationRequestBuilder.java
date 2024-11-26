@@ -19,19 +19,19 @@ public class SetCompanyConfigurationRequestBuilder {
         this.sdk = sdk;
     }
 
-    public SetCompanyConfigurationRequestBuilder request(io.codat.sync.expenses.models.operations.SetCompanyConfigurationRequest request) {
+    public SetCompanyConfigurationRequestBuilder request(SetCompanyConfigurationRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public SetCompanyConfigurationRequestBuilder retryConfig(io.codat.sync.expenses.utils.RetryConfig retryConfig) {
+    public SetCompanyConfigurationRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public SetCompanyConfigurationRequestBuilder retryConfig(java.util.Optional<io.codat.sync.expenses.utils.RetryConfig> retryConfig) {
+    public SetCompanyConfigurationRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

@@ -19,19 +19,19 @@ public class GetDataStatusRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetDataStatusRequestBuilder request(io.codat.sync.expenses.models.operations.GetDataStatusRequest request) {
+    public GetDataStatusRequestBuilder request(GetDataStatusRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetDataStatusRequestBuilder retryConfig(io.codat.sync.expenses.utils.RetryConfig retryConfig) {
+    public GetDataStatusRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetDataStatusRequestBuilder retryConfig(java.util.Optional<io.codat.sync.expenses.utils.RetryConfig> retryConfig) {
+    public GetDataStatusRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

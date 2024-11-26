@@ -20,9 +20,6 @@ The *Create account* endpoint creates a new [account](https://docs.codat.io/sync
 
 Required data may vary by integration. To see what data to post, first call [Get create account model](https://docs.codat.io/sync-for-expenses-api#/operations/get-create-chartOfAccounts-model).
 
-Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=chartOfAccounts) for integrations that support creating an account.
-
-
 ### Example Usage
 
 ```java
@@ -32,7 +29,7 @@ import io.codat.sync.expenses.CodatSyncExpenses;
 import io.codat.sync.expenses.models.components.AccountPrototype;
 import io.codat.sync.expenses.models.components.AccountStatus;
 import io.codat.sync.expenses.models.components.AccountType;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.CreateAccountRequest;
 import io.codat.sync.expenses.models.operations.CreateAccountResponse;
 import java.lang.Exception;
@@ -40,13 +37,13 @@ import java.math.BigDecimal;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            CreateAccountRequest req = CreateAccountRequest.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        CreateAccountRequest req = CreateAccountRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .accountPrototype(AccountPrototype.builder()
@@ -62,24 +59,13 @@ public class Application {
                     .build())
                 .build();
 
-            CreateAccountResponse res = sdk.accounts().create()
+        CreateAccountResponse res = sdk.accounts().create()
                 .request(req)
                 .call();
 
-            if (res.createAccountResponse().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.createAccountResponse().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -96,11 +82,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
-
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
 
 ## getCreateModel
 
@@ -112,51 +97,37 @@ The *Get create account model* endpoint returns the expected data for the reques
 
 See the *response examples* for integration-specific indicative models.
 
-Check out our [coverage explorer](https://knowledge.codat.io/supported-features/accounting?view=tab-by-data-type&dataType=chartOfAccounts) for integrations that support creating an account.
-
-
 ### Example Usage
 
 ```java
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.GetCreateChartOfAccountsModelRequest;
 import io.codat.sync.expenses.models.operations.GetCreateChartOfAccountsModelResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            GetCreateChartOfAccountsModelRequest req = GetCreateChartOfAccountsModelRequest.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        GetCreateChartOfAccountsModelRequest req = GetCreateChartOfAccountsModelRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .build();
 
-            GetCreateChartOfAccountsModelResponse res = sdk.accounts().getCreateModel()
+        GetCreateChartOfAccountsModelResponse res = sdk.accounts().getCreateModel()
                 .request(req)
                 .call();
 
-            if (res.pushOption().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.pushOption().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -173,7 +144,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |

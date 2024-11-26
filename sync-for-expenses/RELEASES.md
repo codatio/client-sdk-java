@@ -39,3 +39,13 @@ Based on:
 - [java v0.3.0] sync-for-expenses
 ### Releases
 - [Maven Central v0.3.0] https://central.sonatype.com/artifact/io.codat.sync/expenses/0.3.0 - sync-for-expenses
+
+## 2024-11-26 17:07:44
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.447.0 (2.463.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [java v1.0.0] sync-for-expenses
+### Releases
+- [Maven Central v1.0.0] https://central.sonatype.com/artifact/io.codat.sync/expenses/1.0.0 - sync-for-expenses

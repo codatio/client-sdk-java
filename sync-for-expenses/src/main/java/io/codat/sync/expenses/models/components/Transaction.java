@@ -10,98 +10,78 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
-import io.codat.sync.expenses.utils.LazySingletonValue;
 import io.codat.sync.expenses.utils.Utils;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.Objects;
+import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class Transaction {
 
     /**
-     * Type of transaction that has been processed e.g. Expense or Bank Feed.
+     * Error message for failed transaction.
      */
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("integrationType")
-    private JsonNullable<? extends IntegrationType> integrationType;
+    @JsonProperty("errorMessage")
+    private JsonNullable<String> errorMessage;
 
     /**
-     * Metadata such as validation errors or the resulting record created in the accounting software.
+     * Unique identifier of the transaction.
      */
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("message")
-    private JsonNullable<String> message;
+    @JsonProperty("id")
+    private Optional<String> id;
 
     /**
-     * Status of the transaction.
+     * Status of transaction.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("status")
-    private JsonNullable<? extends TransactionStatus> status;
-
-    /**
-     * Your unique idenfier of the transaction.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("transactionId")
-    private JsonNullable<String> transactionId;
+    private Optional<? extends TransactionDefinitionsStatus> status;
 
     @JsonCreator
     public Transaction(
-            @JsonProperty("integrationType") JsonNullable<? extends IntegrationType> integrationType,
-            @JsonProperty("message") JsonNullable<String> message,
-            @JsonProperty("status") JsonNullable<? extends TransactionStatus> status,
-            @JsonProperty("transactionId") JsonNullable<String> transactionId) {
-        Utils.checkNotNull(integrationType, "integrationType");
-        Utils.checkNotNull(message, "message");
+            @JsonProperty("errorMessage") JsonNullable<String> errorMessage,
+            @JsonProperty("id") Optional<String> id,
+            @JsonProperty("status") Optional<? extends TransactionDefinitionsStatus> status) {
+        Utils.checkNotNull(errorMessage, "errorMessage");
+        Utils.checkNotNull(id, "id");
         Utils.checkNotNull(status, "status");
-        Utils.checkNotNull(transactionId, "transactionId");
-        this.integrationType = integrationType;
-        this.message = message;
+        this.errorMessage = errorMessage;
+        this.id = id;
         this.status = status;
-        this.transactionId = transactionId;
     }
     
     public Transaction() {
-        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
+        this(JsonNullable.undefined(), Optional.empty(), Optional.empty());
     }
 
     /**
-     * Type of transaction that has been processed e.g. Expense or Bank Feed.
+     * Error message for failed transaction.
+     */
+    @JsonIgnore
+    public JsonNullable<String> errorMessage() {
+        return errorMessage;
+    }
+
+    /**
+     * Unique identifier of the transaction.
+     */
+    @JsonIgnore
+    public Optional<String> id() {
+        return id;
+    }
+
+    /**
+     * Status of transaction.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public JsonNullable<IntegrationType> integrationType() {
-        return (JsonNullable<IntegrationType>) integrationType;
-    }
-
-    /**
-     * Metadata such as validation errors or the resulting record created in the accounting software.
-     */
-    @JsonIgnore
-    public JsonNullable<String> message() {
-        return message;
-    }
-
-    /**
-     * Status of the transaction.
-     */
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public JsonNullable<TransactionStatus> status() {
-        return (JsonNullable<TransactionStatus>) status;
-    }
-
-    /**
-     * Your unique idenfier of the transaction.
-     */
-    @JsonIgnore
-    public JsonNullable<String> transactionId() {
-        return transactionId;
+    public Optional<TransactionDefinitionsStatus> status() {
+        return (Optional<TransactionDefinitionsStatus>) status;
     }
 
     public final static Builder builder() {
@@ -109,74 +89,56 @@ public class Transaction {
     }
 
     /**
-     * Type of transaction that has been processed e.g. Expense or Bank Feed.
+     * Error message for failed transaction.
      */
-    public Transaction withIntegrationType(IntegrationType integrationType) {
-        Utils.checkNotNull(integrationType, "integrationType");
-        this.integrationType = JsonNullable.of(integrationType);
+    public Transaction withErrorMessage(String errorMessage) {
+        Utils.checkNotNull(errorMessage, "errorMessage");
+        this.errorMessage = JsonNullable.of(errorMessage);
         return this;
     }
 
     /**
-     * Type of transaction that has been processed e.g. Expense or Bank Feed.
+     * Error message for failed transaction.
      */
-    public Transaction withIntegrationType(JsonNullable<? extends IntegrationType> integrationType) {
-        Utils.checkNotNull(integrationType, "integrationType");
-        this.integrationType = integrationType;
+    public Transaction withErrorMessage(JsonNullable<String> errorMessage) {
+        Utils.checkNotNull(errorMessage, "errorMessage");
+        this.errorMessage = errorMessage;
         return this;
     }
 
     /**
-     * Metadata such as validation errors or the resulting record created in the accounting software.
+     * Unique identifier of the transaction.
      */
-    public Transaction withMessage(String message) {
-        Utils.checkNotNull(message, "message");
-        this.message = JsonNullable.of(message);
+    public Transaction withId(String id) {
+        Utils.checkNotNull(id, "id");
+        this.id = Optional.ofNullable(id);
         return this;
     }
 
     /**
-     * Metadata such as validation errors or the resulting record created in the accounting software.
+     * Unique identifier of the transaction.
      */
-    public Transaction withMessage(JsonNullable<String> message) {
-        Utils.checkNotNull(message, "message");
-        this.message = message;
+    public Transaction withId(Optional<String> id) {
+        Utils.checkNotNull(id, "id");
+        this.id = id;
         return this;
     }
 
     /**
-     * Status of the transaction.
+     * Status of transaction.
      */
-    public Transaction withStatus(TransactionStatus status) {
+    public Transaction withStatus(TransactionDefinitionsStatus status) {
         Utils.checkNotNull(status, "status");
-        this.status = JsonNullable.of(status);
+        this.status = Optional.ofNullable(status);
         return this;
     }
 
     /**
-     * Status of the transaction.
+     * Status of transaction.
      */
-    public Transaction withStatus(JsonNullable<? extends TransactionStatus> status) {
+    public Transaction withStatus(Optional<? extends TransactionDefinitionsStatus> status) {
         Utils.checkNotNull(status, "status");
         this.status = status;
-        return this;
-    }
-
-    /**
-     * Your unique idenfier of the transaction.
-     */
-    public Transaction withTransactionId(String transactionId) {
-        Utils.checkNotNull(transactionId, "transactionId");
-        this.transactionId = JsonNullable.of(transactionId);
-        return this;
-    }
-
-    /**
-     * Your unique idenfier of the transaction.
-     */
-    public Transaction withTransactionId(JsonNullable<String> transactionId) {
-        Utils.checkNotNull(transactionId, "transactionId");
-        this.transactionId = transactionId;
         return this;
     }
     
@@ -190,131 +152,99 @@ public class Transaction {
         }
         Transaction other = (Transaction) o;
         return 
-            Objects.deepEquals(this.integrationType, other.integrationType) &&
-            Objects.deepEquals(this.message, other.message) &&
-            Objects.deepEquals(this.status, other.status) &&
-            Objects.deepEquals(this.transactionId, other.transactionId);
+            Objects.deepEquals(this.errorMessage, other.errorMessage) &&
+            Objects.deepEquals(this.id, other.id) &&
+            Objects.deepEquals(this.status, other.status);
     }
     
     @Override
     public int hashCode() {
         return Objects.hash(
-            integrationType,
-            message,
-            status,
-            transactionId);
+            errorMessage,
+            id,
+            status);
     }
     
     @Override
     public String toString() {
         return Utils.toString(Transaction.class,
-                "integrationType", integrationType,
-                "message", message,
-                "status", status,
-                "transactionId", transactionId);
+                "errorMessage", errorMessage,
+                "id", id,
+                "status", status);
     }
     
     public final static class Builder {
  
-        private JsonNullable<? extends IntegrationType> integrationType;
+        private JsonNullable<String> errorMessage = JsonNullable.undefined();
  
-        private JsonNullable<String> message = JsonNullable.undefined();
+        private Optional<String> id = Optional.empty();
  
-        private JsonNullable<? extends TransactionStatus> status = JsonNullable.undefined();
- 
-        private JsonNullable<String> transactionId = JsonNullable.undefined();  
+        private Optional<? extends TransactionDefinitionsStatus> status = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
         }
 
         /**
-         * Type of transaction that has been processed e.g. Expense or Bank Feed.
+         * Error message for failed transaction.
          */
-        public Builder integrationType(IntegrationType integrationType) {
-            Utils.checkNotNull(integrationType, "integrationType");
-            this.integrationType = JsonNullable.of(integrationType);
+        public Builder errorMessage(String errorMessage) {
+            Utils.checkNotNull(errorMessage, "errorMessage");
+            this.errorMessage = JsonNullable.of(errorMessage);
             return this;
         }
 
         /**
-         * Type of transaction that has been processed e.g. Expense or Bank Feed.
+         * Error message for failed transaction.
          */
-        public Builder integrationType(JsonNullable<? extends IntegrationType> integrationType) {
-            Utils.checkNotNull(integrationType, "integrationType");
-            this.integrationType = integrationType;
+        public Builder errorMessage(JsonNullable<String> errorMessage) {
+            Utils.checkNotNull(errorMessage, "errorMessage");
+            this.errorMessage = errorMessage;
             return this;
         }
 
         /**
-         * Metadata such as validation errors or the resulting record created in the accounting software.
+         * Unique identifier of the transaction.
          */
-        public Builder message(String message) {
-            Utils.checkNotNull(message, "message");
-            this.message = JsonNullable.of(message);
+        public Builder id(String id) {
+            Utils.checkNotNull(id, "id");
+            this.id = Optional.ofNullable(id);
             return this;
         }
 
         /**
-         * Metadata such as validation errors or the resulting record created in the accounting software.
+         * Unique identifier of the transaction.
          */
-        public Builder message(JsonNullable<String> message) {
-            Utils.checkNotNull(message, "message");
-            this.message = message;
+        public Builder id(Optional<String> id) {
+            Utils.checkNotNull(id, "id");
+            this.id = id;
             return this;
         }
 
         /**
-         * Status of the transaction.
+         * Status of transaction.
          */
-        public Builder status(TransactionStatus status) {
+        public Builder status(TransactionDefinitionsStatus status) {
             Utils.checkNotNull(status, "status");
-            this.status = JsonNullable.of(status);
+            this.status = Optional.ofNullable(status);
             return this;
         }
 
         /**
-         * Status of the transaction.
+         * Status of transaction.
          */
-        public Builder status(JsonNullable<? extends TransactionStatus> status) {
+        public Builder status(Optional<? extends TransactionDefinitionsStatus> status) {
             Utils.checkNotNull(status, "status");
             this.status = status;
             return this;
         }
-
-        /**
-         * Your unique idenfier of the transaction.
-         */
-        public Builder transactionId(String transactionId) {
-            Utils.checkNotNull(transactionId, "transactionId");
-            this.transactionId = JsonNullable.of(transactionId);
-            return this;
-        }
-
-        /**
-         * Your unique idenfier of the transaction.
-         */
-        public Builder transactionId(JsonNullable<String> transactionId) {
-            Utils.checkNotNull(transactionId, "transactionId");
-            this.transactionId = transactionId;
-            return this;
-        }
         
         public Transaction build() {
-            if (integrationType == null) {
-                integrationType = _SINGLETON_VALUE_IntegrationType.value();
-            }            return new Transaction(
-                integrationType,
-                message,
-                status,
-                transactionId);
+            return new Transaction(
+                errorMessage,
+                id,
+                status);
         }
-
-        private static final LazySingletonValue<JsonNullable<? extends IntegrationType>> _SINGLETON_VALUE_IntegrationType =
-                new LazySingletonValue<>(
-                        "integrationType",
-                        "\"expenses\"",
-                        new TypeReference<JsonNullable<? extends IntegrationType>>() {});
     }
 }
 

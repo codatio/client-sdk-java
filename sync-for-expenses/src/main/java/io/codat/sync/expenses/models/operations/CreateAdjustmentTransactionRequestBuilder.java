@@ -19,19 +19,19 @@ public class CreateAdjustmentTransactionRequestBuilder {
         this.sdk = sdk;
     }
 
-    public CreateAdjustmentTransactionRequestBuilder request(io.codat.sync.expenses.models.operations.CreateAdjustmentTransactionRequest request) {
+    public CreateAdjustmentTransactionRequestBuilder request(CreateAdjustmentTransactionRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public CreateAdjustmentTransactionRequestBuilder retryConfig(io.codat.sync.expenses.utils.RetryConfig retryConfig) {
+    public CreateAdjustmentTransactionRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public CreateAdjustmentTransactionRequestBuilder retryConfig(java.util.Optional<io.codat.sync.expenses.utils.RetryConfig> retryConfig) {
+    public CreateAdjustmentTransactionRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

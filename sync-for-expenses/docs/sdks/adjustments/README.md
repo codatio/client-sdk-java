@@ -34,7 +34,7 @@ import io.codat.sync.expenses.models.components.InvoiceToType;
 import io.codat.sync.expenses.models.components.RecordRef;
 import io.codat.sync.expenses.models.components.TrackingRefAdjustmentTransaction;
 import io.codat.sync.expenses.models.components.TrackingRefAdjustmentTransactionDataType;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.CreateAdjustmentTransactionRequest;
 import io.codat.sync.expenses.models.operations.CreateAdjustmentTransactionResponse;
 import java.lang.Exception;
@@ -43,19 +43,19 @@ import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            CreateAdjustmentTransactionRequest req = CreateAdjustmentTransactionRequest.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        CreateAdjustmentTransactionRequest req = CreateAdjustmentTransactionRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .requestBody(List.of(
                     AdjustmentTransactionRequest.builder()
-                        .currency("Lithuanian Litas")
+                        .currency("Tenge")
                         .date("2022-10-23T00:00:00Z")
-                        .id("d642c1fc-6fe0-4724-9bcd-d89dc7fa504e")
+                        .id("621cf021-cd9c-4f54-a033-15211a509a30")
                         .lines(List.of(
                             AdjustmentTransactionLine.builder()
                                 .accountRef(RecordRef.builder()
@@ -76,24 +76,13 @@ public class Application {
                         .build()))
                 .build();
 
-            CreateAdjustmentTransactionResponse res = sdk.adjustments().create()
+        CreateAdjustmentTransactionResponse res = sdk.adjustments().create()
                 .request(req)
                 .call();
 
-            if (res.adjustmentTransactionResponse().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.adjustmentTransactionResponse().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -110,7 +99,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |

@@ -19,19 +19,19 @@ public class RefreshAllDataTypesRequestBuilder {
         this.sdk = sdk;
     }
 
-    public RefreshAllDataTypesRequestBuilder request(io.codat.sync.expenses.models.operations.RefreshAllDataTypesRequest request) {
+    public RefreshAllDataTypesRequestBuilder request(RefreshAllDataTypesRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public RefreshAllDataTypesRequestBuilder retryConfig(io.codat.sync.expenses.utils.RetryConfig retryConfig) {
+    public RefreshAllDataTypesRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public RefreshAllDataTypesRequestBuilder retryConfig(java.util.Optional<io.codat.sync.expenses.utils.RetryConfig> retryConfig) {
+    public RefreshAllDataTypesRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

@@ -19,19 +19,19 @@ public class GetSyncTransactionRequestBuilder {
         this.sdk = sdk;
     }
 
-    public GetSyncTransactionRequestBuilder request(io.codat.sync.expenses.models.operations.GetSyncTransactionRequest request) {
+    public GetSyncTransactionRequestBuilder request(GetSyncTransactionRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public GetSyncTransactionRequestBuilder retryConfig(io.codat.sync.expenses.utils.RetryConfig retryConfig) {
+    public GetSyncTransactionRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public GetSyncTransactionRequestBuilder retryConfig(java.util.Optional<io.codat.sync.expenses.utils.RetryConfig> retryConfig) {
+    public GetSyncTransactionRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

@@ -19,19 +19,19 @@ public class UpdateCustomerRequestBuilder {
         this.sdk = sdk;
     }
 
-    public UpdateCustomerRequestBuilder request(io.codat.sync.expenses.models.operations.UpdateCustomerRequest request) {
+    public UpdateCustomerRequestBuilder request(UpdateCustomerRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public UpdateCustomerRequestBuilder retryConfig(io.codat.sync.expenses.utils.RetryConfig retryConfig) {
+    public UpdateCustomerRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public UpdateCustomerRequestBuilder retryConfig(java.util.Optional<io.codat.sync.expenses.utils.RetryConfig> retryConfig) {
+    public UpdateCustomerRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

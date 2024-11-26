@@ -20,42 +20,31 @@ Retrieve push operation.
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.GetPushOperationRequest;
 import io.codat.sync.expenses.models.operations.GetPushOperationResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
                 .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+            .build();
 
-            GetPushOperationRequest req = GetPushOperationRequest.builder()
+        GetPushOperationRequest req = GetPushOperationRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
-                .pushOperationKey("b18d8d81-fd7b-4764-a31e-475cb1f36591")
+                .pushOperationKey("b888f774-3e7c-4135-a18c-6b985523c4bc")
                 .build();
 
-            GetPushOperationResponse res = sdk.pushOperations().get()
+        GetPushOperationResponse res = sdk.pushOperations().get()
                 .request(req)
                 .call();
 
-            if (res.pushOperation().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.pushOperation().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -72,11 +61,10 @@ public class Application {
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/ErrorMessage  | 401,402,403,404,429,500,503 | application/json            |
-| models/errors/SDKError      | 4xx-5xx                     | \*\/*                       |
-
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
 ## list
 
@@ -88,20 +76,20 @@ List push operation records.
 package hello.world;
 
 import io.codat.sync.expenses.CodatSyncExpenses;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.ListPushOperationsRequest;
 import io.codat.sync.expenses.models.operations.ListPushOperationsResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            ListPushOperationsRequest req = ListPushOperationsRequest.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        ListPushOperationsRequest req = ListPushOperationsRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .orderBy("-modifiedDate")
                 .page(1)
@@ -109,24 +97,13 @@ public class Application {
                 .query("id=e3334455-1aed-4e71-ab43-6bccf12092ee")
                 .build();
 
-            ListPushOperationsResponse res = sdk.pushOperations().list()
+        ListPushOperationsResponse res = sdk.pushOperations().list()
                 .request(req)
                 .call();
 
-            if (res.pushOperations().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.pushOperations().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -143,7 +120,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |

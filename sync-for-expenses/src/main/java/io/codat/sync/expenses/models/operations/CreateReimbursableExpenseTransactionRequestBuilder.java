@@ -19,19 +19,19 @@ public class CreateReimbursableExpenseTransactionRequestBuilder {
         this.sdk = sdk;
     }
 
-    public CreateReimbursableExpenseTransactionRequestBuilder request(io.codat.sync.expenses.models.operations.CreateReimbursableExpenseTransactionRequest request) {
+    public CreateReimbursableExpenseTransactionRequestBuilder request(CreateReimbursableExpenseTransactionRequest request) {
         Utils.checkNotNull(request, "request");
         this.request = request;
         return this;
     }
                 
-    public CreateReimbursableExpenseTransactionRequestBuilder retryConfig(io.codat.sync.expenses.utils.RetryConfig retryConfig) {
+    public CreateReimbursableExpenseTransactionRequestBuilder retryConfig(RetryConfig retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = Optional.of(retryConfig);
         return this;
     }
 
-    public CreateReimbursableExpenseTransactionRequestBuilder retryConfig(java.util.Optional<io.codat.sync.expenses.utils.RetryConfig> retryConfig) {
+    public CreateReimbursableExpenseTransactionRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
         Utils.checkNotNull(retryConfig, "retryConfig");
         this.retryConfig = retryConfig;
         return this;

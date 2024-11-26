@@ -135,6 +135,13 @@ public class ExpenseTransaction {
     private JsonNullable<Boolean> postAsDraft;
 
     /**
+     * User-friendly reference for the expense transaction.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("reference")
+    private JsonNullable<String> reference;
+
+    /**
      * The type of transaction.
      */
     @JsonProperty("type")
@@ -152,6 +159,7 @@ public class ExpenseTransaction {
             @JsonProperty("merchantName") Optional<String> merchantName,
             @JsonProperty("notes") Optional<String> notes,
             @JsonProperty("postAsDraft") JsonNullable<Boolean> postAsDraft,
+            @JsonProperty("reference") JsonNullable<String> reference,
             @JsonProperty("type") ExpenseTransactionType type) {
         Utils.checkNotNull(bankAccountRef, "bankAccountRef");
         Utils.checkNotNull(contactRef, "contactRef");
@@ -163,6 +171,7 @@ public class ExpenseTransaction {
         Utils.checkNotNull(merchantName, "merchantName");
         Utils.checkNotNull(notes, "notes");
         Utils.checkNotNull(postAsDraft, "postAsDraft");
+        Utils.checkNotNull(reference, "reference");
         Utils.checkNotNull(type, "type");
         this.bankAccountRef = bankAccountRef;
         this.contactRef = contactRef;
@@ -174,6 +183,7 @@ public class ExpenseTransaction {
         this.merchantName = merchantName;
         this.notes = notes;
         this.postAsDraft = postAsDraft;
+        this.reference = reference;
         this.type = type;
     }
     
@@ -182,7 +192,7 @@ public class ExpenseTransaction {
             String id,
             String issueDate,
             ExpenseTransactionType type) {
-        this(Optional.empty(), Optional.empty(), currency, JsonNullable.undefined(), id, issueDate, Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), type);
+        this(Optional.empty(), Optional.empty(), currency, JsonNullable.undefined(), id, issueDate, Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(), type);
     }
 
     @SuppressWarnings("unchecked")
@@ -310,6 +320,14 @@ public class ExpenseTransaction {
     @JsonIgnore
     public JsonNullable<Boolean> postAsDraft() {
         return postAsDraft;
+    }
+
+    /**
+     * User-friendly reference for the expense transaction.
+     */
+    @JsonIgnore
+    public JsonNullable<String> reference() {
+        return reference;
     }
 
     /**
@@ -585,6 +603,24 @@ public class ExpenseTransaction {
     }
 
     /**
+     * User-friendly reference for the expense transaction.
+     */
+    public ExpenseTransaction withReference(String reference) {
+        Utils.checkNotNull(reference, "reference");
+        this.reference = JsonNullable.of(reference);
+        return this;
+    }
+
+    /**
+     * User-friendly reference for the expense transaction.
+     */
+    public ExpenseTransaction withReference(JsonNullable<String> reference) {
+        Utils.checkNotNull(reference, "reference");
+        this.reference = reference;
+        return this;
+    }
+
+    /**
      * The type of transaction.
      */
     public ExpenseTransaction withType(ExpenseTransactionType type) {
@@ -613,6 +649,7 @@ public class ExpenseTransaction {
             Objects.deepEquals(this.merchantName, other.merchantName) &&
             Objects.deepEquals(this.notes, other.notes) &&
             Objects.deepEquals(this.postAsDraft, other.postAsDraft) &&
+            Objects.deepEquals(this.reference, other.reference) &&
             Objects.deepEquals(this.type, other.type);
     }
     
@@ -629,6 +666,7 @@ public class ExpenseTransaction {
             merchantName,
             notes,
             postAsDraft,
+            reference,
             type);
     }
     
@@ -645,6 +683,7 @@ public class ExpenseTransaction {
                 "merchantName", merchantName,
                 "notes", notes,
                 "postAsDraft", postAsDraft,
+                "reference", reference,
                 "type", type);
     }
     
@@ -669,6 +708,8 @@ public class ExpenseTransaction {
         private Optional<String> notes = Optional.empty();
  
         private JsonNullable<Boolean> postAsDraft = JsonNullable.undefined();
+ 
+        private JsonNullable<String> reference = JsonNullable.undefined();
  
         private ExpenseTransactionType type;  
         
@@ -937,6 +978,24 @@ public class ExpenseTransaction {
         }
 
         /**
+         * User-friendly reference for the expense transaction.
+         */
+        public Builder reference(String reference) {
+            Utils.checkNotNull(reference, "reference");
+            this.reference = JsonNullable.of(reference);
+            return this;
+        }
+
+        /**
+         * User-friendly reference for the expense transaction.
+         */
+        public Builder reference(JsonNullable<String> reference) {
+            Utils.checkNotNull(reference, "reference");
+            this.reference = reference;
+            return this;
+        }
+
+        /**
          * The type of transaction.
          */
         public Builder type(ExpenseTransactionType type) {
@@ -957,6 +1016,7 @@ public class ExpenseTransaction {
                 merchantName,
                 notes,
                 postAsDraft,
+                reference,
                 type);
         }
     }

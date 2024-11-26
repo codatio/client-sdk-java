@@ -39,7 +39,7 @@ public class Transactions {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("results")
-    private Optional<? extends List<Transaction>> results;
+    private Optional<? extends List<SchemaTransaction>> results;
 
     /**
      * Total number of items.
@@ -52,7 +52,7 @@ public class Transactions {
             @JsonProperty("_links") Links links,
             @JsonProperty("pageNumber") long pageNumber,
             @JsonProperty("pageSize") long pageSize,
-            @JsonProperty("results") Optional<? extends List<Transaction>> results,
+            @JsonProperty("results") Optional<? extends List<SchemaTransaction>> results,
             @JsonProperty("totalResults") long totalResults) {
         Utils.checkNotNull(links, "links");
         Utils.checkNotNull(pageNumber, "pageNumber");
@@ -97,8 +97,8 @@ public class Transactions {
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<Transaction>> results() {
-        return (Optional<List<Transaction>>) results;
+    public Optional<List<SchemaTransaction>> results() {
+        return (Optional<List<SchemaTransaction>>) results;
     }
 
     /**
@@ -137,13 +137,13 @@ public class Transactions {
         return this;
     }
 
-    public Transactions withResults(List<Transaction> results) {
+    public Transactions withResults(List<SchemaTransaction> results) {
         Utils.checkNotNull(results, "results");
         this.results = Optional.ofNullable(results);
         return this;
     }
 
-    public Transactions withResults(Optional<? extends List<Transaction>> results) {
+    public Transactions withResults(Optional<? extends List<SchemaTransaction>> results) {
         Utils.checkNotNull(results, "results");
         this.results = results;
         return this;
@@ -203,7 +203,7 @@ public class Transactions {
  
         private Long pageSize;
  
-        private Optional<? extends List<Transaction>> results = Optional.empty();
+        private Optional<? extends List<SchemaTransaction>> results = Optional.empty();
  
         private Long totalResults;  
         
@@ -235,13 +235,13 @@ public class Transactions {
             return this;
         }
 
-        public Builder results(List<Transaction> results) {
+        public Builder results(List<SchemaTransaction> results) {
             Utils.checkNotNull(results, "results");
             this.results = Optional.ofNullable(results);
             return this;
         }
 
-        public Builder results(Optional<? extends List<Transaction>> results) {
+        public Builder results(Optional<? extends List<SchemaTransaction>> results) {
             Utils.checkNotNull(results, "results");
             this.results = results;
             return this;

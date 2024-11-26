@@ -36,7 +36,7 @@ import io.codat.sync.expenses.models.components.From;
 import io.codat.sync.expenses.models.components.To;
 import io.codat.sync.expenses.models.components.TransferTransactionRequest;
 import io.codat.sync.expenses.models.components.TransferTransactionRequestAccountReference;
-import io.codat.sync.expenses.models.errors.SDKError;
+import io.codat.sync.expenses.models.errors.ErrorMessage;
 import io.codat.sync.expenses.models.operations.CreateTransferTransactionRequest;
 import io.codat.sync.expenses.models.operations.CreateTransferTransactionResponse;
 import java.lang.Exception;
@@ -44,13 +44,13 @@ import java.math.BigDecimal;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
-        try {
-            CodatSyncExpenses sdk = CodatSyncExpenses.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                .build();
+    public static void main(String[] args) throws ErrorMessage, Exception {
 
-            CreateTransferTransactionRequest req = CreateTransferTransactionRequest.builder()
+        CodatSyncExpenses sdk = CodatSyncExpenses.builder()
+                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+            .build();
+
+        CreateTransferTransactionRequest req = CreateTransferTransactionRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .transactionId("336694d8-2dca-4cb5-a28d-3ccb83e55eee")
                 .transferTransactionRequest(TransferTransactionRequest.builder()
@@ -65,30 +65,19 @@ public class Application {
                         .accountRef(TransferTransactionRequestAccountReference.builder()
                             .id("<id>")
                             .build())
-                        .amount(new BigDecimal("8592.13"))
+                        .amount(new BigDecimal("4174.58"))
                         .build())
                     .description("Transfer from bank account Y to bank account Z")
                     .build())
                 .build();
 
-            CreateTransferTransactionResponse res = sdk.transfers().create()
+        CreateTransferTransactionResponse res = sdk.transfers().create()
                 .request(req)
                 .call();
 
-            if (res.transferTransactionResponse().isPresent()) {
-                // handle response
-            }
-        } catch (io.codat.sync.expenses.models.errors.ErrorMessage e) {
-            // handle exception
-            throw e;
-        } catch (SDKError e) {
-            // handle exception
-            throw e;
-        } catch (Exception e) {
-            // handle exception
-            throw e;
+        if (res.transferTransactionResponse().isPresent()) {
+            // handle response
         }
-
     }
 }
 ```
@@ -105,7 +94,7 @@ public class Application {
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| models/errors/ErrorMessage      | 400,401,402,403,404,429,500,503 | application/json                |
-| models/errors/SDKError          | 4xx-5xx                         | \*\/*                           |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorMessage             | 400, 401, 402, 403, 404, 429, 500, 503 | application/json                       |
+| models/errors/SDKError                 | 4XX, 5XX                               | \*/\*                                  |
