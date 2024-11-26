@@ -23,8 +23,8 @@ class SDKConfiguration {
     public int serverIdx = 0;
     private static final String LANGUAGE = "java";
     public static final String OPENAPI_DOC_VERSION = "3.0.0";
-    public static final String SDK_VERSION = "1.0.0";
-    public static final String GEN_VERSION = "2.442.11";
+    public static final String SDK_VERSION = "2.0.0";
+    public static final String GEN_VERSION = "2.462.1";
     private static final String BASE_PACKAGE = "io.codat.platform";
     public static final String USER_AGENT = 
             String.format("speakeasy-sdk/%s %s %s %s %s", 

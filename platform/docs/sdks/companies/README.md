@@ -11,6 +11,7 @@ Create and manage your SMB users' companies.
 * [create](#create) - Create company
 * [delete](#delete) - Delete a company
 * [get](#get) - Get company
+* [getAccessToken](#getaccesstoken) - Get company access token
 * [list](#list) - List companies
 * [removeProduct](#removeproduct) - Remove product
 * [update](#update) - Update company
@@ -260,9 +261,68 @@ public class Application {
 | models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
 | models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
 
+## getAccessToken
+
+Use the _Get company access token_ endpoint to return an access token for the specified company ID to use in Codat's embedded UI products.
+
+
+### Example Usage
+
+```java
+package hello.world;
+
+import io.codat.platform.CodatPlatform;
+import io.codat.platform.models.errors.ErrorMessage;
+import io.codat.platform.models.operations.GetCompanyAccessTokenRequest;
+import io.codat.platform.models.operations.GetCompanyAccessTokenResponse;
+import io.codat.platform.models.shared.Security;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ErrorMessage, Exception {
+
+        CodatPlatform sdk = CodatPlatform.builder()
+                .security(Security.builder()
+                    .authHeader("Basic BASE_64_ENCODED(API_KEY)")
+                    .build())
+            .build();
+
+        GetCompanyAccessTokenRequest req = GetCompanyAccessTokenRequest.builder()
+                .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
+                .build();
+
+        GetCompanyAccessTokenResponse res = sdk.companies().getAccessToken()
+                .request(req)
+                .call();
+
+        if (res.companyAccessToken().isPresent()) {
+            // handle response
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `request`                                                                               | [GetCompanyAccessTokenRequest](../../models/operations/GetCompanyAccessTokenRequest.md) | :heavy_check_mark:                                                                      | The request object to use for the request.                                              |
+
+### Response
+
+**[GetCompanyAccessTokenResponse](../../models/operations/GetCompanyAccessTokenResponse.md)**
+
+### Errors
+
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/ErrorMessage        | 401, 402, 403, 404, 429, 500, 503 | application/json                  |
+| models/errors/SDKError            | 4XX, 5XX                          | \*/\*                             |
+
 ## list
 
-﻿The *List companies* endpoint returns a list of [companies] associated to your instances.
+﻿The *List companies* endpoint returns a list of [companies](https://docs.codat.io/platform-api#/schemas/Company) associated to your instances.
 
 A [company](https://docs.codat.io/platform-api#/schemas/Company) represents a business sharing access to their data.
 Each company can have multiple [connections](https://docs.codat.io/platform-api#/schemas/Connection) to different data sources, such as one connection to Xero for accounting data, two connections to Plaid for two bank accounts, and a connection to Zettle for POS data.
