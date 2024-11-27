@@ -63,7 +63,7 @@ tasks.withType(Javadoc) {
 }
 
 group = "io.codat"
-version = "1.0.0"
+version = "1.0.1"
 
 sourcesJar {
     archiveBaseName = "sync.expenses"
@@ -101,7 +101,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'io.codat'
             artifactId = 'sync.expenses'
-            version = '1.0.0'
+            version = '1.0.1'
 
             from components.java
 
