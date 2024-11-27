@@ -3,10 +3,10 @@ id: 37c7760d-adec-45ec-9000-ca662e9c0068
 management:
   docChecksum: c99953b67f6a5e5522a0340e273decdb
   docVersion: prealpha
-  speakeasyVersion: 1.447.0
-  generationVersion: 2.463.0
-  releaseVersion: 1.0.0
-  configChecksum: befa27571044b513991e7826b0521a1a
+  speakeasyVersion: 1.448.0
+  generationVersion: 2.466.0
+  releaseVersion: 1.0.1
+  configChecksum: ff83a49ae8e0c27283f981a68c75514f
   repoURL: https://github.com/codatio/client-sdk-java.git
   repoSubDirectory: sync-for-expenses
   published: true
