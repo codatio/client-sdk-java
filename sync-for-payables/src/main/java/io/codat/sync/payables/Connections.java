@@ -70,7 +70,7 @@ public class Connections implements
      * Create connection
      * ﻿Creates a connection for the company by providing a valid `platformKey`. 
      * 
-     * Use the [List Integrations](https://docs.codat.io/sync-for-payables-api#/operations/list-integrations) endpoint to access valid platform keys. 
+     * Use the [List Integrations](https://docs.codat.io/platform-api#/operations/list-integrations) endpoint to access valid platform keys. 
      * @return The call builder
      */
     public CreateConnectionRequestBuilder create() {
@@ -81,7 +81,7 @@ public class Connections implements
      * Create connection
      * ﻿Creates a connection for the company by providing a valid `platformKey`. 
      * 
-     * Use the [List Integrations](https://docs.codat.io/sync-for-payables-api#/operations/list-integrations) endpoint to access valid platform keys. 
+     * Use the [List Integrations](https://docs.codat.io/platform-api#/operations/list-integrations) endpoint to access valid platform keys. 
      * @param request The request object containing all of the parameters for the API call.
      * @return The response from the API call
      * @throws Exception if the API call fails
@@ -95,7 +95,7 @@ public class Connections implements
      * Create connection
      * ﻿Creates a connection for the company by providing a valid `platformKey`. 
      * 
-     * Use the [List Integrations](https://docs.codat.io/sync-for-payables-api#/operations/list-integrations) endpoint to access valid platform keys. 
+     * Use the [List Integrations](https://docs.codat.io/platform-api#/operations/list-integrations) endpoint to access valid platform keys. 
      * @param request The request object containing all of the parameters for the API call.
      * @param options additional options
      * @return The response from the API call

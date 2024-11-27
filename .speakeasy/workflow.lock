@@ -1,4 +1,4 @@
-speakeasyVersion: 1.447.0
+speakeasyVersion: 1.448.0
 sources:
     accounting-source:
         sourceNamespace: accounting-source
@@ -55,11 +55,12 @@ sources:
             - prealpha
     sync-for-payables-source:
         sourceNamespace: sync-for-payables-source
-        sourceRevisionDigest: sha256:b7ab686758f0afcdfdea71a46fe64a0cc9e8e4ce32af1314372c9134dbb13ad6
-        sourceBlobDigest: sha256:f472244dc98845d90f55da060a2cc4acee05c771a89a0ff55bc5db04108e5693
+        sourceRevisionDigest: sha256:2b3e38c90e4baf9c46b6c00ffd9dd90eef071a47c830a6bbd70a5c42dd8540ec
+        sourceBlobDigest: sha256:57b656eed2c5a98f97da8f59e196bb8052ead3cc7c87673cdf5e19c6badbb570
         tags:
             - latest
-            - main
+            - speakeasy-sdk-regen-1732702366
+            - 3.0.0
     sync-for-payroll-source:
         sourceNamespace: sync-for-payroll-source
         sourceRevisionDigest: sha256:9a6cc9d1da201eabac09e3f13d97e740b849b852f5f83b828ff41f58ad9849b3
@@ -116,8 +117,10 @@ targets:
     sync-for-payables-library:
         source: sync-for-payables-source
         sourceNamespace: sync-for-payables-source
-        sourceRevisionDigest: sha256:b7ab686758f0afcdfdea71a46fe64a0cc9e8e4ce32af1314372c9134dbb13ad6
-        sourceBlobDigest: sha256:f472244dc98845d90f55da060a2cc4acee05c771a89a0ff55bc5db04108e5693
+        sourceRevisionDigest: sha256:2b3e38c90e4baf9c46b6c00ffd9dd90eef071a47c830a6bbd70a5c42dd8540ec
+        sourceBlobDigest: sha256:57b656eed2c5a98f97da8f59e196bb8052ead3cc7c87673cdf5e19c6badbb570
+        codeSamplesNamespace: sync-for-payables-source-java-code-samples
+        codeSamplesRevisionDigest: sha256:798680652aa6d4e60eecd57638e44f1f91ee6c96178b3b599ecdae1573353667
     sync-for-payroll-library:
         source: sync-for-payroll-source
         sourceNamespace: sync-for-payroll-source
@@ -185,7 +188,7 @@ workflow:
                     gpgPassPhrase: $java_gpg_passphrase
             codeSamples:
                 registry:
-                    location: registry.speakeasyapi.dev/codat/codat/accounting-source-code-samples
+                    location: registry.speakeasyapi.dev/codat/codat/accounting-source-java-code-samples
                 blocking: false
         bank-feeds-library:
             target: java
@@ -199,7 +202,7 @@ workflow:
                     gpgPassPhrase: $java_gpg_passphrase
             codeSamples:
                 registry:
-                    location: registry.speakeasyapi.dev/codat/codat/bank-feeds-source-code-samples
+                    location: registry.speakeasyapi.dev/codat/codat/bank-feeds-source-java-code-samples
                 blocking: false
         banking-library:
             target: java
@@ -213,7 +216,7 @@ workflow:
                     gpgPassPhrase: $java_gpg_passphrase
             codeSamples:
                 registry:
-                    location: registry.speakeasyapi.dev/codat/codat/banking-source-code-samples
+                    location: registry.speakeasyapi.dev/codat/codat/banking-source-java-code-samples
                 blocking: false
         lending-library:
             target: java
@@ -227,7 +230,7 @@ workflow:
                     gpgPassPhrase: $java_gpg_passphrase
             codeSamples:
                 registry:
-                    location: registry.speakeasyapi.dev/codat/codat/lending-source-code-samples
+                    location: registry.speakeasyapi.dev/codat/codat/lending-source-java-code-samples
                 blocking: false
         platform-library:
             target: java
@@ -241,7 +244,7 @@ workflow:
                     gpgPassPhrase: $java_gpg_passphrase
             codeSamples:
                 registry:
-                    location: registry.speakeasyapi.dev/codat/codat/platform-source-code-samples
+                    location: registry.speakeasyapi.dev/codat/codat/platform-source-java-code-samples
                 blocking: false
         sync-for-commerce-library:
             target: java
@@ -255,7 +258,7 @@ workflow:
                     gpgPassPhrase: $java_gpg_passphrase
             codeSamples:
                 registry:
-                    location: registry.speakeasyapi.dev/codat/codat/sync-for-commerce-source-code-samples
+                    location: registry.speakeasyapi.dev/codat/codat/sync-for-commerce-source-java-code-samples
                 blocking: false
         sync-for-expenses-library:
             target: java
@@ -269,7 +272,7 @@ workflow:
                     gpgPassPhrase: $java_gpg_passphrase
             codeSamples:
                 registry:
-                    location: registry.speakeasyapi.dev/codat/codat/sync-for-expenses-source-code-samples
+                    location: registry.speakeasyapi.dev/codat/codat/sync-for-expenses-source-java-code-samples
                 blocking: false
         sync-for-payables-library:
             target: java
@@ -283,7 +286,7 @@ workflow:
                     gpgPassPhrase: $java_gpg_passphrase
             codeSamples:
                 registry:
-                    location: registry.speakeasyapi.dev/codat/codat/sync-for-payables-source-code-samples
+                    location: registry.speakeasyapi.dev/codat/codat/sync-for-payables-source-java-code-samples
                 blocking: false
         sync-for-payroll-library:
             target: java
@@ -297,5 +300,5 @@ workflow:
                     gpgPassPhrase: $java_gpg_passphrase
             codeSamples:
                 registry:
-                    location: registry.speakeasyapi.dev/codat/codat/sync-for-payroll-source-code-samples
+                    location: registry.speakeasyapi.dev/codat/codat/sync-for-payroll-source-java-code-samples
                 blocking: false
