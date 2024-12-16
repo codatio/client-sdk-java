@@ -17,7 +17,7 @@ public class Application {
             .build();
 
         CompanyRequestBody req = CompanyRequestBody.builder()
-                .name("Bank of Dave")
+                .name("Technicalium")
                 .description("Requested early access to the new financing scheme.")
                 .build();
 

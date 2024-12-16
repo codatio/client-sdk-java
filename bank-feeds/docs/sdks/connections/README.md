@@ -254,9 +254,11 @@ public class Application {
 package hello.world;
 
 import io.codat.bank_feeds.CodatBankFeeds;
+import io.codat.bank_feeds.models.components.DataConnectionStatus;
 import io.codat.bank_feeds.models.errors.ErrorMessage;
 import io.codat.bank_feeds.models.operations.UnlinkConnectionRequest;
 import io.codat.bank_feeds.models.operations.UnlinkConnectionResponse;
+import io.codat.bank_feeds.models.operations.UnlinkConnectionUpdateConnection;
 import java.lang.Exception;
 
 public class Application {
@@ -270,6 +272,9 @@ public class Application {
         UnlinkConnectionRequest req = UnlinkConnectionRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
+                .requestBody(UnlinkConnectionUpdateConnection.builder()
+                    .status(DataConnectionStatus.UNLINKED)
+                    .build())
                 .build();
 
         UnlinkConnectionResponse res = sdk.connections().unlink()

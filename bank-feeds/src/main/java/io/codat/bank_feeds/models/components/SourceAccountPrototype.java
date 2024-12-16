@@ -19,39 +19,36 @@ import java.util.Objects;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-/**
- * SourceAccountV2 - The target bank account in a supported accounting software for ingestion into a bank feed.
- */
 
-public class SourceAccountV2 {
-
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("accountInfo")
-    private JsonNullable<? extends AccountInfo> accountInfo;
+public class SourceAccountPrototype {
 
     /**
      * The bank account name.
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("accountName")
-    private String accountName;
+    private JsonNullable<String> accountName;
 
     /**
      * The account number.
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("accountNumber")
-    private String accountNumber;
+    private JsonNullable<String> accountNumber;
 
     /**
-     * The type of bank account e.g. checking, savings, loan, creditCard, prepaidCard.
+     * The type of bank account e.g. Credit.
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("accountType")
-    private SourceAccountV2AccountType accountType;
+    private JsonNullable<String> accountType;
 
     /**
      * The latest balance for the bank account.
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("balance")
-    private BigDecimal balance;
+    private JsonNullable<? extends BigDecimal> balance;
 
     /**
      * The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
@@ -62,24 +59,16 @@ public class SourceAccountV2 {
      * 
      * There are only a very small number of edge cases where this currency code is returned by the Codat system.
      */
-    @JsonProperty("currency")
-    private String currency;
-
-    /**
-     * In Codat's data model, dates are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date fields are formatted as strings; for example:
-     * ```
-     * 2020-10-08
-     * ```
-     */
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("feedStartDate")
-    private JsonNullable<String> feedStartDate;
+    @JsonProperty("currency")
+    private Optional<String> currency;
 
     /**
      * Unique ID for the bank account.
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("id")
-    private String id;
+    private Optional<String> id;
 
     /**
      * In Codat's data model, dates and times are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date and time fields are formatted as strings; for example:
@@ -107,87 +96,49 @@ public class SourceAccountV2 {
     private Optional<String> modifiedDate;
 
     /**
-     * Routing information for the bank. This does not include account number.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("routingInfo")
-    private Optional<? extends RoutingInfo> routingInfo;
-
-    /**
      * The sort code.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("sortCode")
     private JsonNullable<String> sortCode;
 
-    /**
-     * Status of the source account.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("status")
-    private JsonNullable<? extends SourceAccountV2Status> status;
-
     @JsonCreator
-    public SourceAccountV2(
-            @JsonProperty("accountInfo") JsonNullable<? extends AccountInfo> accountInfo,
-            @JsonProperty("accountName") String accountName,
-            @JsonProperty("accountNumber") String accountNumber,
-            @JsonProperty("accountType") SourceAccountV2AccountType accountType,
-            @JsonProperty("balance") BigDecimal balance,
-            @JsonProperty("currency") String currency,
-            @JsonProperty("feedStartDate") JsonNullable<String> feedStartDate,
-            @JsonProperty("id") String id,
+    public SourceAccountPrototype(
+            @JsonProperty("accountName") JsonNullable<String> accountName,
+            @JsonProperty("accountNumber") JsonNullable<String> accountNumber,
+            @JsonProperty("accountType") JsonNullable<String> accountType,
+            @JsonProperty("balance") JsonNullable<? extends BigDecimal> balance,
+            @JsonProperty("currency") Optional<String> currency,
+            @JsonProperty("id") Optional<String> id,
             @JsonProperty("modifiedDate") Optional<String> modifiedDate,
-            @JsonProperty("routingInfo") Optional<? extends RoutingInfo> routingInfo,
-            @JsonProperty("sortCode") JsonNullable<String> sortCode,
-            @JsonProperty("status") JsonNullable<? extends SourceAccountV2Status> status) {
-        Utils.checkNotNull(accountInfo, "accountInfo");
+            @JsonProperty("sortCode") JsonNullable<String> sortCode) {
         Utils.checkNotNull(accountName, "accountName");
         Utils.checkNotNull(accountNumber, "accountNumber");
         Utils.checkNotNull(accountType, "accountType");
         Utils.checkNotNull(balance, "balance");
         Utils.checkNotNull(currency, "currency");
-        Utils.checkNotNull(feedStartDate, "feedStartDate");
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(modifiedDate, "modifiedDate");
-        Utils.checkNotNull(routingInfo, "routingInfo");
         Utils.checkNotNull(sortCode, "sortCode");
-        Utils.checkNotNull(status, "status");
-        this.accountInfo = accountInfo;
         this.accountName = accountName;
         this.accountNumber = accountNumber;
         this.accountType = accountType;
         this.balance = balance;
         this.currency = currency;
-        this.feedStartDate = feedStartDate;
         this.id = id;
         this.modifiedDate = modifiedDate;
-        this.routingInfo = routingInfo;
         this.sortCode = sortCode;
-        this.status = status;
     }
     
-    public SourceAccountV2(
-            String accountName,
-            String accountNumber,
-            SourceAccountV2AccountType accountType,
-            BigDecimal balance,
-            String currency,
-            String id) {
-        this(JsonNullable.undefined(), accountName, accountNumber, accountType, balance, currency, JsonNullable.undefined(), id, Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined());
-    }
-
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public JsonNullable<AccountInfo> accountInfo() {
-        return (JsonNullable<AccountInfo>) accountInfo;
+    public SourceAccountPrototype() {
+        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(), Optional.empty(), Optional.empty(), JsonNullable.undefined());
     }
 
     /**
      * The bank account name.
      */
     @JsonIgnore
-    public String accountName() {
+    public JsonNullable<String> accountName() {
         return accountName;
     }
 
@@ -195,24 +146,25 @@ public class SourceAccountV2 {
      * The account number.
      */
     @JsonIgnore
-    public String accountNumber() {
+    public JsonNullable<String> accountNumber() {
         return accountNumber;
     }
 
     /**
-     * The type of bank account e.g. checking, savings, loan, creditCard, prepaidCard.
+     * The type of bank account e.g. Credit.
      */
     @JsonIgnore
-    public SourceAccountV2AccountType accountType() {
+    public JsonNullable<String> accountType() {
         return accountType;
     }
 
     /**
      * The latest balance for the bank account.
      */
+    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public BigDecimal balance() {
-        return balance;
+    public JsonNullable<BigDecimal> balance() {
+        return (JsonNullable<BigDecimal>) balance;
     }
 
     /**
@@ -225,26 +177,15 @@ public class SourceAccountV2 {
      * There are only a very small number of edge cases where this currency code is returned by the Codat system.
      */
     @JsonIgnore
-    public String currency() {
+    public Optional<String> currency() {
         return currency;
-    }
-
-    /**
-     * In Codat's data model, dates are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date fields are formatted as strings; for example:
-     * ```
-     * 2020-10-08
-     * ```
-     */
-    @JsonIgnore
-    public JsonNullable<String> feedStartDate() {
-        return feedStartDate;
     }
 
     /**
      * Unique ID for the bank account.
      */
     @JsonIgnore
-    public String id() {
+    public Optional<String> id() {
         return id;
     }
 
@@ -275,15 +216,6 @@ public class SourceAccountV2 {
     }
 
     /**
-     * Routing information for the bank. This does not include account number.
-     */
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public Optional<RoutingInfo> routingInfo() {
-        return (Optional<RoutingInfo>) routingInfo;
-    }
-
-    /**
      * The sort code.
      */
     @JsonIgnore
@@ -291,35 +223,23 @@ public class SourceAccountV2 {
         return sortCode;
     }
 
-    /**
-     * Status of the source account.
-     */
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public JsonNullable<SourceAccountV2Status> status() {
-        return (JsonNullable<SourceAccountV2Status>) status;
-    }
-
     public final static Builder builder() {
         return new Builder();
     }
 
-    public SourceAccountV2 withAccountInfo(AccountInfo accountInfo) {
-        Utils.checkNotNull(accountInfo, "accountInfo");
-        this.accountInfo = JsonNullable.of(accountInfo);
-        return this;
-    }
-
-    public SourceAccountV2 withAccountInfo(JsonNullable<? extends AccountInfo> accountInfo) {
-        Utils.checkNotNull(accountInfo, "accountInfo");
-        this.accountInfo = accountInfo;
+    /**
+     * The bank account name.
+     */
+    public SourceAccountPrototype withAccountName(String accountName) {
+        Utils.checkNotNull(accountName, "accountName");
+        this.accountName = JsonNullable.of(accountName);
         return this;
     }
 
     /**
      * The bank account name.
      */
-    public SourceAccountV2 withAccountName(String accountName) {
+    public SourceAccountPrototype withAccountName(JsonNullable<String> accountName) {
         Utils.checkNotNull(accountName, "accountName");
         this.accountName = accountName;
         return this;
@@ -328,33 +248,60 @@ public class SourceAccountV2 {
     /**
      * The account number.
      */
-    public SourceAccountV2 withAccountNumber(String accountNumber) {
+    public SourceAccountPrototype withAccountNumber(String accountNumber) {
+        Utils.checkNotNull(accountNumber, "accountNumber");
+        this.accountNumber = JsonNullable.of(accountNumber);
+        return this;
+    }
+
+    /**
+     * The account number.
+     */
+    public SourceAccountPrototype withAccountNumber(JsonNullable<String> accountNumber) {
         Utils.checkNotNull(accountNumber, "accountNumber");
         this.accountNumber = accountNumber;
         return this;
     }
 
     /**
-     * The type of bank account e.g. checking, savings, loan, creditCard, prepaidCard.
+     * The type of bank account e.g. Credit.
      */
-    public SourceAccountV2 withAccountType(SourceAccountV2AccountType accountType) {
+    public SourceAccountPrototype withAccountType(String accountType) {
         Utils.checkNotNull(accountType, "accountType");
-        this.accountType = accountType;
+        this.accountType = JsonNullable.of(accountType);
         return this;
     }
 
-        /**
-         * The latest balance for the bank account.
-         */
-    public SourceAccountV2 withBalance(double balance) {
-        this.balance = BigDecimal.valueOf(balance);
+    /**
+     * The type of bank account e.g. Credit.
+     */
+    public SourceAccountPrototype withAccountType(JsonNullable<String> accountType) {
+        Utils.checkNotNull(accountType, "accountType");
+        this.accountType = accountType;
         return this;
     }
 
     /**
      * The latest balance for the bank account.
      */
-    public SourceAccountV2 withBalance(BigDecimal balance) {
+    public SourceAccountPrototype withBalance(BigDecimal balance) {
+        Utils.checkNotNull(balance, "balance");
+        this.balance = JsonNullable.of(balance);
+        return this;
+    }
+
+        /**
+         * The latest balance for the bank account.
+         */
+    public SourceAccountPrototype withBalance(double balance) {
+        this.balance = JsonNullable.of(BigDecimal.valueOf(balance));
+        return this;
+    }
+
+    /**
+     * The latest balance for the bank account.
+     */
+    public SourceAccountPrototype withBalance(JsonNullable<? extends BigDecimal> balance) {
         Utils.checkNotNull(balance, "balance");
         this.balance = balance;
         return this;
@@ -369,40 +316,40 @@ public class SourceAccountV2 {
      * 
      * There are only a very small number of edge cases where this currency code is returned by the Codat system.
      */
-    public SourceAccountV2 withCurrency(String currency) {
+    public SourceAccountPrototype withCurrency(String currency) {
+        Utils.checkNotNull(currency, "currency");
+        this.currency = Optional.ofNullable(currency);
+        return this;
+    }
+
+    /**
+     * The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
+     * 
+     * ## Unknown currencies
+     * 
+     * In line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. 
+     * 
+     * There are only a very small number of edge cases where this currency code is returned by the Codat system.
+     */
+    public SourceAccountPrototype withCurrency(Optional<String> currency) {
         Utils.checkNotNull(currency, "currency");
         this.currency = currency;
         return this;
     }
 
     /**
-     * In Codat's data model, dates are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date fields are formatted as strings; for example:
-     * ```
-     * 2020-10-08
-     * ```
+     * Unique ID for the bank account.
      */
-    public SourceAccountV2 withFeedStartDate(String feedStartDate) {
-        Utils.checkNotNull(feedStartDate, "feedStartDate");
-        this.feedStartDate = JsonNullable.of(feedStartDate);
-        return this;
-    }
-
-    /**
-     * In Codat's data model, dates are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date fields are formatted as strings; for example:
-     * ```
-     * 2020-10-08
-     * ```
-     */
-    public SourceAccountV2 withFeedStartDate(JsonNullable<String> feedStartDate) {
-        Utils.checkNotNull(feedStartDate, "feedStartDate");
-        this.feedStartDate = feedStartDate;
+    public SourceAccountPrototype withId(String id) {
+        Utils.checkNotNull(id, "id");
+        this.id = Optional.ofNullable(id);
         return this;
     }
 
     /**
      * Unique ID for the bank account.
      */
-    public SourceAccountV2 withId(String id) {
+    public SourceAccountPrototype withId(Optional<String> id) {
         Utils.checkNotNull(id, "id");
         this.id = id;
         return this;
@@ -429,7 +376,7 @@ public class SourceAccountV2 {
      * &gt; Not all dates from Codat will contain information about time zones.  
      * &gt; Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
      */
-    public SourceAccountV2 withModifiedDate(String modifiedDate) {
+    public SourceAccountPrototype withModifiedDate(String modifiedDate) {
         Utils.checkNotNull(modifiedDate, "modifiedDate");
         this.modifiedDate = Optional.ofNullable(modifiedDate);
         return this;
@@ -456,34 +403,16 @@ public class SourceAccountV2 {
      * &gt; Not all dates from Codat will contain information about time zones.  
      * &gt; Where it is not available from the underlying platform, Codat will return these as times local to the business whose data has been synced.
      */
-    public SourceAccountV2 withModifiedDate(Optional<String> modifiedDate) {
+    public SourceAccountPrototype withModifiedDate(Optional<String> modifiedDate) {
         Utils.checkNotNull(modifiedDate, "modifiedDate");
         this.modifiedDate = modifiedDate;
         return this;
     }
 
     /**
-     * Routing information for the bank. This does not include account number.
-     */
-    public SourceAccountV2 withRoutingInfo(RoutingInfo routingInfo) {
-        Utils.checkNotNull(routingInfo, "routingInfo");
-        this.routingInfo = Optional.ofNullable(routingInfo);
-        return this;
-    }
-
-    /**
-     * Routing information for the bank. This does not include account number.
-     */
-    public SourceAccountV2 withRoutingInfo(Optional<? extends RoutingInfo> routingInfo) {
-        Utils.checkNotNull(routingInfo, "routingInfo");
-        this.routingInfo = routingInfo;
-        return this;
-    }
-
-    /**
      * The sort code.
      */
-    public SourceAccountV2 withSortCode(String sortCode) {
+    public SourceAccountPrototype withSortCode(String sortCode) {
         Utils.checkNotNull(sortCode, "sortCode");
         this.sortCode = JsonNullable.of(sortCode);
         return this;
@@ -492,27 +421,9 @@ public class SourceAccountV2 {
     /**
      * The sort code.
      */
-    public SourceAccountV2 withSortCode(JsonNullable<String> sortCode) {
+    public SourceAccountPrototype withSortCode(JsonNullable<String> sortCode) {
         Utils.checkNotNull(sortCode, "sortCode");
         this.sortCode = sortCode;
-        return this;
-    }
-
-    /**
-     * Status of the source account.
-     */
-    public SourceAccountV2 withStatus(SourceAccountV2Status status) {
-        Utils.checkNotNull(status, "status");
-        this.status = JsonNullable.of(status);
-        return this;
-    }
-
-    /**
-     * Status of the source account.
-     */
-    public SourceAccountV2 withStatus(JsonNullable<? extends SourceAccountV2Status> status) {
-        Utils.checkNotNull(status, "status");
-        this.status = status;
         return this;
     }
     
@@ -524,102 +435,79 @@ public class SourceAccountV2 {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        SourceAccountV2 other = (SourceAccountV2) o;
+        SourceAccountPrototype other = (SourceAccountPrototype) o;
         return 
-            Objects.deepEquals(this.accountInfo, other.accountInfo) &&
             Objects.deepEquals(this.accountName, other.accountName) &&
             Objects.deepEquals(this.accountNumber, other.accountNumber) &&
             Objects.deepEquals(this.accountType, other.accountType) &&
             Objects.deepEquals(this.balance, other.balance) &&
             Objects.deepEquals(this.currency, other.currency) &&
-            Objects.deepEquals(this.feedStartDate, other.feedStartDate) &&
             Objects.deepEquals(this.id, other.id) &&
             Objects.deepEquals(this.modifiedDate, other.modifiedDate) &&
-            Objects.deepEquals(this.routingInfo, other.routingInfo) &&
-            Objects.deepEquals(this.sortCode, other.sortCode) &&
-            Objects.deepEquals(this.status, other.status);
+            Objects.deepEquals(this.sortCode, other.sortCode);
     }
     
     @Override
     public int hashCode() {
         return Objects.hash(
-            accountInfo,
             accountName,
             accountNumber,
             accountType,
             balance,
             currency,
-            feedStartDate,
             id,
             modifiedDate,
-            routingInfo,
-            sortCode,
-            status);
+            sortCode);
     }
     
     @Override
     public String toString() {
-        return Utils.toString(SourceAccountV2.class,
-                "accountInfo", accountInfo,
+        return Utils.toString(SourceAccountPrototype.class,
                 "accountName", accountName,
                 "accountNumber", accountNumber,
                 "accountType", accountType,
                 "balance", balance,
                 "currency", currency,
-                "feedStartDate", feedStartDate,
                 "id", id,
                 "modifiedDate", modifiedDate,
-                "routingInfo", routingInfo,
-                "sortCode", sortCode,
-                "status", status);
+                "sortCode", sortCode);
     }
     
     public final static class Builder {
  
-        private JsonNullable<? extends AccountInfo> accountInfo = JsonNullable.undefined();
+        private JsonNullable<String> accountName = JsonNullable.undefined();
  
-        private String accountName;
+        private JsonNullable<String> accountNumber = JsonNullable.undefined();
  
-        private String accountNumber;
+        private JsonNullable<String> accountType = JsonNullable.undefined();
  
-        private SourceAccountV2AccountType accountType;
+        private JsonNullable<? extends BigDecimal> balance = JsonNullable.undefined();
  
-        private BigDecimal balance;
+        private Optional<String> currency = Optional.empty();
  
-        private String currency;
- 
-        private JsonNullable<String> feedStartDate = JsonNullable.undefined();
- 
-        private String id;
+        private Optional<String> id = Optional.empty();
  
         private Optional<String> modifiedDate = Optional.empty();
  
-        private Optional<? extends RoutingInfo> routingInfo = Optional.empty();
- 
-        private JsonNullable<String> sortCode = JsonNullable.undefined();
- 
-        private JsonNullable<? extends SourceAccountV2Status> status = JsonNullable.undefined();  
+        private JsonNullable<String> sortCode = JsonNullable.undefined();  
         
         private Builder() {
           // force use of static builder() method
-        }
-
-        public Builder accountInfo(AccountInfo accountInfo) {
-            Utils.checkNotNull(accountInfo, "accountInfo");
-            this.accountInfo = JsonNullable.of(accountInfo);
-            return this;
-        }
-
-        public Builder accountInfo(JsonNullable<? extends AccountInfo> accountInfo) {
-            Utils.checkNotNull(accountInfo, "accountInfo");
-            this.accountInfo = accountInfo;
-            return this;
         }
 
         /**
          * The bank account name.
          */
         public Builder accountName(String accountName) {
+            Utils.checkNotNull(accountName, "accountName");
+            this.accountName = JsonNullable.of(accountName);
+            return this;
+        }
+
+        /**
+         * The bank account name.
+         */
+        public Builder accountName(JsonNullable<String> accountName) {
             Utils.checkNotNull(accountName, "accountName");
             this.accountName = accountName;
             return this;
@@ -630,14 +518,32 @@ public class SourceAccountV2 {
          */
         public Builder accountNumber(String accountNumber) {
             Utils.checkNotNull(accountNumber, "accountNumber");
+            this.accountNumber = JsonNullable.of(accountNumber);
+            return this;
+        }
+
+        /**
+         * The account number.
+         */
+        public Builder accountNumber(JsonNullable<String> accountNumber) {
+            Utils.checkNotNull(accountNumber, "accountNumber");
             this.accountNumber = accountNumber;
             return this;
         }
 
         /**
-         * The type of bank account e.g. checking, savings, loan, creditCard, prepaidCard.
+         * The type of bank account e.g. Credit.
          */
-        public Builder accountType(SourceAccountV2AccountType accountType) {
+        public Builder accountType(String accountType) {
+            Utils.checkNotNull(accountType, "accountType");
+            this.accountType = JsonNullable.of(accountType);
+            return this;
+        }
+
+        /**
+         * The type of bank account e.g. Credit.
+         */
+        public Builder accountType(JsonNullable<String> accountType) {
             Utils.checkNotNull(accountType, "accountType");
             this.accountType = accountType;
             return this;
@@ -646,15 +552,24 @@ public class SourceAccountV2 {
         /**
          * The latest balance for the bank account.
          */
-        public Builder balance(double balance) {
-            this.balance = BigDecimal.valueOf(balance);
+        public Builder balance(BigDecimal balance) {
+            Utils.checkNotNull(balance, "balance");
+            this.balance = JsonNullable.of(balance);
             return this;
         }
 
         /**
          * The latest balance for the bank account.
          */
-        public Builder balance(BigDecimal balance) {
+        public Builder balance(double balance) {
+            this.balance = JsonNullable.of(BigDecimal.valueOf(balance));
+            return this;
+        }
+
+        /**
+         * The latest balance for the bank account.
+         */
+        public Builder balance(JsonNullable<? extends BigDecimal> balance) {
             Utils.checkNotNull(balance, "balance");
             this.balance = balance;
             return this;
@@ -671,31 +586,22 @@ public class SourceAccountV2 {
          */
         public Builder currency(String currency) {
             Utils.checkNotNull(currency, "currency");
+            this.currency = Optional.ofNullable(currency);
+            return this;
+        }
+
+        /**
+         * The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
+         * 
+         * ## Unknown currencies
+         * 
+         * In line with the ISO 4217 specification, the code _XXX_ is used when the data source does not return a currency for a transaction. 
+         * 
+         * There are only a very small number of edge cases where this currency code is returned by the Codat system.
+         */
+        public Builder currency(Optional<String> currency) {
+            Utils.checkNotNull(currency, "currency");
             this.currency = currency;
-            return this;
-        }
-
-        /**
-         * In Codat's data model, dates are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date fields are formatted as strings; for example:
-         * ```
-         * 2020-10-08
-         * ```
-         */
-        public Builder feedStartDate(String feedStartDate) {
-            Utils.checkNotNull(feedStartDate, "feedStartDate");
-            this.feedStartDate = JsonNullable.of(feedStartDate);
-            return this;
-        }
-
-        /**
-         * In Codat's data model, dates are represented using the &lt;a class="external" href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank"&gt;ISO 8601 standard&lt;/a&gt;. Date fields are formatted as strings; for example:
-         * ```
-         * 2020-10-08
-         * ```
-         */
-        public Builder feedStartDate(JsonNullable<String> feedStartDate) {
-            Utils.checkNotNull(feedStartDate, "feedStartDate");
-            this.feedStartDate = feedStartDate;
             return this;
         }
 
@@ -703,6 +609,15 @@ public class SourceAccountV2 {
          * Unique ID for the bank account.
          */
         public Builder id(String id) {
+            Utils.checkNotNull(id, "id");
+            this.id = Optional.ofNullable(id);
+            return this;
+        }
+
+        /**
+         * Unique ID for the bank account.
+         */
+        public Builder id(Optional<String> id) {
             Utils.checkNotNull(id, "id");
             this.id = id;
             return this;
@@ -763,24 +678,6 @@ public class SourceAccountV2 {
         }
 
         /**
-         * Routing information for the bank. This does not include account number.
-         */
-        public Builder routingInfo(RoutingInfo routingInfo) {
-            Utils.checkNotNull(routingInfo, "routingInfo");
-            this.routingInfo = Optional.ofNullable(routingInfo);
-            return this;
-        }
-
-        /**
-         * Routing information for the bank. This does not include account number.
-         */
-        public Builder routingInfo(Optional<? extends RoutingInfo> routingInfo) {
-            Utils.checkNotNull(routingInfo, "routingInfo");
-            this.routingInfo = routingInfo;
-            return this;
-        }
-
-        /**
          * The sort code.
          */
         public Builder sortCode(String sortCode) {
@@ -797,39 +694,17 @@ public class SourceAccountV2 {
             this.sortCode = sortCode;
             return this;
         }
-
-        /**
-         * Status of the source account.
-         */
-        public Builder status(SourceAccountV2Status status) {
-            Utils.checkNotNull(status, "status");
-            this.status = JsonNullable.of(status);
-            return this;
-        }
-
-        /**
-         * Status of the source account.
-         */
-        public Builder status(JsonNullable<? extends SourceAccountV2Status> status) {
-            Utils.checkNotNull(status, "status");
-            this.status = status;
-            return this;
-        }
         
-        public SourceAccountV2 build() {
-            return new SourceAccountV2(
-                accountInfo,
+        public SourceAccountPrototype build() {
+            return new SourceAccountPrototype(
                 accountName,
                 accountNumber,
                 accountType,
                 balance,
                 currency,
-                feedStartDate,
                 id,
                 modifiedDate,
-                routingInfo,
-                sortCode,
-                status);
+                sortCode);
         }
     }
 }

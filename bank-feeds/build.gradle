@@ -63,7 +63,7 @@ tasks.withType(Javadoc) {
 }
 
 group = "io.codat"
-version = "2.0.0"
+version = "3.0.0"
 
 sourcesJar {
     archiveBaseName = "bank-feeds"
@@ -101,7 +101,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'io.codat'
             artifactId = 'bank-feeds'
-            version = '2.0.0'
+            version = '3.0.0'
 
             from components.java
 

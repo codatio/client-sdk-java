@@ -29,6 +29,7 @@ Alternatively, you can view the [Get create bank transaction model](https://docs
 package hello.world;
 
 import io.codat.bank_feeds.CodatBankFeeds;
+import io.codat.bank_feeds.models.components.BankTransactionType;
 import io.codat.bank_feeds.models.components.BankTransactions;
 import io.codat.bank_feeds.models.components.CreateBankTransactions;
 import io.codat.bank_feeds.models.errors.ErrorMessage;
@@ -51,17 +52,40 @@ public class Application {
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .createBankTransactions(CreateBankTransactions.builder()
-                    .accountId("EILBDVJVNUAGVKRQ")
+                    .accountId("49cd5a42-b311-4750-9361-52e2ed1d4653")
                     .transactions(List.of(
                         BankTransactions.builder()
-                            .amount(new BigDecimal("999.99"))
-                            .balance(new BigDecimal("-999.99"))
-                            .counterparty("ACME INC")
-                            .date("2022-10-23T00:00:00Z")
-                            .description("Debit for Payment Id sdp-1-57379a43-c4b8-49f5-bd7c-699189ee7a60")
+                            .amount(new BigDecimal("100"))
+                            .balance(new BigDecimal("100"))
+                            .counterparty("Bank of Example")
+                            .date("2023-08-22T10:21:00Z")
+                            .description("Repayment of Credit Card")
                             .id("716422529")
+                            .reconciled(true)
+                            .reference("Ref-12345")
+                            .transactionType(BankTransactionType.CREDIT)
+                            .build(),
+                        BankTransactions.builder()
+                            .amount(new BigDecimal("-100"))
+                            .balance(new BigDecimal("0"))
+                            .counterparty("Amazon")
+                            .date("2023-08-22T10:22:00Z")
+                            .description("Amazon Purchase")
+                            .id("716422530")
                             .reconciled(false)
-                            .reference("reference for transaction")
+                            .reference("Ref-12346")
+                            .transactionType(BankTransactionType.DEBIT)
+                            .build(),
+                        BankTransactions.builder()
+                            .amount(new BigDecimal("-60"))
+                            .balance(new BigDecimal("-60"))
+                            .counterparty("Office Mart")
+                            .date("2023-08-22T10:23:00Z")
+                            .description("Office Supplies")
+                            .id("716422531")
+                            .reconciled(false)
+                            .reference("Ref-12347")
+                            .transactionType(BankTransactionType.DEBIT)
                             .build()))
                     .build())
                 .build();
@@ -186,7 +210,7 @@ public class Application {
 
         GetCreateOperationRequest req = GetCreateOperationRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
-                .pushOperationKey("1b33a562-bac6-42b7-8818-d55dba8df363")
+                .pushOperationKey("1fb73c31-a851-46c2-ab8a-5ce6e25b57b8")
                 .build();
 
         GetCreateOperationResponse res = sdk.transactions().getCreateOperation()
