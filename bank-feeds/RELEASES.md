@@ -39,3 +39,13 @@ Based on:
 - [java v2.0.0] bank-feeds
 ### Releases
 - [Maven Central v2.0.0] https://central.sonatype.com/artifact/io.codat/bank-feeds/2.0.0 - bank-feeds
+
+## 2024-12-16 16:07:30
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.455.5 (2.479.3) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [java v3.0.0] bank-feeds
+### Releases
+- [Maven Central v3.0.0] https://central.sonatype.com/artifact/io.codat/bank-feeds/3.0.0 - bank-feeds

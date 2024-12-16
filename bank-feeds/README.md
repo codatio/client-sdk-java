@@ -30,14 +30,17 @@ A bank feed is a connection between a source bank account in your application an
 
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
+<!-- $toc-max-depth=2 -->
+  * [Endpoints](#endpoints)
+  * [SDK Installation](#sdk-installation)
+  * [Example Usage](#example-usage)
+  * [SDK Example Usage](#sdk-example-usage)
+  * [Available Resources and Operations](#available-resources-and-operations)
+  * [Retries](#retries)
+  * [Error Handling](#error-handling)
+  * [Server Selection](#server-selection)
+  * [Authentication](#authentication)
 
-* [SDK Installation](#sdk-installation)
-* [SDK Example Usage](#sdk-example-usage)
-* [Available Resources and Operations](#available-resources-and-operations)
-* [Retries](#retries)
-* [Error Handling](#error-handling)
-* [Server Selection](#server-selection)
-* [Authentication](#authentication)
 <!-- End Table of Contents [toc] -->
 
 <!-- Start SDK Installation [installation] -->
@@ -51,7 +54,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'io.codat:bank-feeds:2.0.0'
+implementation 'io.codat:bank-feeds:3.0.0'
 ```
 
 Maven:
@@ -59,7 +62,7 @@ Maven:
 <dependency>
     <groupId>io.codat</groupId>
     <artifactId>bank-feeds</artifactId>
-    <version>2.0.0</version>
+    <version>3.0.0</version>
 </dependency>
 ```
 
@@ -88,31 +91,56 @@ gradlew.bat publishToMavenLocal -Pskip.signing
 package hello.world;
 
 import io.codat.bank_feeds.CodatBankFeeds;
-import io.codat.bank_feeds.models.components.CompanyRequestBody;
-import io.codat.bank_feeds.models.errors.ErrorMessage;
-import io.codat.bank_feeds.models.operations.CreateCompanyResponse;
+import io.codat.bank_feeds.models.components.CompanyReference;
+import io.codat.bank_feeds.models.components.CompanyReferenceLinks;
+import io.codat.bank_feeds.models.components.SourceAccount;
+import io.codat.bank_feeds.models.components.SourceAccountWebhook;
+import io.codat.bank_feeds.models.components.SourceAccountWebhookPayload;
+import io.codat.bank_feeds.models.components.SourceAccountWebhookPayloadSourceAccount;
+import io.codat.bank_feeds.models.components.Status;
+import io.codat.bank_feeds.models.webhooks.BankFeedsSourceAccountConnectedResponse;
 import java.lang.Exception;
+import java.math.BigDecimal;
 
 public class Application {
 
-    public static void main(String[] args) throws ErrorMessage, Exception {
+    public static void main(String[] args) throws Exception {
 
         CodatBankFeeds sdk = CodatBankFeeds.builder()
-                .authHeader("Basic BASE_64_ENCODED(API_KEY)")
             .build();
 
-        CompanyRequestBody req = CompanyRequestBody.builder()
-                .name("Bank of Dave")
-                .description("Requested early access to the new financing scheme.")
+        SourceAccountWebhook req = SourceAccountWebhook.builder()
+                .eventType("bankFeeds.sourceAccount.connected")
+                .generatedDate("2022-10-23T00:00:00Z")
+                .id("ba29118f-5406-4e59-b05c-ba307ca38d01")
+                .payload(SourceAccountWebhookPayload.builder()
+                    .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
+                    .referenceCompany(CompanyReference.builder()
+                        .description("Requested early access to the new financing scheme.")
+                        .id("0498e921-9b53-4396-a412-4f2f5983b0a2")
+                        .links(CompanyReferenceLinks.builder()
+                            .portal("https://app.codat.io/companies/0498e921-9b53-4396-a412-4f2f5983b0a2/summary")
+                            .build())
+                        .name("Toft stores")
+                        .build())
+                    .sourceAccount(SourceAccountWebhookPayloadSourceAccount.of(SourceAccount.builder()
+                        .id("acc-002")
+                        .accountName("account-081")
+                        .accountNumber("12345678")
+                        .balance(new BigDecimal("99.99"))
+                        .currency("GBP")
+                        .modifiedDate("2023-01-09T14:14:14.105Z")
+                        .sortCode("040004")
+                        .status(Status.PENDING)
+                        .build()))
+                    .build())
                 .build();
 
-        CreateCompanyResponse res = sdk.companies().create()
+        BankFeedsSourceAccountConnectedResponse res = sdk.bankFeedsSourceAccountConnected()
                 .request(req)
                 .call();
 
-        if (res.company().isPresent()) {
-            // handle response
-        }
+        // handle response
     }
 }
 ```
@@ -213,7 +241,7 @@ public class Application {
             .build();
 
         CompanyRequestBody req = CompanyRequestBody.builder()
-                .name("Bank of Dave")
+                .name("Technicalium")
                 .description("Requested early access to the new financing scheme.")
                 .build();
 
@@ -270,7 +298,7 @@ public class Application {
             .build();
 
         CompanyRequestBody req = CompanyRequestBody.builder()
-                .name("Bank of Dave")
+                .name("Technicalium")
                 .description("Requested early access to the new financing scheme.")
                 .build();
 
@@ -318,7 +346,7 @@ public class Application {
             .build();
 
         CompanyRequestBody req = CompanyRequestBody.builder()
-                .name("Bank of Dave")
+                .name("Technicalium")
                 .description("Requested early access to the new financing scheme.")
                 .build();
 
@@ -359,7 +387,7 @@ public class Application {
             .build();
 
         CompanyRequestBody req = CompanyRequestBody.builder()
-                .name("Bank of Dave")
+                .name("Technicalium")
                 .description("Requested early access to the new financing scheme.")
                 .build();
 
@@ -405,7 +433,7 @@ public class Application {
             .build();
 
         CompanyRequestBody req = CompanyRequestBody.builder()
-                .name("Bank of Dave")
+                .name("Technicalium")
                 .description("Requested early access to the new financing scheme.")
                 .build();
 

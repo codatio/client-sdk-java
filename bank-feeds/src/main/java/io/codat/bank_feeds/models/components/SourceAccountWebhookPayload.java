@@ -38,19 +38,16 @@ public class SourceAccountWebhookPayload {
     @JsonProperty("referenceCompany")
     private Optional<? extends CompanyReference> referenceCompany;
 
-    /**
-     * The target bank account in a supported accounting software for ingestion into a bank feed.
-     */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("sourceAccount")
-    private Optional<? extends SourceAccount> sourceAccount;
+    private Optional<? extends SourceAccountWebhookPayloadSourceAccount> sourceAccount;
 
     @JsonCreator
     public SourceAccountWebhookPayload(
             @JsonProperty("companyId") Optional<String> companyId,
             @JsonProperty("connectionId") Optional<String> connectionId,
             @JsonProperty("referenceCompany") Optional<? extends CompanyReference> referenceCompany,
-            @JsonProperty("sourceAccount") Optional<? extends SourceAccount> sourceAccount) {
+            @JsonProperty("sourceAccount") Optional<? extends SourceAccountWebhookPayloadSourceAccount> sourceAccount) {
         Utils.checkNotNull(companyId, "companyId");
         Utils.checkNotNull(connectionId, "connectionId");
         Utils.checkNotNull(referenceCompany, "referenceCompany");
@@ -87,13 +84,10 @@ public class SourceAccountWebhookPayload {
         return (Optional<CompanyReference>) referenceCompany;
     }
 
-    /**
-     * The target bank account in a supported accounting software for ingestion into a bank feed.
-     */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<SourceAccount> sourceAccount() {
-        return (Optional<SourceAccount>) sourceAccount;
+    public Optional<SourceAccountWebhookPayloadSourceAccount> sourceAccount() {
+        return (Optional<SourceAccountWebhookPayloadSourceAccount>) sourceAccount;
     }
 
     public final static Builder builder() {
@@ -148,19 +142,13 @@ public class SourceAccountWebhookPayload {
         return this;
     }
 
-    /**
-     * The target bank account in a supported accounting software for ingestion into a bank feed.
-     */
-    public SourceAccountWebhookPayload withSourceAccount(SourceAccount sourceAccount) {
+    public SourceAccountWebhookPayload withSourceAccount(SourceAccountWebhookPayloadSourceAccount sourceAccount) {
         Utils.checkNotNull(sourceAccount, "sourceAccount");
         this.sourceAccount = Optional.ofNullable(sourceAccount);
         return this;
     }
 
-    /**
-     * The target bank account in a supported accounting software for ingestion into a bank feed.
-     */
-    public SourceAccountWebhookPayload withSourceAccount(Optional<? extends SourceAccount> sourceAccount) {
+    public SourceAccountWebhookPayload withSourceAccount(Optional<? extends SourceAccountWebhookPayloadSourceAccount> sourceAccount) {
         Utils.checkNotNull(sourceAccount, "sourceAccount");
         this.sourceAccount = sourceAccount;
         return this;
@@ -208,7 +196,7 @@ public class SourceAccountWebhookPayload {
  
         private Optional<? extends CompanyReference> referenceCompany = Optional.empty();
  
-        private Optional<? extends SourceAccount> sourceAccount = Optional.empty();  
+        private Optional<? extends SourceAccountWebhookPayloadSourceAccount> sourceAccount = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -262,19 +250,13 @@ public class SourceAccountWebhookPayload {
             return this;
         }
 
-        /**
-         * The target bank account in a supported accounting software for ingestion into a bank feed.
-         */
-        public Builder sourceAccount(SourceAccount sourceAccount) {
+        public Builder sourceAccount(SourceAccountWebhookPayloadSourceAccount sourceAccount) {
             Utils.checkNotNull(sourceAccount, "sourceAccount");
             this.sourceAccount = Optional.ofNullable(sourceAccount);
             return this;
         }
 
-        /**
-         * The target bank account in a supported accounting software for ingestion into a bank feed.
-         */
-        public Builder sourceAccount(Optional<? extends SourceAccount> sourceAccount) {
+        public Builder sourceAccount(Optional<? extends SourceAccountWebhookPayloadSourceAccount> sourceAccount) {
             Utils.checkNotNull(sourceAccount, "sourceAccount");
             this.sourceAccount = sourceAccount;
             return this;

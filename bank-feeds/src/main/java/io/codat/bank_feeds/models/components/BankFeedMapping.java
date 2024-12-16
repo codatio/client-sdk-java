@@ -14,6 +14,7 @@ import io.codat.bank_feeds.utils.Utils;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -76,7 +77,7 @@ public class BankFeedMapping {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("sourceBalance")
-    private Optional<String> sourceBalance;
+    private Optional<? extends BigDecimal> sourceBalance;
 
     /**
      * The currency data type in Codat is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, e.g. _GBP_.
@@ -125,7 +126,7 @@ public class BankFeedMapping {
             @JsonProperty("sourceAccountId") Optional<String> sourceAccountId,
             @JsonProperty("sourceAccountName") Optional<String> sourceAccountName,
             @JsonProperty("sourceAccountNumber") Optional<String> sourceAccountNumber,
-            @JsonProperty("sourceBalance") Optional<String> sourceBalance,
+            @JsonProperty("sourceBalance") Optional<? extends BigDecimal> sourceBalance,
             @JsonProperty("sourceCurrency") Optional<String> sourceCurrency,
             @JsonProperty("status") Optional<String> status,
             @JsonProperty("targetAccountId") JsonNullable<String> targetAccountId,
@@ -210,9 +211,10 @@ public class BankFeedMapping {
     /**
      * Balance for the source account.
      */
+    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<String> sourceBalance() {
-        return sourceBalance;
+    public Optional<BigDecimal> sourceBalance() {
+        return (Optional<BigDecimal>) sourceBalance;
     }
 
     /**
@@ -377,16 +379,24 @@ public class BankFeedMapping {
     /**
      * Balance for the source account.
      */
-    public BankFeedMapping withSourceBalance(String sourceBalance) {
+    public BankFeedMapping withSourceBalance(BigDecimal sourceBalance) {
         Utils.checkNotNull(sourceBalance, "sourceBalance");
         this.sourceBalance = Optional.ofNullable(sourceBalance);
+        return this;
+    }
+
+        /**
+         * Balance for the source account.
+         */
+    public BankFeedMapping withSourceBalance(double sourceBalance) {
+        this.sourceBalance = Optional.of(BigDecimal.valueOf(sourceBalance));
         return this;
     }
 
     /**
      * Balance for the source account.
      */
-    public BankFeedMapping withSourceBalance(Optional<String> sourceBalance) {
+    public BankFeedMapping withSourceBalance(Optional<? extends BigDecimal> sourceBalance) {
         Utils.checkNotNull(sourceBalance, "sourceBalance");
         this.sourceBalance = sourceBalance;
         return this;
@@ -556,7 +566,7 @@ public class BankFeedMapping {
  
         private Optional<String> sourceAccountNumber = Optional.empty();
  
-        private Optional<String> sourceBalance = Optional.empty();
+        private Optional<? extends BigDecimal> sourceBalance = Optional.empty();
  
         private Optional<String> sourceCurrency = Optional.empty();
  
@@ -683,7 +693,7 @@ public class BankFeedMapping {
         /**
          * Balance for the source account.
          */
-        public Builder sourceBalance(String sourceBalance) {
+        public Builder sourceBalance(BigDecimal sourceBalance) {
             Utils.checkNotNull(sourceBalance, "sourceBalance");
             this.sourceBalance = Optional.ofNullable(sourceBalance);
             return this;
@@ -692,7 +702,15 @@ public class BankFeedMapping {
         /**
          * Balance for the source account.
          */
-        public Builder sourceBalance(Optional<String> sourceBalance) {
+        public Builder sourceBalance(double sourceBalance) {
+            this.sourceBalance = Optional.of(BigDecimal.valueOf(sourceBalance));
+            return this;
+        }
+
+        /**
+         * Balance for the source account.
+         */
+        public Builder sourceBalance(Optional<? extends BigDecimal> sourceBalance) {
             Utils.checkNotNull(sourceBalance, "sourceBalance");
             this.sourceBalance = sourceBalance;
             return this;

@@ -12,6 +12,7 @@ import io.codat.bank_feeds.utils.Utils;
 import java.lang.String;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 /**
  * Bank Feeds API: Bank Feeds API enables your SMB users to set up bank feeds from accounts in your application to supported accounting software.
@@ -245,9 +246,16 @@ public class CodatBankFeeds {
             this.sdkConfiguration.retryConfig = Optional.of(retryConfig);
             return this;
         }
-        // Visible for testing, will be accessed via reflection
-        void _hooks(io.codat.bank_feeds.utils.Hooks hooks) {
-            sdkConfiguration.setHooks(hooks);    
+        // Visible for testing, may be accessed via reflection in tests
+        Builder _hooks(io.codat.bank_feeds.utils.Hooks hooks) {
+            sdkConfiguration.setHooks(hooks);  
+            return this;  
+        }
+        
+        // Visible for testing, may be accessed via reflection in tests
+        Builder _hooks(Consumer<? super io.codat.bank_feeds.utils.Hooks> consumer) {
+            consumer.accept(sdkConfiguration.hooks());
+            return this;    
         }
         
         /**

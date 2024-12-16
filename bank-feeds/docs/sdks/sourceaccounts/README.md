@@ -29,17 +29,12 @@ package hello.world;
 
 import io.codat.bank_feeds.CodatBankFeeds;
 import io.codat.bank_feeds.models.components.AccountInfo;
-import io.codat.bank_feeds.models.components.AccountType;
-import io.codat.bank_feeds.models.components.RoutingInfo;
-import io.codat.bank_feeds.models.components.SourceAccountV2;
-import io.codat.bank_feeds.models.components.SourceAccountV2Status;
-import io.codat.bank_feeds.models.components.Type;
+import io.codat.bank_feeds.models.components.SourceAccountV2Prototype;
 import io.codat.bank_feeds.models.errors.ErrorMessage;
 import io.codat.bank_feeds.models.operations.CreateSourceAccountRequest;
 import io.codat.bank_feeds.models.operations.CreateSourceAccountRequestBody;
 import io.codat.bank_feeds.models.operations.CreateSourceAccountResponse;
 import java.lang.Exception;
-import java.math.BigDecimal;
 
 public class Application {
 
@@ -52,26 +47,12 @@ public class Application {
         CreateSourceAccountRequest req = CreateSourceAccountRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .requestBody(CreateSourceAccountRequestBody.of(SourceAccountV2.builder()
-                    .accountName("<value>")
-                    .accountNumber("<value>")
-                    .accountType(AccountType.LOAN)
-                    .balance(new BigDecimal("1343.65"))
-                    .currency("GBP")
-                    .id("<id>")
+                .requestBody(CreateSourceAccountRequestBody.of(SourceAccountV2Prototype.builder()
                     .accountInfo(AccountInfo.builder()
-                        .accountOpenDate("2023-05-23T00:00:00Z")
-                        .availableBalance(new BigDecimal("400"))
-                        .description("account description 2")
-                        .nickname("account 1290")
+                        .accountOpenDate("2022-10-23")
                         .build())
-                    .feedStartDate("2024-05-01T00:00:00Z")
-                    .modifiedDate("2024-08-02T00:00:00.000Z")
-                    .routingInfo(RoutingInfo.builder()
-                        .bankCode("21001088")
-                        .type(Type.BANKCODE)
-                        .build())
-                    .status(SourceAccountV2Status.PENDING)
+                    .currency("USD")
+                    .modifiedDate("2022-10-23T00:00:00Z")
                     .build()))
                 .build();
 
@@ -139,7 +120,7 @@ public class Application {
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .requestBody(CreateBatchSourceAccountRequestBody.ofSourceAccount(List.of(
                     SourceAccount.builder()
-                        .id("<id>")
+                        .id("acc-002")
                         .accountName("account-081")
                         .accountNumber("12345670")
                         .accountType("Credit")
@@ -150,7 +131,7 @@ public class Application {
                         .status(Status.PENDING)
                         .build(),
                     SourceAccount.builder()
-                        .id("<id>")
+                        .id("acc-003")
                         .accountName("account-095")
                         .accountNumber("12345671")
                         .accountType("Credit")
@@ -335,7 +316,7 @@ public class Application {
             .build();
 
         GenerateCredentialsRequest req = GenerateCredentialsRequest.builder()
-                .requestBody("0xeCFd9fD7b9".getBytes(StandardCharsets.UTF_8))
+                .requestBody("0xeDCfFBde9E".getBytes(StandardCharsets.UTF_8))
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .build();
@@ -465,12 +446,13 @@ public class Application {
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .sourceAccount(SourceAccount.builder()
-                    .id("<id>")
-                    .accountName("account-081")
-                    .accountNumber("12345670")
+                    .id("acc-003")
+                    .accountName("account-095")
+                    .accountNumber("12345671")
                     .accountType("Credit")
-                    .balance(new BigDecimal("99.99"))
-                    .currency("GBP")
+                    .balance(new BigDecimal("0"))
+                    .currency("USD")
+                    .feedStartDate("2022-10-23T00:00:00Z")
                     .modifiedDate("2023-01-09T14:14:14.1057478Z")
                     .sortCode("123456")
                     .status(Status.PENDING)

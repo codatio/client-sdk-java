@@ -18,13 +18,19 @@ class SDKConfiguration {
     public Optional<SecuritySource> securitySource() {
         return Optional.ofNullable(securitySource);
     }
+    
     public HTTPClient defaultClient;
+    
     public String serverUrl;
+    
+    public String resolvedServerUrl() {
+        return serverUrl;
+    }
     public int serverIdx = 0;
     private static final String LANGUAGE = "java";
     public static final String OPENAPI_DOC_VERSION = "3.0.0";
-    public static final String SDK_VERSION = "2.0.0";
-    public static final String GEN_VERSION = "2.462.1";
+    public static final String SDK_VERSION = "3.0.0";
+    public static final String GEN_VERSION = "2.479.3";
     private static final String BASE_PACKAGE = "io.codat.bank_feeds";
     public static final String USER_AGENT = 
             String.format("speakeasy-sdk/%s %s %s %s %s", 
@@ -51,7 +57,7 @@ class SDKConfiguration {
     public void initialize() {
         SDKHooks.initialize(_hooks);
         // apply the sdk init hook immediately
-        SdkInitData data = _hooks.sdkInit(new SdkInitData(serverUrl, defaultClient));
+        SdkInitData data = _hooks.sdkInit(new SdkInitData(resolvedServerUrl(), defaultClient));
         this.serverUrl = data.baseUrl();
         this.defaultClient = data.client();
     }
