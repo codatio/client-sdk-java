@@ -6,6 +6,8 @@ package io.codat.lending.models.shared;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * SchemaDataType - Available data types
@@ -64,5 +66,14 @@ public enum SchemaDataType {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<SchemaDataType> fromValue(String value) {
+        for (SchemaDataType o: SchemaDataType.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

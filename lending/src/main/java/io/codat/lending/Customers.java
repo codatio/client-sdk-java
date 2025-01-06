@@ -117,10 +117,10 @@ public class Customers implements
         _req.addHeader("Accept", "application/octet-stream")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -152,7 +152,7 @@ public class Customers implements
                             new BeforeRequestContextImpl(
                                 "download-accounting-customer-attachment", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -165,7 +165,7 @@ public class Customers implements
                             new AfterErrorContextImpl(
                                 "download-accounting-customer-attachment",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -178,7 +178,7 @@ public class Customers implements
                      new AfterSuccessContextImpl(
                          "download-accounting-customer-attachment", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -300,10 +300,10 @@ public class Customers implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -335,7 +335,7 @@ public class Customers implements
                             new BeforeRequestContextImpl(
                                 "get-accounting-customer", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -348,7 +348,7 @@ public class Customers implements
                             new AfterErrorContextImpl(
                                 "get-accounting-customer",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -361,7 +361,7 @@ public class Customers implements
                      new AfterSuccessContextImpl(
                          "get-accounting-customer", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -478,10 +478,10 @@ public class Customers implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -513,7 +513,7 @@ public class Customers implements
                             new BeforeRequestContextImpl(
                                 "get-accounting-customer-attachment", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -526,7 +526,7 @@ public class Customers implements
                             new AfterErrorContextImpl(
                                 "get-accounting-customer-attachment",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -539,7 +539,7 @@ public class Customers implements
                      new AfterSuccessContextImpl(
                          "get-accounting-customer-attachment", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -667,10 +667,10 @@ public class Customers implements
                 ListAccountingCustomersRequest.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -702,7 +702,7 @@ public class Customers implements
                             new BeforeRequestContextImpl(
                                 "list-accounting-customers", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -715,7 +715,7 @@ public class Customers implements
                             new AfterErrorContextImpl(
                                 "list-accounting-customers",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -728,7 +728,7 @@ public class Customers implements
                      new AfterSuccessContextImpl(
                          "list-accounting-customers", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -842,10 +842,10 @@ public class Customers implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -877,7 +877,7 @@ public class Customers implements
                             new BeforeRequestContextImpl(
                                 "list-accounting-customer-attachments", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -890,7 +890,7 @@ public class Customers implements
                             new AfterErrorContextImpl(
                                 "list-accounting-customer-attachments",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -903,7 +903,7 @@ public class Customers implements
                      new AfterSuccessContextImpl(
                          "list-accounting-customer-attachments", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()

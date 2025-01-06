@@ -6,6 +6,8 @@ package io.codat.lending.models.shared;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * SourceType - The type of platform of the connection.
@@ -28,5 +30,14 @@ public enum SourceType {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<SourceType> fromValue(String value) {
+        for (SourceType o: SourceType.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

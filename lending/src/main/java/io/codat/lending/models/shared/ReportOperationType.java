@@ -6,12 +6,15 @@ package io.codat.lending.models.shared;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * ReportOperationType - The name of the report generated.
  */
 public enum ReportOperationType {
-    CATEGORIZED_BANK_STATEMENT("categorizedBankStatement");
+    CATEGORIZED_BANK_STATEMENT("categorizedBankStatement"),
+    CREDIT_MODEL("creditModel");
 
     @JsonValue
     private final String value;
@@ -22,5 +25,14 @@ public enum ReportOperationType {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<ReportOperationType> fromValue(String value) {
+        for (ReportOperationType o: ReportOperationType.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

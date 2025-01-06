@@ -6,6 +6,8 @@ package io.codat.lending.models.shared;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * CommerceAddressType - The type of the address
@@ -26,5 +28,14 @@ public enum CommerceAddressType {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<CommerceAddressType> fromValue(String value) {
+        for (CommerceAddressType o: CommerceAddressType.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

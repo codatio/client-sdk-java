@@ -6,6 +6,8 @@ package io.codat.lending.models.shared;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * AccountIdentifierType - Type of account
@@ -28,5 +30,14 @@ public enum AccountIdentifierType {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<AccountIdentifierType> fromValue(String value) {
+        for (AccountIdentifierType o: AccountIdentifierType.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

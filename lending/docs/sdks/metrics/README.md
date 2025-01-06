@@ -67,8 +67,8 @@ public class Application {
         GetCommerceCustomerRetentionMetricsRequest req = GetCommerceCustomerRetentionMetricsRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .numberOfPeriods(497588L)
-                .periodLength(431272L)
+                .numberOfPeriods(431272L)
+                .periodLength(497588L)
                 .periodUnit(PeriodUnit.DAY)
                 .reportDate("29-09-2020")
                 .build();
@@ -151,8 +151,8 @@ public class Application {
         GetCommerceLifetimeValueMetricsRequest req = GetCommerceLifetimeValueMetricsRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .numberOfPeriods(900865L)
-                .periodLength(500610L)
+                .numberOfPeriods(500610L)
+                .periodLength(900865L)
                 .periodUnit(PeriodUnit.YEAR)
                 .reportDate("29-09-2020")
                 .build();
@@ -236,8 +236,8 @@ public class Application {
         GetCommerceRevenueMetricsRequest req = GetCommerceRevenueMetricsRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .numberOfPeriods(307462L)
-                .periodLength(120092L)
+                .numberOfPeriods(120092L)
+                .periodLength(307462L)
                 .periodUnit(PeriodUnit.YEAR)
                 .reportDate("29-09-2020")
                 .build();

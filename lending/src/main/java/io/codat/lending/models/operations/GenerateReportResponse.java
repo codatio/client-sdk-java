@@ -28,7 +28,7 @@ public class GenerateReportResponse implements Response {
     private String contentType;
 
     /**
-     * Success
+     * Accepted (pending)
      */
     private Optional<? extends ReportOperation> reportOperation;
 
@@ -74,7 +74,7 @@ public class GenerateReportResponse implements Response {
     }
 
     /**
-     * Success
+     * Accepted (pending)
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -112,7 +112,7 @@ public class GenerateReportResponse implements Response {
     }
 
     /**
-     * Success
+     * Accepted (pending)
      */
     public GenerateReportResponse withReportOperation(ReportOperation reportOperation) {
         Utils.checkNotNull(reportOperation, "reportOperation");
@@ -121,7 +121,7 @@ public class GenerateReportResponse implements Response {
     }
 
     /**
-     * Success
+     * Accepted (pending)
      */
     public GenerateReportResponse withReportOperation(Optional<? extends ReportOperation> reportOperation) {
         Utils.checkNotNull(reportOperation, "reportOperation");
@@ -205,7 +205,7 @@ public class GenerateReportResponse implements Response {
         }
 
         /**
-         * Success
+         * Accepted (pending)
          */
         public Builder reportOperation(ReportOperation reportOperation) {
             Utils.checkNotNull(reportOperation, "reportOperation");
@@ -214,7 +214,7 @@ public class GenerateReportResponse implements Response {
         }
 
         /**
-         * Success
+         * Accepted (pending)
          */
         public Builder reportOperation(Optional<? extends ReportOperation> reportOperation) {
             Utils.checkNotNull(reportOperation, "reportOperation");

@@ -269,6 +269,8 @@ import io.codat.lending.CodatLending;
 import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.UnlinkConnectionRequest;
 import io.codat.lending.models.operations.UnlinkConnectionResponse;
+import io.codat.lending.models.operations.UnlinkConnectionUpdateConnection;
+import io.codat.lending.models.shared.DataConnectionStatus;
 import io.codat.lending.models.shared.Security;
 import java.lang.Exception;
 
@@ -285,6 +287,9 @@ public class Application {
         UnlinkConnectionRequest req = UnlinkConnectionRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
+                .requestBody(UnlinkConnectionUpdateConnection.builder()
+                    .status(DataConnectionStatus.UNLINKED)
+                    .build())
                 .build();
 
         UnlinkConnectionResponse res = sdk.connections().unlink()

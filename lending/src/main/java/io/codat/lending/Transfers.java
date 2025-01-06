@@ -132,10 +132,10 @@ public class Transfers implements
                 CreateTransferRequest.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -167,7 +167,7 @@ public class Transfers implements
                             new BeforeRequestContextImpl(
                                 "create-transfer", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -180,7 +180,7 @@ public class Transfers implements
                             new AfterErrorContextImpl(
                                 "create-transfer",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -193,7 +193,7 @@ public class Transfers implements
                      new AfterSuccessContextImpl(
                          "create-transfer", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -322,10 +322,10 @@ public class Transfers implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -357,7 +357,7 @@ public class Transfers implements
                             new BeforeRequestContextImpl(
                                 "get-create-transfers-model", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -370,7 +370,7 @@ public class Transfers implements
                             new AfterErrorContextImpl(
                                 "get-create-transfers-model",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -383,7 +383,7 @@ public class Transfers implements
                      new AfterSuccessContextImpl(
                          "get-create-transfers-model", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()

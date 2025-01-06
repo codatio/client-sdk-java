@@ -19,7 +19,7 @@ public class FileUpload {
     /**
      * The file to be uploaded as an attachment.
      */
-    @SpeakeasyMetadata("multipartForm:file")
+    @SpeakeasyMetadata("multipartForm:file,name=file")
     private CodatFile file;
 
     @JsonCreator

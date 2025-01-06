@@ -17,7 +17,7 @@ import java.net.http.HttpResponse;
 import java.util.Objects;
 
 
-public class ReportCategorizedBankStatementGenerateSuccessfulResponse implements Response {
+public class ReportsCreditModelGenerateUnsuccessfulResponse implements Response {
 
     /**
      * HTTP response content type for this operation
@@ -35,7 +35,7 @@ public class ReportCategorizedBankStatementGenerateSuccessfulResponse implements
     private HttpResponse<InputStream> rawResponse;
 
     @JsonCreator
-    public ReportCategorizedBankStatementGenerateSuccessfulResponse(
+    public ReportsCreditModelGenerateUnsuccessfulResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse) {
@@ -78,7 +78,7 @@ public class ReportCategorizedBankStatementGenerateSuccessfulResponse implements
     /**
      * HTTP response content type for this operation
      */
-    public ReportCategorizedBankStatementGenerateSuccessfulResponse withContentType(String contentType) {
+    public ReportsCreditModelGenerateUnsuccessfulResponse withContentType(String contentType) {
         Utils.checkNotNull(contentType, "contentType");
         this.contentType = contentType;
         return this;
@@ -87,7 +87,7 @@ public class ReportCategorizedBankStatementGenerateSuccessfulResponse implements
     /**
      * HTTP response status code for this operation
      */
-    public ReportCategorizedBankStatementGenerateSuccessfulResponse withStatusCode(int statusCode) {
+    public ReportsCreditModelGenerateUnsuccessfulResponse withStatusCode(int statusCode) {
         Utils.checkNotNull(statusCode, "statusCode");
         this.statusCode = statusCode;
         return this;
@@ -96,7 +96,7 @@ public class ReportCategorizedBankStatementGenerateSuccessfulResponse implements
     /**
      * Raw HTTP response; suitable for custom response parsing
      */
-    public ReportCategorizedBankStatementGenerateSuccessfulResponse withRawResponse(HttpResponse<InputStream> rawResponse) {
+    public ReportsCreditModelGenerateUnsuccessfulResponse withRawResponse(HttpResponse<InputStream> rawResponse) {
         Utils.checkNotNull(rawResponse, "rawResponse");
         this.rawResponse = rawResponse;
         return this;
@@ -110,7 +110,7 @@ public class ReportCategorizedBankStatementGenerateSuccessfulResponse implements
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ReportCategorizedBankStatementGenerateSuccessfulResponse other = (ReportCategorizedBankStatementGenerateSuccessfulResponse) o;
+        ReportsCreditModelGenerateUnsuccessfulResponse other = (ReportsCreditModelGenerateUnsuccessfulResponse) o;
         return 
             Objects.deepEquals(this.contentType, other.contentType) &&
             Objects.deepEquals(this.statusCode, other.statusCode) &&
@@ -127,7 +127,7 @@ public class ReportCategorizedBankStatementGenerateSuccessfulResponse implements
     
     @Override
     public String toString() {
-        return Utils.toString(ReportCategorizedBankStatementGenerateSuccessfulResponse.class,
+        return Utils.toString(ReportsCreditModelGenerateUnsuccessfulResponse.class,
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse);
@@ -172,8 +172,8 @@ public class ReportCategorizedBankStatementGenerateSuccessfulResponse implements
             return this;
         }
         
-        public ReportCategorizedBankStatementGenerateSuccessfulResponse build() {
-            return new ReportCategorizedBankStatementGenerateSuccessfulResponse(
+        public ReportsCreditModelGenerateUnsuccessfulResponse build() {
+            return new ReportsCreditModelGenerateUnsuccessfulResponse(
                 contentType,
                 statusCode,
                 rawResponse);

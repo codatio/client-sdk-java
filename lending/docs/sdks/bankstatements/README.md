@@ -44,7 +44,7 @@ public class Application {
         EndBankStatementUploadSessionRequest req = EndBankStatementUploadSessionRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .datasetId("d8baee81-bb77-4d34-bcc3-0ef7526e0bde")
+                .datasetId("d58db2ab-edef-4881-8b6b-a7e79d33244c")
                 .build();
 
         EndBankStatementUploadSessionResponse res = sdk.bankStatements().endUploadSession()
@@ -153,7 +153,9 @@ import io.codat.lending.CodatLending;
 import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.SetBankStatementUploadConfigurationRequest;
 import io.codat.lending.models.operations.SetBankStatementUploadConfigurationResponse;
+import io.codat.lending.models.shared.BankStatementUploadConfiguration;
 import io.codat.lending.models.shared.Security;
+import io.codat.lending.models.shared.Source;
 import java.lang.Exception;
 
 public class Application {
@@ -169,6 +171,10 @@ public class Application {
         SetBankStatementUploadConfigurationRequest req = SetBankStatementUploadConfigurationRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
+                .bankStatementUploadConfiguration(BankStatementUploadConfiguration.builder()
+                    .accountId("abc123-ABC")
+                    .source(Source.CODAT)
+                    .build())
                 .build();
 
         SetBankStatementUploadConfigurationResponse res = sdk.bankStatements().setUploadConfiguration()
@@ -278,14 +284,9 @@ import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.UploadBankStatementDataRequest;
 import io.codat.lending.models.operations.UploadBankStatementDataRequestBody;
 import io.codat.lending.models.operations.UploadBankStatementDataResponse;
-import io.codat.lending.models.shared.AccountBalanceAmounts;
-import io.codat.lending.models.shared.AccountIdentifierType;
-import io.codat.lending.models.shared.AccountIdentifiers;
-import io.codat.lending.models.shared.AccountInstitution;
-import io.codat.lending.models.shared.AccountingBankAccountType;
-import io.codat.lending.models.shared.BankingAccount;
 import io.codat.lending.models.shared.Security;
 import java.lang.Exception;
+import java.util.Map;
 
 public class Application {
 
@@ -298,24 +299,10 @@ public class Application {
             .build();
 
         UploadBankStatementDataRequest req = UploadBankStatementDataRequest.builder()
-                .requestBody(UploadBankStatementDataRequestBody.of(BankingAccount.builder()
-                    .balance(AccountBalanceAmounts.builder()
-                        .build())
-                    .currency("Philippine Peso")
-                    .id("<id>")
-                    .identifiers(AccountIdentifiers.builder()
-                        .type(AccountIdentifierType.INVESTMENT)
-                        .build())
-                    .institution(AccountInstitution.builder()
-                        .build())
-                    .name("<value>")
-                    .type(AccountingBankAccountType.UNKNOWN)
-                    .modifiedDate("2022-10-23T00:00:00Z")
-                    .sourceModifiedDate("2022-10-23T00:00:00Z")
-                    .build()))
+                .requestBody(UploadBankStatementDataRequestBody.of(Map.ofEntries(\n    Map.entry("currency", "Lek"),\n    Map.entry("id", "<id>"),\n    Map.entry("identifiers", Map.ofEntries(\n    Map.entry("type", "Investment"))),\n    Map.entry("modifiedDate", "2022-10-23T00:00:00Z"),\n    Map.entry("name", "<value>"),\n    Map.entry("sourceModifiedDate", "2022-10-23T00:00:00Z"),\n    Map.entry("type", "Credit"))))
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .datasetId("e39deaca-29ee-4c0f-8c9b-4b58f7a91429")
+                .datasetId("15fc5ae4-359b-4dee-ba7c-3a22596ededc")
                 .build();
 
         UploadBankStatementDataResponse res = sdk.bankStatements().uploadBankStatementData()

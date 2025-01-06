@@ -109,10 +109,10 @@ public class CodatLendingAccounts implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -144,7 +144,7 @@ public class CodatLendingAccounts implements
                             new BeforeRequestContextImpl(
                                 "get-banking-account", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -157,7 +157,7 @@ public class CodatLendingAccounts implements
                             new AfterErrorContextImpl(
                                 "get-banking-account",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -170,7 +170,7 @@ public class CodatLendingAccounts implements
                      new AfterSuccessContextImpl(
                          "get-banking-account", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -298,10 +298,10 @@ public class CodatLendingAccounts implements
                 ListBankingAccountsRequest.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -333,7 +333,7 @@ public class CodatLendingAccounts implements
                             new BeforeRequestContextImpl(
                                 "list-banking-accounts", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -346,7 +346,7 @@ public class CodatLendingAccounts implements
                             new AfterErrorContextImpl(
                                 "list-banking-accounts",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -359,7 +359,7 @@ public class CodatLendingAccounts implements
                      new AfterSuccessContextImpl(
                          "list-banking-accounts", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()

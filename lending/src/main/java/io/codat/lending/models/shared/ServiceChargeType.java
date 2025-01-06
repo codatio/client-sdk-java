@@ -6,6 +6,8 @@ package io.codat.lending.models.shared;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * ServiceChargeType - The type of the service charge.
@@ -25,5 +27,14 @@ public enum ServiceChargeType {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<ServiceChargeType> fromValue(String value) {
+        for (ServiceChargeType o: ServiceChargeType.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

@@ -6,6 +6,8 @@ package io.codat.lending.models.shared;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * TransactionSourceType - The type of source the transaction arose.
@@ -26,5 +28,14 @@ public enum TransactionSourceType {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<TransactionSourceType> fromValue(String value) {
+        for (TransactionSourceType o: TransactionSourceType.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

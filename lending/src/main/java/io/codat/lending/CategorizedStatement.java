@@ -108,10 +108,10 @@ public class CategorizedStatement implements
                 GetCategorizedBankStatementRequest.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -143,7 +143,7 @@ public class CategorizedStatement implements
                             new BeforeRequestContextImpl(
                                 "get-categorized-bank-statement", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -156,7 +156,7 @@ public class CategorizedStatement implements
                             new AfterErrorContextImpl(
                                 "get-categorized-bank-statement",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -169,7 +169,7 @@ public class CategorizedStatement implements
                      new AfterSuccessContextImpl(
                          "get-categorized-bank-statement", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()

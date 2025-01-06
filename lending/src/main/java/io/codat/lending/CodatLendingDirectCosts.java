@@ -120,10 +120,10 @@ public class CodatLendingDirectCosts implements
         _req.addHeader("Accept", "application/octet-stream")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -155,7 +155,7 @@ public class CodatLendingDirectCosts implements
                             new BeforeRequestContextImpl(
                                 "download-accounting-direct-cost-attachment", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -168,7 +168,7 @@ public class CodatLendingDirectCosts implements
                             new AfterErrorContextImpl(
                                 "download-accounting-direct-cost-attachment",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -181,7 +181,7 @@ public class CodatLendingDirectCosts implements
                      new AfterSuccessContextImpl(
                          "download-accounting-direct-cost-attachment", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -303,10 +303,10 @@ public class CodatLendingDirectCosts implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -338,7 +338,7 @@ public class CodatLendingDirectCosts implements
                             new BeforeRequestContextImpl(
                                 "get-accounting-direct-cost", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -351,7 +351,7 @@ public class CodatLendingDirectCosts implements
                             new AfterErrorContextImpl(
                                 "get-accounting-direct-cost",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -364,7 +364,7 @@ public class CodatLendingDirectCosts implements
                      new AfterSuccessContextImpl(
                          "get-accounting-direct-cost", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -478,10 +478,10 @@ public class CodatLendingDirectCosts implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -513,7 +513,7 @@ public class CodatLendingDirectCosts implements
                             new BeforeRequestContextImpl(
                                 "get-accounting-direct-cost-attachment", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -526,7 +526,7 @@ public class CodatLendingDirectCosts implements
                             new AfterErrorContextImpl(
                                 "get-accounting-direct-cost-attachment",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -539,7 +539,7 @@ public class CodatLendingDirectCosts implements
                      new AfterSuccessContextImpl(
                          "get-accounting-direct-cost-attachment", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -667,10 +667,10 @@ public class CodatLendingDirectCosts implements
                 ListAccountingDirectCostsRequest.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -702,7 +702,7 @@ public class CodatLendingDirectCosts implements
                             new BeforeRequestContextImpl(
                                 "list-accounting-direct-costs", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -715,7 +715,7 @@ public class CodatLendingDirectCosts implements
                             new AfterErrorContextImpl(
                                 "list-accounting-direct-costs",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -728,7 +728,7 @@ public class CodatLendingDirectCosts implements
                      new AfterSuccessContextImpl(
                          "list-accounting-direct-costs", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -845,10 +845,10 @@ public class CodatLendingDirectCosts implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -880,7 +880,7 @@ public class CodatLendingDirectCosts implements
                             new BeforeRequestContextImpl(
                                 "list-accounting-direct-cost-attachments", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -893,7 +893,7 @@ public class CodatLendingDirectCosts implements
                             new AfterErrorContextImpl(
                                 "list-accounting-direct-cost-attachments",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -906,7 +906,7 @@ public class CodatLendingDirectCosts implements
                      new AfterSuccessContextImpl(
                          "list-accounting-direct-cost-attachments", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()

@@ -6,6 +6,8 @@ package io.codat.lending.models.shared;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * PhoneNumberType - The type of phone number
@@ -26,5 +28,14 @@ public enum PhoneNumberType {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<PhoneNumberType> fromValue(String value) {
+        for (PhoneNumberType o: PhoneNumberType.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

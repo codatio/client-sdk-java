@@ -6,9 +6,12 @@ package io.codat.lending.models.shared;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 public enum ReportType {
-    CATEGORIZED_BANK_STATEMENT("categorizedBankStatement");
+    CATEGORIZED_BANK_STATEMENT("categorizedBankStatement"),
+    CREDIT_MODEL("creditModel");
 
     @JsonValue
     private final String value;
@@ -19,5 +22,14 @@ public enum ReportType {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<ReportType> fromValue(String value) {
+        for (ReportType o: ReportType.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

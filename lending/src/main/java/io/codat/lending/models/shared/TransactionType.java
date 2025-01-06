@@ -6,6 +6,8 @@ package io.codat.lending.models.shared;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * TransactionType - The type of the platform transaction:  
@@ -37,5 +39,14 @@ public enum TransactionType {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<TransactionType> fromValue(String value) {
+        for (TransactionType o: TransactionType.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

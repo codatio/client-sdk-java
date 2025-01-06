@@ -6,6 +6,8 @@ package io.codat.lending.models.shared;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * DataType - Available data types
@@ -64,5 +66,14 @@ public enum DataType {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<DataType> fromValue(String value) {
+        for (DataType o: DataType.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

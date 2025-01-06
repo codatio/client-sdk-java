@@ -6,6 +6,8 @@ package io.codat.lending.models.shared;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * TransactionCode - Code to identify the underlying transaction.
@@ -36,5 +38,14 @@ public enum TransactionCode {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<TransactionCode> fromValue(String value) {
+        for (TransactionCode o: TransactionCode.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

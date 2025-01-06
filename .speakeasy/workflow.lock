@@ -1,4 +1,4 @@
-speakeasyVersion: 1.455.5
+speakeasyVersion: 1.462.2
 sources:
     accounting-source:
         sourceNamespace: accounting-source
@@ -24,11 +24,12 @@ sources:
             - main
     lending-source:
         sourceNamespace: lending-source
-        sourceRevisionDigest: sha256:5a8f78f55041d1add3c28c608bfa608192a2ea121ee8f76fa2b63ee0df812be0
-        sourceBlobDigest: sha256:0bb930c7190c9e61384e5af6224f76ea004ad9bc0788b264aaa35b9ebad5699f
+        sourceRevisionDigest: sha256:9be1090f9409198441fb9522d5bd844b36e7d0447fd8cb3d57213378c76c9ce7
+        sourceBlobDigest: sha256:c099262909612a8421934ac332897e738611c24f1d6f3878de41ec219fd78b48
         tags:
             - latest
-            - speakeasy-sdk-regen-1731929475
+            - speakeasy-sdk-regen-1736154699
+            - 3.0.0
     platform-source:
         sourceNamespace: platform-source
         sourceRevisionDigest: sha256:cb42f68f66e5e7de67c90c7f7e394420f5c76622915a83de6ef61a109a7ee77f
@@ -89,10 +90,10 @@ targets:
     lending-library:
         source: lending-source
         sourceNamespace: lending-source
-        sourceRevisionDigest: sha256:5a8f78f55041d1add3c28c608bfa608192a2ea121ee8f76fa2b63ee0df812be0
-        sourceBlobDigest: sha256:0bb930c7190c9e61384e5af6224f76ea004ad9bc0788b264aaa35b9ebad5699f
-        codeSamplesNamespace: lending-source-code-samples
-        codeSamplesRevisionDigest: sha256:ef8621b10a4d23ed63b9403e8125aedb700dc5e22c05376cd90debf7bbc40382
+        sourceRevisionDigest: sha256:9be1090f9409198441fb9522d5bd844b36e7d0447fd8cb3d57213378c76c9ce7
+        sourceBlobDigest: sha256:c099262909612a8421934ac332897e738611c24f1d6f3878de41ec219fd78b48
+        codeSamplesNamespace: lending-source-java-code-samples
+        codeSamplesRevisionDigest: sha256:4998eab5d2dddce3a4825c5a0a404e11d572a8c73882d70e97d65849f4727e0a
     platform-library:
         source: platform-source
         sourceNamespace: platform-source

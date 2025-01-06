@@ -96,6 +96,13 @@ public class SDKMethodInterfaces {
     }
 
 
+    public interface MethodCallGetBankAccountMapping {
+        GetBankAccountMappingResponse listMappings(
+            GetBankAccountMappingRequest request,
+            Optional<Options> options) throws Exception;
+    }
+
+
     public interface MethodCallCreateBankAccount {
         CreateBankAccountResponse create(
             CreateBankAccountRequest request,

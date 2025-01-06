@@ -59,8 +59,8 @@ public class Application {
         GetCommerceOrdersReportRequest req = GetCommerceOrdersReportRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .numberOfPeriods(491586L)
-                .periodLength(393849L)
+                .numberOfPeriods(393849L)
+                .periodLength(491586L)
                 .periodUnit(PeriodUnit.YEAR)
                 .reportDate("29-09-2020")
                 .build();
@@ -145,8 +145,8 @@ public class Application {
         GetCommerceRefundsReportRequest req = GetCommerceRefundsReportRequest.builder()
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
-                .numberOfPeriods(277786L)
-                .periodLength(810912L)
+                .numberOfPeriods(810912L)
+                .periodLength(277786L)
                 .periodUnit(PeriodUnit.MONTH)
                 .reportDate("29-09-2020")
                 .build();

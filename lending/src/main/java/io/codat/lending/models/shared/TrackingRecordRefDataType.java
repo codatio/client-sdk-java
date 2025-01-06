@@ -6,6 +6,8 @@ package io.codat.lending.models.shared;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * TrackingRecordRefDataType - Name of underlying data type.
@@ -24,5 +26,14 @@ public enum TrackingRecordRefDataType {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<TrackingRecordRefDataType> fromValue(String value) {
+        for (TrackingRecordRefDataType o: TrackingRecordRefDataType.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

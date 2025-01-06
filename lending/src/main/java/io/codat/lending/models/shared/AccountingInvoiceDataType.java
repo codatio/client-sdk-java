@@ -6,6 +6,8 @@ package io.codat.lending.models.shared;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * AccountingInvoiceDataType - The underlying data type associated to the reference `id`.
@@ -22,5 +24,14 @@ public enum AccountingInvoiceDataType {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<AccountingInvoiceDataType> fromValue(String value) {
+        for (AccountingInvoiceDataType o: AccountingInvoiceDataType.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

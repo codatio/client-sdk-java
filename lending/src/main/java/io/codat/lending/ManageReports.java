@@ -117,10 +117,10 @@ public class ManageReports implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -152,7 +152,7 @@ public class ManageReports implements
                             new BeforeRequestContextImpl(
                                 "generate-report", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -165,7 +165,7 @@ public class ManageReports implements
                             new AfterErrorContextImpl(
                                 "generate-report",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -178,7 +178,7 @@ public class ManageReports implements
                      new AfterSuccessContextImpl(
                          "generate-report", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -193,7 +193,7 @@ public class ManageReports implements
 
         GenerateReportResponse _res = _resBuilder.build();
         
-        if (Utils.statusCodeMatches(_httpRes.statusCode(), "200")) {
+        if (Utils.statusCodeMatches(_httpRes.statusCode(), "202")) {
             if (Utils.contentTypeMatches(_contentType, "application/json")) {
                 ReportOperation _out = Utils.mapper().readValue(
                     Utils.toUtf8AndClose(_httpRes.body()),
@@ -303,10 +303,10 @@ public class ManageReports implements
                 ListReportsRequest.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -338,7 +338,7 @@ public class ManageReports implements
                             new BeforeRequestContextImpl(
                                 "list-reports", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -351,7 +351,7 @@ public class ManageReports implements
                             new AfterErrorContextImpl(
                                 "list-reports",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -364,7 +364,7 @@ public class ManageReports implements
                      new AfterSuccessContextImpl(
                          "list-reports", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()

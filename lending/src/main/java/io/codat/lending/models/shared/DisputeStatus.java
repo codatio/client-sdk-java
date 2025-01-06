@@ -6,6 +6,8 @@ package io.codat.lending.models.shared;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * DisputeStatus - Current status of the dispute
@@ -32,5 +34,14 @@ public enum DisputeStatus {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<DisputeStatus> fromValue(String value) {
+        for (DisputeStatus o: DisputeStatus.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

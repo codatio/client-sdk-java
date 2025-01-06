@@ -27,8 +27,12 @@ import io.codat.lending.CodatLending;
 import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.CreatePaymentRequest;
 import io.codat.lending.models.operations.CreatePaymentResponse;
+import io.codat.lending.models.shared.AccountRef;
+import io.codat.lending.models.shared.AccountingCustomerRef;
 import io.codat.lending.models.shared.AccountingPayment;
 import io.codat.lending.models.shared.PaymentLine;
+import io.codat.lending.models.shared.PaymentLineLink;
+import io.codat.lending.models.shared.PaymentLinkType;
 import io.codat.lending.models.shared.PaymentMethodRef;
 import io.codat.lending.models.shared.Security;
 import java.lang.Exception;
@@ -49,19 +53,38 @@ public class Application {
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .accountingPayment(AccountingPayment.builder()
-                    .date("2022-10-23T00:00:00Z")
+                    .date("2023-02-10T11:47:04.792Z")
+                    .accountRef(AccountRef.builder()
+                        .id("8000002E-1675267199")
+                        .name("Undeposited Funds")
+                        .build())
                     .currency("USD")
+                    .currencyRate(new BigDecimal("1"))
+                    .customerRef(AccountingCustomerRef.builder()
+                        .id("80000002-1674552702")
+                        .companyName("string")
+                        .build())
                     .lines(List.of(
                         PaymentLine.builder()
-                            .amount(new BigDecimal("4174.58"))
-                            .allocatedOnDate("2022-10-23T00:00:00Z")
+                            .amount(new BigDecimal("28"))
+                            .allocatedOnDate("2023-02-11T11:47:04.792Z")
+                            .links(List.of(
+                                PaymentLineLink.builder()
+                                    .type(PaymentLinkType.INVOICE)
+                                    .amount(new BigDecimal("-28"))
+                                    .currencyRate(new BigDecimal("1"))
+                                    .id("181-1676374586")
+                                    .build()))
                             .build()))
                     .modifiedDate("2022-10-23T00:00:00Z")
+                    .note("note 14/02 1147")
                     .paymentMethodRef(PaymentMethodRef.builder()
-                        .id("<id>")
-                        .name("AliPay")
+                        .id("string")
+                        .name("string")
                         .build())
+                    .reference("ref 14/02 1147")
                     .sourceModifiedDate("2022-10-23T00:00:00Z")
+                    .totalAmount(new BigDecimal("28"))
                     .build())
                 .build();
 

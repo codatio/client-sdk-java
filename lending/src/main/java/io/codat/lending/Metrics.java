@@ -188,10 +188,10 @@ public class Metrics implements
                 GetCommerceCustomerRetentionMetricsRequest.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -223,7 +223,7 @@ public class Metrics implements
                             new BeforeRequestContextImpl(
                                 "get-commerce-customer-retention-metrics", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -236,7 +236,7 @@ public class Metrics implements
                             new AfterErrorContextImpl(
                                 "get-commerce-customer-retention-metrics",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -249,7 +249,7 @@ public class Metrics implements
                      new AfterSuccessContextImpl(
                          "get-commerce-customer-retention-metrics", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -422,10 +422,10 @@ public class Metrics implements
                 GetCommerceLifetimeValueMetricsRequest.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -457,7 +457,7 @@ public class Metrics implements
                             new BeforeRequestContextImpl(
                                 "get-commerce-lifetime-value-metrics", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -470,7 +470,7 @@ public class Metrics implements
                             new AfterErrorContextImpl(
                                 "get-commerce-lifetime-value-metrics",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -483,7 +483,7 @@ public class Metrics implements
                      new AfterSuccessContextImpl(
                          "get-commerce-lifetime-value-metrics", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -659,10 +659,10 @@ public class Metrics implements
                 GetCommerceRevenueMetricsRequest.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -694,7 +694,7 @@ public class Metrics implements
                             new BeforeRequestContextImpl(
                                 "get-commerce-revenue-metrics", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -707,7 +707,7 @@ public class Metrics implements
                             new AfterErrorContextImpl(
                                 "get-commerce-revenue-metrics",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -720,7 +720,7 @@ public class Metrics implements
                      new AfterSuccessContextImpl(
                          "get-commerce-revenue-metrics", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()

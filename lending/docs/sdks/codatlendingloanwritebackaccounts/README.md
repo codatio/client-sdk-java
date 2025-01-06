@@ -52,7 +52,7 @@ public class Application {
                     .currentBalance(new BigDecimal("0"))
                     .description("Invoices the business has issued but has not yet collected payment on.")
                     .fullyQualifiedCategory("Asset.Current")
-                    .fullyQualifiedName("Fixed Asset")
+                    .fullyQualifiedName("Cash On Hand")
                     .name("Accounts Receivable")
                     .nominalCode("610")
                     .status(AccountStatus.ACTIVE)
