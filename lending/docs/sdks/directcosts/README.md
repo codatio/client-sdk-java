@@ -27,16 +27,17 @@ import io.codat.lending.CodatLending;
 import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.CreateDirectCostRequest;
 import io.codat.lending.models.operations.CreateDirectCostResponse;
+import io.codat.lending.models.shared.AccountRef;
 import io.codat.lending.models.shared.AccountingPaymentAllocation;
-import io.codat.lending.models.shared.AccountingRecordRef;
 import io.codat.lending.models.shared.Allocation;
+import io.codat.lending.models.shared.ContactRef;
+import io.codat.lending.models.shared.ContactRefDataType;
 import io.codat.lending.models.shared.DirectCostLineItem;
 import io.codat.lending.models.shared.DirectCostPrototype;
 import io.codat.lending.models.shared.PaymentAllocationPayment;
+import io.codat.lending.models.shared.PropertieItemRef;
 import io.codat.lending.models.shared.Security;
-import io.codat.lending.models.shared.Tracking;
-import io.codat.lending.models.shared.TrackingRecordRef;
-import io.codat.lending.models.shared.TrackingRecordRefDataType;
+import io.codat.lending.models.shared.TrackingCategoryRef;
 import java.lang.Exception;
 import java.math.BigDecimal;
 import java.util.List;
@@ -56,35 +57,58 @@ public class Application {
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .directCostPrototype(DirectCostPrototype.builder()
                     .currency("USD")
-                    .issueDate("2022-10-23T00:00:00Z")
+                    .issueDate("2023-03-21T10:19:52.223Z")
                     .lineItems(List.of(
                         DirectCostLineItem.builder()
-                            .quantity(new BigDecimal("4174.58"))
-                            .unitAmount(new BigDecimal("1343.65"))
-                            .tracking(Tracking.builder()
-                                .recordRefs(List.of(
-                                    TrackingRecordRef.builder()
-                                        .dataType(TrackingRecordRefDataType.TRACKING_CATEGORIES)
-                                        .build()))
-                                .invoiceTo(AccountingRecordRef.builder()
-                                    .dataType("journalEntry")
-                                    .build())
+                            .quantity(new BigDecimal("1"))
+                            .unitAmount(new BigDecimal("7"))
+                            .accountRef(AccountRef.builder()
+                                .id("8000000D-1671793811")
+                                .name("Purchases - Hardware for Resale")
                                 .build())
+                            .description("test description line 1")
+                            .discountAmount(new BigDecimal("0"))
+                            .discountPercentage(new BigDecimal("0"))
+                            .itemRef(PropertieItemRef.builder()
+                                .id("80000001-1674566705")
+                                .name("item test")
+                                .build())
+                            .subTotal(new BigDecimal("99"))
+                            .taxAmount(new BigDecimal("360"))
+                            .totalAmount(new BigDecimal("70"))
+                            .trackingCategoryRefs(List.of(
+                                TrackingCategoryRef.builder()
+                                    .id("80000001-1674553252")
+                                    .name("Class 1")
+                                    .build()))
                             .build()))
                     .paymentAllocations(List.of(
                         AccountingPaymentAllocation.builder()
                             .allocation(Allocation.builder()
-                                .allocatedOnDate("2022-10-23T00:00:00Z")
-                                .currency("EUR")
+                                .allocatedOnDate("2023-01-29T10:19:52.223Z")
+                                .currencyRate(new BigDecimal("0"))
+                                .totalAmount(new BigDecimal("88"))
                                 .build())
                             .payment(PaymentAllocationPayment.builder()
-                                .currency("GBP")
-                                .paidOnDate("2022-10-23T00:00:00Z")
+                                .accountRef(AccountRef.builder()
+                                    .id("80000028-1671794219")
+                                    .name("Bank Account 1")
+                                    .build())
+                                .note("payment allocations note")
+                                .paidOnDate("2023-01-28T10:19:52.223Z")
+                                .reference("payment allocations reference")
+                                .totalAmount(new BigDecimal("54"))
                                 .build())
                             .build()))
-                    .subTotal(new BigDecimal("899.64"))
-                    .taxAmount(new BigDecimal("7926.20"))
-                    .totalAmount(new BigDecimal("8165.87"))
+                    .subTotal(new BigDecimal("362"))
+                    .taxAmount(new BigDecimal("4"))
+                    .totalAmount(new BigDecimal("366"))
+                    .contactRef(ContactRef.builder()
+                        .id("80000001-1671793885")
+                        .dataType(ContactRefDataType.SUPPLIERS)
+                        .build())
+                    .note("directCost 21/03 09.20")
+                    .reference("test ref")
                     .build())
                 .build();
 

@@ -6,6 +6,8 @@ package io.codat.lending.models.shared;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * ExcelReportTypes - The type of the report requested in the query string.
@@ -25,5 +27,14 @@ public enum ExcelReportTypes {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<ExcelReportTypes> fromValue(String value) {
+        for (ExcelReportTypes o: ExcelReportTypes.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

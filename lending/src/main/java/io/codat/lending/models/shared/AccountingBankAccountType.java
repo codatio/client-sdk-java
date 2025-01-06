@@ -6,6 +6,8 @@ package io.codat.lending.models.shared;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * AccountingBankAccountType - The type of transactions and balances on the account.  
@@ -26,5 +28,14 @@ public enum AccountingBankAccountType {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<AccountingBankAccountType> fromValue(String value) {
+        for (AccountingBankAccountType o: AccountingBankAccountType.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

@@ -8,8 +8,8 @@ package io.codat.lending.models.operations;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import io.codat.lending.models.shared.SourceAccount;
-import io.codat.lending.models.shared.SourceAccountV2;
+import io.codat.lending.models.shared.SourceAccountPrototype;
+import io.codat.lending.models.shared.SourceAccountV2Prototype;
 import io.codat.lending.utils.OneOfDeserializer;
 import io.codat.lending.utils.TypedObject;
 import io.codat.lending.utils.Utils.JsonShape;
@@ -31,21 +31,21 @@ public class CreateSourceAccountRequestBody {
         this.value = value;
     }
 
-    public static CreateSourceAccountRequestBody of(SourceAccountV2 value) {
+    public static CreateSourceAccountRequestBody of(SourceAccountV2Prototype value) {
         Utils.checkNotNull(value, "value");
-        return new CreateSourceAccountRequestBody(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<SourceAccountV2>(){}));
+        return new CreateSourceAccountRequestBody(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<SourceAccountV2Prototype>(){}));
     }
 
-    public static CreateSourceAccountRequestBody of(SourceAccount value) {
+    public static CreateSourceAccountRequestBody of(SourceAccountPrototype value) {
         Utils.checkNotNull(value, "value");
-        return new CreateSourceAccountRequestBody(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<SourceAccount>(){}));
+        return new CreateSourceAccountRequestBody(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<SourceAccountPrototype>(){}));
     }
     
     /**
      * Returns an instance of one of these types:
      * <ul>
-     * <li>{@code io.codat.lending.models.shared.SourceAccountV2}</li>
-     * <li>{@code io.codat.lending.models.shared.SourceAccount}</li>
+     * <li>{@code io.codat.lending.models.shared.SourceAccountV2Prototype}</li>
+     * <li>{@code io.codat.lending.models.shared.SourceAccountPrototype}</li>
      * </ul>
      * 
      * <p>Use {@code instanceof} to determine what type is returned. For example:
@@ -85,8 +85,8 @@ public class CreateSourceAccountRequestBody {
 
         public _Deserializer() {
             super(CreateSourceAccountRequestBody.class, false,
-                  TypeReferenceWithShape.of(new TypeReference<SourceAccountV2>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<SourceAccount>() {}, JsonShape.DEFAULT));
+                  TypeReferenceWithShape.of(new TypeReference<SourceAccountV2Prototype>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<SourceAccountPrototype>() {}, JsonShape.DEFAULT));
         }
     }
     

@@ -6,6 +6,8 @@ package io.codat.lending.models.shared;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Status - The current status of the dataset.
@@ -42,5 +44,14 @@ public enum Status {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<Status> fromValue(String value) {
+        for (Status o: Status.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

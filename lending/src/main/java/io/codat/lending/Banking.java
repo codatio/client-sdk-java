@@ -3,8 +3,7 @@
  */
 
 package io.codat.lending;
-
-import io.codat.lending.models.operations.SDKMethodInterfaces.*; 
+ 
 
 public class Banking {
 

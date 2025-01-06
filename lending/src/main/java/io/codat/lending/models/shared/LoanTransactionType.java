@@ -6,6 +6,8 @@ package io.codat.lending.models.shared;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * LoanTransactionType - The type of loan transaction.
@@ -25,5 +27,14 @@ public enum LoanTransactionType {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<LoanTransactionType> fromValue(String value) {
+        for (LoanTransactionType o: LoanTransactionType.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

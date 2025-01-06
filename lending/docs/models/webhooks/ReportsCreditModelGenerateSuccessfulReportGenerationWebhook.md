@@ -1,4 +1,4 @@
-# ReportCategorizedBankStatementGenerateSuccessfulReportGenerationWebhook
+# ReportsCreditModelGenerateSuccessfulReportGenerationWebhook
 
 
 ## Fields

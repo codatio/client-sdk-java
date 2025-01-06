@@ -29,9 +29,15 @@ import io.codat.lending.models.operations.CreateTransferRequest;
 import io.codat.lending.models.operations.CreateTransferResponse;
 import io.codat.lending.models.shared.AccountingRecordRef;
 import io.codat.lending.models.shared.AccountingTransfer;
+import io.codat.lending.models.shared.AccountingTransferStatus;
+import io.codat.lending.models.shared.ContactRef;
+import io.codat.lending.models.shared.ContactRefDataType;
+import io.codat.lending.models.shared.Metadata;
 import io.codat.lending.models.shared.Security;
+import io.codat.lending.models.shared.TrackingCategoryRef;
 import io.codat.lending.models.shared.TransferAccount;
 import java.lang.Exception;
+import java.math.BigDecimal;
 import java.util.List;
 
 public class Application {
@@ -48,25 +54,43 @@ public class Application {
                 .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .accountingTransfer(AccountingTransfer.builder()
-                    .date("2022-10-23T00:00:00Z")
+                    .contactRef(ContactRef.builder()
+                        .id("80000028-167239230944")
+                        .dataType(ContactRefDataType.CUSTOMERS)
+                        .build())
+                    .date("2023-01-26T11:51:18.104Z")
                     .depositedRecordRefs(List.of(
                         AccountingRecordRef.builder()
-                            .dataType("accountTransaction")
+                            .dataType("invoice")
                             .build()))
+                    .description("test transfers push 20230126 12.08")
                     .from(TransferAccount.builder()
                         .accountRef(AccountingRecordRef.builder()
-                            .dataType("invoice")
+                            .dataType("bankAccounts")
+                            .id("80000028-1671794219")
                             .build())
-                        .currency("GBP")
+                        .amount(new BigDecimal("12"))
+                        .currency("USD")
+                        .build())
+                    .metadata(Metadata.builder()
+                        .isDeleted(true)
                         .build())
                     .modifiedDate("2022-10-23T00:00:00Z")
                     .sourceModifiedDate("2022-10-23T00:00:00Z")
+                    .status(AccountingTransferStatus.UNKNOWN)
                     .to(TransferAccount.builder()
                         .accountRef(AccountingRecordRef.builder()
-                            .dataType("transfer")
+                            .dataType("bankAccounts")
+                            .id("80000004-1671793811")
                             .build())
-                        .currency("GBP")
+                        .amount(new BigDecimal("12"))
+                        .currency("EUR")
                         .build())
+                    .trackingCategoryRefs(List.of(
+                        TrackingCategoryRef.builder()
+                            .id("80000001-1674553252")
+                            .name("Class 1")
+                            .build()))
                     .build())
                 .build();
 

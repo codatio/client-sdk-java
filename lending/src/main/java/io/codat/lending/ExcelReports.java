@@ -119,10 +119,10 @@ public class ExcelReports implements
                 DownloadExcelReportRequest.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -154,7 +154,7 @@ public class ExcelReports implements
                             new BeforeRequestContextImpl(
                                 "download-excel-report", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -167,7 +167,7 @@ public class ExcelReports implements
                             new AfterErrorContextImpl(
                                 "download-excel-report",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -180,7 +180,7 @@ public class ExcelReports implements
                      new AfterSuccessContextImpl(
                          "download-excel-report", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -337,10 +337,10 @@ public class ExcelReports implements
                 GenerateExcelReportRequest.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -372,7 +372,7 @@ public class ExcelReports implements
                             new BeforeRequestContextImpl(
                                 "generate-excel-report", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -385,7 +385,7 @@ public class ExcelReports implements
                             new AfterErrorContextImpl(
                                 "generate-excel-report",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -398,7 +398,7 @@ public class ExcelReports implements
                      new AfterSuccessContextImpl(
                          "generate-excel-report", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -523,10 +523,10 @@ public class ExcelReports implements
                 GetExcelReportGenerationStatusRequest.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -558,7 +558,7 @@ public class ExcelReports implements
                             new BeforeRequestContextImpl(
                                 "get-excel-report-generation-status", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -571,7 +571,7 @@ public class ExcelReports implements
                             new AfterErrorContextImpl(
                                 "get-excel-report-generation-status",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -584,7 +584,7 @@ public class ExcelReports implements
                      new AfterSuccessContextImpl(
                          "get-excel-report-generation-status", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()

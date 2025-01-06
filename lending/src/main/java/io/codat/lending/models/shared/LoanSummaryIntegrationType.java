@@ -6,6 +6,8 @@ package io.codat.lending.models.shared;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * LoanSummaryIntegrationType - The integration type begin referred to.
@@ -24,5 +26,14 @@ public enum LoanSummaryIntegrationType {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<LoanSummaryIntegrationType> fromValue(String value) {
+        for (LoanSummaryIntegrationType o: LoanSummaryIntegrationType.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

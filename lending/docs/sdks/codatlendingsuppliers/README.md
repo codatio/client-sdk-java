@@ -28,17 +28,10 @@ import io.codat.lending.CodatLending;
 import io.codat.lending.models.errors.ErrorMessage;
 import io.codat.lending.models.operations.CreateSupplierRequest;
 import io.codat.lending.models.operations.CreateSupplierResponse;
-import io.codat.lending.models.shared.AccountingAddress;
-import io.codat.lending.models.shared.AccountingAddressType;
 import io.codat.lending.models.shared.AccountingSupplier;
-import io.codat.lending.models.shared.Metadata;
 import io.codat.lending.models.shared.Security;
-import io.codat.lending.models.shared.SupplementalData;
 import io.codat.lending.models.shared.SupplierStatus;
 import java.lang.Exception;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 public class Application {
 
@@ -55,37 +48,12 @@ public class Application {
                 .connectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
                 .accountingSupplier(AccountingSupplier.builder()
                     .status(SupplierStatus.ACTIVE)
-                    .addresses(List.of(
-                        AccountingAddress.builder()
-                            .type(AccountingAddressType.BILLING)
-                            .city("Bakersfield")
-                            .country("USA")
-                            .line1("Unit 51")
-                            .line2("Bakersfield Industrial Estate")
-                            .region("California")
-                            .build()))
-                    .contactName("Kelly's Industrial Supplies")
-                    .defaultCurrency("string")
-                    .emailAddress("sales@kellysupplies.com")
-                    .id("C520FFD4-F6F6-4FC2-A6D2-5D7088B2B14F")
-                    .metadata(Metadata.builder()
-                        .isDeleted(true)
-                        .build())
+                    .contactName("Joe Bloggs")
+                    .id("73593")
                     .modifiedDate("2022-10-23T00:00:00Z")
-                    .phone("07999 999999")
-                    .registrationNumber("string")
+                    .phone("(877) 492-8687")
                     .sourceModifiedDate("2022-10-23T00:00:00Z")
-                    .supplementalData(SupplementalData.builder()
-                        .content(Map.ofEntries(
-                            Map.entry("property1", Map.ofEntries(
-                                Map.entry("property1", Optional.empty()),
-                                Map.entry("property2", Optional.empty()))),
-                            Map.entry("property2", Map.ofEntries(
-                                Map.entry("property1", Optional.empty()),
-                                Map.entry("property2", Optional.empty())))))
-                        .build())
-                    .supplierName("Kelly's Industrial Supplies")
-                    .taxNumber("string")
+                    .supplierName("test 20230420 1004")
                     .build())
                 .build();
 

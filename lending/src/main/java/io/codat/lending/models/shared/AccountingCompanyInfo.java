@@ -25,7 +25,7 @@ import org.openapitools.jackson.nullable.JsonNullable;
  * 
  * &gt; **Company information or companies?**
  * &gt; 
- * &gt; Company profile is standard information that is held in the accounting software about a company. `Companies` is an endpoint that lists businesses in the Codat system that have linked and shared their data sources.
+ * &gt; Company information is standard information that is held in the accounting software about a company. `Companies` is an endpoint that lists businesses in the Codat system that have linked and shared their data sources.
  */
 
 public class AccountingCompanyInfo {

@@ -6,6 +6,8 @@ package io.codat.lending.models.shared;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 public enum DataIntegrityDataType {
     BANKING_ACCOUNTS("banking-accounts"),
@@ -22,5 +24,14 @@ public enum DataIntegrityDataType {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<DataIntegrityDataType> fromValue(String value) {
+        for (DataIntegrityDataType o: DataIntegrityDataType.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

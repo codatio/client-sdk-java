@@ -101,10 +101,10 @@ public class BalanceSheet implements
                 GetAccountingBalanceSheetRequest.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -136,7 +136,7 @@ public class BalanceSheet implements
                             new BeforeRequestContextImpl(
                                 "get-accounting-balance-sheet", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -149,7 +149,7 @@ public class BalanceSheet implements
                             new AfterErrorContextImpl(
                                 "get-accounting-balance-sheet",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -162,7 +162,7 @@ public class BalanceSheet implements
                      new AfterSuccessContextImpl(
                          "get-accounting-balance-sheet", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -281,10 +281,10 @@ public class BalanceSheet implements
                 GetCategorizedBalanceSheetStatementRequest.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -316,7 +316,7 @@ public class BalanceSheet implements
                             new BeforeRequestContextImpl(
                                 "get-categorized-balance-sheet-statement", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -329,7 +329,7 @@ public class BalanceSheet implements
                             new AfterErrorContextImpl(
                                 "get-categorized-balance-sheet-statement",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -342,7 +342,7 @@ public class BalanceSheet implements
                      new AfterSuccessContextImpl(
                          "get-categorized-balance-sheet-statement", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()

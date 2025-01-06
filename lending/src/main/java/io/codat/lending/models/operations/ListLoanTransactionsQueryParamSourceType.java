@@ -6,6 +6,8 @@ package io.codat.lending.models.operations;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * ListLoanTransactionsQueryParamSourceType - Data source type.
@@ -24,5 +26,14 @@ public enum ListLoanTransactionsQueryParamSourceType {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<ListLoanTransactionsQueryParamSourceType> fromValue(String value) {
+        for (ListLoanTransactionsQueryParamSourceType o: ListLoanTransactionsQueryParamSourceType.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

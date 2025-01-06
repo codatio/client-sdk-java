@@ -6,6 +6,8 @@ package io.codat.lending.models.shared;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * PushChangeType - Type of change being applied to record in third party platform.
@@ -26,5 +28,14 @@ public enum PushChangeType {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<PushChangeType> fromValue(String value) {
+        for (PushChangeType o: PushChangeType.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

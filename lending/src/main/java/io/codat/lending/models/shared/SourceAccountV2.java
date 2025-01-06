@@ -114,6 +114,13 @@ public class SourceAccountV2 {
     private Optional<? extends RoutingInfo> routingInfo;
 
     /**
+     * The sort code.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("sortCode")
+    private JsonNullable<String> sortCode;
+
+    /**
      * Status of the source account.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -132,6 +139,7 @@ public class SourceAccountV2 {
             @JsonProperty("id") String id,
             @JsonProperty("modifiedDate") Optional<String> modifiedDate,
             @JsonProperty("routingInfo") Optional<? extends RoutingInfo> routingInfo,
+            @JsonProperty("sortCode") JsonNullable<String> sortCode,
             @JsonProperty("status") JsonNullable<? extends SourceAccountV2Status> status) {
         Utils.checkNotNull(accountInfo, "accountInfo");
         Utils.checkNotNull(accountName, "accountName");
@@ -143,6 +151,7 @@ public class SourceAccountV2 {
         Utils.checkNotNull(id, "id");
         Utils.checkNotNull(modifiedDate, "modifiedDate");
         Utils.checkNotNull(routingInfo, "routingInfo");
+        Utils.checkNotNull(sortCode, "sortCode");
         Utils.checkNotNull(status, "status");
         this.accountInfo = accountInfo;
         this.accountName = accountName;
@@ -154,6 +163,7 @@ public class SourceAccountV2 {
         this.id = id;
         this.modifiedDate = modifiedDate;
         this.routingInfo = routingInfo;
+        this.sortCode = sortCode;
         this.status = status;
     }
     
@@ -164,7 +174,7 @@ public class SourceAccountV2 {
             BigDecimal balance,
             String currency,
             String id) {
-        this(JsonNullable.undefined(), accountName, accountNumber, accountType, balance, currency, JsonNullable.undefined(), id, Optional.empty(), Optional.empty(), JsonNullable.undefined());
+        this(JsonNullable.undefined(), accountName, accountNumber, accountType, balance, currency, JsonNullable.undefined(), id, Optional.empty(), Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined());
     }
 
     @SuppressWarnings("unchecked")
@@ -271,6 +281,14 @@ public class SourceAccountV2 {
     @JsonIgnore
     public Optional<RoutingInfo> routingInfo() {
         return (Optional<RoutingInfo>) routingInfo;
+    }
+
+    /**
+     * The sort code.
+     */
+    @JsonIgnore
+    public JsonNullable<String> sortCode() {
+        return sortCode;
     }
 
     /**
@@ -463,6 +481,24 @@ public class SourceAccountV2 {
     }
 
     /**
+     * The sort code.
+     */
+    public SourceAccountV2 withSortCode(String sortCode) {
+        Utils.checkNotNull(sortCode, "sortCode");
+        this.sortCode = JsonNullable.of(sortCode);
+        return this;
+    }
+
+    /**
+     * The sort code.
+     */
+    public SourceAccountV2 withSortCode(JsonNullable<String> sortCode) {
+        Utils.checkNotNull(sortCode, "sortCode");
+        this.sortCode = sortCode;
+        return this;
+    }
+
+    /**
      * Status of the source account.
      */
     public SourceAccountV2 withStatus(SourceAccountV2Status status) {
@@ -500,6 +536,7 @@ public class SourceAccountV2 {
             Objects.deepEquals(this.id, other.id) &&
             Objects.deepEquals(this.modifiedDate, other.modifiedDate) &&
             Objects.deepEquals(this.routingInfo, other.routingInfo) &&
+            Objects.deepEquals(this.sortCode, other.sortCode) &&
             Objects.deepEquals(this.status, other.status);
     }
     
@@ -516,6 +553,7 @@ public class SourceAccountV2 {
             id,
             modifiedDate,
             routingInfo,
+            sortCode,
             status);
     }
     
@@ -532,6 +570,7 @@ public class SourceAccountV2 {
                 "id", id,
                 "modifiedDate", modifiedDate,
                 "routingInfo", routingInfo,
+                "sortCode", sortCode,
                 "status", status);
     }
     
@@ -556,6 +595,8 @@ public class SourceAccountV2 {
         private Optional<String> modifiedDate = Optional.empty();
  
         private Optional<? extends RoutingInfo> routingInfo = Optional.empty();
+ 
+        private JsonNullable<String> sortCode = JsonNullable.undefined();
  
         private JsonNullable<? extends SourceAccountV2Status> status = JsonNullable.undefined();  
         
@@ -740,6 +781,24 @@ public class SourceAccountV2 {
         }
 
         /**
+         * The sort code.
+         */
+        public Builder sortCode(String sortCode) {
+            Utils.checkNotNull(sortCode, "sortCode");
+            this.sortCode = JsonNullable.of(sortCode);
+            return this;
+        }
+
+        /**
+         * The sort code.
+         */
+        public Builder sortCode(JsonNullable<String> sortCode) {
+            Utils.checkNotNull(sortCode, "sortCode");
+            this.sortCode = sortCode;
+            return this;
+        }
+
+        /**
          * Status of the source account.
          */
         public Builder status(SourceAccountV2Status status) {
@@ -769,6 +828,7 @@ public class SourceAccountV2 {
                 id,
                 modifiedDate,
                 routingInfo,
+                sortCode,
                 status);
         }
     }

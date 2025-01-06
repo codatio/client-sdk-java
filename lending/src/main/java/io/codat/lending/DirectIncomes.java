@@ -117,10 +117,10 @@ public class DirectIncomes implements
         _req.addHeader("Accept", "application/octet-stream")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -152,7 +152,7 @@ public class DirectIncomes implements
                             new BeforeRequestContextImpl(
                                 "download-accounting-direct-income-attachment", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -165,7 +165,7 @@ public class DirectIncomes implements
                             new AfterErrorContextImpl(
                                 "download-accounting-direct-income-attachment",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -178,7 +178,7 @@ public class DirectIncomes implements
                      new AfterSuccessContextImpl(
                          "download-accounting-direct-income-attachment", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -300,10 +300,10 @@ public class DirectIncomes implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -335,7 +335,7 @@ public class DirectIncomes implements
                             new BeforeRequestContextImpl(
                                 "get-accounting-direct-income", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -348,7 +348,7 @@ public class DirectIncomes implements
                             new AfterErrorContextImpl(
                                 "get-accounting-direct-income",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -361,7 +361,7 @@ public class DirectIncomes implements
                      new AfterSuccessContextImpl(
                          "get-accounting-direct-income", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -480,10 +480,10 @@ public class DirectIncomes implements
                 GetAccountingDirectIncomeAttachmentRequest.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -515,7 +515,7 @@ public class DirectIncomes implements
                             new BeforeRequestContextImpl(
                                 "get-accounting-direct-income-attachment", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -528,7 +528,7 @@ public class DirectIncomes implements
                             new AfterErrorContextImpl(
                                 "get-accounting-direct-income-attachment",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -541,7 +541,7 @@ public class DirectIncomes implements
                      new AfterSuccessContextImpl(
                          "get-accounting-direct-income-attachment", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -669,10 +669,10 @@ public class DirectIncomes implements
                 ListAccountingDirectIncomesRequest.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -704,7 +704,7 @@ public class DirectIncomes implements
                             new BeforeRequestContextImpl(
                                 "list-accounting-direct-incomes", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -717,7 +717,7 @@ public class DirectIncomes implements
                             new AfterErrorContextImpl(
                                 "list-accounting-direct-incomes",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -730,7 +730,7 @@ public class DirectIncomes implements
                      new AfterSuccessContextImpl(
                          "list-accounting-direct-incomes", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -847,10 +847,10 @@ public class DirectIncomes implements
         _req.addHeader("Accept", "application/json")
             .addHeader("user-agent", 
                 SDKConfiguration.USER_AGENT);
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -882,7 +882,7 @@ public class DirectIncomes implements
                             new BeforeRequestContextImpl(
                                 "list-accounting-direct-income-attachments", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -895,7 +895,7 @@ public class DirectIncomes implements
                             new AfterErrorContextImpl(
                                 "list-accounting-direct-income-attachments",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -908,7 +908,7 @@ public class DirectIncomes implements
                      new AfterSuccessContextImpl(
                          "list-accounting-direct-income-attachments", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()

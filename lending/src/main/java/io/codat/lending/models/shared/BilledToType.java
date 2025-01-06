@@ -6,6 +6,8 @@ package io.codat.lending.models.shared;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * BilledToType - Defines if the invoice or credit note is billed/rebilled to a project or customer.
@@ -25,5 +27,14 @@ public enum BilledToType {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<BilledToType> fromValue(String value) {
+        for (BilledToType o: BilledToType.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

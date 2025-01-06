@@ -38,14 +38,17 @@ The Lending API is built on top of the latest accounting, commerce, and banking 
 
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
+<!-- $toc-max-depth=2 -->
+  * [Endpoints](#endpoints)
+  * [SDK Installation](#sdk-installation)
+  * [Example Usage](#example-usage)
+  * [SDK Example Usage](#sdk-example-usage)
+  * [Available Resources and Operations](#available-resources-and-operations)
+  * [Retries](#retries)
+  * [Error Handling](#error-handling)
+  * [Server Selection](#server-selection)
+  * [Authentication](#authentication)
 
-* [SDK Installation](#sdk-installation)
-* [SDK Example Usage](#sdk-example-usage)
-* [Available Resources and Operations](#available-resources-and-operations)
-* [Retries](#retries)
-* [Error Handling](#error-handling)
-* [Server Selection](#server-selection)
-* [Authentication](#authentication)
 <!-- End Table of Contents [toc] -->
 
 <!-- Start SDK Installation [installation] -->
@@ -59,7 +62,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'io.codat:lending:3.0.0'
+implementation 'io.codat:lending:3.1.0'
 ```
 
 Maven:
@@ -67,7 +70,7 @@ Maven:
 <dependency>
     <groupId>io.codat</groupId>
     <artifactId>lending</artifactId>
-    <version>3.0.0</version>
+    <version>3.1.0</version>
 </dependency>
 ```
 
@@ -96,34 +99,37 @@ gradlew.bat publishToMavenLocal -Pskip.signing
 package hello.world;
 
 import io.codat.lending.CodatLending;
-import io.codat.lending.models.errors.ErrorMessage;
-import io.codat.lending.models.operations.CreateCompanyResponse;
-import io.codat.lending.models.shared.CompanyRequestBody;
-import io.codat.lending.models.shared.Security;
+import io.codat.lending.models.shared.AccountCategoriesUpdatedWebhook;
+import io.codat.lending.models.shared.AccountCategoriesUpdatedWebhookData;
+import io.codat.lending.models.webhooks.AccountCategoriesUpdatedResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws ErrorMessage, Exception {
+    public static void main(String[] args) throws Exception {
 
         CodatLending sdk = CodatLending.builder()
-                .security(Security.builder()
-                    .authHeader("Basic BASE_64_ENCODED(API_KEY)")
-                    .build())
             .build();
 
-        CompanyRequestBody req = CompanyRequestBody.builder()
-                .name("Bank of Dave")
-                .description("Requested early access to the new financing scheme.")
+        AccountCategoriesUpdatedWebhook req = AccountCategoriesUpdatedWebhook.builder()
+                .alertId("a9367074-b5c3-42c4-9be4-be129f43577e")
+                .clientId("bae71d36-ff47-420a-b4a6-f8c9ddf41140")
+                .clientName("Bank of Dave")
+                .companyId("8a210b68-6988-11ed-a1eb-0242ac120002")
+                .data(AccountCategoriesUpdatedWebhookData.builder()
+                    .modifiedDate("2022-10-23")
+                    .build())
+                .dataConnectionId("2e9d2c44-f675-40ba-8049-353bfcb5e171")
+                .message("Account categories updated for company f1c35bdc-1546-41b9-baf4-3f31135af968.")
+                .ruleId("70af3071-65d9-4ec3-b3cb-5283e8d55dac")
+                .ruleType("Account Categories Updated")
                 .build();
 
-        CreateCompanyResponse res = sdk.companies().create()
+        AccountCategoriesUpdatedResponse res = sdk.accountCategoriesUpdated()
                 .request(req)
                 .call();
 
-        if (res.company().isPresent()) {
-            // handle response
-        }
+        // handle response
     }
 }
 ```
@@ -359,6 +365,7 @@ public class Application {
 
 * [create](docs/sdks/sourceaccounts/README.md#create) - Create source account
 * [createMapping](docs/sdks/sourceaccounts/README.md#createmapping) - Create bank feed account mapping
+* [listMappings](docs/sdks/sourceaccounts/README.md#listmappings) - List bank feed account mappings
 
 #### [loanWriteback().suppliers()](docs/sdks/codatlendingsuppliers/README.md)
 
@@ -512,7 +519,7 @@ public class Application {
             .build();
 
         CompanyRequestBody req = CompanyRequestBody.builder()
-                .name("Bank of Dave")
+                .name("Technicalium")
                 .description("Requested early access to the new financing scheme.")
                 .build();
 
@@ -572,7 +579,7 @@ public class Application {
             .build();
 
         CompanyRequestBody req = CompanyRequestBody.builder()
-                .name("Bank of Dave")
+                .name("Technicalium")
                 .description("Requested early access to the new financing scheme.")
                 .build();
 
@@ -623,7 +630,7 @@ public class Application {
             .build();
 
         CompanyRequestBody req = CompanyRequestBody.builder()
-                .name("Bank of Dave")
+                .name("Technicalium")
                 .description("Requested early access to the new financing scheme.")
                 .build();
 
@@ -667,7 +674,7 @@ public class Application {
             .build();
 
         CompanyRequestBody req = CompanyRequestBody.builder()
-                .name("Bank of Dave")
+                .name("Technicalium")
                 .description("Requested early access to the new financing scheme.")
                 .build();
 
@@ -716,7 +723,7 @@ public class Application {
             .build();
 
         CompanyRequestBody req = CompanyRequestBody.builder()
-                .name("Bank of Dave")
+                .name("Technicalium")
                 .description("Requested early access to the new financing scheme.")
                 .build();
 

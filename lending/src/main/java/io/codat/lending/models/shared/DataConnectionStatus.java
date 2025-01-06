@@ -6,6 +6,8 @@ package io.codat.lending.models.shared;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * DataConnectionStatus - The current authorization status of the data connection.
@@ -25,5 +27,14 @@ public enum DataConnectionStatus {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<DataConnectionStatus> fromValue(String value) {
+        for (DataConnectionStatus o: DataConnectionStatus.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

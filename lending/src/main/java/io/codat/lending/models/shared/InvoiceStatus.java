@@ -6,6 +6,8 @@ package io.codat.lending.models.shared;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * InvoiceStatus - Current state of the invoice:
@@ -33,5 +35,14 @@ public enum InvoiceStatus {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<InvoiceStatus> fromValue(String value) {
+        for (InvoiceStatus o: InvoiceStatus.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

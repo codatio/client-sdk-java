@@ -6,6 +6,8 @@ package io.codat.lending.models.shared;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * AccountingAccountTransactionStatus - The status of the account transaction.
@@ -25,5 +27,14 @@ public enum AccountingAccountTransactionStatus {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<AccountingAccountTransactionStatus> fromValue(String value) {
+        for (AccountingAccountTransactionStatus o: AccountingAccountTransactionStatus.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

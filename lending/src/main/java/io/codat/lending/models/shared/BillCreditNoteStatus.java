@@ -6,6 +6,8 @@ package io.codat.lending.models.shared;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * BillCreditNoteStatus - Current state of the bill credit note
@@ -27,5 +29,14 @@ public enum BillCreditNoteStatus {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<BillCreditNoteStatus> fromValue(String value) {
+        for (BillCreditNoteStatus o: BillCreditNoteStatus.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

@@ -6,6 +6,8 @@ package io.codat.lending.models.shared;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * TransactionCategoryStatus - The status of the transaction category.
@@ -24,5 +26,14 @@ public enum TransactionCategoryStatus {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<TransactionCategoryStatus> fromValue(String value) {
+        for (TransactionCategoryStatus o: TransactionCategoryStatus.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

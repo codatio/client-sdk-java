@@ -4,7 +4,6 @@
 
 package io.codat.lending;
 
-import io.codat.lending.models.operations.SDKMethodInterfaces.*;
 import io.codat.lending.utils.HTTPClient;
 import io.codat.lending.utils.RetryConfig;
 import io.codat.lending.utils.SpeakeasyHTTPClient;
@@ -12,6 +11,7 @@ import io.codat.lending.utils.Utils;
 import java.lang.String;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 /**
  * Lending API: Our Lending API helps you make smarter credit decisions on small businesses by enabling you to pull your customers' latest data from accounting, banking, and commerce software they are already using. It also includes features to help providers verify the accuracy of data and process it more efficiently.
@@ -312,9 +312,16 @@ public class CodatLending {
             this.sdkConfiguration.retryConfig = Optional.of(retryConfig);
             return this;
         }
-        // Visible for testing, will be accessed via reflection
-        void _hooks(io.codat.lending.utils.Hooks hooks) {
-            sdkConfiguration.setHooks(hooks);    
+        // Visible for testing, may be accessed via reflection in tests
+        Builder _hooks(io.codat.lending.utils.Hooks hooks) {
+            sdkConfiguration.setHooks(hooks);  
+            return this;  
+        }
+        
+        // Visible for testing, may be accessed via reflection in tests
+        Builder _hooks(Consumer<? super io.codat.lending.utils.Hooks> consumer) {
+            consumer.accept(sdkConfiguration.hooks());
+            return this;    
         }
         
         /**

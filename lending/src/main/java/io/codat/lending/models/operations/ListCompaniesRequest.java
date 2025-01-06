@@ -44,24 +44,33 @@ public class ListCompaniesRequest {
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=query")
     private Optional<String> query;
 
+    /**
+     * Filter companies by tags using the "equals" (=), "not equals" (!=), and "contains" (~) operators with [Codat’s query language](https://docs.codat.io/using-the-api/querying).
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=tags")
+    private Optional<String> tags;
+
     @JsonCreator
     public ListCompaniesRequest(
             Optional<String> orderBy,
             Optional<Integer> page,
             Optional<Integer> pageSize,
-            Optional<String> query) {
+            Optional<String> query,
+            Optional<String> tags) {
         Utils.checkNotNull(orderBy, "orderBy");
         Utils.checkNotNull(page, "page");
         Utils.checkNotNull(pageSize, "pageSize");
         Utils.checkNotNull(query, "query");
+        Utils.checkNotNull(tags, "tags");
         this.orderBy = orderBy;
         this.page = page;
         this.pageSize = pageSize;
         this.query = query;
+        this.tags = tags;
     }
     
     public ListCompaniesRequest() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     /**
@@ -94,6 +103,14 @@ public class ListCompaniesRequest {
     @JsonIgnore
     public Optional<String> query() {
         return query;
+    }
+
+    /**
+     * Filter companies by tags using the "equals" (=), "not equals" (!=), and "contains" (~) operators with [Codat’s query language](https://docs.codat.io/using-the-api/querying).
+     */
+    @JsonIgnore
+    public Optional<String> tags() {
+        return tags;
     }
 
     public final static Builder builder() {
@@ -171,6 +188,24 @@ public class ListCompaniesRequest {
         this.query = query;
         return this;
     }
+
+    /**
+     * Filter companies by tags using the "equals" (=), "not equals" (!=), and "contains" (~) operators with [Codat’s query language](https://docs.codat.io/using-the-api/querying).
+     */
+    public ListCompaniesRequest withTags(String tags) {
+        Utils.checkNotNull(tags, "tags");
+        this.tags = Optional.ofNullable(tags);
+        return this;
+    }
+
+    /**
+     * Filter companies by tags using the "equals" (=), "not equals" (!=), and "contains" (~) operators with [Codat’s query language](https://docs.codat.io/using-the-api/querying).
+     */
+    public ListCompaniesRequest withTags(Optional<String> tags) {
+        Utils.checkNotNull(tags, "tags");
+        this.tags = tags;
+        return this;
+    }
     
     @Override
     public boolean equals(java.lang.Object o) {
@@ -185,7 +220,8 @@ public class ListCompaniesRequest {
             Objects.deepEquals(this.orderBy, other.orderBy) &&
             Objects.deepEquals(this.page, other.page) &&
             Objects.deepEquals(this.pageSize, other.pageSize) &&
-            Objects.deepEquals(this.query, other.query);
+            Objects.deepEquals(this.query, other.query) &&
+            Objects.deepEquals(this.tags, other.tags);
     }
     
     @Override
@@ -194,7 +230,8 @@ public class ListCompaniesRequest {
             orderBy,
             page,
             pageSize,
-            query);
+            query,
+            tags);
     }
     
     @Override
@@ -203,7 +240,8 @@ public class ListCompaniesRequest {
                 "orderBy", orderBy,
                 "page", page,
                 "pageSize", pageSize,
-                "query", query);
+                "query", query,
+                "tags", tags);
     }
     
     public final static class Builder {
@@ -214,7 +252,9 @@ public class ListCompaniesRequest {
  
         private Optional<Integer> pageSize;
  
-        private Optional<String> query = Optional.empty();  
+        private Optional<String> query = Optional.empty();
+ 
+        private Optional<String> tags = Optional.empty();  
         
         private Builder() {
           // force use of static builder() method
@@ -291,6 +331,24 @@ public class ListCompaniesRequest {
             this.query = query;
             return this;
         }
+
+        /**
+         * Filter companies by tags using the "equals" (=), "not equals" (!=), and "contains" (~) operators with [Codat’s query language](https://docs.codat.io/using-the-api/querying).
+         */
+        public Builder tags(String tags) {
+            Utils.checkNotNull(tags, "tags");
+            this.tags = Optional.ofNullable(tags);
+            return this;
+        }
+
+        /**
+         * Filter companies by tags using the "equals" (=), "not equals" (!=), and "contains" (~) operators with [Codat’s query language](https://docs.codat.io/using-the-api/querying).
+         */
+        public Builder tags(Optional<String> tags) {
+            Utils.checkNotNull(tags, "tags");
+            this.tags = tags;
+            return this;
+        }
         
         public ListCompaniesRequest build() {
             if (page == null) {
@@ -302,7 +360,8 @@ public class ListCompaniesRequest {
                 orderBy,
                 page,
                 pageSize,
-                query);
+                query,
+                tags);
         }
 
         private static final LazySingletonValue<Optional<Integer>> _SINGLETON_VALUE_Page =
